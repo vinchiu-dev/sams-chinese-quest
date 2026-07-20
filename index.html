@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Sam's Chinese Quest</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦊</text></svg>" />
+<style>
+  html, body { margin: 0; padding: 0; background: #FFF6E9; -webkit-text-size-adjust: 100%; }
+  * { -webkit-tap-highlight-color: transparent; }
+  #root { min-height: 100vh; }
+  .loading { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; font-family: system-ui, sans-serif; color:#2A2440; }
+</style>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<div id="root"><div class="loading"><div style="font-size:54px">🦊</div><div style="font-weight:700;margin-top:10px">Loading Sam's Chinese Quest…</div></div></div>
+
+<script>
+// Load the vocabulary first (cache-busted so new lessons show up right away),
+// then boot the app.
+window.__BOOT__ = fetch("vocab.json?t=" + Date.now())
+  .then((r) => { if (!r.ok) throw new Error("vocab fetch failed"); return r.json(); })
+  .then((v) => { window.__VOCAB__ = v; })
+  .catch((e) => {
+    document.getElementById("root").innerHTML =
+      "<div class='loading'><div style='font-size:54px'>😵</div><div style='font-weight:700;margin-top:10px'>Couldn't load the vocabulary.</div><div style='margin-top:6px;color:#7a7391'>Check your connection and refresh.</div></div>";
+    throw e;
+  });
+</script>
+
+<script type="text/babel" data-presets="react">
+const { useState, useEffect, useRef } = React;
+
+// ================= persistence & cross-device sync =================
+const LS_PREFIX = "samquest_";
+const loadLS = (k, fallback) => {
+  try { const v = localStorage.getItem(LS_PREFIX + k); return v ? JSON.parse(v) : fallback; }
+  catch (e) { return fallback; }
+};
+const saveLS = (k, v) => { try { localStorage.setItem(LS_PREFIX + k, JSON.stringify(v)); } catch (e) {} };
+
+// GitHub settings (entered once per device in ⚙️ settings)
+const getGH = () => ({
+  owner: loadLS("gh_owner", ""),
+  repo: loadLS("gh_repo", ""),
+  token: loadLS("gh_token", ""),
+});
+const ghConfigured = () => { const g = getGH(); return g.owner && g.repo && g.token; };
+
+const GH_API = "https://api.github.com";
+const ghHeaders = (token) => ({
+  Authorization: "Bearer " + token,
+  Accept: "application/vnd.github+json",
+  "Content-Type": "application/json",
+});
+
+// UTF-8-safe base64 (btoa alone breaks on Chinese characters)
+const b64encode = (str) => btoa(unescape(encodeURIComponent(str)));
+const b64decode = (b64) => decodeURIComponent(escape(atob(b64.replace(/\n/g, ""))));
+
+async function pullRemoteProgress() {
+  if (!ghConfigured()) return null;
+  const { owner, repo, token } = getGH();
+  try {
+    const r = await fetch(`${GH_API}/repos/${owner}/${repo}/contents/progress.json`, { headers: ghHeaders(token) });
+    if (r.status === 404) return {}; // no progress file yet — fine
+    if (!r.ok) return null;
+    const data = await r.json();
+    window.__PROGRESS_SHA__ = data.sha;
+    return JSON.parse(b64decode(data.content));
+  } catch (e) { return null; }
+}
+
+let syncTimer = null;
+function scheduleSync(progress, setStatus) {
+  if (!ghConfigured()) return;
+  clearTimeout(syncTimer);
+  syncTimer = setTimeout(() => pushProgress(progress, setStatus), 2500);
+}
+
+async function pushProgress(progress, setStatus, retried) {
+  const { owner, repo, token } = getGH();
+  try {
+    const body = {
+      message: "Update Sam progress",
+      content: b64encode(JSON.stringify(progress, null, 2)),
+    };
+    if (window.__PROGRESS_SHA__) body.sha = window.__PROGRESS_SHA__;
+    const r = await fetch(`${GH_API}/repos/${owner}/${repo}/contents/progress.json`, {
+      method: "PUT", headers: ghHeaders(token), body: JSON.stringify(body),
+    });
+    if (r.status === 409 && !retried) {
+      // sha out of date (another device pushed) — refetch sha and retry once
+      await pullRemoteProgress();
+      return pushProgress(progress, setStatus, true);
+    }
+    if (!r.ok) { setStatus && setStatus("error"); return; }
+    const data = await r.json();
+    window.__PROGRESS_SHA__ = data.content && data.content.sha;
+    setStatus && setStatus("synced");
+  } catch (e) { setStatus && setStatus("error"); }
+}
+
+// ⚙️ one-time-per-device sync setup screen
+function SyncSettings({ onDone }) {
+  const g = getGH();
+  const [owner, setOwner] = useState(g.owner);
+  const [repo, setRepo] = useState(g.repo);
+  const [token, setToken] = useState(g.token);
+  const [msg, setMsg] = useState("");
+
+  const save = async () => {
+    saveLS("gh_owner", owner.trim());
+    saveLS("gh_repo", repo.trim());
+    saveLS("gh_token", token.trim());
+    if (owner && repo && token) {
+      setMsg("Testing connection…");
+      const remote = await pullRemoteProgress();
+      if (remote === null) { setMsg("❌ Couldn't connect — double-check the three fields."); return; }
+      setMsg("✅ Connected! Progress will sync across devices.");
+      setTimeout(onDone, 1200);
+    } else {
+      setMsg("Saved. (Fill all three fields to enable cross-device sync.)");
+    }
+  };
+
+  return (
+    <div>
+      <div style={{ fontWeight: 800, fontSize: 17, marginBottom: 6 }}>⚙️ Cross-device sync</div>
+      <div style={{ fontSize: 13, color: "#7a7391", marginBottom: 14, lineHeight: 1.5 }}>
+        Enter this once on each device. Starred and mastered words will then stay in
+        sync everywhere. Progress is saved to your own GitHub repository.
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <input value={owner} onChange={(e) => setOwner(e.target.value)} placeholder="GitHub username (e.g. vin123)" style={inp} />
+        <input value={repo} onChange={(e) => setRepo(e.target.value)} placeholder="Repository name (e.g. sams-chinese-quest)" style={inp} />
+        <input value={token} onChange={(e) => setToken(e.target.value)} placeholder="Access token (ghp_… or github_pat_…)" style={inp} type="password" />
+      </div>
+      <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
+        <button onClick={save} style={{ ...bigBtn, background: C.leaf, flex: 1, fontSize: 15, padding: "12px" }}>💾 Save & test</button>
+        <button onClick={onDone} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, fontSize: 15, padding: "12px 16px" }}>Back</button>
+      </div>
+      {msg && <div style={{ marginTop: 10, fontWeight: 700, fontSize: 13 }}>{msg}</div>}
+      <div style={{ marginTop: 16, fontSize: 12, color: "#9a94ad", lineHeight: 1.5 }}>
+        Without sync, everything still works — progress just stays on this device only.
+      </div>
+    </div>
+  );
+}
+// ================= end sync =================
+
+
+// ============================================================
+//  SAM'S CHINESE QUEST — a growing vocabulary review game
+//
+//  TO ADD A NEW LESSON: paste it at the BOTTOM of the LESSONS
+//  array below. The word bank shows lessons newest-first, so the
+//  most recent one always appears at the top of the screen —
+//  handy for reviewing just-learned words first.
+//
+//  Each word: { hanzi, pinyin, en, emoji }
+//   • hanzi  — used only to generate good audio (never shown)
+//   • pinyin — what Sam reads/recalls
+//   • en     — English meaning
+//   • emoji  — a little visual hint
+// ============================================================
+
+const LESSONS = window.__VOCAB__.lessons;
+
+// ============================================================
+//  SENTENCES for "Say the Sentence" — Sam reads the English and
+//  says it in Chinese, then reveals the answer to check + hear it.
+//  Built from vocabulary in the lessons above, using the same
+//  GoEast story patterns. hanzi drives the audio (never shown).
+//  Add more anytime — each: { en, pinyin, hanzi, tag }.
+// ============================================================
+// Maps each sentence tag to the lesson id(s) it belongs to, so Say the Sentence
+// can filter to only the currently-selected lessons (matching the other games).
+const SENTENCE_TAG_TO_LESSONS = window.__VOCAB__.tagMap;
+
+const SENTENCES = window.__VOCAB__.sentences;
+
+const shuffle = (arr) => {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+
+// ---- audio: browser speech, but we deliberately pick the BEST Mandarin
+// voice the device has instead of accepting the default (which is often the
+// robotic one). Voices load asynchronously, so we resolve on load + retries.
+let bestVoice = null;
+
+const PREFERRED_VOICES = [
+  "Google 普通话（中国大陆）", "Google Mandarin", "Google 国语",
+  "Microsoft Xiaoxiao", "Microsoft Yunxi", "Microsoft Yunyang",
+  "Microsoft Yaoyao", "Microsoft Huihui", "Microsoft Kangkang",
+  "Tingting", "Sinji", "Meijia",
+  "mandarin", "chinese", "cmn", "zh-CN",
+];
+
+const selectBestVoice = () => {
+  if (!("speechSynthesis" in window)) return;
+  const voices = window.speechSynthesis.getVoices();
+  if (!voices.length) return;
+
+  let selected = null;
+  for (const name of PREFERRED_VOICES) {
+    selected = voices.find(
+      (v) =>
+        v.lang.toLowerCase().includes("zh") &&
+        (v.name.toLowerCase().includes(name.toLowerCase()) || v.name.includes(name))
+    );
+    if (selected) break;
+  }
+  if (!selected) {
+    selected = voices.find(
+      (v) => v.lang === "zh-CN" || v.lang === "zh-TW" || v.lang.toLowerCase().startsWith("zh")
+    );
+  }
+  if (selected) bestVoice = selected;
+};
+
+// Mobile webviews (incl. the Claude app) often (a) return an empty voice list
+// until the engine warms up and (b) block speech until the user's first tap.
+// We prime the engine on the first touch and keep retrying voice selection.
+let speechPrimed = false;
+const primeSpeech = () => {
+  if (speechPrimed || !("speechSynthesis" in window)) return;
+  speechPrimed = true;
+  try {
+    // a silent utterance unlocks the audio channel on mobile
+    const u = new SpeechSynthesisUtterance(" ");
+    u.volume = 0;
+    window.speechSynthesis.speak(u);
+  } catch (e) {}
+  selectBestVoice();
+};
+
+if (typeof window !== "undefined" && "speechSynthesis" in window) {
+  window.speechSynthesis.onvoiceschanged = selectBestVoice;
+  [200, 600, 1200, 2500].forEach((ms) => setTimeout(selectBestVoice, ms));
+  // first user gesture anywhere primes audio for the whole session
+  ["touchstart", "pointerdown", "click"].forEach((evt) =>
+    window.addEventListener(evt, primeSpeech, { once: true, passive: true })
+  );
+}
+
+const speak = (word) => {
+  if (!("speechSynthesis" in window)) return;
+  // Feed the CHARACTERS to the voice when we have them — browser Mandarin voices
+  // pronounce hanzi with better tones than bare pinyin. Sam never sees these;
+  // the screen still shows only pinyin/English.
+  const text =
+    word && typeof word === "object" ? (word.hanzi || word.pinyin) : word;
+  if (!text) return;
+
+  const say = () => {
+    try {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "zh-CN";
+      u.rate = 0.88;   // a touch slower & clearer for a young learner
+      u.pitch = 1.02;
+      if (!bestVoice) selectBestVoice();
+      if (bestVoice) u.voice = bestVoice; // else: let the OS pick a zh voice by lang
+      window.speechSynthesis.speak(u);
+    } catch (e) {}
+  };
+
+  // if voices aren't ready yet (common on mobile first-load), wait a beat & retry
+  if (!bestVoice && !window.speechSynthesis.getVoices().length) {
+    selectBestVoice();
+    setTimeout(say, 250);
+  } else {
+    say();
+  }
+};
+
+// ---- palette: playful, high-contrast, "storybook" ----
+const C = {
+  paper: "#FFF6E9",
+  ink: "#2A2440",
+  fox: "#E8703A",   // little-fox orange
+  leaf: "#5FB894",  // GoEast green
+  sky: "#7FB2E8",
+  berry: "#E85B8A",
+  sun: "#F6C445",
+};
+
+function SamChineseQuest() {
+  const [screen, setScreen] = useState("home"); // home | flashcards | sentence | clock | tone | wordlist
+  const [pool, setPool] = useState(() => LESSONS.map((l) => l.id));
+  const [trouble, setTrouble] = useState(() => new Set(loadLS("trouble", [])));
+  const [archived, setArchived] = useState(() => new Set(loadLS("archived", [])));
+  const [starredSentences, setStarredSentences] = useState(() => new Set(loadLS("starredSentences", [])));
+  const [customWords, setCustomWords] = useState(() => loadLS("customWords", []));
+  const [syncStatus, setSyncStatus] = useState("");
+
+  // persist locally + sync to GitHub whenever progress changes
+  useEffect(() => {
+    const progress = {
+      trouble: [...trouble],
+      archived: [...archived],
+      starredSentences: [...starredSentences],
+      customWords,
+    };
+    saveLS("trouble", progress.trouble);
+    saveLS("archived", progress.archived);
+    saveLS("starredSentences", progress.starredSentences);
+    saveLS("customWords", progress.customWords);
+    scheduleSync(progress, setSyncStatus);
+  }, [trouble, archived, starredSentences, customWords]);
+
+  // on boot: pull remote progress once and merge it in
+  useEffect(() => {
+    pullRemoteProgress().then((remote) => {
+      if (!remote) return;
+      setTrouble((prev) => new Set([...prev, ...(remote.trouble || [])]));
+      setArchived((prev) => new Set([...prev, ...(remote.archived || [])]));
+      setStarredSentences((prev) => new Set([...prev, ...(remote.starredSentences || [])]));
+      setCustomWords((prev) => {
+        const seen = new Set(prev.map((w) => w.pinyin + "|" + w.en));
+        const extra = (remote.customWords || []).filter((w) => !seen.has(w.pinyin + "|" + w.en));
+        return [...prev, ...extra];
+      });
+      setSyncStatus("synced");
+    });
+  }, []);
+
+  const toggleSentence = (en) =>
+    setStarredSentences((prev) => {
+      const n = new Set(prev);
+      n.has(en) ? n.delete(en) : n.add(en);
+      return n;
+    });
+
+  const addCustomWord = (word) => {
+    setCustomWords((prev) => [...prev, word]);
+    setPool((p) => (p.includes("my-words") ? p : [...p, "my-words"]));
+  };
+  const removeCustomWord = (pinyinOrEn) =>
+    setCustomWords((prev) => prev.filter((w) => w.pinyin !== pinyinOrEn && w.en !== pinyinOrEn));
+
+  // "My Words" behaves like a lesson so it flows through games + word list
+  const MY_WORDS_ID = "my-words";
+  const allLessons = customWords.length
+    ? [...LESSONS, { id: MY_WORDS_ID, title: "My Words", subtitle: "words you added", words: customWords }]
+    : LESSONS;
+
+  // words from the chosen lessons, minus any that have been archived (mastered)
+  const activeWords = allLessons.filter((l) => pool.includes(l.id))
+    .flatMap((l) => l.words)
+    .filter((w) => !archived.has(w.pinyin));
+
+  // words for the master list — only from SELECTED lessons (plus manual adds),
+  // so deselecting a lesson hides its words here too. archived stay visible here.
+  const listWords = allLessons.filter((l) => pool.includes(l.id)).flatMap((l) =>
+    l.words.map((w) => ({ ...w, lesson: l.title }))
+  );
+
+  // sentences for Say the Sentence — only those whose lesson(s) are selected
+  const activeSentences = SENTENCES.filter((s) => {
+    const lessonIds = SENTENCE_TAG_TO_LESSONS[s.tag] || [];
+    return lessonIds.some((id) => pool.includes(id));
+  });
+
+  const toggleLesson = (id) =>
+    setPool((p) => (p.includes(id) ? p.filter((x) => x !== id) : [...p, id]));
+
+  const selectAllLessons = () => setPool(allLessons.map((l) => l.id));
+  const selectNoLessons = () => setPool([]);
+  // newest real lesson lives at the END of the LESSONS array
+  const selectNewestLesson = () => setPool([LESSONS[LESSONS.length - 1].id]);
+
+  const toggleTrouble = (pinyin) =>
+    setTrouble((prev) => {
+      const n = new Set(prev);
+      n.has(pinyin) ? n.delete(pinyin) : n.add(pinyin);
+      return n;
+    });
+
+  // add-only: used by the games to auto-collect words Sam gets wrong
+  const addTrouble = (pinyin) =>
+    setTrouble((prev) => {
+      if (prev.has(pinyin)) return prev;
+      const n = new Set(prev);
+      n.add(pinyin);
+      return n;
+    });
+
+  const troubleWords = activeWords.filter((w) => trouble.has(w.pinyin));
+
+  const toggleArchived = (pinyin) =>
+    setArchived((prev) => {
+      const n = new Set(prev);
+      n.has(pinyin) ? n.delete(pinyin) : n.add(pinyin);
+      return n;
+    });
+
+  return (
+    <div
+      style={{
+        minHeight: "100vh",
+        background: `radial-gradient(circle at 20% 10%, #FFE6C7 0%, ${C.paper} 45%)`,
+        color: C.ink,
+        fontFamily: "'Baloo 2','Comic Sans MS',system-ui,sans-serif",
+        padding: "20px 16px 60px",
+      }}
+    >
+      <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap"
+        rel="stylesheet"
+      />
+      <div style={{ maxWidth: 640, margin: "0 auto" }}>
+        <Header onHome={() => setScreen("home")} showHome={screen !== "home"} onSettings={() => setScreen("settings")} syncStatus={syncStatus} />
+
+        {screen === "home" && (
+          <Home
+            lessons={allLessons}
+            pool={pool}
+            toggleLesson={toggleLesson}
+            selectAllLessons={selectAllLessons}
+            selectNoLessons={selectNoLessons}
+            selectNewestLesson={selectNewestLesson}
+            wordCount={activeWords.length}
+            troubleCount={troubleWords.length}
+            totalCount={listWords.length}
+            archivedCount={archived.size}
+            go={setScreen}
+          />
+        )}
+        {screen === "flashcards" && (
+          <Flashcards words={activeWords} trouble={trouble} toggleTrouble={toggleTrouble} />
+        )}
+        {screen === "troubleflip" && (
+          <Flashcards words={troubleWords} trouble={trouble} toggleTrouble={toggleTrouble} onlyTrouble />
+        )}
+        {screen === "clock" && (
+          <BeatTheClock words={activeWords} addTrouble={addTrouble} trouble={trouble} toggleTrouble={toggleTrouble} />
+        )}
+        {screen === "sentence" && (
+          <SayTheSentence
+            sentences={activeSentences}
+            starred={starredSentences}
+            toggleSentence={toggleSentence}
+          />
+        )}
+        {screen === "tone" && (
+          <ToneMatch words={activeWords} addTrouble={addTrouble} trouble={trouble} toggleTrouble={toggleTrouble} />
+        )}
+        {screen === "settings" && <SyncSettings onDone={() => setScreen("home")} />}
+        {screen === "wordlist" && (
+          <WordList
+            allWords={listWords}
+            archived={archived}
+            trouble={trouble}
+            toggleTrouble={toggleTrouble}
+            toggleArchived={toggleArchived}
+            customWords={customWords}
+            addCustomWord={addCustomWord}
+            removeCustomWord={removeCustomWord}
+          />
+        )}
+      </div>
+    </div>
+  );
+}
+
+function Header({ onHome, showHome, onSettings, syncStatus }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        marginBottom: 18,
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <span style={{ fontSize: 34 }}>🦊</span>
+        <div>
+          <div style={{ fontWeight: 800, fontSize: 22, lineHeight: 1 }}>
+            Sam's Chinese Quest
+          </div>
+          <div style={{ fontSize: 13, color: C.fox, fontWeight: 700 }}>
+            中文小游戏
+          </div>
+        </div>
+      </div>
+      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        {syncStatus === "synced" && <span title="Progress synced" style={{ fontSize: 12 }}>☁️✓</span>}
+        {syncStatus === "error" && <span title="Sync failed — check settings" style={{ fontSize: 12 }}>☁️⚠️</span>}
+        {showHome ? (
+          <button onClick={onHome} style={ghostBtn}>
+            ⬅ Menu
+          </button>
+        ) : (
+          <button onClick={onSettings} style={{ ...ghostBtn, padding: "8px 10px" }} title="Sync settings">
+            ⚙️
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function Home({
+  lessons, pool, toggleLesson,
+  selectAllLessons, selectNoLessons, selectNewestLesson,
+  wordCount, troubleCount, totalCount, archivedCount, go,
+}) {
+  const [bankOpen, setBankOpen] = useState(false);
+
+  const modes = [
+    { id: "flashcards", emoji: "🃏", name: "Flip Cards", desc: "See it, guess it, flip it", color: C.sky },
+    { id: "sentence", emoji: "💬", name: "Say the Sentence", desc: "Read English, say it in Chinese", color: C.fox },
+    { id: "clock", emoji: "⏱️", name: "Beat the Clock", desc: "How many in 60 seconds?", color: C.berry },
+    { id: "tone", emoji: "🎧", name: "What's That Mean?", desc: "Hear it, pick the meaning", color: C.leaf },
+  ];
+
+  const newest = lessons[lessons.length - 1];
+  const onCount = pool.length;
+  const allOn = onCount === lessons.length;
+  const noneOn = onCount === 0;
+
+  // a short human summary of what's selected, shown when collapsed
+  const summary = noneOn
+    ? "No lessons picked"
+    : allOn
+    ? `All ${lessons.length} lessons`
+    : onCount === 1
+    ? [...lessons].reverse().find((l) => pool.includes(l.id))?.title
+    : `${onCount} lessons`;
+
+  return (
+    <div>
+      {/* ---- word bank: collapsed to a single tappable summary bar ---- */}
+      <div
+        style={{
+          background: "#fff",
+          borderRadius: 20,
+          border: "3px solid #efe8d8",
+          boxShadow: "0 6px 0 rgba(0,0,0,0.04)",
+          marginBottom: 16,
+          overflow: "hidden",
+        }}
+      >
+        <button
+          onClick={() => setBankOpen((o) => !o)}
+          style={{
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: 10,
+            background: "transparent",
+            border: "none",
+            padding: "14px 16px",
+            cursor: "pointer",
+            fontFamily: "inherit",
+            textAlign: "left",
+          }}
+        >
+          <span style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}>
+            <span style={{ fontSize: 22 }}>📚</span>
+            <span style={{ minWidth: 0 }}>
+              <span style={{ display: "block", fontWeight: 800, fontSize: 15, color: C.ink }}>
+                {summary}
+              </span>
+              <span style={{ display: "block", fontSize: 12, color: "#7a7391" }}>
+                {wordCount} word{wordCount === 1 ? "" : "s"} in play · tap to change
+              </span>
+            </span>
+          </span>
+          <span style={{ fontSize: 16, color: "#9a94ad", flexShrink: 0 }}>
+            {bankOpen ? "▲" : "▼"}
+          </span>
+        </button>
+
+        {bankOpen && (
+          <div style={{ padding: "0 16px 16px" }}>
+            {/* quick actions */}
+            <div style={{ display: "flex", gap: 8, marginBottom: 10, flexWrap: "wrap" }}>
+              <button
+                onClick={selectAllLessons}
+                disabled={allOn}
+                style={{ ...miniBtn, opacity: allOn ? 0.45 : 1, cursor: allOn ? "default" : "pointer" }}
+              >
+                ✓ Select all
+              </button>
+              <button
+                onClick={selectNoLessons}
+                disabled={noneOn}
+                style={{ ...miniBtn, opacity: noneOn ? 0.45 : 1, cursor: noneOn ? "default" : "pointer" }}
+              >
+                ✕ Clear all
+              </button>
+              <button
+                onClick={selectNewestLesson}
+                style={{ ...miniBtn, borderColor: C.fox, color: C.fox }}
+                title={newest?.title}
+              >
+                ✨ Newest only
+              </button>
+            </div>
+
+            {/* the chips themselves — capped height so the list can't grow forever */}
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 8,
+                maxHeight: 190,
+                overflowY: "auto",
+                paddingRight: 4,
+              }}
+            >
+              {[...lessons].reverse().map((l) => {
+                const on = pool.includes(l.id);
+                return (
+                  <button
+                    key={l.id}
+                    onClick={() => toggleLesson(l.id)}
+                    style={{
+                      ...chip,
+                      background: on ? C.leaf : "#fff",
+                      color: on ? "#fff" : C.ink,
+                      borderColor: on ? C.leaf : "#e3ddcf",
+                    }}
+                  >
+                    {on ? "✓ " : "+ "}
+                    {l.title} <span style={{ opacity: 0.7 }}>({l.words.length})</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* ---- the games ---- */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: 12,
+        }}
+      >
+        {modes.map((m) => (
+          <button
+            key={m.id}
+            onClick={() => wordCount > 0 && go(m.id)}
+            disabled={wordCount === 0}
+            style={{
+              ...modeBtn,
+              background: "#fff",
+              borderColor: m.color,
+              opacity: wordCount === 0 ? 0.5 : 1,
+              cursor: wordCount === 0 ? "not-allowed" : "pointer",
+            }}
+          >
+            <div style={{ fontSize: 40 }}>{m.emoji}</div>
+            <div style={{ fontWeight: 800, fontSize: 17, marginTop: 4 }}>{m.name}</div>
+            <div style={{ fontSize: 12, color: "#7a7391", marginTop: 2 }}>{m.desc}</div>
+          </button>
+        ))}
+      </div>
+      {wordCount === 0 && (
+        <div
+          onClick={() => setBankOpen(true)}
+          style={{ textAlign: "center", marginTop: 14, color: C.berry, fontWeight: 700, cursor: "pointer" }}
+        >
+          Pick at least one lesson to start! 👆
+        </div>
+      )}
+
+      {wordCount > 0 && (
+        <button
+          onClick={() => troubleCount > 0 && go("troubleflip")}
+          disabled={troubleCount === 0}
+          style={{
+            ...modeBtn,
+            width: "100%",
+            marginTop: 12,
+            borderColor: C.sun,
+            background: troubleCount > 0 ? "#FFF9EC" : "#fff",
+            opacity: troubleCount === 0 ? 0.55 : 1,
+            cursor: troubleCount === 0 ? "not-allowed" : "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 10,
+            padding: "16px 12px",
+          }}
+        >
+          <span style={{ fontSize: 30 }}>⭐</span>
+          <span>
+            <span style={{ fontWeight: 800, fontSize: 17 }}>Practice tricky words</span>
+            <span style={{ display: "block", fontSize: 12, color: "#7a7391" }}>
+              {troubleCount > 0
+                ? `${troubleCount} word${troubleCount === 1 ? "" : "s"} saved — flip through just these`
+                : "Miss a word in a game (or tap ⭐) and it lands here"}
+            </span>
+          </span>
+        </button>
+      )}
+
+      <button
+        onClick={() => go("wordlist")}
+        style={{
+          ...modeBtn,
+          width: "100%",
+          marginTop: 12,
+          borderColor: C.sky,
+          background: "#fff",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 10,
+          padding: "16px 12px",
+        }}
+      >
+        <span style={{ fontSize: 30 }}>📖</span>
+        <span>
+          <span style={{ fontWeight: 800, fontSize: 17 }}>Word list</span>
+          <span style={{ display: "block", fontSize: 12, color: "#7a7391" }}>
+            All {totalCount} words A–Z
+            {archivedCount > 0 ? ` · ${archivedCount} mastered` : ""}
+          </span>
+        </span>
+      </button>
+    </div>
+  );
+}
+function Flashcards({ words, trouble, toggleTrouble, onlyTrouble }) {
+  const [deck, setDeck] = useState(() => shuffle(words));
+  const [i, setI] = useState(0);
+  const [flipped, setFlipped] = useState(false);
+  const [known, setKnown] = useState(0);
+
+  // if the word list changes (e.g. trouble list empties), keep index in range
+  const card = deck[i] || deck[0];
+
+  if (!card) {
+    return (
+      <Center>
+        <div style={{ fontSize: 54 }}>🌟</div>
+        <h2 style={{ margin: "10px 0" }}>No tricky words yet!</h2>
+        <p style={{ color: "#7a7391", maxWidth: 320, textAlign: "center" }}>
+          Tap the ⭐ on a card while you play to save the ones you want to practice more. They'll show up here.
+        </p>
+      </Center>
+    );
+  }
+
+  const flagged = trouble.has(card.pinyin);
+
+  const next = (gotIt) => {
+    if (gotIt) setKnown((k) => k + 1);
+    setFlipped(false);
+    if (i + 1 < deck.length) setI(i + 1);
+    else {
+      setI(0);
+      setDeck(shuffle(words));
+      setKnown(0);
+    }
+  };
+
+  return (
+    <div style={{ textAlign: "center" }}>
+      <Progress value={i} total={deck.length} label={onlyTrouble ? "⭐ practice pile" : `⭐ ${known} known`} />
+      <div
+        onClick={() =>
+          setFlipped((f) => {
+            const next = !f;
+            if (next) speak(card); // say it as soon as the answer is shown
+            return next;
+          })
+        }
+        style={{
+          position: "relative",
+          background: "#fff",
+          borderRadius: 28,
+          padding: "44px 20px",
+          margin: "16px 0",
+          minHeight: 220,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          border: `4px solid ${flagged ? C.sun : C.sky}`,
+          boxShadow: `0 10px 0 ${flagged ? "rgba(246,196,69,0.4)" : "rgba(127,178,232,0.35)"}`,
+          cursor: "pointer",
+        }}
+      >
+        <StarButton
+          flagged={flagged}
+          onClick={() => toggleTrouble(card.pinyin)}
+          style={{ top: 12, right: 12, fontSize: 26 }}
+        />
+        {!flipped ? (
+          <>
+            <div style={{ fontSize: 22, marginBottom: 6 }}>{card.emoji}</div>
+            <div style={{ fontSize: 38, fontWeight: 800 }}>
+              {card.en}
+            </div>
+            <div style={{ marginTop: 14, fontSize: 13, color: "#9a94ad" }}>How do you say this? Tap to flip!</div>
+          </>
+        ) : (
+          <>
+            <div style={{ fontSize: 40, color: C.fox, fontWeight: 800 }}>{card.pinyin}</div>
+            <button
+              onClick={(e) => { e.stopPropagation(); speak(card); }}
+              style={{ ...ghostBtn, marginTop: 14 }}
+            >
+              🔊 Hear it
+            </button>
+          </>
+        )}
+      </div>
+      <div style={{ display: "flex", gap: 12 }}>
+        <button onClick={() => next(false)} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, flex: 1 }}>
+          🔁 Again
+        </button>
+        <button onClick={() => next(true)} style={{ ...bigBtn, background: C.leaf, flex: 1 }}>
+          ✓ Got it!
+        </button>
+      </div>
+      <div style={{ marginTop: 10, fontSize: 12, color: "#9a94ad" }}>
+        Tap the ⭐ to save a word you want to practice more.
+      </div>
+    </div>
+  );
+}
+
+// -------------------- BEAT THE CLOCK --------------------
+function BeatTheClock({ words, addTrouble, trouble, toggleTrouble }) {
+  const [phase, setPhase] = useState("ready"); // ready | play | done
+  const [time, setTime] = useState(60);
+  const [score, setScore] = useState(0);
+  const [round, setRound] = useState(null);
+  const [flash, setFlash] = useState(null);
+  const timer = useRef(null);
+
+  const build = () => {
+    const q = shuffle(words)[0];
+    const wrong = shuffle(words.filter((w) => w.pinyin !== q.pinyin)).slice(0, 3);
+    return { q, options: shuffle([q, ...wrong]) };
+  };
+
+  const start = () => {
+    setScore(0);
+    setTime(60);
+    setPhase("play");
+    setRound(build());
+    timer.current = setInterval(() => {
+      setTime((t) => {
+        if (t <= 1) {
+          clearInterval(timer.current);
+          setPhase("done");
+          return 0;
+        }
+        return t - 1;
+      });
+    }, 1000);
+  };
+
+  useEffect(() => () => clearInterval(timer.current), []);
+
+  const choose = (opt) => {
+    const right = opt.pinyin === round.q.pinyin;
+    setFlash(right ? "right" : "wrong");
+    if (right) { setScore((s) => s + 1); speak(round.q); }
+    else { addTrouble && addTrouble(round.q.pinyin); }
+    setTimeout(() => { setFlash(null); setRound(build()); }, 200);
+  };
+
+  if (phase === "ready")
+    return (
+      <Center>
+        <div style={{ fontSize: 60 }}>⏱️</div>
+        <h2 style={{ margin: "10px 0" }}>Beat the Clock!</h2>
+        <p style={{ color: "#7a7391", maxWidth: 300, textAlign: "center" }}>
+          Get as many right as you can in 60 seconds. Ready, Sam?
+        </p>
+        <button onClick={start} style={{ ...bigBtn, background: C.berry, marginTop: 16, padding: "16px 40px" }}>
+          🚀 Start!
+        </button>
+      </Center>
+    );
+
+  if (phase === "done")
+    return (
+      <Center>
+        <div style={{ fontSize: 64 }}>{score >= 15 ? "🏆" : score >= 8 ? "🌟" : "💪"}</div>
+        <h2 style={{ margin: "8px 0" }}>Time's up!</h2>
+        <div style={{ fontSize: 52, fontWeight: 800, color: C.fox }}>{score}</div>
+        <div style={{ color: "#7a7391" }}>correct answers</div>
+        <div style={{ marginTop: 8, fontWeight: 700, color: C.leaf }}>
+          {score >= 15 ? "Amazing! You're a Chinese champion!" : score >= 8 ? "Great job! Try to beat it!" : "Nice try — go again!"}
+        </div>
+        <button onClick={start} style={{ ...bigBtn, background: C.berry, marginTop: 18 }}>
+          🔁 Play again
+        </button>
+      </Center>
+    );
+
+  return (
+    <div>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+        <Badge color={C.fox}>⭐ {score}</Badge>
+        <div
+          style={{
+            fontSize: 30,
+            fontWeight: 800,
+            color: time <= 10 ? C.berry : C.ink,
+          }}
+        >
+          ⏱️ {time}s
+        </div>
+      </div>
+      <div
+        style={{
+          position: "relative",
+          background: flash === "right" ? "#DFF5EA" : flash === "wrong" ? "#FBE0E0" : "#fff",
+          borderRadius: 24,
+          padding: "28px 20px",
+          textAlign: "center",
+          border: `4px solid ${trouble && trouble.has(round.q.pinyin) ? C.sun : C.berry}`,
+          transition: "background 0.15s",
+        }}
+      >
+        <StarButton
+          flagged={trouble ? trouble.has(round.q.pinyin) : false}
+          onClick={() => toggleTrouble(round.q.pinyin)}
+        />
+        <div style={{ fontSize: 20, marginBottom: 4 }}>{round.q.emoji}</div>
+        <div style={{ fontSize: 36, fontWeight: 800 }}>
+          {round.q.en}
+        </div>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 14 }}>
+        {round.options.map((opt, idx) => (
+          <button key={idx} onClick={() => choose(opt)} style={{ ...bigBtn, background: "#fff", color: C.ink, border: "3px solid #e3ddcf", fontSize: 18, padding: "16px 8px" }}>
+            {opt.pinyin}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// -------------------- SAY THE SENTENCE --------------------
+// Oral practice: Sam reads the English sentence, says it aloud in Chinese,
+// then taps to reveal the pinyin + hear the correct answer, and self-scores.
+function SayTheSentence({ sentences, starred, toggleSentence }) {
+  const [onlyStarred, setOnlyStarred] = useState(false);
+
+  const pool = onlyStarred
+    ? sentences.filter((x) => starred.has(x.en))
+    : sentences;
+
+  const [deck, setDeck] = useState(() => shuffle(pool));
+  const [i, setI] = useState(0);
+  const [revealed, setRevealed] = useState(false);
+  const [got, setGot] = useState(0);
+  const [done, setDone] = useState(0);
+
+  // rebuild the deck when the filter changes or the starred pile shifts under it
+  useEffect(() => {
+    setDeck(shuffle(pool));
+    setI(0);
+    setRevealed(false);
+  }, [onlyStarred, pool.length]);
+
+  const starredCount = sentences.filter((x) => starred.has(x.en)).length;
+  const s = deck[i] || deck[0];
+
+  if (!s) {
+    // Two reasons the deck can be empty: filtering to starred-only with none
+    // starred, or no selected lesson has any sentences.
+    if (onlyStarred) {
+      return (
+        <Center>
+          <div style={{ fontSize: 54 }}>⭐</div>
+          <h2 style={{ margin: "10px 0" }}>No starred sentences yet</h2>
+          <p style={{ color: "#7a7391", maxWidth: 320, textAlign: "center" }}>
+            Tap the ⭐ on a sentence to save it here for extra practice.
+          </p>
+          <button onClick={() => setOnlyStarred(false)} style={{ ...bigBtn, background: C.leaf, marginTop: 16 }}>
+            ← Back to all sentences
+          </button>
+        </Center>
+      );
+    }
+    return (
+      <Center>
+        <div style={{ fontSize: 54 }}>💬</div>
+        <h2 style={{ margin: "10px 0" }}>No sentences for these lessons</h2>
+        <p style={{ color: "#7a7391", maxWidth: 340, textAlign: "center" }}>
+          The lessons you've picked don't have sentences yet. Head back and select
+          more lessons in the word bank to practice sentences.
+        </p>
+      </Center>
+    );
+  }
+
+  const flagged = starred.has(s.en);
+
+  const reveal = () => {
+    if (!revealed) {
+      setRevealed(true);
+      speak({ hanzi: s.hanzi, pinyin: s.pinyin }); // say it in good Mandarin
+    }
+  };
+
+  const next = (knewIt) => {
+    if (knewIt) setGot((g) => g + 1);
+    setDone((d) => d + 1);
+    setRevealed(false);
+    if (i + 1 < deck.length) setI(i + 1);
+    else {
+      setI(0);
+      setDeck(shuffle(pool));
+    }
+  };
+
+  return (
+    <div style={{ textAlign: "center" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+        <Progress value={i} total={deck.length} label={`✅ ${got} / ${done}`} />
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "center", marginBottom: 4 }}>
+        <button
+          onClick={() => starredCount > 0 && setOnlyStarred((v) => !v)}
+          disabled={!onlyStarred && starredCount === 0}
+          style={{
+            ...ghostBtn,
+            fontSize: 12,
+            borderColor: onlyStarred ? C.sun : "#e3ddcf",
+            background: onlyStarred ? "#FFF9EC" : "#fff",
+            opacity: !onlyStarred && starredCount === 0 ? 0.5 : 1,
+          }}
+        >
+          {onlyStarred ? "⭐ Practicing starred — show all" : `⭐ Practice starred only (${starredCount})`}
+        </button>
+      </div>
+
+      <div
+        style={{
+          position: "relative",
+          background: "#fff",
+          borderRadius: 28,
+          padding: "34px 20px",
+          margin: "12px 0 16px",
+          minHeight: 230,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          border: `4px solid ${flagged ? C.sun : C.fox}`,
+          boxShadow: `0 10px 0 ${flagged ? "rgba(246,196,69,0.4)" : "rgba(232,112,58,0.3)"}`,
+        }}
+      >
+        <StarButton flagged={flagged} onClick={() => toggleSentence(s.en)} />
+        <div style={{ fontSize: 13, color: "#9a94ad", marginBottom: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5 }}>
+          Say this in Chinese
+        </div>
+        <div style={{ fontSize: 26, fontWeight: 800, lineHeight: 1.3 }}>
+          {s.en}
+        </div>
+
+        {!revealed ? (
+          <button onClick={reveal} style={{ ...bigBtn, background: C.leaf, marginTop: 22, padding: "14px 30px" }}>
+            👂 Show &amp; hear answer
+          </button>
+        ) : (
+          <div style={{ marginTop: 20 }}>
+            <div style={{ fontSize: 26, color: C.fox, fontWeight: 800 }}>{s.pinyin}</div>
+            <button
+              onClick={() => speak({ hanzi: s.hanzi, pinyin: s.pinyin })}
+              style={{ ...ghostBtn, marginTop: 12 }}
+            >
+              🔊 Hear it again
+            </button>
+          </div>
+        )}
+      </div>
+
+      {revealed && (
+        <>
+          <div style={{ fontSize: 13, color: "#7a7391", marginBottom: 10, fontWeight: 700 }}>
+            How did Sam do?
+          </div>
+          <div style={{ display: "flex", gap: 12 }}>
+            <button onClick={() => next(false)} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, flex: 1 }}>
+              🔁 Practice again
+            </button>
+            <button onClick={() => next(true)} style={{ ...bigBtn, background: C.leaf, flex: 1 }}>
+              ✓ Nailed it!
+            </button>
+          </div>
+        </>
+      )}
+
+      {!revealed && (
+        <div style={{ fontSize: 12, color: "#9a94ad" }}>
+          Try saying it out loud first, then reveal to check. Tap ⭐ to save a tricky one.
+        </div>
+      )}
+    </div>
+  );
+}
+
+// -------------------- WHAT DOES THIS MEAN? --------------------
+// Sam hears the word spoken in Chinese and picks the correct English meaning
+function ToneMatch({ words, addTrouble, trouble, toggleTrouble }) {
+  const build = () => {
+    const q = shuffle(words)[0];
+    const wrong = shuffle(words.filter((w) => w.en !== q.en)).slice(0, 3);
+    return { q, options: shuffle([q, ...wrong]) };
+  };
+  const [round, setRound] = useState(build);
+  const [picked, setPicked] = useState(null);
+  const [score, setScore] = useState(0);
+  const [streak, setStreak] = useState(0);
+
+  const flagged = trouble ? trouble.has(round.q.pinyin) : false;
+
+  useEffect(() => { speak(round.q); }, [round]);
+
+  const choose = (opt) => {
+    if (picked) return;
+    setPicked(opt);
+    if (opt.en === round.q.en) {
+      setScore((s) => s + 1);
+      setStreak((s) => s + 1);
+    } else {
+      setStreak(0);
+      addTrouble && addTrouble(round.q.pinyin);
+    }
+    setTimeout(() => { setPicked(null); setRound(build()); }, 1200);
+  };
+
+  return (
+    <div>
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 12 }}>
+        <Badge color={C.leaf}>⭐ {score}</Badge>
+        <Badge color={streak >= 3 ? C.berry : C.sun}>
+          🔥 {streak} {streak >= 3 ? "on fire!" : ""}
+        </Badge>
+      </div>
+      <div
+        style={{
+          position: "relative",
+          background: "#fff",
+          borderRadius: 24,
+          padding: "30px 20px",
+          textAlign: "center",
+          border: `4px solid ${flagged ? C.sun : C.leaf}`,
+          boxShadow: `0 8px 0 ${flagged ? "rgba(246,196,69,0.4)" : "rgba(95,184,148,0.3)"}`,
+        }}
+      >
+        <StarButton flagged={flagged} onClick={() => toggleTrouble(round.q.pinyin)} />
+        <div style={{ fontSize: 15, color: "#9a94ad", marginBottom: 10 }}>Listen carefully — what does this mean?</div>
+        <button onClick={() => speak(round.q)} style={{ ...bigBtn, background: C.sky, fontSize: 22, padding: "18px 34px" }}>
+          🔊 Play sound
+        </button>
+        <div style={{ marginTop: 12, fontSize: 18, color: "#cfc9bb", fontWeight: 700 }}>
+          {picked ? round.q.pinyin : "❓"}
+        </div>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 14 }}>
+        {round.options.map((opt, idx) => {
+          let bg = "#fff", bd = "#e3ddcf";
+          if (picked) {
+            if (opt.en === round.q.en) { bg = C.leaf; bd = C.leaf; }
+            else if (opt.en === picked.en) { bg = "#F4A7A7"; bd = "#F4A7A7"; }
+          }
+          return (
+            <button
+              key={idx}
+              onClick={() => choose(opt)}
+              style={{
+                ...bigBtn,
+                background: bg,
+                color: picked && (opt.en === round.q.en || opt.en === picked.en) ? "#fff" : C.ink,
+                border: `3px solid ${bd}`,
+                fontSize: 17,
+                padding: "18px 8px",
+              }}
+            >
+              {opt.emoji} {opt.en}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// -------------------- WORD LIST --------------------
+// Comprehensive A–Z list (by English). Archive words Sam has mastered so they
+// drop out of the games but stay here for reference.
+function WordList({ allWords, archived, trouble, toggleTrouble, toggleArchived, customWords, addCustomWord, removeCustomWord }) {
+  const [showArchived, setShowArchived] = useState(true);
+  const [showAdd, setShowAdd] = useState(false);
+  const [f1, setF1] = useState(""); // english
+  const [f2, setF2] = useState(""); // pinyin
+  const [f3, setF3] = useState(""); // hanzi
+  const [f4, setF4] = useState(""); // emoji
+
+  const customSet = new Set((customWords || []).map((w) => w.pinyin));
+
+  const submit = () => {
+    const en = f1.trim(), pinyin = f2.trim(), hanzi = f3.trim();
+    if (!en && !pinyin && !hanzi) return; // need at least one
+    addCustomWord({
+      en: en || pinyin || hanzi,
+      pinyin: pinyin || "",
+      hanzi: hanzi || "",         // hanzi drives good audio if provided
+      emoji: f4.trim() || "📝",
+    });
+    setF1(""); setF2(""); setF3(""); setF4("");
+    setShowAdd(false);
+  };
+
+  const sorted = [...allWords].sort((a, b) =>
+    a.en.toLowerCase().localeCompare(b.en.toLowerCase())
+  );
+  const rows = showArchived
+    ? sorted
+    : sorted.filter((w) => !archived.has(w.pinyin));
+
+  const activeCount = allWords.filter((w) => !archived.has(w.pinyin)).length;
+
+  return (
+    <div>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10, flexWrap: "wrap", gap: 8 }}>
+        <div style={{ fontWeight: 800, fontSize: 16 }}>
+          📖 Word list <span style={{ color: C.fox }}>({activeCount} active)</span>
+        </div>
+        <div style={{ display: "flex", gap: 8 }}>
+          <button onClick={() => setShowAdd((s) => !s)} style={{ ...ghostBtn, fontSize: 13, borderColor: C.leaf, color: C.leaf }}>
+            ➕ Add word
+          </button>
+          <button
+            onClick={() => setShowArchived((s) => !s)}
+            style={{ ...ghostBtn, fontSize: 13 }}
+          >
+            {showArchived ? "🙈 Hide mastered" : "👁️ Show mastered"}
+          </button>
+        </div>
+      </div>
+
+      {showAdd && (
+        <div style={{ background: "#F4FBF7", border: `2px solid ${C.leaf}`, borderRadius: 16, padding: 14, marginBottom: 14 }}>
+          <div style={{ fontWeight: 800, fontSize: 14, marginBottom: 6 }}>Add a word</div>
+          <div style={{ fontSize: 12, color: "#5c7a6c", marginBottom: 10 }}>
+            Fill in whatever you have — English, pinyin, or Chinese. Adding the Chinese
+            characters gives the best pronunciation. (Whatever you leave blank stays blank.)
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <input value={f1} onChange={(e) => setF1(e.target.value)} placeholder="English  (e.g. cat)" style={inp} />
+            <input value={f2} onChange={(e) => setF2(e.target.value)} placeholder="Pinyin  (e.g. māo)" style={inp} />
+            <input value={f3} onChange={(e) => setF3(e.target.value)} placeholder="Chinese  (e.g. 猫)  — best for audio" style={inp} />
+            <input value={f4} onChange={(e) => setF4(e.target.value)} placeholder="Emoji  (optional, e.g. 🐱)" style={inp} />
+          </div>
+          <div style={{ display: "flex", gap: 8, marginTop: 10 }}>
+            <button onClick={submit} style={{ ...bigBtn, background: C.leaf, flex: 1, fontSize: 15, padding: "10px" }}>
+              ✓ Add to My Words
+            </button>
+            <button onClick={() => setShowAdd(false)} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, fontSize: 15, padding: "10px 16px" }}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+      <div style={{ fontSize: 12, color: "#7a7391", marginBottom: 12 }}>
+        Tap ⭐ to add a word to the practice pile, 🔊 to hear it, and ✅ to archive one Sam has mastered (it leaves the games but stays here).
+      </div>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        {rows.map((w, idx) => {
+          const isArchived = archived.has(w.pinyin);
+          const isTricky = trouble.has(w.pinyin);
+          return (
+            <div
+              key={w.pinyin + idx}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                background: isArchived ? "#F1EEE6" : "#fff",
+                opacity: isArchived ? 0.6 : 1,
+                border: `2px solid ${isTricky ? C.sun : "#efe8d8"}`,
+                borderRadius: 14,
+                padding: "10px 12px",
+              }}
+            >
+              <span style={{ fontSize: 22, width: 28, textAlign: "center" }}>{w.emoji}</span>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontWeight: 800, fontSize: 15, color: C.ink }}>
+                  {w.en}
+                </div>
+                <div style={{ fontSize: 13, color: C.fox, fontWeight: 700 }}>
+                  {w.pinyin}
+                </div>
+              </div>
+              <button
+                onClick={() => toggleTrouble(w.pinyin)}
+                style={{
+                  ...ghostBtn,
+                  padding: "6px 9px",
+                  fontSize: 16,
+                  borderColor: isTricky ? C.sun : "#e3ddcf",
+                  background: isTricky ? "#FFF9EC" : "#fff",
+                  filter: isTricky ? "none" : "grayscale(1) opacity(0.5)",
+                }}
+                title={isTricky ? "In practice pile — tap to remove" : "Save to practice pile"}
+              >
+                ⭐
+              </button>
+              <button
+                onClick={() => speak(w)}
+                style={{ ...ghostBtn, padding: "6px 10px", fontSize: 15 }}
+                title="Hear it"
+              >
+                🔊
+              </button>
+              <button
+                onClick={() => toggleArchived(w.pinyin)}
+                style={{
+                  ...ghostBtn,
+                  padding: "6px 10px",
+                  fontSize: 15,
+                  borderColor: isArchived ? C.leaf : "#e3ddcf",
+                  background: isArchived ? C.leaf : "#fff",
+                  color: isArchived ? "#fff" : C.ink,
+                }}
+                title={isArchived ? "Mastered — tap to bring back" : "Mark as mastered"}
+              >
+                {isArchived ? "✓" : "✅"}
+              </button>
+              {customSet.has(w.pinyin) && (
+                <button
+                  onClick={() => removeCustomWord(w.pinyin)}
+                  style={{ ...ghostBtn, padding: "6px 9px", fontSize: 15, borderColor: "#F0B4B4", color: C.berry }}
+                  title="Delete this word you added"
+                >
+                  🗑️
+                </button>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// -------------------- little UI bits --------------------
+// A star toggle for the practice pile, corner-positioned on a question card.
+const StarButton = ({ flagged, onClick, style }) => (
+  <button
+    onClick={(e) => { e.stopPropagation(); onClick(); }}
+    title={flagged ? "Remove from practice pile" : "Save to practice more"}
+    style={{
+      position: "absolute",
+      top: 10,
+      right: 10,
+      background: "transparent",
+      border: "none",
+      fontSize: 24,
+      cursor: "pointer",
+      lineHeight: 1,
+      padding: 4,
+      filter: flagged ? "none" : "grayscale(1) opacity(0.35)",
+      transition: "filter 0.15s",
+      ...style,
+    }}
+  >
+    ⭐
+  </button>
+);
+
+const Center = ({ children }) => (
+  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "30px 10px" }}>{children}</div>
+);
+const Badge = ({ children, color = C.sun }) => (
+  <span style={{ background: color, color: "#fff", fontWeight: 800, padding: "6px 14px", borderRadius: 20, fontSize: 15 }}>
+    {children}
+  </span>
+);
+function Progress({ value, total, label }) {
+  return (
+    <div>
+      <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, fontWeight: 700, color: "#7a7391", marginBottom: 4 }}>
+        <span>{value + 1} / {total}</span>
+        <span>{label}</span>
+      </div>
+      <div style={{ height: 10, background: "#EBE5D8", borderRadius: 10, overflow: "hidden" }}>
+        <div style={{ width: `${((value) / total) * 100}%`, height: "100%", background: C.leaf, transition: "width 0.3s" }} />
+      </div>
+    </div>
+  );
+}
+
+const bigBtn = {
+  border: "none",
+  borderRadius: 18,
+  padding: "16px 12px",
+  fontWeight: 800,
+  fontSize: 18,
+  color: "#fff",
+  cursor: "pointer",
+  fontFamily: "inherit",
+};
+const modeBtn = {
+  border: "4px solid",
+  borderRadius: 22,
+  padding: "18px 10px",
+  textAlign: "center",
+  cursor: "pointer",
+  fontFamily: "inherit",
+  boxShadow: "0 6px 0 rgba(0,0,0,0.05)",
+};
+const ghostBtn = {
+  background: "#fff",
+  border: "2px solid #e3ddcf",
+  borderRadius: 14,
+  padding: "8px 14px",
+  fontWeight: 700,
+  fontSize: 14,
+  cursor: "pointer",
+  color: C.ink,
+  fontFamily: "inherit",
+};
+const inp = {
+  border: "2px solid #cfe3d6",
+  borderRadius: 10,
+  padding: "10px 12px",
+  fontSize: 15,
+  fontFamily: "inherit",
+  color: C.ink,
+  outline: "none",
+  width: "100%",
+  boxSizing: "border-box",
+};
+const chip = {
+  border: "2px solid",
+  borderRadius: 16,
+  padding: "8px 12px",
+  fontWeight: 700,
+  fontSize: 13,
+  cursor: "pointer",
+  fontFamily: "inherit",
+};
+const miniBtn = {
+  background: "#fff",
+  border: "2px solid #e3ddcf",
+  borderRadius: 12,
+  padding: "6px 10px",
+  fontWeight: 800,
+  fontSize: 12,
+  cursor: "pointer",
+  color: C.ink,
+  fontFamily: "inherit",
+};
+
+
+window.__BOOT__.then(() => {
+  const root = ReactDOM.createRoot(document.getElementById("root"));
+  root.render(<SamChineseQuest />);
+});
+</script>
+</body>
+</html>
