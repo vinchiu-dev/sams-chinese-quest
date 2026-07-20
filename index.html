@@ -19,16 +19,24 @@
 <div id="root"><div class="loading"><div style="font-size:54px">🦊</div><div style="font-weight:700;margin-top:10px">Loading Sam's Chinese Quest…</div></div></div>
 
 <script>
-// Load the vocabulary first (cache-busted so new lessons show up right away),
-// then boot the app.
-window.__BOOT__ = fetch("vocab.json?t=" + Date.now())
-  .then((r) => { if (!r.ok) throw new Error("vocab fetch failed"); return r.json(); })
-  .then((v) => { window.__VOCAB__ = v; })
-  .catch((e) => {
+// Load the vocabulary BEFORE the app script runs (synchronous on purpose:
+// the app code references the vocab at load time, so it must already exist).
+// Cache-busted so new lessons appear immediately after an update.
+(function () {
+  try {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "vocab.json?t=" + Date.now(), false); // sync — blocks until loaded
+    xhr.send(null);
+    if (xhr.status >= 200 && xhr.status < 300) {
+      window.__VOCAB__ = JSON.parse(xhr.responseText);
+    } else {
+      throw new Error("HTTP " + xhr.status);
+    }
+  } catch (e) {
     document.getElementById("root").innerHTML =
       "<div class='loading'><div style='font-size:54px'>😵</div><div style='font-weight:700;margin-top:10px'>Couldn't load the vocabulary.</div><div style='margin-top:6px;color:#7a7391'>Check your connection and refresh.</div></div>";
-    throw e;
-  });
+  }
+})();
 </script>
 
 <script type="text/babel" data-presets="react">
@@ -1477,10 +1485,10 @@ const miniBtn = {
 };
 
 
-window.__BOOT__.then(() => {
+if (window.__VOCAB__) {
   const root = ReactDOM.createRoot(document.getElementById("root"));
   root.render(<SamChineseQuest />);
-});
+}
 </script>
 </body>
 </html>
