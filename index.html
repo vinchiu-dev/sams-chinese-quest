@@ -1483,11 +1483,26 @@ const miniBtn = {
 // Waits for vocab.json inside React so there are no script-timing assumptions.
 function AppLoader() {
   const [state, setState] = useState("loading"); // loading | ready | error
+  const [detail, setDetail] = useState("");
   useEffect(() => {
     let alive = true;
-    window.__VOCAB_PROMISE__
-      .then(function (v) { if (!alive) return; window.__VOCAB__ = v; setState("ready"); })
-      .catch(function () { if (alive) setState("error"); });
+    // Fetch vocab here directly so there's no dependency on other scripts.
+    const p = window.__VOCAB_PROMISE__ ||
+      fetch("vocab.json?t=" + Date.now()).then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status + " loading vocab.json");
+        return r.json();
+      });
+    p.then(function (v) {
+        if (!alive) return;
+        if (!v || !v.lessons) throw new Error("vocab.json loaded but has no lessons");
+        window.__VOCAB__ = v;
+        setState("ready");
+      })
+      .catch(function (e) {
+        if (!alive) return;
+        setDetail(String(e && e.message ? e.message : e));
+        setState("error");
+      });
     return function () { alive = false; };
   }, []);
 
@@ -1504,7 +1519,7 @@ function AppLoader() {
       <div className="loading">
         <div style={{ fontSize: 54 }}>😵</div>
         <div style={{ fontWeight: 700, marginTop: 10 }}>Couldn't load the vocabulary.</div>
-        <div style={{ marginTop: 6, color: "#7a7391" }}>Check your connection and refresh.</div>
+        <div style={{ marginTop: 6, color: "#7a7391", fontSize: 13, maxWidth: 320, textAlign: "center" }}>{detail || "Check your connection and refresh."}</div>
       </div>
     );
   }
