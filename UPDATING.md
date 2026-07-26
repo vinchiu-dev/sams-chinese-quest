@@ -44,3 +44,10 @@ Two fixes that must never be removed from index.html:
    output from executing (app hangs on the "Loading" placeholder).
 2. The `mountApp()` retry wrapper around `ReactDOM.createRoot(...)` — the
    in-browser Babel runs asynchronously, so a bare mount can silently fail.
+
+## Sentence-writing convention
+When adding a lesson, write its sentences to COMBINE the new vocabulary with
+words from earlier lessons (not just the new lesson in isolation) — this gives
+integrative practice and keeps old words alive. Tag each sentence with the tag
+of the NEWEST lesson whose words it uses, so it appears when that lesson is
+selected (including "Newest only").
