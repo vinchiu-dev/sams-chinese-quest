@@ -29,3 +29,18 @@ pinyin + English only (no written characters shown).
 - Verify tone marks; when unsure, check a dictionary rather than guessing.
 - Duplicate stories across videos: merge extra words into existing lessons
   instead of creating duplicates.
+
+## ⚠️ CRITICAL: never push a stale local copy of index.html
+Edits to `index.html` may be made outside any single chat session. Before
+changing it, ALWAYS fetch the current version from the repo and edit *that*:
+
+    GET /repos/{owner}/{repo}/contents/index.html   → decode → edit → PUT with its sha
+
+Pushing a locally-cached copy silently reverts other people's fixes.
+This exact mistake once reverted two loading-bug fixes and broke the live app.
+
+Two fixes that must never be removed from index.html:
+1. The babel script tag must NOT have `data-type="script"` — that stops Babel's
+   output from executing (app hangs on the "Loading" placeholder).
+2. The `mountApp()` retry wrapper around `ReactDOM.createRoot(...)` — the
+   in-browser Babel runs asynchronously, so a bare mount can silently fail.
