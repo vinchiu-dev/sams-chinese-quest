@@ -1241,6 +1241,66 @@
       "pinyin": "Nǐmen de shēnghuó zhēn kuàilè!",
       "hanzi": "你们的生活真快乐！",
       "tag": "weekend"
+    },
+    {
+      "en": "Grandpa is eating noodles in the kitchen.",
+      "pinyin": "Yéye zài chúfáng chī miàntiáo.",
+      "hanzi": "爷爷在厨房吃面条。",
+      "tag": "home"
+    },
+    {
+      "en": "Dad is washing clothes, Mom is cooking.",
+      "pinyin": "Bàba xǐ yīfu, māma zuò fàn.",
+      "hanzi": "爸爸洗衣服，妈妈做饭。",
+      "tag": "home"
+    },
+    {
+      "en": "Oh no! Little brother's backpack is broken!",
+      "pinyin": "Tiān na! Dìdi de shūbāo huài le!",
+      "hanzi": "天哪！弟弟的书包坏了！",
+      "tag": "family"
+    },
+    {
+      "en": "Big sister doesn't eat mango, big sister eats strawberries.",
+      "pinyin": "Jiějie bù chī mángguǒ, jiějie chī cǎoméi.",
+      "hanzi": "姐姐不吃芒果，姐姐吃草莓。",
+      "tag": "fruit"
+    },
+    {
+      "en": "I want to eat watermelon and grapes!",
+      "pinyin": "Wǒ xiǎng chī xīguā hé pútáo!",
+      "hanzi": "我想吃西瓜和葡萄！",
+      "tag": "fruit"
+    },
+    {
+      "en": "Today is the weekend, let's go buy stationery!",
+      "pinyin": "Jīntiān shì zhōumò, wǒmen qù mǎi wénjù ba!",
+      "hanzi": "今天是周末，我们去买文具吧！",
+      "tag": "weekend"
+    },
+    {
+      "en": "The little monkey's head hurts a bit.",
+      "pinyin": "Xiǎohóuzi de tóu yǒudiǎn téng.",
+      "hanzi": "小猴子的头有点疼。",
+      "tag": "sick"
+    },
+    {
+      "en": "The rabbit's eyes hurt, the fox's ears hurt.",
+      "pinyin": "Tùzi de yǎnjing téng, húli de ěrduo téng.",
+      "hanzi": "兔子的眼睛疼，狐狸的耳朵疼。",
+      "tag": "sick"
+    },
+    {
+      "en": "The panda is eating dumplings in the living room.",
+      "pinyin": "Xióngmāo zài kètīng chī jiǎozi.",
+      "hanzi": "熊猫在客厅吃饺子。",
+      "tag": "athome"
+    },
+    {
+      "en": "Big brother is playing games in the study.",
+      "pinyin": "Gēge zài shūfáng wán yóuxì ne.",
+      "hanzi": "哥哥在书房玩游戏呢。",
+      "tag": "athome"
     }
   ]
 }
