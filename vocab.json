@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-07-20",
+  "updated": "2026-07-26",
   "lessons": [
     {
       "id": "little-fox-school-supplies",
@@ -873,6 +873,49 @@
           "emoji": "💬"
         }
       ]
+    },
+    {
+      "id": "weekend-visit",
+      "title": "Weekend Visit",
+      "subtitle": "今天是周末 — what's everyone doing?",
+      "words": [
+        {
+          "hanzi": "今天",
+          "pinyin": "jīntiān",
+          "en": "today",
+          "emoji": "📅"
+        },
+        {
+          "hanzi": "周末",
+          "pinyin": "zhōumò",
+          "en": "weekend",
+          "emoji": "🎉"
+        },
+        {
+          "hanzi": "地球",
+          "pinyin": "dìqiú",
+          "en": "the world / Earth",
+          "emoji": "🌍"
+        },
+        {
+          "hanzi": "玩",
+          "pinyin": "wán",
+          "en": "to play",
+          "emoji": "🤸"
+        },
+        {
+          "hanzi": "真",
+          "pinyin": "zhēn",
+          "en": "really / truly",
+          "emoji": "💯"
+        },
+        {
+          "hanzi": "在做什么",
+          "pinyin": "zài zuò shénme",
+          "en": "doing what?",
+          "emoji": "🤷"
+        }
+      ]
     }
   ],
   "tagMap": {
@@ -911,6 +954,9 @@
     ],
     "sick": [
       "not-feeling-well"
+    ],
+    "weekend": [
+      "weekend-visit"
     ]
   },
   "sentences": [
@@ -1165,6 +1211,36 @@
       "pinyin": "Zhù nǐ shēnghuó kuàilè!",
       "hanzi": "祝你生活快乐！",
       "tag": "athome"
+    },
+    {
+      "en": "Today is the weekend, let's go play!",
+      "pinyin": "Jīntiān shì zhōumò, wǒmen qù wán ba!",
+      "hanzi": "今天是周末，我们去玩吧！",
+      "tag": "weekend"
+    },
+    {
+      "en": "What is your dad doing?",
+      "pinyin": "Nǐ bàba zài zuò shénme ne?",
+      "hanzi": "你爸爸在做什么呢？",
+      "tag": "weekend"
+    },
+    {
+      "en": "Dad is cooking in the kitchen!",
+      "pinyin": "Bàba zài chúfáng zuò fàn ne!",
+      "hanzi": "爸爸在厨房做饭呢！",
+      "tag": "weekend"
+    },
+    {
+      "en": "What is your mom doing?",
+      "pinyin": "Nǐ māma zài zuò shénme ne?",
+      "hanzi": "你妈妈在做什么呢？",
+      "tag": "weekend"
+    },
+    {
+      "en": "Your life is really happy!",
+      "pinyin": "Nǐmen de shēnghuó zhēn kuàilè!",
+      "hanzi": "你们的生活真快乐！",
+      "tag": "weekend"
     }
   ]
 }
