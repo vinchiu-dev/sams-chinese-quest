@@ -32,8 +32,8 @@ window.__VOCAB_PROMISE__ = fetch("vocab.json?t=" + Date.now())
   .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); });
 </script>
 
-<script type="text/babel" data-type="script" data-presets="react-classic">
-const { useState, useEffect, useRef } = React;
+<script type="text/babel" data-presets="react-classic">
+  const { useState, useEffect, useRef } = React;
 
 // ================= persistence & cross-device sync =================
 const LS_PREFIX = "samquest_";
@@ -1539,8 +1539,27 @@ function AppLoader() {
   return <SamChineseQuest />;
 }
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<AppLoader />);
+// Resilient mount: in-browser Babel executes this script asynchronously,
+// and the initial createRoot/render could silently fail to attach on load
+// (leaving the app stuck on the "Loading" placeholder). Guard the mount so it
+// only runs once the #root element exists, retry until it does, and defer to
+// the next frame so it never races Babel's auto-run / DOM readiness.
+(function mountApp() {
+  var el = document.getElementById("root");
+  if (!el || typeof ReactDOM === "undefined" || !ReactDOM.createRoot) {
+    return requestAnimationFrame(mountApp);
+  }
+  try {
+    var root = ReactDOM.createRoot(el);
+    root.render(<AppLoader />);
+  } catch (err) {
+    el.innerHTML =
+      '<div style="padding:24px;font-family:sans-serif;color:#b00">' +
+      'Failed to start the app: ' + (err && err.message ? err.message : err) +
+      '</div>';
+    console.error("Mount failed:", err);
+  }
+})();
 </script>
 </body>
 </html>
