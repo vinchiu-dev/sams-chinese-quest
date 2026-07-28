@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "updated": "2026-07-26",
+  "lists": [
+    {
+      "id": "en-starter-1",
+      "title": "Word List 1",
+      "subtitle": "starter words",
+      "words": [
+        {
+          "word": "abundant",
+          "definition": "existing in large quantities; plentiful",
+          "example": "The garden had an abundant harvest of tomatoes.",
+          "emoji": "🌻"
+        },
+        {
+          "word": "brisk",
+          "definition": "quick and energetic",
+          "example": "They took a brisk walk before dinner.",
+          "emoji": "🚶"
+        },
+        {
+          "word": "cautious",
+          "definition": "careful to avoid danger or mistakes",
+          "example": "He was cautious crossing the icy road.",
+          "emoji": "⚠️"
+        },
+        {
+          "word": "dazzle",
+          "definition": "to amaze or blind with bright light",
+          "example": "The fireworks dazzled the crowd.",
+          "emoji": "✨"
+        },
+        {
+          "word": "eager",
+          "definition": "very excited and wanting to do something",
+          "example": "She was eager to open her presents.",
+          "emoji": "😃"
+        },
+        {
+          "word": "fragile",
+          "definition": "easily broken or damaged",
+          "example": "Handle the glass vase, it's fragile.",
+          "emoji": "🥚"
+        },
+        {
+          "word": "gigantic",
+          "definition": "extremely large",
+          "example": "A gigantic wave crashed on the shore.",
+          "emoji": "🐋"
+        },
+        {
+          "word": "hesitate",
+          "definition": "to pause before doing something",
+          "example": "Don't hesitate to ask for help.",
+          "emoji": "🤔"
+        }
+      ]
+    },
+    {
+      "id": "en-starter-2",
+      "title": "Word List 2",
+      "subtitle": "more starter words",
+      "words": [
+        {
+          "word": "immense",
+          "definition": "extremely large or great",
+          "example": "The immense mountain towered above them.",
+          "emoji": "⛰️"
+        },
+        {
+          "word": "jubilant",
+          "definition": "feeling great joy; triumphant",
+          "example": "The team was jubilant after winning.",
+          "emoji": "🎉"
+        },
+        {
+          "word": "keen",
+          "definition": "sharp or very interested",
+          "example": "She has a keen sense of smell.",
+          "emoji": "👃"
+        },
+        {
+          "word": "luminous",
+          "definition": "giving off light; glowing",
+          "example": "The luminous stars filled the night sky.",
+          "emoji": "🌟"
+        },
+        {
+          "word": "mimic",
+          "definition": "to copy the way someone acts or speaks",
+          "example": "The parrot can mimic human speech.",
+          "emoji": "🦜"
+        },
+        {
+          "word": "nimble",
+          "definition": "quick and light in movement",
+          "example": "The nimble cat leapt onto the fence.",
+          "emoji": "🐈"
+        },
+        {
+          "word": "obstacle",
+          "definition": "something that blocks your way",
+          "example": "They cleared every obstacle on the course.",
+          "emoji": "🚧"
+        },
+        {
+          "word": "peculiar",
+          "definition": "strange or unusual",
+          "example": "There was a peculiar smell in the room.",
+          "emoji": "🤨"
+        }
+      ]
+    }
+  ]
+}
