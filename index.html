@@ -1631,15 +1631,79 @@ const miniBtn = {
 // ============================================================
 const getEnglish = () => (window.__VOCAB__ && window.__VOCAB__.english) || { lists: [] };
 
+// Deliberately pick the BEST English voice the device has, instead of letting
+// the browser fall back to its low-quality default (which sounds robotic).
+// Same approach that fixed the Mandarin audio.
+let bestEnVoice = null;
+
+const PREFERRED_EN_VOICES = [
+  // Google's natural voices (Chrome / Android / ChromeOS) — best quality
+  "Google US English", "Google UK English Female", "Google UK English Male",
+  // Microsoft neural voices (Windows / Edge)
+  "Microsoft Aria", "Microsoft Jenny", "Microsoft Guy", "Microsoft Michelle",
+  "Microsoft Ana", "Microsoft Zira", "Microsoft David",
+  // Apple (macOS / iOS) — prefer the enhanced/premium ones
+  "Samantha", "Ava", "Allison", "Susan", "Alex", "Karen", "Daniel", "Moira",
+];
+
+const selectBestEnVoice = () => {
+  if (!("speechSynthesis" in window)) return;
+  const voices = window.speechSynthesis.getVoices();
+  if (!voices.length) return;
+
+  const isEn = (v) => v.lang && v.lang.toLowerCase().startsWith("en");
+
+  // 1) exact-ish match against the preferred list, in priority order
+  for (const name of PREFERRED_EN_VOICES) {
+    const hit = voices.find(
+      (v) => isEn(v) && v.name.toLowerCase().includes(name.toLowerCase())
+    );
+    if (hit) { bestEnVoice = hit; return; }
+  }
+  // 2) anything flagged natural/neural/enhanced/premium
+  const fancy = voices.find(
+    (v) => isEn(v) && /natural|neural|enhanced|premium|online/i.test(v.name)
+  );
+  if (fancy) { bestEnVoice = fancy; return; }
+  // 3) any non-local (server-side voices are usually the good ones)
+  const remote = voices.find((v) => isEn(v) && v.localService === false);
+  if (remote) { bestEnVoice = remote; return; }
+  // 4) fall back to any English voice at all
+  const any = voices.find(isEn);
+  if (any) bestEnVoice = any;
+};
+
+if (typeof window !== "undefined" && "speechSynthesis" in window) {
+  const prev = window.speechSynthesis.onvoiceschanged;
+  window.speechSynthesis.onvoiceschanged = function () {
+    if (typeof prev === "function") { try { prev(); } catch (e) {} }
+    selectBestEnVoice();
+  };
+  [200, 600, 1200, 2500].forEach((ms) => setTimeout(selectBestEnVoice, ms));
+}
+
 const speakEn = (text) => {
   if (!("speechSynthesis" in window)) return;
-  try {
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = "en-US";
-    u.rate = 0.92;
-    window.speechSynthesis.speak(u);
-  } catch (e) {}
+  if (!text) return;
+  const say = () => {
+    try {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US";
+      u.rate = 0.9;
+      u.pitch = 1.0;
+      if (!bestEnVoice) selectBestEnVoice();
+      if (bestEnVoice) u.voice = bestEnVoice;
+      window.speechSynthesis.speak(u);
+    } catch (e) {}
+  };
+  // voices often aren't ready on first load (especially mobile) — retry once
+  if (!bestEnVoice && !window.speechSynthesis.getVoices().length) {
+    selectBestEnVoice();
+    setTimeout(say, 250);
+  } else {
+    say();
+  }
 };
 
 function EnglishApp({ onSwitchLang }) {
