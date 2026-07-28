@@ -545,7 +545,7 @@ function ChineseApp({ onSwitchLang }) {
           <ToneMatch words={activeWords} addTrouble={addTrouble} trouble={trouble} toggleTrouble={toggleTrouble} onHome={() => setScreen("home")} />
         )}
         {screen === "settings" && <SyncSettings onDone={() => setScreen("home")} />}
-        {screen === "wordlist" && (
+        {(screen === "wordlist" || screen === "wordlist-add") && (
           <WordList
             allWords={listWords}
             archived={archived}
@@ -555,6 +555,7 @@ function ChineseApp({ onSwitchLang }) {
             customWords={customWords}
             addCustomWord={addCustomWord}
             removeCustomWord={removeCustomWord}
+            openAdd={screen === "wordlist-add"}
           />
         )}
       </div>
@@ -777,7 +778,7 @@ function Home({
       )}
 
       {/* ---- secondary actions as equal tiles ---- */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 14 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginTop: 14 }}>
         <button
           onClick={() => troubleCount > 0 && go("troubleflip")}
           disabled={troubleCount === 0}
@@ -799,6 +800,15 @@ function Home({
           <span style={{ fontSize: 11, color: "#7a7391", marginTop: 2 }}>
             all {totalCount} A–Z{archivedCount > 0 ? ` · ${archivedCount} mastered` : ""}
           </span>
+        </button>
+
+        <button
+          onClick={() => go("wordlist-add")}
+          style={{ ...tileBtn, borderColor: C.leaf, background: "#fff" }}
+        >
+          <span style={{ fontSize: 28 }}>➕</span>
+          <span style={{ fontWeight: 800, fontSize: 14, marginTop: 4 }}>Add word</span>
+          <span style={{ fontSize: 11, color: "#7a7391", marginTop: 2 }}>type or paste</span>
         </button>
       </div>
     </div>
@@ -1387,9 +1397,9 @@ function ToneMatch({ words, addTrouble, trouble, toggleTrouble, onHome }) {
 // -------------------- WORD LIST --------------------
 // Comprehensive A–Z list (by English). Archive words Sam has mastered so they
 // drop out of the games but stay here for reference.
-function WordList({ allWords, archived, trouble, toggleTrouble, toggleArchived, customWords, addCustomWord, removeCustomWord }) {
+function WordList({ allWords, archived, trouble, toggleTrouble, toggleArchived, customWords, addCustomWord, removeCustomWord, openAdd }) {
   const [showArchived, setShowArchived] = useState(true);
-  const [showAdd, setShowAdd] = useState(false);
+  const [showAdd, setShowAdd] = useState(!!openAdd);
   const [f1, setF1] = useState(""); // english
   const [f2, setF2] = useState(""); // pinyin
   const [f3, setF3] = useState(""); // hanzi
