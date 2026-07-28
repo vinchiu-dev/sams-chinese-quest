@@ -1783,7 +1783,11 @@ const speakEn = (text) => {
 function EnglishApp({ onSwitchLang }) {
   const { lists: LISTS } = getEnglish();
   const [screen, setScreen] = useState("home");
-  const [pool, setPool] = useState(() => LISTS.map((l) => l.id));
+  const [pool, setPool] = useState(() => {
+    const ids = LISTS.map((l) => l.id);
+    if ((loadLS("en_myWords", []) || []).length) ids.push("en-my-words");
+    return ids;
+  });
   const [starred, setStarred] = useState(() => new Set(loadLS("en_starred", [])));
   const [mastered, setMastered] = useState(() => new Set(loadLS("en_mastered", [])));
   const [myWords, setMyWords] = useState(() => loadLS("en_myWords", []));
@@ -1809,10 +1813,13 @@ function EnglishApp({ onSwitchLang }) {
       if (!remote) return;
       if (remote.en_starred) setStarred((p) => new Set([...p, ...remote.en_starred]));
       if (remote.en_mastered) setMastered((p) => new Set([...p, ...remote.en_mastered]));
-      if (remote.en_myWords) setMyWords((prev) => {
-        const seen = new Set(prev.map((w) => w.word.toLowerCase()));
-        return [...prev, ...remote.en_myWords.filter((w) => !seen.has(w.word.toLowerCase()))];
-      });
+      if (remote.en_myWords && remote.en_myWords.length) {
+        setMyWords((prev) => {
+          const seen = new Set(prev.map((w) => w.word.toLowerCase()));
+          return [...prev, ...remote.en_myWords.filter((w) => !seen.has(w.word.toLowerCase()))];
+        });
+        setPool((p) => (p.includes("en-my-words") ? p : [...p, "en-my-words"]));
+      }
       setSyncStatus("synced");
     });
   }, []);
@@ -1826,8 +1833,10 @@ function EnglishApp({ onSwitchLang }) {
   const toggleMastered = (w) =>
     setMastered((prev) => { const n = new Set(prev); n.has(w) ? n.delete(w) : n.add(w); return n; });
 
-  const allLists = myWords.length
-    ? [...LISTS, { id: "en-my-words", title: "My Words", subtitle: "words you added", words: myWords }]
+  const _realWords = new Set(LISTS.flatMap((l) => l.words.map((w) => w.word.toLowerCase())));
+  const _myFiltered = myWords.filter((w) => !_realWords.has(w.word.toLowerCase()));
+  const allLists = _myFiltered.length
+    ? [...LISTS, { id: "en-my-words", title: "My Words", subtitle: "words you added", words: _myFiltered }]
     : LISTS;
 
   const addMyWord = (w) => {
