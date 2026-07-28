@@ -1636,6 +1636,21 @@ const bigBtn = {
   cursor: "pointer",
   fontFamily: "inherit",
 };
+const tileBtn = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  textAlign: "center",
+  border: "3px solid #e3ddcf",
+  borderRadius: 16,
+  padding: "14px 6px",
+  background: "#fff",
+  cursor: "pointer",
+  fontFamily: "inherit",
+  color: "#2A2440",
+  boxShadow: "0 4px 0 rgba(0,0,0,0.04)",
+};
 const modeBtn = {
   border: "4px solid",
   borderRadius: 22,
@@ -1845,10 +1860,10 @@ function EnglishApp({ onSwitchLang }) {
   };
   const removeMyWord = (word) => setMyWords((prev) => prev.filter((x) => x.word !== word));
 
-  const activeWords = allLists.filter((l) => pool.includes(l.id))
+  const activeWords = allLists
     .flatMap((l) => l.words)
     .filter((w) => !mastered.has(w.word));
-  const listWords = allLists.filter((l) => pool.includes(l.id))
+  const listWords = allLists
     .flatMap((l) => l.words.map((w) => ({ ...w, list: l.title })));
   const starredWords = activeWords.filter((w) => starred.has(w.word));
 
@@ -1860,12 +1875,9 @@ function EnglishApp({ onSwitchLang }) {
       <div style={{ maxWidth: 640, margin: "0 auto" }}>
         <EnHeader onHome={home} showHome={screen !== "home"} onSwitchLang={onSwitchLang} syncStatus={syncStatus} onSettings={() => setScreen("settings")} />
         {screen === "home" && (
-          <EnHome lists={allLists} pool={pool} toggleList={toggleList} addMyWord={addMyWord} myWords={myWords}
+          <EnHome addMyWord={addMyWord} myWords={myWords}
             wordCount={activeWords.length} starredCount={starredWords.length}
-            totalCount={listWords.length} masteredCount={mastered.size} go={setScreen}
-            selectAll={() => setPool(allLists.map((l) => l.id))}
-            selectNone={() => setPool([])}
-            selectNewest={() => LISTS.length && setPool([LISTS[LISTS.length - 1].id])} />
+            totalCount={listWords.length} masteredCount={mastered.size} go={setScreen} />
         )}
         {screen === "flashcards" && <EnFlashcards words={activeWords} starred={starred} toggleStar={toggleStar} onHome={home} />}
         {screen === "starflip" && <EnFlashcards words={starredWords} starred={starred} toggleStar={toggleStar} onlyStarred onHome={home} />}
@@ -1904,8 +1916,7 @@ function EnHeader({ onHome, showHome, onSwitchLang, syncStatus, onSettings }) {
   );
 }
 
-function EnHome({ lists, pool, toggleList, wordCount, starredCount, totalCount, masteredCount, go, selectAll, selectNone, selectNewest, addMyWord, myWords }) {
-  const [bankOpen, setBankOpen] = useState(false);
+function EnHome({ wordCount, starredCount, totalCount, masteredCount, go, addMyWord, myWords }) {
   const [addOpen, setAddOpen] = useState(false);
   const [bulk, setBulk] = useState("");
   const [added, setAdded] = useState(0);
@@ -1943,48 +1954,15 @@ function EnHome({ lists, pool, toggleList, wordCount, starredCount, totalCount, 
     { id:"speed", emoji:"⏱️", name:"Speed Round", desc:"How many in 60 seconds?", color:C.berry },
     { id:"spelling", emoji:"🔤", name:"Spelling", desc:"Hear it, spell it", color:C.leaf },
   ];
-  const onCount = pool.length, allOn = onCount === lists.length, noneOn = onCount === 0;
-  const summary = noneOn ? "No lists picked" : allOn ? `All ${lists.length} lists`
-    : onCount === 1 ? [...lists].reverse().find((l) => pool.includes(l.id))?.title : `${onCount} lists`;
+  const noWords = wordCount === 0;
 
   return (
     <div>
-      <div style={{ background:"#fff", borderRadius:20, border:"3px solid #e0e8f5", boxShadow:"0 6px 0 rgba(0,0,0,0.04)", marginBottom:16, overflow:"hidden" }}>
-        <button onClick={() => setBankOpen((o) => !o)} style={{ width:"100%", display:"flex", alignItems:"center", justifyContent:"space-between", gap:10, background:"transparent", border:"none", padding:"14px 16px", cursor:"pointer", fontFamily:"inherit", textAlign:"left" }}>
-          <span style={{ display:"flex", alignItems:"center", gap:10, minWidth:0 }}>
-            <span style={{ fontSize:22 }}>📚</span>
-            <span style={{ minWidth:0 }}>
-              <span style={{ display:"block", fontWeight:800, fontSize:15 }}>{summary}</span>
-              <span style={{ display:"block", fontSize:12, color:"#7a7391" }}>{wordCount} word{wordCount===1?"":"s"} in play · tap to change</span>
-            </span>
-          </span>
-          <span style={{ fontSize:16, color:"#9a94ad" }}>{bankOpen ? "▲" : "▼"}</span>
-        </button>
-        {bankOpen && (
-          <div style={{ padding:"0 16px 16px" }}>
-            <div style={{ display:"flex", gap:8, marginBottom:10, flexWrap:"wrap" }}>
-              <button onClick={selectAll} disabled={allOn} style={{ ...miniBtn, opacity: allOn?0.45:1 }}>✓ Select all</button>
-              <button onClick={selectNone} disabled={noneOn} style={{ ...miniBtn, opacity: noneOn?0.45:1 }}>✕ Clear all</button>
-              <button onClick={selectNewest} style={{ ...miniBtn, borderColor:"#5B8DEF", color:"#5B8DEF" }}>✨ Newest only</button>
-            </div>
-            <div style={{ display:"flex", flexWrap:"wrap", gap:8, maxHeight:190, overflowY:"auto" }}>
-              {[...lists].reverse().map((l) => {
-                const on = pool.includes(l.id);
-                return (
-                  <button key={l.id} onClick={() => toggleList(l.id)} style={{ ...chip, background:on?"#5B8DEF":"#fff", color:on?"#fff":C.ink, borderColor:on?"#5B8DEF":"#e3ddcf" }}>
-                    {on ? "✓ " : "+ "}{l.title} <span style={{ opacity:0.7 }}>({l.words.length})</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        )}
-      </div>
-
+      {/* ---- games ---- */}
       <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
         {modes.map((m) => (
-          <button key={m.id} onClick={() => wordCount > 0 && go(m.id)} disabled={wordCount === 0}
-            style={{ ...modeBtn, background:"#fff", borderColor:m.color, opacity: wordCount===0?0.5:1, cursor: wordCount===0?"not-allowed":"pointer" }}>
+          <button key={m.id} onClick={() => !noWords && go(m.id)} disabled={noWords}
+            style={{ ...modeBtn, background:"#fff", borderColor:m.color, opacity: noWords?0.5:1, cursor: noWords?"not-allowed":"pointer" }}>
             <div style={{ fontSize:40 }}>{m.emoji}</div>
             <div style={{ fontWeight:800, fontSize:17, marginTop:4 }}>{m.name}</div>
             <div style={{ fontSize:12, color:"#7a7391", marginTop:2 }}>{m.desc}</div>
@@ -1992,78 +1970,67 @@ function EnHome({ lists, pool, toggleList, wordCount, starredCount, totalCount, 
         ))}
       </div>
 
-      {wordCount === 0 && (
-        <div onClick={() => setBankOpen(true)} style={{ textAlign:"center", marginTop:14, color:C.berry, fontWeight:700, cursor:"pointer" }}>
-          Pick at least one list to start! 👆
-        </div>
-      )}
-
-      {wordCount > 0 && (
-        <button onClick={() => starredCount > 0 && go("starflip")} disabled={starredCount === 0}
-          style={{ ...modeBtn, width:"100%", marginTop:12, borderColor:C.sun, background: starredCount>0?"#FFF9EC":"#fff", opacity: starredCount===0?0.55:1, display:"flex", alignItems:"center", justifyContent:"center", gap:10, padding:"16px 12px", cursor: starredCount===0?"not-allowed":"pointer" }}>
-          <span style={{ fontSize:30 }}>⭐</span>
-          <span>
-            <span style={{ fontWeight:800, fontSize:17 }}>Practice tricky words</span>
-            <span style={{ display:"block", fontSize:12, color:"#7a7391" }}>
-              {starredCount > 0 ? `${starredCount} word${starredCount===1?"":"s"} saved` : "Miss a word (or tap ⭐) and it lands here"}
-            </span>
-          </span>
-        </button>
-      )}
-
-      <div style={{ background:"#fff", borderRadius:20, border:"3px solid #dbe7d5", marginTop:12, overflow:"hidden" }}>
-        <button onClick={() => setAddOpen((o) => !o)} style={{ width:"100%", display:"flex", alignItems:"center", justifyContent:"space-between", gap:10, background:"transparent", border:"none", padding:"14px 16px", cursor:"pointer", fontFamily:"inherit", textAlign:"left" }}>
-          <span style={{ display:"flex", alignItems:"center", gap:10 }}>
-            <span style={{ fontSize:26 }}>➕</span>
-            <span>
-              <span style={{ display:"block", fontWeight:800, fontSize:16 }}>Add new words</span>
-              <span style={{ display:"block", fontSize:12, color:"#7a7391" }}>Type or paste — one per line</span>
-            </span>
-          </span>
-          <span style={{ fontSize:16, color:"#9a94ad" }}>{addOpen ? "▲" : "▼"}</span>
-        </button>
-        {addOpen && (
-          <div style={{ padding:"0 16px 16px" }}>
-            <textarea value={bulk} onChange={(e) => setBulk(e.target.value)}
-              placeholder={"gregarious\nlucid\ntenacious: holding firmly\n\n(one per line — add \": definition\" if you know it)"}
-              rows={6}
-              style={{ ...inp, fontFamily:"inherit", fontSize:15, lineHeight:1.5, resize:"vertical" }} />
-            <button onClick={submitWords} disabled={!bulk.trim()}
-              style={{ ...bigBtn, background:C.leaf, width:"100%", marginTop:10, opacity: bulk.trim()?1:0.5, fontSize:15, padding:"12px" }}>
-              ✓ Add to My Words
-            </button>
-            {added > 0 && (
-              <div style={{ marginTop:10, fontWeight:700, color:C.leaf, fontSize:14 }}>
-                Added {added} word{added===1?"":"s"}! They're in the games now.
-              </div>
-            )}
-            {needing.length > 0 && (
-              <div style={{ marginTop:12, background:"#FFF9EC", border:"2px solid "+C.sun, borderRadius:12, padding:"10px 12px" }}>
-                <div style={{ fontWeight:800, fontSize:13, marginBottom:4 }}>
-                  {needing.length} word{needing.length===1?"":"s"} need{needing.length===1?"s":""} a definition
-                </div>
-                <div style={{ fontSize:12, color:"#7a6a3f", lineHeight:1.5 }}>
-                  Send this list to Claude and it'll write proper definitions, examples, and add them permanently.
-                </div>
-                <div style={{ fontSize:12, color:"#5c5340", marginTop:6, wordBreak:"break-word", fontWeight:700 }}>
-                  {needing.join(", ")}
-                </div>
-                <button onClick={copyList} style={{ ...miniBtn, marginTop:8, borderColor:C.sun }}>📋 Copy list</button>
-              </div>
-            )}
-          </div>
-        )}
+      <div style={{ textAlign:"center", marginTop:12, fontSize:13, color:"#7a7391", fontWeight:700 }}>
+        {wordCount} word{wordCount===1?"":"s"} in play{masteredCount>0?` · ${masteredCount} mastered`:""}
       </div>
 
-      <button onClick={() => go("wordlist")} style={{ ...modeBtn, width:"100%", marginTop:12, borderColor:"#5B8DEF", background:"#fff", display:"flex", alignItems:"center", justifyContent:"center", gap:10, padding:"16px 12px" }}>
-        <span style={{ fontSize:30 }}>📖</span>
-        <span>
-          <span style={{ fontWeight:800, fontSize:17 }}>Word list</span>
-          <span style={{ display:"block", fontSize:12, color:"#7a7391" }}>
-            All {totalCount} words A–Z{masteredCount > 0 ? ` · ${masteredCount} mastered` : ""}
-          </span>
-        </span>
-      </button>
+      {/* ---- three secondary actions, equal cards ---- */}
+      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:10, marginTop:14 }}>
+        <button onClick={() => starredCount > 0 && go("starflip")} disabled={starredCount === 0}
+          style={{ ...tileBtn, borderColor:C.sun, background: starredCount>0?"#FFF9EC":"#fff", opacity: starredCount===0?0.55:1, cursor: starredCount===0?"not-allowed":"pointer" }}>
+          <span style={{ fontSize:28 }}>⭐</span>
+          <span style={{ fontWeight:800, fontSize:14, marginTop:4 }}>Tricky words</span>
+          <span style={{ fontSize:11, color:"#7a7391", marginTop:2 }}>{starredCount>0?`${starredCount} saved`:"none yet"}</span>
+        </button>
+
+        <button onClick={() => go("wordlist")}
+          style={{ ...tileBtn, borderColor:"#5B8DEF", background:"#fff" }}>
+          <span style={{ fontSize:28 }}>📖</span>
+          <span style={{ fontWeight:800, fontSize:14, marginTop:4 }}>Word list</span>
+          <span style={{ fontSize:11, color:"#7a7391", marginTop:2 }}>all {totalCount} A–Z</span>
+        </button>
+
+        <button onClick={() => setAddOpen((o) => !o)}
+          style={{ ...tileBtn, borderColor:C.leaf, background: addOpen?"#EAF7F0":"#fff" }}>
+          <span style={{ fontSize:28 }}>➕</span>
+          <span style={{ fontWeight:800, fontSize:14, marginTop:4 }}>Add words</span>
+          <span style={{ fontSize:11, color:"#7a7391", marginTop:2 }}>{addOpen?"close":"type or paste"}</span>
+        </button>
+      </div>
+
+      {/* ---- add-words panel (expands under the tiles) ---- */}
+      {addOpen && (
+        <div style={{ background:"#fff", borderRadius:20, border:"3px solid #dbe7d5", marginTop:12, padding:"16px" }}>
+          <div style={{ fontWeight:800, fontSize:15, marginBottom:8 }}>➕ Add new words</div>
+          <textarea value={bulk} onChange={(e) => setBulk(e.target.value)}
+            placeholder={"gregarious\nlucid\ntenacious: holding firmly\n\n(one per line — add \": definition\" if you know it)"}
+            rows={6}
+            style={{ ...inp, fontFamily:"inherit", fontSize:15, lineHeight:1.5, resize:"vertical" }} />
+          <button onClick={submitWords} disabled={!bulk.trim()}
+            style={{ ...bigBtn, background:C.leaf, width:"100%", marginTop:10, opacity: bulk.trim()?1:0.5, fontSize:15, padding:"12px" }}>
+            ✓ Add words
+          </button>
+          {added > 0 && (
+            <div style={{ marginTop:10, fontWeight:700, color:C.leaf, fontSize:14 }}>
+              Added {added} word{added===1?"":"s"}! They're in the games now.
+            </div>
+          )}
+          {needing.length > 0 && (
+            <div style={{ marginTop:12, background:"#FFF9EC", border:"2px solid "+C.sun, borderRadius:12, padding:"10px 12px" }}>
+              <div style={{ fontWeight:800, fontSize:13, marginBottom:4 }}>
+                {needing.length} word{needing.length===1?"":"s"} need{needing.length===1?"s":""} a definition
+              </div>
+              <div style={{ fontSize:12, color:"#7a6a3f", lineHeight:1.5 }}>
+                Just send Claude a quick message and it'll write proper definitions and examples automatically.
+              </div>
+              <div style={{ fontSize:12, color:"#5c5340", marginTop:6, wordBreak:"break-word", fontWeight:700 }}>
+                {needing.join(", ")}
+              </div>
+              <button onClick={copyList} style={{ ...miniBtn, marginTop:8, borderColor:C.sun }}>📋 Copy list</button>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
