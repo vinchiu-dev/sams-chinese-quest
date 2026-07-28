@@ -1476,18 +1476,23 @@ function WordList({ allWords, archived, trouble, toggleTrouble, toggleArchived, 
                 🔊
               </button>
               <button
-                onClick={() => toggleArchived(w.pinyin)}
+                onClick={() => { if (!isArchived) playCelebrate(); toggleArchived(w.pinyin); }}
+                aria-pressed={isArchived}
                 style={{
                   ...ghostBtn,
-                  padding: "6px 10px",
+                  padding: "4px 8px",
                   fontSize: 15,
-                  borderColor: isArchived ? C.leaf : "#e3ddcf",
+                  width: 34,
+                  height: 34,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderColor: isArchived ? C.leaf : "#ded7c8",
                   background: isArchived ? C.leaf : "#fff",
-                  color: isArchived ? "#fff" : C.ink,
                 }}
-                title={isArchived ? "Mastered — tap to bring back" : "Mark as mastered"}
+                title={isArchived ? "Mastered — tap to undo" : "Mark as mastered"}
               >
-                {isArchived ? "✓" : "✅"}
+                <span style={{ fontSize: 18, lineHeight: 1, fontWeight: 900, color: isArchived ? "#fff" : "transparent" }}>✓</span>
               </button>
               {customSet.has(w.pinyin) && (
                 <button
@@ -1643,11 +1648,13 @@ function EnglishApp({ onSwitchLang }) {
   const [pool, setPool] = useState(() => LISTS.map((l) => l.id));
   const [starred, setStarred] = useState(() => new Set(loadLS("en_starred", [])));
   const [mastered, setMastered] = useState(() => new Set(loadLS("en_mastered", [])));
+  const [myWords, setMyWords] = useState(() => loadLS("en_myWords", []));
   const [syncStatus, setSyncStatus] = useState("");
 
   useEffect(() => {
     saveLS("en_starred", [...starred]);
     saveLS("en_mastered", [...mastered]);
+    saveLS("en_myWords", myWords);
     scheduleSync({
       trouble: loadLS("trouble", []),
       archived: loadLS("archived", []),
@@ -1655,14 +1662,19 @@ function EnglishApp({ onSwitchLang }) {
       customWords: loadLS("customWords", []),
       en_starred: [...starred],
       en_mastered: [...mastered],
+      en_myWords: myWords,
     }, setSyncStatus);
-  }, [starred, mastered]);
+  }, [starred, mastered, myWords]);
 
   useEffect(() => {
     pullRemoteProgress().then((remote) => {
       if (!remote) return;
       if (remote.en_starred) setStarred((p) => new Set([...p, ...remote.en_starred]));
       if (remote.en_mastered) setMastered((p) => new Set([...p, ...remote.en_mastered]));
+      if (remote.en_myWords) setMyWords((prev) => {
+        const seen = new Set(prev.map((w) => w.word.toLowerCase()));
+        return [...prev, ...remote.en_myWords.filter((w) => !seen.has(w.word.toLowerCase()))];
+      });
       setSyncStatus("synced");
     });
   }, []);
@@ -1676,10 +1688,20 @@ function EnglishApp({ onSwitchLang }) {
   const toggleMastered = (w) =>
     setMastered((prev) => { const n = new Set(prev); n.has(w) ? n.delete(w) : n.add(w); return n; });
 
-  const activeWords = LISTS.filter((l) => pool.includes(l.id))
+  const allLists = myWords.length
+    ? [...LISTS, { id: "en-my-words", title: "My Words", subtitle: "words you added", words: myWords }]
+    : LISTS;
+
+  const addMyWord = (w) => {
+    setMyWords((prev) => [...prev, w]);
+    setPool((p) => (p.includes("en-my-words") ? p : [...p, "en-my-words"]));
+  };
+  const removeMyWord = (word) => setMyWords((prev) => prev.filter((x) => x.word !== word));
+
+  const activeWords = allLists.filter((l) => pool.includes(l.id))
     .flatMap((l) => l.words)
     .filter((w) => !mastered.has(w.word));
-  const listWords = LISTS.filter((l) => pool.includes(l.id))
+  const listWords = allLists.filter((l) => pool.includes(l.id))
     .flatMap((l) => l.words.map((w) => ({ ...w, list: l.title })));
   const starredWords = activeWords.filter((w) => starred.has(w.word));
 
@@ -1691,10 +1713,10 @@ function EnglishApp({ onSwitchLang }) {
       <div style={{ maxWidth: 640, margin: "0 auto" }}>
         <EnHeader onHome={home} showHome={screen !== "home"} onSwitchLang={onSwitchLang} syncStatus={syncStatus} onSettings={() => setScreen("settings")} />
         {screen === "home" && (
-          <EnHome lists={LISTS} pool={pool} toggleList={toggleList}
+          <EnHome lists={allLists} pool={pool} toggleList={toggleList} addMyWord={addMyWord} myWords={myWords}
             wordCount={activeWords.length} starredCount={starredWords.length}
             totalCount={listWords.length} masteredCount={mastered.size} go={setScreen}
-            selectAll={() => setPool(LISTS.map((l) => l.id))}
+            selectAll={() => setPool(allLists.map((l) => l.id))}
             selectNone={() => setPool([])}
             selectNewest={() => LISTS.length && setPool([LISTS[LISTS.length - 1].id])} />
         )}
@@ -1703,7 +1725,7 @@ function EnglishApp({ onSwitchLang }) {
         {screen === "quiz" && <EnQuiz words={activeWords} starred={starred} toggleStar={toggleStar} addStar={addStar} onHome={home} />}
         {screen === "speed" && <EnSpeed words={activeWords} starred={starred} toggleStar={toggleStar} addStar={addStar} onHome={home} />}
         {screen === "spelling" && <EnSpelling words={activeWords} starred={starred} toggleStar={toggleStar} addStar={addStar} onHome={home} />}
-        {screen === "wordlist" && <EnWordList allWords={listWords} starred={starred} mastered={mastered} toggleStar={toggleStar} toggleMastered={toggleMastered} />}
+        {screen === "wordlist" && <EnWordList allWords={listWords} starred={starred} mastered={mastered} toggleStar={toggleStar} toggleMastered={toggleMastered} myWords={myWords} removeMyWord={removeMyWord} />}
         {screen === "settings" && <SyncSettings onDone={home} />}
       </div>
     </div>
@@ -1735,8 +1757,39 @@ function EnHeader({ onHome, showHome, onSwitchLang, syncStatus, onSettings }) {
   );
 }
 
-function EnHome({ lists, pool, toggleList, wordCount, starredCount, totalCount, masteredCount, go, selectAll, selectNone, selectNewest }) {
+function EnHome({ lists, pool, toggleList, wordCount, starredCount, totalCount, masteredCount, go, selectAll, selectNone, selectNewest, addMyWord, myWords }) {
   const [bankOpen, setBankOpen] = useState(false);
+  const [addOpen, setAddOpen] = useState(false);
+  const [bulk, setBulk] = useState("");
+  const [added, setAdded] = useState(0);
+
+  // Accepts "word" per line, or "word: definition" / "word - definition".
+  const submitWords = () => {
+    const lines = bulk.split("\n").map((s) => s.trim()).filter(Boolean);
+    let n = 0;
+    lines.forEach((line) => {
+      const m = line.match(/^(.+?)\s*[:\u2013\u2014-]\s*(.+)$/);
+      const word = (m ? m[1] : line).trim();
+      const definition = m ? m[2].trim() : "";
+      if (!word) return;
+      addMyWord({
+        word,
+        definition: definition || "(definition coming — ask Claude to fill this in)",
+        example: "",
+        emoji: "📝",
+        needsDef: !definition,
+      });
+      n++;
+    });
+    setAdded(n); setBulk(""); 
+    setTimeout(() => setAdded(0), 4000);
+  };
+
+  const needing = (myWords || []).filter((w) => w.needsDef).map((w) => w.word);
+  const copyList = () => {
+    const txt = needing.join("\n");
+    try { navigator.clipboard.writeText(txt); } catch (e) {}
+  };
   const modes = [
     { id:"flashcards", emoji:"🃏", name:"Flashcards", desc:"See the word, recall the meaning", color:"#5B8DEF" },
     { id:"quiz", emoji:"❓", name:"Quiz", desc:"Pick the right definition", color:"#8B6FE8" },
@@ -1810,6 +1863,50 @@ function EnHome({ lists, pool, toggleList, wordCount, starredCount, totalCount, 
           </span>
         </button>
       )}
+
+      <div style={{ background:"#fff", borderRadius:20, border:"3px solid #dbe7d5", marginTop:12, overflow:"hidden" }}>
+        <button onClick={() => setAddOpen((o) => !o)} style={{ width:"100%", display:"flex", alignItems:"center", justifyContent:"space-between", gap:10, background:"transparent", border:"none", padding:"14px 16px", cursor:"pointer", fontFamily:"inherit", textAlign:"left" }}>
+          <span style={{ display:"flex", alignItems:"center", gap:10 }}>
+            <span style={{ fontSize:26 }}>➕</span>
+            <span>
+              <span style={{ display:"block", fontWeight:800, fontSize:16 }}>Add new words</span>
+              <span style={{ display:"block", fontSize:12, color:"#7a7391" }}>Type or paste — one per line</span>
+            </span>
+          </span>
+          <span style={{ fontSize:16, color:"#9a94ad" }}>{addOpen ? "▲" : "▼"}</span>
+        </button>
+        {addOpen && (
+          <div style={{ padding:"0 16px 16px" }}>
+            <textarea value={bulk} onChange={(e) => setBulk(e.target.value)}
+              placeholder={"gregarious\nlucid\ntenacious: holding firmly\n\n(one per line — add \": definition\" if you know it)"}
+              rows={6}
+              style={{ ...inp, fontFamily:"inherit", fontSize:15, lineHeight:1.5, resize:"vertical" }} />
+            <button onClick={submitWords} disabled={!bulk.trim()}
+              style={{ ...bigBtn, background:C.leaf, width:"100%", marginTop:10, opacity: bulk.trim()?1:0.5, fontSize:15, padding:"12px" }}>
+              ✓ Add to My Words
+            </button>
+            {added > 0 && (
+              <div style={{ marginTop:10, fontWeight:700, color:C.leaf, fontSize:14 }}>
+                Added {added} word{added===1?"":"s"}! They're in the games now.
+              </div>
+            )}
+            {needing.length > 0 && (
+              <div style={{ marginTop:12, background:"#FFF9EC", border:"2px solid "+C.sun, borderRadius:12, padding:"10px 12px" }}>
+                <div style={{ fontWeight:800, fontSize:13, marginBottom:4 }}>
+                  {needing.length} word{needing.length===1?"":"s"} need{needing.length===1?"s":""} a definition
+                </div>
+                <div style={{ fontSize:12, color:"#7a6a3f", lineHeight:1.5 }}>
+                  Send this list to Claude and it'll write proper definitions, examples, and add them permanently.
+                </div>
+                <div style={{ fontSize:12, color:"#5c5340", marginTop:6, wordBreak:"break-word", fontWeight:700 }}>
+                  {needing.join(", ")}
+                </div>
+                <button onClick={copyList} style={{ ...miniBtn, marginTop:8, borderColor:C.sun }}>📋 Copy list</button>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
 
       <button onClick={() => go("wordlist")} style={{ ...modeBtn, width:"100%", marginTop:12, borderColor:"#5B8DEF", background:"#fff", display:"flex", alignItems:"center", justifyContent:"center", gap:10, padding:"16px 12px" }}>
         <span style={{ fontSize:30 }}>📖</span>
@@ -2080,7 +2177,8 @@ function EnSpelling({ words, starred, toggleStar, addStar, onHome }) {
 }
 
 // ---- Word list ----
-function EnWordList({ allWords, starred, mastered, toggleStar, toggleMastered }) {
+function EnWordList({ allWords, starred, mastered, toggleStar, toggleMastered, myWords, removeMyWord }) {
+  const mySet = new Set((myWords||[]).map((w) => w.word));
   const [showMastered, setShowMastered] = useState(true);
   const sorted = [...allWords].sort((a, b) => a.word.toLowerCase().localeCompare(b.word.toLowerCase()));
   const rows = showMastered ? sorted : sorted.filter((w) => !mastered.has(w.word));
@@ -2113,9 +2211,19 @@ function EnWordList({ allWords, starred, mastered, toggleStar, toggleMastered })
                 style={{ ...ghostBtn, padding:"6px 9px", fontSize:16, borderColor: isS ? C.sun : "#e3ddcf",
                   background: isS ? "#FFF9EC" : "#fff", filter: isS ? "none" : "grayscale(1) opacity(0.5)" }}>⭐</button>
               <button onClick={() => speakEn(w.word)} style={{ ...ghostBtn, padding:"6px 10px", fontSize:15 }} title="Hear it">🔊</button>
-              <button onClick={() => toggleMastered(w.word)} title={isM ? "Mastered — tap to bring back" : "Mark as mastered"}
-                style={{ ...ghostBtn, padding:"6px 10px", fontSize:15, borderColor: isM ? C.leaf : "#e3ddcf",
-                  background: isM ? C.leaf : "#fff", color: isM ? "#fff" : C.ink }}>{isM ? "✓" : "✅"}</button>
+              <button
+                onClick={() => { if (!isM) playCelebrate(); toggleMastered(w.word); }}
+                title={isM ? "Mastered — tap to undo" : "Mark as mastered"}
+                aria-pressed={isM}
+                style={{ ...ghostBtn, padding:"4px 8px", fontSize:15, display:"flex", alignItems:"center", justifyContent:"center",
+                  width:34, height:34, borderColor: isM ? C.leaf : "#cfd8e6", background: isM ? C.leaf : "#fff" }}>
+                <span style={{ fontSize:18, lineHeight:1, color: isM ? "#fff" : "transparent",
+                  textShadow: isM ? "none" : "none", fontWeight:900 }}>✓</span>
+              </button>
+              {mySet.has(w.word) && (
+                <button onClick={() => removeMyWord(w.word)} title="Delete this word you added"
+                  style={{ ...ghostBtn, padding:"6px 9px", fontSize:15, borderColor:"#F0B4B4", color:C.berry }}>🗑️</button>
+              )}
             </div>
           );
         })}
@@ -2126,6 +2234,30 @@ function EnWordList({ allWords, starred, mastered, toggleStar, toggleMastered })
 
 
 // ================= language shell =================
+
+// Little celebratory arpeggio for "mastered" (WebAudio, no asset needed).
+let _audioCtx = null;
+const playCelebrate = () => {
+  try {
+    _audioCtx = _audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    const ctx = _audioCtx;
+    if (ctx.state === "suspended") ctx.resume();
+    const notes = [523.25, 659.25, 783.99, 1046.5]; // C5 E5 G5 C6
+    notes.forEach((f, i) => {
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.type = "triangle";
+      o.frequency.value = f;
+      const t0 = ctx.currentTime + i * 0.09;
+      g.gain.setValueAtTime(0.0001, t0);
+      g.gain.exponentialRampToValueAtTime(0.25, t0 + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.32);
+      o.connect(g); g.connect(ctx.destination);
+      o.start(t0); o.stop(t0 + 0.35);
+    });
+  } catch (e) {}
+};
+
 function LanguageShell() {
   const [lang, setLang] = useState(() => loadLS("lang", "zh"));
   useEffect(() => { saveLS("lang", lang); }, [lang]);
