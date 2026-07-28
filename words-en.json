@@ -111,6 +111,19 @@
           "emoji": "🤨"
         }
       ]
+    },
+    {
+      "id": "en-my-words",
+      "title": "My Words",
+      "subtitle": "words you added",
+      "words": [
+        {
+          "word": "tremble",
+          "definition": "to shake slightly, often from cold, fear, or excitement",
+          "example": "Her hands began to tremble when she opened the mysterious box.",
+          "emoji": "🫨"
+        }
+      ]
     }
   ]
 }
