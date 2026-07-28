@@ -776,61 +776,31 @@ function Home({
         </div>
       )}
 
-      {wordCount > 0 && (
+      {/* ---- secondary actions as equal tiles ---- */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 14 }}>
         <button
           onClick={() => troubleCount > 0 && go("troubleflip")}
           disabled={troubleCount === 0}
-          style={{
-            ...modeBtn,
-            width: "100%",
-            marginTop: 12,
-            borderColor: C.sun,
-            background: troubleCount > 0 ? "#FFF9EC" : "#fff",
-            opacity: troubleCount === 0 ? 0.55 : 1,
-            cursor: troubleCount === 0 ? "not-allowed" : "pointer",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 10,
-            padding: "16px 12px",
-          }}
+          style={{ ...tileBtn, borderColor: C.sun, background: troubleCount > 0 ? "#FFF9EC" : "#fff", opacity: troubleCount === 0 ? 0.55 : 1, cursor: troubleCount === 0 ? "not-allowed" : "pointer" }}
         >
-          <span style={{ fontSize: 30 }}>⭐</span>
-          <span>
-            <span style={{ fontWeight: 800, fontSize: 17 }}>Practice tricky words</span>
-            <span style={{ display: "block", fontSize: 12, color: "#7a7391" }}>
-              {troubleCount > 0
-                ? `${troubleCount} word${troubleCount === 1 ? "" : "s"} saved — flip through just these`
-                : "Miss a word in a game (or tap ⭐) and it lands here"}
-            </span>
+          <span style={{ fontSize: 28 }}>⭐</span>
+          <span style={{ fontWeight: 800, fontSize: 14, marginTop: 4 }}>Tricky words</span>
+          <span style={{ fontSize: 11, color: "#7a7391", marginTop: 2 }}>
+            {troubleCount > 0 ? `${troubleCount} saved` : "none yet"}
           </span>
         </button>
-      )}
 
-      <button
-        onClick={() => go("wordlist")}
-        style={{
-          ...modeBtn,
-          width: "100%",
-          marginTop: 12,
-          borderColor: C.sky,
-          background: "#fff",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 10,
-          padding: "16px 12px",
-        }}
-      >
-        <span style={{ fontSize: 30 }}>📖</span>
-        <span>
-          <span style={{ fontWeight: 800, fontSize: 17 }}>Word list</span>
-          <span style={{ display: "block", fontSize: 12, color: "#7a7391" }}>
-            All {totalCount} words A–Z
-            {archivedCount > 0 ? ` · ${archivedCount} mastered` : ""}
+        <button
+          onClick={() => go("wordlist")}
+          style={{ ...tileBtn, borderColor: C.sky, background: "#fff" }}
+        >
+          <span style={{ fontSize: 28 }}>📖</span>
+          <span style={{ fontWeight: 800, fontSize: 14, marginTop: 4 }}>Word list</span>
+          <span style={{ fontSize: 11, color: "#7a7391", marginTop: 2 }}>
+            all {totalCount} A–Z{archivedCount > 0 ? ` · ${archivedCount} mastered` : ""}
           </span>
-        </span>
-      </button>
+        </button>
+      </div>
     </div>
   );
 }
