@@ -124,50 +124,105 @@ async function pushProgress(progress, setStatus, retried) {
 
 // ⚙️ one-time-per-device sync setup screen
 function SyncSettings({ onDone }) {
-  const g = getGH();
-  const [owner, setOwner] = useState(g.owner);
-  const [repo, setRepo] = useState(g.repo);
-  const [token, setToken] = useState(g.token);
-  const [msg, setMsg] = useState("");
+  const [enVoices, setEnVoices] = useState([]);
+  const [zhVoices, setZhVoices] = useState([]);
+  const [enPick, setEnPick] = useState(loadLS("en_voice_pref", ""));
+  const [zhPick, setZhPick] = useState(loadLS("zh_voice_pref", ""));
 
-  const save = async () => {
-    saveLS("gh_owner", owner.trim());
-    saveLS("gh_repo", repo.trim());
-    saveLS("gh_token", token.trim());
-    if (owner && repo && token) {
-      setMsg("Testing connection…");
-      const remote = await pullRemoteProgress();
-      if (remote === null) { setMsg("❌ Couldn't connect — double-check the three fields."); return; }
-      setMsg("✅ Connected! Progress will sync across devices.");
-      setTimeout(onDone, 1200);
-    } else {
-      setMsg("Saved. (Fill all three fields to enable cross-device sync.)");
+  useEffect(() => {
+    const load = () => {
+      const all = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
+      setEnVoices(all.filter((v) => v.lang && v.lang.toLowerCase().startsWith("en")));
+      setZhVoices(all.filter((v) => v.lang && v.lang.toLowerCase().startsWith("zh")));
+    };
+    load();
+    if (window.speechSynthesis) {
+      window.speechSynthesis.addEventListener &&
+        window.speechSynthesis.addEventListener("voiceschanged", load);
     }
+    const timers = [300, 800, 1600].map((ms) => setTimeout(load, ms));
+    return () => timers.forEach(clearTimeout);
+  }, []);
+
+  const tryVoice = (voiceName, lang, sample) => {
+    try {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(sample);
+      u.lang = lang;
+      u.rate = 0.9;
+      const v = window.speechSynthesis.getVoices().find((x) => x.name === voiceName);
+      if (v) u.voice = v;
+      window.speechSynthesis.speak(u);
+    } catch (e) {}
   };
+
+  const saveEn = (name) => { setEnPick(name); saveLS("en_voice_pref", name); if (name) tryVoice(name, "en-US", "Hello, this is the voice."); };
+  const saveZh = (name) => { setZhPick(name); saveLS("zh_voice_pref", name); if (name) tryVoice(name, "zh-CN", "你好，这是声音。"); };
+
+  const label = (v) => v.name + (v.localService === false ? "  ·  online (better)" : "");
 
   return (
     <div>
-      <div style={{ fontWeight: 800, fontSize: 17, marginBottom: 6 }}>⚙️ Cross-device sync</div>
-      <div style={{ fontSize: 13, color: "#7a7391", marginBottom: 14, lineHeight: 1.5 }}>
-        Enter this once on each device. Starred and mastered words will then stay in
-        sync everywhere. Progress is saved to your own GitHub repository.
+      <div style={{ fontWeight: 800, fontSize: 17, marginBottom: 6 }}>⚙️ Settings</div>
+      <div style={{ fontSize: 13, color: "#7a7391", marginBottom: 16, lineHeight: 1.5 }}>
+        Progress syncs across your devices automatically. Below you can pick which
+        voice sounds best — tap a voice to hear a sample. "online" voices are usually
+        the most natural.
       </div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-        <input value={owner} onChange={(e) => setOwner(e.target.value)} placeholder="GitHub username (e.g. vin123)" style={inp} />
-        <input value={repo} onChange={(e) => setRepo(e.target.value)} placeholder="Repository name (e.g. sams-chinese-quest)" style={inp} />
-        <input value={token} onChange={(e) => setToken(e.target.value)} placeholder="Access token" style={inp} type="password" />
-      </div>
-      <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
-        <button onClick={save} style={{ ...bigBtn, background: C.leaf, flex: 1, fontSize: 15, padding: "12px" }}>💾 Save & test</button>
-        <button onClick={onDone} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, fontSize: 15, padding: "12px 16px" }}>Back</button>
-      </div>
-      {msg && <div style={{ marginTop: 10, fontWeight: 700, fontSize: 13 }}>{msg}</div>}
-      <div style={{ marginTop: 16, fontSize: 12, color: "#9a94ad", lineHeight: 1.5 }}>
-        Without sync, everything still works — progress just stays on this device only.
+
+      <div style={{ fontWeight: 800, fontSize: 14, marginBottom: 6 }}>🇬🇧 English voice</div>
+      {enVoices.length === 0 ? (
+        <div style={{ fontSize: 13, color: "#9a94ad", marginBottom: 14 }}>Loading voices… (reopen this screen if empty)</div>
+      ) : (
+        <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 18 }}>
+          <button onClick={() => saveEn("")} style={{ ...voiceRow, borderColor: enPick === "" ? C.leaf : "#e3ddcf", background: enPick === "" ? "#EAF7F0" : "#fff" }}>
+            ⭐ Auto (let the app choose the best)
+          </button>
+          {enVoices.map((v) => (
+            <button key={v.name} onClick={() => saveEn(v.name)}
+              style={{ ...voiceRow, borderColor: enPick === v.name ? C.leaf : "#e3ddcf", background: enPick === v.name ? "#EAF7F0" : "#fff" }}>
+              🔊 {label(v)}
+            </button>
+          ))}
+        </div>
+      )}
+
+      <div style={{ fontWeight: 800, fontSize: 14, marginBottom: 6 }}>🇨🇳 Chinese voice</div>
+      {zhVoices.length === 0 ? (
+        <div style={{ fontSize: 13, color: "#9a94ad", marginBottom: 14 }}>No Chinese voices found on this device.</div>
+      ) : (
+        <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 18 }}>
+          <button onClick={() => saveZh("")} style={{ ...voiceRow, borderColor: zhPick === "" ? C.leaf : "#e3ddcf", background: zhPick === "" ? "#EAF7F0" : "#fff" }}>
+            ⭐ Auto (let the app choose the best)
+          </button>
+          {zhVoices.map((v) => (
+            <button key={v.name} onClick={() => saveZh(v.name)}
+              style={{ ...voiceRow, borderColor: zhPick === v.name ? C.leaf : "#e3ddcf", background: zhPick === v.name ? "#EAF7F0" : "#fff" }}>
+              🔊 {label(v)}
+            </button>
+          ))}
+        </div>
+      )}
+
+      <button onClick={onDone} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, fontSize: 15, padding: "12px", width: "100%" }}>Done</button>
+      <div style={{ marginTop: 14, fontSize: 12, color: "#9a94ad", lineHeight: 1.5 }}>
+        Tip on Windows Chrome: the most natural English voice is usually "Google US English".
+        If you only see "Microsoft David/Zira", those are the robotic ones — pick a Google or online voice if listed.
       </div>
     </div>
   );
 }
+const voiceRow = {
+  border: "2px solid #e3ddcf",
+  borderRadius: 12,
+  padding: "10px 12px",
+  fontWeight: 700,
+  fontSize: 13,
+  cursor: "pointer",
+  fontFamily: "inherit",
+  color: "#2A2440",
+  textAlign: "left",
+};
 // ================= end sync =================
 
 
@@ -289,7 +344,11 @@ const speak = (word) => {
       u.rate = 0.88;   // a touch slower & clearer for a young learner
       u.pitch = 1.02;
       if (!bestVoice) selectBestVoice();
-      if (bestVoice) u.voice = bestVoice; // else: let the OS pick a zh voice by lang
+      var zhPref = loadLS("zh_voice_pref", "");
+      var zhChosen = zhPref
+        ? window.speechSynthesis.getVoices().find(function(v){ return v.name === zhPref; })
+        : bestVoice;
+      if (zhChosen) u.voice = zhChosen; // else: let the OS pick a zh voice by lang
       window.speechSynthesis.speak(u);
     } catch (e) {}
   };
@@ -1662,22 +1721,25 @@ const selectBestEnVoice = () => {
 
   const isEn = (v) => v.lang && v.lang.toLowerCase().startsWith("en");
 
-  // 1) exact-ish match against the preferred list, in priority order
+  // 1) Google voices first — best quality on Chrome/Windows/ChromeOS
+  const google = voices.find((v) => isEn(v) && /google/i.test(v.name));
+  if (google) { bestEnVoice = google; return; }
+  // 2) anything flagged natural/neural/enhanced/premium/online
+  const fancy = voices.find(
+    (v) => isEn(v) && /natural|neural|enhanced|premium|online/i.test(v.name)
+  );
+  if (fancy) { bestEnVoice = fancy; return; }
+  // 3) any server-side (non-local) voice — usually the good ones
+  const remote = voices.find((v) => isEn(v) && v.localService === false);
+  if (remote) { bestEnVoice = remote; return; }
+  // 4) named preferred list (Microsoft Aria etc.)
   for (const name of PREFERRED_EN_VOICES) {
     const hit = voices.find(
       (v) => isEn(v) && v.name.toLowerCase().includes(name.toLowerCase())
     );
     if (hit) { bestEnVoice = hit; return; }
   }
-  // 2) anything flagged natural/neural/enhanced/premium
-  const fancy = voices.find(
-    (v) => isEn(v) && /natural|neural|enhanced|premium|online/i.test(v.name)
-  );
-  if (fancy) { bestEnVoice = fancy; return; }
-  // 3) any non-local (server-side voices are usually the good ones)
-  const remote = voices.find((v) => isEn(v) && v.localService === false);
-  if (remote) { bestEnVoice = remote; return; }
-  // 4) fall back to any English voice at all
+  // 5) fall back to any English voice at all
   const any = voices.find(isEn);
   if (any) bestEnVoice = any;
 };
@@ -1698,7 +1760,12 @@ const speakEn = (text) => {
       u.lang = "en-US";
       u.rate = 0.9;
       u.pitch = 1.0;
-      if (bestEnVoice) u.voice = bestEnVoice;
+      // manual override from settings wins, if the user picked one
+      const pref = loadLS("en_voice_pref", "");
+      const chosen = pref
+        ? window.speechSynthesis.getVoices().find((v) => v.name === pref)
+        : bestEnVoice;
+      if (chosen) u.voice = chosen;
       window.speechSynthesis.speak(u);
     } catch (e) {}
   };
