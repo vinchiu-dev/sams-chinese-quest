@@ -28,8 +28,18 @@ Babel.registerPreset("react-classic", {
 
 <script>
 // Kick off vocab loading immediately; the React app awaits this.
-window.__VOCAB_PROMISE__ = fetch("vocab.json?t=" + Date.now())
-  .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); });
+window.__VOCAB_PROMISE__ = Promise.all([
+  fetch("vocab.json?t=" + Date.now()).then(function (r) {
+    if (!r.ok) throw new Error("HTTP " + r.status + " loading vocab.json"); return r.json();
+  }),
+  fetch("words-en.json?t=" + Date.now())
+    .then(function (r) { return r.ok ? r.json() : { lists: [] }; })
+    .catch(function () { return { lists: [] }; })
+]).then(function (both) {
+  var v = both[0];
+  v.english = both[1];
+  return v;
+});
 </script>
 
 <script type="text/babel" data-presets="react-classic">
@@ -295,7 +305,7 @@ const C = {
   sun: "#F6C445",
 };
 
-function SamChineseQuest() {
+function ChineseApp({ onSwitchLang }) {
   const { lessons: LESSONS, tagMap: SENTENCE_TAG_TO_LESSONS, sentences: SENTENCES } = getVocab();
   const [screen, setScreen] = useState("home"); // home | flashcards | sentence | clock | tone | wordlist
   const [pool, setPool] = useState(() => LESSONS.map((l) => l.id));
@@ -421,7 +431,7 @@ function SamChineseQuest() {
         rel="stylesheet"
       />
       <div style={{ maxWidth: 640, margin: "0 auto" }}>
-        <Header onHome={() => setScreen("home")} showHome={screen !== "home"} onSettings={() => setScreen("settings")} syncStatus={syncStatus} />
+        <Header onHome={() => setScreen("home")} showHome={screen !== "home"} onSettings={() => setScreen("settings")} syncStatus={syncStatus} onSwitchLang={onSwitchLang} />
 
         {screen === "home" && (
           <Home
@@ -484,7 +494,7 @@ function SamChineseQuest() {
   );
 }
 
-function Header({ onHome, showHome, onSettings, syncStatus }) {
+function Header({ onHome, showHome, onSettings, syncStatus, onSwitchLang }) {
   return (
     <div
       style={{
@@ -513,9 +523,14 @@ function Header({ onHome, showHome, onSettings, syncStatus }) {
             ⬅ Menu
           </button>
         ) : (
-          <button onClick={onSettings} style={{ ...ghostBtn, padding: "8px 10px" }} title="Sync settings">
-            ⚙️
-          </button>
+          <React.Fragment>
+            <button onClick={onSwitchLang} style={{ ...ghostBtn, borderColor: "#5B8DEF", color: "#3B6FB8" }} title="Switch to English">
+              🇬🇧 EN
+            </button>
+            <button onClick={onSettings} style={{ ...ghostBtn, padding: "8px 10px" }} title="Sync settings">
+              ⚙️
+            </button>
+          </React.Fragment>
         )}
       </div>
     </div>
@@ -1603,6 +1618,522 @@ const miniBtn = {
 
 
 // Waits for vocab.json inside React so there are no script-timing assumptions.
+
+// ============================================================
+//  ENGLISH SIDE — "Sam's Word Collection"
+//  Activities: Flashcards, Quiz, Speed Round, Spelling
+//  Data comes from words-en.json (window.__VOCAB__.english)
+// ============================================================
+const getEnglish = () => (window.__VOCAB__ && window.__VOCAB__.english) || { lists: [] };
+
+const speakEn = (text) => {
+  if (!("speechSynthesis" in window)) return;
+  try {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = "en-US";
+    u.rate = 0.92;
+    window.speechSynthesis.speak(u);
+  } catch (e) {}
+};
+
+function EnglishApp({ onSwitchLang }) {
+  const { lists: LISTS } = getEnglish();
+  const [screen, setScreen] = useState("home");
+  const [pool, setPool] = useState(() => LISTS.map((l) => l.id));
+  const [starred, setStarred] = useState(() => new Set(loadLS("en_starred", [])));
+  const [mastered, setMastered] = useState(() => new Set(loadLS("en_mastered", [])));
+  const [syncStatus, setSyncStatus] = useState("");
+
+  useEffect(() => {
+    saveLS("en_starred", [...starred]);
+    saveLS("en_mastered", [...mastered]);
+    scheduleSync({
+      trouble: loadLS("trouble", []),
+      archived: loadLS("archived", []),
+      starredSentences: loadLS("starredSentences", []),
+      customWords: loadLS("customWords", []),
+      en_starred: [...starred],
+      en_mastered: [...mastered],
+    }, setSyncStatus);
+  }, [starred, mastered]);
+
+  useEffect(() => {
+    pullRemoteProgress().then((remote) => {
+      if (!remote) return;
+      if (remote.en_starred) setStarred((p) => new Set([...p, ...remote.en_starred]));
+      if (remote.en_mastered) setMastered((p) => new Set([...p, ...remote.en_mastered]));
+      setSyncStatus("synced");
+    });
+  }, []);
+
+  const toggleList = (id) =>
+    setPool((p) => (p.includes(id) ? p.filter((x) => x !== id) : [...p, id]));
+  const toggleStar = (w) =>
+    setStarred((prev) => { const n = new Set(prev); n.has(w) ? n.delete(w) : n.add(w); return n; });
+  const addStar = (w) =>
+    setStarred((prev) => (prev.has(w) ? prev : new Set([...prev, w])));
+  const toggleMastered = (w) =>
+    setMastered((prev) => { const n = new Set(prev); n.has(w) ? n.delete(w) : n.add(w); return n; });
+
+  const activeWords = LISTS.filter((l) => pool.includes(l.id))
+    .flatMap((l) => l.words)
+    .filter((w) => !mastered.has(w.word));
+  const listWords = LISTS.filter((l) => pool.includes(l.id))
+    .flatMap((l) => l.words.map((w) => ({ ...w, list: l.title })));
+  const starredWords = activeWords.filter((w) => starred.has(w.word));
+
+  const home = () => setScreen("home");
+
+  return (
+    <div style={{ minHeight:"100vh", background:`radial-gradient(circle at 20% 10%, #DCE9FB 0%, #F3F7FE 45%)`,
+      color:C.ink, fontFamily:"'Baloo 2','Comic Sans MS',system-ui,sans-serif", padding:"20px 16px 60px" }}>
+      <div style={{ maxWidth: 640, margin: "0 auto" }}>
+        <EnHeader onHome={home} showHome={screen !== "home"} onSwitchLang={onSwitchLang} syncStatus={syncStatus} onSettings={() => setScreen("settings")} />
+        {screen === "home" && (
+          <EnHome lists={LISTS} pool={pool} toggleList={toggleList}
+            wordCount={activeWords.length} starredCount={starredWords.length}
+            totalCount={listWords.length} masteredCount={mastered.size} go={setScreen}
+            selectAll={() => setPool(LISTS.map((l) => l.id))}
+            selectNone={() => setPool([])}
+            selectNewest={() => LISTS.length && setPool([LISTS[LISTS.length - 1].id])} />
+        )}
+        {screen === "flashcards" && <EnFlashcards words={activeWords} starred={starred} toggleStar={toggleStar} onHome={home} />}
+        {screen === "starflip" && <EnFlashcards words={starredWords} starred={starred} toggleStar={toggleStar} onlyStarred onHome={home} />}
+        {screen === "quiz" && <EnQuiz words={activeWords} starred={starred} toggleStar={toggleStar} addStar={addStar} onHome={home} />}
+        {screen === "speed" && <EnSpeed words={activeWords} starred={starred} toggleStar={toggleStar} addStar={addStar} onHome={home} />}
+        {screen === "spelling" && <EnSpelling words={activeWords} starred={starred} toggleStar={toggleStar} addStar={addStar} onHome={home} />}
+        {screen === "wordlist" && <EnWordList allWords={listWords} starred={starred} mastered={mastered} toggleStar={toggleStar} toggleMastered={toggleMastered} />}
+        {screen === "settings" && <SyncSettings onDone={home} />}
+      </div>
+    </div>
+  );
+}
+
+function EnHeader({ onHome, showHome, onSwitchLang, syncStatus, onSettings }) {
+  return (
+    <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:18 }}>
+      <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+        <span style={{ fontSize:34 }}>📚</span>
+        <div>
+          <div style={{ fontWeight:800, fontSize:22, lineHeight:1 }}>Sam's Word Collection</div>
+          <div style={{ fontSize:13, color:"#3B6FB8", fontWeight:700 }}>English vocabulary</div>
+        </div>
+      </div>
+      <div style={{ display:"flex", alignItems:"center", gap:8 }}>
+        {syncStatus === "synced" && <span title="Progress synced" style={{ fontSize:12 }}>☁️✓</span>}
+        {showHome ? (
+          <button onClick={onHome} style={ghostBtn}>⬅ Menu</button>
+        ) : (
+          <React.Fragment>
+            <button onClick={onSwitchLang} style={{ ...ghostBtn, borderColor:C.fox, color:C.fox }}>🇨🇳 中文</button>
+            <button onClick={onSettings} style={{ ...ghostBtn, padding:"8px 10px" }} title="Sync settings">⚙️</button>
+          </React.Fragment>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function EnHome({ lists, pool, toggleList, wordCount, starredCount, totalCount, masteredCount, go, selectAll, selectNone, selectNewest }) {
+  const [bankOpen, setBankOpen] = useState(false);
+  const modes = [
+    { id:"flashcards", emoji:"🃏", name:"Flashcards", desc:"See the word, recall the meaning", color:"#5B8DEF" },
+    { id:"quiz", emoji:"❓", name:"Quiz", desc:"Pick the right definition", color:"#8B6FE8" },
+    { id:"speed", emoji:"⏱️", name:"Speed Round", desc:"How many in 60 seconds?", color:C.berry },
+    { id:"spelling", emoji:"🔤", name:"Spelling", desc:"Hear it, spell it", color:C.leaf },
+  ];
+  const onCount = pool.length, allOn = onCount === lists.length, noneOn = onCount === 0;
+  const summary = noneOn ? "No lists picked" : allOn ? `All ${lists.length} lists`
+    : onCount === 1 ? [...lists].reverse().find((l) => pool.includes(l.id))?.title : `${onCount} lists`;
+
+  return (
+    <div>
+      <div style={{ background:"#fff", borderRadius:20, border:"3px solid #e0e8f5", boxShadow:"0 6px 0 rgba(0,0,0,0.04)", marginBottom:16, overflow:"hidden" }}>
+        <button onClick={() => setBankOpen((o) => !o)} style={{ width:"100%", display:"flex", alignItems:"center", justifyContent:"space-between", gap:10, background:"transparent", border:"none", padding:"14px 16px", cursor:"pointer", fontFamily:"inherit", textAlign:"left" }}>
+          <span style={{ display:"flex", alignItems:"center", gap:10, minWidth:0 }}>
+            <span style={{ fontSize:22 }}>📚</span>
+            <span style={{ minWidth:0 }}>
+              <span style={{ display:"block", fontWeight:800, fontSize:15 }}>{summary}</span>
+              <span style={{ display:"block", fontSize:12, color:"#7a7391" }}>{wordCount} word{wordCount===1?"":"s"} in play · tap to change</span>
+            </span>
+          </span>
+          <span style={{ fontSize:16, color:"#9a94ad" }}>{bankOpen ? "▲" : "▼"}</span>
+        </button>
+        {bankOpen && (
+          <div style={{ padding:"0 16px 16px" }}>
+            <div style={{ display:"flex", gap:8, marginBottom:10, flexWrap:"wrap" }}>
+              <button onClick={selectAll} disabled={allOn} style={{ ...miniBtn, opacity: allOn?0.45:1 }}>✓ Select all</button>
+              <button onClick={selectNone} disabled={noneOn} style={{ ...miniBtn, opacity: noneOn?0.45:1 }}>✕ Clear all</button>
+              <button onClick={selectNewest} style={{ ...miniBtn, borderColor:"#5B8DEF", color:"#5B8DEF" }}>✨ Newest only</button>
+            </div>
+            <div style={{ display:"flex", flexWrap:"wrap", gap:8, maxHeight:190, overflowY:"auto" }}>
+              {[...lists].reverse().map((l) => {
+                const on = pool.includes(l.id);
+                return (
+                  <button key={l.id} onClick={() => toggleList(l.id)} style={{ ...chip, background:on?"#5B8DEF":"#fff", color:on?"#fff":C.ink, borderColor:on?"#5B8DEF":"#e3ddcf" }}>
+                    {on ? "✓ " : "+ "}{l.title} <span style={{ opacity:0.7 }}>({l.words.length})</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
+        {modes.map((m) => (
+          <button key={m.id} onClick={() => wordCount > 0 && go(m.id)} disabled={wordCount === 0}
+            style={{ ...modeBtn, background:"#fff", borderColor:m.color, opacity: wordCount===0?0.5:1, cursor: wordCount===0?"not-allowed":"pointer" }}>
+            <div style={{ fontSize:40 }}>{m.emoji}</div>
+            <div style={{ fontWeight:800, fontSize:17, marginTop:4 }}>{m.name}</div>
+            <div style={{ fontSize:12, color:"#7a7391", marginTop:2 }}>{m.desc}</div>
+          </button>
+        ))}
+      </div>
+
+      {wordCount === 0 && (
+        <div onClick={() => setBankOpen(true)} style={{ textAlign:"center", marginTop:14, color:C.berry, fontWeight:700, cursor:"pointer" }}>
+          Pick at least one list to start! 👆
+        </div>
+      )}
+
+      {wordCount > 0 && (
+        <button onClick={() => starredCount > 0 && go("starflip")} disabled={starredCount === 0}
+          style={{ ...modeBtn, width:"100%", marginTop:12, borderColor:C.sun, background: starredCount>0?"#FFF9EC":"#fff", opacity: starredCount===0?0.55:1, display:"flex", alignItems:"center", justifyContent:"center", gap:10, padding:"16px 12px", cursor: starredCount===0?"not-allowed":"pointer" }}>
+          <span style={{ fontSize:30 }}>⭐</span>
+          <span>
+            <span style={{ fontWeight:800, fontSize:17 }}>Practice tricky words</span>
+            <span style={{ display:"block", fontSize:12, color:"#7a7391" }}>
+              {starredCount > 0 ? `${starredCount} word${starredCount===1?"":"s"} saved` : "Miss a word (or tap ⭐) and it lands here"}
+            </span>
+          </span>
+        </button>
+      )}
+
+      <button onClick={() => go("wordlist")} style={{ ...modeBtn, width:"100%", marginTop:12, borderColor:"#5B8DEF", background:"#fff", display:"flex", alignItems:"center", justifyContent:"center", gap:10, padding:"16px 12px" }}>
+        <span style={{ fontSize:30 }}>📖</span>
+        <span>
+          <span style={{ fontWeight:800, fontSize:17 }}>Word list</span>
+          <span style={{ display:"block", fontSize:12, color:"#7a7391" }}>
+            All {totalCount} words A–Z{masteredCount > 0 ? ` · ${masteredCount} mastered` : ""}
+          </span>
+        </span>
+      </button>
+    </div>
+  );
+}
+
+// ---- Flashcards: word front, definition + example back ----
+function EnFlashcards({ words, starred, toggleStar, onlyStarred, onHome }) {
+  const [deck, setDeck] = useState(() => shuffle(words));
+  const [i, setI] = useState(0);
+  const [flipped, setFlipped] = useState(false);
+  const [known, setKnown] = useState(0);
+  const card = deck[i] || deck[0];
+
+  if (!card) return (
+    <Center>
+      <div style={{ fontSize:54 }}>⭐</div>
+      <h2 style={{ margin:"10px 0" }}>No tricky words yet</h2>
+      <p style={{ color:"#7a7391", maxWidth:320, textAlign:"center" }}>Tap the ⭐ on a card to save it for extra practice.</p>
+      <button onClick={onHome} style={{ ...bigBtn, background:"#5B8DEF", marginTop:16 }}>⬅ Back to menu</button>
+    </Center>
+  );
+
+  const flagged = starred.has(card.word);
+  const next = (got) => {
+    if (got) setKnown((k) => k + 1);
+    setFlipped(false);
+    if (i + 1 < deck.length) setI(i + 1);
+    else { setI(0); setDeck(shuffle(words)); setKnown(0); }
+  };
+
+  return (
+    <div style={{ textAlign:"center" }}>
+      <Progress value={i} total={deck.length} label={onlyStarred ? "⭐ practice pile" : `✅ ${known} known`} />
+      <div onClick={() => setFlipped((f) => { const n=!f; if(n) speakEn(card.word); return n; })}
+        style={{ position:"relative", background:"#fff", borderRadius:28, padding:"40px 20px", margin:"16px 0", minHeight:230,
+          display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center",
+          border:`4px solid ${flagged ? C.sun : "#5B8DEF"}`, boxShadow:`0 10px 0 ${flagged ? "rgba(246,196,69,0.4)" : "rgba(91,141,239,0.3)"}`, cursor:"pointer" }}>
+        <StarButton flagged={flagged} onClick={() => toggleStar(card.word)} />
+        {!flipped ? (
+          <>
+            <div style={{ fontSize:22, marginBottom:6 }}>{card.emoji || "📘"}</div>
+            <div style={{ fontSize:36, fontWeight:800 }}>{card.word}</div>
+            <div style={{ marginTop:14, fontSize:13, color:"#9a94ad" }}>What does it mean? Tap to flip!</div>
+          </>
+        ) : (
+          <>
+            <div style={{ fontSize:20, fontWeight:700, lineHeight:1.4 }}>{card.definition}</div>
+            {card.example && <div style={{ marginTop:12, fontSize:15, color:"#6b7a99", fontStyle:"italic" }}>"{card.example}"</div>}
+            <button onClick={(e) => { e.stopPropagation(); speakEn(card.word); }} style={{ ...ghostBtn, marginTop:14 }}>🔊 Hear it</button>
+          </>
+        )}
+      </div>
+      <div style={{ display:"flex", gap:12 }}>
+        <button onClick={() => next(false)} style={{ ...bigBtn, background:"#E6EAF2", color:C.ink, flex:1 }}>🔁 Again</button>
+        <button onClick={() => next(true)} style={{ ...bigBtn, background:C.leaf, flex:1 }}>✓ Got it!</button>
+      </div>
+      <button onClick={onHome} style={{ ...bigBtn, background:"#E6EAF2", color:C.ink, marginTop:14, width:"100%" }}>⬅ Back to menu</button>
+    </div>
+  );
+}
+
+// ---- Quiz: word shown, pick the correct definition ----
+function EnQuiz({ words, starred, toggleStar, addStar, onHome }) {
+  const build = () => {
+    const q = shuffle(words)[0];
+    const wrong = shuffle(words.filter((w) => w.word !== q.word)).slice(0, 3);
+    return { q, options: shuffle([q, ...wrong]) };
+  };
+  const [round, setRound] = useState(build);
+  const [picked, setPicked] = useState(null);
+  const [score, setScore] = useState(0);
+  const [streak, setStreak] = useState(0);
+  const flagged = starred.has(round.q.word);
+
+  const choose = (opt) => {
+    if (picked) return;
+    setPicked(opt);
+    if (opt.word === round.q.word) { setScore((s) => s+1); setStreak((s) => s+1); speakEn(round.q.word); }
+    else { setStreak(0); addStar(round.q.word); }
+    setTimeout(() => { setPicked(null); setRound(build()); }, 1300);
+  };
+
+  return (
+    <div>
+      <div style={{ display:"flex", justifyContent:"space-between", marginBottom:12 }}>
+        <Badge color="#5B8DEF">⭐ {score}</Badge>
+        <Badge color={streak >= 3 ? C.berry : C.sun}>🔥 {streak} {streak>=3?"on fire!":""}</Badge>
+      </div>
+      <div style={{ position:"relative", background:"#fff", borderRadius:24, padding:"30px 20px", textAlign:"center",
+        border:`4px solid ${flagged ? C.sun : "#8B6FE8"}`, boxShadow:`0 8px 0 ${flagged?"rgba(246,196,69,0.4)":"rgba(139,111,232,0.3)"}` }}>
+        <StarButton flagged={flagged} onClick={() => toggleStar(round.q.word)} />
+        <div style={{ fontSize:15, color:"#9a94ad", marginBottom:6 }}>What does this word mean?</div>
+        <div style={{ fontSize:34, fontWeight:800 }}>{round.q.word}</div>
+        <button onClick={() => speakEn(round.q.word)} style={{ ...ghostBtn, marginTop:10 }}>🔊 Hear it</button>
+      </div>
+      <div style={{ display:"flex", flexDirection:"column", gap:10, marginTop:14 }}>
+        {round.options.map((opt, idx) => {
+          let bg="#fff", bd="#e3ddcf", cl=C.ink;
+          if (picked) {
+            if (opt.word === round.q.word) { bg=C.leaf; bd=C.leaf; cl="#fff"; }
+            else if (opt.word === picked.word) { bg="#F4A7A7"; bd="#F4A7A7"; cl="#fff"; }
+          }
+          return (
+            <button key={idx} onClick={() => choose(opt)}
+              style={{ ...bigBtn, background:bg, color:cl, border:`3px solid ${bd}`, fontSize:15, padding:"14px 12px", textAlign:"left", lineHeight:1.35 }}>
+              {opt.definition}
+            </button>
+          );
+        })}
+      </div>
+      <button onClick={onHome} style={{ ...bigBtn, background:"#E6EAF2", color:C.ink, marginTop:14, width:"100%" }}>⬅ Back to menu</button>
+    </div>
+  );
+}
+
+// ---- Speed Round: 60 seconds, word -> definition ----
+function EnSpeed({ words, starred, toggleStar, addStar, onHome }) {
+  const [phase, setPhase] = useState("ready");
+  const [time, setTime] = useState(60);
+  const [score, setScore] = useState(0);
+  const [round, setRound] = useState(null);
+  const [flash, setFlash] = useState(null);
+  const timer = useRef(null);
+
+  const build = () => {
+    const q = shuffle(words)[0];
+    const wrong = shuffle(words.filter((w) => w.word !== q.word)).slice(0, 3);
+    return { q, options: shuffle([q, ...wrong]) };
+  };
+  const start = () => {
+    setScore(0); setTime(60); setPhase("play"); setRound(build());
+    timer.current = setInterval(() => setTime((t) => {
+      if (t <= 1) { clearInterval(timer.current); setPhase("done"); return 0; }
+      return t - 1;
+    }), 1000);
+  };
+  useEffect(() => () => clearInterval(timer.current), []);
+
+  const choose = (opt) => {
+    const right = opt.word === round.q.word;
+    setFlash(right ? "right" : "wrong");
+    if (right) { setScore((s) => s+1); speakEn(round.q.word); } else { addStar(round.q.word); }
+    setTimeout(() => { setFlash(null); setRound(build()); }, 200);
+  };
+
+  if (phase === "ready") return (
+    <Center>
+      <div style={{ fontSize:60 }}>⏱️</div>
+      <h2 style={{ margin:"10px 0" }}>Speed Round!</h2>
+      <p style={{ color:"#7a7391", maxWidth:300, textAlign:"center" }}>Get as many right as you can in 60 seconds.</p>
+      <button onClick={start} style={{ ...bigBtn, background:C.berry, marginTop:16, padding:"16px 40px" }}>🚀 Start!</button>
+      <button onClick={onHome} style={{ ...bigBtn, background:"#E6EAF2", color:C.ink, marginTop:12 }}>⬅ Back to menu</button>
+    </Center>
+  );
+
+  if (phase === "done") return (
+    <Center>
+      <div style={{ fontSize:64 }}>{score>=15?"🏆":score>=8?"🌟":"💪"}</div>
+      <h2 style={{ margin:"8px 0" }}>Time's up!</h2>
+      <div style={{ fontSize:52, fontWeight:800, color:"#5B8DEF" }}>{score}</div>
+      <div style={{ color:"#7a7391" }}>correct answers</div>
+      <button onClick={start} style={{ ...bigBtn, background:C.berry, marginTop:18 }}>🔁 Play again</button>
+      <button onClick={onHome} style={{ ...bigBtn, background:"#E6EAF2", color:C.ink, marginTop:10 }}>⬅ Back to menu</button>
+    </Center>
+  );
+
+  return (
+    <div>
+      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:12 }}>
+        <Badge color="#5B8DEF">⭐ {score}</Badge>
+        <div style={{ fontSize:30, fontWeight:800, color: time<=10 ? C.berry : C.ink }}>⏱️ {time}s</div>
+      </div>
+      <div style={{ position:"relative", background: flash==="right"?"#DFF5EA":flash==="wrong"?"#FBE0E0":"#fff",
+        borderRadius:24, padding:"26px 20px", textAlign:"center", border:`4px solid ${C.berry}`, transition:"background 0.15s" }}>
+        <StarButton flagged={starred.has(round.q.word)} onClick={() => toggleStar(round.q.word)} />
+        <div style={{ fontSize:32, fontWeight:800 }}>{round.q.word}</div>
+      </div>
+      <div style={{ display:"flex", flexDirection:"column", gap:10, marginTop:14 }}>
+        {round.options.map((opt, idx) => (
+          <button key={idx} onClick={() => choose(opt)}
+            style={{ ...bigBtn, background:"#fff", color:C.ink, border:"3px solid #e3ddcf", fontSize:15, padding:"13px 12px", textAlign:"left", lineHeight:1.35 }}>
+            {opt.definition}
+          </button>
+        ))}
+      </div>
+      <button onClick={onHome} style={{ ...bigBtn, background:"#E6EAF2", color:C.ink, marginTop:14, width:"100%" }}>⬅ Back to menu</button>
+    </div>
+  );
+}
+
+// ---- Spelling: hear the word, type it ----
+function EnSpelling({ words, starred, toggleStar, addStar, onHome }) {
+  const [deck, setDeck] = useState(() => shuffle(words));
+  const [i, setI] = useState(0);
+  const [entry, setEntry] = useState("");
+  const [result, setResult] = useState(null); // null | 'right' | 'wrong'
+  const [score, setScore] = useState(0);
+  const [done, setDone] = useState(0);
+  const card = deck[i] || deck[0];
+
+  useEffect(() => { if (card) speakEn(card.word); }, [i, deck]);
+
+  if (!card) return (
+    <Center>
+      <div style={{ fontSize:54 }}>🔤</div>
+      <h2 style={{ margin:"10px 0" }}>No words to spell</h2>
+      <button onClick={onHome} style={{ ...bigBtn, background:"#5B8DEF", marginTop:16 }}>⬅ Back to menu</button>
+    </Center>
+  );
+
+  const check = () => {
+    if (result) return;
+    const ok = entry.trim().toLowerCase() === card.word.toLowerCase();
+    setResult(ok ? "right" : "wrong");
+    setDone((d) => d + 1);
+    if (ok) setScore((s) => s + 1); else addStar(card.word);
+  };
+  const next = () => {
+    setEntry(""); setResult(null);
+    if (i + 1 < deck.length) setI(i + 1);
+    else { setI(0); setDeck(shuffle(words)); }
+  };
+
+  return (
+    <div style={{ textAlign:"center" }}>
+      <Progress value={i} total={deck.length} label={`✅ ${score} / ${done}`} />
+      <div style={{ position:"relative", background:"#fff", borderRadius:28, padding:"32px 20px", margin:"16px 0",
+        border:`4px solid ${starred.has(card.word) ? C.sun : C.leaf}`, boxShadow:"0 10px 0 rgba(95,184,148,0.3)" }}>
+        <StarButton flagged={starred.has(card.word)} onClick={() => toggleStar(card.word)} />
+        <div style={{ fontSize:14, color:"#9a94ad", marginBottom:12, fontWeight:700, textTransform:"uppercase", letterSpacing:0.5 }}>
+          Listen and spell it
+        </div>
+        <button onClick={() => speakEn(card.word)} style={{ ...bigBtn, background:"#5B8DEF", fontSize:20, padding:"16px 30px" }}>🔊 Play word</button>
+        <div style={{ marginTop:10, fontSize:13, color:"#8b95a8" }}>{card.definition}</div>
+
+        <input value={entry} onChange={(e) => setEntry(e.target.value)}
+          onKeyDown={(e) => { if (e.key === "Enter") { result ? next() : check(); } }}
+          placeholder="Type the word…" autoCapitalize="none" autoCorrect="off" spellCheck="false"
+          style={{ ...inp, marginTop:16, textAlign:"center", fontSize:22, fontWeight:700,
+            borderColor: result === "right" ? C.leaf : result === "wrong" ? "#F4A7A7" : "#cfe3d6" }} />
+
+        {result === "right" && <div style={{ marginTop:10, color:C.leaf, fontWeight:800, fontSize:18 }}>✓ Correct!</div>}
+        {result === "wrong" && (
+          <div style={{ marginTop:10 }}>
+            <div style={{ color:C.berry, fontWeight:800 }}>Not quite — it's spelled:</div>
+            <div style={{ fontSize:26, fontWeight:800, marginTop:4 }}>{card.word}</div>
+          </div>
+        )}
+      </div>
+      {!result ? (
+        <button onClick={check} disabled={!entry.trim()}
+          style={{ ...bigBtn, background:C.leaf, width:"100%", opacity: entry.trim()?1:0.5 }}>✓ Check</button>
+      ) : (
+        <button onClick={next} style={{ ...bigBtn, background:"#5B8DEF", width:"100%" }}>Next word →</button>
+      )}
+      <button onClick={onHome} style={{ ...bigBtn, background:"#E6EAF2", color:C.ink, marginTop:12, width:"100%" }}>⬅ Back to menu</button>
+    </div>
+  );
+}
+
+// ---- Word list ----
+function EnWordList({ allWords, starred, mastered, toggleStar, toggleMastered }) {
+  const [showMastered, setShowMastered] = useState(true);
+  const sorted = [...allWords].sort((a, b) => a.word.toLowerCase().localeCompare(b.word.toLowerCase()));
+  const rows = showMastered ? sorted : sorted.filter((w) => !mastered.has(w.word));
+  const activeCount = allWords.filter((w) => !mastered.has(w.word)).length;
+
+  return (
+    <div>
+      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:10, flexWrap:"wrap", gap:8 }}>
+        <div style={{ fontWeight:800, fontSize:16 }}>📖 Word list <span style={{ color:"#5B8DEF" }}>({activeCount} active)</span></div>
+        <button onClick={() => setShowMastered((s) => !s)} style={{ ...ghostBtn, fontSize:13 }}>
+          {showMastered ? "🙈 Hide mastered" : "👁️ Show mastered"}
+        </button>
+      </div>
+      <div style={{ fontSize:12, color:"#7a7391", marginBottom:12 }}>
+        Tap ⭐ for the practice pile, 🔊 to hear it, ✅ to archive a word Sam has mastered.
+      </div>
+      <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
+        {rows.map((w, idx) => {
+          const isM = mastered.has(w.word), isS = starred.has(w.word);
+          return (
+            <div key={w.word + idx} style={{ display:"flex", alignItems:"center", gap:10,
+              background: isM ? "#EEF1F6" : "#fff", opacity: isM ? 0.6 : 1,
+              border:`2px solid ${isS ? C.sun : "#e6ecf5"}`, borderRadius:14, padding:"10px 12px" }}>
+              <span style={{ fontSize:20, width:26, textAlign:"center" }}>{w.emoji || "📘"}</span>
+              <div style={{ flex:1, minWidth:0 }}>
+                <div style={{ fontWeight:800, fontSize:15 }}>{w.word}</div>
+                <div style={{ fontSize:12, color:"#6b7a99", lineHeight:1.35 }}>{w.definition}</div>
+              </div>
+              <button onClick={() => toggleStar(w.word)} title="Practice pile"
+                style={{ ...ghostBtn, padding:"6px 9px", fontSize:16, borderColor: isS ? C.sun : "#e3ddcf",
+                  background: isS ? "#FFF9EC" : "#fff", filter: isS ? "none" : "grayscale(1) opacity(0.5)" }}>⭐</button>
+              <button onClick={() => speakEn(w.word)} style={{ ...ghostBtn, padding:"6px 10px", fontSize:15 }} title="Hear it">🔊</button>
+              <button onClick={() => toggleMastered(w.word)} title={isM ? "Mastered — tap to bring back" : "Mark as mastered"}
+                style={{ ...ghostBtn, padding:"6px 10px", fontSize:15, borderColor: isM ? C.leaf : "#e3ddcf",
+                  background: isM ? C.leaf : "#fff", color: isM ? "#fff" : C.ink }}>{isM ? "✓" : "✅"}</button>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+
+// ================= language shell =================
+function LanguageShell() {
+  const [lang, setLang] = useState(() => loadLS("lang", "zh"));
+  useEffect(() => { saveLS("lang", lang); }, [lang]);
+  return lang === "en"
+    ? <EnglishApp onSwitchLang={() => setLang("zh")} />
+    : <ChineseApp onSwitchLang={() => setLang("en")} />;
+}
+
 function AppLoader() {
   const [state, setState] = useState("loading"); // loading | ready | error
   const [detail, setDetail] = useState("");
@@ -1645,7 +2176,7 @@ function AppLoader() {
       </div>
     );
   }
-  return <SamChineseQuest />;
+  return <LanguageShell />;
 }
 
 // Resilient mount: in-browser Babel executes this script asynchronously,
