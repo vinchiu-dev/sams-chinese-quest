@@ -91,6 +91,13 @@
       "example": "",
       "emoji": "📝",
       "needsDef": true
+    },
+    {
+      "word": "Anchor",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
     }
   ]
 }
