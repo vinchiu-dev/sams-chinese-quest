@@ -50,6 +50,13 @@
       "example": "",
       "emoji": "📝",
       "needsDef": true
+    },
+    {
+      "word": "Particle",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
     }
   ]
 }
