@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-07-26",
+  "updated": "2026-07-27",
   "lists": [
     {
       "id": "en-starter-1",
@@ -134,6 +134,42 @@
           "definition": "to make something dirty or unsafe by adding germs or harmful stuff",
           "example": "Dirty hands can contaminate the food you're about to eat.",
           "emoji": "🦠"
+        },
+        {
+          "word": "Minister",
+          "definition": "a person who leads part of a government, or a person who leads religious services",
+          "example": "The minister of education announced a new plan for schools.",
+          "emoji": "🏛️"
+        },
+        {
+          "word": "Particle",
+          "definition": "a piece so tiny you almost can't see it — like the smallest bit of something",
+          "example": "A speck of dust is a tiny particle floating in the air.",
+          "emoji": "✨"
+        },
+        {
+          "word": "digestive",
+          "definition": "having to do with breaking down food so your body can use it",
+          "example": "Your stomach is part of your digestive system.",
+          "emoji": "🍽️"
+        },
+        {
+          "word": "knead",
+          "definition": "to press and fold dough with your hands over and over",
+          "example": "She kneaded the bread dough until it was smooth.",
+          "emoji": "🍞"
+        },
+        {
+          "word": "strict",
+          "definition": "following rules very carefully and expecting others to do the same",
+          "example": "Our coach is strict about arriving on time for practice.",
+          "emoji": "📏"
+        },
+        {
+          "word": "yanked",
+          "definition": "pulled something suddenly and with force",
+          "example": "He yanked the door open when he heard the alarm.",
+          "emoji": "💪"
         }
       ]
     }
