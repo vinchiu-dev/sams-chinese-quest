@@ -341,7 +341,8 @@ const speak = (word) => {
       window.speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(text);
       u.lang = "zh-CN";
-      u.rate = 0.88;   // a touch slower & clearer for a young learner
+      // Speed: normal (0.88) or slow (~70% of normal) — toggled on the home screen.
+      u.rate = loadLS("zh_slow", false) ? 0.62 : 0.88;
       u.pitch = 1.02;
       if (!bestVoice) selectBestVoice();
       var zhPref = loadLS("zh_voice_pref", "");
@@ -376,6 +377,8 @@ const C = {
 function ChineseApp({ onSwitchLang }) {
   const { lessons: LESSONS, tagMap: SENTENCE_TAG_TO_LESSONS, sentences: SENTENCES } = getVocab();
   const [screen, setScreen] = useState("home"); // home | flashcards | sentence | clock | tone | wordlist
+  const [slow, setSlow] = useState(() => loadLS("zh_slow", false));
+  const toggleSlow = () => setSlow((s) => { const n = !s; saveLS("zh_slow", n); return n; });
   const [pool, setPool] = useState(() => LESSONS.map((l) => l.id));
   const [trouble, setTrouble] = useState(() => new Set(loadLS("trouble", [])));
   const [archived, setArchived] = useState(() => new Set(loadLS("archived", [])));
@@ -499,7 +502,7 @@ function ChineseApp({ onSwitchLang }) {
         rel="stylesheet"
       />
       <div style={{ maxWidth: 640, margin: "0 auto" }}>
-        <Header onHome={() => setScreen("home")} showHome={screen !== "home"} onSettings={() => setScreen("settings")} syncStatus={syncStatus} onSwitchLang={onSwitchLang} />
+        <Header onHome={() => setScreen("home")} showHome={screen !== "home"} onSettings={() => setScreen("settings")} syncStatus={syncStatus} onSwitchLang={onSwitchLang} slow={slow} toggleSlow={toggleSlow} />
 
         {screen === "home" && (
           <Home
@@ -563,7 +566,7 @@ function ChineseApp({ onSwitchLang }) {
   );
 }
 
-function Header({ onHome, showHome, onSettings, syncStatus, onSwitchLang }) {
+function Header({ onHome, showHome, onSettings, syncStatus, onSwitchLang, slow, toggleSlow }) {
   return (
     <div
       style={{
@@ -587,6 +590,20 @@ function Header({ onHome, showHome, onSettings, syncStatus, onSwitchLang }) {
       <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
         {syncStatus === "synced" && <span title="Progress synced" style={{ fontSize: 12 }}>☁️✓</span>}
         {syncStatus === "error" && <span title="Sync failed — check settings" style={{ fontSize: 12 }}>☁️⚠️</span>}
+        <button
+          onClick={toggleSlow}
+          title={slow ? "Slow speech — tap for normal speed" : "Normal speech — tap for slow"}
+          style={{
+            ...ghostBtn,
+            padding: "8px 10px",
+            borderColor: slow ? C.leaf : "#e3ddcf",
+            background: slow ? C.leaf : "#fff",
+            color: slow ? "#fff" : C.ink,
+            fontWeight: 800,
+          }}
+        >
+          {slow ? "🐢 Slow" : "🐇 Normal"}
+        </button>
         {showHome ? (
           <button onClick={onHome} style={ghostBtn}>
             ⬅ Menu
