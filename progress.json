@@ -117,6 +117,13 @@
       "example": "",
       "emoji": "📝",
       "needsDef": true
+    },
+    {
+      "word": "Approximately",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
     }
   ]
 }
