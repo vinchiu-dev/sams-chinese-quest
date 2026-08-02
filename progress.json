@@ -1,28 +1,30 @@
 {
   "trouble": [
-    "zài",
-    "ne",
-    "shūfáng",
-    "shàngwǎng",
-    "fángjiān",
-    "gēbo",
-    "bóbo",
-    "yīngtáo",
-    "biǎogē",
-    "chúfáng"
+    "shūfáng"
   ],
   "archived": [],
   "starredSentences": [
-    "Let's go buy stationery!",
-    "My big sister is online in the study.",
-    "It's too sour!",
-    "Dad, I don't feel well...",
-    "Mom loves to laugh.",
-    "Long time no see!",
-    "Who is knocking on the door?",
-    "What is your mom doing?",
-    "Today is the weekend, let's go buy stationery!",
-    "Your life is really happy!"
+    "Wishing you a happy life!"
   ],
-  "customWords": []
+  "customWords": [],
+  "en_starred": [
+    "abundant"
+  ],
+  "en_mastered": [],
+  "en_myWords": [
+    {
+      "word": "Tremble",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "vivid",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    }
+  ]
 }
