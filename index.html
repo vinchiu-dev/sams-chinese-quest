@@ -479,6 +479,7 @@ function ChineseApp({ onSwitchLang }) {
     });
 
   const troubleWords = activeWords.filter((w) => trouble.has(w.pinyin));
+  const starredSentenceList = activeSentences.filter((s) => starredSentences.has(s.en));
 
   const toggleArchived = (pinyin) =>
     setArchived((prev) => {
@@ -514,6 +515,7 @@ function ChineseApp({ onSwitchLang }) {
             selectNewestLesson={selectNewestLesson}
             wordCount={activeWords.length}
             troubleCount={troubleWords.length}
+            starredSentenceCount={starredSentenceList.length}
             totalCount={listWords.length}
             archivedCount={archived.size}
             go={setScreen}
@@ -527,6 +529,23 @@ function ChineseApp({ onSwitchLang }) {
         )}
         {screen === "clock" && (
           <BeatTheClock words={activeWords} addTrouble={addTrouble} trouble={trouble} toggleTrouble={toggleTrouble} onHome={() => setScreen("home")} />
+        )}
+        {screen === "trickypick" && (
+          <TrickyPicker
+            wordCount={troubleWords.length}
+            sentenceCount={starredSentenceList.length}
+            go={setScreen}
+            onHome={() => setScreen("home")}
+          />
+        )}
+        {screen === "sentencestar" && (
+          <SayTheSentence
+            sentences={starredSentenceList}
+            starred={starredSentences}
+            toggleSentence={toggleSentence}
+            onHome={() => setScreen("home")}
+            forceStarredOnly
+          />
         )}
         {screen === "sentence" && (
           <SayTheSentence
@@ -626,7 +645,7 @@ function Header({ onHome, showHome, onSettings, syncStatus, onSwitchLang, slow, 
 function Home({
   lessons, pool, toggleLesson,
   selectAllLessons, selectNoLessons, selectNewestLesson,
-  wordCount, troubleCount, totalCount, archivedCount, go,
+  wordCount, troubleCount, starredSentenceCount, totalCount, archivedCount, go,
 }) {
   const [bankOpen, setBankOpen] = useState(false);
 
@@ -797,14 +816,23 @@ function Home({
       {/* ---- secondary actions as equal tiles ---- */}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginTop: 14 }}>
         <button
-          onClick={() => troubleCount > 0 && go("troubleflip")}
-          disabled={troubleCount === 0}
-          style={{ ...tileBtn, borderColor: C.sun, background: troubleCount > 0 ? "#FFF9EC" : "#fff", opacity: troubleCount === 0 ? 0.55 : 1, cursor: troubleCount === 0 ? "not-allowed" : "pointer" }}
+          onClick={() => {
+            // go straight to whichever pile has items; if both, show the picker
+            if (troubleCount > 0 && starredSentenceCount > 0) go("trickypick");
+            else if (troubleCount > 0) go("troubleflip");
+            else if (starredSentenceCount > 0) go("sentencestar");
+          }}
+          disabled={troubleCount === 0 && starredSentenceCount === 0}
+          style={{ ...tileBtn, borderColor: C.sun, background: (troubleCount + starredSentenceCount) > 0 ? "#FFF9EC" : "#fff", opacity: (troubleCount + starredSentenceCount) === 0 ? 0.55 : 1, cursor: (troubleCount + starredSentenceCount) === 0 ? "not-allowed" : "pointer" }}
         >
           <span style={{ fontSize: 28 }}>⭐</span>
-          <span style={{ fontWeight: 800, fontSize: 14, marginTop: 4 }}>Tricky words</span>
+          <span style={{ fontWeight: 800, fontSize: 14, marginTop: 4 }}>Tricky ones</span>
           <span style={{ fontSize: 11, color: "#7a7391", marginTop: 2 }}>
-            {troubleCount > 0 ? `${troubleCount} saved` : "none yet"}
+            {(troubleCount + starredSentenceCount) > 0
+              ? [troubleCount > 0 ? `${troubleCount} word${troubleCount === 1 ? "" : "s"}` : null,
+                 starredSentenceCount > 0 ? `${starredSentenceCount} sentence${starredSentenceCount === 1 ? "" : "s"}` : null]
+                .filter(Boolean).join(" · ")
+              : "none yet"}
           </span>
         </button>
 
@@ -1058,7 +1086,47 @@ function BeatTheClock({ words, addTrouble, trouble, toggleTrouble, onHome }) {
 // -------------------- SAY THE SENTENCE --------------------
 // Oral practice: Sam reads the English sentence, says it aloud in Chinese,
 // then taps to reveal the pinyin + hear the correct answer, and self-scores.
-function SayTheSentence({ sentences, starred, toggleSentence, onHome }) {
+// ---- chooser shown when both tricky words AND starred sentences exist ----
+function TrickyPicker({ wordCount, sentenceCount, go, onHome }) {
+  return (
+    <div>
+      <div style={{ textAlign: "center", marginBottom: 16 }}>
+        <div style={{ fontSize: 46 }}>⭐</div>
+        <div style={{ fontWeight: 800, fontSize: 20, marginTop: 4 }}>Practice tricky ones</div>
+        <div style={{ fontSize: 13, color: "#7a7391", marginTop: 2 }}>What would you like to work on?</div>
+      </div>
+      <button
+        onClick={() => go("troubleflip")}
+        style={{ ...modeBtn, width: "100%", borderColor: C.sun, background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", gap: 10, padding: "18px 12px" }}
+      >
+        <span style={{ fontSize: 30 }}>🃏</span>
+        <span>
+          <span style={{ fontWeight: 800, fontSize: 17 }}>Tricky words</span>
+          <span style={{ display: "block", fontSize: 12, color: "#7a7391" }}>
+            {wordCount} word{wordCount === 1 ? "" : "s"} — flip through just these
+          </span>
+        </span>
+      </button>
+      <button
+        onClick={() => go("sentencestar")}
+        style={{ ...modeBtn, width: "100%", marginTop: 12, borderColor: C.berry, background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", gap: 10, padding: "18px 12px" }}
+      >
+        <span style={{ fontSize: 30 }}>💬</span>
+        <span>
+          <span style={{ fontWeight: 800, fontSize: 17 }}>Tricky sentences</span>
+          <span style={{ display: "block", fontSize: 12, color: "#7a7391" }}>
+            {sentenceCount} sentence{sentenceCount === 1 ? "" : "s"} — say just these
+          </span>
+        </span>
+      </button>
+      <button onClick={onHome} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, marginTop: 14, width: "100%" }}>
+        ⬅ Back to menu
+      </button>
+    </div>
+  );
+}
+
+function SayTheSentence({ sentences, starred, toggleSentence, onHome, forceStarredOnly }) {
   const [onlyStarred, setOnlyStarred] = useState(false);
 
   const pool = onlyStarred
@@ -1136,21 +1204,28 @@ function SayTheSentence({ sentences, starred, toggleSentence, onHome }) {
         <Progress value={i} total={deck.length} label={`✅ ${got} / ${done}`} />
       </div>
 
-      <div style={{ display: "flex", justifyContent: "center", marginBottom: 4 }}>
-        <button
-          onClick={() => starredCount > 0 && setOnlyStarred((v) => !v)}
-          disabled={!onlyStarred && starredCount === 0}
-          style={{
-            ...ghostBtn,
-            fontSize: 12,
-            borderColor: onlyStarred ? C.sun : "#e3ddcf",
-            background: onlyStarred ? "#FFF9EC" : "#fff",
-            opacity: !onlyStarred && starredCount === 0 ? 0.5 : 1,
-          }}
-        >
-          {onlyStarred ? "⭐ Practicing starred — show all" : `⭐ Practice starred only (${starredCount})`}
-        </button>
-      </div>
+      {!forceStarredOnly && (
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: 4 }}>
+          <button
+            onClick={() => starredCount > 0 && setOnlyStarred((v) => !v)}
+            disabled={!onlyStarred && starredCount === 0}
+            style={{
+              ...ghostBtn,
+              fontSize: 12,
+              borderColor: onlyStarred ? C.sun : "#e3ddcf",
+              background: onlyStarred ? "#FFF9EC" : "#fff",
+              opacity: !onlyStarred && starredCount === 0 ? 0.5 : 1,
+            }}
+          >
+            {onlyStarred ? "⭐ Practicing starred — show all" : `⭐ Practice starred only (${starredCount})`}
+          </button>
+        </div>
+      )}
+      {forceStarredOnly && (
+        <div style={{ textAlign: "center", marginBottom: 4, fontSize: 12, fontWeight: 800, color: C.sun }}>
+          ⭐ Practicing your tricky sentences
+        </div>
+      )}
 
       <div
         style={{
