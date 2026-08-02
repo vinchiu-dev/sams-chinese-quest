@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-07-26",
+  "updated": "2026-08-02",
   "lessons": [
     {
       "id": "little-fox-school-supplies",
@@ -916,6 +916,55 @@
           "emoji": "🤷"
         }
       ]
+    },
+    {
+      "id": "bedroom-toys",
+      "title": "On My Bed",
+      "subtitle": "床上有… — toys and things in the bedroom",
+      "words": [
+        {
+          "hanzi": "床",
+          "pinyin": "chuáng",
+          "en": "bed",
+          "emoji": "🛏️"
+        },
+        {
+          "hanzi": "玩具",
+          "pinyin": "wánjù",
+          "en": "toy",
+          "emoji": "🧸"
+        },
+        {
+          "hanzi": "熊",
+          "pinyin": "xióng",
+          "en": "bear",
+          "emoji": "🐻"
+        },
+        {
+          "hanzi": "大熊玩具",
+          "pinyin": "dà xióng wánjù",
+          "en": "big bear toy",
+          "emoji": "🧸"
+        },
+        {
+          "hanzi": "袜子",
+          "pinyin": "wàzi",
+          "en": "socks",
+          "emoji": "🧦"
+        },
+        {
+          "hanzi": "两个",
+          "pinyin": "liǎng ge",
+          "en": "two (of something)",
+          "emoji": "2️⃣"
+        },
+        {
+          "hanzi": "还有",
+          "pinyin": "hái yǒu",
+          "en": "and also / there's also",
+          "emoji": "➕"
+        }
+      ]
     }
   ],
   "tagMap": {
@@ -957,6 +1006,9 @@
     ],
     "weekend": [
       "weekend-visit"
+    ],
+    "bedroom": [
+      "bedroom-toys"
     ]
   },
   "sentences": [
@@ -1301,6 +1353,42 @@
       "pinyin": "Gēge zài shūfáng wán yóuxì ne.",
       "hanzi": "哥哥在书房玩游戏呢。",
       "tag": "athome"
+    },
+    {
+      "en": "On the bed there are two big bear toys, and also my socks.",
+      "pinyin": "Chuángshàng yǒu liǎng ge dà xióng wánjù, hái yǒu wǒ de wàzi.",
+      "hanzi": "床上有两个大熊玩具，还有我的袜子。",
+      "tag": "bedroom"
+    },
+    {
+      "en": "I have a big bear toy.",
+      "pinyin": "Wǒ yǒu yí ge dà xióng wánjù.",
+      "hanzi": "我有一个大熊玩具。",
+      "tag": "bedroom"
+    },
+    {
+      "en": "My toys are in the bedroom.",
+      "pinyin": "Wǒ de wánjù zài wòshì.",
+      "hanzi": "我的玩具在卧室。",
+      "tag": "bedroom"
+    },
+    {
+      "en": "Little brother is playing with toys on the bed.",
+      "pinyin": "Dìdi zài chuángshàng wán wánjù ne.",
+      "hanzi": "弟弟在床上玩玩具呢。",
+      "tag": "bedroom"
+    },
+    {
+      "en": "Today is the weekend — let's play with toys!",
+      "pinyin": "Jīntiān shì zhōumò, wǒmen wán wánjù ba!",
+      "hanzi": "今天是周末，我们玩玩具吧！",
+      "tag": "bedroom"
+    },
+    {
+      "en": "I don't feel well, I want to lie on the bed.",
+      "pinyin": "Wǒ bù shūfu, wǒ xiǎng tǎng zài chuángshàng.",
+      "hanzi": "我不舒服，我想躺在床上。",
+      "tag": "bedroom"
     }
   ]
 }
