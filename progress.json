@@ -38,5 +38,12 @@
     "Wishing you a happy life!",
     "What is your dad doing?"
   ],
-  "customWords": []
+  "customWords": [
+    {
+      "en": "Defy gravity",
+      "pinyin": "",
+      "hanzi": "",
+      "emoji": "📝"
+    }
+  ]
 }
