@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-07-27",
+  "updated": "2026-08-09",
   "lists": [
     {
       "id": "en-starter-1",
@@ -170,6 +170,72 @@
           "definition": "pulled something suddenly and with force",
           "example": "He yanked the door open when he heard the alarm.",
           "emoji": "💪"
+        },
+        {
+          "word": "Anchor",
+          "definition": "a heavy object dropped from a boat to hold it in place; also, to hold something firmly down",
+          "example": "The ship dropped its anchor so it wouldn't drift away.",
+          "emoji": "⚓"
+        },
+        {
+          "word": "Syringe",
+          "definition": "a tube with a plunger and needle used to give medicine or take blood",
+          "example": "The nurse filled the syringe before giving him his shot.",
+          "emoji": "💉"
+        },
+        {
+          "word": "Freeloader",
+          "definition": "someone who takes things from others without giving anything back",
+          "example": "He was a freeloader who never chipped in for snacks.",
+          "emoji": "🙄"
+        },
+        {
+          "word": "Approximately",
+          "definition": "almost exactly, but not quite — about that much",
+          "example": "The trip takes approximately two hours.",
+          "emoji": "≈"
+        },
+        {
+          "word": "Seize",
+          "definition": "to grab something quickly and firmly",
+          "example": "She seized the rope before it slipped away.",
+          "emoji": "✊"
+        },
+        {
+          "word": "Atrocious",
+          "definition": "extremely bad or terrible",
+          "example": "The weather was atrocious, so the game was cancelled.",
+          "emoji": "😖"
+        },
+        {
+          "word": "Mental health",
+          "definition": "how well your mind and feelings are doing, just like physical health is about your body",
+          "example": "Talking about your worries is good for your mental health.",
+          "emoji": "🧠"
+        },
+        {
+          "word": "Defy gravity",
+          "definition": "to seem to escape the pull that keeps things on the ground",
+          "example": "The gymnast seemed to defy gravity as she flipped through the air.",
+          "emoji": "🤸"
+        },
+        {
+          "word": "Concussion",
+          "definition": "an injury to the brain from a hard bump or hit to the head",
+          "example": "He wore a helmet to help prevent a concussion.",
+          "emoji": "🪖"
+        },
+        {
+          "word": "Destiny",
+          "definition": "what is meant to happen to someone in the future",
+          "example": "She felt it was her destiny to become a scientist.",
+          "emoji": "🌟"
+        },
+        {
+          "word": "Maneuver",
+          "definition": "to move something carefully and skillfully, often into a tight spot",
+          "example": "He had to maneuver the cart around the narrow corner.",
+          "emoji": "🔄"
         }
       ]
     }
