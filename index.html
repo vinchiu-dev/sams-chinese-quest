@@ -314,7 +314,8 @@ const primeSpeech = () => {
     window.speechSynthesis.speak(u);
   } catch (e) {}
   selectBestVoice();
-  try { selectBestEnVoice(); } catch(e) {}
+  // selectBestEnVoice is defined later in this file; call it only if it exists yet
+  try { if (typeof selectBestEnVoice === "function") selectBestEnVoice(); } catch (e) {}
 };
 
 if (typeof window !== "undefined" && "speechSynthesis" in window) {
@@ -354,10 +355,18 @@ const speak = (word) => {
     } catch (e) {}
   };
 
-  // if voices aren't ready yet (common on mobile first-load), wait a beat & retry
-  if (!bestVoice && !window.speechSynthesis.getVoices().length) {
+  // On mobile the voice list is often empty for the first second or two.
+  // Retry a few times rather than giving up after one attempt.
+  if (!window.speechSynthesis.getVoices().length) {
     selectBestVoice();
-    setTimeout(say, 250);
+    let tries = 0;
+    const attempt = () => {
+      tries++;
+      selectBestVoice();
+      if (window.speechSynthesis.getVoices().length || tries >= 8) say();
+      else setTimeout(attempt, 200);
+    };
+    setTimeout(attempt, 150);
   } else {
     say();
   }
@@ -1857,12 +1866,17 @@ const speakEn = (text) => {
     } catch (e) {}
   };
   // voices can take a moment to load — try immediately, then retry with delays
-  if (!bestEnVoice) {
+  if (!window.speechSynthesis.getVoices().length) {
     selectBestEnVoice();
-    if (!bestEnVoice) {
-      setTimeout(() => { selectBestEnVoice(); say(2); }, 300);
-      return;
-    }
+    let tries = 0;
+    const attempt = () => {
+      tries++;
+      selectBestEnVoice();
+      if (window.speechSynthesis.getVoices().length || tries >= 8) say(tries);
+      else setTimeout(attempt, 200);
+    };
+    setTimeout(attempt, 150);
+    return;
   }
   say(1);
 };
@@ -2467,11 +2481,17 @@ function AppLoader() {
   useEffect(() => {
     let alive = true;
     // Fetch vocab here directly so there's no dependency on other scripts.
+    // Fallback must load BOTH files, or the English side ends up with no words.
     const p = window.__VOCAB_PROMISE__ ||
-      fetch("vocab.json?t=" + Date.now()).then(function (r) {
-        if (!r.ok) throw new Error("HTTP " + r.status + " loading vocab.json");
-        return r.json();
-      });
+      Promise.all([
+        fetch("vocab.json?t=" + Date.now()).then(function (r) {
+          if (!r.ok) throw new Error("HTTP " + r.status + " loading vocab.json");
+          return r.json();
+        }),
+        fetch("words-en.json?t=" + Date.now())
+          .then(function (r) { return r.ok ? r.json() : { lists: [] }; })
+          .catch(function () { return { lists: [] }; })
+      ]).then(function (both) { var v = both[0]; v.english = both[1]; return v; });
     p.then(function (v) {
         if (!alive) return;
         if (!v || !v.lessons) throw new Error("vocab.json loaded but has no lessons");
