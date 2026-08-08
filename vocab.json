@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-02",
+  "updated": "2026-08-09",
   "lessons": [
     {
       "id": "little-fox-school-supplies",
@@ -965,6 +965,49 @@
           "emoji": "➕"
         }
       ]
+    },
+    {
+      "id": "nationalities",
+      "title": "Where Are You From?",
+      "subtitle": "你是哪国人？— countries and nationalities",
+      "words": [
+        {
+          "hanzi": "中国人",
+          "pinyin": "zhōngguórén",
+          "en": "Chinese person",
+          "emoji": "🇨🇳"
+        },
+        {
+          "hanzi": "英国人",
+          "pinyin": "yīngguórén",
+          "en": "British person",
+          "emoji": "🇬🇧"
+        },
+        {
+          "hanzi": "美国人",
+          "pinyin": "měiguórén",
+          "en": "American person",
+          "emoji": "🇺🇸"
+        },
+        {
+          "hanzi": "外星人",
+          "pinyin": "wàixīngrén",
+          "en": "alien",
+          "emoji": "👽"
+        },
+        {
+          "hanzi": "哪国人",
+          "pinyin": "nǎ guó rén",
+          "en": "person from which country?",
+          "emoji": "🌏"
+        },
+        {
+          "hanzi": "是",
+          "pinyin": "shì",
+          "en": "to be (am / is / are)",
+          "emoji": "🟰"
+        }
+      ]
     }
   ],
   "tagMap": {
@@ -1009,6 +1052,9 @@
     ],
     "bedroom": [
       "bedroom-toys"
+    ],
+    "nations": [
+      "nationalities"
     ]
   },
   "sentences": [
@@ -1389,6 +1435,48 @@
       "pinyin": "Wǒ bù shūfu, wǒ xiǎng tǎng zài chuángshàng.",
       "hanzi": "我不舒服，我想躺在床上。",
       "tag": "bedroom"
+    },
+    {
+      "en": "What's your nationality?",
+      "pinyin": "Nǐ shì nǎ guó rén?",
+      "hanzi": "你是哪国人？",
+      "tag": "nations"
+    },
+    {
+      "en": "I am American.",
+      "pinyin": "Wǒ shì měiguórén.",
+      "hanzi": "我是美国人。",
+      "tag": "nations"
+    },
+    {
+      "en": "I am Chinese.",
+      "pinyin": "Wǒ shì zhōngguórén.",
+      "hanzi": "我是中国人。",
+      "tag": "nations"
+    },
+    {
+      "en": "Are you an alien?",
+      "pinyin": "Nǐ shì wàixīngrén ma?",
+      "hanzi": "你是外星人吗？",
+      "tag": "nations"
+    },
+    {
+      "en": "My mom is Chinese, my dad is American.",
+      "pinyin": "Wǒ māma shì zhōngguórén, wǒ bàba shì měiguórén.",
+      "hanzi": "我妈妈是中国人，我爸爸是美国人。",
+      "tag": "nations"
+    },
+    {
+      "en": "Is your big sister British?",
+      "pinyin": "Nǐ jiějie shì yīngguórén ma?",
+      "hanzi": "你姐姐是英国人吗？",
+      "tag": "nations"
+    },
+    {
+      "en": "Today is the weekend — the alien is playing at my house!",
+      "pinyin": "Jīntiān shì zhōumò, wàixīngrén zài wǒ jiā wán!",
+      "hanzi": "今天是周末，外星人在我家玩！",
+      "tag": "nations"
     }
   ]
 }
