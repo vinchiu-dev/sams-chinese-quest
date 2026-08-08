@@ -339,7 +339,11 @@ const speak = (word) => {
 
   const say = () => {
     try {
-      window.speechSynthesis.cancel();
+      // Android Chrome can drop a new utterance if cancel() fires right before
+      // speak(); only cancel when something is actually playing.
+      if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
+        window.speechSynthesis.cancel();
+      }
       const u = new SpeechSynthesisUtterance(text);
       u.lang = "zh-CN";
       // Speed: normal (0.88) or slow (~70% of normal) — toggled on the home screen.
@@ -352,23 +356,29 @@ const speak = (word) => {
         : bestVoice;
       if (zhChosen) u.voice = zhChosen; // else: let the OS pick a zh voice by lang
       window.speechSynthesis.speak(u);
+      // Android sometimes leaves the queue paused after a cancel
+      try { window.speechSynthesis.resume(); } catch (e) {}
     } catch (e) {}
   };
 
-  // On mobile the voice list is often empty for the first second or two.
-  // Retry a few times rather than giving up after one attempt.
-  if (!window.speechSynthesis.getVoices().length) {
-    selectBestVoice();
+  // IMPORTANT (Android Chrome): speak() must run synchronously inside the tap
+  // handler or the utterance is silently dropped. So always try immediately;
+  // only use delayed retries as a fallback if nothing actually started.
+  const hadVoices = window.speechSynthesis.getVoices().length > 0;
+  selectBestVoice();
+  say();
+  // If no voices existed yet, the synchronous attempt may have produced silence.
+  // Retry once voices arrive — but stop as soon as anything is actually playing.
+  if (!hadVoices) {
     let tries = 0;
-    const attempt = () => {
+    const retry = () => {
       tries++;
+      if (window.speechSynthesis.speaking || window.speechSynthesis.pending) return;
       selectBestVoice();
-      if (window.speechSynthesis.getVoices().length || tries >= 8) say();
-      else setTimeout(attempt, 200);
+      if (window.speechSynthesis.getVoices().length) { say(); return; }
+      if (tries < 6) setTimeout(retry, 300);
     };
-    setTimeout(attempt, 150);
-  } else {
-    say();
+    setTimeout(retry, 300);
   }
 };
 
@@ -1851,7 +1861,9 @@ const speakEn = (text) => {
   const say = (attempt) => {
     try {
       if (!bestEnVoice) selectBestEnVoice();
-      window.speechSynthesis.cancel();
+      if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
+        window.speechSynthesis.cancel();
+      }
       const u = new SpeechSynthesisUtterance(text);
       u.lang = "en-US";
       u.rate = 0.9;
@@ -1863,22 +1875,25 @@ const speakEn = (text) => {
         : bestEnVoice;
       if (chosen) u.voice = chosen;
       window.speechSynthesis.speak(u);
+      try { window.speechSynthesis.resume(); } catch (e) {}
     } catch (e) {}
   };
   // voices can take a moment to load — try immediately, then retry with delays
-  if (!window.speechSynthesis.getVoices().length) {
-    selectBestEnVoice();
-    let tries = 0;
-    const attempt = () => {
-      tries++;
-      selectBestEnVoice();
-      if (window.speechSynthesis.getVoices().length || tries >= 8) say(tries);
-      else setTimeout(attempt, 200);
-    };
-    setTimeout(attempt, 150);
-    return;
-  }
+  // Same Android rule as above: fire synchronously within the gesture first.
+  const hadVoicesEn = window.speechSynthesis.getVoices().length > 0;
+  selectBestEnVoice();
   say(1);
+  if (!hadVoicesEn) {
+    let tries = 0;
+    const retry = () => {
+      tries++;
+      if (window.speechSynthesis.speaking || window.speechSynthesis.pending) return;
+      selectBestEnVoice();
+      if (window.speechSynthesis.getVoices().length) { say(2); return; }
+      if (tries < 6) setTimeout(retry, 300);
+    };
+    setTimeout(retry, 300);
+  }
 };
 
 function EnglishApp({ onSwitchLang }) {
