@@ -1,8 +1,8 @@
 {
   "trouble": [
-    "wòshì",
     "zài",
     "ne",
+    "shūfáng",
     "shàngwǎng",
     "fángjiān",
     "gēbo",
@@ -10,6 +10,8 @@
     "yīngtáo",
     "biǎogē",
     "chúfáng",
+    "wòshì",
+    "kètīng",
     "shēnghuó",
     "téng",
     "zuò fàn",
@@ -21,15 +23,10 @@
     "táozi",
     "zhēn",
     "chī fàn",
-    "kāi mén",
-    "hái yǒu",
-    "wénjù diàn",
-    "dà xióng wánjù",
-    "xīhóngshì"
+    "kāi mén"
   ],
   "archived": [],
   "starredSentences": [
-    "Wishing you a happy life!",
     "Let's go buy stationery!",
     "My big sister is online in the study.",
     "It's too sour!",
@@ -40,6 +37,7 @@
     "What is your mom doing?",
     "Today is the weekend, let's go buy stationery!",
     "Your life is really happy!",
+    "Wishing you a happy life!",
     "What is your dad doing?"
   ],
   "customWords": [
@@ -48,6 +46,145 @@
       "pinyin": "",
       "hanzi": "",
       "emoji": "📝"
+    }
+  ],
+  "en_starred": [
+    "contaminate",
+    "hesitate",
+    "Particle",
+    "abundant"
+  ],
+  "en_mastered": [
+    "gigantic",
+    "fragile",
+    "Anchor"
+  ],
+  "en_myWords": [
+    {
+      "word": "Tremble",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "vivid",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Contaminate",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Minister",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Particle",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "digestive",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "knead",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "strict",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "yanked",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Anchor",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Syringe",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Free loader",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Approximately",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Seize",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Atrocious",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Mental health",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Defy Gravity",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Concussion",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
     }
   ]
 }
