@@ -1,15 +1,16 @@
 {
   "trouble": [
-    "wòshì",
     "zài",
     "ne",
+    "shūfáng",
     "shàngwǎng",
     "fángjiān",
-    "gēbo",
     "bóbo",
     "yīngtáo",
     "biǎogē",
     "chúfáng",
+    "wòshì",
+    "kètīng",
     "shēnghuó",
     "téng",
     "zuò fàn",
@@ -26,15 +27,11 @@
     "wénjù diàn",
     "dà xióng wánjù",
     "xīhóngshì",
-    "shūfáng",
-    "kètīng",
-    "qīngcài",
-    "nǎ guó rén",
-    "shì"
+    "gēbo",
+    "qīngcài"
   ],
   "archived": [],
   "starredSentences": [
-    "Wishing you a happy life!",
     "Let's go buy stationery!",
     "My big sister is online in the study.",
     "It's too sour!",
@@ -45,142 +42,164 @@
     "What is your mom doing?",
     "Today is the weekend, let's go buy stationery!",
     "Your life is really happy!",
+    "Wishing you a happy life!",
     "What is your dad doing?",
     "My toys are in the bedroom.",
     "Little Fox, your textbook dropped!",
     "It's seven o'clock, hurry and get up!"
   ],
-  "chips": 1,
-  "practiceDays": [
-    "2026-08-08"
+  "customWords": [],
+  "en_starred": [
+    "contaminate",
+    "hesitate",
+    "abundant"
   ],
-  "srs": {
-    "gēbo": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786234486743
-    },
-    "The watermelon is really delicious!": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786234503153
-    },
-    "My mom is Chinese, my dad is American.": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786235436239
-    },
-    "My toys are in the bedroom.": {
-      "lvl": 0,
-      "seen": 1,
-      "right": 0,
-      "wrong": 1,
-      "last": 1786235487534
-    },
-    "Nose bumps nose!": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786235507631
-    },
-    "Hello!": {
-      "lvl": 2,
-      "seen": 2,
-      "right": 2,
-      "wrong": 0,
-      "last": 1786235562763
-    },
-    "Grandpa, happy birthday!": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786235532310
-    },
-    "This is my dad.": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786235552958
-    },
-    "Is your big sister British?": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786235591917
-    },
-    "Are you an alien?": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786236990148
-    },
-    "The baby loves to cry.": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786237008621
-    },
-    "The rabbit's eyes hurt, the fox's ears hurt.": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786237136097
-    },
-    "hái yǒu": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786237196201
-    },
-    "hǎochī": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786237211346
-    },
-    "zài nǎr": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786237223634
-    },
-    "qīngcài": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786237233479
-    },
-    "ěrduo": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786237237794
-    }
-  },
-  "customWords": [
+  "en_mastered": [
+    "gigantic",
+    "fragile",
+    "Anchor",
+    "Free loader"
+  ],
+  "en_myWords": [
     {
-      "en": "Defy gravity",
-      "pinyin": "",
-      "hanzi": "",
-      "emoji": "📝"
+      "word": "Tremble",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "vivid",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Contaminate",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Minister",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Particle",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "digestive",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "knead",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "strict",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "yanked",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Anchor",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Syringe",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Free loader",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Approximately",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Seize",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Atrocious",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Mental health",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Defy Gravity",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Concussion",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Destiny",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Maneuver",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
     }
   ]
 }
