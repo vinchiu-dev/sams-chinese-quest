@@ -44,6 +44,26 @@
     "Wishing you a happy life!",
     "What is your dad doing?"
   ],
+  "chips": 0,
+  "practiceDays": [
+    "2026-08-08"
+  ],
+  "srs": {
+    "gēbo": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786234486743
+    },
+    "The watermelon is really delicious!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786234503153
+    }
+  },
   "customWords": [
     {
       "en": "Defy gravity",
