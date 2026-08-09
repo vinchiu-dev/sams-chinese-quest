@@ -1008,6 +1008,49 @@
           "emoji": "🟰"
         }
       ]
+    },
+    {
+      "id": "about-me",
+      "title": "All About Me",
+      "subtitle": "我叫…我来自… — introducing yourself",
+      "words": [
+        {
+          "hanzi": "来自",
+          "pinyin": "láizì",
+          "en": "to come from",
+          "emoji": "🧭"
+        },
+        {
+          "hanzi": "叫",
+          "pinyin": "jiào",
+          "en": "to be called / named",
+          "emoji": "🏷️"
+        },
+        {
+          "hanzi": "岁",
+          "pinyin": "suì",
+          "en": "years old",
+          "emoji": "🎂"
+        },
+        {
+          "hanzi": "六",
+          "pinyin": "liù",
+          "en": "six",
+          "emoji": "6️⃣"
+        },
+        {
+          "hanzi": "美国",
+          "pinyin": "měiguó",
+          "en": "America",
+          "emoji": "🇺🇸"
+        },
+        {
+          "hanzi": "星球",
+          "pinyin": "xīngqiú",
+          "en": "planet",
+          "emoji": "🪐"
+        }
+      ]
     }
   ],
   "tagMap": {
@@ -1055,6 +1098,9 @@
     ],
     "nations": [
       "nationalities"
+    ],
+    "aboutme": [
+      "about-me"
     ]
   },
   "sentences": [
@@ -1477,6 +1523,54 @@
       "pinyin": "Jīntiān shì zhōumò, wàixīngrén zài wǒ jiā wán!",
       "hanzi": "今天是周末，外星人在我家玩！",
       "tag": "nations"
+    },
+    {
+      "en": "My name is Sam.",
+      "pinyin": "Wǒ jiào Sam.",
+      "hanzi": "我叫Sam。",
+      "tag": "aboutme"
+    },
+    {
+      "en": "I am six years old.",
+      "pinyin": "Wǒ liù suì.",
+      "hanzi": "我六岁。",
+      "tag": "aboutme"
+    },
+    {
+      "en": "I come from America.",
+      "pinyin": "Wǒ láizì Měiguó.",
+      "hanzi": "我来自美国。",
+      "tag": "aboutme"
+    },
+    {
+      "en": "I am American.",
+      "pinyin": "Wǒ shì Měiguórén.",
+      "hanzi": "我是美国人。",
+      "tag": "aboutme"
+    },
+    {
+      "en": "Where do you come from?",
+      "pinyin": "Nǐ láizì nǎlǐ?",
+      "hanzi": "你来自哪里？",
+      "tag": "aboutme"
+    },
+    {
+      "en": "The alien comes from another planet!",
+      "pinyin": "Wàixīngrén láizì bié de xīngqiú!",
+      "hanzi": "外星人来自别的星球！",
+      "tag": "aboutme"
+    },
+    {
+      "en": "My mom comes from China, she is Chinese.",
+      "pinyin": "Wǒ māma láizì Zhōngguó, tā shì Zhōngguórén.",
+      "hanzi": "我妈妈来自中国，她是中国人。",
+      "tag": "aboutme"
+    },
+    {
+      "en": "My big sister is six years old too.",
+      "pinyin": "Wǒ jiějie yě liù suì.",
+      "hanzi": "我姐姐也六岁。",
+      "tag": "aboutme"
     }
   ]
 }
