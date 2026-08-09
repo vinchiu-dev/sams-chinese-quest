@@ -77,6 +77,41 @@
       "right": 0,
       "wrong": 1,
       "last": 1786235487534
+    },
+    "Nose bumps nose!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786235507631
+    },
+    "Hello!": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1786235562763
+    },
+    "Grandpa, happy birthday!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786235532310
+    },
+    "This is my dad.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786235552958
+    },
+    "Is your big sister British?": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786235591917
     }
   },
   "customWords": [
