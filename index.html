@@ -1659,6 +1659,7 @@ function BeatTheClock({ words, addTrouble, trouble, toggleTrouble, onHome }) {
       setTime((t) => {
         if (t <= 1) {
           clearInterval(timer.current);
+          recordEffort();   // whole round counts as one practice
           setPhase("done");
           return 0;
         }
@@ -1674,8 +1675,9 @@ function BeatTheClock({ words, addTrouble, trouble, toggleTrouble, onHome }) {
     setFlash(right ? "right" : "wrong");
     if (right) { setScore((s) => s + 1); playCorrect(score); speak(round.q); }
     else { playSoftMiss(); addTrouble && addTrouble(round.q.pinyin); }
-    srsRecord(round.q.pinyin, right);
-    recordEffort();
+    srsRecord(round.q.pinyin, right);   // still tracked for spaced repetition
+    // NOTE: effort is credited once per completed round, not per answer,
+    // so a fast 60s round can't inflate the daily goal.
     const prev = round.q.pinyin;
     setTimeout(() => { setFlash(null); setRound(build(prev)); }, 200);
   };
@@ -2673,7 +2675,7 @@ function EnHeader({ onHome, showHome, onSwitchLang, syncStatus, onSettings }) {
           <button onClick={onHome} style={ghostBtn}>⬅ Menu</button>
         ) : (
           <React.Fragment>
-            <button onClick={onSwitchLang} style={{ ...ghostBtn, borderColor:C.fox, color:C.fox }}>🇨🇳 中文</button>
+            <button onClick={onSwitchLang} style={{ ...ghostBtn, borderColor:"#7C5CE0", color:"#6B4FA8" }} title="Switch to Math">🔢 Math</button>
             <button onClick={onSettings} style={{ ...ghostBtn, padding:"8px 10px" }} title="Sync settings">⚙️</button>
           </React.Fragment>
         )}
@@ -2880,6 +2882,8 @@ function EnQuiz({ words, starred, toggleStar, addStar, onHome }) {
       playCorrect(streak); if (streak + 1 === 5) playApplause();
       speakEn(round.q.word);
     } else { setStreak(0); playSoftMiss(); addStar(round.q.word); }
+    srsRecord("en:" + round.q.word, opt.word === round.q.word);
+    recordEffort();
     setTimeout(() => { setPicked(null); setRound(build()); }, 1300);
   };
 
@@ -2933,7 +2937,7 @@ function EnSpeed({ words, starred, toggleStar, addStar, onHome }) {
   const start = () => {
     setScore(0); setTime(60); setPhase("play"); setRound(build());
     timer.current = setInterval(() => setTime((t) => {
-      if (t <= 1) { clearInterval(timer.current); setPhase("done"); return 0; }
+      if (t <= 1) { clearInterval(timer.current); recordEffort(); setPhase("done"); return 0; }
       return t - 1;
     }), 1000);
   };
@@ -3019,6 +3023,8 @@ function EnSpelling({ words, starred, toggleStar, addStar, onHome }) {
     setDone((d) => d + 1);
     if (ok) { setScore((s) => s + 1); playCorrect(score); }
     else { playSoftMiss(); addStar(card.word); }
+    srsRecord("en:" + card.word, ok);
+    recordEffort();
   };
   const next = () => {
     setEntry(""); setResult(null);
@@ -3152,12 +3158,336 @@ const playCelebrate = () => {
   } catch (e) {}
 };
 
+
+// ============================================================
+//  MATH — fact fluency drill
+//  Deliberately NOT a curriculum. Khan/Beast teach concepts;
+//  this builds the automaticity they under-drill, using the same
+//  spaced repetition, chips, streak and sounds as the languages.
+// ============================================================
+const MATH_SETS = [
+  { id: "add10",  title: "Adding to 10",     emoji: "➕", op: "+", a: [0,10],  b: [0,10] },
+  { id: "add20",  title: "Adding to 20",     emoji: "➕", op: "+", a: [0,20],  b: [0,20] },
+  { id: "sub10",  title: "Subtracting ≤10",  emoji: "➖", op: "-", a: [0,10],  b: [0,10] },
+  { id: "sub20",  title: "Subtracting ≤20",  emoji: "➖", op: "-", a: [0,20],  b: [0,20] },
+  { id: "mul5",   title: "×  up to 5",       emoji: "✖️", op: "*", a: [1,5],   b: [1,10] },
+  { id: "mul10",  title: "×  up to 10",      emoji: "✖️", op: "*", a: [1,10],  b: [1,10] },
+  { id: "mul12",  title: "×  up to 12",      emoji: "✖️", op: "*", a: [1,12],  b: [1,12] },
+  { id: "div10",  title: "÷  up to 10",      emoji: "➗", op: "/", a: [1,10],  b: [1,10] },
+];
+
+const opSymbol = { "+": "+", "-": "−", "*": "×", "/": "÷" };
+
+// Build every fact in a set, so spaced repetition can track each one.
+const factsFor = (set) => {
+  const out = [];
+  for (let x = set.a[0]; x <= set.a[1]; x++) {
+    for (let y = set.b[0]; y <= set.b[1]; y++) {
+      let q, ans;
+      if (set.op === "+") { q = [x, y]; ans = x + y; }
+      else if (set.op === "-") { if (x < y) continue; q = [x, y]; ans = x - y; }
+      else if (set.op === "*") { q = [x, y]; ans = x * y; }
+      else { const prod = x * y; q = [prod, x]; ans = y; }   // division stays whole
+      out.push({ key: `math:${set.op}:${q[0]}:${q[1]}`, a: q[0], b: q[1], op: set.op, ans });
+    }
+  }
+  return out;
+};
+
+function MathApp({ onSwitchLang }) {
+  const [screen, setScreen] = useState("home");
+  const [sets, setSets] = useState(() => loadLS("math_sets", ["add10"]));
+  const [syncStatus, setSyncStatus] = useState("");
+
+  useEffect(() => { saveLS("math_sets", sets); }, [sets]);
+
+  const toggleSet = (id) =>
+    setSets((p) => (p.includes(id) ? p.filter((x) => x !== id) : [...p, id]));
+
+  const facts = MATH_SETS.filter((s) => sets.includes(s.id)).flatMap(factsFor);
+  const home = () => setScreen("home");
+
+  return (
+    <div style={{ minHeight:"100vh", background:"radial-gradient(circle at 20% 10%, #E9E4FB 0%, #F6F4FE 45%)",
+      color:C.ink, fontFamily:"'Baloo 2','Comic Sans MS',system-ui,sans-serif", padding:"20px 16px 60px" }}>
+      <div style={{ maxWidth: 640, margin: "0 auto" }}>
+        <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:18 }}>
+          <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+            <span style={{ fontSize:34 }}>🔢</span>
+            <div>
+              <div style={{ fontWeight:800, fontSize:22, lineHeight:1 }}>Sam's Math Facts</div>
+              <div style={{ fontSize:13, color:"#6B4FA8", fontWeight:700 }}>quick maths</div>
+            </div>
+          </div>
+          <div style={{ display:"flex", gap:8 }}>
+            {screen !== "home"
+              ? <button onClick={home} style={ghostBtn}>⬅ Menu</button>
+              : <button onClick={onSwitchLang} style={{ ...ghostBtn, borderColor:C.fox, color:C.fox }}>🇨🇳 中文</button>}
+          </div>
+        </div>
+
+        {screen === "home" && (
+          <MathHome sets={sets} toggleSet={toggleSet} count={facts.length} go={setScreen} />
+        )}
+        {screen === "quick" && <MathQuick facts={facts} onHome={home} />}
+        {screen === "speed" && <MathSpeed facts={facts} onHome={home} />}
+        {screen === "missing" && <MathMissing facts={facts} onHome={home} />}
+        {screen === "chips" && <ChipsScreen onDone={home} />}
+      </div>
+    </div>
+  );
+}
+
+function MathHome({ sets, toggleSet, count, go }) {
+  const modes = [
+    { id:"quick",   emoji:"⚡", name:"Quick Facts",   desc:"Type the answer",        color:"#7C5CE0" },
+    { id:"speed",   emoji:"⏱️", name:"Speed Round",   desc:"How many in 60s?",       color:C.berry },
+    { id:"missing", emoji:"❓", name:"Missing Number", desc:"5 × ? = 30",             color:C.leaf },
+  ];
+  const none = count === 0;
+  return (
+    <div>
+      <StreakBar onOpenChips={() => go("chips")} />
+
+      <div style={{ background:"#fff", borderRadius:20, border:"3px solid #e5e0f5", padding:"14px 16px", marginBottom:16 }}>
+        <div style={{ fontWeight:800, fontSize:15, marginBottom:8 }}>What to practice</div>
+        <div style={{ display:"flex", flexWrap:"wrap", gap:8 }}>
+          {MATH_SETS.map((s) => {
+            const on = sets.includes(s.id);
+            return (
+              <button key={s.id} onClick={() => toggleSet(s.id)}
+                style={{ ...chip, background:on?"#7C5CE0":"#fff", color:on?"#fff":C.ink, borderColor:on?"#7C5CE0":"#e3ddcf" }}>
+                {on ? "✓ " : "+ "}{s.emoji} {s.title}
+              </button>
+            );
+          })}
+        </div>
+        <div style={{ marginTop:10, fontSize:12, color:"#7a7391" }}>
+          {count} fact{count===1?"":"s"} in play — the ones Sam finds hard come back more often.
+        </div>
+      </div>
+
+      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
+        {modes.map((m) => (
+          <button key={m.id} onClick={() => !none && go(m.id)} disabled={none}
+            style={{ ...modeBtn, background:"#fff", borderColor:m.color, opacity:none?0.5:1, cursor:none?"not-allowed":"pointer" }}>
+            <div style={{ fontSize:40 }}>{m.emoji}</div>
+            <div style={{ fontWeight:800, fontSize:17, marginTop:4 }}>{m.name}</div>
+            <div style={{ fontSize:12, color:"#7a7391", marginTop:2 }}>{m.desc}</div>
+          </button>
+        ))}
+      </div>
+      {none && (
+        <div style={{ textAlign:"center", marginTop:14, color:C.berry, fontWeight:700 }}>
+          Pick at least one set above! 👆
+        </div>
+      )}
+    </div>
+  );
+}
+
+const FactCard = ({ f, children, border }) => (
+  <div style={{ background:"#fff", borderRadius:24, padding:"28px 20px", textAlign:"center",
+    border:`4px solid ${border}`, boxShadow:`0 8px 0 rgba(124,92,224,0.25)` }}>
+    <div style={{ fontSize:44, fontWeight:800, letterSpacing:1 }}>
+      {f.a} {opSymbol[f.op]} {f.b}
+    </div>
+    {children}
+  </div>
+);
+
+// ---- Quick Facts: type the answer ----
+function MathQuick({ facts, onHome }) {
+  const [f, setF] = useState(() => srsPick(facts, (x) => x.key) || facts[0]);
+  const [entry, setEntry] = useState("");
+  const [result, setResult] = useState(null);
+  const [score, setScore] = useState(0);
+  const [done, setDone] = useState(0);
+
+  if (!f) return <Center><div style={{fontSize:54}}>🔢</div><h2>No facts picked</h2>
+    <button onClick={onHome} style={{ ...bigBtn, background:"#7C5CE0", marginTop:16 }}>⬅ Back to menu</button></Center>;
+
+  const check = () => {
+    if (result) return;
+    const ok = entry.trim() !== "" && Number(entry) === f.ans;
+    setResult(ok ? "right" : "wrong");
+    setDone((d) => d + 1);
+    if (ok) { setScore((s) => s + 1); playCorrect(score); } else playSoftMiss();
+    srsRecord(f.key, ok);
+    recordEffort();
+  };
+  const next = () => {
+    setEntry(""); setResult(null);
+    setF(srsPick(facts, (x) => x.key, f.key) || facts[0]);
+  };
+
+  return (
+    <div>
+      <Progress value={score} total={Math.max(done,1)} label={`✅ ${score} / ${done}`} />
+      <div style={{ marginTop:14 }}>
+        <FactCard f={f} border={result==="right"?C.leaf:result==="wrong"?"#F0A5A5":"#7C5CE0"}>
+          <input value={entry} onChange={(e)=>setEntry(e.target.value.replace(/[^0-9-]/g,""))}
+            onKeyDown={(e)=>{ if(e.key==="Enter") result?next():check(); }}
+            inputMode="numeric" placeholder="?" autoFocus
+            style={{ ...inp, marginTop:16, textAlign:"center", fontSize:30, fontWeight:800, maxWidth:180,
+              borderColor: result==="right"?C.leaf:result==="wrong"?"#F0A5A5":"#ded7f0" }} />
+          {result==="right" && <div style={{ marginTop:10, color:C.leaf, fontWeight:800, fontSize:18 }}>✓ Yes!</div>}
+          {result==="wrong" && (
+            <div style={{ marginTop:10 }}>
+              <div style={{ color:C.berry, fontWeight:800 }}>It's</div>
+              <div style={{ fontSize:30, fontWeight:800 }}>{f.ans}</div>
+            </div>
+          )}
+        </FactCard>
+      </div>
+      {!result
+        ? <button onClick={check} disabled={!entry.trim()} style={{ ...bigBtn, background:C.leaf, width:"100%", marginTop:14, opacity:entry.trim()?1:0.5 }}>✓ Check</button>
+        : <button onClick={next} style={{ ...bigBtn, background:"#7C5CE0", width:"100%", marginTop:14 }}>Next →</button>}
+      <button onClick={onHome} style={{ ...bigBtn, background:"#EBE5D8", color:C.ink, marginTop:12, width:"100%" }}>⬅ Back to menu</button>
+    </div>
+  );
+}
+
+// ---- Speed Round: 60s, multiple choice (one effort per round) ----
+function MathSpeed({ facts, onHome }) {
+  const [phase, setPhase] = useState("ready");
+  const [time, setTime] = useState(60);
+  const [score, setScore] = useState(0);
+  const [round, setRound] = useState(null);
+  const [flash, setFlash] = useState(null);
+  const timer = useRef(null);
+
+  const build = (avoid) => {
+    const q = srsPick(facts, (x) => x.key, avoid) || facts[0];
+    const opts = new Set([q.ans]);
+    let guard = 0;
+    while (opts.size < 4 && guard++ < 40) {
+      const delta = Math.floor(Math.random()*9) - 4;
+      const cand = q.ans + (delta === 0 ? 1 : delta);
+      if (cand >= 0) opts.add(cand);
+    }
+    return { q, options: shuffle([...opts]) };
+  };
+  const start = () => {
+    setScore(0); setTime(60); setPhase("play"); setRound(build());
+    timer.current = setInterval(() => setTime((t) => {
+      if (t <= 1) { clearInterval(timer.current); recordEffort(); setPhase("done"); return 0; }
+      return t - 1;
+    }), 1000);
+  };
+  useEffect(() => () => clearInterval(timer.current), []);
+
+  const choose = (v) => {
+    const ok = v === round.q.ans;
+    setFlash(ok ? "right" : "wrong");
+    if (ok) { setScore((s)=>s+1); playCorrect(score); } else playSoftMiss();
+    srsRecord(round.q.key, ok);
+    const prev = round.q.key;
+    setTimeout(()=>{ setFlash(null); setRound(build(prev)); }, 200);
+  };
+
+  if (phase === "ready") return (
+    <Center>
+      <div style={{ fontSize:60 }}>⏱️</div>
+      <h2 style={{ margin:"10px 0" }}>Speed Round!</h2>
+      <p style={{ color:"#7a7391", maxWidth:300, textAlign:"center" }}>How many facts can you get in 60 seconds?</p>
+      <button onClick={start} style={{ ...bigBtn, background:C.berry, marginTop:16, padding:"16px 40px" }}>🚀 Start!</button>
+      <button onClick={onHome} style={{ ...bigBtn, background:"#EBE5D8", color:C.ink, marginTop:12 }}>⬅ Back to menu</button>
+    </Center>
+  );
+  if (phase === "done") return (
+    <Center>
+      <div style={{ fontSize:64 }}>{score>=25?"🏆":score>=15?"🌟":"💪"}</div>
+      <h2 style={{ margin:"8px 0" }}>Time's up!</h2>
+      <div style={{ fontSize:52, fontWeight:800, color:"#7C5CE0" }}>{score}</div>
+      <div style={{ color:"#7a7391" }}>correct</div>
+      <button onClick={start} style={{ ...bigBtn, background:C.berry, marginTop:18 }}>🔁 Play again</button>
+      <button onClick={onHome} style={{ ...bigBtn, background:"#EBE5D8", color:C.ink, marginTop:10 }}>⬅ Back to menu</button>
+    </Center>
+  );
+
+  return (
+    <div>
+      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:12 }}>
+        <Badge color="#7C5CE0">⭐ {score}</Badge>
+        <div style={{ fontSize:30, fontWeight:800, color: time<=10 ? C.berry : C.ink }}>⏱️ {time}s</div>
+      </div>
+      <div style={{ background: flash==="right"?"#EAF7F0":flash==="wrong"?"#FBE0E0":"#fff",
+        borderRadius:24, padding:"26px 20px", textAlign:"center", border:`4px solid ${C.berry}`, transition:"background 0.15s" }}>
+        <div style={{ fontSize:44, fontWeight:800 }}>{round.q.a} {opSymbol[round.q.op]} {round.q.b}</div>
+      </div>
+      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10, marginTop:14 }}>
+        {round.options.map((v,i)=>(
+          <button key={i} onClick={()=>choose(v)}
+            style={{ ...bigBtn, background:"#fff", color:C.ink, border:"3px solid #e3ddcf", fontSize:24, padding:"16px 8px" }}>
+            {v}
+          </button>
+        ))}
+      </div>
+      <button onClick={onHome} style={{ ...bigBtn, background:"#EBE5D8", color:C.ink, marginTop:14, width:"100%" }}>⬅ Back to menu</button>
+    </div>
+  );
+}
+
+// ---- Missing Number: 5 × ? = 30 ----
+function MathMissing({ facts, onHome }) {
+  const [f, setF] = useState(() => srsPick(facts, (x) => x.key) || facts[0]);
+  const [entry, setEntry] = useState("");
+  const [result, setResult] = useState(null);
+  const [score, setScore] = useState(0);
+  const [done, setDone] = useState(0);
+
+  if (!f) return <Center><div style={{fontSize:54}}>❓</div><h2>No facts picked</h2>
+    <button onClick={onHome} style={{ ...bigBtn, background:"#7C5CE0", marginTop:16 }}>⬅ Back to menu</button></Center>;
+
+  // hide the second operand: a op ? = ans
+  const check = () => {
+    if (result) return;
+    const ok = entry.trim() !== "" && Number(entry) === f.b;
+    setResult(ok ? "right" : "wrong");
+    setDone((d)=>d+1);
+    if (ok) { setScore((s)=>s+1); playCorrect(score); } else playSoftMiss();
+    srsRecord(f.key, ok);
+    recordEffort();
+  };
+  const next = () => { setEntry(""); setResult(null); setF(srsPick(facts,(x)=>x.key,f.key)||facts[0]); };
+
+  return (
+    <div>
+      <Progress value={score} total={Math.max(done,1)} label={`✅ ${score} / ${done}`} />
+      <div style={{ marginTop:14, background:"#fff", borderRadius:24, padding:"28px 20px", textAlign:"center",
+        border:`4px solid ${result==="right"?C.leaf:result==="wrong"?"#F0A5A5":C.leaf}`, boxShadow:"0 8px 0 rgba(95,184,148,0.25)" }}>
+        <div style={{ fontSize:40, fontWeight:800 }}>
+          {f.a} {opSymbol[f.op]} <span style={{ color:C.berry }}>?</span> = {f.ans}
+        </div>
+        <input value={entry} onChange={(e)=>setEntry(e.target.value.replace(/[^0-9-]/g,""))}
+          onKeyDown={(e)=>{ if(e.key==="Enter") result?next():check(); }}
+          inputMode="numeric" placeholder="?" autoFocus
+          style={{ ...inp, marginTop:16, textAlign:"center", fontSize:30, fontWeight:800, maxWidth:180,
+            borderColor: result==="right"?C.leaf:result==="wrong"?"#F0A5A5":"#cfe3d6" }} />
+        {result==="right" && <div style={{ marginTop:10, color:C.leaf, fontWeight:800, fontSize:18 }}>✓ Yes!</div>}
+        {result==="wrong" && (
+          <div style={{ marginTop:10 }}>
+            <div style={{ color:C.berry, fontWeight:800 }}>It's</div>
+            <div style={{ fontSize:30, fontWeight:800 }}>{f.b}</div>
+          </div>
+        )}
+      </div>
+      {!result
+        ? <button onClick={check} disabled={!entry.trim()} style={{ ...bigBtn, background:C.leaf, width:"100%", marginTop:14, opacity:entry.trim()?1:0.5 }}>✓ Check</button>
+        : <button onClick={next} style={{ ...bigBtn, background:"#7C5CE0", width:"100%", marginTop:14 }}>Next →</button>}
+      <button onClick={onHome} style={{ ...bigBtn, background:"#EBE5D8", color:C.ink, marginTop:12, width:"100%" }}>⬅ Back to menu</button>
+    </div>
+  );
+}
+
 function LanguageShell() {
   const [lang, setLang] = useState(() => loadLS("lang", "zh"));
   useEffect(() => { saveLS("lang", lang); }, [lang]);
-  return lang === "en"
-    ? <EnglishApp onSwitchLang={() => setLang("zh")} />
-    : <ChineseApp onSwitchLang={() => setLang("en")} />;
+  // cycle: Chinese -> English -> Math -> Chinese
+  if (lang === "en") return <EnglishApp onSwitchLang={() => setLang("math")} />;
+  if (lang === "math") return <MathApp onSwitchLang={() => setLang("zh")} />;
+  return <ChineseApp onSwitchLang={() => setLang("en")} />;
 }
 
 function AppLoader() {
