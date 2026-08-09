@@ -1425,6 +1425,45 @@ function Flashcards({ words, trouble, toggleTrouble, onlyTrouble, onHome }) {
 // -------------------- BUILD A SENTENCE --------------------
 // Tap the pinyin word-tiles in the right order to build the sentence.
 // Teaches word order / grammar rather than isolated vocabulary.
+// Common words/particles that appear in sentences but aren't vocab cards.
+// Without these the tile would be read as raw pinyin, which sounds wrong.
+const COMMON_HANZI = {
+  "wǒ":"我","wǒmen":"我们","nǐ":"你","nǐmen":"你们","tā":"他","tāmen":"他们",
+  "de":"的","bù":"不","bú":"不","le":"了","ba":"吧","ma":"吗","ne":"呢","a":"啊","la":"啦","na":"哪",
+  "shì":"是","yǒu":"有","méi":"没","hěn":"很","tài":"太","dōu":"都","yào":"要","xiǎng":"想",
+  "zuò":"做","lái":"来","qù":"去","kàn":"看","chī":"吃","hē":"喝","xǐ":"洗","ài":"爱",
+  "zhè":"这","nà":"那","ge":"个","dà":"大","xiǎo":"小","hǎo":"好","huài":"坏",
+  "tiān":"天","fàn":"饭","mén":"门","lǐ":"里","hé":"和","zài":"在","yī":"一","qī":"七",
+  "diǎn":"点","diào":"掉","suān":"酸","qiāo":"敲","jiàn":"见","yīfu":"衣服","shūfu":"舒服",
+  "yóuxì":"游戏","guānxi":"关系","hǎojiǔ":"好久","chuángshàng":"床上","zěnme":"怎么"
+};
+
+// Map a pinyin syllable back to its characters so tapped tiles are
+// pronounced properly (browser voices read hanzi far better than pinyin).
+let _pyMap = null;
+const pinyinKey = (s) =>
+  (s || "").toLowerCase().replace(/[.,!?;:。，！？、\s]/g, "");
+const getPinyinMap = () => {
+  if (_pyMap) return _pyMap;
+  _pyMap = {};
+  Object.keys(COMMON_HANZI).forEach((k) => { _pyMap[pinyinKey(k)] = COMMON_HANZI[k]; });
+  try {
+    (getVocab().lessons || []).forEach((L) =>
+      (L.words || []).forEach((w) => {
+        if (w.pinyin && w.hanzi) {
+          const k = pinyinKey(w.pinyin);
+          if (k && !_pyMap[k]) _pyMap[k] = w.hanzi;
+        }
+      })
+    );
+  } catch (e) {}
+  return _pyMap;
+};
+const speakToken = (token) => {
+  const hz = getPinyinMap()[pinyinKey(token)];
+  speak(hz ? { hanzi: hz, pinyin: token } : { pinyin: token });
+};
+
 function BuildSentence({ sentences, starred, toggleSentence, onHome }) {
   const pickOne = () => {
     const usable = sentences.filter((s) => (s.pinyin || "").split(/\s+/).length >= 2);
@@ -1465,11 +1504,13 @@ function BuildSentence({ sentences, starred, toggleSentence, onHome }) {
 
   const place = (tile) => {
     if (status) return;
+    speakToken(tile.text);            // say each word as it's tapped
     setPlaced((p) => [...p, tile]);
     setTiles((t) => t.filter((x) => x.id !== tile.id));
   };
   const unplace = (tile) => {
     if (status) return;
+    speakToken(tile.text);
     setPlaced((p) => p.filter((x) => x.id !== tile.id));
     setTiles((t) => [...t, tile]);
   };
