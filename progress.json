@@ -207,6 +207,20 @@
       "example": "",
       "emoji": "📝",
       "needsDef": true
+    },
+    {
+      "word": "Fidget",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Mumble",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
     }
   ]
 }
