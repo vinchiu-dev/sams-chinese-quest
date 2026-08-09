@@ -466,6 +466,82 @@ const currentStreak = () => {
 };
 const practicedToday = () => loadLS("practiceDays", []).includes(todayKey());
 
+
+// ============================================================
+//  DAILY GOAL + CHIPS
+//  Deliberately rewards SHOWING UP, not scoring well. The spaced
+//  repetition serves up the words Sam is worst at, so paying for
+//  correct answers would punish him for practicing what he most
+//  needs — and push him toward easy lessons. Effort is the metric.
+// ============================================================
+const DAILY_GOAL = 15;          // answers/cards to complete a day
+const CHIPS_PER_DAY = 1;        // earned once the goal is met
+const STREAK_BONUS_EVERY = 7;   // extra chips at each 7-day milestone
+const STREAK_BONUS_CHIPS = 5;
+
+const getDayCount = () => {
+  const rec = loadLS("dayCount", {});
+  return rec.date === todayKey() ? (rec.n || 0) : 0;
+};
+const bumpDayCount = () => {
+  const t = todayKey();
+  const rec = loadLS("dayCount", {});
+  const n = rec.date === t ? (rec.n || 0) + 1 : 1;
+  saveLS("dayCount", { date: t, n });
+  return n;
+};
+
+const getChips = () => loadLS("chips", 0);
+const addChips = (n) => { saveLS("chips", Math.max(0, getChips() + n)); };
+const getChipLog = () => loadLS("chipLog", []);
+const logChips = (entry) => {
+  const l = getChipLog();
+  l.unshift({ ...entry, at: Date.now() });
+  saveLS("chipLog", l.slice(0, 60));
+};
+
+// Called after every graded answer. Awards the day's chip the moment
+// the goal is reached (once per day only).
+const recordEffort = () => {
+  const n = bumpDayCount();
+  markPracticedToday();
+  if (n === DAILY_GOAL) {
+    const claimed = loadLS("goalClaimed", "");
+    if (claimed !== todayKey()) {
+      saveLS("goalClaimed", todayKey());
+      addChips(CHIPS_PER_DAY);
+      logChips({ type: "daily", amount: CHIPS_PER_DAY, note: "Daily goal" });
+      const streak = currentStreak();
+      if (streak > 0 && streak % STREAK_BONUS_EVERY === 0) {
+        addChips(STREAK_BONUS_CHIPS);
+        logChips({ type: "bonus", amount: STREAK_BONUS_CHIPS, note: `${streak}-day streak!` });
+      }
+      return { justEarned: true, streak };
+    }
+  }
+  return { justEarned: false };
+};
+
+// One forgiven miss per week so a single busy day doesn't wipe out
+// weeks of effort — an all-or-nothing streak is demoralising for a kid.
+const useStreakFreeze = () => {
+  const freezes = loadLS("freezes", []);
+  const weekAgo = Date.now() - 7 * DAY;
+  const recent = freezes.filter((t) => t > weekAgo);
+  if (recent.length >= 1) return false;
+  recent.push(Date.now());
+  saveLS("freezes", recent);
+  const days = loadLS("practiceDays", []);
+  const d = new Date(); d.setDate(d.getDate() - 1);
+  const k = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  if (!days.includes(k)) { days.push(k); saveLS("practiceDays", days.slice(-400)); }
+  return true;
+};
+const freezeAvailable = () => {
+  const weekAgo = Date.now() - 7 * DAY;
+  return loadLS("freezes", []).filter((t) => t > weekAgo).length === 0;
+};
+
 // ---- palette: playful, high-contrast, "storybook" ----
 const C = {
   paper: "#FFF6E9",
@@ -495,6 +571,9 @@ function ChineseApp({ onSwitchLang }) {
       trouble: [...trouble],
       archived: [...archived],
       starredSentences: [...starredSentences],
+      chips: getChips(),
+      practiceDays: loadLS("practiceDays", []),
+      srs: loadLS("srs", {}),
       customWords,
     };
     saveLS("trouble", progress.trouble);
@@ -511,6 +590,19 @@ function ChineseApp({ onSwitchLang }) {
       setTrouble((prev) => new Set([...prev, ...(remote.trouble || [])]));
       setArchived((prev) => new Set([...prev, ...(remote.archived || [])]));
       setStarredSentences((prev) => new Set([...prev, ...(remote.starredSentences || [])]));
+      // chips: take the higher balance; practice days: union; srs: keep best level
+      if (typeof remote.chips === "number" && remote.chips > getChips()) saveLS("chips", remote.chips);
+      if (remote.practiceDays) {
+        const merged = Array.from(new Set([...loadLS("practiceDays", []), ...remote.practiceDays]));
+        saveLS("practiceDays", merged.slice(-400));
+      }
+      if (remote.srs) {
+        const local = loadLS("srs", {});
+        Object.keys(remote.srs).forEach((k) => {
+          if (!local[k] || (remote.srs[k].last || 0) > (local[k].last || 0)) local[k] = remote.srs[k];
+        });
+        saveLS("srs", local);
+      }
       setCustomWords((prev) => {
         const seen = new Set(prev.map((w) => w.pinyin + "|" + w.en));
         const extra = (remote.customWords || []).filter((w) => !seen.has(w.pinyin + "|" + w.en));
@@ -633,9 +725,7 @@ function ChineseApp({ onSwitchLang }) {
         {screen === "clock" && (
           <BeatTheClock words={activeWords} addTrouble={addTrouble} trouble={trouble} toggleTrouble={toggleTrouble} onHome={() => setScreen("home")} />
         )}
-        {screen === "picturesay" && (
-          <PictureSay words={activeWords} trouble={trouble} toggleTrouble={toggleTrouble} onHome={() => setScreen("home")} />
-        )}
+        {screen === "chips" && <ChipsScreen onDone={() => setScreen("home")} />}
         {screen === "buildsentence" && (
           <BuildSentence
             sentences={activeSentences}
@@ -756,24 +846,117 @@ function Header({ onHome, showHome, onSettings, syncStatus, onSwitchLang, slow, 
   );
 }
 
-function StreakBar() {
+function StreakBar({ onOpenChips }) {
   const n = currentStreak();
   const today = practicedToday();
-  if (n === 0 && !today)
-    return (
-      <div style={{ background: "#fff", border: "3px solid #efe8d8", borderRadius: 16, padding: "10px 14px", marginBottom: 14, textAlign: "center", fontSize: 13, color: "#7a7391", fontWeight: 700 }}>
-        🌱 Play any game to start a streak!
-      </div>
-    );
+  const done = getDayCount();
+  const goal = DAILY_GOAL;
+  const pct = Math.min(100, Math.round((done / goal) * 100));
+  const complete = done >= goal;
+  const chips = getChips();
+
   return (
-    <div style={{ background: today ? "#FFF4E2" : "#fff", border: `3px solid ${today ? C.sun : "#efe8d8"}`,
-      borderRadius: 16, padding: "10px 14px", marginBottom: 14, display: "flex", alignItems: "center",
-      justifyContent: "center", gap: 8, fontWeight: 800 }}>
-      <span style={{ fontSize: 22 }}>{today ? "🔥" : "⏳"}</span>
-      <span style={{ fontSize: 15 }}>{n} day{n === 1 ? "" : "s"} in a row</span>
-      <span style={{ fontSize: 12, color: "#7a7391", fontWeight: 700 }}>
-        {today ? "· practiced today ✓" : "· play today to keep it!"}
-      </span>
+    <div style={{ background: "#fff", border: `3px solid ${complete ? C.leaf : "#efe8d8"}`,
+      borderRadius: 18, padding: "12px 14px", marginBottom: 14 }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, marginBottom: 8 }}>
+        <span style={{ display: "flex", alignItems: "center", gap: 6, fontWeight: 800, fontSize: 14 }}>
+          <span style={{ fontSize: 20 }}>{n > 0 ? "🔥" : "🌱"}</span>
+          {n > 0 ? `${n} day${n === 1 ? "" : "s"} in a row` : "Start a streak!"}
+        </span>
+        <button onClick={onOpenChips}
+          style={{ ...ghostBtn, padding: "6px 10px", borderColor: C.sun, background: "#FFF9EC", fontWeight: 800 }}>
+          🪙 {chips}
+        </button>
+      </div>
+
+      <div style={{ height: 14, borderRadius: 10, background: "#F0EADC", overflow: "hidden" }}>
+        <div style={{ width: `${pct}%`, height: "100%", borderRadius: 10,
+          background: complete ? C.leaf : C.fox, transition: "width 0.3s" }} />
+      </div>
+      <div style={{ marginTop: 6, fontSize: 12, color: complete ? C.leaf : "#7a7391", fontWeight: 700, textAlign: "center" }}>
+        {complete
+          ? `Today's goal done! ${today ? "🪙 chip earned" : ""}`
+          : `${done} / ${goal} today — ${goal - done} more to earn a 🪙`}
+      </div>
+    </div>
+  );
+}
+
+// Chips screen: Sam sees what he's banked; parent redeems from here.
+function ChipsScreen({ onDone }) {
+  const [, force] = useState(0);
+  const chips = getChips();
+  const log = getChipLog();
+  const streak = currentStreak();
+  const canFreeze = freezeAvailable();
+
+  const spend = (n) => {
+    if (chips < n) return;
+    addChips(-n);
+    logChips({ type: "spend", amount: -n, note: "Traded in" });
+    force((x) => x + 1);
+  };
+
+  return (
+    <div>
+      <div style={{ textAlign: "center", marginBottom: 16 }}>
+        <div style={{ fontSize: 54 }}>🪙</div>
+        <div style={{ fontSize: 40, fontWeight: 800, color: C.sun, lineHeight: 1.1 }}>{chips}</div>
+        <div style={{ color: "#7a7391", fontWeight: 700 }}>chips banked</div>
+        {streak > 0 && (
+          <div style={{ marginTop: 6, fontSize: 13, color: "#7a7391" }}>
+            🔥 {streak}-day streak · next bonus at {Math.ceil((streak + 1) / STREAK_BONUS_EVERY) * STREAK_BONUS_EVERY} days
+          </div>
+        )}
+      </div>
+
+      <div style={{ background: "#FFF9EC", border: `3px solid ${C.sun}`, borderRadius: 16, padding: "12px 14px", marginBottom: 14 }}>
+        <div style={{ fontWeight: 800, fontSize: 14, marginBottom: 4 }}>How to earn</div>
+        <div style={{ fontSize: 13, color: "#7a6a3f", lineHeight: 1.6 }}>
+          🪙 1 chip — practice {DAILY_GOAL} times in a day<br />
+          🪙 {STREAK_BONUS_CHIPS} bonus chips — every {STREAK_BONUS_EVERY} days in a row
+        </div>
+      </div>
+
+      <div style={{ fontWeight: 800, fontSize: 14, marginBottom: 8 }}>Trade in (grown-up taps this)</div>
+      <div style={{ display: "flex", gap: 8, marginBottom: 16, flexWrap: "wrap" }}>
+        {[1, 5, 10].map((n) => (
+          <button key={n} onClick={() => spend(n)} disabled={chips < n}
+            style={{ ...miniBtn, opacity: chips < n ? 0.4 : 1, padding: "10px 14px", fontSize: 14 }}>
+            − {n} chip{n === 1 ? "" : "s"}
+          </button>
+        ))}
+      </div>
+
+      {!canFreeze ? null : (
+        <button
+          onClick={() => { if (useStreakFreeze()) force((x) => x + 1); }}
+          style={{ ...ghostBtn, width: "100%", marginBottom: 16, borderColor: C.sky, color: "#3B6FB8" }}
+        >
+          ❄️ Use a skip-day (covers one missed day, once a week)
+        </button>
+      )}
+
+      {log.length > 0 && (
+        <div>
+          <div style={{ fontWeight: 800, fontSize: 14, marginBottom: 6 }}>Recent</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+            {log.slice(0, 12).map((e, i) => (
+              <div key={i} style={{ display: "flex", justifyContent: "space-between", background: "#fff",
+                border: "2px solid #efe8d8", borderRadius: 10, padding: "8px 10px", fontSize: 13 }}>
+                <span>{e.note}</span>
+                <span style={{ fontWeight: 800, color: e.amount > 0 ? C.leaf : C.berry }}>
+                  {e.amount > 0 ? `+${e.amount}` : e.amount}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <button onClick={onDone} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, marginTop: 16, width: "100%" }}>
+        ⬅ Back to menu
+      </button>
     </div>
   );
 }
@@ -791,7 +974,6 @@ function Home({
     { id: "clock", emoji: "⏱️", name: "Beat the Clock", desc: "How many in 60 seconds?", color: C.berry },
     { id: "tone", emoji: "🎧", name: "What's That Word Mean?", desc: "Hear a word, pick the meaning", color: C.leaf },
     { id: "sentencemean", emoji: "📣", name: "What's That Sentence Mean?", desc: "Hear a sentence, pick the meaning", color: C.sun },
-    { id: "picturesay", emoji: "🖼️", name: "Picture → Say It", desc: "See the picture, say the Chinese", color: C.berry },
     { id: "buildsentence", emoji: "🧩", name: "Build a Sentence", desc: "Put the words in the right order", color: C.leaf },
   ];
 
@@ -915,7 +1097,7 @@ function Home({
         )}
       </div>
 
-      <StreakBar />
+      <StreakBar onOpenChips={() => go("chips")} />
 
       {/* ---- the games ---- */}
       <div
@@ -1103,95 +1285,6 @@ function Flashcards({ words, trouble, toggleTrouble, onlyTrouble, onHome }) {
   );
 }
 
-// -------------------- PICTURE → SAY IT --------------------
-// Only the emoji is shown. Sam must produce the Chinese himself,
-// then reveal to check. Harder than flip cards (no English prompt).
-function PictureSay({ words, trouble, toggleTrouble, onHome }) {
-  const [deck, setDeck] = useState(() => srsOrder(shuffle(words), (w) => w.pinyin));
-  const [i, setI] = useState(0);
-  const [revealed, setRevealed] = useState(false);
-  const [got, setGot] = useState(0);
-  const [done, setDone] = useState(0);
-  const card = deck[i] || deck[0];
-
-  if (!card)
-    return (
-      <Center>
-        <div style={{ fontSize: 54 }}>🖼️</div>
-        <h2 style={{ margin: "10px 0" }}>No words picked</h2>
-        <button onClick={onHome} style={{ ...bigBtn, background: C.fox, marginTop: 16 }}>⬅ Back to menu</button>
-      </Center>
-    );
-
-  const flagged = trouble.has(card.pinyin);
-
-  const grade = (ok) => {
-    srsRecord(card.pinyin, ok);
-    markPracticedToday();
-    setDone((d) => d + 1);
-    if (ok) setGot((g) => g + 1);
-    setRevealed(false);
-    if (i + 1 < deck.length) setI(i + 1);
-    else { setI(0); setDeck(srsOrder(shuffle(words), (w) => w.pinyin)); }
-  };
-
-  return (
-    <div style={{ textAlign: "center" }}>
-      <Progress value={i} total={deck.length} label={`✅ ${got} / ${done}`} />
-      <div
-        style={{
-          position: "relative",
-          background: "#fff",
-          borderRadius: 28,
-          padding: "34px 20px",
-          margin: "16px 0",
-          minHeight: 250,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          border: `4px solid ${flagged ? C.sun : C.fox}`,
-          boxShadow: `0 10px 0 ${flagged ? "rgba(246,196,69,0.4)" : "rgba(232,112,58,0.3)"}`,
-        }}
-      >
-        <StarButton flagged={flagged} onClick={() => toggleTrouble(card.pinyin)} />
-        <div style={{ fontSize: 92, lineHeight: 1 }}>{card.emoji || "❓"}</div>
-        {!revealed ? (
-          <div style={{ marginTop: 18, fontSize: 15, color: "#9a94ad" }}>
-            Say it in Chinese out loud… then check!
-          </div>
-        ) : (
-          <div style={{ marginTop: 16 }}>
-            <div style={{ fontSize: 30, fontWeight: 800, color: C.fox }}>{card.pinyin}</div>
-            <div style={{ fontSize: 17, color: "#7a7391", marginTop: 4 }}>{card.en}</div>
-            <button onClick={() => speak(card)} style={{ ...ghostBtn, marginTop: 12 }}>🔊 Hear it</button>
-          </div>
-        )}
-      </div>
-      {!revealed ? (
-        <button
-          onClick={() => { setRevealed(true); speak(card); }}
-          style={{ ...bigBtn, background: C.sky, width: "100%" }}
-        >
-          👀 Check my answer
-        </button>
-      ) : (
-        <div style={{ display: "flex", gap: 12 }}>
-          <button onClick={() => grade(false)} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, flex: 1 }}>
-            🔁 Not yet
-          </button>
-          <button onClick={() => grade(true)} style={{ ...bigBtn, background: C.leaf, flex: 1 }}>
-            ✓ I said it!
-          </button>
-        </div>
-      )}
-      <button onClick={onHome} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, marginTop: 14, width: "100%" }}>
-        ⬅ Back to menu
-      </button>
-    </div>
-  );
-}
-
 // -------------------- BUILD A SENTENCE --------------------
 // Tap the pinyin word-tiles in the right order to build the sentence.
 // Teaches word order / grammar rather than isolated vocabulary.
@@ -1250,7 +1343,7 @@ function BuildSentence({ sentences, starred, toggleSentence, onHome }) {
     const ok = attempt === want;
     setStatus(ok ? "right" : "wrong");
     srsRecord(s.en, ok);
-    markPracticedToday();
+    recordEffort();
     if (ok) { setScore((v) => v + 1); speak({ hanzi: s.hanzi, pinyin: s.pinyin }); }
     else if (toggleSentence && !starred.has(s.en)) toggleSentence(s.en);
   };
@@ -1404,7 +1497,7 @@ function BeatTheClock({ words, addTrouble, trouble, toggleTrouble, onHome }) {
     if (right) { setScore((s) => s + 1); speak(round.q); }
     else { addTrouble && addTrouble(round.q.pinyin); }
     srsRecord(round.q.pinyin, right);
-    markPracticedToday();
+    recordEffort();
     const prev = round.q.pinyin;
     setTimeout(() => { setFlash(null); setRound(build(prev)); }, 200);
   };
@@ -1828,7 +1921,7 @@ function ToneMatch({ words, addTrouble, trouble, toggleTrouble, onHome }) {
       addTrouble && addTrouble(round.q.pinyin);
     }
     srsRecord(round.q.pinyin, opt.en === round.q.en);
-    markPracticedToday();
+    recordEffort();
     const prevKey = round.q.pinyin;
     setTimeout(() => { setPicked(null); setRound(build(prevKey)); }, 1200);
   };
@@ -2545,7 +2638,7 @@ function EnFlashcards({ words, starred, toggleStar, onlyStarred, onHome }) {
   const next = (got) => {
     if (got) setKnown((k) => k + 1);
     if (card) srsRecord(card.pinyin, !!got);
-    markPracticedToday();
+    recordEffort();
     setFlipped(false);
     if (i + 1 < deck.length) setI(i + 1);
     else { setI(0); setDeck(srsOrder(shuffle(words), (w) => w.pinyin)); setKnown(0); }
