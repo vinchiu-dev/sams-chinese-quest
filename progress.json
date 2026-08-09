@@ -27,7 +27,8 @@
     "wénjù diàn",
     "dà xióng wánjù",
     "xīhóngshì",
-    "gēbo"
+    "gēbo",
+    "qīngcài"
   ],
   "archived": [],
   "starredSentences": [
@@ -112,6 +113,48 @@
       "right": 1,
       "wrong": 0,
       "last": 1786235591917
+    },
+    "Are you an alien?": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786236990148
+    },
+    "The baby loves to cry.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237008621
+    },
+    "The rabbit's eyes hurt, the fox's ears hurt.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237136097
+    },
+    "hái yǒu": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237196201
+    },
+    "hǎochī": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237211346
+    },
+    "zài nǎr": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237223634
     }
   },
   "customWords": [
