@@ -382,6 +382,90 @@ const speak = (word) => {
   }
 };
 
+
+// ============================================================
+//  SPACED REPETITION
+//  Each word gets a "level" 0-5. Right answers raise it, wrong
+//  answers reset it. Lower level = shows up far more often.
+//  Levels also age: a word not seen in a while drifts back down,
+//  so nothing is silently forgotten.
+// ============================================================
+const SRS_KEY = "srs";
+const loadSrs = () => loadLS(SRS_KEY, {});
+const saveSrs = (s) => saveLS(SRS_KEY, s);
+
+const DAY = 86400000;
+// how long a word at each level can rest before it's due again
+const LEVEL_REST = [0, 1, 2, 4, 8, 16];
+
+const srsRecord = (key, correct) => {
+  const s = loadSrs();
+  const cur = s[key] || { lvl: 0, seen: 0, right: 0, wrong: 0, last: 0 };
+  cur.seen += 1;
+  cur.last = Date.now();
+  if (correct) { cur.right += 1; cur.lvl = Math.min(5, cur.lvl + 1); }
+  else { cur.wrong += 1; cur.lvl = 0; }
+  s[key] = cur;
+  saveSrs(s);
+};
+
+// Weight = how badly this item needs practice. Higher = pick more often.
+const srsWeight = (key) => {
+  const s = loadSrs();
+  const r = s[key];
+  if (!r) return 8;                       // never seen — top priority
+  const restDays = LEVEL_REST[r.lvl] || 1;
+  const daysSince = (Date.now() - (r.last || 0)) / DAY;
+  const overdue = daysSince / restDays;   // >1 means it's due
+  const base = 6 - r.lvl;                 // low level = needs work
+  return Math.max(0.4, base * (overdue >= 1 ? 1.8 : 0.5) + (r.wrong || 0) * 0.6);
+};
+
+// Weighted random pick, avoiding an immediate repeat where possible.
+const srsPick = (items, keyOf, avoidKey) => {
+  if (!items.length) return null;
+  const pool = items.length > 1 && avoidKey
+    ? items.filter((it) => keyOf(it) !== avoidKey)
+    : items;
+  const list = pool.length ? pool : items;
+  const weights = list.map((it) => srsWeight(keyOf(it)));
+  const total = weights.reduce((a, b) => a + b, 0);
+  let r = Math.random() * total;
+  for (let i = 0; i < list.length; i++) {
+    r -= weights[i];
+    if (r <= 0) return list[i];
+  }
+  return list[list.length - 1];
+};
+
+// Order a whole deck so shaky words come first (used by flip cards).
+const srsOrder = (items, keyOf) =>
+  [...items].sort((a, b) => srsWeight(keyOf(b)) - srsWeight(keyOf(a)));
+
+// ---------- daily streak ----------
+const todayKey = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+};
+const markPracticedToday = () => {
+  const days = loadLS("practiceDays", []);
+  const t = todayKey();
+  if (!days.includes(t)) { days.push(t); saveLS("practiceDays", days.slice(-400)); }
+};
+const currentStreak = () => {
+  const days = new Set(loadLS("practiceDays", []));
+  let n = 0;
+  const d = new Date();
+  // today doesn't break the streak if not yet practiced
+  if (!days.has(todayKey())) d.setDate(d.getDate() - 1);
+  for (;;) {
+    const k = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+    if (days.has(k)) { n++; d.setDate(d.getDate() - 1); } else break;
+  }
+  return n;
+};
+const practicedToday = () => loadLS("practiceDays", []).includes(todayKey());
+
 // ---- palette: playful, high-contrast, "storybook" ----
 const C = {
   paper: "#FFF6E9",
@@ -549,6 +633,17 @@ function ChineseApp({ onSwitchLang }) {
         {screen === "clock" && (
           <BeatTheClock words={activeWords} addTrouble={addTrouble} trouble={trouble} toggleTrouble={toggleTrouble} onHome={() => setScreen("home")} />
         )}
+        {screen === "picturesay" && (
+          <PictureSay words={activeWords} trouble={trouble} toggleTrouble={toggleTrouble} onHome={() => setScreen("home")} />
+        )}
+        {screen === "buildsentence" && (
+          <BuildSentence
+            sentences={activeSentences}
+            starred={starredSentences}
+            toggleSentence={toggleSentence}
+            onHome={() => setScreen("home")}
+          />
+        )}
         {screen === "trickypick" && (
           <TrickyPicker
             wordCount={troubleWords.length}
@@ -661,6 +756,28 @@ function Header({ onHome, showHome, onSettings, syncStatus, onSwitchLang, slow, 
   );
 }
 
+function StreakBar() {
+  const n = currentStreak();
+  const today = practicedToday();
+  if (n === 0 && !today)
+    return (
+      <div style={{ background: "#fff", border: "3px solid #efe8d8", borderRadius: 16, padding: "10px 14px", marginBottom: 14, textAlign: "center", fontSize: 13, color: "#7a7391", fontWeight: 700 }}>
+        🌱 Play any game to start a streak!
+      </div>
+    );
+  return (
+    <div style={{ background: today ? "#FFF4E2" : "#fff", border: `3px solid ${today ? C.sun : "#efe8d8"}`,
+      borderRadius: 16, padding: "10px 14px", marginBottom: 14, display: "flex", alignItems: "center",
+      justifyContent: "center", gap: 8, fontWeight: 800 }}>
+      <span style={{ fontSize: 22 }}>{today ? "🔥" : "⏳"}</span>
+      <span style={{ fontSize: 15 }}>{n} day{n === 1 ? "" : "s"} in a row</span>
+      <span style={{ fontSize: 12, color: "#7a7391", fontWeight: 700 }}>
+        {today ? "· practiced today ✓" : "· play today to keep it!"}
+      </span>
+    </div>
+  );
+}
+
 function Home({
   lessons, pool, toggleLesson,
   selectAllLessons, selectNoLessons, selectNewestLesson,
@@ -674,6 +791,8 @@ function Home({
     { id: "clock", emoji: "⏱️", name: "Beat the Clock", desc: "How many in 60 seconds?", color: C.berry },
     { id: "tone", emoji: "🎧", name: "What's That Word Mean?", desc: "Hear a word, pick the meaning", color: C.leaf },
     { id: "sentencemean", emoji: "📣", name: "What's That Sentence Mean?", desc: "Hear a sentence, pick the meaning", color: C.sun },
+    { id: "picturesay", emoji: "🖼️", name: "Picture → Say It", desc: "See the picture, say the Chinese", color: C.berry },
+    { id: "buildsentence", emoji: "🧩", name: "Build a Sentence", desc: "Put the words in the right order", color: C.leaf },
   ];
 
   const newest = lessons[lessons.length - 1];
@@ -796,6 +915,8 @@ function Home({
         )}
       </div>
 
+      <StreakBar />
+
       {/* ---- the games ---- */}
       <div
         style={{
@@ -879,7 +1000,7 @@ function Home({
   );
 }
 function Flashcards({ words, trouble, toggleTrouble, onlyTrouble, onHome }) {
-  const [deck, setDeck] = useState(() => shuffle(words));
+  const [deck, setDeck] = useState(() => srsOrder(shuffle(words), (w) => w.pinyin));
   const [i, setI] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [known, setKnown] = useState(0);
@@ -982,6 +1103,267 @@ function Flashcards({ words, trouble, toggleTrouble, onlyTrouble, onHome }) {
   );
 }
 
+// -------------------- PICTURE → SAY IT --------------------
+// Only the emoji is shown. Sam must produce the Chinese himself,
+// then reveal to check. Harder than flip cards (no English prompt).
+function PictureSay({ words, trouble, toggleTrouble, onHome }) {
+  const [deck, setDeck] = useState(() => srsOrder(shuffle(words), (w) => w.pinyin));
+  const [i, setI] = useState(0);
+  const [revealed, setRevealed] = useState(false);
+  const [got, setGot] = useState(0);
+  const [done, setDone] = useState(0);
+  const card = deck[i] || deck[0];
+
+  if (!card)
+    return (
+      <Center>
+        <div style={{ fontSize: 54 }}>🖼️</div>
+        <h2 style={{ margin: "10px 0" }}>No words picked</h2>
+        <button onClick={onHome} style={{ ...bigBtn, background: C.fox, marginTop: 16 }}>⬅ Back to menu</button>
+      </Center>
+    );
+
+  const flagged = trouble.has(card.pinyin);
+
+  const grade = (ok) => {
+    srsRecord(card.pinyin, ok);
+    markPracticedToday();
+    setDone((d) => d + 1);
+    if (ok) setGot((g) => g + 1);
+    setRevealed(false);
+    if (i + 1 < deck.length) setI(i + 1);
+    else { setI(0); setDeck(srsOrder(shuffle(words), (w) => w.pinyin)); }
+  };
+
+  return (
+    <div style={{ textAlign: "center" }}>
+      <Progress value={i} total={deck.length} label={`✅ ${got} / ${done}`} />
+      <div
+        style={{
+          position: "relative",
+          background: "#fff",
+          borderRadius: 28,
+          padding: "34px 20px",
+          margin: "16px 0",
+          minHeight: 250,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          border: `4px solid ${flagged ? C.sun : C.fox}`,
+          boxShadow: `0 10px 0 ${flagged ? "rgba(246,196,69,0.4)" : "rgba(232,112,58,0.3)"}`,
+        }}
+      >
+        <StarButton flagged={flagged} onClick={() => toggleTrouble(card.pinyin)} />
+        <div style={{ fontSize: 92, lineHeight: 1 }}>{card.emoji || "❓"}</div>
+        {!revealed ? (
+          <div style={{ marginTop: 18, fontSize: 15, color: "#9a94ad" }}>
+            Say it in Chinese out loud… then check!
+          </div>
+        ) : (
+          <div style={{ marginTop: 16 }}>
+            <div style={{ fontSize: 30, fontWeight: 800, color: C.fox }}>{card.pinyin}</div>
+            <div style={{ fontSize: 17, color: "#7a7391", marginTop: 4 }}>{card.en}</div>
+            <button onClick={() => speak(card)} style={{ ...ghostBtn, marginTop: 12 }}>🔊 Hear it</button>
+          </div>
+        )}
+      </div>
+      {!revealed ? (
+        <button
+          onClick={() => { setRevealed(true); speak(card); }}
+          style={{ ...bigBtn, background: C.sky, width: "100%" }}
+        >
+          👀 Check my answer
+        </button>
+      ) : (
+        <div style={{ display: "flex", gap: 12 }}>
+          <button onClick={() => grade(false)} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, flex: 1 }}>
+            🔁 Not yet
+          </button>
+          <button onClick={() => grade(true)} style={{ ...bigBtn, background: C.leaf, flex: 1 }}>
+            ✓ I said it!
+          </button>
+        </div>
+      )}
+      <button onClick={onHome} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, marginTop: 14, width: "100%" }}>
+        ⬅ Back to menu
+      </button>
+    </div>
+  );
+}
+
+// -------------------- BUILD A SENTENCE --------------------
+// Tap the pinyin word-tiles in the right order to build the sentence.
+// Teaches word order / grammar rather than isolated vocabulary.
+function BuildSentence({ sentences, starred, toggleSentence, onHome }) {
+  const pickOne = () => {
+    const usable = sentences.filter((s) => (s.pinyin || "").split(/\s+/).length >= 2);
+    if (!usable.length) return null;
+    return srsPick(usable, (s) => s.en) || usable[0];
+  };
+  const [s, setS] = useState(pickOne);
+  const [placed, setPlaced] = useState([]);
+  const [tiles, setTiles] = useState([]);
+  const [status, setStatus] = useState(null); // null | 'right' | 'wrong'
+  const [score, setScore] = useState(0);
+
+  // split the pinyin into tappable tiles (strip trailing punctuation for matching)
+  const cleanWord = (t) => t.replace(/[.,!?。，！？]/g, "");
+
+  useEffect(() => {
+    if (!s) return;
+    const parts = (s.pinyin || "").split(/\s+/).filter(Boolean);
+    setTiles(shuffle(parts.map((t, idx) => ({ id: idx, text: t }))));
+    setPlaced([]);
+    setStatus(null);
+  }, [s]);
+
+  if (!s)
+    return (
+      <Center>
+        <div style={{ fontSize: 54 }}>🧩</div>
+        <h2 style={{ margin: "10px 0" }}>No sentences for these lessons</h2>
+        <p style={{ color: "#7a7391", maxWidth: 320, textAlign: "center" }}>
+          Pick more lessons in the word bank to play this one.
+        </p>
+        <button onClick={onHome} style={{ ...bigBtn, background: C.fox, marginTop: 16 }}>⬅ Back to menu</button>
+      </Center>
+    );
+
+  const target = (s.pinyin || "").split(/\s+/).filter(Boolean);
+  const flagged = starred.has(s.en);
+
+  const place = (tile) => {
+    if (status) return;
+    setPlaced((p) => [...p, tile]);
+    setTiles((t) => t.filter((x) => x.id !== tile.id));
+  };
+  const unplace = (tile) => {
+    if (status) return;
+    setPlaced((p) => p.filter((x) => x.id !== tile.id));
+    setTiles((t) => [...t, tile]);
+  };
+
+  const check = () => {
+    const attempt = placed.map((p) => cleanWord(p.text).toLowerCase()).join(" ");
+    const want = target.map((t) => cleanWord(t).toLowerCase()).join(" ");
+    const ok = attempt === want;
+    setStatus(ok ? "right" : "wrong");
+    srsRecord(s.en, ok);
+    markPracticedToday();
+    if (ok) { setScore((v) => v + 1); speak({ hanzi: s.hanzi, pinyin: s.pinyin }); }
+    else if (toggleSentence && !starred.has(s.en)) toggleSentence(s.en);
+  };
+
+  const nextOne = () => setS(pickOne());
+
+  return (
+    <div>
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 12 }}>
+        <Badge color={C.leaf}>⭐ {score}</Badge>
+        <Badge color={C.sky}>🧩 build it</Badge>
+      </div>
+
+      <div
+        style={{
+          position: "relative",
+          background: "#fff",
+          borderRadius: 22,
+          padding: "20px 16px",
+          border: `4px solid ${flagged ? C.sun : C.sky}`,
+          boxShadow: `0 8px 0 ${flagged ? "rgba(246,196,69,0.35)" : "rgba(107,169,214,0.3)"}`,
+        }}
+      >
+        <StarButton flagged={flagged} onClick={() => toggleSentence(s.en)} />
+        <div style={{ fontSize: 13, color: "#9a94ad", marginBottom: 6, fontWeight: 700 }}>
+          Put the words in order to say:
+        </div>
+        <div style={{ fontSize: 19, fontWeight: 800, lineHeight: 1.35 }}>{s.en}</div>
+      </div>
+
+      {/* answer slots */}
+      <div
+        style={{
+          minHeight: 66,
+          marginTop: 14,
+          padding: "12px 10px",
+          borderRadius: 16,
+          border: `3px dashed ${status === "right" ? C.leaf : status === "wrong" ? "#F0A5A5" : "#d8d0be"}`,
+          background: status === "right" ? "#EAF7F0" : status === "wrong" ? "#FDECEC" : "#FFFDF7",
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 8,
+          alignItems: "flex-start",
+        }}
+      >
+        {placed.length === 0 && (
+          <span style={{ fontSize: 13, color: "#b3ab98" }}>Tap the words below…</span>
+        )}
+        {placed.map((t) => (
+          <button key={t.id} onClick={() => unplace(t)} style={{ ...tile_, background: C.sky, color: "#fff", borderColor: C.sky }}>
+            {t.text}
+          </button>
+        ))}
+      </div>
+
+      {/* available tiles */}
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 14, justifyContent: "center" }}>
+        {tiles.map((t) => (
+          <button key={t.id} onClick={() => place(t)} style={tile_}>
+            {t.text}
+          </button>
+        ))}
+      </div>
+
+      {status === "wrong" && (
+        <div style={{ marginTop: 14, textAlign: "center" }}>
+          <div style={{ color: C.berry, fontWeight: 800 }}>Not quite — it should be:</div>
+          <div style={{ fontSize: 18, fontWeight: 800, marginTop: 4, color: C.fox }}>{s.pinyin}</div>
+          <button onClick={() => speak({ hanzi: s.hanzi, pinyin: s.pinyin })} style={{ ...ghostBtn, marginTop: 8 }}>🔊 Hear it</button>
+        </div>
+      )}
+      {status === "right" && (
+        <div style={{ marginTop: 14, textAlign: "center", color: C.leaf, fontWeight: 800, fontSize: 18 }}>
+          ✓ Perfect!
+        </div>
+      )}
+
+      <div style={{ marginTop: 16 }}>
+        {!status ? (
+          <button
+            onClick={check}
+            disabled={placed.length === 0}
+            style={{ ...bigBtn, background: C.leaf, width: "100%", opacity: placed.length ? 1 : 0.5 }}
+          >
+            ✓ Check
+          </button>
+        ) : (
+          <button onClick={nextOne} style={{ ...bigBtn, background: C.sky, width: "100%" }}>
+            Next sentence →
+          </button>
+        )}
+      </div>
+
+      <button onClick={onHome} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, marginTop: 12, width: "100%" }}>
+        ⬅ Back to menu
+      </button>
+    </div>
+  );
+}
+
+const tile_ = {
+  border: "3px solid #e3ddcf",
+  background: "#fff",
+  color: "#2A2440",
+  borderRadius: 12,
+  padding: "10px 14px",
+  fontSize: 17,
+  fontWeight: 800,
+  cursor: "pointer",
+  fontFamily: "inherit",
+  boxShadow: "0 3px 0 rgba(0,0,0,0.05)",
+};
+
 // -------------------- BEAT THE CLOCK --------------------
 function BeatTheClock({ words, addTrouble, trouble, toggleTrouble, onHome }) {
   const [phase, setPhase] = useState("ready"); // ready | play | done
@@ -991,8 +1373,8 @@ function BeatTheClock({ words, addTrouble, trouble, toggleTrouble, onHome }) {
   const [flash, setFlash] = useState(null);
   const timer = useRef(null);
 
-  const build = () => {
-    const q = shuffle(words)[0];
+  const build = (avoid) => {
+    const q = srsPick(words, (w) => w.pinyin, avoid) || shuffle(words)[0];
     const wrong = shuffle(words.filter((w) => w.pinyin !== q.pinyin)).slice(0, 3);
     return { q, options: shuffle([q, ...wrong]) };
   };
@@ -1021,7 +1403,10 @@ function BeatTheClock({ words, addTrouble, trouble, toggleTrouble, onHome }) {
     setFlash(right ? "right" : "wrong");
     if (right) { setScore((s) => s + 1); speak(round.q); }
     else { addTrouble && addTrouble(round.q.pinyin); }
-    setTimeout(() => { setFlash(null); setRound(build()); }, 200);
+    srsRecord(round.q.pinyin, right);
+    markPracticedToday();
+    const prev = round.q.pinyin;
+    setTimeout(() => { setFlash(null); setRound(build(prev)); }, 200);
   };
 
   if (phase === "ready")
@@ -1418,8 +1803,8 @@ function SentenceMeaning({ sentences, starred, toggleSentence, onHome }) {
 // -------------------- WHAT DOES THIS MEAN? --------------------
 // Sam hears the word spoken in Chinese and picks the correct English meaning
 function ToneMatch({ words, addTrouble, trouble, toggleTrouble, onHome }) {
-  const build = () => {
-    const q = shuffle(words)[0];
+  const build = (avoid) => {
+    const q = srsPick(words, (w) => w.pinyin, avoid) || shuffle(words)[0];
     const wrong = shuffle(words.filter((w) => w.en !== q.en)).slice(0, 3);
     return { q, options: shuffle([q, ...wrong]) };
   };
@@ -1442,7 +1827,10 @@ function ToneMatch({ words, addTrouble, trouble, toggleTrouble, onHome }) {
       setStreak(0);
       addTrouble && addTrouble(round.q.pinyin);
     }
-    setTimeout(() => { setPicked(null); setRound(build()); }, 1200);
+    srsRecord(round.q.pinyin, opt.en === round.q.en);
+    markPracticedToday();
+    const prevKey = round.q.pinyin;
+    setTimeout(() => { setPicked(null); setRound(build(prevKey)); }, 1200);
   };
 
   return (
@@ -2156,9 +2544,11 @@ function EnFlashcards({ words, starred, toggleStar, onlyStarred, onHome }) {
   const flagged = starred.has(card.word);
   const next = (got) => {
     if (got) setKnown((k) => k + 1);
+    if (card) srsRecord(card.pinyin, !!got);
+    markPracticedToday();
     setFlipped(false);
     if (i + 1 < deck.length) setI(i + 1);
-    else { setI(0); setDeck(shuffle(words)); setKnown(0); }
+    else { setI(0); setDeck(srsOrder(shuffle(words), (w) => w.pinyin)); setKnown(0); }
   };
 
   return (
