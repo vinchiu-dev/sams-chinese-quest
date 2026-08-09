@@ -42,7 +42,8 @@
     "Today is the weekend, let's go buy stationery!",
     "Your life is really happy!",
     "Wishing you a happy life!",
-    "What is your dad doing?"
+    "What is your dad doing?",
+    "My toys are in the bedroom."
   ],
   "chips": 0,
   "practiceDays": [
@@ -62,6 +63,20 @@
       "right": 1,
       "wrong": 0,
       "last": 1786234503153
+    },
+    "My mom is Chinese, my dad is American.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786235436239
+    },
+    "My toys are in the bedroom.": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786235487534
     }
   },
   "customWords": [
