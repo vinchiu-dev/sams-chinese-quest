@@ -123,6 +123,22 @@ async function pushProgress(progress, setStatus, retried) {
 }
 
 // ⚙️ one-time-per-device sync setup screen
+function SoundToggle() {
+  const [on, setOn] = useState(soundOn());
+  const flip = () => {
+    const v = !on;
+    setSoundOn(v); setOn(v);
+    if (v) playCorrect(0);   // little confirmation when switching back on
+  };
+  return (
+    <button onClick={flip}
+      style={{ ...ghostBtn, width: "100%", marginBottom: 14, padding: "12px",
+        borderColor: on ? C.leaf : "#e3ddcf", background: on ? "#EAF7F0" : "#fff", fontWeight: 800 }}>
+      {on ? "🔔 Sound effects: ON" : "🔕 Sound effects: OFF"}
+    </button>
+  );
+}
+
 function SyncSettings({ onDone }) {
   const [enVoices, setEnVoices] = useState([]);
   const [zhVoices, setZhVoices] = useState([]);
@@ -164,6 +180,7 @@ function SyncSettings({ onDone }) {
   return (
     <div>
       <div style={{ fontWeight: 800, fontSize: 17, marginBottom: 6 }}>⚙️ Settings</div>
+      <SoundToggle />
       <div style={{ fontSize: 13, color: "#7a7391", marginBottom: 16, lineHeight: 1.5 }}>
         Progress syncs across your devices automatically. Below you can pick which
         voice sounds best — tap a voice to hear a sample. "online" voices are usually
@@ -515,6 +532,9 @@ const recordEffort = () => {
       if (streak > 0 && streak % STREAK_BONUS_EVERY === 0) {
         addChips(STREAK_BONUS_CHIPS);
         logChips({ type: "bonus", amount: STREAK_BONUS_CHIPS, note: `${streak}-day streak!` });
+        playStreakUp();
+      } else {
+        playFanfare();
       }
       return { justEarned: true, streak };
     }
@@ -540,6 +560,121 @@ const useStreakFreeze = () => {
 const freezeAvailable = () => {
   const weekAgo = Date.now() - 7 * DAY;
   return loadLS("freezes", []).filter((t) => t > weekAgo).length === 0;
+};
+
+
+// ============================================================
+//  SOUND EFFECTS  (all synthesised — no audio files to load)
+//  Design notes:
+//   • Correct answers get a short, bright, RISING motif.
+//   • Wrong answers get a soft, low, neutral blip — never a harsh
+//     "buzzer". Being wrong is how you learn; it shouldn't sting.
+//   • Big moments (goal met, chips, streaks) get applause/fanfare.
+//  Everything respects the mute toggle.
+// ============================================================
+let _actx = null;
+const soundOn = () => loadLS("soundOn", true);
+const setSoundOn = (v) => saveLS("soundOn", !!v);
+
+const _ctx = () => {
+  if (!soundOn()) return null;
+  try {
+    _actx = _actx || new (window.AudioContext || window.webkitAudioContext)();
+    if (_actx.state === "suspended") _actx.resume();
+    return _actx;
+  } catch (e) { return null; }
+};
+
+// one tone with a soft attack/decay envelope
+const _tone = (ctx, freq, t0, dur, gain = 0.22, type = "triangle") => {
+  const o = ctx.createOscillator();
+  const g = ctx.createGain();
+  o.type = type;
+  o.frequency.setValueAtTime(freq, t0);
+  g.gain.setValueAtTime(0.0001, t0);
+  g.gain.exponentialRampToValueAtTime(gain, t0 + 0.015);
+  g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+  o.connect(g); g.connect(ctx.destination);
+  o.start(t0); o.stop(t0 + dur + 0.02);
+};
+
+// filtered noise burst — the basis of the applause/clap sounds
+const _noise = (ctx, t0, dur, gain = 0.18, freq = 1200, q = 0.7) => {
+  const len = Math.max(1, Math.floor(ctx.sampleRate * dur));
+  const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+  const data = buf.getChannelData(0);
+  for (let i = 0; i < len; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / len);
+  const src = ctx.createBufferSource();
+  src.buffer = buf;
+  const bp = ctx.createBiquadFilter();
+  bp.type = "bandpass"; bp.frequency.value = freq; bp.Q.value = q;
+  const g = ctx.createGain();
+  g.gain.setValueAtTime(gain, t0);
+  g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+  src.connect(bp); bp.connect(g); g.connect(ctx.destination);
+  src.start(t0); src.stop(t0 + dur);
+};
+
+// ✓ correct — bright two-note lift. Rises with the streak so a hot
+//   run literally sounds better, which is the point.
+const playCorrect = (streak = 0) => {
+  const ctx = _ctx(); if (!ctx) return;
+  const t = ctx.currentTime;
+  const step = Math.min(6, Math.max(0, streak));
+  const base = 660 * Math.pow(2, step / 24); // creeps up ~a step per streak
+  _tone(ctx, base, t, 0.12, 0.2);
+  _tone(ctx, base * 1.5, t + 0.075, 0.18, 0.2);
+};
+
+// ✗ not quite — gentle, low, brief. Deliberately NOT a buzzer.
+const playSoftMiss = () => {
+  const ctx = _ctx(); if (!ctx) return;
+  const t = ctx.currentTime;
+  _tone(ctx, 300, t, 0.14, 0.12, "sine");
+  _tone(ctx, 240, t + 0.09, 0.16, 0.1, "sine");
+};
+
+// 👏 applause — layered noise claps that swell then fade
+const playApplause = (big = false) => {
+  const ctx = _ctx(); if (!ctx) return;
+  const t = ctx.currentTime;
+  const claps = big ? 34 : 18;
+  const span = big ? 1.5 : 0.9;
+  for (let i = 0; i < claps; i++) {
+    const at = t + Math.random() * span;
+    const swell = big ? 0.10 + 0.10 * Math.sin((i / claps) * Math.PI) : 0.10;
+    _noise(ctx, at, 0.06 + Math.random() * 0.05, swell, 900 + Math.random() * 1600, 0.6);
+  }
+};
+
+// 🪙 chip earned — coin shimmer
+const playChip = () => {
+  const ctx = _ctx(); if (!ctx) return;
+  const t = ctx.currentTime;
+  _tone(ctx, 1320, t, 0.10, 0.18, "square");
+  _tone(ctx, 1760, t + 0.06, 0.16, 0.16, "square");
+  _tone(ctx, 2640, t + 0.13, 0.22, 0.10, "sine");
+};
+
+// 🎉 daily goal complete — fanfare + applause
+const playFanfare = () => {
+  const ctx = _ctx(); if (!ctx) return;
+  const t = ctx.currentTime;
+  [523.25, 659.25, 783.99, 1046.5].forEach((f, i) =>
+    _tone(ctx, f, t + i * 0.1, 0.32, 0.22)
+  );
+  _tone(ctx, 1318.5, t + 0.42, 0.5, 0.18);
+  playApplause(true);
+};
+
+// 🔥 streak milestone — rising run
+const playStreakUp = () => {
+  const ctx = _ctx(); if (!ctx) return;
+  const t = ctx.currentTime;
+  [523, 587, 659, 784, 880, 1047].forEach((f, i) =>
+    _tone(ctx, f, t + i * 0.07, 0.2, 0.18)
+  );
+  playApplause(true);
 };
 
 // ---- palette: playful, high-contrast, "storybook" ----
@@ -1205,12 +1340,14 @@ function Flashcards({ words, trouble, toggleTrouble, onlyTrouble, onHome }) {
   const flagged = trouble.has(card.pinyin);
 
   const next = (gotIt) => {
-    if (gotIt) setKnown((k) => k + 1);
+    if (gotIt) { setKnown((k) => k + 1); playCorrect(known); }
+    if (card) srsRecord(card.pinyin, !!gotIt);
+    recordEffort();
     setFlipped(false);
     if (i + 1 < deck.length) setI(i + 1);
     else {
       setI(0);
-      setDeck(shuffle(words));
+      setDeck(srsOrder(shuffle(words), (w) => w.pinyin));
       setKnown(0);
     }
   };
@@ -1344,8 +1481,8 @@ function BuildSentence({ sentences, starred, toggleSentence, onHome }) {
     setStatus(ok ? "right" : "wrong");
     srsRecord(s.en, ok);
     recordEffort();
-    if (ok) { setScore((v) => v + 1); speak({ hanzi: s.hanzi, pinyin: s.pinyin }); }
-    else if (toggleSentence && !starred.has(s.en)) toggleSentence(s.en);
+    if (ok) { setScore((v) => v + 1); playApplause(); speak({ hanzi: s.hanzi, pinyin: s.pinyin }); }
+    else { playSoftMiss(); if (toggleSentence && !starred.has(s.en)) toggleSentence(s.en); }
   };
 
   const nextOne = () => setS(pickOne());
@@ -1494,8 +1631,8 @@ function BeatTheClock({ words, addTrouble, trouble, toggleTrouble, onHome }) {
   const choose = (opt) => {
     const right = opt.pinyin === round.q.pinyin;
     setFlash(right ? "right" : "wrong");
-    if (right) { setScore((s) => s + 1); speak(round.q); }
-    else { addTrouble && addTrouble(round.q.pinyin); }
+    if (right) { setScore((s) => s + 1); playCorrect(score); speak(round.q); }
+    else { playSoftMiss(); addTrouble && addTrouble(round.q.pinyin); }
     srsRecord(round.q.pinyin, right);
     recordEffort();
     const prev = round.q.pinyin;
@@ -1831,8 +1968,11 @@ function SentenceMeaning({ sentences, starred, toggleSentence, onHome }) {
     if (opt.en === round.q.en) {
       setScore((s) => s + 1);
       setStreak((s) => s + 1);
+      playCorrect(streak);
+      if (streak + 1 === 5) playApplause();   // reward a hot run
     } else {
       setStreak(0);
+      playSoftMiss();
       toggleSentence && !starred.has(round.q.en) && toggleSentence(round.q.en);
     }
     setTimeout(() => { setPicked(null); setRound(build()); }, 1400);
@@ -1916,8 +2056,11 @@ function ToneMatch({ words, addTrouble, trouble, toggleTrouble, onHome }) {
     if (opt.en === round.q.en) {
       setScore((s) => s + 1);
       setStreak((s) => s + 1);
+      playCorrect(streak);
+      if (streak + 1 === 5) playApplause();
     } else {
       setStreak(0);
+      playSoftMiss();
       addTrouble && addTrouble(round.q.pinyin);
     }
     srsRecord(round.q.pinyin, opt.en === round.q.en);
@@ -2636,12 +2779,12 @@ function EnFlashcards({ words, starred, toggleStar, onlyStarred, onHome }) {
 
   const flagged = starred.has(card.word);
   const next = (got) => {
-    if (got) setKnown((k) => k + 1);
-    if (card) srsRecord(card.pinyin, !!got);
+    if (got) { setKnown((k) => k + 1); playCorrect(known); }
+    if (card) srsRecord("en:" + card.word, !!got);
     recordEffort();
     setFlipped(false);
     if (i + 1 < deck.length) setI(i + 1);
-    else { setI(0); setDeck(srsOrder(shuffle(words), (w) => w.pinyin)); setKnown(0); }
+    else { setI(0); setDeck(srsOrder(shuffle(words), (w) => "en:" + w.word)); setKnown(0); }
   };
 
   return (
@@ -2691,8 +2834,11 @@ function EnQuiz({ words, starred, toggleStar, addStar, onHome }) {
   const choose = (opt) => {
     if (picked) return;
     setPicked(opt);
-    if (opt.word === round.q.word) { setScore((s) => s+1); setStreak((s) => s+1); speakEn(round.q.word); }
-    else { setStreak(0); addStar(round.q.word); }
+    if (opt.word === round.q.word) {
+      setScore((s) => s+1); setStreak((s) => s+1);
+      playCorrect(streak); if (streak + 1 === 5) playApplause();
+      speakEn(round.q.word);
+    } else { setStreak(0); playSoftMiss(); addStar(round.q.word); }
     setTimeout(() => { setPicked(null); setRound(build()); }, 1300);
   };
 
@@ -2755,7 +2901,8 @@ function EnSpeed({ words, starred, toggleStar, addStar, onHome }) {
   const choose = (opt) => {
     const right = opt.word === round.q.word;
     setFlash(right ? "right" : "wrong");
-    if (right) { setScore((s) => s+1); speakEn(round.q.word); } else { addStar(round.q.word); }
+    if (right) { setScore((s) => s+1); playCorrect(score); speakEn(round.q.word); }
+    else { playSoftMiss(); addStar(round.q.word); }
     setTimeout(() => { setFlash(null); setRound(build()); }, 200);
   };
 
@@ -2829,7 +2976,8 @@ function EnSpelling({ words, starred, toggleStar, addStar, onHome }) {
     const ok = entry.trim().toLowerCase() === card.word.toLowerCase();
     setResult(ok ? "right" : "wrong");
     setDone((d) => d + 1);
-    if (ok) setScore((s) => s + 1); else addStar(card.word);
+    if (ok) { setScore((s) => s + 1); playCorrect(score); }
+    else { playSoftMiss(); addStar(card.word); }
   };
   const next = () => {
     setEntry(""); setResult(null);
@@ -2943,12 +3091,10 @@ function EnWordList({ allWords, starred, mastered, toggleStar, toggleMastered, m
 // ================= language shell =================
 
 // Little celebratory arpeggio for "mastered" (WebAudio, no asset needed).
-let _audioCtx = null;
 const playCelebrate = () => {
   try {
-    _audioCtx = _audioCtx || new (window.AudioContext || window.webkitAudioContext)();
-    const ctx = _audioCtx;
-    if (ctx.state === "suspended") ctx.resume();
+    const ctx = _ctx();
+    if (!ctx) return;
     const notes = [523.25, 659.25, 783.99, 1046.5]; // C5 E5 G5 C6
     notes.forEach((f, i) => {
       const o = ctx.createOscillator();
