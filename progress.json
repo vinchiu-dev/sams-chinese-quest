@@ -48,7 +48,8 @@
     "Little Fox, your textbook dropped!",
     "It's seven o'clock, hurry and get up!",
     "Today is the weekend — the alien is playing at my house!",
-    "My mom comes from China, she is Chinese."
+    "My mom comes from China, she is Chinese.",
+    "I am American."
   ],
   "chips": 0,
   "practiceDays": [
@@ -82,6 +83,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1786383355624
+    },
+    "I am American.": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786383493244
     }
   },
   "customWords": []
