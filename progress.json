@@ -29,7 +29,8 @@
     "xīhóngshì",
     "gēbo",
     "qīngcài",
-    "suì"
+    "suì",
+    "shì"
   ],
   "archived": [],
   "starredSentences": [
@@ -127,6 +128,13 @@
       "right": 0,
       "wrong": 1,
       "last": 1786383669675
+    },
+    "shì": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786383690883
     }
   },
   "customWords": []
