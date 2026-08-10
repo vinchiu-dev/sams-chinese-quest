@@ -46,202 +46,172 @@
     "What is your dad doing?",
     "My toys are in the bedroom.",
     "Little Fox, your textbook dropped!",
-    "It's seven o'clock, hurry and get up!"
+    "It's seven o'clock, hurry and get up!",
+    "Today is the weekend — the alien is playing at my house!",
+    "My mom comes from China, she is Chinese.",
+    "I am American.",
+    "Are you an alien?"
   ],
-  "customWords": [],
-  "en_starred": [
-    "contaminate",
-    "hesitate",
-    "abundant"
+  "chips": 1,
+  "practiceDays": [
+    "2026-08-08",
+    "2026-08-10"
   ],
-  "en_mastered": [
-    "gigantic",
-    "fragile",
-    "Anchor",
-    "Free loader"
-  ],
-  "en_myWords": [
-    {
-      "word": "Tremble",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
+  "srs": {
+    "gēbo": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786234486743
     },
-    {
-      "word": "vivid",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
+    "The watermelon is really delicious!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786234503153
     },
-    {
-      "word": "Contaminate",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
+    "My mom is Chinese, my dad is American.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786235436239
     },
-    {
-      "word": "Minister",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
+    "My toys are in the bedroom.": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786235487534
     },
-    {
-      "word": "Particle",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
+    "Nose bumps nose!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786235507631
     },
-    {
-      "word": "digestive",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
+    "Hello!": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1786235562763
     },
-    {
-      "word": "knead",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
+    "Grandpa, happy birthday!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786235532310
     },
-    {
-      "word": "strict",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
+    "This is my dad.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786235552958
     },
-    {
-      "word": "yanked",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
+    "Is your big sister British?": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786235591917
     },
-    {
-      "word": "Anchor",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
+    "Are you an alien?": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786383518397
     },
-    {
-      "word": "Syringe",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
+    "The baby loves to cry.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237008621
     },
-    {
-      "word": "Free loader",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
+    "The rabbit's eyes hurt, the fox's ears hurt.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237136097
     },
-    {
-      "word": "Approximately",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
+    "hái yǒu": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237196201
     },
-    {
-      "word": "Seize",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
+    "hǎochī": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237211346
     },
-    {
-      "word": "Atrocious",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
+    "zài nǎr": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237223634
     },
-    {
-      "word": "Mental health",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
+    "qīngcài": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237233479
     },
-    {
-      "word": "Defy Gravity",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
+    "ěrduo": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237237794
     },
-    {
-      "word": "Concussion",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
+    "I am six years old.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786382999346
     },
-    {
-      "word": "Destiny",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
+    "Today is the weekend — the alien is playing at my house!": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786383190806
     },
-    {
-      "word": "Maneuver",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
+    "My mom comes from China, she is Chinese.": {
+      "lvl": 0,
+      "seen": 2,
+      "right": 0,
+      "wrong": 2,
+      "last": 1786383446558
     },
-    {
-      "word": "Prototype",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
+    "My name is Sam.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786383355624
     },
-    {
-      "word": "Fidget",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Mumble",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Radiant",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Versatile",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Forsake",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
+    "I am American.": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786383493244
     }
-  ]
+  },
+  "customWords": []
 }
