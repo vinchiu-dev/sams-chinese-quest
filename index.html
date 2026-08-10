@@ -1475,6 +1475,8 @@ function BuildSentence({ sentences, starred, toggleSentence, onHome }) {
   const [tiles, setTiles] = useState([]);
   const [status, setStatus] = useState(null); // null | 'right' | 'wrong'
   const [score, setScore] = useState(0);
+  const [attempts, setAttempts] = useState(0);
+  const [revealed, setRevealed] = useState(false);
 
   // split the pinyin into tappable tiles (strip trailing punctuation for matching)
   const cleanWord = (t) => t.replace(/[.,!?。，！？]/g, "");
@@ -1485,6 +1487,8 @@ function BuildSentence({ sentences, starred, toggleSentence, onHome }) {
     setTiles(shuffle(parts.map((t, idx) => ({ id: idx, text: t }))));
     setPlaced([]);
     setStatus(null);
+    setAttempts(0);
+    setRevealed(false);
   }, [s]);
 
   if (!s)
@@ -1502,17 +1506,27 @@ function BuildSentence({ sentences, starred, toggleSentence, onHome }) {
   const target = (s.pinyin || "").split(/\s+/).filter(Boolean);
   const flagged = starred.has(s.en);
 
+  // After a wrong answer the tiles stay editable so Sam can fix his own
+  // sentence. Only "right" locks the board.
   const place = (tile) => {
-    if (status) return;
+    if (status === "right") return;
+    if (status === "wrong") setStatus(null);   // start editing again
     speakToken(tile.text);            // say each word as it's tapped
     setPlaced((p) => [...p, tile]);
     setTiles((t) => t.filter((x) => x.id !== tile.id));
   };
   const unplace = (tile) => {
-    if (status) return;
+    if (status === "right") return;
+    if (status === "wrong") setStatus(null);
     speakToken(tile.text);
     setPlaced((p) => p.filter((x) => x.id !== tile.id));
     setTiles((t) => [...t, tile]);
+  };
+  const clearAll = () => {
+    if (status === "right") return;
+    setStatus(null);
+    setTiles((t) => [...t, ...placed]);
+    setPlaced([]);
   };
 
   const check = () => {
@@ -1520,10 +1534,18 @@ function BuildSentence({ sentences, starred, toggleSentence, onHome }) {
     const want = target.map((t) => cleanWord(t).toLowerCase()).join(" ");
     const ok = attempt === want;
     setStatus(ok ? "right" : "wrong");
-    srsRecord(s.en, ok);
-    recordEffort();
+    // Only the FIRST try counts for spaced repetition and the daily goal,
+    // so retrying to fix a sentence is free but can't farm chips.
+    if (attempts === 0) {
+      srsRecord(s.en, ok);
+      recordEffort();
+    }
     if (ok) { setScore((v) => v + 1); playApplause(); speak({ hanzi: s.hanzi, pinyin: s.pinyin }); }
-    else { playSoftMiss(); if (toggleSentence && !starred.has(s.en)) toggleSentence(s.en); }
+    else {
+      setAttempts((a) => a + 1);
+      playSoftMiss();
+      if (toggleSentence && !starred.has(s.en)) toggleSentence(s.en);
+    }
   };
 
   const nextOne = () => setS(pickOne());
@@ -1586,32 +1608,52 @@ function BuildSentence({ sentences, starred, toggleSentence, onHome }) {
         ))}
       </div>
 
-      {status === "wrong" && (
+      {status === "wrong" && !revealed && (
         <div style={{ marginTop: 14, textAlign: "center" }}>
-          <div style={{ color: C.berry, fontWeight: 800 }}>Not quite — it should be:</div>
+          <div style={{ color: C.berry, fontWeight: 800 }}>Not quite — tap the words to move them around!</div>
+          <div style={{ fontSize: 12, color: "#7a7391", marginTop: 4 }}>
+            Tap a word in the box to take it back out.
+          </div>
+          <button onClick={() => { setRevealed(true); speak({ hanzi: s.hanzi, pinyin: s.pinyin }); }}
+            style={{ ...ghostBtn, marginTop: 10 }}>
+            🙈 Show me the answer
+          </button>
+        </div>
+      )}
+      {revealed && status !== "right" && (
+        <div style={{ marginTop: 14, textAlign: "center" }}>
+          <div style={{ color: C.berry, fontWeight: 800 }}>It should be:</div>
           <div style={{ fontSize: 18, fontWeight: 800, marginTop: 4, color: C.fox }}>{s.pinyin}</div>
           <button onClick={() => speak({ hanzi: s.hanzi, pinyin: s.pinyin })} style={{ ...ghostBtn, marginTop: 8 }}>🔊 Hear it</button>
         </div>
       )}
       {status === "right" && (
         <div style={{ marginTop: 14, textAlign: "center", color: C.leaf, fontWeight: 800, fontSize: 18 }}>
-          ✓ Perfect!
+          ✓ Perfect!{attempts > 0 ? " You fixed it! 🎉" : ""}
         </div>
       )}
 
       <div style={{ marginTop: 16 }}>
-        {!status ? (
-          <button
-            onClick={check}
-            disabled={placed.length === 0}
-            style={{ ...bigBtn, background: C.leaf, width: "100%", opacity: placed.length ? 1 : 0.5 }}
-          >
-            ✓ Check
-          </button>
-        ) : (
+        {status === "right" || revealed ? (
           <button onClick={nextOne} style={{ ...bigBtn, background: C.sky, width: "100%" }}>
             Next sentence →
           </button>
+        ) : (
+          <div style={{ display: "flex", gap: 10 }}>
+            {placed.length > 0 && (
+              <button onClick={clearAll}
+                style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, flex: "0 0 38%" }}>
+                ↺ Clear
+              </button>
+            )}
+            <button
+              onClick={check}
+              disabled={placed.length === 0}
+              style={{ ...bigBtn, background: C.leaf, flex: 1, opacity: placed.length ? 1 : 0.5 }}
+            >
+              {attempts > 0 ? "✓ Try again" : "✓ Check"}
+            </button>
+          </div>
         )}
       </div>
 
