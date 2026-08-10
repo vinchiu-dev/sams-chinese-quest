@@ -1549,7 +1549,7 @@ function BuildSentence({ sentences, starred, toggleSentence, onHome }) {
     // so retrying to fix a sentence is free but can't farm chips.
     if (attempts === 0) {
       srsRecord(s.en, ok);
-      recordEffort(3);   // building a full sentence is worth ~3 quick answers
+      recordEffort();   // one sentence = one point, same as any other answer
     }
     if (ok) { setScore((v) => v + 1); playApplause(); speak({ hanzi: s.hanzi, pinyin: s.pinyin }); }
     else {
@@ -1712,7 +1712,7 @@ function BeatTheClock({ words, addTrouble, trouble, toggleTrouble, onHome }) {
       setTime((t) => {
         if (t <= 1) {
           clearInterval(timer.current);
-          recordEffort(3);   // a whole 60s round is worth ~3 answers
+          recordEffort();   // whole round counts as ONE practice (per Vin)
           setPhase("done");
           return 0;
         }
