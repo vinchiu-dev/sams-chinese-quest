@@ -47,7 +47,8 @@
     "My toys are in the bedroom.",
     "Little Fox, your textbook dropped!",
     "It's seven o'clock, hurry and get up!",
-    "Today is the weekend — the alien is playing at my house!"
+    "Today is the weekend — the alien is playing at my house!",
+    "My mom comes from China, she is Chinese."
   ],
   "chips": 0,
   "practiceDays": [
@@ -67,6 +68,13 @@
       "right": 0,
       "wrong": 1,
       "last": 1786383190806
+    },
+    "My mom comes from China, she is Chinese.": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786383324609
     }
   },
   "customWords": []
