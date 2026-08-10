@@ -58,7 +58,8 @@
     "Is your big sister British?",
     "What's your nationality?",
     "I don't feel well, I want to lie on the bed.",
-    "Big brother is playing games in the study."
+    "Big brother is playing games in the study.",
+    "We all love to eat fruit!"
   ],
   "chips": 1,
   "practiceDays": [
@@ -373,11 +374,18 @@
       "right": 1,
       "wrong": 0,
       "last": 1786399134219
+    },
+    "Big brother is playing games in the study.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786399169543
     }
   },
   "dayCount": {
     "date": "2026-08-10",
-    "n": 9
+    "n": 10
   },
   "goalClaimed": "2026-08-08",
   "customWords": []
