@@ -53,7 +53,8 @@
     "My mom comes from China, she is Chinese.",
     "I am American.",
     "Are you an alien?",
-    "The alien comes from another planet!"
+    "The alien comes from another planet!",
+    "Is your big sister British?"
   ],
   "chips": 0,
   "practiceDays": [
@@ -89,11 +90,11 @@
       "last": 1786383355624
     },
     "I am American.": {
-      "lvl": 0,
-      "seen": 1,
-      "right": 0,
+      "lvl": 1,
+      "seen": 2,
+      "right": 1,
       "wrong": 1,
-      "last": 1786383493244
+      "last": 1786384083499
     },
     "Are you an alien?": {
       "lvl": 0,
@@ -143,6 +144,13 @@
       "right": 0,
       "wrong": 1,
       "last": 1786383816051
+    },
+    "Is your big sister British?": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786384135974
     }
   },
   "customWords": []
