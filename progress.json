@@ -211,6 +211,20 @@
       "right": 0,
       "wrong": 1,
       "last": 1786383493244
+    },
+    "Who is knocking on the door?": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786383565233
+    },
+    "Dad, I don't feel well...": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786383572397
     }
   },
   "customWords": []
