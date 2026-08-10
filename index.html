@@ -500,10 +500,10 @@ const getDayCount = () => {
   const rec = loadLS("dayCount", {});
   return rec.date === todayKey() ? (rec.n || 0) : 0;
 };
-const bumpDayCount = () => {
+const bumpDayCount = (weight = 1) => {
   const t = todayKey();
   const rec = loadLS("dayCount", {});
-  const n = rec.date === t ? (rec.n || 0) + 1 : 1;
+  const n = (rec.date === t ? (rec.n || 0) : 0) + weight;
   saveLS("dayCount", { date: t, n });
   return n;
 };
@@ -519,10 +519,12 @@ const logChips = (entry) => {
 
 // Called after every graded answer. Awards the day's chip the moment
 // the goal is reached (once per day only).
-const recordEffort = () => {
-  const n = bumpDayCount();
+// weight: how much this activity is worth toward the daily goal.
+// Building a whole sentence is far more work than one multiple-choice tap.
+const recordEffort = (weight = 1) => {
+  const n = bumpDayCount(weight);
   markPracticedToday();
-  if (n === DAILY_GOAL) {
+  if (n >= DAILY_GOAL) {
     const claimed = loadLS("goalClaimed", "");
     if (claimed !== todayKey()) {
       saveLS("goalClaimed", todayKey());
@@ -709,6 +711,8 @@ function ChineseApp({ onSwitchLang }) {
       chips: getChips(),
       practiceDays: loadLS("practiceDays", []),
       srs: loadLS("srs", {}),
+      dayCount: loadLS("dayCount", {}),
+      goalClaimed: loadLS("goalClaimed", ""),
       customWords,
     };
     saveLS("trouble", progress.trouble);
@@ -727,6 +731,13 @@ function ChineseApp({ onSwitchLang }) {
       setStarredSentences((prev) => new Set([...prev, ...(remote.starredSentences || [])]));
       // chips: take the higher balance; practice days: union; srs: keep best level
       if (typeof remote.chips === "number" && remote.chips > getChips()) saveLS("chips", remote.chips);
+      // today's practice count: keep whichever device is further along
+      if (remote.dayCount && remote.dayCount.date === todayKey()) {
+        const mine = loadLS("dayCount", {});
+        const mineN = mine.date === todayKey() ? (mine.n || 0) : 0;
+        if ((remote.dayCount.n || 0) > mineN) saveLS("dayCount", remote.dayCount);
+      }
+      if (remote.goalClaimed === todayKey()) saveLS("goalClaimed", remote.goalClaimed);
       if (remote.practiceDays) {
         const merged = Array.from(new Set([...loadLS("practiceDays", []), ...remote.practiceDays]));
         saveLS("practiceDays", merged.slice(-400));
@@ -1538,7 +1549,7 @@ function BuildSentence({ sentences, starred, toggleSentence, onHome }) {
     // so retrying to fix a sentence is free but can't farm chips.
     if (attempts === 0) {
       srsRecord(s.en, ok);
-      recordEffort();
+      recordEffort(3);   // building a full sentence is worth ~3 quick answers
     }
     if (ok) { setScore((v) => v + 1); playApplause(); speak({ hanzi: s.hanzi, pinyin: s.pinyin }); }
     else {
@@ -1701,7 +1712,7 @@ function BeatTheClock({ words, addTrouble, trouble, toggleTrouble, onHome }) {
       setTime((t) => {
         if (t <= 1) {
           clearInterval(timer.current);
-          recordEffort();   // whole round counts as one practice
+          recordEffort(3);   // a whole 60s round is worth ~3 answers
           setPhase("done");
           return 0;
         }
