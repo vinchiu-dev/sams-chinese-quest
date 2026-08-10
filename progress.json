@@ -52,7 +52,8 @@
     "Today is the weekend — the alien is playing at my house!",
     "My mom comes from China, she is Chinese.",
     "I am American.",
-    "Are you an alien?"
+    "Are you an alien?",
+    "The alien comes from another planet!"
   ],
   "chips": 0,
   "practiceDays": [
@@ -135,6 +136,13 @@
       "right": 0,
       "wrong": 1,
       "last": 1786383690883
+    },
+    "The alien comes from another planet!": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786383816051
     }
   },
   "customWords": []
