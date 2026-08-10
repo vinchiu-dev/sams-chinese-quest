@@ -55,7 +55,8 @@
     "I am American.",
     "Are you an alien?",
     "The alien comes from another planet!",
-    "Is your big sister British?"
+    "Is your big sister British?",
+    "What's your nationality?"
   ],
   "chips": 0,
   "practiceDays": [
@@ -119,18 +120,18 @@
       "last": 1786383661443
     },
     "měiguó": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1786383664259
+      "last": 1786384466807
     },
     "suì": {
       "lvl": 0,
-      "seen": 1,
+      "seen": 2,
       "right": 0,
-      "wrong": 1,
-      "last": 1786383669675
+      "wrong": 2,
+      "last": 1786384453157
     },
     "shì": {
       "lvl": 0,
@@ -154,11 +155,11 @@
       "last": 1786384135974
     },
     "liù": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 3,
+      "seen": 3,
+      "right": 3,
       "wrong": 0,
-      "last": 1786384416100
+      "last": 1786384469441
     },
     "xīngqiú": {
       "lvl": 1,
@@ -182,11 +183,11 @@
       "last": 1786384426633
     },
     "nǎ guó rén": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1786384431292
+      "last": 1786384458857
     },
     "wàixīngrén": {
       "lvl": 1,
@@ -203,11 +204,11 @@
       "last": 1786384439807
     },
     "měiguórén": {
-      "lvl": 0,
-      "seen": 1,
-      "right": 0,
+      "lvl": 1,
+      "seen": 2,
+      "right": 1,
       "wrong": 1,
-      "last": 1786384442098
+      "last": 1786384462341
     }
   },
   "customWords": []
