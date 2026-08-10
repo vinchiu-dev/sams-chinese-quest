@@ -71,10 +71,17 @@
     },
     "My mom comes from China, she is Chinese.": {
       "lvl": 0,
-      "seen": 1,
+      "seen": 2,
       "right": 0,
-      "wrong": 1,
-      "last": 1786383324609
+      "wrong": 2,
+      "last": 1786383446558
+    },
+    "My name is Sam.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786383355624
     }
   },
   "customWords": []
