@@ -48,17 +48,8 @@
     "Little Fox, your textbook dropped!",
     "It's seven o'clock, hurry and get up!"
   ],
-  "customWords": [],
-  "en_starred": [
-    "contaminate",
-    "hesitate",
-    "abundant"
-  ],
-  "en_mastered": [
-    "gigantic",
-    "fragile",
-    "Anchor",
-    "Free loader"
-  ],
-  "en_myWords": []
+  "chips": 0,
+  "practiceDays": [],
+  "srs": {},
+  "customWords": []
 }
