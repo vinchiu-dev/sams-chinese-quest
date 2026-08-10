@@ -49,7 +49,8 @@
     "It's seven o'clock, hurry and get up!",
     "Today is the weekend — the alien is playing at my house!",
     "My mom comes from China, she is Chinese.",
-    "I am American."
+    "I am American.",
+    "Are you an alien?"
   ],
   "chips": 0,
   "practiceDays": [
@@ -90,6 +91,13 @@
       "right": 0,
       "wrong": 1,
       "last": 1786383493244
+    },
+    "Are you an alien?": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786383518397
     }
   },
   "customWords": []
