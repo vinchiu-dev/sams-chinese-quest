@@ -46,10 +46,28 @@
     "What is your dad doing?",
     "My toys are in the bedroom.",
     "Little Fox, your textbook dropped!",
-    "It's seven o'clock, hurry and get up!"
+    "It's seven o'clock, hurry and get up!",
+    "Today is the weekend — the alien is playing at my house!"
   ],
   "chips": 0,
-  "practiceDays": [],
-  "srs": {},
+  "practiceDays": [
+    "2026-08-10"
+  ],
+  "srs": {
+    "I am six years old.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786382999346
+    },
+    "Today is the weekend — the alien is playing at my house!": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786383190806
+    }
+  },
   "customWords": []
 }
