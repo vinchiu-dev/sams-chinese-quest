@@ -59,7 +59,8 @@
     "What's your nationality?",
     "I don't feel well, I want to lie on the bed.",
     "Big brother is playing games in the study.",
-    "We all love to eat fruit!"
+    "We all love to eat fruit!",
+    "Where do you come from?"
   ],
   "chips": 1,
   "practiceDays": [
@@ -250,18 +251,18 @@
       "last": 1786383661443
     },
     "měiguó": {
-      "lvl": 2,
-      "seen": 2,
-      "right": 2,
+      "lvl": 4,
+      "seen": 4,
+      "right": 4,
       "wrong": 0,
-      "last": 1786384466807
+      "last": 1786408578499
     },
     "suì": {
-      "lvl": 0,
-      "seen": 2,
-      "right": 0,
+      "lvl": 2,
+      "seen": 4,
+      "right": 2,
       "wrong": 2,
-      "last": 1786384453157
+      "last": 1786408565826
     },
     "shì": {
       "lvl": 0,
@@ -278,18 +279,18 @@
       "last": 1786383816051
     },
     "liù": {
+      "lvl": 4,
+      "seen": 4,
+      "right": 4,
+      "wrong": 0,
+      "last": 1786408583356
+    },
+    "xīngqiú": {
       "lvl": 3,
       "seen": 3,
       "right": 3,
       "wrong": 0,
-      "last": 1786384469441
-    },
-    "xīngqiú": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786384420266
+      "last": 1786408568370
     },
     "yīngguórén": {
       "lvl": 1,
@@ -320,11 +321,11 @@
       "last": 1786384433657
     },
     "láizì": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1786384439807
+      "last": 1786408587779
     },
     "měiguórén": {
       "lvl": 1,
@@ -395,11 +396,18 @@
       "right": 1,
       "wrong": 0,
       "last": 1786399229386
+    },
+    "jiào": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786408553342
     }
   },
   "dayCount": {
     "date": "2026-08-10",
-    "n": 12
+    "n": 13
   },
   "goalClaimed": "2026-08-08",
   "customWords": []
