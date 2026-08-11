@@ -31,7 +31,8 @@
     "qīngcài",
     "suì",
     "shì",
-    "měiguórén"
+    "měiguórén",
+    "láizì"
   ],
   "archived": [],
   "starredSentences": [
@@ -279,18 +280,18 @@
       "last": 1786383816051
     },
     "liù": {
+      "lvl": 5,
+      "seen": 5,
+      "right": 5,
+      "wrong": 0,
+      "last": 1786452416928
+    },
+    "xīngqiú": {
       "lvl": 4,
       "seen": 4,
       "right": 4,
       "wrong": 0,
-      "last": 1786408583356
-    },
-    "xīngqiú": {
-      "lvl": 3,
-      "seen": 3,
-      "right": 3,
-      "wrong": 0,
-      "last": 1786408568370
+      "last": 1786452420779
     },
     "yīngguórén": {
       "lvl": 1,
@@ -314,25 +315,25 @@
       "last": 1786384458857
     },
     "wàixīngrén": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 3,
+      "seen": 3,
+      "right": 3,
       "wrong": 0,
-      "last": 1786384433657
+      "last": 1786452423254
     },
     "láizì": {
-      "lvl": 2,
-      "seen": 2,
+      "lvl": 0,
+      "seen": 3,
       "right": 2,
-      "wrong": 0,
-      "last": 1786408587779
+      "wrong": 1,
+      "last": 1786452427117
     },
     "měiguórén": {
-      "lvl": 1,
-      "seen": 2,
-      "right": 1,
+      "lvl": 2,
+      "seen": 3,
+      "right": 2,
       "wrong": 1,
-      "last": 1786384462341
+      "last": 1786452415121
     },
     "The little monkey's head hurts a bit.": {
       "lvl": 1,
