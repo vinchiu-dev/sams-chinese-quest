@@ -62,7 +62,7 @@
     "We all love to eat fruit!",
     "Where do you come from?"
   ],
-  "chips": 1,
+  "chips": 2,
   "practiceDays": [
     "2026-08-08",
     "2026-08-10"
@@ -258,11 +258,11 @@
       "last": 1786408578499
     },
     "suì": {
-      "lvl": 2,
-      "seen": 4,
-      "right": 2,
+      "lvl": 3,
+      "seen": 5,
+      "right": 3,
       "wrong": 2,
-      "last": 1786408565826
+      "last": 1786409018649
     },
     "shì": {
       "lvl": 0,
@@ -398,17 +398,17 @@
       "last": 1786399229386
     },
     "jiào": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1786408553342
+      "last": 1786409020276
     }
   },
   "dayCount": {
     "date": "2026-08-10",
-    "n": 13
+    "n": 15
   },
-  "goalClaimed": "2026-08-08",
+  "goalClaimed": "2026-08-10",
   "customWords": []
 }
