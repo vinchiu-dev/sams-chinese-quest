@@ -1918,8 +1918,10 @@ function SayTheSentence({ sentences, starred, toggleSentence, onHome, forceStarr
   };
 
   const next = (knewIt) => {
-    if (knewIt) setGot((g) => g + 1);
+    if (knewIt) { setGot((g) => g + 1); playCorrect(got); }
     setDone((d) => d + 1);
+    if (s) srsRecord(s.en, !!knewIt);
+    recordEffort();               // one point per sentence
     setRevealed(false);
     if (i + 1 < deck.length) setI(i + 1);
     else {
@@ -2071,6 +2073,8 @@ function SentenceMeaning({ sentences, starred, toggleSentence, onHome }) {
       playSoftMiss();
       toggleSentence && !starred.has(round.q.en) && toggleSentence(round.q.en);
     }
+    srsRecord(round.q.en, opt.en === round.q.en);
+    recordEffort();               // one point per sentence answered
     setTimeout(() => { setPicked(null); setRound(build()); }, 1400);
   };
 
@@ -3001,6 +3005,7 @@ function EnSpeed({ words, starred, toggleStar, addStar, onHome }) {
     setFlash(right ? "right" : "wrong");
     if (right) { setScore((s) => s+1); playCorrect(score); speakEn(round.q.word); }
     else { playSoftMiss(); addStar(round.q.word); }
+    srsRecord("en:" + round.q.word, right);
     setTimeout(() => { setFlash(null); setRound(build()); }, 200);
   };
 
