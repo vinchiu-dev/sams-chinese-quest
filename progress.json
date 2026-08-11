@@ -381,11 +381,25 @@
       "right": 1,
       "wrong": 0,
       "last": 1786399169543
+    },
+    "We all love to eat fruit!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786399184206
+    },
+    "Today is the weekend — let's play with toys!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786399229386
     }
   },
   "dayCount": {
     "date": "2026-08-10",
-    "n": 10
+    "n": 12
   },
   "goalClaimed": "2026-08-08",
   "customWords": []
