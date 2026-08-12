@@ -2805,6 +2805,13 @@ function EnglishApp({ onSwitchLang }) {
 
   const _realWords = new Set(LISTS.flatMap((l) => l.words.map((w) => w.word.toLowerCase())));
   const _myFiltered = myWords.filter((w) => !_realWords.has(w.word.toLowerCase()));
+
+  // Once Claude has promoted a word into words-en.json, drop the local
+  // placeholder for good — otherwise the "needs a definition" badge keeps
+  // showing words that were finished days ago.
+  useEffect(() => {
+    if (myWords.length !== _myFiltered.length) setMyWords(_myFiltered);
+  }, [myWords.length, _myFiltered.length]);
   const allLists = _myFiltered.length
     ? [...LISTS, { id: "en-my-words", title: "My Words", subtitle: "words you added", words: _myFiltered }]
     : LISTS;
@@ -2830,7 +2837,7 @@ function EnglishApp({ onSwitchLang }) {
       <div style={{ maxWidth: 640, margin: "0 auto" }}>
         <EnHeader onHome={home} showHome={screen !== "home"} onSwitchLang={onSwitchLang} />
         {screen === "home" && (
-          <EnHome addMyWord={addMyWord} myWords={myWords}
+          <EnHome addMyWord={addMyWord} myWords={_myFiltered}
             wordCount={activeWords.length} starredCount={starredWords.length}
             totalCount={listWords.length} masteredCount={mastered.size} go={setScreen} />
         )}
@@ -2895,7 +2902,9 @@ function EnHome({ wordCount, starredCount, totalCount, masteredCount, go, addMyW
     setTimeout(() => setAdded(0), 4000);
   };
 
-  const needing = (myWords || []).filter((w) => w.needsDef).map((w) => w.word);
+  const needing = (myWords || [])
+    .filter((w) => w.needsDef && (!w.definition || /definition coming/i.test(w.definition)))
+    .map((w) => w.word);
   const copyList = () => {
     const txt = needing.join("\n");
     try { navigator.clipboard.writeText(txt); } catch (e) {}
