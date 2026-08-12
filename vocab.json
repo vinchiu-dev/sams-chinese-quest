@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-09",
+  "updated": "2026-08-12",
   "lessons": [
     {
       "id": "little-fox-school-supplies",
@@ -1051,6 +1051,37 @@
           "emoji": "🪐"
         }
       ]
+    },
+    {
+      "id": "too-cool",
+      "title": "You're Too Cool!",
+      "subtitle": "太酷了 — reacting and saying goodbye",
+      "words": [
+        {
+          "hanzi": "太酷了",
+          "pinyin": "tài kù le",
+          "en": "too cool / so cool",
+          "emoji": "😎"
+        },
+        {
+          "hanzi": "酷",
+          "pinyin": "kù",
+          "en": "cool",
+          "emoji": "🕶️"
+        },
+        {
+          "hanzi": "也",
+          "pinyin": "yě",
+          "en": "also / too",
+          "emoji": "➕"
+        },
+        {
+          "hanzi": "米卡",
+          "pinyin": "Mǐkǎ",
+          "en": "Mika (a name)",
+          "emoji": "👽"
+        }
+      ]
     }
   ],
   "tagMap": {
@@ -1101,6 +1132,9 @@
     ],
     "aboutme": [
       "about-me"
+    ],
+    "toocool": [
+      "too-cool"
     ]
   },
   "sentences": [
@@ -1571,6 +1605,42 @@
       "pinyin": "Wǒ jiějie yě liù suì.",
       "hanzi": "我姐姐也六岁。",
       "tag": "aboutme"
+    },
+    {
+      "en": "Mika, you're too cool!",
+      "pinyin": "Mǐkǎ, nǐ tài kù le!",
+      "hanzi": "米卡，你太酷了！",
+      "tag": "toocool"
+    },
+    {
+      "en": "Goodbye, Mika!",
+      "pinyin": "Zàijiàn, Mǐkǎ!",
+      "hanzi": "再见，米卡！",
+      "tag": "toocool"
+    },
+    {
+      "en": "I am also American.",
+      "pinyin": "Wǒ yě shì Měiguórén.",
+      "hanzi": "我也是美国人。",
+      "tag": "toocool"
+    },
+    {
+      "en": "My little brother also likes to play.",
+      "pinyin": "Wǒ dìdi yě ài wán.",
+      "hanzi": "我弟弟也爱玩。",
+      "tag": "toocool"
+    },
+    {
+      "en": "The alien is too cool!",
+      "pinyin": "Wàixīngrén tài kù le!",
+      "hanzi": "外星人太酷了！",
+      "tag": "toocool"
+    },
+    {
+      "en": "I also want to eat watermelon.",
+      "pinyin": "Wǒ yě xiǎng chī xīguā.",
+      "hanzi": "我也想吃西瓜。",
+      "tag": "toocool"
     }
   ]
 }
