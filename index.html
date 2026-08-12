@@ -139,107 +139,6 @@ function SoundToggle() {
   );
 }
 
-function SyncSettings({ onDone }) {
-  const [enVoices, setEnVoices] = useState([]);
-  const [zhVoices, setZhVoices] = useState([]);
-  const [enPick, setEnPick] = useState(loadLS("en_voice_pref", ""));
-  const [zhPick, setZhPick] = useState(loadLS("zh_voice_pref", ""));
-
-  useEffect(() => {
-    const load = () => {
-      const all = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
-      setEnVoices(all.filter((v) => v.lang && v.lang.toLowerCase().startsWith("en")));
-      setZhVoices(all.filter((v) => v.lang && v.lang.toLowerCase().startsWith("zh")));
-    };
-    load();
-    if (window.speechSynthesis) {
-      window.speechSynthesis.addEventListener &&
-        window.speechSynthesis.addEventListener("voiceschanged", load);
-    }
-    const timers = [300, 800, 1600].map((ms) => setTimeout(load, ms));
-    return () => timers.forEach(clearTimeout);
-  }, []);
-
-  const tryVoice = (voiceName, lang, sample) => {
-    try {
-      window.speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(sample);
-      u.lang = lang;
-      u.rate = 0.9;
-      const v = window.speechSynthesis.getVoices().find((x) => x.name === voiceName);
-      if (v) u.voice = v;
-      window.speechSynthesis.speak(u);
-    } catch (e) {}
-  };
-
-  const saveEn = (name) => { setEnPick(name); saveLS("en_voice_pref", name); if (name) tryVoice(name, "en-US", "Hello, this is the voice."); };
-  const saveZh = (name) => { setZhPick(name); saveLS("zh_voice_pref", name); if (name) tryVoice(name, "zh-CN", "你好，这是声音。"); };
-
-  const label = (v) => v.name + (v.localService === false ? "  ·  online (better)" : "");
-
-  return (
-    <div>
-      <div style={{ fontWeight: 800, fontSize: 17, marginBottom: 6 }}>⚙️ Settings</div>
-      <SoundToggle />
-      <div style={{ fontSize: 13, color: "#7a7391", marginBottom: 16, lineHeight: 1.5 }}>
-        Progress syncs across your devices automatically. Below you can pick which
-        voice sounds best — tap a voice to hear a sample. "online" voices are usually
-        the most natural.
-      </div>
-
-      <div style={{ fontWeight: 800, fontSize: 14, marginBottom: 6 }}>🇬🇧 English voice</div>
-      {enVoices.length === 0 ? (
-        <div style={{ fontSize: 13, color: "#9a94ad", marginBottom: 14 }}>Loading voices… (reopen this screen if empty)</div>
-      ) : (
-        <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 18 }}>
-          <button onClick={() => saveEn("")} style={{ ...voiceRow, borderColor: enPick === "" ? C.leaf : "#e3ddcf", background: enPick === "" ? "#EAF7F0" : "#fff" }}>
-            ⭐ Auto (let the app choose the best)
-          </button>
-          {enVoices.map((v) => (
-            <button key={v.name} onClick={() => saveEn(v.name)}
-              style={{ ...voiceRow, borderColor: enPick === v.name ? C.leaf : "#e3ddcf", background: enPick === v.name ? "#EAF7F0" : "#fff" }}>
-              🔊 {label(v)}
-            </button>
-          ))}
-        </div>
-      )}
-
-      <div style={{ fontWeight: 800, fontSize: 14, marginBottom: 6 }}>🇨🇳 Chinese voice</div>
-      {zhVoices.length === 0 ? (
-        <div style={{ fontSize: 13, color: "#9a94ad", marginBottom: 14 }}>No Chinese voices found on this device.</div>
-      ) : (
-        <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 18 }}>
-          <button onClick={() => saveZh("")} style={{ ...voiceRow, borderColor: zhPick === "" ? C.leaf : "#e3ddcf", background: zhPick === "" ? "#EAF7F0" : "#fff" }}>
-            ⭐ Auto (let the app choose the best)
-          </button>
-          {zhVoices.map((v) => (
-            <button key={v.name} onClick={() => saveZh(v.name)}
-              style={{ ...voiceRow, borderColor: zhPick === v.name ? C.leaf : "#e3ddcf", background: zhPick === v.name ? "#EAF7F0" : "#fff" }}>
-              🔊 {label(v)}
-            </button>
-          ))}
-        </div>
-      )}
-
-      <button onClick={onDone} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, fontSize: 15, padding: "12px", width: "100%" }}>Done</button>
-      <div style={{ marginTop: 14, fontSize: 12, color: "#9a94ad", lineHeight: 1.5 }}>
-        Tip on Windows Chrome: the most natural English voice is usually "Google US English".
-        If you only see "Microsoft David/Zira", those are the robotic ones — pick a Google or online voice if listed.
-      </div>
-    </div>
-  );
-}
-const voiceRow = {
-  border: "2px solid #e3ddcf",
-  borderRadius: 12,
-  padding: "10px 12px",
-  fontWeight: 700,
-  fontSize: 13,
-  cursor: "pointer",
-  fontFamily: "inherit",
-  color: "#2A2440",
-  textAlign: "left",
-};
 // ================= end sync =================
 
 
@@ -843,7 +742,7 @@ function ChineseApp({ onSwitchLang }) {
         rel="stylesheet"
       />
       <div style={{ maxWidth: 640, margin: "0 auto" }}>
-        <Header onHome={() => setScreen("home")} showHome={screen !== "home"} onSettings={() => setScreen("settings")} syncStatus={syncStatus} onSwitchLang={onSwitchLang} slow={slow} toggleSlow={toggleSlow} />
+        <Header onHome={() => setScreen("home")} showHome={screen !== "home"} onSwitchLang={onSwitchLang} slow={slow} toggleSlow={toggleSlow} />
 
         {screen === "home" && (
           <Home
@@ -916,7 +815,6 @@ function ChineseApp({ onSwitchLang }) {
         {screen === "tone" && (
           <ToneMatch words={activeWords} addTrouble={addTrouble} trouble={trouble} toggleTrouble={toggleTrouble} onHome={() => setScreen("home")} />
         )}
-        {screen === "settings" && <SyncSettings onDone={() => setScreen("home")} />}
         {(screen === "wordlist" || screen === "wordlist-add") && (
           <WordList
             allWords={listWords}
@@ -935,7 +833,7 @@ function ChineseApp({ onSwitchLang }) {
   );
 }
 
-function Header({ onHome, showHome, onSettings, syncStatus, onSwitchLang, slow, toggleSlow }) {
+function Header({ onHome, showHome, onSwitchLang, slow, toggleSlow }) {
   return (
     <div
       style={{
@@ -957,8 +855,6 @@ function Header({ onHome, showHome, onSettings, syncStatus, onSwitchLang, slow, 
         </div>
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-        {syncStatus === "synced" && <span title="Progress synced" style={{ fontSize: 12 }}>☁️✓</span>}
-        {syncStatus === "error" && <span title="Sync failed — check settings" style={{ fontSize: 12 }}>☁️⚠️</span>}
         <button
           onClick={toggleSlow}
           title={slow ? "Slow speech — tap for normal speed" : "Normal speech — tap for slow"}
@@ -981,9 +877,6 @@ function Header({ onHome, showHome, onSettings, syncStatus, onSwitchLang, slow, 
           <React.Fragment>
             <button onClick={onSwitchLang} style={{ ...ghostBtn, borderColor: "#5B8DEF", color: "#3B6FB8" }} title="Switch to English">
               🇬🇧 EN
-            </button>
-            <button onClick={onSettings} style={{ ...ghostBtn, padding: "8px 10px" }} title="Sync settings">
-              ⚙️
             </button>
           </React.Fragment>
         )}
@@ -1063,6 +956,8 @@ function ChipsScreen({ onDone }) {
           🪙 {STREAK_BONUS_CHIPS} bonus chips — every {STREAK_BONUS_EVERY} days in a row
         </div>
       </div>
+
+      <SoundToggle />
 
       <div style={{ fontWeight: 800, fontSize: 14, marginBottom: 8 }}>Trade in (grown-up taps this)</div>
       <div style={{ display: "flex", gap: 8, marginBottom: 16, flexWrap: "wrap" }}>
@@ -2606,7 +2501,7 @@ const miniBtn = {
 // Waits for vocab.json inside React so there are no script-timing assumptions.
 
 // ============================================================
-//  ENGLISH SIDE — "Sam's Word Collection"
+//  ENGLISH SIDE — "Sam's English Skills"
 //  Activities: Flashcards, Quiz, Speed Round, Spelling
 //  Data comes from words-en.json (window.__VOCAB__.english)
 // ============================================================
@@ -2781,7 +2676,7 @@ function EnglishApp({ onSwitchLang }) {
     <div style={{ minHeight:"100vh", background:`radial-gradient(circle at 20% 10%, #DCE9FB 0%, #F3F7FE 45%)`,
       color:C.ink, fontFamily:"'Baloo 2','Comic Sans MS',system-ui,sans-serif", padding:"20px 16px 60px" }}>
       <div style={{ maxWidth: 640, margin: "0 auto" }}>
-        <EnHeader onHome={home} showHome={screen !== "home"} onSwitchLang={onSwitchLang} syncStatus={syncStatus} onSettings={() => setScreen("settings")} />
+        <EnHeader onHome={home} showHome={screen !== "home"} onSwitchLang={onSwitchLang} />
         {screen === "home" && (
           <EnHome addMyWord={addMyWord} myWords={myWords}
             wordCount={activeWords.length} starredCount={starredWords.length}
@@ -2793,30 +2688,27 @@ function EnglishApp({ onSwitchLang }) {
         {screen === "speed" && <EnSpeed words={activeWords} starred={starred} toggleStar={toggleStar} addStar={addStar} onHome={home} />}
         {screen === "spelling" && <EnSpelling words={activeWords} starred={starred} toggleStar={toggleStar} addStar={addStar} onHome={home} />}
         {screen === "wordlist" && <EnWordList allWords={listWords} starred={starred} mastered={mastered} toggleStar={toggleStar} toggleMastered={toggleMastered} myWords={myWords} removeMyWord={removeMyWord} />}
-        {screen === "settings" && <SyncSettings onDone={home} />}
       </div>
     </div>
   );
 }
 
-function EnHeader({ onHome, showHome, onSwitchLang, syncStatus, onSettings }) {
+function EnHeader({ onHome, showHome, onSwitchLang }) {
   return (
     <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:18 }}>
       <div style={{ display:"flex", alignItems:"center", gap:10 }}>
         <span style={{ fontSize:34 }}>📚</span>
         <div>
-          <div style={{ fontWeight:800, fontSize:22, lineHeight:1 }}>Sam's Word Collection</div>
+          <div style={{ fontWeight:800, fontSize:22, lineHeight:1 }}>Sam's English Skills</div>
           <div style={{ fontSize:13, color:"#3B6FB8", fontWeight:700 }}>English vocabulary</div>
         </div>
       </div>
       <div style={{ display:"flex", alignItems:"center", gap:8 }}>
-        {syncStatus === "synced" && <span title="Progress synced" style={{ fontSize:12 }}>☁️✓</span>}
         {showHome ? (
           <button onClick={onHome} style={ghostBtn}>⬅ Menu</button>
         ) : (
           <React.Fragment>
             <button onClick={onSwitchLang} style={{ ...ghostBtn, borderColor:"#7C5CE0", color:"#6B4FA8" }} title="Switch to Math">🔢 Math</button>
-            <button onClick={onSettings} style={{ ...ghostBtn, padding:"8px 10px" }} title="Sync settings">⚙️</button>
           </React.Fragment>
         )}
       </div>
