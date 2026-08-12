@@ -2803,8 +2803,10 @@ function EnglishApp({ onSwitchLang }) {
   const toggleMastered = (w) =>
     setMastered((prev) => { const n = new Set(prev); n.has(w) ? n.delete(w) : n.add(w); return n; });
 
-  const _realWords = new Set(LISTS.flatMap((l) => l.words.map((w) => w.word.toLowerCase())));
-  const _myFiltered = myWords.filter((w) => !_realWords.has(w.word.toLowerCase()));
+  // Normalise so spacing/case variants resolve: "Free loader" === "Freeloader"
+  const _norm = (s) => (s || "").toLowerCase().replace(/[\s\-_]/g, "");
+  const _realWords = new Set(LISTS.flatMap((l) => l.words.map((w) => _norm(w.word))));
+  const _myFiltered = myWords.filter((w) => !_realWords.has(_norm(w.word)));
 
   // Once Claude has promoted a word into words-en.json, drop the local
   // placeholder for good — otherwise the "needs a definition" badge keeps
