@@ -780,7 +780,7 @@ function ChineseApp({ onSwitchLang }) {
   // words from the chosen lessons, minus any that have been archived (mastered)
   const activeWords = allLessons.filter((l) => pool.includes(l.id))
     .flatMap((l) => l.words)
-    .filter((w) => !archived.has(w.pinyin));
+
 
   // words for the master list — only from SELECTED lessons (plus manual adds),
   // so deselecting a lesson hides its words here too. archived stay visible here.
@@ -1315,7 +1315,7 @@ function Home({
           <span style={{ fontSize: 28 }}>📖</span>
           <span style={{ fontWeight: 800, fontSize: 14, marginTop: 4 }}>Word list</span>
           <span style={{ fontSize: 11, color: "#7a7391", marginTop: 2 }}>
-            all {totalCount} A–Z{archivedCount > 0 ? ` · ${archivedCount} mastered` : ""}
+            all {totalCount} A–Z
           </span>
         </button>
 
@@ -2296,11 +2296,8 @@ function WordList({ allWords, archived, trouble, toggleTrouble, toggleArchived, 
   const sorted = [...allWords].sort((a, b) =>
     a.en.toLowerCase().localeCompare(b.en.toLowerCase())
   );
-  const rows = showArchived
-    ? sorted
-    : sorted.filter((w) => !archived.has(w.pinyin));
-
-  const activeCount = allWords.filter((w) => !archived.has(w.pinyin)).length;
+  const rows = sorted;
+  const activeCount = allWords.length;
 
   return (
     <div>
@@ -2312,12 +2309,7 @@ function WordList({ allWords, archived, trouble, toggleTrouble, toggleArchived, 
           <button onClick={() => setShowAdd((s) => !s)} style={{ ...ghostBtn, fontSize: 13, borderColor: C.leaf, color: C.leaf }}>
             ➕ Add word
           </button>
-          <button
-            onClick={() => setShowArchived((s) => !s)}
-            style={{ ...ghostBtn, fontSize: 13 }}
-          >
-            {showArchived ? "🙈 Hide mastered" : "👁️ Show mastered"}
-          </button>
+
         </div>
       </div>
 
@@ -2352,12 +2344,12 @@ function WordList({ allWords, archived, trouble, toggleTrouble, toggleArchived, 
         </div>
       )}
       <div style={{ fontSize: 12, color: "#7a7391", marginBottom: 12 }}>
-        Tap ⭐ to add a word to the practice pile, 🔊 to hear it, and ✅ to archive one Sam has mastered (it leaves the games but stays here).
+        Tap ⭐ to add a word to the practice pile, or 🔊 to hear it.
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
         {rows.map((w, idx) => {
-          const isArchived = archived.has(w.pinyin);
+
           const isTricky = trouble.has(w.pinyin);
           return (
             <div
@@ -2366,8 +2358,7 @@ function WordList({ allWords, archived, trouble, toggleTrouble, toggleArchived, 
                 display: "flex",
                 alignItems: "center",
                 gap: 10,
-                background: isArchived ? "#F1EEE6" : "#fff",
-                opacity: isArchived ? 0.6 : 1,
+                background: "#fff",
                 border: `2px solid ${isTricky ? C.sun : "#efe8d8"}`,
                 borderRadius: 14,
                 padding: "10px 12px",
@@ -2403,34 +2394,7 @@ function WordList({ allWords, archived, trouble, toggleTrouble, toggleArchived, 
               >
                 🔊
               </button>
-              <button
-                onClick={() => { if (!isArchived) playCelebrate(); toggleArchived(w.pinyin); }}
-                aria-pressed={isArchived}
-                style={{
-                  ...ghostBtn,
-                  padding: "4px 8px",
-                  fontSize: 15,
-                  width: 34,
-                  height: 34,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderColor: isArchived ? C.leaf : "#ded7c8",
-                  background: isArchived ? C.leaf : "#fff",
-                }}
-                title={isArchived ? "Mastered — tap to undo" : "Mark as mastered"}
-              >
-                <span style={{ fontSize: 18, lineHeight: 1, fontWeight: 900, color: isArchived ? "#fff" : "transparent" }}>✓</span>
-              </button>
-              {customSet.has(w.pinyin) && (
-                <button
-                  onClick={() => removeCustomWord(w.pinyin)}
-                  style={{ ...ghostBtn, padding: "6px 9px", fontSize: 15, borderColor: "#F0B4B4", color: C.berry }}
-                  title="Delete this word you added"
-                >
-                  🗑️
-                </button>
-              )}
+
             </div>
           );
         })}
@@ -2732,7 +2696,7 @@ function EnglishApp({ onSwitchLang }) {
 
   const activeWords = allLists
     .flatMap((l) => l.words)
-    .filter((w) => !mastered.has(w.word));
+
   const listWords = allLists
     .flatMap((l) => l.words.map((w) => ({ ...w, list: l.title })));
   const starredWords = activeWords.filter((w) => starred.has(w.word));
@@ -2841,7 +2805,7 @@ function EnHome({ wordCount, starredCount, totalCount, masteredCount, go, addMyW
       </div>
 
       <div style={{ textAlign:"center", marginTop:12, fontSize:13, color:"#7a7391", fontWeight:700 }}>
-        {wordCount} word{wordCount===1?"":"s"} in play{masteredCount>0?` · ${masteredCount} mastered`:""}
+        {wordCount} word{wordCount===1?"":"s"} in play
       </div>
 
       {/* ---- three secondary actions, equal cards ---- */}
@@ -3177,26 +3141,24 @@ function EnWordList({ allWords, starred, mastered, toggleStar, toggleMastered, m
   const mySet = new Set((myWords||[]).map((w) => w.word));
   const [showMastered, setShowMastered] = useState(true);
   const sorted = [...allWords].sort((a, b) => a.word.toLowerCase().localeCompare(b.word.toLowerCase()));
-  const rows = showMastered ? sorted : sorted.filter((w) => !mastered.has(w.word));
-  const activeCount = allWords.filter((w) => !mastered.has(w.word)).length;
+  const rows = sorted;
+  const activeCount = allWords.length;
 
   return (
     <div>
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:10, flexWrap:"wrap", gap:8 }}>
         <div style={{ fontWeight:800, fontSize:16 }}>📖 Word list <span style={{ color:"#5B8DEF" }}>({activeCount} active)</span></div>
-        <button onClick={() => setShowMastered((s) => !s)} style={{ ...ghostBtn, fontSize:13 }}>
-          {showMastered ? "🙈 Hide mastered" : "👁️ Show mastered"}
-        </button>
+
       </div>
       <div style={{ fontSize:12, color:"#7a7391", marginBottom:12 }}>
-        Tap ⭐ for the practice pile, 🔊 to hear it, and the checkbox when Sam has mastered a word.
+        Tap ⭐ to add a word to the practice pile, or 🔊 to hear it.
       </div>
       <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
         {rows.map((w, idx) => {
-          const isM = mastered.has(w.word), isS = starred.has(w.word);
+          const isS = starred.has(w.word);
           return (
             <div key={w.word + idx} style={{ display:"flex", alignItems:"center", gap:10,
-              background: isM ? "#EEF1F6" : "#fff", opacity: isM ? 0.6 : 1,
+              background: "#fff",
               border:`2px solid ${isS ? C.sun : "#e6ecf5"}`, borderRadius:14, padding:"10px 12px" }}>
               <span style={{ fontSize:24, width:30, textAlign:"center" }}>{w.emoji || "📘"}</span>
               <div style={{ flex:1, minWidth:0 }}>
@@ -3207,28 +3169,6 @@ function EnWordList({ allWords, starred, mastered, toggleStar, toggleMastered, m
                 style={{ ...ghostBtn, padding:"6px 9px", fontSize:17, borderColor: isS ? C.sun : "#e3ddcf",
                   background: isS ? "#FFF9EC" : "#fff", filter: isS ? "none" : "grayscale(1) opacity(0.5)" }}>⭐</button>
               <button onClick={() => speakEn(w.word)} style={{ ...ghostBtn, padding:"6px 10px", fontSize:16 }} title="Hear it">🔊</button>
-              <button
-                onClick={() => { if (!isM) playCelebrate(); toggleMastered(w.word); }}
-                title={isM ? "Mastered — tap to undo" : "Mark as mastered"}
-                aria-pressed={isM}
-                style={{
-                  padding: 0,
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: 36,
-                  height: 36,
-                  flexShrink: 0,
-                  borderRadius: 9,
-                  border: `3px solid ${isM ? C.leaf : "#9fb3cc"}`,
-                  background: isM ? C.leaf : "#fff",
-                  boxShadow: isM ? "none" : "inset 0 2px 4px rgba(0,0,0,0.06)",
-                  fontFamily: "inherit",
-                }}>
-                <span style={{ fontSize:22, lineHeight:1, fontWeight:900,
-                  color: isM ? "#fff" : "#c2cfdf" }}>✓</span>
-              </button>
             </div>
           );
         })}
