@@ -858,6 +858,7 @@ function ChineseApp({ onSwitchLang }) {
             starredSentenceCount={starredSentenceList.length}
             totalCount={listWords.length}
             archivedCount={archived.size}
+            addCustomWord={addCustomWord}
             go={setScreen}
           />
         )}
@@ -1110,8 +1111,55 @@ function Home({
   lessons, pool, toggleLesson,
   selectAllLessons, selectNoLessons, selectNewestLesson,
   wordCount, troubleCount, starredSentenceCount, totalCount, archivedCount, go,
+  addCustomWord,
 }) {
   const [bankOpen, setBankOpen] = useState(false);
+  const [addOpen, setAddOpen] = useState(false);
+  const [bulk, setBulk] = useState("");
+  const [added, setAdded] = useState(0);
+
+  // Figure out whether a line is Chinese characters, pinyin, or English.
+  const classifyZh = (text) => {
+    const t = text.trim();
+    if (!t) return null;
+    if (/[\u4e00-\u9fff]/.test(t)) return { en: "", pinyin: "", hanzi: t };
+    if (/[āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜü]/i.test(t)) return { en: "", pinyin: t, hanzi: "" };
+    return { en: t, pinyin: "", hanzi: "" };
+  };
+
+  const submitZhWords = () => {
+    const lines = bulk.split("\n").map((s) => s.trim()).filter(Boolean);
+    let n = 0;
+    lines.forEach((line) => {
+      const pair = line.split(/\s*[=|]\s*/);
+      let parts;
+      if (pair.length >= 2) {
+        const merged = { en: "", pinyin: "", hanzi: "" };
+        pair.forEach((p) => {
+          const c = classifyZh(p);
+          if (!c) return;
+          if (c.hanzi) merged.hanzi = c.hanzi;
+          else if (c.pinyin) merged.pinyin = c.pinyin;
+          else if (!merged.en) merged.en = c.en;
+        });
+        parts = merged;
+      } else {
+        parts = classifyZh(line);
+      }
+      if (!parts || (!parts.en && !parts.pinyin && !parts.hanzi)) return;
+      addCustomWord({
+        en: parts.en || parts.pinyin || parts.hanzi,
+        pinyin: parts.pinyin || "",
+        hanzi: parts.hanzi || "",
+        emoji: "📝",
+        needsDef: !(parts.en && parts.pinyin && parts.hanzi),
+      });
+      n++;
+    });
+    setAdded(n);
+    setBulk("");
+    setTimeout(() => setAdded(0), 4000);
+  };
 
   const modes = [
     { id: "flashcards", emoji: "🃏", name: "Flip Cards", desc: "See it, guess it, flip it", color: C.sky },
@@ -1320,14 +1368,40 @@ function Home({
         </button>
 
         <button
-          onClick={() => go("wordlist-add")}
+          onClick={() => setAddOpen((o) => !o)}
           style={{ ...tileBtn, borderColor: C.leaf, background: "#fff" }}
         >
           <span style={{ fontSize: 28 }}>➕</span>
           <span style={{ fontWeight: 800, fontSize: 14, marginTop: 4 }}>Add word</span>
-          <span style={{ fontSize: 11, color: "#7a7391", marginTop: 2 }}>type or paste</span>
+          <span style={{ fontSize: 11, color: "#7a7391", marginTop: 2 }}>{addOpen ? "close" : "type or paste"}</span>
         </button>
       </div>
+
+      {addOpen && (
+        <div style={{ background: "#fff", borderRadius: 20, border: `3px solid ${C.leaf}`, marginTop: 12, padding: 16 }}>
+          <div style={{ fontWeight: 800, fontSize: 15, marginBottom: 6 }}>➕ Add words</div>
+          <div style={{ fontSize: 12, color: "#5c7a6c", marginBottom: 10, lineHeight: 1.5 }}>
+            One per line — English, pinyin, or Chinese, whichever you have.
+            Claude fills in the rest next time you chat.
+          </div>
+          <textarea
+            value={bulk}
+            onChange={(e) => setBulk(e.target.value)}
+            rows={5}
+            placeholder={"also\n猫\nmāo\nrabbit = 兔子"}
+            style={{ ...inp, fontFamily: "inherit", fontSize: 15, lineHeight: 1.6, resize: "vertical" }}
+          />
+          <button onClick={submitZhWords} disabled={!bulk.trim()}
+            style={{ ...bigBtn, background: C.leaf, width: "100%", marginTop: 10, fontSize: 15, padding: "12px", opacity: bulk.trim() ? 1 : 0.5 }}>
+            ✓ Add words
+          </button>
+          {added > 0 && (
+            <div style={{ marginTop: 10, fontWeight: 700, color: C.leaf, fontSize: 14 }}>
+              Added {added} word{added === 1 ? "" : "s"} to “Words We Added”.
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
@@ -3208,15 +3282,31 @@ const playCelebrate = () => {
 //  this builds the automaticity they under-drill, using the same
 //  spaced repetition, chips, streak and sounds as the languages.
 // ============================================================
+// Grouped so the picker stays readable as the list grows.
+// "gen" marks sets that need special generation rather than a plain a×b sweep.
 const MATH_SETS = [
-  { id: "add10",  title: "Adding to 10",     emoji: "➕", op: "+", a: [0,10],  b: [0,10] },
-  { id: "add20",  title: "Adding to 20",     emoji: "➕", op: "+", a: [0,20],  b: [0,20] },
-  { id: "sub10",  title: "Subtracting ≤10",  emoji: "➖", op: "-", a: [0,10],  b: [0,10] },
-  { id: "sub20",  title: "Subtracting ≤20",  emoji: "➖", op: "-", a: [0,20],  b: [0,20] },
-  { id: "mul5",   title: "×  up to 5",       emoji: "✖️", op: "*", a: [1,5],   b: [1,10] },
-  { id: "mul10",  title: "×  up to 10",      emoji: "✖️", op: "*", a: [1,10],  b: [1,10] },
-  { id: "mul12",  title: "×  up to 12",      emoji: "✖️", op: "*", a: [1,12],  b: [1,12] },
-  { id: "div10",  title: "÷  up to 10",      emoji: "➗", op: "/", a: [1,10],  b: [1,10] },
+  // --- the foundations: these are what "automaticity" actually means ---
+  { id: "bonds10", title: "Make 10",          emoji: "🔟", op: "+", gen: "bond", total: 10,  group: "Foundations" },
+  { id: "bonds20", title: "Make 20",          emoji: "🔟", op: "+", gen: "bond", total: 20,  group: "Foundations" },
+  { id: "doubles", title: "Doubles (7+7)",    emoji: "👯", op: "+", gen: "double", max: 12,  group: "Foundations" },
+  { id: "neardbl", title: "Near doubles",     emoji: "👯", op: "+", gen: "neardouble", max: 12, group: "Foundations" },
+
+  // --- adding & subtracting ---
+  { id: "add10",  title: "Adding to 10",      emoji: "➕", op: "+", a: [0,10],  b: [0,10],  group: "Add & subtract" },
+  { id: "add20",  title: "Adding to 20",      emoji: "➕", op: "+", a: [0,20],  b: [0,20],  group: "Add & subtract" },
+  { id: "sub10",  title: "Subtracting ≤10",   emoji: "➖", op: "-", a: [0,10],  b: [0,10],  group: "Add & subtract" },
+  { id: "sub20",  title: "Subtracting ≤20",   emoji: "➖", op: "-", a: [0,20],  b: [0,20],  group: "Add & subtract" },
+
+  // --- place value: the Grade 1/2 bridge to bigger numbers ---
+  { id: "plus10", title: "Add 10 (34+10)",    emoji: "🏠", op: "+", a: [1,89],  b: [10,10], group: "Bigger numbers" },
+  { id: "add2d",  title: "2-digit adding",    emoji: "🏠", op: "+", a: [10,49], b: [10,49], group: "Bigger numbers" },
+  { id: "sub2d",  title: "2-digit subtracting", emoji: "🏠", op: "-", a: [10,99], b: [1,49], group: "Bigger numbers" },
+
+  // --- times tables ---
+  { id: "mul5",   title: "×  up to 5",        emoji: "✖️", op: "*", a: [1,5],   b: [1,10],  group: "Times tables" },
+  { id: "mul10",  title: "×  up to 10",       emoji: "✖️", op: "*", a: [1,10],  b: [1,10],  group: "Times tables" },
+  { id: "mul12",  title: "×  up to 12",       emoji: "✖️", op: "*", a: [1,12],  b: [1,12],  group: "Times tables" },
+  { id: "div10",  title: "÷  up to 10",       emoji: "➗", op: "/", a: [1,10],  b: [1,10],  group: "Times tables" },
 ];
 
 const opSymbol = { "+": "+", "-": "−", "*": "×", "/": "÷" };
@@ -3224,6 +3314,24 @@ const opSymbol = { "+": "+", "-": "−", "*": "×", "/": "÷" };
 // Build every fact in a set, so spaced repetition can track each one.
 const factsFor = (set) => {
   const out = [];
+  // number bonds: 7 + ? = 10
+  if (set.gen === "bond") {
+    for (let x = 0; x <= set.total; x++)
+      out.push({ key: `math:bond:${set.total}:${x}`, a: x, b: set.total - x, op: "+", ans: set.total });
+    return out;
+  }
+  // doubles: 7 + 7
+  if (set.gen === "double") {
+    for (let x = 1; x <= set.max; x++)
+      out.push({ key: `math:+:${x}:${x}`, a: x, b: x, op: "+", ans: x + x });
+    return out;
+  }
+  // near doubles: 7 + 8
+  if (set.gen === "neardouble") {
+    for (let x = 1; x < set.max; x++)
+      out.push({ key: `math:+:${x}:${x + 1}`, a: x, b: x + 1, op: "+", ans: x + x + 1 });
+    return out;
+  }
   for (let x = set.a[0]; x <= set.a[1]; x++) {
     for (let y = set.b[0]; y <= set.b[1]; y++) {
       let q, ans;
@@ -3275,6 +3383,8 @@ function MathApp({ onSwitchLang }) {
         {screen === "quick" && <MathQuick facts={facts} onHome={home} />}
         {screen === "speed" && <MathSpeed facts={facts} onHome={home} />}
         {screen === "missing" && <MathMissing facts={facts} onHome={home} />}
+        {screen === "compare" && <MathCompare onHome={home} />}
+        {screen === "skip" && <MathSkip onHome={home} />}
         {screen === "chips" && <ChipsScreen onDone={home} />}
       </div>
     </div>
@@ -3286,6 +3396,8 @@ function MathHome({ sets, toggleSet, count, go }) {
     { id:"quick",   emoji:"⚡", name:"Quick Facts",   desc:"Type the answer",        color:"#7C5CE0" },
     { id:"speed",   emoji:"⏱️", name:"Speed Round",   desc:"How many in 60s?",       color:C.berry },
     { id:"missing", emoji:"❓", name:"Missing Number", desc:"5 × ? = 30",             color:C.leaf },
+    { id:"compare", emoji:"⚖️", name:"Bigger or Smaller", desc:"Is 34 more than 43?",  color:"#E8703A" },
+    { id:"skip",    emoji:"🪜", name:"What Comes Next",   desc:"2, 4, 6, ?",            color:"#3BA0C8" },
   ];
   const none = count === 0;
   return (
@@ -3294,17 +3406,22 @@ function MathHome({ sets, toggleSet, count, go }) {
 
       <div style={{ background:"#fff", borderRadius:20, border:"3px solid #e5e0f5", padding:"14px 16px", marginBottom:16 }}>
         <div style={{ fontWeight:800, fontSize:15, marginBottom:8 }}>What to practice</div>
-        <div style={{ display:"flex", flexWrap:"wrap", gap:8 }}>
-          {MATH_SETS.map((s) => {
-            const on = sets.includes(s.id);
-            return (
-              <button key={s.id} onClick={() => toggleSet(s.id)}
-                style={{ ...chip, background:on?"#7C5CE0":"#fff", color:on?"#fff":C.ink, borderColor:on?"#7C5CE0":"#e3ddcf" }}>
-                {on ? "✓ " : "+ "}{s.emoji} {s.title}
-              </button>
-            );
-          })}
-        </div>
+        {["Foundations","Add & subtract","Bigger numbers","Times tables"].map((g) => (
+          <div key={g} style={{ marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 800, color: "#8b83a8", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 5 }}>{g}</div>
+            <div style={{ display:"flex", flexWrap:"wrap", gap:8 }}>
+              {MATH_SETS.filter((s) => s.group === g).map((s) => {
+                const on = sets.includes(s.id);
+                return (
+                  <button key={s.id} onClick={() => toggleSet(s.id)}
+                    style={{ ...chip, background:on?"#7C5CE0":"#fff", color:on?"#fff":C.ink, borderColor:on?"#7C5CE0":"#e3ddcf" }}>
+                    {on ? "✓ " : "+ "}{s.emoji} {s.title}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        ))}
         <div style={{ marginTop:10, fontSize:12, color:"#7a7391" }}>
           {count} fact{count===1?"":"s"} in play — the ones Sam finds hard come back more often.
         </div>
@@ -3468,6 +3585,144 @@ function MathSpeed({ facts, onHome }) {
         ))}
       </div>
       <button onClick={onHome} style={{ ...bigBtn, background:"#EBE5D8", color:C.ink, marginTop:14, width:"100%" }}>⬅ Back to menu</button>
+    </div>
+  );
+}
+
+
+// ---- Bigger or Smaller: comparing numbers (place-value sense) ----
+function MathCompare({ onHome }) {
+  const build = () => {
+    const tier = Math.random();
+    const max = tier < 0.4 ? 20 : tier < 0.8 ? 100 : 999;
+    let a = Math.floor(Math.random() * max) + 1;
+    let b = Math.floor(Math.random() * max) + 1;
+    // often make them digit-swaps (34 vs 43) — that's where kids slip
+    if (Math.random() < 0.35 && a >= 10 && a < 100) {
+      b = Number(String(a).split("").reverse().join(""));
+      if (b === a) b = a + 1;
+    }
+    if (Math.random() < 0.12) b = a;  // sometimes equal
+    return { a, b, key: `math:cmp:${a}:${b}` };
+  };
+  const [q, setQ] = useState(build);
+  const [picked, setPicked] = useState(null);
+  const [score, setScore] = useState(0);
+  const [done, setDone] = useState(0);
+
+  const correct = q.a > q.b ? ">" : q.a < q.b ? "<" : "=";
+
+  const choose = (sym) => {
+    if (picked) return;
+    setPicked(sym);
+    const ok = sym === correct;
+    setDone((d) => d + 1);
+    if (ok) { setScore((s) => s + 1); playCorrect(score); } else playSoftMiss();
+    srsRecord(q.key, ok);
+    recordEffort();
+    setTimeout(() => { setPicked(null); setQ(build()); }, 1000);
+  };
+
+  return (
+    <div>
+      <Progress value={score} total={Math.max(done, 1)} label={`✅ ${score} / ${done}`} />
+      <div style={{ marginTop: 14, background: "#fff", borderRadius: 24, padding: "30px 20px", textAlign: "center",
+        border: `4px solid ${picked ? (picked === correct ? C.leaf : "#F0A5A5") : "#E8703A"}`,
+        boxShadow: "0 8px 0 rgba(232,112,58,0.22)" }}>
+        <div style={{ fontSize: 14, color: "#9a94ad", marginBottom: 12, fontWeight: 700 }}>
+          Which sign goes in the middle?
+        </div>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 18 }}>
+          <span style={{ fontSize: 46, fontWeight: 800 }}>{q.a}</span>
+          <span style={{ fontSize: 40, fontWeight: 800, color: picked ? C.ink : "#d8d0be" }}>
+            {picked ? correct : "?"}
+          </span>
+          <span style={{ fontSize: 46, fontWeight: 800 }}>{q.b}</span>
+        </div>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginTop: 14 }}>
+        {[["<", "is less than"], ["=", "is the same as"], [">", "is more than"]].map(([sym, label]) => {
+          let bg = "#fff", bd = "#e3ddcf", cl = C.ink;
+          if (picked) {
+            if (sym === correct) { bg = C.leaf; bd = C.leaf; cl = "#fff"; }
+            else if (sym === picked) { bg = "#F4A7A7"; bd = "#F4A7A7"; cl = "#fff"; }
+          }
+          return (
+            <button key={sym} onClick={() => choose(sym)}
+              style={{ ...bigBtn, background: bg, color: cl, border: `3px solid ${bd}`, padding: "16px 6px" }}>
+              <div style={{ fontSize: 30, fontWeight: 800 }}>{sym}</div>
+              <div style={{ fontSize: 10, opacity: 0.75, marginTop: 2 }}>{label}</div>
+            </button>
+          );
+        })}
+      </div>
+      <button onClick={onHome} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, marginTop: 14, width: "100%" }}>⬅ Back to menu</button>
+    </div>
+  );
+}
+
+// ---- What Comes Next: skip counting (the bridge into times tables) ----
+function MathSkip({ onHome }) {
+  const STEPS = [2, 5, 10, 3, 4];
+  const build = () => {
+    const step = STEPS[Math.floor(Math.random() * STEPS.length)];
+    const start = step * (Math.floor(Math.random() * 6) + 1);
+    const seq = [start, start + step, start + step * 2, start + step * 3];
+    const backwards = Math.random() < 0.25 && start - step * 3 >= 0;
+    const shown = backwards
+      ? [start + step * 3, start + step * 2, start + step, start]
+      : seq;
+    const ans = backwards ? start - step : start + step * 4;
+    return { shown, ans, step, backwards, key: `math:skip:${step}:${shown[0]}:${backwards ? "d" : "u"}` };
+  };
+  const [q, setQ] = useState(build);
+  const [entry, setEntry] = useState("");
+  const [result, setResult] = useState(null);
+  const [score, setScore] = useState(0);
+  const [done, setDone] = useState(0);
+
+  const check = () => {
+    if (result) return;
+    const ok = entry.trim() !== "" && Number(entry) === q.ans;
+    setResult(ok ? "right" : "wrong");
+    setDone((d) => d + 1);
+    if (ok) { setScore((s) => s + 1); playCorrect(score); } else playSoftMiss();
+    srsRecord(q.key, ok);
+    recordEffort();
+  };
+  const next = () => { setEntry(""); setResult(null); setQ(build()); };
+
+  return (
+    <div>
+      <Progress value={score} total={Math.max(done, 1)} label={`✅ ${score} / ${done}`} />
+      <div style={{ marginTop: 14, background: "#fff", borderRadius: 24, padding: "28px 18px", textAlign: "center",
+        border: `4px solid ${result === "right" ? C.leaf : result === "wrong" ? "#F0A5A5" : "#3BA0C8"}`,
+        boxShadow: "0 8px 0 rgba(59,160,200,0.22)" }}>
+        <div style={{ fontSize: 14, color: "#9a94ad", marginBottom: 12, fontWeight: 700 }}>
+          Counting {q.backwards ? "back" : "up"} by {q.step} — what comes next?
+        </div>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, flexWrap: "wrap" }}>
+          {q.shown.map((n, i) => (
+            <span key={i} style={{ fontSize: 30, fontWeight: 800, background: "#F3F8FB",
+              borderRadius: 12, padding: "8px 14px" }}>{n}</span>
+          ))}
+          <span style={{ fontSize: 30, fontWeight: 800, color: C.berry,
+            border: "3px dashed #cfd8e6", borderRadius: 12, padding: "6px 16px" }}>
+            {result ? q.ans : "?"}
+          </span>
+        </div>
+        <input value={entry} onChange={(e) => setEntry(e.target.value.replace(/[^0-9-]/g, ""))}
+          onKeyDown={(e) => { if (e.key === "Enter") result ? next() : check(); }}
+          inputMode="numeric" placeholder="?" autoFocus
+          style={{ ...inp, marginTop: 18, textAlign: "center", fontSize: 28, fontWeight: 800, maxWidth: 170,
+            borderColor: result === "right" ? C.leaf : result === "wrong" ? "#F0A5A5" : "#cfe3ef" }} />
+        {result === "right" && <div style={{ marginTop: 10, color: C.leaf, fontWeight: 800, fontSize: 18 }}>✓ Yes!</div>}
+        {result === "wrong" && <div style={{ marginTop: 10, color: C.berry, fontWeight: 800 }}>It's {q.ans}</div>}
+      </div>
+      {!result
+        ? <button onClick={check} disabled={!entry.trim()} style={{ ...bigBtn, background: C.leaf, width: "100%", marginTop: 14, opacity: entry.trim() ? 1 : 0.5 }}>✓ Check</button>
+        : <button onClick={next} style={{ ...bigBtn, background: "#7C5CE0", width: "100%", marginTop: 14 }}>Next →</button>}
+      <button onClick={onHome} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, marginTop: 12, width: "100%" }}>⬅ Back to menu</button>
     </div>
   );
 }
