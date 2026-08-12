@@ -774,9 +774,8 @@ function ChineseApp({ onSwitchLang }) {
 
   // "My Words" behaves like a lesson so it flows through games + word list
   const MY_WORDS_ID = "my-words";
-  const allLessons = customWords.length
-    ? [...LESSONS, { id: MY_WORDS_ID, title: "My Words", subtitle: "words you added", words: customWords }]
-    : LESSONS;
+  const MY_WORDS_LESSON = { id: MY_WORDS_ID, title: "Words We Added", subtitle: "words you added yourself", words: customWords };
+  const allLessons = customWords.length ? [...LESSONS, MY_WORDS_LESSON] : LESSONS;
 
   // words from the chosen lessons, minus any that have been archived (mastered)
   const activeWords = allLessons.filter((l) => pool.includes(l.id))
@@ -1220,7 +1219,12 @@ function Home({
                 paddingRight: 4,
               }}
             >
-              {[...lessons].reverse().map((l) => {
+              {(() => {
+                // "Words We Added" is pinned to the top; the rest are newest-first
+                const pinned = lessons.filter((l) => l.id === "my-words");
+                const rest = [...lessons.filter((l) => l.id !== "my-words")].reverse();
+                return [...pinned, ...rest];
+              })().map((l) => {
                 const on = pool.includes(l.id);
                 return (
                   <button
@@ -2235,24 +2239,58 @@ function ToneMatch({ words, addTrouble, trouble, toggleTrouble, onHome }) {
 function WordList({ allWords, archived, trouble, toggleTrouble, toggleArchived, customWords, addCustomWord, removeCustomWord, openAdd }) {
   const [showArchived, setShowArchived] = useState(true);
   const [showAdd, setShowAdd] = useState(!!openAdd);
-  const [f1, setF1] = useState(""); // english
-  const [f2, setF2] = useState(""); // pinyin
-  const [f3, setF3] = useState(""); // hanzi
-  const [f4, setF4] = useState(""); // emoji
+  const [bulk, setBulk] = useState("");
+  const [added, setAdded] = useState(0);
 
   const customSet = new Set((customWords || []).map((w) => w.pinyin));
 
+  // Work out what the user typed: Chinese characters, pinyin, or English.
+  const classify = (text) => {
+    const t = text.trim();
+    if (!t) return null;
+    const hasHan = /[\u4e00-\u9fff]/.test(t);
+    // pinyin often carries tone marks; also treat "ni hao"-style ASCII as
+    // ambiguous and let Claude sort it out later.
+    const hasToneMark = /[āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜü]/i.test(t);
+    if (hasHan) return { en: "", pinyin: "", hanzi: t };
+    if (hasToneMark) return { en: "", pinyin: t, hanzi: "" };
+    return { en: t, pinyin: "", hanzi: "" };
+  };
+
+  // One box, one or more lines. Also accepts "english = 中文" or "english - 中文".
   const submit = () => {
-    const en = f1.trim(), pinyin = f2.trim(), hanzi = f3.trim();
-    if (!en && !pinyin && !hanzi) return; // need at least one
-    addCustomWord({
-      en: en || pinyin || hanzi,
-      pinyin: pinyin || "",
-      hanzi: hanzi || "",         // hanzi drives good audio if provided
-      emoji: f4.trim() || "📝",
+    const lines = bulk.split("\n").map((s) => s.trim()).filter(Boolean);
+    let n = 0;
+    lines.forEach((line) => {
+      // allow an explicit pairing on one line
+      const pair = line.split(/\s*[=|]\s*/);
+      let parts;
+      if (pair.length >= 2) {
+        const merged = { en: "", pinyin: "", hanzi: "" };
+        pair.forEach((p) => {
+          const c = classify(p);
+          if (!c) return;
+          if (c.hanzi) merged.hanzi = c.hanzi;
+          else if (c.pinyin) merged.pinyin = c.pinyin;
+          else if (!merged.en) merged.en = c.en;
+        });
+        parts = merged;
+      } else {
+        parts = classify(line);
+      }
+      if (!parts || (!parts.en && !parts.pinyin && !parts.hanzi)) return;
+      addCustomWord({
+        en: parts.en || parts.pinyin || parts.hanzi,
+        pinyin: parts.pinyin || "",
+        hanzi: parts.hanzi || "",   // hanzi drives good audio when present
+        emoji: "📝",
+        needsDef: !(parts.en && parts.pinyin && parts.hanzi),
+      });
+      n++;
     });
-    setF1(""); setF2(""); setF3(""); setF4("");
-    setShowAdd(false);
+    setAdded(n);
+    setBulk("");
+    setTimeout(() => setAdded(0), 4000);
   };
 
   const sorted = [...allWords].sort((a, b) =>
@@ -2285,25 +2323,32 @@ function WordList({ allWords, archived, trouble, toggleTrouble, toggleArchived, 
 
       {showAdd && (
         <div style={{ background: "#F4FBF7", border: `2px solid ${C.leaf}`, borderRadius: 16, padding: 14, marginBottom: 14 }}>
-          <div style={{ fontWeight: 800, fontSize: 14, marginBottom: 6 }}>Add a word</div>
-          <div style={{ fontSize: 12, color: "#5c7a6c", marginBottom: 10 }}>
-            Fill in whatever you have — English, pinyin, or Chinese. Adding the Chinese
-            characters gives the best pronunciation. (Whatever you leave blank stays blank.)
+          <div style={{ fontWeight: 800, fontSize: 14, marginBottom: 6 }}>Add words</div>
+          <div style={{ fontSize: 12, color: "#5c7a6c", marginBottom: 10, lineHeight: 1.5 }}>
+            Type or paste one word per line — English, pinyin, or Chinese, whichever
+            you have. Claude fills in the rest next time you chat.
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            <input value={f1} onChange={(e) => setF1(e.target.value)} placeholder="English  (e.g. cat)" style={inp} />
-            <input value={f2} onChange={(e) => setF2(e.target.value)} placeholder="Pinyin  (e.g. māo)" style={inp} />
-            <input value={f3} onChange={(e) => setF3(e.target.value)} placeholder="Chinese  (e.g. 猫)  — best for audio" style={inp} />
-            <input value={f4} onChange={(e) => setF4(e.target.value)} placeholder="Emoji  (optional, e.g. 🐱)" style={inp} />
-          </div>
+          <textarea
+            value={bulk}
+            onChange={(e) => setBulk(e.target.value)}
+            rows={5}
+            placeholder={"also\n猫\nmāo\nrabbit = 兔子"}
+            style={{ ...inp, fontFamily: "inherit", fontSize: 15, lineHeight: 1.6, resize: "vertical" }}
+          />
           <div style={{ display: "flex", gap: 8, marginTop: 10 }}>
-            <button onClick={submit} style={{ ...bigBtn, background: C.leaf, flex: 1, fontSize: 15, padding: "10px" }}>
-              ✓ Add to My Words
+            <button onClick={submit} disabled={!bulk.trim()}
+              style={{ ...bigBtn, background: C.leaf, flex: 1, fontSize: 15, padding: "10px", opacity: bulk.trim() ? 1 : 0.5 }}>
+              ✓ Add words
             </button>
             <button onClick={() => setShowAdd(false)} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, fontSize: 15, padding: "10px 16px" }}>
-              Cancel
+              Done
             </button>
           </div>
+          {added > 0 && (
+            <div style={{ marginTop: 10, fontWeight: 700, color: C.leaf, fontSize: 14 }}>
+              Added {added} word{added === 1 ? "" : "s"} to “Words We Added”.
+            </div>
+          )}
         </div>
       )}
       <div style={{ fontSize: 12, color: "#7a7391", marginBottom: 12 }}>
