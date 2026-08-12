@@ -433,12 +433,5 @@
     "n": 16
   },
   "goalClaimed": "2026-08-11",
-  "customWords": [
-    {
-      "en": "also",
-      "pinyin": "yě",
-      "hanzi": "也",
-      "emoji": "➕"
-    }
-  ]
+  "customWords": []
 }
