@@ -66,392 +66,6 @@
     "The alien is too cool!",
     "My little brother also likes to play."
   ],
-  "chips": 3,
-  "practiceDays": [
-    "2026-08-08",
-    "2026-08-10",
-    "2026-08-11",
-    "2026-08-12"
-  ],
-  "srs": {
-    "gēbo": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786234486743
-    },
-    "The watermelon is really delicious!": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786234503153
-    },
-    "My mom is Chinese, my dad is American.": {
-      "lvl": 2,
-      "seen": 2,
-      "right": 2,
-      "wrong": 0,
-      "last": 1786452910227
-    },
-    "My toys are in the bedroom.": {
-      "lvl": 0,
-      "seen": 1,
-      "right": 0,
-      "wrong": 1,
-      "last": 1786235487534
-    },
-    "Nose bumps nose!": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786235507631
-    },
-    "Hello!": {
-      "lvl": 2,
-      "seen": 2,
-      "right": 2,
-      "wrong": 0,
-      "last": 1786235562763
-    },
-    "Grandpa, happy birthday!": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786235532310
-    },
-    "This is my dad.": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786235552958
-    },
-    "Is your big sister British?": {
-      "lvl": 1,
-      "seen": 2,
-      "right": 1,
-      "wrong": 1,
-      "last": 1786452579626
-    },
-    "Are you an alien?": {
-      "lvl": 0,
-      "seen": 3,
-      "right": 1,
-      "wrong": 2,
-      "last": 1786452990764
-    },
-    "The baby loves to cry.": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786237008621
-    },
-    "The rabbit's eyes hurt, the fox's ears hurt.": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786237136097
-    },
-    "hái yǒu": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786237196201
-    },
-    "hǎochī": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786237211346
-    },
-    "zài nǎr": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786237223634
-    },
-    "qīngcài": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786237233479
-    },
-    "ěrduo": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786237237794
-    },
-    "I am six years old.": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786382999346
-    },
-    "Today is the weekend — the alien is playing at my house!": {
-      "lvl": 0,
-      "seen": 1,
-      "right": 0,
-      "wrong": 1,
-      "last": 1786383190806
-    },
-    "My mom comes from China, she is Chinese.": {
-      "lvl": 0,
-      "seen": 2,
-      "right": 0,
-      "wrong": 2,
-      "last": 1786383446558
-    },
-    "My name is Sam.": {
-      "lvl": 2,
-      "seen": 2,
-      "right": 2,
-      "wrong": 0,
-      "last": 1786453262159
-    },
-    "I am American.": {
-      "lvl": 5,
-      "seen": 6,
-      "right": 5,
-      "wrong": 1,
-      "last": 1786453065261
-    },
-    "Who is knocking on the door?": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786383565233
-    },
-    "Dad, I don't feel well...": {
-      "lvl": 0,
-      "seen": 1,
-      "right": 0,
-      "wrong": 1,
-      "last": 1786383572397
-    },
-    "Mom loves to laugh.": {
-      "lvl": 0,
-      "seen": 1,
-      "right": 0,
-      "wrong": 1,
-      "last": 1786383673939
-    },
-    "wánjù": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786383661443
-    },
-    "měiguó": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786551938630
-    },
-    "suì": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786551927985
-    },
-    "shì": {
-      "lvl": 1,
-      "seen": 2,
-      "right": 1,
-      "wrong": 1,
-      "last": 1786452464158
-    },
-    "The alien comes from another planet!": {
-      "lvl": 0,
-      "seen": 2,
-      "right": 0,
-      "wrong": 2,
-      "last": 1786452775324
-    },
-    "liù": {
-      "lvl": 5,
-      "seen": 5,
-      "right": 5,
-      "wrong": 0,
-      "last": 1786452416928
-    },
-    "xīngqiú": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786551955255
-    },
-    "yīngguórén": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786551932003
-    },
-    "zhōngguórén": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786551947933
-    },
-    "nǎ guó rén": {
-      "lvl": 2,
-      "seen": 2,
-      "right": 2,
-      "wrong": 0,
-      "last": 1786551960299
-    },
-    "wàixīngrén": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786551945573
-    },
-    "láizì": {
-      "lvl": 0,
-      "seen": 1,
-      "right": 0,
-      "wrong": 1,
-      "last": 1786551918950
-    },
-    "měiguórén": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786551963931
-    },
-    "The little monkey's head hurts a bit.": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786398770017
-    },
-    "Wishing you a happy life!": {
-      "lvl": 0,
-      "seen": 1,
-      "right": 0,
-      "wrong": 1,
-      "last": 1786398787079
-    },
-    "No no no, it doesn't hurt anymore!": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786398811964
-    },
-    "I don't feel well, I want to lie on the bed.": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786399094423
-    },
-    "Your life is really happy!": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786399118724
-    },
-    "What is your dad doing?": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786399134219
-    },
-    "Big brother is playing games in the study.": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786399169543
-    },
-    "We all love to eat fruit!": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786399184206
-    },
-    "Today is the weekend — let's play with toys!": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786399229386
-    },
-    "jiào": {
-      "lvl": 2,
-      "seen": 2,
-      "right": 2,
-      "wrong": 0,
-      "last": 1786551967499
-    },
-    "My big sister is six years old too.": {
-      "lvl": 2,
-      "seen": 2,
-      "right": 2,
-      "wrong": 0,
-      "last": 1786453191511
-    },
-    "I come from America.": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786452670063
-    },
-    "What's your nationality?": {
-      "lvl": 1,
-      "seen": 2,
-      "right": 1,
-      "wrong": 1,
-      "last": 1786453221684
-    },
-    "The alien is too cool!": {
-      "lvl": 0,
-      "seen": 1,
-      "right": 0,
-      "wrong": 1,
-      "last": 1786552023059
-    },
-    "My little brother also likes to play.": {
-      "lvl": 0,
-      "seen": 1,
-      "right": 0,
-      "wrong": 1,
-      "last": 1786552024536
-    }
-  },
-  "dayCount": {
-    "date": "2026-08-12",
-    "n": 3
-  },
-  "spokenCount": {},
-  "goalClaimed": "2026-08-11",
   "customWords": [
     {
       "en": "also",
@@ -464,6 +78,215 @@
       "pinyin": "",
       "hanzi": "",
       "emoji": "📝"
+    }
+  ],
+  "en_starred": [
+    "contaminate",
+    "hesitate",
+    "abundant"
+  ],
+  "en_mastered": [
+    "gigantic",
+    "fragile",
+    "Anchor",
+    "Free loader"
+  ],
+  "en_myWords": [
+    {
+      "word": "Tremble",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "vivid",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Contaminate",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Minister",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Particle",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "digestive",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "knead",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "strict",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "yanked",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Anchor",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Syringe",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Free loader",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Approximately",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Seize",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Atrocious",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Mental health",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Defy Gravity",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Concussion",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Destiny",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Maneuver",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Prototype",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Fidget",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Mumble",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Radiant",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Versatile",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Forsake",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Exercise",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Run experiments",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
     }
   ]
 }
