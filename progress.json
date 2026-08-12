@@ -62,11 +62,14 @@
     "I don't feel well, I want to lie on the bed.",
     "Big brother is playing games in the study.",
     "We all love to eat fruit!",
-    "Where do you come from?"
+    "Where do you come from?",
+    "The alien is too cool!",
+    "My little brother also likes to play."
   ],
   "chips": 1,
   "practiceDays": [
-    "2026-08-08"
+    "2026-08-08",
+    "2026-08-12"
   ],
   "srs": {
     "gēbo": {
@@ -187,9 +190,96 @@
       "right": 1,
       "wrong": 0,
       "last": 1786237237794
+    },
+    "láizì": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786551918950
+    },
+    "suì": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786551927985
+    },
+    "yīngguórén": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786551932003
+    },
+    "nǎ guó rén": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1786551960299
+    },
+    "měiguó": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786551938630
+    },
+    "jiào": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1786551967499
+    },
+    "wàixīngrén": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786551945573
+    },
+    "zhōngguórén": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786551947933
+    },
+    "xīngqiú": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786551955255
+    },
+    "měiguórén": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786551963931
+    },
+    "The alien is too cool!": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786552023059
+    },
+    "My little brother also likes to play.": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786552024536
     }
   },
-  "dayCount": {},
+  "dayCount": {
+    "date": "2026-08-12",
+    "n": 3
+  },
   "goalClaimed": "",
   "customWords": [
     {
