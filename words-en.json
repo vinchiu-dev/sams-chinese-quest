@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-11",
+  "updated": "2026-08-12",
   "lists": [
     {
       "id": "en-starter-1",
@@ -278,6 +278,24 @@
           "definition": "a small house that is usually all on one floor",
           "example": "They rented a little bungalow near the beach for the summer.",
           "emoji": "🏡"
+        },
+        {
+          "word": "Exercise",
+          "definition": "activity that moves your body to keep it strong and healthy",
+          "example": "Riding his bike after school is Sam's favourite exercise.",
+          "emoji": "🏃"
+        },
+        {
+          "word": "Run experiments",
+          "definition": "to carefully test an idea to find out what happens",
+          "example": "Scientists run experiments to see which plants grow fastest.",
+          "emoji": "🔬"
+        },
+        {
+          "word": "Socialize",
+          "definition": "to spend time talking and having fun with other people",
+          "example": "He likes to socialize with his classmates at recess.",
+          "emoji": "🗣️"
         }
       ]
     }
