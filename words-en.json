@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-09",
+  "updated": "2026-08-11",
   "lists": [
     {
       "id": "en-starter-1",
@@ -272,6 +272,12 @@
           "definition": "to leave someone or something behind and stop supporting them",
           "example": "A loyal friend will never forsake you when things get hard.",
           "emoji": "💔"
+        },
+        {
+          "word": "Bungalow",
+          "definition": "a small house that is usually all on one floor",
+          "example": "They rented a little bungalow near the beach for the summer.",
+          "emoji": "🏡"
         }
       ]
     }
