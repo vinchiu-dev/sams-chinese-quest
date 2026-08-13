@@ -446,15 +446,9 @@
       "last": 1786552024536
     }
   },
-  "dayCount": {
-    "date": "2026-08-12",
-    "n": 4
-  },
-  "spokenCount": {
-    "date": "2026-08-12",
-    "n": 3
-  },
-  "goalClaimed": "2026-08-11",
+  "dayCount": {},
+  "spokenCount": {},
+  "goalClaimed": "",
   "customWords": [
     {
       "en": "also",
