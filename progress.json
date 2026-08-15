@@ -467,6 +467,20 @@
       "pinyin": "",
       "hanzi": "",
       "emoji": "📝"
+    },
+    {
+      "en": "Have",
+      "pinyin": "",
+      "hanzi": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "en": "Don't have",
+      "pinyin": "",
+      "hanzi": "",
+      "emoji": "📝",
+      "needsDef": true
     }
   ]
 }
