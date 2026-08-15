@@ -717,15 +717,17 @@ function ChineseApp({ onSwitchLang }) {
   const allLessons = customWords.length ? [...LESSONS, MY_WORDS_LESSON] : LESSONS;
 
   // words from the chosen lessons, minus any that have been archived (mastered)
-  const activeWords = allLessons.filter((l) => pool.includes(l.id))
+  const activeWords = allLessons.filter((l) => pool.includes(l.id) || l.id === MY_WORDS_ID)
     .flatMap((l) => l.words)
 
 
   // words for the master list — only from SELECTED lessons (plus manual adds),
   // so deselecting a lesson hides its words here too. archived stay visible here.
-  const listWords = allLessons.filter((l) => pool.includes(l.id)).flatMap((l) =>
-    l.words.map((w) => ({ ...w, lesson: l.title }))
-  );
+  // "Words We Added" is always in play — if you added a word deliberately,
+  // it shouldn't need a lesson toggle to show up.
+  const listWords = allLessons
+    .filter((l) => pool.includes(l.id) || l.id === MY_WORDS_ID)
+    .flatMap((l) => l.words.map((w) => ({ ...w, lesson: l.title })));
 
   // sentences for Say the Sentence — only those whose lesson(s) are selected
   const activeSentences = SENTENCES.filter((s) => {
@@ -782,7 +784,7 @@ function ChineseApp({ onSwitchLang }) {
         rel="stylesheet"
       />
       <div style={{ maxWidth: 640, margin: "0 auto" }}>
-        <Header onHome={() => setScreen("home")} showHome={screen !== "home"} onSwitchLang={onSwitchLang} slow={slow} toggleSlow={toggleSlow} />
+        <Header onHome={() => setScreen("home")} showHome={screen !== "home"} onSwitchLang={onSwitchLang} />
 
         {screen === "home" && (
           <Home
@@ -873,7 +875,7 @@ function ChineseApp({ onSwitchLang }) {
   );
 }
 
-function Header({ onHome, showHome, onSwitchLang, slow, toggleSlow }) {
+function Header({ onHome, showHome, onSwitchLang }) {
   return (
     <div
       style={{
@@ -889,26 +891,9 @@ function Header({ onHome, showHome, onSwitchLang, slow, toggleSlow }) {
           <div style={{ fontWeight: 800, fontSize: 22, lineHeight: 1 }}>
             Sam's Chinese Quest
           </div>
-          <div style={{ fontSize: 13, color: C.fox, fontWeight: 700 }}>
-            中文小游戏
-          </div>
         </div>
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-        <button
-          onClick={toggleSlow}
-          title={slow ? "Slow speech — tap for normal speed" : "Normal speech — tap for slow"}
-          style={{
-            ...ghostBtn,
-            padding: "8px 10px",
-            borderColor: slow ? C.leaf : "#e3ddcf",
-            background: slow ? C.leaf : "#fff",
-            color: slow ? "#fff" : C.ink,
-            fontWeight: 800,
-          }}
-        >
-          {slow ? "🐢 Slow" : "🐇 Normal"}
-        </button>
         {showHome ? (
           <button onClick={onHome} style={ghostBtn}>
             ⬅ Menu
@@ -2515,7 +2500,17 @@ function WordList({ allWords, archived, trouble, toggleTrouble, toggleArchived, 
               >
                 🔊
               </button>
-
+              {customSet.has(w.pinyin) && (
+                <button
+                  onClick={() => {
+                    if (window.confirm(`Delete “${w.en}” from Words We Added?`)) removeCustomWord(w.pinyin);
+                  }}
+                  style={{ ...ghostBtn, padding: "6px 8px", fontSize: 14, borderColor: "#F0B4B4", color: C.berry }}
+                  title="Delete this word you added"
+                >
+                  🗑
+                </button>
+              )}
             </div>
           );
         })}
@@ -2861,7 +2856,6 @@ function EnHeader({ onHome, showHome, onSwitchLang }) {
         <span style={{ fontSize:34 }}>📚</span>
         <div>
           <div style={{ fontWeight:800, fontSize:22, lineHeight:1 }}>Sam's English Skills</div>
-          <div style={{ fontSize:13, color:"#3B6FB8", fontWeight:700 }}>English vocabulary</div>
         </div>
       </div>
       <div style={{ display:"flex", alignItems:"center", gap:8 }}>
@@ -3298,6 +3292,17 @@ function EnWordList({ allWords, starred, mastered, toggleStar, toggleMastered, m
                 style={{ ...ghostBtn, padding:"6px 9px", fontSize:17, borderColor: isS ? C.sun : "#e3ddcf",
                   background: isS ? "#FFF9EC" : "#fff", filter: isS ? "none" : "grayscale(1) opacity(0.5)" }}>⭐</button>
               <button onClick={() => speakEn(w.word)} style={{ ...ghostBtn, padding:"6px 10px", fontSize:16 }} title="Hear it">🔊</button>
+              {mySet.has(w.word) && (
+                <button
+                  onClick={() => {
+                    if (window.confirm(`Delete “${w.word}” from your words?`)) removeMyWord(w.word);
+                  }}
+                  style={{ ...ghostBtn, padding:"6px 8px", fontSize:14, borderColor:"#F0B4B4", color:C.berry }}
+                  title="Delete this word you added"
+                >
+                  🗑
+                </button>
+              )}
             </div>
           );
         })}
@@ -3422,7 +3427,6 @@ function MathApp({ onSwitchLang }) {
             <span style={{ fontSize:34 }}>🔢</span>
             <div>
               <div style={{ fontWeight:800, fontSize:22, lineHeight:1 }}>Sam's Math Facts</div>
-              <div style={{ fontSize:13, color:"#6B4FA8", fontWeight:700 }}>quick maths</div>
             </div>
           </div>
           <div style={{ display:"flex", gap:8 }}>
