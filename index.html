@@ -43,7 +43,7 @@ window.__VOCAB_PROMISE__ = Promise.all([
 </script>
 
 <script type="text/babel" data-presets="react-classic">
-  const { useState, useEffect, useRef } = React;
+  const { useState, useEffect, useRef, useMemo } = React;
 
 // ================= persistence & cross-device sync =================
 const LS_PREFIX = "samquest_";
@@ -327,6 +327,9 @@ const srsRecord = (key, correct) => {
 
 // Weight = how badly this item needs practice. Higher = pick more often.
 const srsWeight = (key) => {
+  // today's word gets pushed to the front of the queue everywhere
+  const wod = wodActive();
+  if (wod && (key === wod.pinyin || key === wod.en)) return 40;
   const s = loadSrs();
   const r = s[key];
   if (!r) return 8;                       // never seen — top priority
@@ -599,6 +602,31 @@ const playStreakUp = () => {
   playApplause(true);
 };
 
+
+// ============================================================
+//  WORD OF THE DAY
+//  One word, met through four different channels — hear it, pick it,
+//  recall it, use it in a sentence. Repetition of a single flashcard
+//  doesn't stick; meeting the same word in different forms does.
+//  It also gets a big spaced-repetition boost so it keeps turning up
+//  in the normal games all day.
+// ============================================================
+const getWOD = () => loadLS("wordOfDay", null);   // { date, word }
+const setWOD = (word) => saveLS("wordOfDay", { date: todayKey(), word });
+const wodActive = () => {
+  const w = getWOD();
+  return w && w.date === todayKey() ? w.word : null;
+};
+const wodDoneToday = () => loadLS("wodDone", "") === todayKey();
+const markWodDone = () => {
+  if (wodDoneToday()) return false;
+  saveLS("wodDone", todayKey());
+  addChips(1);
+  logChips({ type: "wod", amount: 1, note: "Word of the day ⭐" });
+  playFanfare();
+  return true;
+};
+
 // ---- palette: playful, high-contrast, "storybook" ----
 const C = {
   paper: "#FFF6E9",
@@ -633,6 +661,8 @@ function ChineseApp({ onSwitchLang }) {
       srs: loadLS("srs", {}),
       dayCount: loadLS("dayCount", {}),
       spokenCount: loadLS("spokenCount", {}),
+      wordOfDay: loadLS("wordOfDay", null),
+      wodDone: loadLS("wodDone", ""),
       goalClaimed: loadLS("goalClaimed", ""),
       customWords,
     };
@@ -659,6 +689,8 @@ function ChineseApp({ onSwitchLang }) {
         if ((remote.dayCount.n || 0) > mineN) saveLS("dayCount", remote.dayCount);
       }
       if (remote.goalClaimed === todayKey()) saveLS("goalClaimed", remote.goalClaimed);
+      if (remote.wordOfDay && remote.wordOfDay.date === todayKey()) saveLS("wordOfDay", remote.wordOfDay);
+      if (remote.wodDone === todayKey()) saveLS("wodDone", remote.wodDone);
       if (remote.spokenCount && remote.spokenCount.date === todayKey()) {
         const mine = loadLS("spokenCount", {});
         const mineN = mine.date === todayKey() ? (mine.n || 0) : 0;
@@ -787,8 +819,12 @@ function ChineseApp({ onSwitchLang }) {
             totalCount={listWords.length}
             archivedCount={archived.size}
             addCustomWord={addCustomWord}
+            allWordsForWod={listWords}
             go={setScreen}
           />
+        )}
+        {screen === "wod" && wodActive() && (
+          <WordOfDay word={wodActive()} allWords={activeWords} sentences={activeSentences} onHome={() => setScreen("home")} />
         )}
         {screen === "flashcards" && (
           <React.Fragment><GameTitle>Flip Cards</GameTitle>
@@ -1031,8 +1067,11 @@ function Home({
   lessons, pool, toggleLesson,
   selectAllLessons, selectNoLessons, selectNewestLesson,
   wordCount, troubleCount, starredSentenceCount, totalCount, archivedCount, go,
-  addCustomWord,
+  addCustomWord, allWordsForWod,
 }) {
+  const [wodPickerOpen, setWodPickerOpen] = useState(false);
+  const [wodTick, setWodTick] = useState(0);
+  const todaysWord = wodActive();
   const [bankOpen, setBankOpen] = useState(false);
   const [addOpen, setAddOpen] = useState(false);
   const [bulk, setBulk] = useState("");
@@ -1215,6 +1254,52 @@ function Home({
         )}
       </div>
 
+      {/* ---- word of the day ---- */}
+      <div style={{ background: todaysWord ? "#FFF4E9" : "#fff", border: `3px solid ${todaysWord ? C.fox : "#efe8d8"}`,
+        borderRadius: 18, padding: "12px 14px", marginBottom: 14 }}>
+        {todaysWord ? (
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <span style={{ fontSize: 34 }}>{todaysWord.emoji || "⭐"}</span>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 0.5, textTransform: "uppercase", color: "#b9927a" }}>
+                Word of the day{wodDoneToday() ? " ✓" : ""}
+              </div>
+              <div style={{ fontWeight: 800, fontSize: 19, color: C.fox, lineHeight: 1.2 }}>{todaysWord.pinyin}</div>
+              <div style={{ fontSize: 13, color: "#7a7391" }}>{todaysWord.en}</div>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+              <button onClick={() => go("wod")} style={{ ...bigBtn, background: C.fox, fontSize: 13, padding: "10px 14px" }}>
+                {wodDoneToday() ? "Again" : "Drill it"}
+              </button>
+              <button onClick={() => setWodPickerOpen((o) => !o)} style={{ ...ghostBtn, fontSize: 11, padding: "5px 8px" }}>
+                Change
+              </button>
+            </div>
+          </div>
+        ) : (
+          <button onClick={() => setWodPickerOpen((o) => !o)}
+            style={{ width: "100%", background: "transparent", border: "none", cursor: "pointer",
+              fontFamily: "inherit", textAlign: "left", padding: 0 }}>
+            <span style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <span style={{ fontSize: 28 }}>⭐</span>
+              <span>
+                <span style={{ display: "block", fontWeight: 800, fontSize: 15 }}>Pick a word of the day</span>
+                <span style={{ display: "block", fontSize: 12, color: "#7a7391" }}>
+                  One word to really nail today
+                </span>
+              </span>
+            </span>
+          </button>
+        )}
+        {wodPickerOpen && (
+          <WodPicker
+            allWords={allWordsForWod || []}
+            onPick={(w) => { setWOD(w); setWodPickerOpen(false); setWodTick((t) => t + 1); }}
+            onCancel={() => setWodPickerOpen(false)}
+          />
+        )}
+      </div>
+
       <StreakBar onOpenChips={() => go("chips")} />
 
       {/* ---- the games ---- */}
@@ -1325,6 +1410,220 @@ function Home({
     </div>
   );
 }
+
+// ---- Word of the Day drill: 4 short steps, ~1 minute ----
+function WordOfDay({ word, allWords, sentences, onHome }) {
+  const [step, setStep] = useState(0);
+  const [picked, setPicked] = useState(null);
+  const [revealed, setRevealed] = useState(false);
+  const [earned, setEarned] = useState(false);
+
+  // step 2 needs distractors
+  const options = useMemo(() => {
+    const wrong = shuffle(allWords.filter((w) => w.pinyin !== word.pinyin)).slice(0, 3);
+    return shuffle([word, ...wrong]);
+  }, [word, allWords.length]);
+
+  // step 4: a real sentence using this word, if we have one
+  const example = useMemo(() => {
+    const hz = word.hanzi || "";
+    if (!hz) return null;
+    return sentences.find((s) => (s.hanzi || "").includes(hz)) || null;
+  }, [word, sentences.length]);
+
+  const steps = ["Meet it", "Hear it", "Say it", example ? "Use it" : null].filter(Boolean);
+  const last = steps.length - 1;
+
+  const finish = () => {
+    srsRecord(word.pinyin, true);
+    recordEffort();
+    if (markWodDone()) setEarned(true);
+    setStep(steps.length);   // done screen
+  };
+
+  const advance = () => {
+    setPicked(null);
+    setRevealed(false);
+    if (step >= last) finish();
+    else setStep(step + 1);
+  };
+
+  // ---- done ----
+  if (step >= steps.length)
+    return (
+      <Center>
+        <div style={{ fontSize: 64 }}>🌟</div>
+        <h2 style={{ margin: "8px 0" }}>Nailed it!</h2>
+        <div style={{ fontSize: 34, fontWeight: 800, color: C.fox }}>{word.pinyin}</div>
+        <div style={{ fontSize: 17, color: "#7a7391", marginTop: 2 }}>{word.en}</div>
+        {earned && (
+          <div style={{ marginTop: 14, fontWeight: 800, color: C.sun, fontSize: 17 }}>
+            🪙 +1 chip for word of the day!
+          </div>
+        )}
+        <div style={{ marginTop: 12, fontSize: 12, color: "#9a94ad", maxWidth: 300, textAlign: "center" }}>
+          This word will keep popping up in the other games today.
+        </div>
+        <button onClick={onHome} style={{ ...bigBtn, background: C.fox, marginTop: 18 }}>⬅ Back to menu</button>
+      </Center>
+    );
+
+  const label = steps[step];
+
+  return (
+    <div>
+      <GameTitle>Word of the Day · {label}</GameTitle>
+
+      {/* progress pips */}
+      <div style={{ display: "flex", justifyContent: "center", gap: 6, marginBottom: 14 }}>
+        {steps.map((_, k) => (
+          <div key={k} style={{ width: 26, height: 6, borderRadius: 4,
+            background: k <= step ? C.fox : "#e7e0d0" }} />
+        ))}
+      </div>
+
+      {/* ---- step 1: meet it ---- */}
+      {label === "Meet it" && (
+        <div>
+          <div style={{ background: "#fff", borderRadius: 28, padding: "34px 20px", textAlign: "center",
+            border: `4px solid ${C.fox}`, boxShadow: "0 10px 0 rgba(232,112,58,0.3)" }}>
+            <div style={{ fontSize: 64 }}>{word.emoji || "⭐"}</div>
+            <div style={{ fontSize: 40, fontWeight: 800, color: C.fox, marginTop: 8 }}>{word.pinyin}</div>
+            <div style={{ fontSize: 20, color: "#7a7391", marginTop: 4 }}>{word.en}</div>
+            <button onClick={() => speak(word)} style={{ ...bigBtn, background: C.sky, marginTop: 16, padding: "12px 26px" }}>
+              🔊 Hear it
+            </button>
+          </div>
+          <button onClick={advance} style={{ ...bigBtn, background: C.leaf, width: "100%", marginTop: 14 }}>
+            🗣️ I said it — next
+          </button>
+        </div>
+      )}
+
+      {/* ---- step 2: hear it and pick ---- */}
+      {label === "Hear it" && (
+        <div>
+          <div style={{ background: "#fff", borderRadius: 24, padding: "28px 20px", textAlign: "center",
+            border: `4px solid ${C.leaf}`, boxShadow: "0 8px 0 rgba(95,184,148,0.3)" }}>
+            <button onClick={() => speak(word)} style={{ ...bigBtn, background: C.sky, fontSize: 20, padding: "16px 30px" }}>
+              🔊 Play
+            </button>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 14 }}>
+            {options.map((opt, idx) => {
+              let bg = "#fff", bd = "#e3ddcf", cl = C.ink;
+              if (picked) {
+                if (opt.pinyin === word.pinyin) { bg = C.leaf; bd = C.leaf; cl = "#fff"; }
+                else if (opt.pinyin === picked.pinyin) { bg = "#F4A7A7"; bd = "#F4A7A7"; cl = "#fff"; }
+              }
+              return (
+                <button key={idx}
+                  onClick={() => {
+                    if (picked) return;
+                    setPicked(opt);
+                    const ok = opt.pinyin === word.pinyin;
+                    ok ? playCorrect(0) : playSoftMiss();
+                    setTimeout(advance, 1100);
+                  }}
+                  style={{ ...bigBtn, background: bg, color: cl, border: `3px solid ${bd}`, fontSize: 17, padding: "14px 8px" }}>
+                  {opt.emoji} {opt.en}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* ---- step 3: recall and say ---- */}
+      {label === "Say it" && (
+        <div>
+          <div style={{ background: "#fff", borderRadius: 28, padding: "34px 20px", textAlign: "center",
+            border: `4px solid ${C.berry}`, boxShadow: "0 10px 0 rgba(214,90,110,0.25)" }}>
+            <div style={{ fontSize: 44 }}>{word.emoji || "⭐"}</div>
+            <div style={{ fontSize: 30, fontWeight: 800, marginTop: 8 }}>{word.en}</div>
+            {revealed && (
+              <div style={{ marginTop: 14 }}>
+                <div style={{ fontSize: 34, fontWeight: 800, color: C.fox }}>{word.pinyin}</div>
+              </div>
+            )}
+          </div>
+          {!revealed ? (
+            <button onClick={() => { setRevealed(true); speak(word); }}
+              style={{ ...bigBtn, background: C.leaf, width: "100%", marginTop: 14 }}>
+              🗣️ I said it — show answer
+            </button>
+          ) : (
+            <button onClick={advance} style={{ ...bigBtn, background: C.sky, width: "100%", marginTop: 14 }}>
+              Next →
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* ---- step 4: see it in a real sentence ---- */}
+      {label === "Use it" && example && (
+        <div>
+          <div style={{ background: "#fff", borderRadius: 24, padding: "26px 20px", textAlign: "center",
+            border: `4px solid ${C.sky}`, boxShadow: "0 8px 0 rgba(107,169,214,0.3)" }}>
+            <div style={{ fontSize: 19, fontWeight: 800, lineHeight: 1.4 }}>{example.en}</div>
+            <div style={{ fontSize: 22, fontWeight: 800, color: C.fox, marginTop: 12 }}>{example.pinyin}</div>
+            <button onClick={() => speak({ hanzi: example.hanzi, pinyin: example.pinyin })}
+              style={{ ...bigBtn, background: C.sky, marginTop: 14, padding: "12px 24px" }}>
+              🔊 Hear the sentence
+            </button>
+          </div>
+          <button onClick={advance} style={{ ...bigBtn, background: C.leaf, width: "100%", marginTop: 14 }}>
+            🗣️ I said it — finish
+          </button>
+        </div>
+      )}
+
+      <button onClick={onHome} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, marginTop: 12, width: "100%" }}>
+        ⬅ Back to menu
+      </button>
+    </div>
+  );
+}
+
+// ---- picker: choose today's word from the whole vocabulary ----
+function WodPicker({ allWords, onPick, onCancel }) {
+  const [q, setQ] = useState("");
+  const term = q.trim().toLowerCase();
+  const matches = (term
+    ? allWords.filter((w) =>
+        (w.en || "").toLowerCase().includes(term) ||
+        (w.pinyin || "").toLowerCase().includes(term) ||
+        (w.hanzi || "").includes(q.trim()))
+    : allWords
+  ).slice(0, 40);
+
+  return (
+    <div style={{ background: "#fff", borderRadius: 18, border: `3px solid ${C.fox}`, padding: 14, marginTop: 10 }}>
+      <div style={{ fontWeight: 800, fontSize: 14, marginBottom: 8 }}>Pick today's word</div>
+      <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search English, pinyin or 中文…"
+        style={{ ...inp, fontSize: 15 }} />
+      <div style={{ maxHeight: 230, overflowY: "auto", marginTop: 10, display: "flex", flexDirection: "column", gap: 6 }}>
+        {matches.map((w, i) => (
+          <button key={w.pinyin + i} onClick={() => onPick(w)}
+            style={{ display: "flex", alignItems: "center", gap: 10, background: "#FFFDF7",
+              border: "2px solid #eee6d6", borderRadius: 12, padding: "9px 11px", cursor: "pointer",
+              fontFamily: "inherit", textAlign: "left" }}>
+            <span style={{ fontSize: 20 }}>{w.emoji || "📘"}</span>
+            <span style={{ flex: 1, minWidth: 0 }}>
+              <span style={{ display: "block", fontWeight: 800, fontSize: 15, color: C.fox }}>{w.pinyin}</span>
+              <span style={{ display: "block", fontSize: 12, color: "#7a7391" }}>{w.en}</span>
+            </span>
+          </button>
+        ))}
+        {matches.length === 0 && <div style={{ fontSize: 13, color: "#9a94ad" }}>No matches.</div>}
+      </div>
+      <button onClick={onCancel} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, width: "100%", marginTop: 10, fontSize: 14, padding: "10px" }}>
+        Cancel
+      </button>
+    </div>
+  );
+}
+
 function Flashcards({ words, trouble, toggleTrouble, onlyTrouble, onHome }) {
   const [deck, setDeck] = useState(() => srsOrder(shuffle(words), (w) => w.pinyin));
   const [i, setI] = useState(0);
