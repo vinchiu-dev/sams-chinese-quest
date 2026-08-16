@@ -65,19 +65,21 @@
     "We all love to eat fruit!",
     "Where do you come from?",
     "The alien is too cool!",
-    "My little brother also likes to play."
+    "My little brother also likes to play.",
+    "My big sister is six years old too."
   ],
   "chips": 0,
   "practiceDays": [
-    "2026-08-15"
+    "2026-08-15",
+    "2026-08-16"
   ],
   "srs": {
     "My name is Sam.": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1786800465291
+      "last": 1786887414720
     },
     "měiguó": {
       "lvl": 0,
@@ -85,13 +87,72 @@
       "right": 0,
       "wrong": 1,
       "last": 1786887149827
+    },
+    "Is this your big sister?": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786887338196
+    },
+    "Is this your little brother?": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1786887433408
+    },
+    "Mika, you're too cool!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786887385844
+    },
+    "Today is the weekend — the alien is playing at my house!": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786887676029
+    },
+    "How old are you?": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1786888441452
+    },
+    "Where do you come from?": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786887817490
+    },
+    "My mom comes from China, she is Chinese.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786887847122
+    },
+    "The alien comes from another planet!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786888506708
     }
   },
   "dayCount": {
-    "date": "2026-08-15",
-    "n": 1
+    "date": "2026-08-16",
+    "n": 11
   },
-  "spokenCount": {},
+  "spokenCount": {
+    "date": "2026-08-16",
+    "n": 3
+  },
   "goalClaimed": "",
   "customWords": [
     {
