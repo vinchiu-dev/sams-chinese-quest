@@ -123,19 +123,6 @@ async function pushProgress(progress, setStatus, retried) {
 }
 
 // ⚙️ one-time-per-device sync setup screen
-function MicToggle() {
-  const [on, setOn] = useState(micEnabled());
-  if (!micSupported()) return null;
-  return (
-    <button
-      onClick={() => { const v = !on; setMicEnabled(v); setOn(v); }}
-      style={{ ...ghostBtn, width: "100%", marginBottom: 14, padding: "12px",
-        borderColor: on ? C.leaf : "#e3ddcf", background: on ? "#EAF7F0" : "#fff", fontWeight: 800 }}>
-      {on ? "🎤 Say-it-out-loud meter: ON" : "🎤 Say-it-out-loud meter: OFF"}
-    </button>
-  );
-}
-
 function SoundToggle() {
   const [on, setOn] = useState(soundOn());
   const flip = () => {
@@ -444,7 +431,7 @@ const recordSpoken = () => {
   if (n === SPOKEN_GOAL && loadLS("spokenClaimed", "") !== t) {
     saveLS("spokenClaimed", t);
     addChips(1);
-    logChips({ type: "spoken", amount: 1, note: "Spoke 10 sentences 🎤" });
+    logChips({ type: "spoken", amount: 1, note: "Spoke 10 sentences 🗣️" });
     playChip();
   }
   return n;
@@ -978,13 +965,12 @@ function ChipsScreen({ onDone }) {
         <div style={{ fontWeight: 800, fontSize: 14, marginBottom: 4 }}>How to earn</div>
         <div style={{ fontSize: 13, color: "#7a6a3f", lineHeight: 1.6 }}>
           🪙 1 chip — practice {DAILY_GOAL} times in a day<br />
-          🪙 1 bonus chip — say {SPOKEN_GOAL} sentences out loud 🎤 ({getSpokenCount()}/{SPOKEN_GOAL} today)<br />
+          🪙 1 bonus chip — say {SPOKEN_GOAL} sentences out loud 🗣️ ({getSpokenCount()}/{SPOKEN_GOAL} today)<br />
           🪙 {STREAK_BONUS_CHIPS} bonus chips — every {STREAK_BONUS_EVERY} days in a row
         </div>
       </div>
 
       <SoundToggle />
-      <MicToggle />
 
       <div style={{ fontWeight: 800, fontSize: 14, marginBottom: 8 }}>Trade in (grown-up taps this)</div>
       <div style={{ display: "flex", gap: 8, marginBottom: 16, flexWrap: "wrap" }}>
@@ -1857,98 +1843,6 @@ function TrickyPicker({ wordCount, sentenceCount, go, onHome }) {
 }
 
 
-// ============================================================
-//  MIC LEVEL DETECTOR
-//  Deliberately only detects THAT the child spoke, never WHAT they said.
-//  Speech recognition on a 6-year-old's Mandarin is unreliable, and a false
-//  "wrong" is worse than no feedback at all. A volume meter is honest: it
-//  can't be gamed by waiting, and it can't wrongly fail him.
-// ============================================================
-let _micStream = null, _micCtx = null, _micAnalyser = null;
-
-const micSupported = () =>
-  !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia &&
-     (window.AudioContext || window.webkitAudioContext));
-
-const startMic = async () => {
-  if (_micAnalyser) return true;
-  try {
-    _micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    _micCtx = new (window.AudioContext || window.webkitAudioContext)();
-    if (_micCtx.state === "suspended") await _micCtx.resume();
-    const src = _micCtx.createMediaStreamSource(_micStream);
-    _micAnalyser = _micCtx.createAnalyser();
-    _micAnalyser.fftSize = 512;
-    src.connect(_micAnalyser);
-    return true;
-  } catch (e) {
-    _micAnalyser = null;
-    return false;
-  }
-};
-
-// current loudness 0..1
-const micLevel = () => {
-  if (!_micAnalyser) return 0;
-  const buf = new Uint8Array(_micAnalyser.frequencyBinCount);
-  _micAnalyser.getByteTimeDomainData(buf);
-  let peak = 0;
-  for (let i = 0; i < buf.length; i++) peak = Math.max(peak, Math.abs(buf[i] - 128));
-  return Math.min(1, peak / 60);   // ~normal speaking voice fills the bar
-};
-
-const micEnabled = () => loadLS("micOn", true);
-const setMicEnabled = (v) => saveLS("micOn", !!v);
-
-// A small "say it out loud" gate: shows a live level bar and reports success
-// once the child has been loud enough for a moment.
-function SpeakMeter({ onSpoke, spoke }) {
-  const [level, setLevel] = useState(0);
-  const [ready, setReady] = useState(false);
-  const [denied, setDenied] = useState(false);
-  const loudRef = useRef(0);
-  const rafRef = useRef(null);
-
-  useEffect(() => {
-    let alive = true;
-    startMic().then((ok) => {
-      if (!alive) return;
-      if (!ok) { setDenied(true); return; }
-      setReady(true);
-      const tick = () => {
-        if (!alive) return;
-        const l = micLevel();
-        setLevel(l);
-        // needs sustained sound, not a single click/bump
-        if (l > 0.28) loudRef.current += 1; else loudRef.current = Math.max(0, loudRef.current - 1);
-        if (loudRef.current > 8 && !spoke) { loudRef.current = 0; onSpoke(); }
-        rafRef.current = requestAnimationFrame(tick);
-      };
-      tick();
-    });
-    return () => { alive = false; if (rafRef.current) cancelAnimationFrame(rafRef.current); };
-  }, [spoke]);
-
-  if (denied)
-    return (
-      <div style={{ marginTop: 10, fontSize: 12, color: "#9a94ad" }}>
-        🎤 Mic is off — just say it out loud, then tap below.
-      </div>
-    );
-
-  return (
-    <div style={{ marginTop: 12 }}>
-      <div style={{ fontSize: 12, fontWeight: 800, color: spoke ? C.leaf : "#7a7391", marginBottom: 5 }}>
-        {spoke ? "🎤 Heard you! ✓" : ready ? "🎤 Say it out loud…" : "🎤 starting mic…"}
-      </div>
-      <div style={{ height: 14, borderRadius: 10, background: "#F0EADC", overflow: "hidden" }}>
-        <div style={{ width: `${Math.round(level * 100)}%`, height: "100%",
-          background: spoke ? C.leaf : C.fox, borderRadius: 10, transition: "width 0.06s" }} />
-      </div>
-    </div>
-  );
-}
-
 function SayTheSentence({ sentences, starred, toggleSentence, onHome, forceStarredOnly }) {
   const [onlyStarred, setOnlyStarred] = useState(false);
 
@@ -1962,7 +1856,6 @@ function SayTheSentence({ sentences, starred, toggleSentence, onHome, forceStarr
   const [spoke, setSpoke] = useState(false);
   const [got, setGot] = useState(0);
   const [done, setDone] = useState(0);
-  const useMic = micEnabled() && micSupported();
 
   // rebuild the deck when the filter changes or the starred pile shifts under it
   useEffect(() => {
@@ -2082,20 +1975,15 @@ function SayTheSentence({ sentences, starred, toggleSentence, onHome, forceStarr
 
         {!revealed ? (
           <div style={{ marginTop: 18 }}>
-            {useMic && <SpeakMeter spoke={spoke} onSpoke={() => { setSpoke(true); playCorrect(0); recordSpoken(); }} />}
             <button
-              onClick={reveal}
-              style={{ ...bigBtn, background: spoke || !useMic ? C.leaf : "#D9D2C4",
-                color: spoke || !useMic ? "#fff" : "#8b8574",
-                marginTop: 14, padding: "14px 30px" }}
+              onClick={() => { setSpoke(true); recordSpoken(); reveal(); }}
+              style={{ ...bigBtn, background: C.leaf, padding: "14px 26px" }}
             >
-              {useMic && !spoke ? "👂 Show me anyway" : "👂 Show &amp; hear answer"}
+              🗣️ I said it — show answer
             </button>
-            {useMic && !spoke && (
-              <div style={{ marginTop: 8, fontSize: 11, color: "#9a94ad" }}>
-                Try saying it first — the bar shows Sam it heard him!
-              </div>
-            )}
+            <div style={{ marginTop: 8, fontSize: 11, color: "#9a94ad" }}>
+              Say it out loud first, then check!
+            </div>
           </div>
         ) : (
           <div style={{ marginTop: 20 }}>
@@ -2113,7 +2001,7 @@ function SayTheSentence({ sentences, starred, toggleSentence, onHome, forceStarr
       {revealed && (
         <>
           <div style={{ fontSize: 13, color: "#7a7391", marginBottom: 10, fontWeight: 700 }}>
-            How did Sam do?{spoke && <span style={{ color: C.leaf }}> · 🎤 said it out loud!</span>}
+            How did Sam do?{spoke && <span style={{ color: C.leaf }}> · 🗣️ said it out loud!</span>}
           </div>
           <div style={{ display: "flex", gap: 12 }}>
             <button onClick={() => next(false)} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, flex: 1 }}>
