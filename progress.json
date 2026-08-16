@@ -215,11 +215,67 @@
       "right": 0,
       "wrong": 1,
       "last": 1786889724817
+    },
+    "suì": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786889933539
+    },
+    "liù": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786889937893
+    },
+    "jiào": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786889991003
+    },
+    "nǎ guó rén": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786890009477
+    },
+    "kù": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786890016699
+    },
+    "yīngguórén": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786890024007
+    },
+    "zhōngguórén": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786890031417
+    },
+    "Mǐkǎ": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786890036013
     }
   },
   "dayCount": {
     "date": "2026-08-16",
-    "n": 22
+    "n": 30
   },
   "spokenCount": {
     "date": "2026-08-16",
