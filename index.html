@@ -1435,7 +1435,10 @@ function WordOfDay({ word, allWords, sentences, onHome }) {
       .slice(0, 3);
   }, [word, sentences.length]);
 
-  const steps = ["Meet it", "Hear it", "Say it", ...examples.map((_, k) => "Use it " + (k + 1))];
+  // Order matters: make him RETRIEVE the word from memory before we ever
+  // show or speak it. Testing yourself first is far more effective than
+  // being handed the answer and then repeating it.
+  const steps = ["Say it", "Check it", "Hear it", ...examples.map((_, k) => "Use it " + (k + 1))];
   const last = steps.length - 1;
 
   // The listening step should play by itself — he shouldn't have to hunt for
@@ -1496,7 +1499,7 @@ function WordOfDay({ word, allWords, sentences, onHome }) {
       </div>
 
       {/* ---- step 1: meet it ---- */}
-      {label === "Meet it" && (
+      {label === "Check it" && (
         <div>
           <div style={{ background: "#fff", borderRadius: 28, padding: "34px 20px", textAlign: "center",
             border: `4px solid ${C.fox}`, boxShadow: "0 10px 0 rgba(232,112,58,0.3)" }}>
@@ -1508,7 +1511,7 @@ function WordOfDay({ word, allWords, sentences, onHome }) {
             </button>
           </div>
           <button onClick={advance} style={{ ...bigBtn, background: C.leaf, width: "100%", marginTop: 14 }}>
-            🗣️ I said it — next
+            🗣️ Said it again — next
           </button>
         </div>
       )}
@@ -1561,9 +1564,9 @@ function WordOfDay({ word, allWords, sentences, onHome }) {
             )}
           </div>
           {!revealed ? (
-            <button onClick={() => { setRevealed(true); speak(word); }}
+            <button onClick={() => { setRevealed(true); speak(word); recordSpoken(); }}
               style={{ ...bigBtn, background: C.leaf, width: "100%", marginTop: 14 }}>
-              🗣️ I said it — show answer
+              🗣️ I said it — check
             </button>
           ) : (
             <button onClick={advance} style={{ ...bigBtn, background: C.sky, width: "100%", marginTop: 14 }}>
