@@ -1423,7 +1423,7 @@ function Flashcards({ words, trouble, toggleTrouble, onlyTrouble, onHome }) {
       <div style={{ display: "flex", gap: 12 }}>
         <button onClick={() => next(false)} disabled={holding}
           style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, flex: 1, opacity: holding ? 0.5 : 1 }}>
-          🔁 Again
+          🔁 Not yet
         </button>
         <button onClick={() => next(true)} disabled={holding}
           style={{ ...bigBtn, background: C.leaf, flex: 1, opacity: holding ? 0.6 : 1 }}>
@@ -2951,7 +2951,7 @@ function EnFlashcards({ words, starred, toggleStar, onlyStarred, onHome }) {
         )}
       </div>
       <div style={{ display:"flex", gap:12 }}>
-        <button onClick={() => next(false)} style={{ ...bigBtn, background:"#E6EAF2", color:C.ink, flex:1 }}>🔁 Again</button>
+        <button onClick={() => next(false)} style={{ ...bigBtn, background:"#E6EAF2", color:C.ink, flex:1 }}>🔁 Not yet</button>
         <button onClick={() => next(true)} style={{ ...bigBtn, background:C.leaf, flex:1 }}>✓ Got it!</button>
       </div>
       <button onClick={onHome} style={{ ...bigBtn, background:"#E6EAF2", color:C.ink, marginTop:14, width:"100%" }}>⬅ Back to menu</button>
