@@ -1424,15 +1424,28 @@ function WordOfDay({ word, allWords, sentences, onHome }) {
     return shuffle([word, ...wrong]);
   }, [word, allWords.length]);
 
-  // step 4: a real sentence using this word, if we have one
-  const example = useMemo(() => {
+  // step 4+: every sentence we have that actually uses this word (max 3),
+  // shortest first so he starts easy and builds up.
+  const examples = useMemo(() => {
     const hz = word.hanzi || "";
-    if (!hz) return null;
-    return sentences.find((s) => (s.hanzi || "").includes(hz)) || null;
+    if (!hz) return [];
+    return sentences
+      .filter((s) => (s.hanzi || "").includes(hz))
+      .sort((a, b) => (a.hanzi || "").length - (b.hanzi || "").length)
+      .slice(0, 3);
   }, [word, sentences.length]);
 
-  const steps = ["Meet it", "Hear it", "Say it", example ? "Use it" : null].filter(Boolean);
+  const steps = ["Meet it", "Hear it", "Say it", ...examples.map((_, k) => "Use it " + (k + 1))];
   const last = steps.length - 1;
+
+  // The listening step should play by itself — he shouldn't have to hunt for
+  // a button before he can hear the word.
+  useEffect(() => {
+    if (steps[step] === "Hear it") {
+      const t = setTimeout(() => speak(word), 250);
+      return () => clearTimeout(t);
+    }
+  }, [step, word]);
 
   const finish = () => {
     srsRecord(word.pinyin, true);
@@ -1500,13 +1513,13 @@ function WordOfDay({ word, allWords, sentences, onHome }) {
         </div>
       )}
 
-      {/* ---- step 2: hear it and pick ---- */}
+      {/* ---- step 2: hear it and pick (plays by itself on arrival) ---- */}
       {label === "Hear it" && (
         <div>
           <div style={{ background: "#fff", borderRadius: 24, padding: "28px 20px", textAlign: "center",
             border: `4px solid ${C.leaf}`, boxShadow: "0 8px 0 rgba(95,184,148,0.3)" }}>
             <button onClick={() => speak(word)} style={{ ...bigBtn, background: C.sky, fontSize: 20, padding: "16px 30px" }}>
-              🔊 Play
+              🔊 Play again
             </button>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 14 }}>
@@ -1560,23 +1573,41 @@ function WordOfDay({ word, allWords, sentences, onHome }) {
         </div>
       )}
 
-      {/* ---- step 4: see it in a real sentence ---- */}
-      {label === "Use it" && example && (
-        <div>
-          <div style={{ background: "#fff", borderRadius: 24, padding: "26px 20px", textAlign: "center",
-            border: `4px solid ${C.sky}`, boxShadow: "0 8px 0 rgba(107,169,214,0.3)" }}>
-            <div style={{ fontSize: 19, fontWeight: 800, lineHeight: 1.4 }}>{example.en}</div>
-            <div style={{ fontSize: 22, fontWeight: 800, color: C.fox, marginTop: 12 }}>{example.pinyin}</div>
-            <button onClick={() => speak({ hanzi: example.hanzi, pinyin: example.pinyin })}
-              style={{ ...bigBtn, background: C.sky, marginTop: 14, padding: "12px 24px" }}>
-              🔊 Hear the sentence
-            </button>
+      {/* ---- "Use it" steps: say each real sentence, then check ---- */}
+      {label.startsWith("Use it") && (() => {
+        const ex = examples[Number(label.split(" ")[2]) - 1];
+        if (!ex) return null;
+        const isLast = step >= last;
+        return (
+          <div>
+            <div style={{ background: "#fff", borderRadius: 24, padding: "26px 20px", textAlign: "center",
+              border: `4px solid ${C.sky}`, boxShadow: "0 8px 0 rgba(107,169,214,0.3)" }}>
+              <div style={{ fontSize: 12, color: "#9a94ad", fontWeight: 800, marginBottom: 8 }}>
+                Say this in Chinese
+              </div>
+              <div style={{ fontSize: 19, fontWeight: 800, lineHeight: 1.4 }}>{ex.en}</div>
+              {revealed && (
+                <div style={{ marginTop: 14 }}>
+                  <div style={{ fontSize: 21, fontWeight: 800, color: C.fox, lineHeight: 1.35 }}>{ex.pinyin}</div>
+                  <button onClick={() => speak({ hanzi: ex.hanzi, pinyin: ex.pinyin })}
+                    style={{ ...ghostBtn, marginTop: 10 }}>🔊 Hear it again</button>
+                </div>
+              )}
+            </div>
+            {!revealed ? (
+              <button
+                onClick={() => { setRevealed(true); speak({ hanzi: ex.hanzi, pinyin: ex.pinyin }); recordSpoken(); }}
+                style={{ ...bigBtn, background: C.leaf, width: "100%", marginTop: 14 }}>
+                🗣️ I said it — show answer
+              </button>
+            ) : (
+              <button onClick={advance} style={{ ...bigBtn, background: C.sky, width: "100%", marginTop: 14 }}>
+                {isLast ? "Finish →" : "Next sentence →"}
+              </button>
+            )}
           </div>
-          <button onClick={advance} style={{ ...bigBtn, background: C.leaf, width: "100%", marginTop: 14 }}>
-            🗣️ I said it — finish
-          </button>
-        </div>
-      )}
+        );
+      })()}
 
       <button onClick={onHome} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, marginTop: 12, width: "100%" }}>
         ⬅ Back to menu
