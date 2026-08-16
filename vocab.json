@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-12",
+  "updated": "2026-08-14",
   "lessons": [
     {
       "id": "little-fox-school-supplies",
@@ -1082,6 +1082,49 @@
           "emoji": "👽"
         }
       ]
+    },
+    {
+      "id": "asking-about-people",
+      "title": "Asking About People",
+      "subtitle": "这是你姐姐吗？— asking who someone is and how old",
+      "words": [
+        {
+          "hanzi": "这",
+          "pinyin": "zhè",
+          "en": "this",
+          "emoji": "👉"
+        },
+        {
+          "hanzi": "不是",
+          "pinyin": "bú shì",
+          "en": "is not / no it isn't",
+          "emoji": "🙅"
+        },
+        {
+          "hanzi": "几",
+          "pinyin": "jǐ",
+          "en": "how many",
+          "emoji": "🔢"
+        },
+        {
+          "hanzi": "几岁",
+          "pinyin": "jǐ suì",
+          "en": "how old?",
+          "emoji": "🎂"
+        },
+        {
+          "hanzi": "哪",
+          "pinyin": "nǎ",
+          "en": "which / where",
+          "emoji": "❓"
+        },
+        {
+          "hanzi": "三十五",
+          "pinyin": "sānshíwǔ",
+          "en": "thirty-five",
+          "emoji": "3️⃣"
+        }
+      ]
     }
   ],
   "tagMap": {
@@ -1135,6 +1178,9 @@
     ],
     "toocool": [
       "too-cool"
+    ],
+    "askpeople": [
+      "asking-about-people"
     ]
   },
   "sentences": [
@@ -1641,6 +1687,66 @@
       "pinyin": "Wǒ yě xiǎng chī xīguā.",
       "hanzi": "我也想吃西瓜。",
       "tag": "toocool"
+    },
+    {
+      "en": "Is this your big sister?",
+      "pinyin": "Zhè shì nǐ jiějie ma?",
+      "hanzi": "这是你姐姐吗？",
+      "tag": "askpeople"
+    },
+    {
+      "en": "No, this is my mom.",
+      "pinyin": "Bú shì, zhè shì wǒ māma.",
+      "hanzi": "不是，这是我妈妈。",
+      "tag": "askpeople"
+    },
+    {
+      "en": "How old is your mom?",
+      "pinyin": "Nǐ māma jǐ suì?",
+      "hanzi": "你妈妈几岁？",
+      "tag": "askpeople"
+    },
+    {
+      "en": "My mom is thirty-five.",
+      "pinyin": "Wǒ māma sānshíwǔ suì.",
+      "hanzi": "我妈妈35岁。",
+      "tag": "askpeople"
+    },
+    {
+      "en": "What is your name?",
+      "pinyin": "Nǐ jiào shénme?",
+      "hanzi": "你叫什么？",
+      "tag": "askpeople"
+    },
+    {
+      "en": "How old are you?",
+      "pinyin": "Nǐ jǐ suì?",
+      "hanzi": "你几岁？",
+      "tag": "askpeople"
+    },
+    {
+      "en": "Where do you come from?",
+      "pinyin": "Nǐ láizì nǎ?",
+      "hanzi": "你来自哪？",
+      "tag": "askpeople"
+    },
+    {
+      "en": "What is your mom's name?",
+      "pinyin": "Nǐ māma jiào shénme?",
+      "hanzi": "你妈妈叫什么？",
+      "tag": "askpeople"
+    },
+    {
+      "en": "Is this your little brother?",
+      "pinyin": "Zhè shì nǐ dìdi ma?",
+      "hanzi": "这是你弟弟吗？",
+      "tag": "askpeople"
+    },
+    {
+      "en": "No, this is my dad. He is American.",
+      "pinyin": "Bú shì, zhè shì wǒ bàba. Tā shì Měiguórén.",
+      "hanzi": "不是，这是我爸爸。他是美国人。",
+      "tag": "askpeople"
     }
   ]
 }
