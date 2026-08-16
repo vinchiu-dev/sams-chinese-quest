@@ -1322,6 +1322,14 @@ function Flashcards({ words, trouble, toggleTrouble, onlyTrouble, onHome }) {
   useEffect(() => () => { if (holdRef.current) clearTimeout(holdRef.current); }, []);
   const [known, setKnown] = useState(0);
 
+  // 10-second recall timer. It runs only while the card is face-down —
+  // once Sam flips to check, the clock stops so he can read and hear the
+  // answer without being rushed off the card.
+  const RECALL_SECONDS = 10;
+  const [timeLeft, setTimeLeft] = useState(RECALL_SECONDS);
+  const tickRef = useRef(null);
+  const nextRef = useRef(null);
+
   // if the word list changes (e.g. trouble list empties), keep index in range
   const card = deck[i] || deck[0];
 
@@ -1344,6 +1352,7 @@ function Flashcards({ words, trouble, toggleTrouble, onlyTrouble, onHome }) {
   const advance = () => {
     setFlipped(false);
     setHolding(false);
+    setTimeLeft(RECALL_SECONDS);
     if (i + 1 < deck.length) setI(i + 1);
     else {
       setI(0);
@@ -1354,6 +1363,7 @@ function Flashcards({ words, trouble, toggleTrouble, onlyTrouble, onHome }) {
 
   const next = (gotIt) => {
     if (holding) return;                 // ignore taps during the pause
+    if (tickRef.current) { clearInterval(tickRef.current); tickRef.current = null; }
     if (gotIt) { setKnown((k) => k + 1); playCorrect(known); }
     if (card) srsRecord(card.pinyin, !!gotIt);
     recordEffort();
@@ -1368,9 +1378,52 @@ function Flashcards({ words, trouble, toggleTrouble, onlyTrouble, onHome }) {
     }
   };
 
+  nextRef.current = next;
+
+  useEffect(() => {
+    if (tickRef.current) { clearInterval(tickRef.current); tickRef.current = null; }
+    // only count down on a face-down card that isn't mid-celebration
+    if (flipped || holding) return;
+    setTimeLeft(RECALL_SECONDS);
+    tickRef.current = setInterval(() => {
+      setTimeLeft((t) => {
+        if (t <= 1) {
+          clearInterval(tickRef.current);
+          tickRef.current = null;
+          // ran out of time — counts as "not yet" and moves on
+          setTimeout(() => nextRef.current && nextRef.current(false), 0);
+          return 0;
+        }
+        return t - 1;
+      });
+    }, 1000);
+    return () => { if (tickRef.current) clearInterval(tickRef.current); };
+  }, [i, flipped, holding, deck]);
+
   return (
     <div style={{ textAlign: "center" }}>
       <Progress value={i} total={deck.length} label={onlyTrouble ? "⭐ practice pile" : `⭐ ${known} known`} />
+
+      {/* recall countdown — pauses once the card is flipped */}
+      <div style={{ marginTop: 10 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginBottom: 5 }}>
+          <span style={{ fontSize: 18 }}>{flipped || holding ? "⏸️" : "⏳"}</span>
+          <span style={{
+            fontWeight: 800, fontSize: 17,
+            color: flipped || holding ? "#9a94ad" : timeLeft <= 3 ? C.berry : C.ink,
+          }}>
+            {flipped || holding ? "take your time" : `${timeLeft}s`}
+          </span>
+        </div>
+        <div style={{ height: 8, borderRadius: 6, background: "#F0EADC", overflow: "hidden" }}>
+          <div style={{
+            width: `${(flipped || holding ? 1 : timeLeft / RECALL_SECONDS) * 100}%`,
+            height: "100%", borderRadius: 6,
+            background: flipped || holding ? "#ded7c8" : timeLeft <= 3 ? C.berry : C.leaf,
+            transition: "width 0.9s linear",
+          }} />
+        </div>
+      </div>
       <div
         onClick={() =>
           setFlipped((f) => {
