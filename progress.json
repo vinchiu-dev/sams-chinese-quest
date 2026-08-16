@@ -143,15 +143,29 @@
       "right": 1,
       "wrong": 0,
       "last": 1786888506708
+    },
+    "My big sister is six years old too.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786888918575
+    },
+    "The alien is too cool!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786889002413
     }
   },
   "dayCount": {
     "date": "2026-08-16",
-    "n": 11
+    "n": 13
   },
   "spokenCount": {
     "date": "2026-08-16",
-    "n": 3
+    "n": 4
   },
   "goalClaimed": "",
   "customWords": [
