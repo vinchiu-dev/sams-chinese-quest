@@ -70,7 +70,7 @@
     "My little brother also likes to play.",
     "My big sister is six years old too."
   ],
-  "chips": 4,
+  "chips": 5,
   "practiceDays": [
     "2026-08-08",
     "2026-08-10",
@@ -695,18 +695,34 @@
       "right": 1,
       "wrong": 0,
       "last": 1786890575252
+    },
+    "shénme": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1786901347974
     }
   },
   "dayCount": {
     "date": "2026-08-16",
-    "n": 33
+    "n": 35
   },
   "spokenCount": {
     "date": "2026-08-16",
     "n": 5
   },
-  "wordOfDay": null,
-  "wodDone": "",
+  "wordOfDay": {
+    "date": "2026-08-16",
+    "word": {
+      "hanzi": "什么",
+      "pinyin": "shénme",
+      "en": "what",
+      "emoji": "❓",
+      "lesson": "Question Words"
+    }
+  },
+  "wodDone": "2026-08-16",
   "goalClaimed": "2026-08-16",
   "customWords": [
     {
