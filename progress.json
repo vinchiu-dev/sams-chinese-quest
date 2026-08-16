@@ -67,9 +67,22 @@
     "My little brother also likes to play."
   ],
   "chips": 0,
-  "practiceDays": [],
-  "srs": {},
-  "dayCount": {},
+  "practiceDays": [
+    "2026-08-15"
+  ],
+  "srs": {
+    "My name is Sam.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786800465291
+    }
+  },
+  "dayCount": {
+    "date": "2026-08-15",
+    "n": 1
+  },
   "spokenCount": {},
   "goalClaimed": "",
   "customWords": [
