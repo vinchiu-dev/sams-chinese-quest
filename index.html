@@ -1317,6 +1317,9 @@ function Flashcards({ words, trouble, toggleTrouble, onlyTrouble, onHome }) {
   const [deck, setDeck] = useState(() => srsOrder(shuffle(words), (w) => w.pinyin));
   const [i, setI] = useState(0);
   const [flipped, setFlipped] = useState(false);
+  const [holding, setHolding] = useState(false);
+  const holdRef = useRef(null);
+  useEffect(() => () => { if (holdRef.current) clearTimeout(holdRef.current); }, []);
   const [known, setKnown] = useState(0);
 
   // if the word list changes (e.g. trouble list empties), keep index in range
@@ -1336,16 +1339,32 @@ function Flashcards({ words, trouble, toggleTrouble, onlyTrouble, onHome }) {
 
   const flagged = trouble.has(card.pinyin);
 
-  const next = (gotIt) => {
-    if (gotIt) { setKnown((k) => k + 1); playCorrect(known); }
-    if (card) srsRecord(card.pinyin, !!gotIt);
-    recordEffort();
+  // On "Got it", say the word aloud and hold the card for a beat so Sam can
+  // hear the pronunciation while still looking at it, then advance.
+  const advance = () => {
     setFlipped(false);
+    setHolding(false);
     if (i + 1 < deck.length) setI(i + 1);
     else {
       setI(0);
       setDeck(srsOrder(shuffle(words), (w) => w.pinyin));
       setKnown(0);
+    }
+  };
+
+  const next = (gotIt) => {
+    if (holding) return;                 // ignore taps during the pause
+    if (gotIt) { setKnown((k) => k + 1); playCorrect(known); }
+    if (card) srsRecord(card.pinyin, !!gotIt);
+    recordEffort();
+
+    if (gotIt && card) {
+      setFlipped(true);                  // keep the answer visible
+      setHolding(true);
+      speak(card);                       // hear it in good Mandarin
+      holdRef.current = setTimeout(advance, 2000);
+    } else {
+      advance();
     }
   };
 
@@ -1402,11 +1421,13 @@ function Flashcards({ words, trouble, toggleTrouble, onlyTrouble, onHome }) {
         )}
       </div>
       <div style={{ display: "flex", gap: 12 }}>
-        <button onClick={() => next(false)} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, flex: 1 }}>
+        <button onClick={() => next(false)} disabled={holding}
+          style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, flex: 1, opacity: holding ? 0.5 : 1 }}>
           🔁 Again
         </button>
-        <button onClick={() => next(true)} style={{ ...bigBtn, background: C.leaf, flex: 1 }}>
-          ✓ Got it!
+        <button onClick={() => next(true)} disabled={holding}
+          style={{ ...bigBtn, background: C.leaf, flex: 1, opacity: holding ? 0.6 : 1 }}>
+          {holding ? "🔊 listen…" : "✓ Got it!"}
         </button>
       </div>
       <div style={{ marginTop: 10, fontSize: 12, color: "#9a94ad" }}>
