@@ -791,22 +791,28 @@ function ChineseApp({ onSwitchLang }) {
           />
         )}
         {screen === "flashcards" && (
+          <React.Fragment><GameTitle>Flip Cards</GameTitle>
           <Flashcards words={activeWords} trouble={trouble} toggleTrouble={toggleTrouble} onHome={() => setScreen("home")} />
+          </React.Fragment>
         )}
         {screen === "troubleflip" && (
           <Flashcards words={troubleWords} trouble={trouble} toggleTrouble={toggleTrouble} onlyTrouble onHome={() => setScreen("home")} />
         )}
         {screen === "clock" && (
+          <React.Fragment><GameTitle>Beat the Clock</GameTitle>
           <BeatTheClock words={activeWords} addTrouble={addTrouble} trouble={trouble} toggleTrouble={toggleTrouble} onHome={() => setScreen("home")} />
+          </React.Fragment>
         )}
         {screen === "chips" && <ChipsScreen onDone={() => setScreen("home")} />}
         {screen === "buildsentence" && (
+          <React.Fragment><GameTitle>Build a Sentence</GameTitle>
           <BuildSentence
             sentences={activeSentences}
             starred={starredSentences}
             toggleSentence={toggleSentence}
             onHome={() => setScreen("home")}
           />
+          </React.Fragment>
         )}
         {screen === "trickypick" && (
           <TrickyPicker
@@ -826,23 +832,29 @@ function ChineseApp({ onSwitchLang }) {
           />
         )}
         {screen === "sentence" && (
+          <React.Fragment><GameTitle>Say the Sentence</GameTitle>
           <SayTheSentence
             sentences={activeSentences}
             starred={starredSentences}
             toggleSentence={toggleSentence}
             onHome={() => setScreen("home")}
           />
+          </React.Fragment>
         )}
         {screen === "sentencemean" && (
+          <React.Fragment><GameTitle>What's That Sentence Mean?</GameTitle>
           <SentenceMeaning
             sentences={activeSentences}
             starred={starredSentences}
             toggleSentence={toggleSentence}
             onHome={() => setScreen("home")}
           />
+          </React.Fragment>
         )}
         {screen === "tone" && (
+          <React.Fragment><GameTitle>What's That Word Mean?</GameTitle>
           <ToneMatch words={activeWords} addTrouble={addTrouble} trouble={trouble} toggleTrouble={toggleTrouble} onHome={() => setScreen("home")} />
+          </React.Fragment>
         )}
         {(screen === "wordlist" || screen === "wordlist-add") && (
           <WordList
@@ -1459,7 +1471,6 @@ function Flashcards({ words, trouble, toggleTrouble, onlyTrouble, onHome }) {
             <div style={{ fontSize: 38, fontWeight: 800 }}>
               {card.en}
             </div>
-            <div style={{ marginTop: 14, fontSize: 13, color: "#9a94ad" }}>How do you say this? Tap to flip!</div>
           </>
         ) : (
           <>
@@ -2055,9 +2066,6 @@ function SayTheSentence({ sentences, starred, toggleSentence, onHome, forceStarr
             >
               🗣️ I said it — show answer
             </button>
-            <div style={{ marginTop: 8, fontSize: 11, color: "#9a94ad" }}>
-              Say it out loud first, then check!
-            </div>
           </div>
         ) : (
           <div style={{ marginTop: 20 }}>
@@ -2088,11 +2096,6 @@ function SayTheSentence({ sentences, starred, toggleSentence, onHome, forceStarr
         </>
       )}
 
-      {!revealed && (
-        <div style={{ fontSize: 12, color: "#9a94ad" }}>
-          Try saying it out loud first, then reveal to check. Tap ⭐ to save a tricky one.
-        </div>
-      )}
       <button onClick={onHome} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, marginTop: 14, width: "100%" }}>
         ⬅ Back to menu
       </button>
@@ -2170,14 +2173,11 @@ function SentenceMeaning({ sentences, starred, toggleSentence, onHome }) {
         }}
       >
         <StarButton flagged={flagged} onClick={() => toggleSentence(round.q.en)} />
-        <div style={{ fontSize: 15, color: "#9a94ad", marginBottom: 12 }}>
-          Listen to the whole sentence — what does it mean?
-        </div>
         <button onClick={() => speak(round.q)} style={{ ...bigBtn, background: C.sky, fontSize: 20, padding: "16px 30px" }}>
           🔊 Play sentence
         </button>
-        <div style={{ marginTop: 12, fontSize: 15, color: "#cfc9bb", fontWeight: 700 }}>
-          {picked ? round.q.pinyin : "❓ ❓ ❓"}
+        <div style={{ marginTop: 12, fontSize: 15, color: "#cfc9bb", fontWeight: 700, minHeight: 20 }}>
+          {picked ? round.q.pinyin : ""}
         </div>
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 14 }}>
@@ -2261,12 +2261,11 @@ function ToneMatch({ words, addTrouble, trouble, toggleTrouble, onHome }) {
         }}
       >
         <StarButton flagged={flagged} onClick={() => toggleTrouble(round.q.pinyin)} />
-        <div style={{ fontSize: 15, color: "#9a94ad", marginBottom: 10 }}>Listen carefully — what does this mean?</div>
         <button onClick={() => speak(round.q)} style={{ ...bigBtn, background: C.sky, fontSize: 22, padding: "18px 34px" }}>
           🔊 Play sound
         </button>
         <div style={{ marginTop: 12, fontSize: 18, color: "#cfc9bb", fontWeight: 700 }}>
-          {picked ? round.q.pinyin : "❓"}
+          {picked ? round.q.pinyin : ""}
         </div>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 14 }}>
@@ -2477,6 +2476,15 @@ function WordList({ allWords, archived, trouble, toggleTrouble, toggleArchived, 
           );
         })}
       </div>
+    </div>
+  );
+}
+
+function GameTitle({ children }) {
+  return (
+    <div style={{ textAlign: "center", fontSize: 12, fontWeight: 800, letterSpacing: 0.6,
+      textTransform: "uppercase", color: "#a9a2bb", marginBottom: 10 }}>
+      {children}
     </div>
   );
 }
@@ -2800,11 +2808,27 @@ function EnglishApp({ onSwitchLang }) {
             wordCount={activeWords.length} starredCount={starredWords.length}
             totalCount={listWords.length} masteredCount={mastered.size} go={setScreen} />
         )}
-        {screen === "flashcards" && <EnFlashcards words={activeWords} starred={starred} toggleStar={toggleStar} onHome={home} />}
+        {screen === "flashcards" && (
+          <React.Fragment><GameTitle>Flashcards</GameTitle>
+          <EnFlashcards words={activeWords} starred={starred} toggleStar={toggleStar} onHome={home} />
+          </React.Fragment>
+        )}
         {screen === "starflip" && <EnFlashcards words={starredWords} starred={starred} toggleStar={toggleStar} onlyStarred onHome={home} />}
-        {screen === "quiz" && <EnQuiz words={activeWords} starred={starred} toggleStar={toggleStar} addStar={addStar} onHome={home} />}
-        {screen === "speed" && <EnSpeed words={activeWords} starred={starred} toggleStar={toggleStar} addStar={addStar} onHome={home} />}
-        {screen === "spelling" && <EnSpelling words={activeWords} starred={starred} toggleStar={toggleStar} addStar={addStar} onHome={home} />}
+        {screen === "quiz" && (
+          <React.Fragment><GameTitle>Quiz</GameTitle>
+          <EnQuiz words={activeWords} starred={starred} toggleStar={toggleStar} addStar={addStar} onHome={home} />
+          </React.Fragment>
+        )}
+        {screen === "speed" && (
+          <React.Fragment><GameTitle>Speed Round</GameTitle>
+          <EnSpeed words={activeWords} starred={starred} toggleStar={toggleStar} addStar={addStar} onHome={home} />
+          </React.Fragment>
+        )}
+        {screen === "spelling" && (
+          <React.Fragment><GameTitle>Spelling</GameTitle>
+          <EnSpelling words={activeWords} starred={starred} toggleStar={toggleStar} addStar={addStar} onHome={home} />
+          </React.Fragment>
+        )}
         {screen === "wordlist" && <EnWordList allWords={listWords} starred={starred} mastered={mastered} toggleStar={toggleStar} toggleMastered={toggleMastered} myWords={myWords} removeMyWord={removeMyWord} />}
       </div>
     </div>
@@ -2993,7 +3017,6 @@ function EnFlashcards({ words, starred, toggleStar, onlyStarred, onHome }) {
           <>
             <div style={{ fontSize:22, marginBottom:6 }}>{card.emoji || "📘"}</div>
             <div style={{ fontSize:36, fontWeight:800 }}>{card.word}</div>
-            <div style={{ marginTop:14, fontSize:13, color:"#9a94ad" }}>What does it mean? Tap to flip!</div>
           </>
         ) : (
           <>
@@ -3401,11 +3424,31 @@ function MathApp({ onSwitchLang }) {
         {screen === "home" && (
           <MathHome sets={sets} toggleSet={toggleSet} count={facts.length} go={setScreen} />
         )}
-        {screen === "quick" && <MathQuick facts={facts} onHome={home} />}
-        {screen === "speed" && <MathSpeed facts={facts} onHome={home} />}
-        {screen === "missing" && <MathMissing facts={facts} onHome={home} />}
-        {screen === "compare" && <MathCompare onHome={home} />}
-        {screen === "skip" && <MathSkip onHome={home} />}
+        {screen === "quick" && (
+          <React.Fragment><GameTitle>Quick Facts</GameTitle>
+          <MathQuick facts={facts} onHome={home} />
+          </React.Fragment>
+        )}
+        {screen === "speed" && (
+          <React.Fragment><GameTitle>Speed Round</GameTitle>
+          <MathSpeed facts={facts} onHome={home} />
+          </React.Fragment>
+        )}
+        {screen === "missing" && (
+          <React.Fragment><GameTitle>Missing Number</GameTitle>
+          <MathMissing facts={facts} onHome={home} />
+          </React.Fragment>
+        )}
+        {screen === "compare" && (
+          <React.Fragment><GameTitle>Bigger or Smaller</GameTitle>
+          <MathCompare onHome={home} />
+          </React.Fragment>
+        )}
+        {screen === "skip" && (
+          <React.Fragment><GameTitle>What Comes Next</GameTitle>
+          <MathSkip onHome={home} />
+          </React.Fragment>
+        )}
         {screen === "chips" && <ChipsScreen onDone={home} />}
       </div>
     </div>
