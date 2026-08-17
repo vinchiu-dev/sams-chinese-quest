@@ -3855,6 +3855,9 @@ const FactCard = ({ f, children, border }) => (
 
 // ---- Quick Facts: type the answer ----
 function MathQuick({ facts, onHome }) {
+  const advRef = useRef(null);
+  const nextRef = useRef(() => {});
+  useEffect(() => () => { if (advRef.current) clearTimeout(advRef.current); }, []);
   const [f, setF] = useState(() => srsPick(facts, (x) => x.key) || facts[0]);
   const [entry, setEntry] = useState("");
   const [result, setResult] = useState(null);
@@ -3872,11 +3875,16 @@ function MathQuick({ facts, onHome }) {
     if (ok) { setScore((s) => s + 1); playCorrect(score); } else playSoftMiss();
     srsRecord(f.key, ok);
     recordEffort();
+    // Correct answers roll straight on — a right answer needs no dwell time.
+    // Wrong ones wait, so he actually reads the correct answer.
+    if (ok) advRef.current = setTimeout(nextRef.current, 1200);
   };
   const next = () => {
+    if (advRef.current) clearTimeout(advRef.current);
     setEntry(""); setResult(null);
     setF(srsPick(facts, (x) => x.key, f.key) || facts[0]);
   };
+  nextRef.current = next;
 
   return (
     <div>
@@ -3899,7 +3907,9 @@ function MathQuick({ facts, onHome }) {
       </div>
       {!result
         ? <button onClick={check} disabled={!entry.trim()} style={{ ...bigBtn, background:C.leaf, width:"100%", marginTop:14, opacity:entry.trim()?1:0.5 }}>✓ Check</button>
-        : <button onClick={next} style={{ ...bigBtn, background:"#7C5CE0", width:"100%", marginTop:14 }}>Next →</button>}
+        : (result === "right"
+            ? <div style={{ textAlign:"center", marginTop:16, fontSize:13, color:"#9a94ad", fontWeight:700 }}>next one coming…</div>
+            : <button onClick={next} style={{ ...bigBtn, background:"#7C5CE0", width:"100%", marginTop:14 }}>Next →</button>)}
       <button onClick={onHome} style={{ ...bigBtn, background:"#EBE5D8", color:C.ink, marginTop:12, width:"100%" }}>⬅ Back to menu</button>
     </div>
   );
@@ -4060,6 +4070,9 @@ function MathCompare({ onHome }) {
 
 // ---- What Comes Next: skip counting (the bridge into times tables) ----
 function MathSkip({ onHome }) {
+  const advRef = useRef(null);
+  const nextRef = useRef(() => {});
+  useEffect(() => () => { if (advRef.current) clearTimeout(advRef.current); }, []);
   const STEPS = [2, 5, 10, 3, 4];
   const build = () => {
     const step = STEPS[Math.floor(Math.random() * STEPS.length)];
@@ -4086,8 +4099,13 @@ function MathSkip({ onHome }) {
     if (ok) { setScore((s) => s + 1); playCorrect(score); } else playSoftMiss();
     srsRecord(q.key, ok);
     recordEffort();
+    if (ok) advRef.current = setTimeout(nextRef.current, 1200);
   };
-  const next = () => { setEntry(""); setResult(null); setQ(build()); };
+  const next = () => {
+    if (advRef.current) clearTimeout(advRef.current);
+    setEntry(""); setResult(null); setQ(build());
+  };
+  nextRef.current = next;
 
   return (
     <div>
@@ -4118,7 +4136,9 @@ function MathSkip({ onHome }) {
       </div>
       {!result
         ? <button onClick={check} disabled={!entry.trim()} style={{ ...bigBtn, background: C.leaf, width: "100%", marginTop: 14, opacity: entry.trim() ? 1 : 0.5 }}>✓ Check</button>
-        : <button onClick={next} style={{ ...bigBtn, background: "#7C5CE0", width: "100%", marginTop: 14 }}>Next →</button>}
+        : (result === "right"
+            ? <div style={{ textAlign:"center", marginTop:16, fontSize:13, color:"#9a94ad", fontWeight:700 }}>next one coming…</div>
+            : <button onClick={next} style={{ ...bigBtn, background:"#7C5CE0", width:"100%", marginTop:14 }}>Next →</button>)}
       <button onClick={onHome} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, marginTop: 12, width: "100%" }}>⬅ Back to menu</button>
     </div>
   );
@@ -4126,6 +4146,9 @@ function MathSkip({ onHome }) {
 
 // ---- Missing Number: 5 × ? = 30 ----
 function MathMissing({ facts, onHome }) {
+  const advRef = useRef(null);
+  const nextRef = useRef(() => {});
+  useEffect(() => () => { if (advRef.current) clearTimeout(advRef.current); }, []);
   const [f, setF] = useState(() => srsPick(facts, (x) => x.key) || facts[0]);
   const [entry, setEntry] = useState("");
   const [result, setResult] = useState(null);
@@ -4144,8 +4167,13 @@ function MathMissing({ facts, onHome }) {
     if (ok) { setScore((s)=>s+1); playCorrect(score); } else playSoftMiss();
     srsRecord(f.key, ok);
     recordEffort();
+    if (ok) advRef.current = setTimeout(nextRef.current, 1200);
   };
-  const next = () => { setEntry(""); setResult(null); setF(srsPick(facts,(x)=>x.key,f.key)||facts[0]); };
+  const next = () => {
+    if (advRef.current) clearTimeout(advRef.current);
+    setEntry(""); setResult(null); setF(srsPick(facts,(x)=>x.key,f.key)||facts[0]);
+  };
+  nextRef.current = next;
 
   return (
     <div>
@@ -4170,7 +4198,9 @@ function MathMissing({ facts, onHome }) {
       </div>
       {!result
         ? <button onClick={check} disabled={!entry.trim()} style={{ ...bigBtn, background:C.leaf, width:"100%", marginTop:14, opacity:entry.trim()?1:0.5 }}>✓ Check</button>
-        : <button onClick={next} style={{ ...bigBtn, background:"#7C5CE0", width:"100%", marginTop:14 }}>Next →</button>}
+        : (result === "right"
+            ? <div style={{ textAlign:"center", marginTop:16, fontSize:13, color:"#9a94ad", fontWeight:700 }}>next one coming…</div>
+            : <button onClick={next} style={{ ...bigBtn, background:"#7C5CE0", width:"100%", marginTop:14 }}>Next →</button>)}
       <button onClick={onHome} style={{ ...bigBtn, background:"#EBE5D8", color:C.ink, marginTop:12, width:"100%" }}>⬅ Back to menu</button>
     </div>
   );
