@@ -60,22 +60,6 @@
     "My little brother also likes to play.",
     "My big sister is six years old too."
   ],
-  "chips": 0,
-  "practiceDays": [],
-  "srs": {},
-  "dayCount": {},
-  "spokenCount": {},
-  "wordOfDay": {
-    "date": "2026-08-17",
-    "word": {
-      "hanzi": "长颈鹿",
-      "pinyin": "chángjǐnglù",
-      "en": "giraffe",
-      "emoji": "🦒"
-    }
-  },
-  "wodDone": "",
-  "goalClaimed": "",
   "customWords": [
     {
       "en": "also",
@@ -87,6 +71,47 @@
       "en": "有",
       "pinyin": "",
       "hanzi": "有",
+      "emoji": "📝",
+      "needsDef": true
+    }
+  ],
+  "en_starred": [
+    "contaminate",
+    "hesitate",
+    "abundant"
+  ],
+  "en_mastered": [
+    "gigantic",
+    "fragile",
+    "Anchor",
+    "Free loader"
+  ],
+  "en_myWords": [
+    {
+      "word": "Authorities",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "cushion",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Status",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Currently",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
       "emoji": "📝",
       "needsDef": true
     }
