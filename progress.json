@@ -720,6 +720,13 @@
       "pinyin": "yě",
       "hanzi": "也",
       "emoji": "➕"
+    },
+    {
+      "en": "有",
+      "pinyin": "",
+      "hanzi": "有",
+      "emoji": "📝",
+      "needsDef": true
     }
   ]
 }
