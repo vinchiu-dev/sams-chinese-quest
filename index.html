@@ -1438,14 +1438,38 @@ function WordOfDay({ word, allWords, sentences, onHome }) {
   // Order matters: make him RETRIEVE the word from memory before we ever
   // show or speak it. Testing yourself first is far more effective than
   // being handed the answer and then repeating it.
-  const steps = ["Say it", "Check it", "Hear it", ...examples.map((_, k) => "Use it " + (k + 1))];
+  // Sentence work runs input-first: he hears real sentences, shows he
+  // understood them, repeats one back, and only then invents his own.
+  // Understanding has to come before producing — asking a 7-year-old to
+  // build a sentence with a word he has only ever met in isolation is
+  // asking him to do the hardest step first.
+  const steps = ["Say it", "Check it", "Hear it"].concat(
+    examples.length
+      ? ["Listen"].concat(examples.map((_, k) => "Meaning " + (k + 1))).concat(["Say it back", "Make your own"])
+      : []
+  );
   const last = steps.length - 1;
 
   // The listening step should play by itself — he shouldn't have to hunt for
   // a button before he can hear the word.
   useEffect(() => {
-    if (steps[step] === "Hear it") {
+    const label = steps[step];
+    if (label === "Hear it") {
       const t = setTimeout(() => speak(word), 250);
+      return () => clearTimeout(t);
+    }
+    // every sentence step opens by playing the Chinese, unprompted —
+    // he should never have to hunt for a button before he can hear it
+    if (label === "Listen") {
+      const timers = examples.map((ex, k) =>
+        setTimeout(() => speak({ hanzi: ex.hanzi, pinyin: ex.pinyin }), 300 + k * 2600)
+      );
+      return () => timers.forEach(clearTimeout);
+    }
+    if (label && (label.indexOf("Meaning") === 0 || label === "Say it back")) {
+      const ex = label === "Say it back" ? examples[0] : examples[Number(label.split(" ")[1]) - 1];
+      if (!ex) return;
+      const t = setTimeout(() => speak({ hanzi: ex.hanzi, pinyin: ex.pinyin }), 300);
       return () => clearTimeout(t);
     }
   }, [step, word]);
@@ -1577,40 +1601,130 @@ function WordOfDay({ word, allWords, sentences, onHome }) {
       )}
 
       {/* ---- "Use it" steps: say each real sentence, then check ---- */}
-      {label.startsWith("Use it") && (() => {
-        const ex = examples[Number(label.split(" ")[2]) - 1];
+      {label === "Listen" && (
+        <div>
+          <div style={{ background: "#fff", borderRadius: 24, padding: "26px 20px", textAlign: "center",
+            border: `4px solid ${C.sky}`, boxShadow: "0 8px 0 rgba(107,169,214,0.3)" }}>
+            <div style={{ fontSize: 12, color: "#9a94ad", fontWeight: 800, marginBottom: 10 }}>
+              Just listen — {examples.length === 1 ? "one sentence" : examples.length + " sentences"} using {word.pinyin}
+            </div>
+            <div style={{ fontSize: 58 }}>👂</div>
+            <div style={{ fontSize: 15, color: "#7a7391", marginTop: 10, lineHeight: 1.5 }}>
+              Nothing to answer yet. Hear the word doing its job in a real sentence.
+            </div>
+            <button
+              onClick={() => examples.forEach((ex, k) =>
+                setTimeout(() => speak({ hanzi: ex.hanzi, pinyin: ex.pinyin }), k * 2600))}
+              style={{ ...ghostBtn, marginTop: 14 }}>🔊 Play them again</button>
+          </div>
+          <button onClick={advance} style={{ ...bigBtn, background: C.sky, width: "100%", marginTop: 14 }}>
+            Got it →
+          </button>
+        </div>
+      )}
+
+      {/* ---- what did that mean? comprehension before production ---- */}
+      {label.indexOf("Meaning") === 0 && (() => {
+        const ex = examples[Number(label.split(" ")[1]) - 1];
         if (!ex) return null;
-        const isLast = step >= last;
         return (
           <div>
             <div style={{ background: "#fff", borderRadius: 24, padding: "26px 20px", textAlign: "center",
-              border: `4px solid ${C.sky}`, boxShadow: "0 8px 0 rgba(107,169,214,0.3)" }}>
-              <div style={{ fontSize: 12, color: "#9a94ad", fontWeight: 800, marginBottom: 8 }}>
-                Say this in Chinese
+              border: `4px solid ${C.leaf}`, boxShadow: "0 8px 0 rgba(95,184,148,0.3)" }}>
+              <div style={{ fontSize: 12, color: "#9a94ad", fontWeight: 800, marginBottom: 10 }}>
+                What did that mean?
               </div>
-              <div style={{ fontSize: 19, fontWeight: 800, lineHeight: 1.4 }}>{ex.en}</div>
+              <button onClick={() => speak({ hanzi: ex.hanzi, pinyin: ex.pinyin })}
+                style={{ ...bigBtn, background: C.sky, padding: "14px 26px" }}>🔊 Hear it again</button>
               {revealed && (
-                <div style={{ marginTop: 14 }}>
-                  <div style={{ fontSize: 21, fontWeight: 800, color: C.fox, lineHeight: 1.35 }}>{ex.pinyin}</div>
-                  <button onClick={() => speak({ hanzi: ex.hanzi, pinyin: ex.pinyin })}
-                    style={{ ...ghostBtn, marginTop: 10 }}>🔊 Hear it again</button>
+                <div style={{ marginTop: 16 }}>
+                  <div style={{ fontSize: 19, fontWeight: 800, lineHeight: 1.4 }}>{ex.en}</div>
+                  <div style={{ fontSize: 16, color: C.fox, fontWeight: 800, marginTop: 6 }}>{ex.pinyin}</div>
                 </div>
               )}
             </div>
             {!revealed ? (
-              <button
-                onClick={() => { setRevealed(true); speak({ hanzi: ex.hanzi, pinyin: ex.pinyin }); recordSpoken(); }}
-                style={{ ...bigBtn, background: C.leaf, width: "100%", marginTop: 14 }}>
-                🗣️ I said it — show answer
-              </button>
+              <div>
+                <button onClick={() => { setRevealed(true); recordSpoken(); }}
+                  style={{ ...bigBtn, background: C.leaf, width: "100%", marginTop: 14 }}>
+                  🗣️ He said what it meant — check
+                </button>
+                <div style={{ textAlign: "center", fontSize: 12, color: "#9a94ad", marginTop: 8 }}>
+                  Roughly right counts. This is understanding, not translating.
+                </div>
+              </div>
             ) : (
               <button onClick={advance} style={{ ...bigBtn, background: C.sky, width: "100%", marginTop: 14 }}>
-                {isLast ? "Finish →" : "Next sentence →"}
+                Next →
               </button>
             )}
           </div>
         );
       })()}
+
+      {/* ---- echo: put the sentence in his mouth before he has to build one ---- */}
+      {label === "Say it back" && (() => {
+        const ex = examples[0];
+        if (!ex) return null;
+        return (
+          <div>
+            <div style={{ background: "#fff", borderRadius: 24, padding: "26px 20px", textAlign: "center",
+              border: `4px solid ${C.sun}`, boxShadow: "0 8px 0 rgba(246,196,69,0.35)" }}>
+              <div style={{ fontSize: 12, color: "#9a94ad", fontWeight: 800, marginBottom: 10 }}>
+                Say it back, exactly
+              </div>
+              <div style={{ fontSize: 46 }}>🦜</div>
+              <button onClick={() => speak({ hanzi: ex.hanzi, pinyin: ex.pinyin })}
+                style={{ ...bigBtn, background: C.sky, padding: "14px 26px", marginTop: 12 }}>🔊 Play it</button>
+              {revealed && (
+                <div style={{ fontSize: 19, fontWeight: 800, color: C.fox, marginTop: 14, lineHeight: 1.35 }}>
+                  {ex.pinyin}
+                </div>
+              )}
+            </div>
+            {!revealed ? (
+              <button onClick={() => { setRevealed(true); recordSpoken(); }}
+                style={{ ...bigBtn, background: C.leaf, width: "100%", marginTop: 14 }}>
+                🗣️ He said it — check
+              </button>
+            ) : (
+              <button onClick={advance} style={{ ...bigBtn, background: C.sky, width: "100%", marginTop: 14 }}>
+                Next →
+              </button>
+            )}
+          </div>
+        );
+      })()}
+
+      {/* ---- now his own ---- */}
+      {label === "Make your own" && (
+        <div>
+          <div style={{ background: "#fff", borderRadius: 24, padding: "26px 20px", textAlign: "center",
+            border: `4px solid ${C.fox}`, boxShadow: "0 8px 0 rgba(232,112,58,0.3)" }}>
+            <div style={{ fontSize: 12, color: "#9a94ad", fontWeight: 800, marginBottom: 8 }}>
+              Your turn — make a new one
+            </div>
+            <div style={{ fontSize: 52 }}>{word.emoji || "⭐"}</div>
+            <div style={{ fontSize: 34, fontWeight: 800, color: C.fox, marginTop: 6 }}>{word.pinyin}</div>
+            <div style={{ fontSize: 16, color: "#7a7391", marginTop: 2 }}>{word.en}</div>
+            <div style={{ textAlign: "left", marginTop: 16, fontSize: 15, color: "#7a7391", lineHeight: 1.9 }}>
+              Take one you just heard and swap a piece:
+              <div style={{ marginTop: 6, fontWeight: 700, color: C.ink }}>
+                · one about you<br />
+                · one about someone in your family<br />
+                · one that's a question — ask me it<br />
+                · one that isn't true, on purpose 😄
+              </div>
+            </div>
+          </div>
+          <button onClick={advance} style={{ ...bigBtn, background: C.leaf, width: "100%", marginTop: 14 }}>
+            🗣️ He made one — finish
+          </button>
+          <div style={{ textAlign: "center", fontSize: 12, color: "#9a94ad", marginTop: 8 }}>
+            Don't correct him mid-sentence. Say the fixed version back afterwards, like it's your turn.
+          </div>
+        </div>
+      )}
 
       <button onClick={onHome} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, marginTop: 12, width: "100%" }}>
         ⬅ Back to menu
@@ -3757,6 +3871,11 @@ function MathApp({ onSwitchLang }) {
         {screen === "home" && (
           <MathHome sets={sets} toggleSet={toggleSet} count={facts.length} go={setScreen} />
         )}
+        {screen === "car" && (
+          <React.Fragment><GameTitle>Car Mode</GameTitle>
+          <CarMode facts={facts} onHome={home} />
+          </React.Fragment>
+        )}
         {screen === "quick" && (
           <React.Fragment><GameTitle>Quick Facts</GameTitle>
           <MathQuick facts={facts} onHome={home} />
@@ -3795,6 +3914,7 @@ function MathHome({ sets, toggleSet, count, go }) {
     { id:"missing", emoji:"❓", name:"Missing Number", desc:"5 × ? = 30",             color:C.leaf },
     { id:"compare", emoji:"⚖️", name:"Bigger or Smaller", desc:"Is 34 more than 43?",  color:"#E8703A" },
     { id:"skip",    emoji:"🪜", name:"What Comes Next",   desc:"2, 4, 6, ?",            color:"#3BA0C8" },
+    { id:"car",     emoji:"🚗", name:"Car Mode",       desc:"Eyes off, ears on",   color:"#2A2440", always:true },
   ];
   const none = count === 0;
   return (
@@ -3826,8 +3946,9 @@ function MathHome({ sets, toggleSet, count, go }) {
 
       <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
         {modes.map((m) => (
-          <button key={m.id} onClick={() => !none && go(m.id)} disabled={none}
-            style={{ ...modeBtn, background:"#fff", borderColor:m.color, opacity:none?0.5:1, cursor:none?"not-allowed":"pointer" }}>
+          <button key={m.id} onClick={() => (m.always || !none) && go(m.id)} disabled={none && !m.always}
+            style={{ ...modeBtn, background:"#fff", borderColor:m.color,
+              opacity:(none && !m.always)?0.5:1, cursor:(none && !m.always)?"not-allowed":"pointer" }}>
             <div style={{ fontSize:40 }}>{m.emoji}</div>
             <div style={{ fontWeight:800, fontSize:17, marginTop:4 }}>{m.name}</div>
             <div style={{ fontSize:12, color:"#7a7391", marginTop:2 }}>{m.desc}</div>
@@ -4202,6 +4323,420 @@ function MathMissing({ facts, onHome }) {
             ? <div style={{ textAlign:"center", marginTop:16, fontSize:13, color:"#9a94ad", fontWeight:700 }}>next one coming…</div>
             : <button onClick={next} style={{ ...bigBtn, background:"#7C5CE0", width:"100%", marginTop:14 }}>Next →</button>)}
       <button onClick={onHome} style={{ ...bigBtn, background:"#EBE5D8", color:C.ink, marginTop:12, width:"100%" }}>⬅ Back to menu</button>
+    </div>
+  );
+}
+
+
+// ============================================================
+//  CAR MODE — eyes off, ears on.
+//  Voice-driven drilling for the drive. Nothing is tapped while the
+//  car is moving: it speaks the question, waits, speaks the answer,
+//  and moves on. Slow answers are flagged afterwards, parked, and
+//  fed straight into the same spaced-repetition memory the rest of
+//  the app already uses.
+// ============================================================
+
+const OP_WORD = { "+": "plus", "-": "minus", "*": "times", "/": "divided by" };
+
+// Promise-based speech so a session can be sequenced end to end.
+const carSpeak = (text, lang) =>
+  new Promise((resolve) => {
+    if (!("speechSynthesis" in window) || !text) return resolve();
+    let done = false;
+    const finish = () => { if (!done) { done = true; resolve(); } };
+    try {
+      if (window.speechSynthesis.speaking || window.speechSynthesis.pending) window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(String(text));
+      u.lang = lang;
+      u.rate = lang === "zh-CN" ? 0.8 : 0.88;
+      u.pitch = 1;
+      const v = lang === "zh-CN" ? bestVoice : bestEnVoice;
+      if (v) u.voice = v;
+      u.onend = finish;
+      u.onerror = finish;
+      window.speechSynthesis.speak(u);
+      // never let a dropped onend hang the whole session
+      setTimeout(finish, 1400 + String(text).length * 140);
+    } catch (e) { finish(); }
+  });
+
+const carWait = (ms) => new Promise((r) => setTimeout(r, ms));
+
+const CAR_TIPS = [
+  ["Three seconds is the whole test",
+   "Under three seconds means he pulled it from memory. Longer means he worked it out — and that rep practised counting, not recall. Speed is the only way to tell from the driver's seat."],
+  ["Fast or flag",
+   "If he's slow, just give him the answer. No struggle, no shame. Mark it at the end and it comes back on its own."],
+  ["Name the set out loud first",
+   "\u201cToday is the eights.\u201d Random quizzing burns the drive re-asking the forty facts he already owns."],
+  ["Four to six minutes",
+   "Once a drive, not every drive. Short doses win, and they keep the car somewhere he wants to be."],
+  ["Finish on three he knows",
+   "Car Mode adds easy doubles at the end automatically. Always end winning."],
+  ["The order that matters",
+   "Doubles \u2192 near doubles \u2192 make ten \u2192 +9 \u2192 missing number \u2192 skip counting. Each one leans on the one before it."],
+  ["Turn subtraction around",
+   "Instead of \u201c13 minus 6,\u201d ask \u201cwhat plus 6 makes 13?\u201d Subtraction stops being a hundred new facts and becomes the same facts backwards."],
+  ["One set at a time while he's learning it",
+   "Mix sets only once he owns each of them separately. Interleaving is for holding on to things, not for picking them up."],
+  ["Let him quiz you back",
+   "And get some wrong. Catching Dad is worth more than anything the app just did."],
+  ["License plates are free",
+   "Add the digits. Or \u201cmake the biggest number you can.\u201d No app required."],
+];
+
+function CarMode({ facts, onHome }) {
+  const { lessons: LESSONS, sentences: SENTENCES } = getVocab();
+  const [phase, setPhase] = useState("setup");     // setup | run | review
+  const [deck, setDeck] = useState(() => loadLS("car_deck", "math"));
+  const [gap, setGap] = useState(() => loadLS("car_gap", 3.5));
+  const [len, setLen] = useState(() => loadLS("car_len", 12));
+  const [tips, setTips] = useState(false);
+
+  const [queue, setQueue] = useState([]);
+  const [idx, setIdx] = useState(0);
+  const [reveal, setReveal] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const [flagged, setFlagged] = useState({});
+  const [secs, setSecs] = useState(0);
+
+  const cancelRef = useRef(false);
+  const pauseRef = useRef(false);
+  const wakeRef = useRef(null);
+  useEffect(() => { pauseRef.current = paused; }, [paused]);
+  useEffect(() => { saveLS("car_deck", deck); }, [deck]);
+  useEffect(() => { saveLS("car_gap", gap); }, [gap]);
+  useEffect(() => { saveLS("car_len", len); }, [len]);
+  useEffect(() => () => { cancelRef.current = true; try { window.speechSynthesis.cancel(); } catch (e) {} }, []);
+
+  useEffect(() => {
+    if (phase !== "run") return;
+    const t = setInterval(() => setSecs((x) => x + 1), 1000);
+    return () => clearInterval(t);
+  }, [phase]);
+
+  // ---- the three decks ----
+  const words = useMemo(
+    () => LESSONS.flatMap((l) => l.words || []).filter((w) => w && w.pinyin),
+    [LESSONS.length]
+  );
+
+  const buildQueue = () => {
+    const out = [];
+    if (deck === "math") {
+      // shakiest facts first — same weighting the rest of the app uses
+      const ordered = srsOrder(facts, (f) => f.key).slice(0, Math.max(len * 3, 30));
+      const seen = {};
+      for (const f of shuffle(ordered)) {
+        if (out.length >= len) break;
+        if (seen[f.key]) continue;
+        seen[f.key] = 1;
+        out.push({
+          key: f.key,
+          show: f.a + " " + opSymbol[f.op] + " " + f.b,
+          say: f.a + " " + OP_WORD[f.op] + " " + f.b,
+          answer: String(f.ans),
+          sayAnswer: String(f.ans),
+          lang: "en-US",
+        });
+      }
+      // finish strong: three easy doubles, never counted against him
+      for (let n = 2; n <= 4; n++) {
+        out.push({
+          key: "math:+:" + n + ":" + n, show: n + " + " + n, say: n + " plus " + n,
+          answer: String(n + n), sayAnswer: String(n + n), lang: "en-US", closer: true,
+        });
+      }
+    } else if (deck === "words") {
+      const wod = wodActive();
+      const pool = shuffle(srsOrder(words, (w) => w.pinyin).slice(0, Math.max(len * 3, 24)));
+      if (wod) pool.unshift(wod);
+      const seen = {};
+      for (const w of pool) {
+        if (out.length >= len) break;
+        if (seen[w.pinyin]) continue;
+        seen[w.pinyin] = 1;
+        out.push({
+          key: w.pinyin,
+          show: w.en,
+          say: w.en,
+          answer: w.pinyin,
+          sayAnswer: w.hanzi || w.pinyin,
+          lang: "en-US", answerLang: "zh-CN",
+        });
+      }
+    } else {
+      const pool = shuffle(SENTENCES || []).slice(0, len);
+      for (const sn of pool) {
+        out.push({
+          key: "sen:" + (sn.pinyin || ""),
+          show: sn.pinyin,
+          say: sn.hanzi || sn.pinyin,
+          sayLang: "zh-CN",
+          answer: sn.en,
+          sayAnswer: sn.en,
+          lang: "zh-CN", answerLang: "en-US",
+          listen: true,
+        });
+      }
+    }
+    return out;
+  };
+
+  const holdPause = async () => { while (pauseRef.current && !cancelRef.current) await carWait(180); };
+
+  const runLoop = async (q) => {
+    for (let i = 0; i < q.length; i++) {
+      if (cancelRef.current) return;
+      setIdx(i); setReveal(false);
+      await holdPause(); if (cancelRef.current) return;
+      const it = q[i];
+      await carSpeak(it.say, it.sayLang || it.lang);
+      if (it.listen) { await carWait(600); await carSpeak(it.say, it.sayLang || it.lang); }
+      await holdPause(); if (cancelRef.current) return;
+      await carWait(gap * 1000);
+      await holdPause(); if (cancelRef.current) return;
+      setReveal(true);
+      await carSpeak(it.sayAnswer, it.answerLang || it.lang);
+      await carWait(700);
+    }
+    if (!cancelRef.current) { release(); setPhase("review"); }
+  };
+
+  const release = () => {
+    cancelRef.current = true;
+    try { window.speechSynthesis.cancel(); } catch (e) {}
+    try { if (wakeRef.current) wakeRef.current.release(); } catch (e) {}
+    wakeRef.current = null;
+  };
+
+  const start = async () => {
+    const q = buildQueue();
+    if (!q.length) return;
+    setQueue(q); setIdx(0); setReveal(false); setFlagged({}); setSecs(0);
+    setPaused(false); pauseRef.current = false; cancelRef.current = false;
+    setPhase("run");
+    primeSpeech();
+    try { if (navigator.wakeLock) wakeRef.current = await navigator.wakeLock.request("screen"); } catch (e) {}
+    await carSpeak("Ready.", "en-US");
+    runLoop(q);
+  };
+
+  const stopNow = () => { release(); setPhase(idx > 0 ? "review" : "setup"); };
+
+  const saveReview = () => {
+    const asked = queue.slice(0, Math.min(queue.length, idx + 1));
+    asked.forEach((it) => {
+      if (it.closer) return;                       // the confidence closers never score
+      if (String(it.key).indexOf("sen:") === 0) return;
+      srsRecord(it.key, !flagged[it.key]);
+    });
+    recordEffort();
+    markPracticedToday();
+    setPhase("setup");
+  };
+
+  const decks = [
+    { id: "math",  emoji: "\ud83d\udd22", name: "Math facts", desc: "From the sets you picked" },
+    { id: "words", emoji: "\ud83e\udd8a", name: "Chinese words", desc: "English out \u2192 he says the Chinese" },
+    { id: "sent",  emoji: "\ud83d\udcac", name: "Chinese sentences", desc: "He hears it \u2192 says what it meant" },
+  ];
+
+  // ---------------- setup ----------------
+  if (phase === "setup") {
+    const empty = deck === "math" && !facts.length;
+    return (
+      <div>
+        <div style={{ background: "#fff", borderRadius: 22, border: "3px solid #cfe3f5", padding: "16px 16px 18px", marginBottom: 14 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 4 }}>
+            <span style={{ fontSize: 30 }}>\ud83d\ude97</span>
+            <div style={{ fontWeight: 800, fontSize: 20 }}>Car Mode</div>
+          </div>
+          <div style={{ fontSize: 13.5, color: "#7a7391", lineHeight: 1.5 }}>
+            It talks, he answers out loud, nobody looks at the screen. Phone in the cradle. You'll mark the slow ones at the end, parked.
+          </div>
+        </div>
+
+        <div style={{ fontSize: 11, fontWeight: 800, color: "#8b83a8", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 7 }}>What to drill</div>
+        <div style={{ display: "grid", gap: 9, marginBottom: 16 }}>
+          {decks.map((d) => {
+            const on = deck === d.id;
+            return (
+              <button key={d.id} onClick={() => setDeck(d.id)}
+                style={{ display: "flex", alignItems: "center", gap: 12, textAlign: "left", background: "#fff",
+                  border: on ? "4px solid #3BA0C8" : "3px solid #e7e0d0", borderRadius: 18, padding: "12px 14px",
+                  fontFamily: "inherit", color: C.ink, cursor: "pointer" }}>
+                <span style={{ fontSize: 28 }}>{d.emoji}</span>
+                <span>
+                  <span style={{ display: "block", fontWeight: 800, fontSize: 16 }}>{d.name}</span>
+                  <span style={{ display: "block", fontSize: 12.5, color: "#7a7391", marginTop: 1 }}>{d.desc}</span>
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        <div style={{ fontSize: 11, fontWeight: 800, color: "#8b83a8", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 7 }}>
+          Thinking time before the answer
+        </div>
+        <div style={{ display: "flex", gap: 8, marginBottom: 6 }}>
+          {[2.5, 3.5, 5].map((g) => (
+            <button key={g} onClick={() => setGap(g)}
+              style={{ ...chip, flex: 1, padding: "11px 6px", fontSize: 15,
+                background: gap === g ? "#3BA0C8" : "#fff", color: gap === g ? "#fff" : C.ink,
+                borderColor: gap === g ? "#3BA0C8" : "#e3ddcf" }}>{g}s</button>
+          ))}
+        </div>
+        <div style={{ fontSize: 12, color: "#7a7391", marginBottom: 16 }}>
+          Past about three seconds he's working it out rather than remembering it. Start at 3.5 and tighten.
+        </div>
+
+        <div style={{ fontSize: 11, fontWeight: 800, color: "#8b83a8", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 7 }}>How long</div>
+        <div style={{ display: "flex", gap: 8, marginBottom: 18 }}>
+          {[[8, "~3 min"], [12, "~5 min"], [18, "~7 min"]].map(([n, t]) => (
+            <button key={n} onClick={() => setLen(n)}
+              style={{ ...chip, flex: 1, padding: "11px 6px", fontSize: 14,
+                background: len === n ? "#3BA0C8" : "#fff", color: len === n ? "#fff" : C.ink,
+                borderColor: len === n ? "#3BA0C8" : "#e3ddcf" }}>{n} · {t}</button>
+          ))}
+        </div>
+
+        <button onClick={start} disabled={empty}
+          style={{ ...bigBtn, background: empty ? "#c9c3d8" : "#3BA0C8", color: "#fff", width: "100%",
+            cursor: empty ? "not-allowed" : "pointer" }}>
+          \u25b6\ufe0e Start
+        </button>
+        {empty && (
+          <div style={{ textAlign: "center", marginTop: 10, color: C.berry, fontWeight: 700, fontSize: 14 }}>
+            Pick at least one math set on the menu first.
+          </div>
+        )}
+
+        <button onClick={() => setTips((t) => !t)}
+          style={{ ...ghostBtn, width: "100%", marginTop: 14 }}>
+          {tips ? "\u25b4 Hide the coaching notes" : "\ud83d\udca1 Coaching notes for the driver"}
+        </button>
+        {tips && (
+          <div style={{ marginTop: 12 }}>
+            <div style={{ background: C.ink, color: "#fff", borderRadius: 18, padding: "14px 16px", marginBottom: 10 }}>
+              <div style={{ fontWeight: 800, fontSize: 15, marginBottom: 5 }}>The one thing</div>
+              <div style={{ fontSize: 14, lineHeight: 1.55 }}>
+                If he works the answer out, the rep doesn't count. Automaticity means pulling it straight from memory \u2014 and speed is the only way you can tell the difference while driving.
+              </div>
+            </div>
+            {CAR_TIPS.map((t, i) => (
+              <div key={i} style={{ background: "#fff", borderRadius: 16, border: "2px solid #e7e0d0",
+                borderLeft: "6px solid " + (i % 2 ? C.leaf : C.fox), padding: "11px 14px", marginBottom: 8 }}>
+                <div style={{ fontWeight: 800, fontSize: 15 }}>{t[0]}</div>
+                <div style={{ fontSize: 13.5, color: "#7a7391", marginTop: 3, lineHeight: 1.5 }}>{t[1]}</div>
+              </div>
+            ))}
+            <div style={{ background: "#FFF1EC", borderRadius: 16, border: "2px solid " + C.fox, padding: "12px 14px" }}>
+              <div style={{ fontWeight: 800, fontSize: 15 }}>Worth remembering</div>
+              <div style={{ fontSize: 13.5, color: "#7a7391", marginTop: 3, lineHeight: 1.5 }}>
+                The car is a relationship before it's a classroom. If every drive turns into a test he'll start dreading it. Skip the days he isn't up for it \u2014 the drilling is worth almost nothing next to him wanting to be in there with you.
+              </div>
+            </div>
+          </div>
+        )}
+
+        <button onClick={onHome} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, marginTop: 14, width: "100%" }}>
+          \u2b05 Back to menu
+        </button>
+      </div>
+    );
+  }
+
+  // ---------------- running ----------------
+  if (phase === "run") {
+    const it = queue[idx] || queue[0];
+    const mm = Math.floor(secs / 60), ss = String(secs % 60).length < 2 ? "0" + (secs % 60) : String(secs % 60);
+    return (
+      <div>
+        <div style={{ display: "flex", justifyContent: "space-between", fontWeight: 800, fontSize: 14, color: "#8b83a8", marginBottom: 8 }}>
+          <span>{idx + 1} / {queue.length}</span><span>\u23f1 {mm}:{ss}</span>
+        </div>
+        <div style={{ height: 8, background: "#e7e0d0", borderRadius: 6, overflow: "hidden", marginBottom: 16 }}>
+          <div style={{ width: ((idx + 1) / queue.length) * 100 + "%", height: "100%", background: "#3BA0C8", transition: "width .3s" }} />
+        </div>
+
+        <div style={{ background: C.ink, borderRadius: 28, padding: "40px 18px", minHeight: 260,
+          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
+          {it.closer && (
+            <div style={{ background: C.leaf, color: "#fff", borderRadius: 20, padding: "4px 14px", fontSize: 12, fontWeight: 800, marginBottom: 12 }}>
+              finish strong
+            </div>
+          )}
+          {it.listen && !reveal ? (
+            <div style={{ fontSize: 60 }}>\ud83d\udd0a</div>
+          ) : (
+            <div style={{ fontSize: it.show && it.show.length > 18 ? 30 : 48, fontWeight: 800, color: "#fff", lineHeight: 1.2 }}>
+              {it.show}
+            </div>
+          )}
+          {reveal ? (
+            <div style={{ marginTop: 16, fontSize: 34, fontWeight: 800, color: C.sun, lineHeight: 1.25 }}>{it.answer}</div>
+          ) : (
+            <div style={{ marginTop: 14, fontSize: 15, fontWeight: 700, color: "#b9b2cf" }}>
+              {paused ? "paused" : "say it out loud\u2026"}
+            </div>
+          )}
+        </div>
+
+        <div style={{ display: "flex", gap: 10, marginTop: 16 }}>
+          <button onClick={() => setPaused((p) => !p)}
+            style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, flex: 1 }}>
+            {paused ? "\u25b6\ufe0e Resume" : "\u23f8 Pause"}
+          </button>
+          <button onClick={stopNow} style={{ ...bigBtn, background: C.berry, color: "#fff", flex: 1 }}>\u25a0 End</button>
+        </div>
+        <div style={{ textAlign: "center", fontSize: 13, color: "#8b83a8", marginTop: 14, fontWeight: 700 }}>
+          Don't tap anything. You'll mark the slow ones at the end.
+        </div>
+      </div>
+    );
+  }
+
+  // ---------------- review ----------------
+  const asked = queue.slice(0, Math.min(queue.length, idx + 1));
+  const nFlag = Object.keys(flagged).filter((k) => flagged[k]).length;
+  return (
+    <div>
+      <div style={{ background: "#fff", borderRadius: 22, border: "3px solid #cfe3f5", padding: "16px", marginBottom: 14 }}>
+        <div style={{ fontWeight: 800, fontSize: 19, marginBottom: 4 }}>Which ones were slow?</div>
+        <div style={{ fontSize: 13.5, color: "#7a7391", lineHeight: 1.5 }}>
+          Anything much past three seconds. Tap it and it comes back more often on its own. Do this parked.
+        </div>
+      </div>
+
+      <div style={{ display: "grid", gap: 8, marginBottom: 16 }}>
+        {asked.map((it, i) => {
+          const on = !!flagged[it.key];
+          return (
+            <button key={it.key + "-" + i}
+              onClick={() => setFlagged((f) => { const n = Object.assign({}, f); n[it.key] = !n[it.key]; return n; })}
+              style={{ display: "flex", alignItems: "center", gap: 11, textAlign: "left",
+                background: on ? "#FFECE4" : "#fff", border: on ? "3px solid " + C.berry : "3px solid #e7e0d0",
+                borderRadius: 16, padding: "11px 13px", fontFamily: "inherit", color: C.ink, cursor: "pointer" }}>
+              <span style={{ fontSize: 20 }}>{on ? "\ud83d\udc0c" : "\u26a1"}</span>
+              <span style={{ fontWeight: 800, fontSize: 16, flex: 1 }}>{it.show}</span>
+              <span style={{ fontSize: 14, color: "#7a7391", fontWeight: 700, maxWidth: 150, textAlign: "right" }}>{it.answer}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      <button onClick={saveReview} style={{ ...bigBtn, background: C.leaf, color: "#fff", width: "100%" }}>
+        {nFlag ? "Save \u2014 " + nFlag + " to practise more" : "All quick! Save and finish"}
+      </button>
+
+      <div style={{ background: "#fff", borderRadius: 18, border: "3px solid " + C.sun, padding: "13px 15px", marginTop: 14 }}>
+        <div style={{ fontWeight: 800, fontSize: 16 }}>\ud83d\udd01 Now let him quiz you</div>
+        <div style={{ fontSize: 13.5, color: "#7a7391", marginTop: 3, lineHeight: 1.5 }}>
+          Hand it back to Sam for two minutes and get some wrong. Catching you is worth more than anything the app just did.
+        </div>
+      </div>
     </div>
   );
 }
