@@ -65,7 +65,15 @@
   "srs": {},
   "dayCount": {},
   "spokenCount": {},
-  "wordOfDay": null,
+  "wordOfDay": {
+    "date": "2026-08-17",
+    "word": {
+      "hanzi": "长颈鹿",
+      "pinyin": "chángjǐnglù",
+      "en": "giraffe",
+      "emoji": "🦒"
+    }
+  },
   "wodDone": "",
   "goalClaimed": "",
   "customWords": [
