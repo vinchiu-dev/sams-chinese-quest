@@ -2314,6 +2314,474 @@
    "pinyin": "Bàba sānshíwǔ suì.",
    "hanzi": "爸爸三十五岁。",
    "tag": "basics"
+  },
+  {
+   "en": "This is my textbook.",
+   "pinyin": "Zhè shì wǒ de kèběn.",
+   "hanzi": "这是我的课本。",
+   "tag": "little fox"
+  },
+  {
+   "en": "I have two textbooks.",
+   "pinyin": "Wǒ yǒu liǎng ge kèběn.",
+   "hanzi": "我有两个课本。",
+   "tag": "little fox"
+  },
+  {
+   "en": "My crayon is broken.",
+   "pinyin": "Wǒ de làbǐ huài le.",
+   "hanzi": "我的蜡笔坏了。",
+   "tag": "shopping"
+  },
+  {
+   "en": "The stationery shop has crayons.",
+   "pinyin": "Wénjùdiàn yǒu làbǐ.",
+   "hanzi": "文具店有蜡笔。",
+   "tag": "shopping"
+  },
+  {
+   "en": "Pandas are big.",
+   "pinyin": "Xióngmāo hěn dà.",
+   "hanzi": "熊猫很大。",
+   "tag": "athome"
+  },
+  {
+   "en": "Pandas love eating greens.",
+   "pinyin": "Xióngmāo ài chī qīngcài.",
+   "hanzi": "熊猫爱吃青菜。",
+   "tag": "athome"
+  },
+  {
+   "en": "The rabbit's ears are big.",
+   "pinyin": "Tùzi de ěrduo hěn dà.",
+   "hanzi": "兔子的耳朵很大。",
+   "tag": "sick"
+  },
+  {
+   "en": "I saw a rabbit.",
+   "pinyin": "Wǒ kàndào le tùzi.",
+   "hanzi": "我看到了兔子。",
+   "tag": "sick"
+  },
+  {
+   "en": "Who are you?",
+   "pinyin": "Nǐ shì shéi?",
+   "hanzi": "你是谁？",
+   "tag": "birthday"
+  },
+  {
+   "en": "Who is cooking?",
+   "pinyin": "Shéi zài zuòfàn?",
+   "hanzi": "谁在做饭？",
+   "tag": "birthday"
+  },
+  {
+   "en": "Hello, big sister!",
+   "pinyin": "Nǐ hǎo, jiějie!",
+   "hanzi": "你好，姐姐！",
+   "tag": "basics"
+  },
+  {
+   "en": "Hello, Mum!",
+   "pinyin": "Māma, nǐ hǎo!",
+   "hanzi": "妈妈，你好！",
+   "tag": "basics"
+  },
+  {
+   "en": "Thank you, Dad!",
+   "pinyin": "Xièxie nǐ, bàba!",
+   "hanzi": "谢谢你，爸爸！",
+   "tag": "basics"
+  },
+  {
+   "en": "Thank you, I'm very happy.",
+   "pinyin": "Xièxie, wǒ hěn kuàilè.",
+   "hanzi": "谢谢，我很快乐。",
+   "tag": "basics"
+  },
+  {
+   "en": "Sorry, Mum.",
+   "pinyin": "Duìbuqǐ, māma.",
+   "hanzi": "对不起，妈妈。",
+   "tag": "basics"
+  },
+  {
+   "en": "Sorry, I don't want to eat.",
+   "pinyin": "Duìbuqǐ, wǒ bù xiǎng chī.",
+   "hanzi": "对不起，我不想吃。",
+   "tag": "basics"
+  },
+  {
+   "en": "It's okay, it doesn't hurt anymore.",
+   "pinyin": "Méi guānxi, wǒ bù téng le.",
+   "hanzi": "没关系，我不疼了。",
+   "tag": "basics"
+  },
+  {
+   "en": "It's okay, we'll go and buy some.",
+   "pinyin": "Méi guānxi, wǒmen qù mǎi.",
+   "hanzi": "没关系，我们去买。",
+   "tag": "basics"
+  },
+  {
+   "en": "Does little sister love to cry?",
+   "pinyin": "Mèimei ài kū ma?",
+   "hanzi": "妹妹爱哭吗？",
+   "tag": "family"
+  },
+  {
+   "en": "The little monkey loves to cry.",
+   "pinyin": "Xiǎohóuzi ài kū.",
+   "hanzi": "小猴子爱哭。",
+   "tag": "family"
+  },
+  {
+   "en": "Little brother is crying.",
+   "pinyin": "Dìdi zài kū.",
+   "hanzi": "弟弟在哭。",
+   "tag": "family"
+  },
+  {
+   "en": "I'm not crying, I'm laughing.",
+   "pinyin": "Wǒ bù kū, wǒ xiào.",
+   "hanzi": "我不哭，我笑。",
+   "tag": "family"
+  },
+  {
+   "en": "An elephant's nose is big.",
+   "pinyin": "Dàxiàng de bízi hěn dà.",
+   "hanzi": "大象的鼻子很大。",
+   "tag": "body"
+  },
+  {
+   "en": "My nose hurts.",
+   "pinyin": "Wǒ de bízi téng.",
+   "hanzi": "我的鼻子疼。",
+   "tag": "body"
+  },
+  {
+   "en": "Tigers are big.",
+   "pinyin": "Lǎohǔ hěn dà.",
+   "hanzi": "老虎很大。",
+   "tag": "body"
+  },
+  {
+   "en": "I saw a tiger.",
+   "pinyin": "Wǒ kàndào le lǎohǔ.",
+   "hanzi": "我看到了老虎。",
+   "tag": "body"
+  },
+  {
+   "en": "A lion's ears are small.",
+   "pinyin": "Shīzi de ěrduo hěn xiǎo.",
+   "hanzi": "狮子的耳朵很小。",
+   "tag": "body"
+  },
+  {
+   "en": "Tigers and lions are both cool.",
+   "pinyin": "Lǎohǔ hé shīzi dōu hěn kù.",
+   "hanzi": "老虎和狮子都很酷。",
+   "tag": "body"
+  },
+  {
+   "en": "Monkeys love eating bananas.",
+   "pinyin": "Hóuzi ài chī xiāngjiāo.",
+   "hanzi": "猴子爱吃香蕉。",
+   "tag": "sick"
+  },
+  {
+   "en": "The monkey is playing.",
+   "pinyin": "Hóuzi zài wán.",
+   "hanzi": "猴子在玩。",
+   "tag": "sick"
+  },
+  {
+   "en": "Grandpa is knocking on the door.",
+   "pinyin": "Yéye zài qiāo mén.",
+   "hanzi": "爷爷在敲门。",
+   "tag": "birthday"
+  },
+  {
+   "en": "I'll go knock on the door.",
+   "pinyin": "Wǒ qù qiāo mén.",
+   "hanzi": "我去敲门。",
+   "tag": "birthday"
+  },
+  {
+   "en": "Who is this?",
+   "pinyin": "Zhè shì shéi?",
+   "hanzi": "这是谁？",
+   "tag": "birthday"
+  },
+  {
+   "en": "Who is it that's cooking?",
+   "pinyin": "Shì shéi zài zuòfàn?",
+   "hanzi": "是谁在做饭？",
+   "tag": "birthday"
+  },
+  {
+   "en": "Auntie, long time no see!",
+   "pinyin": "Gūgu, hǎojiǔ bú jiàn!",
+   "hanzi": "姑姑，好久不见！",
+   "tag": "basics"
+  },
+  {
+   "en": "Long time no see, how are you?",
+   "pinyin": "Hǎojiǔ bú jiàn, nǐ hǎo ma?",
+   "hanzi": "好久不见，你好吗？",
+   "tag": "basics"
+  },
+  {
+   "en": "Happy birthday to you!",
+   "pinyin": "Zhù nǐ shēngrì kuàilè!",
+   "hanzi": "祝你生日快乐！",
+   "tag": "athome"
+  },
+  {
+   "en": "Wishing you a happy day.",
+   "pinyin": "Zhù nǐ jīntiān kuàilè.",
+   "hanzi": "祝你今天快乐。",
+   "tag": "athome"
+  },
+  {
+   "en": "The little monkey is too greedy.",
+   "pinyin": "Xiǎohóuzi tài tānchī le.",
+   "hanzi": "小猴子太贪吃了。",
+   "tag": "sick"
+  },
+  {
+   "en": "The little monkey loves eating peaches.",
+   "pinyin": "Xiǎohóuzi ài chī táozi.",
+   "hanzi": "小猴子爱吃桃子。",
+   "tag": "sick"
+  },
+  {
+   "en": "Dumplings are really delicious!",
+   "pinyin": "Jiǎozi zhēn hǎochī!",
+   "hanzi": "饺子真好吃！",
+   "tag": "food"
+  },
+  {
+   "en": "Steamed buns are really delicious!",
+   "pinyin": "Bāozi zhēn hǎochī!",
+   "hanzi": "包子真好吃！",
+   "tag": "food"
+  },
+  {
+   "en": "The cherries are too sour.",
+   "pinyin": "Yīngtáo tài suān le.",
+   "hanzi": "樱桃太酸了。",
+   "tag": "food"
+  },
+  {
+   "en": "This tomato is too sour.",
+   "pinyin": "Zhège xīhóngshì tài suān le.",
+   "hanzi": "这个西红柿太酸了。",
+   "tag": "food"
+  },
+  {
+   "en": "I want to buy scissors.",
+   "pinyin": "Wǒ yào mǎi jiǎndāo.",
+   "hanzi": "我要买剪刀。",
+   "tag": "shopping"
+  },
+  {
+   "en": "We want to buy stationery.",
+   "pinyin": "Wǒmen yào mǎi wénjù.",
+   "hanzi": "我们要买文具。",
+   "tag": "shopping"
+  },
+  {
+   "en": "Where is the bathroom?",
+   "pinyin": "Wèishēngjiān zài nǎr?",
+   "hanzi": "卫生间在哪儿？",
+   "tag": "home"
+  },
+  {
+   "en": "Dad is in the bathroom.",
+   "pinyin": "Bàba zài wèishēngjiān.",
+   "hanzi": "爸爸在卫生间。",
+   "tag": "home"
+  },
+  {
+   "en": "My bedroom is big.",
+   "pinyin": "Wǒ de wòshì hěn dà.",
+   "hanzi": "我的卧室很大。",
+   "tag": "bedroom"
+  },
+  {
+   "en": "Big sister is playing games in the bedroom.",
+   "pinyin": "Jiějie zài wòshì wán yóuxì.",
+   "hanzi": "姐姐在卧室玩游戏。",
+   "tag": "bedroom"
+  },
+  {
+   "en": "I love eating bananas.",
+   "pinyin": "Wǒ ài chī xiāngjiāo.",
+   "hanzi": "我爱吃香蕉。",
+   "tag": "fruit"
+  },
+  {
+   "en": "Are bananas tasty?",
+   "pinyin": "Xiāngjiāo hǎochī ma?",
+   "hanzi": "香蕉好吃吗？",
+   "tag": "fruit"
+  },
+  {
+   "en": "Strawberries are very tasty.",
+   "pinyin": "Cǎoméi hěn hǎochī.",
+   "hanzi": "草莓很好吃。",
+   "tag": "fruit"
+  },
+  {
+   "en": "I want to eat strawberries.",
+   "pinyin": "Wǒ xiǎng chī cǎoméi.",
+   "hanzi": "我想吃草莓。",
+   "tag": "fruit"
+  },
+  {
+   "en": "I don't eat greens.",
+   "pinyin": "Wǒ bù chī qīngcài.",
+   "hanzi": "我不吃青菜。",
+   "tag": "fruit"
+  },
+  {
+   "en": "I don't eat fries, I eat noodles.",
+   "pinyin": "Wǒ bù chī shǔtiáo, wǒ chī miàntiáo.",
+   "hanzi": "我不吃薯条，我吃面条。",
+   "tag": "fruit"
+  },
+  {
+   "en": "We all love eating dumplings.",
+   "pinyin": "Wǒmen dōu ài chī jiǎozi.",
+   "hanzi": "我们都爱吃饺子。",
+   "tag": "fruit"
+  },
+  {
+   "en": "Big sister and I both love watermelon.",
+   "pinyin": "Jiějie hé wǒ dōu ài chī xīguā.",
+   "hanzi": "姐姐和我都爱吃西瓜。",
+   "tag": "fruit"
+  },
+  {
+   "en": "I get up at six o'clock.",
+   "pinyin": "Wǒ liù diǎn qǐchuáng.",
+   "hanzi": "我六点起床。",
+   "tag": "sick"
+  },
+  {
+   "en": "Little brother doesn't want to get up.",
+   "pinyin": "Dìdi bù xiǎng qǐchuáng.",
+   "hanzi": "弟弟不想起床。",
+   "tag": "sick"
+  },
+  {
+   "en": "His feet are big.",
+   "pinyin": "Tā de jiǎo hěn dà.",
+   "hanzi": "他的脚很大。",
+   "tag": "sick"
+  },
+  {
+   "en": "My foot doesn't hurt anymore.",
+   "pinyin": "Wǒ de jiǎo bù téng le.",
+   "hanzi": "我的脚不疼了。",
+   "tag": "sick"
+  },
+  {
+   "en": "My head doesn't hurt anymore.",
+   "pinyin": "Wǒ de tóu bù téng le.",
+   "hanzi": "我的头不疼了。",
+   "tag": "sick"
+  },
+  {
+   "en": "Thank you, it doesn't hurt anymore.",
+   "pinyin": "Xièxie, wǒ bù téng le.",
+   "hanzi": "谢谢，我不疼了。",
+   "tag": "sick"
+  },
+  {
+   "en": "Dad is online in the study.",
+   "pinyin": "Bàba zài shūfáng shàngwǎng.",
+   "hanzi": "爸爸在书房上网。",
+   "tag": "athome"
+  },
+  {
+   "en": "I don't go online, I play with toys.",
+   "pinyin": "Wǒ bú shàngwǎng, wǒ wán wánjù.",
+   "hanzi": "我不上网，我玩玩具。",
+   "tag": "athome"
+  },
+  {
+   "en": "My socks are on the bed.",
+   "pinyin": "Wǒ de wàzi zài chuáng shàng.",
+   "hanzi": "我的袜子在床上。",
+   "tag": "bedroom"
+  },
+  {
+   "en": "Whose socks are these?",
+   "pinyin": "Zhè shì shéi de wàzi?",
+   "hanzi": "这是谁的袜子？",
+   "tag": "bedroom"
+  },
+  {
+   "en": "I have two big brothers.",
+   "pinyin": "Wǒ yǒu liǎng ge gēge.",
+   "hanzi": "我有两个哥哥。",
+   "tag": "bedroom"
+  },
+  {
+   "en": "There are two toys on the bed.",
+   "pinyin": "Chuáng shàng yǒu liǎng ge wánjù.",
+   "hanzi": "床上有两个玩具。",
+   "tag": "bedroom"
+  },
+  {
+   "en": "I have a backpack, and a textbook too.",
+   "pinyin": "Wǒ yǒu shūbāo, hái yǒu kèběn.",
+   "hanzi": "我有书包，还有课本。",
+   "tag": "bedroom"
+  },
+  {
+   "en": "I love peaches, and cherries too.",
+   "pinyin": "Wǒ ài chī táozi, hái yǒu yīngtáo.",
+   "hanzi": "我爱吃桃子，还有樱桃。",
+   "tag": "bedroom"
+  },
+  {
+   "en": "Is he British?",
+   "pinyin": "Tā shì yīngguórén ma?",
+   "hanzi": "他是英国人吗？",
+   "tag": "nations"
+  },
+  {
+   "en": "I'm not British, I'm American.",
+   "pinyin": "Wǒ bú shì yīngguórén, wǒ shì měiguórén.",
+   "hanzi": "我不是英国人，我是美国人。",
+   "tag": "nations"
+  },
+  {
+   "en": "What country is your mum from?",
+   "pinyin": "Nǐ māma shì nǎ guó rén?",
+   "hanzi": "你妈妈是哪国人？",
+   "tag": "nations"
+  },
+  {
+   "en": "What country is he from?",
+   "pinyin": "Tā shì nǎ guó rén?",
+   "hanzi": "他是哪国人？",
+   "tag": "nations"
+  },
+  {
+   "en": "Earth is a planet.",
+   "pinyin": "Dìqiú shì yí ge xīngqiú.",
+   "hanzi": "地球是一个星球。",
+   "tag": "aboutme"
+  },
+  {
+   "en": "That planet is very big.",
+   "pinyin": "Nàge xīngqiú hěn dà.",
+   "hanzi": "那个星球很大。",
+   "tag": "aboutme"
   }
  ]
 }
