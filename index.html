@@ -337,9 +337,18 @@ const loadDictChars = () => {
 // Tidy CC-CEDICT glosses into something a 7-year-old's word list can show.
 const tidyGloss = (en) => {
   if (!en) return "";
-  let out = String(en).split(";")[0];
-  out = out.replace(/\([^)]*\)/g, " ").replace(/\s+/g, " ").trim();
-  out = out.replace(/^(to |a |an |the )/i, "");
+  // Keep the first TWO senses when they're short. CC-CEDICT often leads with
+  // a British or clipped form ("rule", "rubber") and puts the word a child
+  // would actually use second ("ruler", "eraser"). Showing both means the
+  // right one is on screen to pick rather than buried in the dictionary.
+  const senses = String(en).split(";").map((x) => x
+    .replace(/\([^)]*\)/g, " ").replace(/\s+/g, " ").trim()
+    .replace(/^(to |a |an |the )/i, "")).filter(Boolean);
+  let out = senses[0] || "";
+  // only a single-word alternative — "cat; hide oneself" must not become
+  // "cat / hide oneself"
+  if (senses[1] && senses[1].indexOf(" ") === -1 && (out.length + senses[1].length) < 30)
+    out = out + " / " + senses[1];
   if (out.length > 42) out = out.slice(0, 40).replace(/\s+\S*$/, "") + "…";
   return out.trim();
 };
