@@ -70,7 +70,7 @@
     "My little brother also likes to play.",
     "My big sister is six years old too."
   ],
-  "chips": 5,
+  "chips": 6,
   "practiceDays": [
     "2026-08-08",
     "2026-08-10",
@@ -710,7 +710,7 @@
   },
   "spokenCount": {
     "date": "2026-08-16",
-    "n": 7
+    "n": 10
   },
   "wordOfDay": {
     "date": "2026-08-16",
