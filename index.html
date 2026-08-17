@@ -306,6 +306,60 @@ const speak = (word) => {
 //  Levels also age: a word not seen in a while drifts back down,
 //  so nothing is silently forgotten.
 // ============================================================
+
+// ============================================================
+//  Offline Chinese dictionary — type the 汉字, get pinyin + English.
+//  Data is CC-CEDICT, split into 64 shards by first character so a
+//  lookup pulls ~70KB instead of a 5MB file. Cached after first use.
+//  If a whole word isn't listed, we still build pinyin character by
+//  character so nothing ever comes back completely blank.
+// ============================================================
+const DICT_SHARDS = 64;
+const _dictCache = {};
+let _dictChars = null;
+
+const loadShard = (n) => {
+  const key = "w" + (n < 10 ? "0" + n : n);
+  if (_dictCache[key]) return _dictCache[key];
+  _dictCache[key] = fetch("dict/" + key + ".json")
+    .then((r) => (r.ok ? r.json() : {}))
+    .catch(() => ({}));
+  return _dictCache[key];
+};
+const loadDictChars = () => {
+  if (_dictChars) return _dictChars;
+  _dictChars = fetch("dict/chars.json")
+    .then((r) => (r.ok ? r.json() : {}))
+    .catch(() => ({}));
+  return _dictChars;
+};
+
+// Tidy CC-CEDICT glosses into something a 7-year-old's word list can show.
+const tidyGloss = (en) => {
+  if (!en) return "";
+  let out = String(en).split(";")[0];
+  out = out.replace(/\([^)]*\)/g, " ").replace(/\s+/g, " ").trim();
+  out = out.replace(/^(to |a |an |the )/i, "");
+  if (out.length > 42) out = out.slice(0, 40).replace(/\s+\S*$/, "") + "…";
+  return out.trim();
+};
+
+const lookupZh = async (hanzi) => {
+  const word = String(hanzi || "").trim();
+  if (!word) return null;
+  const shard = await loadShard(word.charCodeAt(0) % DICT_SHARDS);
+  const hit = shard[word];
+  if (hit) return { pinyin: hit[0], en: tidyGloss(hit[1]), exact: true };
+  // no entry for the whole word — assemble pinyin from its characters
+  const chars = await loadDictChars();
+  const py = [];
+  for (const ch of word) {
+    if (!chars[ch]) return { pinyin: "", en: "", exact: false };
+    py.push(chars[ch]);
+  }
+  return { pinyin: py.join(" "), en: "", exact: false };
+};
+
 const SRS_KEY = "srs";
 const loadSrs = () => loadLS(SRS_KEY, {});
 const saveSrs = (s) => saveLS(SRS_KEY, s);
@@ -1076,6 +1130,8 @@ function Home({
   const [addOpen, setAddOpen] = useState(false);
   const [bulk, setBulk] = useState("");
   const [added, setAdded] = useState(0);
+  const [looking, setLooking] = useState(false);
+  const [preview, setPreview] = useState(null);
 
   // Figure out whether a line is Chinese characters, pinyin, or English.
   const classifyZh = (text) => {
@@ -1084,6 +1140,71 @@ function Home({
     if (/[\u4e00-\u9fff]/.test(t)) return { en: "", pinyin: "", hanzi: t };
     if (/[āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜü]/i.test(t)) return { en: "", pinyin: t, hanzi: "" };
     return { en: t, pinyin: "", hanzi: "" };
+  };
+
+  // Look up anything the user typed in Chinese and fill in the rest,
+  // then show it for checking before it joins the word list.
+  const buildPreview = async () => {
+    setLooking(true);
+    const lines = bulk.split("\n").map((s) => s.trim()).filter(Boolean);
+    const rows = [];
+    for (const line of lines) {
+      const parts = parseLine(line);
+      if (!parts) continue;
+      let { en, pinyin, hanzi } = parts;
+      let note = "";
+      if (hanzi && (!en || !pinyin)) {
+        const hit = await lookupZh(hanzi);
+        if (hit && hit.pinyin) {
+          if (!pinyin) pinyin = hit.pinyin;
+          if (!en && hit.en) en = hit.en;
+          if (!hit.exact) note = "not in the dictionary — pinyin is a best guess";
+          else if (!en) note = "no plain-English meaning found";
+        } else {
+          note = "couldn't find this one — type the meaning yourself";
+        }
+      } else if (!hanzi) {
+        note = "no Chinese characters, so there's nothing to look up";
+      }
+      rows.push({ en: en || "", pinyin: pinyin || "", hanzi: hanzi || "", note });
+    }
+    setLooking(false);
+    setPreview(rows);
+  };
+
+  const parseLine = (line) => {
+    const pair = line.split(/\s*[=|]\s*/);
+    if (pair.length >= 2) {
+      const merged = { en: "", pinyin: "", hanzi: "" };
+      pair.forEach((p) => {
+        const c = classifyZh(p);
+        if (!c) return;
+        if (c.hanzi) merged.hanzi = c.hanzi;
+        else if (c.pinyin) merged.pinyin = c.pinyin;
+        else if (!merged.en) merged.en = c.en;
+      });
+      return merged;
+    }
+    return classifyZh(line);
+  };
+
+  const confirmPreview = () => {
+    let n = 0;
+    (preview || []).forEach((row) => {
+      if (!row.hanzi && !row.pinyin && !row.en) return;
+      addCustomWord({
+        en: row.en || row.pinyin || row.hanzi,
+        pinyin: row.pinyin || "",
+        hanzi: row.hanzi || "",
+        emoji: "\ud83d\udcdd",
+        needsDef: !(row.en && row.pinyin && row.hanzi),
+      });
+      n++;
+    });
+    setAdded(n);
+    setPreview(null);
+    setBulk("");
+    setTimeout(() => setAdded(0), 4000);
   };
 
   const submitZhWords = () => {
@@ -1386,20 +1507,58 @@ function Home({
         <div style={{ background: "#fff", borderRadius: 20, border: `3px solid ${C.leaf}`, marginTop: 12, padding: 16 }}>
           <div style={{ fontWeight: 800, fontSize: 15, marginBottom: 6 }}>➕ Add words</div>
           <div style={{ fontSize: 12, color: "#5c7a6c", marginBottom: 10, lineHeight: 1.5 }}>
-            One per line — English, pinyin, or Chinese, whichever you have.
-            Claude fills in the rest next time you chat.
+            One per line. Type just the Chinese — the pinyin and the English get
+            filled in for you, and you can fix anything before it's saved.
           </div>
           <textarea
             value={bulk}
             onChange={(e) => setBulk(e.target.value)}
             rows={5}
-            placeholder={"also\n猫\nmāo\nrabbit = 兔子"}
+            placeholder={"猫\n蜘蛛\n卷笔刀"}
             style={{ ...inp, fontFamily: "inherit", fontSize: 15, lineHeight: 1.6, resize: "vertical" }}
           />
-          <button onClick={submitZhWords} disabled={!bulk.trim()}
-            style={{ ...bigBtn, background: C.leaf, width: "100%", marginTop: 10, fontSize: 15, padding: "12px", opacity: bulk.trim() ? 1 : 0.5 }}>
-            ✓ Add words
+          <button onClick={buildPreview} disabled={!bulk.trim() || looking}
+            style={{ ...bigBtn, background: C.leaf, width: "100%", marginTop: 10, fontSize: 15, padding: "12px", opacity: bulk.trim() && !looking ? 1 : 0.5 }}>
+            {looking ? "Looking them up…" : "🔎 Look them up"}
           </button>
+
+          {preview && (
+            <div style={{ marginTop: 14 }}>
+              <div style={{ fontWeight: 800, fontSize: 14, marginBottom: 8 }}>
+                Check these, then add {preview.length === 1 ? "it" : "them"}
+              </div>
+              {preview.map((row, i) => (
+                <div key={i} style={{ background: "#F7FBF8", border: "2px solid #dfeee6", borderRadius: 14, padding: "10px 12px", marginBottom: 8 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+                    <div style={{ fontSize: 22, fontWeight: 800, minWidth: 60 }}>{row.hanzi || "—"}</div>
+                    <button onClick={() => speak({ hanzi: row.hanzi, pinyin: row.pinyin })}
+                      style={{ ...ghostBtn, padding: "5px 10px", fontSize: 13 }}>🔊</button>
+                    <button onClick={() => setPreview(preview.filter((_, k) => k !== i))}
+                      style={{ ...ghostBtn, padding: "5px 10px", fontSize: 13, marginLeft: "auto", color: C.berry, borderColor: "#f0cfd8" }}>remove</button>
+                  </div>
+                  <input value={row.pinyin} placeholder="pinyin"
+                    onChange={(e) => setPreview(preview.map((r, k) => (k === i ? Object.assign({}, r, { pinyin: e.target.value }) : r)))}
+                    style={{ ...inp, fontSize: 14, padding: "8px 10px", marginBottom: 6 }} />
+                  <input value={row.en} placeholder="what it means in English"
+                    onChange={(e) => setPreview(preview.map((r, k) => (k === i ? Object.assign({}, r, { en: e.target.value }) : r)))}
+                    style={{ ...inp, fontSize: 14, padding: "8px 10px" }} />
+                  {row.note && (
+                    <div style={{ fontSize: 11.5, color: "#a8752f", marginTop: 6, fontWeight: 700 }}>⚠ {row.note}</div>
+                  )}
+                </div>
+              ))}
+              <div style={{ display: "flex", gap: 8 }}>
+                <button onClick={confirmPreview}
+                  style={{ ...bigBtn, background: C.leaf, flex: 2, fontSize: 15, padding: "12px" }}>
+                  ✓ Add {preview.length} to the word list
+                </button>
+                <button onClick={() => setPreview(null)}
+                  style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, flex: 1, fontSize: 15, padding: "12px" }}>
+                  Back
+                </button>
+              </div>
+            </div>
+          )}
           {added > 0 && (
             <div style={{ marginTop: 10, fontWeight: 700, color: C.leaf, fontSize: 14 }}>
               Added {added} word{added === 1 ? "" : "s"} to “Words We Added”.
@@ -1443,10 +1602,14 @@ function WordOfDay({ word, allWords, sentences, onHome }) {
   // Understanding has to come before producing — asking a 7-year-old to
   // build a sentence with a word he has only ever met in isolation is
   // asking him to do the hardest step first.
+  // With examples: hear them, show he understood, echo one, then invent.
+  // Without: at minimum still ask him to build a sentence, and say plainly
+  // that the listening examples are missing rather than quietly dropping
+  // four steps and leaving a one-minute drill that feels finished.
   const steps = ["Say it", "Check it", "Hear it"].concat(
     examples.length
       ? ["Listen"].concat(examples.map((_, k) => "Meaning " + (k + 1))).concat(["Say it back", "Make your own"])
-      : []
+      : ["Make your own"]
   );
   const last = steps.length - 1;
 
@@ -1707,8 +1870,15 @@ function WordOfDay({ word, allWords, sentences, onHome }) {
             <div style={{ fontSize: 52 }}>{word.emoji || "⭐"}</div>
             <div style={{ fontSize: 34, fontWeight: 800, color: C.fox, marginTop: 6 }}>{word.pinyin}</div>
             <div style={{ fontSize: 16, color: "#7a7391", marginTop: 2 }}>{word.en}</div>
+            {!examples.length && (
+              <div style={{ background: "#FFF6E9", border: "2px solid #f0dcae", borderRadius: 12,
+                padding: "10px 12px", marginTop: 14, fontSize: 12.5, color: "#8a6d2f", lineHeight: 1.5, textAlign: "left" }}>
+                No example sentences for this word yet, so the listening steps were skipped.
+                Ask Claude to write a couple and they'll show up here next time.
+              </div>
+            )}
             <div style={{ textAlign: "left", marginTop: 16, fontSize: 15, color: "#7a7391", lineHeight: 1.9 }}>
-              Take one you just heard and swap a piece:
+              {examples.length ? "Take one you just heard and swap a piece:" : "Try one of these:"}
               <div style={{ marginTop: 6, fontWeight: 700, color: C.ink }}>
                 · one about you<br />
                 · one about someone in your family<br />
