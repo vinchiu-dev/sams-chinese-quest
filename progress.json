@@ -1,46 +1,35 @@
 {
   "trouble": [
-    "wòshì",
     "zài",
     "ne",
-    "shàngwǎng",
+    "shūfáng",
     "fángjiān",
-    "gēbo",
-    "bóbo",
-    "yīngtáo",
     "biǎogē",
     "chúfáng",
+    "wòshì",
     "shēnghuó",
-    "téng",
     "zuò fàn",
     "kàndào le",
     "qiāo mén",
     "wèishénme",
-    "qǐchuáng",
     "zài zuò shénme",
     "táozi",
     "zhēn",
     "chī fàn",
     "kāi mén",
     "hái yǒu",
-    "wénjù diàn",
-    "dà xióng wánjù",
-    "xīhóngshì",
-    "shūfáng",
-    "kètīng",
     "qīngcài",
-    "nǎ guó rén",
-    "shì",
     "suì",
-    "měiguórén",
+    "shì",
     "láizì",
+    "nǎ guó rén",
     "jǐ suì",
     "jǐ",
+    "kètīng",
     "qù"
   ],
   "archived": [],
   "starredSentences": [
-    "Wishing you a happy life!",
     "Let's go buy stationery!",
     "My big sister is online in the study.",
     "It's too sour!",
@@ -51,6 +40,7 @@
     "What is your mom doing?",
     "Today is the weekend, let's go buy stationery!",
     "Your life is really happy!",
+    "Wishing you a happy life!",
     "What is your dad doing?",
     "My toys are in the bedroom.",
     "Little Fox, your textbook dropped!",
@@ -72,12 +62,6 @@
   ],
   "customWords": [
     {
-      "en": "Defy gravity",
-      "pinyin": "",
-      "hanzi": "",
-      "emoji": "📝"
-    },
-    {
       "en": "also",
       "pinyin": "yě",
       "hanzi": "也",
@@ -92,10 +76,52 @@
     }
   ],
   "en_starred": [
+    "contaminate",
+    "hesitate",
     "abundant"
   ],
-  "en_mastered": [],
+  "en_mastered": [
+    "gigantic",
+    "fragile",
+    "Anchor",
+    "Free loader"
+  ],
   "en_myWords": [
+    {
+      "word": "Authorities",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "cushion",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Status",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Currently",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Violate",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
     {
       "word": "vegetable",
       "definition": "(definition coming — ask Claude to fill this in)",
