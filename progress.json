@@ -3,7 +3,9 @@
     "zài",
     "ne",
     "shūfáng",
+    "shàngwǎng",
     "fángjiān",
+    "gēbo",
     "biǎogē",
     "chúfáng",
     "wòshì",
@@ -709,25 +711,11 @@
       "last": 1786981167452
     }
   },
-  "dayCount": {
-    "date": "2026-08-17",
-    "n": 3
-  },
-  "spokenCount": {
-    "date": "2026-08-17",
-    "n": 5
-  },
-  "wordOfDay": {
-    "date": "2026-08-17",
-    "word": {
-      "hanzi": "长颈鹿",
-      "pinyin": "chángjǐnglù",
-      "en": "giraffe",
-      "emoji": "🦒"
-    }
-  },
-  "wodDone": "2026-08-17",
-  "goalClaimed": "2026-08-16",
+  "dayCount": {},
+  "spokenCount": {},
+  "wordOfDay": null,
+  "wodDone": "",
+  "goalClaimed": "",
   "customWords": [
     {
       "en": "also",
