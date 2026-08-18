@@ -1615,9 +1615,11 @@ function WordOfDay({ word, allWords, sentences, onHome }) {
   // Without: at minimum still ask him to build a sentence, and say plainly
   // that the listening examples are missing rather than quietly dropping
   // four steps and leaving a one-minute drill that feels finished.
+  // Individual sentences first, THEN the all-together recap — hearing them
+  // one at a time builds up to the run-through rather than front-loading it.
   const steps = ["Say it", "Check it", "Hear it"].concat(
     examples.length
-      ? ["Listen"].concat(examples.map((_, k) => "Meaning " + (k + 1))).concat(["Say it back", "Make your own"])
+      ? examples.map((_, k) => "Meaning " + (k + 1)).concat(["Listen", "Say it back", "Make your own"])
       : ["Make your own"]
   );
   const last = steps.length - 1;
@@ -1660,6 +1662,13 @@ function WordOfDay({ word, allWords, sentences, onHome }) {
     else setStep(step + 1);
   };
 
+  const goBack = () => {
+    if (step <= 0) return;
+    setPicked(null);
+    setRevealed(false);
+    setStep(step - 1);
+  };
+
   // ---- done ----
   if (step >= steps.length)
     return (
@@ -1686,12 +1695,31 @@ function WordOfDay({ word, allWords, sentences, onHome }) {
     <div>
       <GameTitle>Word of the Day · {label}</GameTitle>
 
-      {/* progress pips */}
-      <div style={{ display: "flex", justifyContent: "center", gap: 6, marginBottom: 14 }}>
-        {steps.map((_, k) => (
-          <div key={k} style={{ width: 26, height: 6, borderRadius: 4,
-            background: k <= step ? C.fox : "#e7e0d0" }} />
-        ))}
+      {/* progress pips — tappable, so he can jump back to any earlier step */}
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginBottom: 14 }}>
+        <button
+          onClick={goBack}
+          disabled={step === 0}
+          title="Previous step"
+          style={{ ...ghostBtn, padding: "4px 9px", fontSize: 14, lineHeight: 1,
+            opacity: step === 0 ? 0.3 : 1, cursor: step === 0 ? "default" : "pointer" }}
+        >
+          ‹
+        </button>
+        <div style={{ display: "flex", gap: 6 }}>
+          {steps.map((_, k) => (
+            <button
+              key={k}
+              onClick={() => { if (k <= step) { setPicked(null); setRevealed(false); setStep(k); } }}
+              title={steps[k]}
+              style={{ width: 26, height: 12, padding: 0, border: "none", background: "transparent",
+                cursor: k <= step ? "pointer" : "default" }}
+            >
+              <div style={{ width: 26, height: 6, borderRadius: 4,
+                background: k <= step ? C.fox : "#e7e0d0" }} />
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* ---- step 1: meet it ---- */}
