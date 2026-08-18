@@ -95,5 +95,13 @@
     "abundant"
   ],
   "en_mastered": [],
-  "en_myWords": []
+  "en_myWords": [
+    {
+      "word": "vegetable",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    }
+  ]
 }
