@@ -79,5 +79,13 @@
   ],
   "en_starred": [],
   "en_mastered": [],
-  "en_myWords": []
+  "en_myWords": [
+    {
+      "word": "I will add those to the list",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    }
+  ]
 }
