@@ -882,7 +882,7 @@ function ChineseApp({ onSwitchLang }) {
             totalCount={listWords.length}
             archivedCount={archived.size}
             addCustomWord={addCustomWord}
-            allWordsForWod={listWords}
+            allWordsForWod={allLessons.flatMap((l) => l.words.map((w) => ({ ...w, lesson: l.title })))}
             go={setScreen}
           />
         )}
@@ -1916,20 +1916,30 @@ function WordOfDay({ word, allWords, sentences, onHome }) {
 function WodPicker({ allWords, onPick, onCancel }) {
   const [q, setQ] = useState("");
   const term = q.trim().toLowerCase();
-  const matches = (term
-    ? allWords.filter((w) =>
+  // de-duplicate (a word can appear in more than one lesson) and sort A–Z
+  const seen = new Set();
+  const unique = allWords.filter((w) => {
+    const k = (w.pinyin || "") + "|" + (w.en || "");
+    if (seen.has(k)) return false;
+    seen.add(k);
+    return true;
+  }).sort((a, b) => (a.en || "").toLowerCase().localeCompare((b.en || "").toLowerCase()));
+
+  const matches = term
+    ? unique.filter((w) =>
         (w.en || "").toLowerCase().includes(term) ||
         (w.pinyin || "").toLowerCase().includes(term) ||
         (w.hanzi || "").includes(q.trim()))
-    : allWords
-  ).slice(0, 40);
+    : unique;
 
   return (
     <div style={{ background: "#fff", borderRadius: 18, border: `3px solid ${C.fox}`, padding: 14, marginTop: 10 }}>
-      <div style={{ fontWeight: 800, fontSize: 14, marginBottom: 8 }}>Pick today's word</div>
+      <div style={{ fontWeight: 800, fontSize: 14, marginBottom: 8 }}>
+        Pick today's word <span style={{ color: "#9a94ad", fontWeight: 700 }}>({matches.length} of {unique.length})</span>
+      </div>
       <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search English, pinyin or 中文…"
         style={{ ...inp, fontSize: 15 }} />
-      <div style={{ maxHeight: 230, overflowY: "auto", marginTop: 10, display: "flex", flexDirection: "column", gap: 6 }}>
+      <div style={{ maxHeight: 340, overflowY: "auto", marginTop: 10, display: "flex", flexDirection: "column", gap: 6 }}>
         {matches.map((w, i) => (
           <button key={w.pinyin + i} onClick={() => onPick(w)}
             style={{ display: "flex", alignItems: "center", gap: 10, background: "#FFFDF7",
@@ -1938,7 +1948,9 @@ function WodPicker({ allWords, onPick, onCancel }) {
             <span style={{ fontSize: 20 }}>{w.emoji || "📘"}</span>
             <span style={{ flex: 1, minWidth: 0 }}>
               <span style={{ display: "block", fontWeight: 800, fontSize: 15, color: C.fox }}>{w.pinyin}</span>
-              <span style={{ display: "block", fontSize: 12, color: "#7a7391" }}>{w.en}</span>
+              <span style={{ display: "block", fontSize: 12, color: "#7a7391" }}>
+                {w.en}{w.lesson ? <span style={{ color: "#bdb6a6" }}> · {w.lesson}</span> : null}
+              </span>
             </span>
           </button>
         ))}
