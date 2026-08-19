@@ -675,7 +675,17 @@ const playStreakUp = () => {
 //  in the normal games all day.
 // ============================================================
 const getWOD = () => loadLS("wordOfDay", null);   // { date, word }
-const setWOD = (word) => saveLS("wordOfDay", { date: todayKey(), word });
+const getWodHistory = () => loadLS("wodHistory", []);
+const setWOD = (word) => {
+  saveLS("wordOfDay", { date: todayKey(), word });
+  // remember every word ever picked so they can all be drilled together later
+  const hist = getWodHistory();
+  const key = (w) => (w.pinyin || "") + "|" + (w.en || "");
+  if (!hist.some((w) => key(w) === key(word))) {
+    hist.push({ ...word, wodDate: todayKey() });
+    saveLS("wodHistory", hist);
+  }
+};
 const wodActive = () => {
   const w = getWOD();
   return w && w.date === todayKey() ? w.word : null;
@@ -725,6 +735,7 @@ function ChineseApp({ onSwitchLang }) {
       dayCount: loadLS("dayCount", {}),
       spokenCount: loadLS("spokenCount", {}),
       wordOfDay: loadLS("wordOfDay", null),
+      wodHistory: loadLS("wodHistory", []),
       wodDone: loadLS("wodDone", ""),
       goalClaimed: loadLS("goalClaimed", ""),
       customWords,
@@ -753,6 +764,13 @@ function ChineseApp({ onSwitchLang }) {
       }
       if (remote.goalClaimed === todayKey()) saveLS("goalClaimed", remote.goalClaimed);
       if (remote.wordOfDay && remote.wordOfDay.date === todayKey()) saveLS("wordOfDay", remote.wordOfDay);
+      if (remote.wodHistory && remote.wodHistory.length) {
+        const mine = loadLS("wodHistory", []);
+        const key = (w) => (w.pinyin || "") + "|" + (w.en || "");
+        const seen = new Set(mine.map(key));
+        const merged = mine.concat(remote.wodHistory.filter((w) => !seen.has(key(w))));
+        if (merged.length !== mine.length) saveLS("wodHistory", merged);
+      }
       if (remote.wodDone === todayKey()) saveLS("wodDone", remote.wodDone);
       if (remote.spokenCount && remote.spokenCount.date === todayKey()) {
         const mine = loadLS("spokenCount", {});
@@ -796,7 +814,12 @@ function ChineseApp({ onSwitchLang }) {
   // "My Words" behaves like a lesson so it flows through games + word list
   const MY_WORDS_ID = "my-words";
   const MY_WORDS_LESSON = { id: MY_WORDS_ID, title: "Words We Added", subtitle: "words you added yourself", words: customWords };
-  const allLessons = customWords.length ? [...LESSONS, MY_WORDS_LESSON] : LESSONS;
+  const WOD_ID = "wod-history";
+  const wodHistory = getWodHistory();
+  const WOD_LESSON = { id: WOD_ID, title: "⭐ Words of the Day", subtitle: "every word of the day so far", words: wodHistory };
+  const allLessons = LESSONS
+    .concat(customWords.length ? [MY_WORDS_LESSON] : [])
+    .concat(wodHistory.length ? [WOD_LESSON] : []);
 
   // words from the chosen lessons, minus any that have been archived (mastered)
   const activeWords = allLessons.filter((l) => pool.includes(l.id) || l.id === MY_WORDS_ID)
@@ -1358,8 +1381,11 @@ function Home({
             >
               {(() => {
                 // "Words We Added" is pinned to the top; the rest are newest-first
-                const pinned = lessons.filter((l) => l.id === "my-words");
-                const rest = [...lessons.filter((l) => l.id !== "my-words")].reverse();
+                const special = ["wod-history", "my-words"];
+                const pinned = special
+                  .map((id) => lessons.find((l) => l.id === id))
+                  .filter(Boolean);
+                const rest = [...lessons.filter((l) => !special.includes(l.id))].reverse();
                 return [...pinned, ...rest];
               })().map((l) => {
                 const on = pool.includes(l.id);
