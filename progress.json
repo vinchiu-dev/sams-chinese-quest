@@ -720,16 +720,27 @@
     "n": 3
   },
   "wordOfDay": {
-    "date": "2026-08-18",
+    "date": "2026-08-19",
     "word": {
-      "hanzi": "在",
-      "pinyin": "zài",
-      "en": "at / in",
-      "emoji": "📍",
-      "lesson": "Welcome to My House"
+      "en": "有",
+      "pinyin": "",
+      "hanzi": "有",
+      "emoji": "📝",
+      "needsDef": true,
+      "lesson": "Words We Added"
     }
   },
-  "wodHistory": [],
+  "wodHistory": [
+    {
+      "en": "有",
+      "pinyin": "",
+      "hanzi": "有",
+      "emoji": "📝",
+      "needsDef": true,
+      "lesson": "Words We Added",
+      "wodDate": "2026-08-19"
+    }
+  ],
   "wodDone": "2026-08-17",
   "goalClaimed": "2026-08-16",
   "customWords": [
@@ -738,6 +749,13 @@
       "pinyin": "yě",
       "hanzi": "也",
       "emoji": "➕"
+    },
+    {
+      "en": "有",
+      "pinyin": "",
+      "hanzi": "有",
+      "emoji": "📝",
+      "needsDef": true
     },
     {
       "en": "to have / there is",
