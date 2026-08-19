@@ -1617,11 +1617,15 @@ function WordOfDay({ word, allWords, sentences, onHome }) {
   // four steps and leaving a one-minute drill that feels finished.
   // Individual sentences first, THEN the all-together recap — hearing them
   // one at a time builds up to the run-through rather than front-loading it.
-  const steps = ["Say it", "Check it", "Hear it"].concat(
-    examples.length
-      ? examples.map((_, k) => "Meaning " + (k + 1)).concat(["Listen", "Say it back", "Make your own"])
-      : ["Make your own"]
-  );
+  // Short phrases sit between the single word and full sentences — a much
+  // gentler rung than jumping straight from "几" to a whole sentence.
+  const phrases = (word.phrases || []).slice(0, 3);
+
+  const steps = ["Say it", "Check it", "Hear it"]
+    .concat(examples.length ? examples.map((_, k) => "Meaning " + (k + 1)).concat(["Listen"]) : [])
+    .concat(phrases.map((_, k) => "Phrase " + (k + 1)))
+    .concat(examples.length ? ["Say it back"] : [])
+    .concat(["Make your own"]);
   const last = steps.length - 1;
 
   // The listening step should play by itself — he shouldn't have to hunt for
@@ -1640,6 +1644,7 @@ function WordOfDay({ word, allWords, sentences, onHome }) {
       );
       return () => timers.forEach(clearTimeout);
     }
+    // NB: "Phrase" steps deliberately do NOT auto-play — he has to produce it first.
     if (label && (label.indexOf("Meaning") === 0 || label === "Say it back")) {
       const ex = label === "Say it back" ? examples[0] : examples[Number(label.split(" ")[1]) - 1];
       if (!ex) return;
@@ -1799,6 +1804,41 @@ function WordOfDay({ word, allWords, sentences, onHome }) {
           )}
         </div>
       )}
+
+      {/* ---- short phrases: bridge between one word and a whole sentence ---- */}
+      {label.indexOf("Phrase") === 0 && (() => {
+        const ph = phrases[Number(label.split(" ")[1]) - 1];
+        if (!ph) return null;
+        return (
+          <div>
+            <div style={{ background: "#fff", borderRadius: 24, padding: "28px 20px", textAlign: "center",
+              border: `4px solid ${C.sun}`, boxShadow: "0 8px 0 rgba(246,196,69,0.28)" }}>
+              <div style={{ fontSize: 12, color: "#9a94ad", fontWeight: 800, marginBottom: 10 }}>
+                Say this in Chinese
+              </div>
+              <div style={{ fontSize: 26, fontWeight: 800, lineHeight: 1.3 }}>{ph.en}</div>
+              {revealed && (
+                <div style={{ marginTop: 16 }}>
+                  <div style={{ fontSize: 26, fontWeight: 800, color: C.fox }}>{ph.pinyin}</div>
+                  <button onClick={() => speak({ hanzi: ph.hanzi, pinyin: ph.pinyin })}
+                    style={{ ...ghostBtn, marginTop: 10 }}>🔊 Hear it again</button>
+                </div>
+              )}
+            </div>
+            {!revealed ? (
+              <button
+                onClick={() => { setRevealed(true); speak({ hanzi: ph.hanzi, pinyin: ph.pinyin }); recordSpoken(); }}
+                style={{ ...bigBtn, background: C.leaf, width: "100%", marginTop: 14 }}>
+                🗣️ I said it — check
+              </button>
+            ) : (
+              <button onClick={advance} style={{ ...bigBtn, background: C.sky, width: "100%", marginTop: 14 }}>
+                Next →
+              </button>
+            )}
+          </div>
+        );
+      })()}
 
       {/* ---- "Use it" steps: say each real sentence, then check ---- */}
       {label === "Listen" && (
