@@ -62,7 +62,7 @@
     "My little brother also likes to play.",
     "My big sister is six years old too."
   ],
-  "chips": 7,
+  "chips": 8,
   "practiceDays": [
     "2026-08-08",
     "2026-08-10",
@@ -70,7 +70,8 @@
     "2026-08-12",
     "2026-08-15",
     "2026-08-16",
-    "2026-08-17"
+    "2026-08-17",
+    "2026-08-19"
   ],
   "srs": {
     "gēbo": {
@@ -257,24 +258,24 @@
     },
     "měiguó": {
       "lvl": 0,
-      "seen": 1,
-      "right": 0,
-      "wrong": 1,
-      "last": 1786887149827
+      "seen": 3,
+      "right": 1,
+      "wrong": 2,
+      "last": 1787148525726
     },
     "suì": {
       "lvl": 0,
-      "seen": 1,
-      "right": 0,
-      "wrong": 1,
-      "last": 1786889933539
+      "seen": 3,
+      "right": 1,
+      "wrong": 2,
+      "last": 1787148819810
     },
     "shì": {
-      "lvl": 1,
-      "seen": 2,
-      "right": 1,
-      "wrong": 1,
-      "last": 1786452464158
+      "lvl": 0,
+      "seen": 4,
+      "right": 2,
+      "wrong": 2,
+      "last": 1787148879807
     },
     "The alien comes from another planet!": {
       "lvl": 1,
@@ -284,60 +285,60 @@
       "last": 1786888506708
     },
     "liù": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1786889937893
+      "last": 1787146573541
     },
     "xīngqiú": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1786889170316
+      "last": 1787146549579
     },
     "yīngguórén": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1786890024007
+      "last": 1787146534607
     },
     "zhōngguórén": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1786890031417
+      "last": 1787146530628
     },
     "nǎ guó rén": {
       "lvl": 0,
-      "seen": 1,
-      "right": 0,
-      "wrong": 1,
-      "last": 1786890009477
+      "seen": 3,
+      "right": 1,
+      "wrong": 2,
+      "last": 1787148839808
     },
     "wàixīngrén": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1786889624931
+      "last": 1787146543652
     },
     "láizì": {
       "lvl": 0,
-      "seen": 2,
-      "right": 0,
-      "wrong": 2,
-      "last": 1786889521243
+      "seen": 4,
+      "right": 1,
+      "wrong": 3,
+      "last": 1787148513741
     },
     "měiguórén": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1786551963931
+      "last": 1787146568368
     },
     "The little monkey's head hurts a bit.": {
       "lvl": 1,
@@ -404,10 +405,10 @@
     },
     "jiào": {
       "lvl": 0,
-      "seen": 1,
-      "right": 0,
-      "wrong": 1,
-      "last": 1786889991003
+      "seen": 3,
+      "right": 1,
+      "wrong": 2,
+      "last": 1787148546065
     },
     "My big sister is six years old too.": {
       "lvl": 1,
@@ -613,60 +614,60 @@
       "last": 1786890592415
     },
     "tài kù le": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786889046362
-    },
-    "yě": {
       "lvl": 2,
       "seen": 2,
       "right": 2,
       "wrong": 0,
-      "last": 1786889217335
+      "last": 1787146578416
+    },
+    "yě": {
+      "lvl": 0,
+      "seen": 6,
+      "right": 2,
+      "wrong": 4,
+      "last": 1787148503733
     },
     "jǐ suì": {
       "lvl": 0,
-      "seen": 1,
-      "right": 0,
-      "wrong": 1,
-      "last": 1786889615273
+      "seen": 3,
+      "right": 1,
+      "wrong": 2,
+      "last": 1787148613202
     },
     "sānshíwǔ": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1786889653489
+      "last": 1787146562178
     },
     "zhè": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1786889664622
+      "last": 1787146527121
     },
     "jǐ": {
-      "lvl": 1,
-      "seen": 2,
-      "right": 1,
-      "wrong": 1,
-      "last": 1786910739088
+      "lvl": 0,
+      "seen": 4,
+      "right": 2,
+      "wrong": 2,
+      "last": 1787148859813
     },
     "kù": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1786890016699
+      "last": 1787146583923
     },
     "Mǐkǎ": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1786890036013
+      "last": 1787146553894
     },
     "shàngwǎng": {
       "lvl": 1,
@@ -704,16 +705,65 @@
       "last": 1786969756575
     },
     "": {
+      "lvl": 0,
+      "seen": 6,
+      "right": 4,
+      "wrong": 2,
+      "last": 1787146710881
+    },
+    "sān": {
+      "lvl": 0,
+      "seen": 2,
+      "right": 1,
+      "wrong": 1,
+      "last": 1787156291178
+    },
+    "nǎ": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787146594189
+    },
+    "yǒu": {
       "lvl": 2,
       "seen": 2,
       "right": 2,
       "wrong": 0,
-      "last": 1786981167452
+      "last": 1787146630453
+    },
+    "jiā": {
+      "lvl": 0,
+      "seen": 2,
+      "right": 1,
+      "wrong": 1,
+      "last": 1787156270071
+    },
+    "ge": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787146610119
+    },
+    "rén": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787146615019
+    },
+    "bú shì": {
+      "lvl": 0,
+      "seen": 2,
+      "right": 1,
+      "wrong": 1,
+      "last": 1787156250074
     }
   },
   "dayCount": {
-    "date": "2026-08-17",
-    "n": 3
+    "date": "2026-08-19",
+    "n": 46
   },
   "spokenCount": {
     "date": "2026-08-18",
@@ -742,7 +792,7 @@
     }
   ],
   "wodDone": "2026-08-17",
-  "goalClaimed": "2026-08-16",
+  "goalClaimed": "2026-08-19",
   "customWords": [
     {
       "en": "also",
