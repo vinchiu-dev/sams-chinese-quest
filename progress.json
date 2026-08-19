@@ -3,9 +3,7 @@
     "zài",
     "ne",
     "shūfáng",
-    "shàngwǎng",
     "fángjiān",
-    "gēbo",
     "biǎogē",
     "chúfáng",
     "wòshì",
@@ -28,7 +26,9 @@
     "jǐ suì",
     "jǐ",
     "kètīng",
-    "qù"
+    "qù",
+    "shàngwǎng",
+    "gēbo"
   ],
   "archived": [],
   "starredSentences": [
@@ -77,9 +77,60 @@
       "needsDef": true
     }
   ],
-  "en_starred": [],
-  "en_mastered": [],
+  "en_starred": [
+    "contaminate",
+    "hesitate",
+    "abundant"
+  ],
+  "en_mastered": [
+    "gigantic",
+    "fragile",
+    "Anchor",
+    "Free loader"
+  ],
   "en_myWords": [
+    {
+      "word": "Authorities",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "cushion",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Status",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Currently",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Violate",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "vegetable",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
     {
       "word": "I will add those to the list",
       "definition": "(definition coming — ask Claude to fill this in)",
