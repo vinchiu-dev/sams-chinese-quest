@@ -1548,6 +1548,108 @@
           "emoji": "3️⃣"
         }
       ]
+    },
+    {
+      "id": "how-many-people",
+      "title": "How Many People?",
+      "subtitle": "你家有几个人？— counting your family",
+      "words": [
+        {
+          "hanzi": "有",
+          "pinyin": "yǒu",
+          "en": "to have / there is",
+          "emoji": "🙌",
+          "phrases": [
+            {
+              "en": "I have a backpack",
+              "pinyin": "wǒ yǒu shūbāo",
+              "hanzi": "我有书包"
+            },
+            {
+              "en": "there are three people",
+              "pinyin": "yǒu sān ge rén",
+              "hanzi": "有三个人"
+            },
+            {
+              "en": "do you have a cat?",
+              "pinyin": "nǐ yǒu māo ma?",
+              "hanzi": "你有猫吗？"
+            }
+          ]
+        },
+        {
+          "hanzi": "个",
+          "pinyin": "ge",
+          "en": "(counting word for people/things)",
+          "emoji": "🔢",
+          "phrases": [
+            {
+              "en": "three people",
+              "pinyin": "sān ge rén",
+              "hanzi": "三个人"
+            },
+            {
+              "en": "one backpack",
+              "pinyin": "yí ge shūbāo",
+              "hanzi": "一个书包"
+            }
+          ]
+        },
+        {
+          "hanzi": "人",
+          "pinyin": "rén",
+          "en": "person / people",
+          "emoji": "🧍",
+          "phrases": [
+            {
+              "en": "three people",
+              "pinyin": "sān ge rén",
+              "hanzi": "三个人"
+            },
+            {
+              "en": "how many people?",
+              "pinyin": "jǐ ge rén?",
+              "hanzi": "几个人？"
+            }
+          ]
+        },
+        {
+          "hanzi": "三",
+          "pinyin": "sān",
+          "en": "three",
+          "emoji": "3️⃣",
+          "phrases": [
+            {
+              "en": "three years old",
+              "pinyin": "sān suì",
+              "hanzi": "三岁"
+            },
+            {
+              "en": "three cats",
+              "pinyin": "sān zhī māo",
+              "hanzi": "三只猫"
+            }
+          ]
+        },
+        {
+          "hanzi": "家",
+          "pinyin": "jiā",
+          "en": "home / family",
+          "emoji": "🏠",
+          "phrases": [
+            {
+              "en": "my family",
+              "pinyin": "wǒ jiā",
+              "hanzi": "我家"
+            },
+            {
+              "en": "at home",
+              "pinyin": "zài jiā",
+              "hanzi": "在家"
+            }
+          ]
+        }
+      ]
     }
   ],
   "tagMap": {
@@ -1667,6 +1769,9 @@
       "little-fox-school-supplies",
       "silly-food",
       "welcome-home-rooms"
+    ],
+    "howmany": [
+      "how-many-people"
     ]
   },
   "sentences": [
@@ -3205,6 +3310,42 @@
       "pinyin": "Nàge xīngqiú hěn dà.",
       "hanzi": "那个星球很大。",
       "tag": "aboutme"
+    },
+    {
+      "en": "How many people are in your family?",
+      "pinyin": "Nǐ jiā yǒu jǐ ge rén?",
+      "hanzi": "你家有几个人？",
+      "tag": "howmany"
+    },
+    {
+      "en": "There are three people in my family.",
+      "pinyin": "Wǒ jiā yǒu sān ge rén.",
+      "hanzi": "我家有三个人。",
+      "tag": "howmany"
+    },
+    {
+      "en": "I have two big bear toys.",
+      "pinyin": "Wǒ yǒu liǎng ge dà xióng wánjù.",
+      "hanzi": "我有两个大熊玩具。",
+      "tag": "howmany"
+    },
+    {
+      "en": "My family has a mom, a dad and me.",
+      "pinyin": "Wǒ jiā yǒu māma, bàba hé wǒ.",
+      "hanzi": "我家有妈妈、爸爸和我。",
+      "tag": "howmany"
+    },
+    {
+      "en": "Do you have a little brother?",
+      "pinyin": "Nǐ yǒu dìdi ma?",
+      "hanzi": "你有弟弟吗？",
+      "tag": "howmany"
+    },
+    {
+      "en": "There are three people at home today.",
+      "pinyin": "Jīntiān jiā lǐ yǒu sān ge rén.",
+      "hanzi": "今天家里有三个人。",
+      "tag": "howmany"
     }
   ]
 }
