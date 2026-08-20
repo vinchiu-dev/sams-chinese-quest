@@ -70,6 +70,1025 @@
     "My little brother also likes to play.",
     "My big sister is six years old too."
   ],
+  "chips": 8,
+  "practiceDays": [
+    "2026-08-08",
+    "2026-08-10",
+    "2026-08-11",
+    "2026-08-12",
+    "2026-08-15",
+    "2026-08-16",
+    "2026-08-17",
+    "2026-08-19",
+    "2026-08-20"
+  ],
+  "srs": {
+    "gēbo": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1787237300198
+    },
+    "The watermelon is really delicious!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786234503153
+    },
+    "My mom is Chinese, my dad is American.": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1786452910227
+    },
+    "My toys are in the bedroom.": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786235487534
+    },
+    "Nose bumps nose!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786235507631
+    },
+    "Hello!": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1786235562763
+    },
+    "Grandpa, happy birthday!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786235532310
+    },
+    "This is my dad.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786235552958
+    },
+    "Is your big sister British?": {
+      "lvl": 1,
+      "seen": 2,
+      "right": 1,
+      "wrong": 1,
+      "last": 1786452579626
+    },
+    "Are you an alien?": {
+      "lvl": 0,
+      "seen": 3,
+      "right": 1,
+      "wrong": 2,
+      "last": 1786452990764
+    },
+    "The baby loves to cry.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237008621
+    },
+    "The rabbit's eyes hurt, the fox's ears hurt.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237136097
+    },
+    "hái yǒu": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237196201
+    },
+    "hǎochī": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237211346
+    },
+    "zài nǎr": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237223634
+    },
+    "qīngcài": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237233479
+    },
+    "ěrduo": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1787237300195
+    },
+    "I am six years old.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786382999346
+    },
+    "Today is the weekend — the alien is playing at my house!": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786887676029
+    },
+    "My mom comes from China, she is Chinese.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786887847122
+    },
+    "My name is Sam.": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1786887414720
+    },
+    "I am American.": {
+      "lvl": 5,
+      "seen": 6,
+      "right": 5,
+      "wrong": 1,
+      "last": 1786453065261
+    },
+    "Who is knocking on the door?": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786383565233
+    },
+    "Dad, I don't feel well...": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786383572397
+    },
+    "Mom loves to laugh.": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786383673939
+    },
+    "wánjù": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1787237300197
+    },
+    "měiguó": {
+      "lvl": 0,
+      "seen": 3,
+      "right": 1,
+      "wrong": 2,
+      "last": 1787148525726
+    },
+    "suì": {
+      "lvl": 0,
+      "seen": 3,
+      "right": 1,
+      "wrong": 2,
+      "last": 1787148819810
+    },
+    "shì": {
+      "lvl": 0,
+      "seen": 5,
+      "right": 2,
+      "wrong": 3,
+      "last": 1787237300198
+    },
+    "The alien comes from another planet!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786888506708
+    },
+    "liù": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1787146573541
+    },
+    "xīngqiú": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1787146549579
+    },
+    "yīngguórén": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1787146534607
+    },
+    "zhōngguórén": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1787146530628
+    },
+    "nǎ guó rén": {
+      "lvl": 0,
+      "seen": 3,
+      "right": 1,
+      "wrong": 2,
+      "last": 1787148839808
+    },
+    "wàixīngrén": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1787146543652
+    },
+    "láizì": {
+      "lvl": 0,
+      "seen": 4,
+      "right": 1,
+      "wrong": 3,
+      "last": 1787148513741
+    },
+    "měiguórén": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1787146568368
+    },
+    "The little monkey's head hurts a bit.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786398770017
+    },
+    "Wishing you a happy life!": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786398787079
+    },
+    "No no no, it doesn't hurt anymore!": {
+      "lvl": 0,
+      "seen": 2,
+      "right": 1,
+      "wrong": 1,
+      "last": 1786552931851
+    },
+    "I don't feel well, I want to lie on the bed.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786399094423
+    },
+    "Your life is really happy!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786399118724
+    },
+    "What is your dad doing?": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786399134219
+    },
+    "Big brother is playing games in the study.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786399169543
+    },
+    "We all love to eat fruit!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786399184206
+    },
+    "Today is the weekend — let's play with toys!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786399229386
+    },
+    "jiào": {
+      "lvl": 1,
+      "seen": 4,
+      "right": 2,
+      "wrong": 2,
+      "last": 1787237300196
+    },
+    "My big sister is six years old too.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786888918575
+    },
+    "I come from America.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786452670063
+    },
+    "What's your nationality?": {
+      "lvl": 1,
+      "seen": 2,
+      "right": 1,
+      "wrong": 1,
+      "last": 1786453221684
+    },
+    "The alien is too cool!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786889002413
+    },
+    "My little brother also likes to play.": {
+      "lvl": 0,
+      "seen": 6,
+      "right": 4,
+      "wrong": 2,
+      "last": 1786552627473
+    },
+    "math:+:4:1": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1787238277628
+    },
+    "math:-:9:7": {
+      "lvl": 0,
+      "seen": 2,
+      "right": 0,
+      "wrong": 2,
+      "last": 1787238477893
+    },
+    "math:+:8:0": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786839880578
+    },
+    "math:+:5:6": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786839900060
+    },
+    "math:+:1:0": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786839915989
+    },
+    "math:-:7:7": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786839924302
+    },
+    "math:-:10:3": {
+      "lvl": 0,
+      "seen": 2,
+      "right": 0,
+      "wrong": 2,
+      "last": 1787238477896
+    },
+    "math:+:9:4": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786840026309
+    },
+    "math:+:74:10": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786840098581
+    },
+    "math:-:4:0": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786840101953
+    },
+    "math:-:7:0": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786840246266
+    },
+    "math:+:1:6": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786840255973
+    },
+    "math:+:10:10": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786840268759
+    },
+    "math:+:23:10": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786840300833
+    },
+    "math:+:2:6": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1787238277626
+    },
+    "math:+:43:10": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786840329823
+    },
+    "math:bond:20:18": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786840347190
+    },
+    "math:+:81:10": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786840388683
+    },
+    "math:+:86:10": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786840417274
+    },
+    "Is this your big sister?": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786887338196
+    },
+    "Is this your little brother?": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1786887433408
+    },
+    "Mika, you're too cool!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786887385844
+    },
+    "How old are you?": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1786888441452
+    },
+    "Where do you come from?": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1786890592415
+    },
+    "tài kù le": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1787146578416
+    },
+    "yě": {
+      "lvl": 0,
+      "seen": 6,
+      "right": 2,
+      "wrong": 4,
+      "last": 1787148503733
+    },
+    "jǐ suì": {
+      "lvl": 0,
+      "seen": 3,
+      "right": 1,
+      "wrong": 2,
+      "last": 1787148613202
+    },
+    "sānshíwǔ": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1787146562178
+    },
+    "zhè": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1787146527121
+    },
+    "jǐ": {
+      "lvl": 0,
+      "seen": 4,
+      "right": 2,
+      "wrong": 2,
+      "last": 1787148859813
+    },
+    "kù": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1787146583923
+    },
+    "Mǐkǎ": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1787146553894
+    },
+    "shàngwǎng": {
+      "lvl": 0,
+      "seen": 2,
+      "right": 1,
+      "wrong": 1,
+      "last": 1787237300197
+    },
+    "zuò shénme": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786890493420
+    },
+    "hémǎ": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786890575252
+    },
+    "shénme": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1786901347974
+    },
+    "math:+:22:10": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786969756575
+    },
+    "": {
+      "lvl": 0,
+      "seen": 6,
+      "right": 4,
+      "wrong": 2,
+      "last": 1787146710881
+    },
+    "sān": {
+      "lvl": 0,
+      "seen": 2,
+      "right": 1,
+      "wrong": 1,
+      "last": 1787156291178
+    },
+    "nǎ": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787146594189
+    },
+    "yǒu": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1787146630453
+    },
+    "jiā": {
+      "lvl": 0,
+      "seen": 2,
+      "right": 1,
+      "wrong": 1,
+      "last": 1787156270071
+    },
+    "ge": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787146610119
+    },
+    "rén": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787146615019
+    },
+    "bú shì": {
+      "lvl": 0,
+      "seen": 2,
+      "right": 1,
+      "wrong": 1,
+      "last": 1787156250074
+    },
+    "Goodbye, Mika!": {
+      "lvl": 0,
+      "seen": 4,
+      "right": 3,
+      "wrong": 1,
+      "last": 1786552709317
+    },
+    "I am also American.": {
+      "lvl": 5,
+      "seen": 9,
+      "right": 9,
+      "wrong": 0,
+      "last": 1786552782734
+    },
+    "I also want to eat watermelon.": {
+      "lvl": 3,
+      "seen": 3,
+      "right": 3,
+      "wrong": 0,
+      "last": 1786552837218
+    },
+    "math:+:4:4": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787236701245
+    },
+    "math:bond:10:8": {
+      "lvl": 1,
+      "seen": 2,
+      "right": 1,
+      "wrong": 1,
+      "last": 1787237597522
+    },
+    "math:bond:10:2": {
+      "lvl": 1,
+      "seen": 2,
+      "right": 1,
+      "wrong": 1,
+      "last": 1787237597527
+    },
+    "math:+:7:7": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787236701248
+    },
+    "math:bond:10:4": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1787236701249
+    },
+    "math:bond:10:5": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787236701249
+    },
+    "math:+:5:5": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1787237597523
+    },
+    "math:bond:10:0": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1787237597526
+    },
+    "math:+:3:3": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787236701251
+    },
+    "math:bond:10:9": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1787237597526
+    },
+    "math:+:9:9": {
+      "lvl": 0,
+      "seen": 2,
+      "right": 0,
+      "wrong": 2,
+      "last": 1787237597522
+    },
+    "math:bond:10:6": {
+      "lvl": 1,
+      "seen": 2,
+      "right": 1,
+      "wrong": 1,
+      "last": 1787237597523
+    },
+    "jiǎndāo": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787237300196
+    },
+    "shūbāo": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787237300196
+    },
+    "huài le": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1787237300197
+    },
+    "juǎnbǐdāo": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787237300197
+    },
+    "diào le": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1787237300197
+    },
+    "làbǐ": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787237300198
+    },
+    "math:bond:10:7": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1787237597518
+    },
+    "math:bond:10:3": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1787237597524
+    },
+    "math:+:11:11": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1787237597524
+    },
+    "math:+:8:8": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787237597525
+    },
+    "math:+:2:2": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787237597527
+    },
+    "math:+:0:9": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787238277624
+    },
+    "math:+:0:10": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787238277626
+    },
+    "math:+:0:3": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787238277627
+    },
+    "math:+:2:0": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787238277627
+    },
+    "math:+:1:2": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787238277629
+    },
+    "math:-:5:5": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787238477891
+    },
+    "math:-:6:0": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787238477893
+    },
+    "math:+:4:5": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787238477893
+    },
+    "math:-:3:1": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787238477894
+    },
+    "math:-:2:0": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787238477894
+    },
+    "math:-:4:2": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787238477895
+    },
+    "math:-:3:2": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787238477895
+    },
+    "math:-:5:1": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787238477895
+    },
+    "math:-:1:1": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787238477896
+    },
+    "math:+:3:4": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1787238477896
+    }
+  },
+  "dayCount": {
+    "date": "2026-08-20",
+    "n": 5
+  },
+  "spokenCount": {
+    "date": "2026-08-18",
+    "n": 3
+  },
+  "wordOfDay": {
+    "date": "2026-08-19",
+    "word": {
+      "en": "有",
+      "pinyin": "",
+      "hanzi": "有",
+      "emoji": "📝",
+      "needsDef": true,
+      "lesson": "Words We Added"
+    }
+  },
+  "wodHistory": [
+    {
+      "en": "有",
+      "pinyin": "",
+      "hanzi": "有",
+      "emoji": "📝",
+      "needsDef": true,
+      "lesson": "Words We Added",
+      "wodDate": "2026-08-19"
+    }
+  ],
+  "wodDone": "2026-08-17",
+  "goalClaimed": "2026-08-19",
   "customWords": [
     {
       "en": "also",
@@ -95,75 +1114,6 @@
       "pinyin": "",
       "hanzi": "",
       "emoji": "📝"
-    }
-  ],
-  "en_starred": [
-    "contaminate",
-    "hesitate",
-    "abundant"
-  ],
-  "en_mastered": [
-    "gigantic",
-    "fragile",
-    "Anchor",
-    "Free loader"
-  ],
-  "en_myWords": [
-    {
-      "word": "Authorities",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "cushion",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Status",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Currently",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Violate",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "vegetable",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "I will add those to the list",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Stimulate",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
     }
   ]
 }
