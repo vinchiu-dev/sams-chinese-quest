@@ -1087,20 +1087,8 @@
       "wodDate": "2026-08-19"
     }
   ],
+  "hiddenWords": [],
   "wodDone": "2026-08-17",
   "goalClaimed": "2026-08-19",
-  "customWords": [
-    {
-      "en": "also",
-      "pinyin": "yě",
-      "hanzi": "也",
-      "emoji": "➕"
-    },
-    {
-      "en": "to have / there is",
-      "pinyin": "yǒu",
-      "hanzi": "有",
-      "emoji": "🙌"
-    }
-  ]
+  "customWords": []
 }
