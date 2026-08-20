@@ -1169,7 +1169,7 @@ function Home({
   const classifyZh = (text) => {
     const t = text.trim();
     if (!t) return null;
-    if (/[\u4e00-\u9fff]/.test(t)) return { en: "", pinyin: "", hanzi: t };
+    if (/[一-鿿]/.test(t)) return { en: "", pinyin: "", hanzi: t };
     if (/[āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜü]/i.test(t)) return { en: "", pinyin: t, hanzi: "" };
     return { en: t, pinyin: "", hanzi: "" };
   };
@@ -1228,7 +1228,7 @@ function Home({
         en: row.en || row.pinyin || row.hanzi,
         pinyin: row.pinyin || "",
         hanzi: row.hanzi || "",
-        emoji: "\ud83d\udcdd",
+        emoji: "📝",
         needsDef: !(row.en && row.pinyin && row.hanzi),
       });
       n++;
@@ -3047,7 +3047,7 @@ function WordList({ allWords, archived, trouble, toggleTrouble, toggleArchived, 
   const classify = (text) => {
     const t = text.trim();
     if (!t) return null;
-    const hasHan = /[\u4e00-\u9fff]/.test(t);
+    const hasHan = /[一-鿿]/.test(t);
     // pinyin often carries tone marks; also treat "ni hao"-style ASCII as
     // ambiguous and let Claude sort it out later.
     const hasToneMark = /[āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜü]/i.test(t);
@@ -3599,7 +3599,7 @@ function EnHome({ wordCount, starredCount, totalCount, masteredCount, go, addMyW
     const lines = bulk.split("\n").map((s) => s.trim()).filter(Boolean);
     let n = 0;
     lines.forEach((line) => {
-      const m = line.match(/^(.+?)\s*[:\u2013\u2014-]\s*(.+)$/);
+      const m = line.match(/^(.+?)\s*[:–—-]\s*(.+)$/);
       const word = (m ? m[1] : line).trim();
       const definition = m ? m[2].trim() : "";
       if (!word) return;
@@ -4181,6 +4181,11 @@ function MathApp({ onSwitchLang }) {
           <MathCompare onHome={home} />
           </React.Fragment>
         )}
+        {screen === "clock" && (
+          <React.Fragment><GameTitle>What Time Is It?</GameTitle>
+          <MathClock onHome={home} />
+          </React.Fragment>
+        )}
         {screen === "skip" && (
           <React.Fragment><GameTitle>What Comes Next</GameTitle>
           <MathSkip onHome={home} />
@@ -4199,6 +4204,7 @@ function MathHome({ sets, toggleSet, count, go }) {
     { id:"missing", emoji:"❓", name:"Missing Number", desc:"5 × ? = 30",             color:C.leaf },
     { id:"compare", emoji:"⚖️", name:"Bigger or Smaller", desc:"Is 34 more than 43?",  color:"#E8703A" },
     { id:"skip",    emoji:"🪜", name:"What Comes Next",   desc:"2, 4, 6, ?",            color:"#3BA0C8" },
+    { id:"clock",   emoji:"🕐", name:"What Time Is It?", desc:"Read the clock",        color:"#D64A4A" },
     { id:"car",     emoji:"🚗", name:"Car Mode",       desc:"Eyes off, ears on",   color:"#2A2440", always:true },
   ];
   const none = count === 0;
@@ -4402,6 +4408,165 @@ function MathSpeed({ facts, onHome }) {
   );
 }
 
+
+
+// ---- Clock face: thick red hour hand, thinner blue minute hand ----
+function ClockFace({ hour, minute, size = 240 }) {
+  const R = size / 2;
+  const cx = R, cy = R;
+  // hour hand advances smoothly with the minutes (2:30 sits between 2 and 3)
+  const hourAng = ((hour % 12) + minute / 60) * 30 - 90;
+  const minAng = minute * 6 - 90;
+  const rad = (d) => (d * Math.PI) / 180;
+  const hx = cx + Math.cos(rad(hourAng)) * R * 0.46;
+  const hy = cy + Math.sin(rad(hourAng)) * R * 0.46;
+  const mx = cx + Math.cos(rad(minAng)) * R * 0.72;
+  const my = cy + Math.sin(rad(minAng)) * R * 0.72;
+
+  return (
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{ display: "block", margin: "0 auto" }}>
+      <circle cx={cx} cy={cy} r={R - 5} fill="#fff" stroke="#2A2440" strokeWidth="5" />
+      {/* minute ticks */}
+      {Array.from({ length: 60 }).map((_, i) => {
+        const a = rad(i * 6 - 90);
+        const big = i % 5 === 0;
+        const r1 = R - (big ? 20 : 12), r2 = R - 9;
+        return (
+          <line key={i}
+            x1={cx + Math.cos(a) * r1} y1={cy + Math.sin(a) * r1}
+            x2={cx + Math.cos(a) * r2} y2={cy + Math.sin(a) * r2}
+            stroke={big ? "#2A2440" : "#c9c3d6"} strokeWidth={big ? 3.5 : 1.5} strokeLinecap="round" />
+        );
+      })}
+      {/* numbers */}
+      {Array.from({ length: 12 }).map((_, i) => {
+        const n = i + 1;
+        const a = rad(n * 30 - 90);
+        return (
+          <text key={n}
+            x={cx + Math.cos(a) * (R * 0.74)} y={cy + Math.sin(a) * (R * 0.74)}
+            textAnchor="middle" dominantBaseline="central"
+            fontSize={R * 0.19} fontWeight="800" fill="#2A2440" fontFamily="inherit">{n}</text>
+        );
+      })}
+      {/* minute hand — long, thinner, blue */}
+      <line x1={cx} y1={cy} x2={mx} y2={my} stroke="#3BA0C8" strokeWidth={R * 0.055} strokeLinecap="round" />
+      {/* hour hand — short, THICK, red */}
+      <line x1={cx} y1={cy} x2={hx} y2={hy} stroke="#D64A4A" strokeWidth={R * 0.105} strokeLinecap="round" />
+      <circle cx={cx} cy={cy} r={R * 0.06} fill="#2A2440" />
+    </svg>
+  );
+}
+
+// ---- What Time Is It: read the clock, pick the time ----
+function MathClock({ onHome }) {
+  const advRef = useRef(null);
+  const nextRef = useRef(() => {});
+  useEffect(() => () => { if (advRef.current) clearTimeout(advRef.current); }, []);
+
+  const label = (h, m) => {
+    const hh = ((h + 11) % 12) + 1;
+    if (m === 0) return hh + " o'clock";
+    if (m === 15) return "quarter past " + hh;
+    if (m === 30) return "half past " + hh;
+    if (m === 45) return "quarter to " + (((hh % 12) + 1));
+    return hh + ":" + String(m).padStart(2, "0");
+  };
+  const digital = (h, m) => (((h + 11) % 12) + 1) + ":" + String(m).padStart(2, "0");
+
+  const MINUTES = [0, 15, 30, 45];
+  const build = () => {
+    const h = Math.floor(Math.random() * 12) + 1;
+    const m = MINUTES[Math.floor(Math.random() * MINUTES.length)];
+    const key = "math:clock:" + h + ":" + m;
+    // distractors: same time on a different hour, and the same hour at other minutes
+    const opts = new Set([digital(h, m)]);
+    let guard = 0;
+    while (opts.size < 4 && guard++ < 40) {
+      const useOtherHour = Math.random() < 0.5;
+      const hh = useOtherHour ? (Math.floor(Math.random() * 12) + 1) : h;
+      const mm = useOtherHour ? m : MINUTES[Math.floor(Math.random() * MINUTES.length)];
+      opts.add(digital(hh, mm));
+    }
+    return { h, m, key, options: shuffle([...opts]) };
+  };
+
+  const [q, setQ] = useState(build);
+  const [picked, setPicked] = useState(null);
+  const [score, setScore] = useState(0);
+  const [done, setDone] = useState(0);
+
+  const next = () => {
+    if (advRef.current) clearTimeout(advRef.current);
+    setPicked(null);
+    setQ(build());
+  };
+  nextRef.current = next;
+
+  const choose = (v) => {
+    if (picked) return;
+    setPicked(v);
+    const ok = v === digital(q.h, q.m);
+    setDone((d) => d + 1);
+    if (ok) { setScore((s) => s + 1); playCorrect(score); } else playSoftMiss();
+    srsRecord(q.key, ok);
+    recordEffort();
+    if (ok) advRef.current = setTimeout(nextRef.current, 1400);
+  };
+
+  const correct = digital(q.h, q.m);
+
+  return (
+    <div>
+      <Progress value={score} total={Math.max(done, 1)} label={`✅ ${score} / ${done}`} />
+
+      <div style={{ marginTop: 14, background: "#fff", borderRadius: 24, padding: "20px 16px",
+        border: `4px solid ${picked ? (picked === correct ? C.leaf : "#F0A5A5") : "#7C5CE0"}`,
+        boxShadow: "0 8px 0 rgba(124,92,224,0.22)" }}>
+        <ClockFace hour={q.h} minute={q.m} size={230} />
+        {picked && (
+          <div style={{ textAlign: "center", marginTop: 12 }}>
+            <div style={{ fontSize: 22, fontWeight: 800, color: picked === correct ? C.leaf : C.berry }}>
+              {correct}
+            </div>
+            <div style={{ fontSize: 15, color: "#7a7391", marginTop: 2 }}>{label(q.h, q.m)}</div>
+          </div>
+        )}
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 14 }}>
+        {q.options.map((v, i) => {
+          let bg = "#fff", bd = "#e3ddcf", cl = C.ink;
+          if (picked) {
+            if (v === correct) { bg = C.leaf; bd = C.leaf; cl = "#fff"; }
+            else if (v === picked) { bg = "#F4A7A7"; bd = "#F4A7A7"; cl = "#fff"; }
+          }
+          return (
+            <button key={i} onClick={() => choose(v)}
+              style={{ ...bigBtn, background: bg, color: cl, border: `3px solid ${bd}`, fontSize: 24, padding: "18px 8px" }}>
+              {v}
+            </button>
+          );
+        })}
+      </div>
+
+      {picked && picked !== correct && (
+        <button onClick={next} style={{ ...bigBtn, background: "#7C5CE0", width: "100%", marginTop: 14 }}>
+          Next →
+        </button>
+      )}
+      {picked === correct && (
+        <div style={{ textAlign: "center", marginTop: 16, fontSize: 13, color: "#9a94ad", fontWeight: 700 }}>
+          next one coming…
+        </div>
+      )}
+
+      <button onClick={onHome} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, marginTop: 12, width: "100%" }}>
+        ⬅ Back to menu
+      </button>
+    </div>
+  );
+}
 
 // ---- Bigger or Smaller: comparing numbers (place-value sense) ----
 function MathCompare({ onHome }) {
@@ -4654,21 +4819,21 @@ const CAR_TIPS = [
   ["Fast or flag",
    "If he's slow, just give him the answer. No struggle, no shame. Mark it at the end and it comes back on its own."],
   ["Name the set out loud first",
-   "\u201cToday is the eights.\u201d Random quizzing burns the drive re-asking the forty facts he already owns."],
+   "“Today is the eights.” Random quizzing burns the drive re-asking the forty facts he already owns."],
   ["Four to six minutes",
    "Once a drive, not every drive. Short doses win, and they keep the car somewhere he wants to be."],
   ["Finish on three he knows",
    "Car Mode adds easy doubles at the end automatically. Always end winning."],
   ["The order that matters",
-   "Doubles \u2192 near doubles \u2192 make ten \u2192 +9 \u2192 missing number \u2192 skip counting. Each one leans on the one before it."],
+   "Doubles → near doubles → make ten → +9 → missing number → skip counting. Each one leans on the one before it."],
   ["Turn subtraction around",
-   "Instead of \u201c13 minus 6,\u201d ask \u201cwhat plus 6 makes 13?\u201d Subtraction stops being a hundred new facts and becomes the same facts backwards."],
+   "Instead of “13 minus 6,” ask “what plus 6 makes 13?” Subtraction stops being a hundred new facts and becomes the same facts backwards."],
   ["One set at a time while he's learning it",
    "Mix sets only once he owns each of them separately. Interleaving is for holding on to things, not for picking them up."],
   ["Let him quiz you back",
    "And get some wrong. Catching Dad is worth more than anything the app just did."],
   ["License plates are free",
-   "Add the digits. Or \u201cmake the biggest number you can.\u201d No app required."],
+   "Add the digits. Or “make the biggest number you can.” No app required."],
 ];
 
 function CarMode({ facts, onHome }) {
@@ -4828,9 +4993,9 @@ function CarMode({ facts, onHome }) {
   };
 
   const decks = [
-    { id: "math",  emoji: "\ud83d\udd22", name: "Math facts", desc: "From the sets you picked" },
-    { id: "words", emoji: "\ud83e\udd8a", name: "Chinese words", desc: "English out \u2192 he says the Chinese" },
-    { id: "sent",  emoji: "\ud83d\udcac", name: "Chinese sentences", desc: "He hears it \u2192 says what it meant" },
+    { id: "math",  emoji: "🔢", name: "Math facts", desc: "From the sets you picked" },
+    { id: "words", emoji: "🦊", name: "Chinese words", desc: "English out → he says the Chinese" },
+    { id: "sent",  emoji: "💬", name: "Chinese sentences", desc: "He hears it → says what it meant" },
   ];
 
   // ---------------- setup ----------------
@@ -4840,7 +5005,7 @@ function CarMode({ facts, onHome }) {
       <div>
         <div style={{ background: "#fff", borderRadius: 22, border: "3px solid #cfe3f5", padding: "16px 16px 18px", marginBottom: 14 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 4 }}>
-            <span style={{ fontSize: 30 }}>\ud83d\ude97</span>
+            <span style={{ fontSize: 30 }}>🚗</span>
             <div style={{ fontWeight: 800, fontSize: 20 }}>Car Mode</div>
           </div>
           <div style={{ fontSize: 13.5, color: "#7a7391", lineHeight: 1.5 }}>
@@ -4895,7 +5060,7 @@ function CarMode({ facts, onHome }) {
         <button onClick={start} disabled={empty}
           style={{ ...bigBtn, background: empty ? "#c9c3d8" : "#3BA0C8", color: "#fff", width: "100%",
             cursor: empty ? "not-allowed" : "pointer" }}>
-          \u25b6\ufe0e Start
+          ▶︎ Start
         </button>
         {empty && (
           <div style={{ textAlign: "center", marginTop: 10, color: C.berry, fontWeight: 700, fontSize: 14 }}>
@@ -4905,14 +5070,14 @@ function CarMode({ facts, onHome }) {
 
         <button onClick={() => setTips((t) => !t)}
           style={{ ...ghostBtn, width: "100%", marginTop: 14 }}>
-          {tips ? "\u25b4 Hide the coaching notes" : "\ud83d\udca1 Coaching notes for the driver"}
+          {tips ? "▴ Hide the coaching notes" : "💡 Coaching notes for the driver"}
         </button>
         {tips && (
           <div style={{ marginTop: 12 }}>
             <div style={{ background: C.ink, color: "#fff", borderRadius: 18, padding: "14px 16px", marginBottom: 10 }}>
               <div style={{ fontWeight: 800, fontSize: 15, marginBottom: 5 }}>The one thing</div>
               <div style={{ fontSize: 14, lineHeight: 1.55 }}>
-                If he works the answer out, the rep doesn't count. Automaticity means pulling it straight from memory \u2014 and speed is the only way you can tell the difference while driving.
+                If he works the answer out, the rep doesn't count. Automaticity means pulling it straight from memory — and speed is the only way you can tell the difference while driving.
               </div>
             </div>
             {CAR_TIPS.map((t, i) => (
@@ -4925,14 +5090,14 @@ function CarMode({ facts, onHome }) {
             <div style={{ background: "#FFF1EC", borderRadius: 16, border: "2px solid " + C.fox, padding: "12px 14px" }}>
               <div style={{ fontWeight: 800, fontSize: 15 }}>Worth remembering</div>
               <div style={{ fontSize: 13.5, color: "#7a7391", marginTop: 3, lineHeight: 1.5 }}>
-                The car is a relationship before it's a classroom. If every drive turns into a test he'll start dreading it. Skip the days he isn't up for it \u2014 the drilling is worth almost nothing next to him wanting to be in there with you.
+                The car is a relationship before it's a classroom. If every drive turns into a test he'll start dreading it. Skip the days he isn't up for it — the drilling is worth almost nothing next to him wanting to be in there with you.
               </div>
             </div>
           </div>
         )}
 
         <button onClick={onHome} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, marginTop: 14, width: "100%" }}>
-          \u2b05 Back to menu
+          ⬅ Back to menu
         </button>
       </div>
     );
@@ -4945,7 +5110,7 @@ function CarMode({ facts, onHome }) {
     return (
       <div>
         <div style={{ display: "flex", justifyContent: "space-between", fontWeight: 800, fontSize: 14, color: "#8b83a8", marginBottom: 8 }}>
-          <span>{idx + 1} / {queue.length}</span><span>\u23f1 {mm}:{ss}</span>
+          <span>{idx + 1} / {queue.length}</span><span>⏱ {mm}:{ss}</span>
         </div>
         <div style={{ height: 8, background: "#e7e0d0", borderRadius: 6, overflow: "hidden", marginBottom: 16 }}>
           <div style={{ width: ((idx + 1) / queue.length) * 100 + "%", height: "100%", background: "#3BA0C8", transition: "width .3s" }} />
@@ -4959,7 +5124,7 @@ function CarMode({ facts, onHome }) {
             </div>
           )}
           {it.listen && !reveal ? (
-            <div style={{ fontSize: 60 }}>\ud83d\udd0a</div>
+            <div style={{ fontSize: 60 }}>🔊</div>
           ) : (
             <div style={{ fontSize: it.show && it.show.length > 18 ? 30 : 48, fontWeight: 800, color: "#fff", lineHeight: 1.2 }}>
               {it.show}
@@ -4969,7 +5134,7 @@ function CarMode({ facts, onHome }) {
             <div style={{ marginTop: 16, fontSize: 34, fontWeight: 800, color: C.sun, lineHeight: 1.25 }}>{it.answer}</div>
           ) : (
             <div style={{ marginTop: 14, fontSize: 15, fontWeight: 700, color: "#b9b2cf" }}>
-              {paused ? "paused" : "say it out loud\u2026"}
+              {paused ? "paused" : "say it out loud…"}
             </div>
           )}
         </div>
@@ -4995,18 +5160,18 @@ function CarMode({ facts, onHome }) {
           }}
         >
           {markKey
-            ? (flagged[markKey] ? "\u2b50 marked tricky" : "\u2b50 That was tricky")
-            : "\u2b50 \u2026"}
+            ? (flagged[markKey] ? "⭐ marked tricky" : "⭐ That was tricky")
+            : "⭐ …"}
         </button>
 
         <div style={{ display: "flex", gap: 12, marginTop: 12 }}>
           <button onClick={() => setPaused((p) => !p)}
             style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, flex: 1, padding: "24px 10px", fontSize: 21, borderRadius: 20 }}>
-            {paused ? "\u25b6\ufe0e Resume" : "\u23f8 Pause"}
+            {paused ? "▶︎ Resume" : "⏸ Pause"}
           </button>
           <button onClick={stopNow}
             style={{ ...bigBtn, background: C.berry, color: "#fff", flex: 1, padding: "24px 10px", fontSize: 21, borderRadius: 20 }}>
-            \u25a0 End
+            ■ End
           </button>
         </div>
         <div style={{ textAlign: "center", fontSize: 13, color: "#8b83a8", marginTop: 14, fontWeight: 700 }}>
@@ -5037,7 +5202,7 @@ function CarMode({ facts, onHome }) {
               style={{ display: "flex", alignItems: "center", gap: 11, textAlign: "left",
                 background: on ? "#FFECE4" : "#fff", border: on ? "3px solid " + C.berry : "3px solid #e7e0d0",
                 borderRadius: 16, padding: "11px 13px", fontFamily: "inherit", color: C.ink, cursor: "pointer" }}>
-              <span style={{ fontSize: 20 }}>{on ? "\ud83d\udc0c" : "\u26a1"}</span>
+              <span style={{ fontSize: 20 }}>{on ? "🐌" : "⚡"}</span>
               <span style={{ fontWeight: 800, fontSize: 16, flex: 1 }}>{it.show}</span>
               <span style={{ fontSize: 14, color: "#7a7391", fontWeight: 700, maxWidth: 150, textAlign: "right" }}>{it.answer}</span>
             </button>
@@ -5046,11 +5211,11 @@ function CarMode({ facts, onHome }) {
       </div>
 
       <button onClick={saveReview} style={{ ...bigBtn, background: C.leaf, color: "#fff", width: "100%" }}>
-        {nFlag ? "Save \u2014 " + nFlag + " to practise more" : "All quick! Save and finish"}
+        {nFlag ? "Save — " + nFlag + " to practise more" : "All quick! Save and finish"}
       </button>
 
       <div style={{ background: "#fff", borderRadius: 18, border: "3px solid " + C.sun, padding: "13px 15px", marginTop: 14 }}>
-        <div style={{ fontWeight: 800, fontSize: 16 }}>\ud83d\udd01 Now let him quiz you</div>
+        <div style={{ fontWeight: 800, fontSize: 16 }}>🔁 Now let him quiz you</div>
         <div style={{ fontSize: 13.5, color: "#7a7391", marginTop: 3, lineHeight: 1.5 }}>
           Hand it back to Sam for two minutes and get some wrong. Catching you is worth more than anything the app just did.
         </div>
