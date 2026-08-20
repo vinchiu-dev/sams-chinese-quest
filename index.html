@@ -736,6 +736,7 @@ function ChineseApp({ onSwitchLang }) {
       spokenCount: loadLS("spokenCount", {}),
       wordOfDay: loadLS("wordOfDay", null),
       wodHistory: loadLS("wodHistory", []),
+      hiddenWords: loadLS("hiddenWords", []),
       wodDone: loadLS("wodDone", ""),
       goalClaimed: loadLS("goalClaimed", ""),
       customWords,
@@ -764,6 +765,10 @@ function ChineseApp({ onSwitchLang }) {
       }
       if (remote.goalClaimed === todayKey()) saveLS("goalClaimed", remote.goalClaimed);
       if (remote.wordOfDay && remote.wordOfDay.date === todayKey()) saveLS("wordOfDay", remote.wordOfDay);
+      if (remote.hiddenWords && remote.hiddenWords.length) {
+        const merged = Array.from(new Set([...loadLS("hiddenWords", []), ...remote.hiddenWords]));
+        saveLS("hiddenWords", merged);
+      }
       if (remote.wodHistory && remote.wodHistory.length) {
         const mine = loadLS("wodHistory", []);
         const key = (w) => (w.pinyin || "") + "|" + (w.en || "");
@@ -808,6 +813,14 @@ function ChineseApp({ onSwitchLang }) {
     setCustomWords((prev) => [...prev, word]);
     setPool((p) => (p.includes("my-words") ? p : [...p, "my-words"]));
   };
+  // Words Vin has removed. Lesson words can't be deleted from vocab.json,
+  // so we keep a hide-list instead — reversible, and it survives updates.
+  const [hidden, setHidden] = useState(() => new Set(loadLS("hiddenWords", [])));
+  const hideKey = (w) => (w.hanzi || "") + "|" + (w.pinyin || "") + "|" + (w.en || "");
+  useEffect(() => { saveLS("hiddenWords", [...hidden]); }, [hidden]);
+  const hideWord = (w) => setHidden((prev) => new Set([...prev, hideKey(w)]));
+  const unhideAll = () => setHidden(new Set());
+
   const removeCustomWord = (target) =>
     setCustomWords((prev) =>
       prev.filter((w) => {
@@ -842,8 +855,10 @@ function ChineseApp({ onSwitchLang }) {
     .concat(wodHistory.length ? [WOD_LESSON] : []);
 
   // words from the chosen lessons, minus any that have been archived (mastered)
+  const notHidden = (w) => !hidden.has(hideKey(w));
   const activeWords = allLessons.filter((l) => pool.includes(l.id) || l.id === MY_WORDS_ID)
     .flatMap((l) => l.words)
+    .filter(notHidden)
 
 
   // words for the master list — only from SELECTED lessons (plus manual adds),
@@ -852,7 +867,8 @@ function ChineseApp({ onSwitchLang }) {
   // it shouldn't need a lesson toggle to show up.
   const listWords = allLessons
     .filter((l) => pool.includes(l.id) || l.id === MY_WORDS_ID)
-    .flatMap((l) => l.words.map((w) => ({ ...w, lesson: l.title })));
+    .flatMap((l) => l.words.map((w) => ({ ...w, lesson: l.title })))
+    .filter(notHidden);
 
   // sentences for Say the Sentence — only those whose lesson(s) are selected
   const activeSentences = SENTENCES.filter((s) => {
@@ -1006,6 +1022,9 @@ function ChineseApp({ onSwitchLang }) {
             toggleTrouble={toggleTrouble}
             toggleArchived={toggleArchived}
             customWords={customWords}
+            hideWord={hideWord}
+            hiddenCount={hidden.size}
+            unhideAll={unhideAll}
             addCustomWord={addCustomWord}
             removeCustomWord={removeCustomWord}
             openAdd={screen === "wordlist-add"}
@@ -3055,7 +3074,7 @@ function ToneMatch({ words, addTrouble, trouble, toggleTrouble, onHome }) {
 // -------------------- WORD LIST --------------------
 // Comprehensive A–Z list (by English). Archive words Sam has mastered so they
 // drop out of the games but stay here for reference.
-function WordList({ allWords, archived, trouble, toggleTrouble, toggleArchived, customWords, addCustomWord, removeCustomWord, openAdd }) {
+function WordList({ allWords, archived, trouble, toggleTrouble, toggleArchived, customWords, addCustomWord, removeCustomWord, openAdd, hideWord, hiddenCount, unhideAll }) {
   const [showArchived, setShowArchived] = useState(true);
   const [showAdd, setShowAdd] = useState(!!openAdd);
   const [bulk, setBulk] = useState("");
@@ -3168,6 +3187,15 @@ function WordList({ allWords, archived, trouble, toggleTrouble, toggleArchived, 
       <div style={{ fontSize: 12, color: "#7a7391", marginBottom: 12 }}>
         Tap ⭐ to add a word to the practice pile, or 🔊 to hear it.
       </div>
+      {hiddenCount > 0 && (
+        <div style={{ marginTop: 8, fontSize: 12, color: "#9a94ad", display: "flex", alignItems: "center", gap: 8 }}>
+          <span>{hiddenCount} word{hiddenCount === 1 ? "" : "s"} removed</span>
+          <button onClick={() => { if (window.confirm("Bring back all removed words?")) unhideAll(); }}
+            style={{ ...ghostBtn, padding: "3px 8px", fontSize: 11 }}>
+            ↺ restore
+          </button>
+        </div>
+      )}
 
       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
         {rows.map((w, idx) => {
@@ -3216,17 +3244,18 @@ function WordList({ allWords, archived, trouble, toggleTrouble, toggleArchived, 
               >
                 🔊
               </button>
-              {customSet.has(cwKey(w)) && (
-                <button
-                  onClick={() => {
-                    if (window.confirm(`Delete “${w.en}” from Words We Added?`)) removeCustomWord(w);
-                  }}
-                  style={{ ...ghostBtn, padding: "6px 8px", fontSize: 14, borderColor: "#F0B4B4", color: C.berry }}
-                  title="Delete this word you added"
-                >
-                  🗑
-                </button>
-              )}
+              <button
+                onClick={() => {
+                  const isCustom = customSet.has(cwKey(w));
+                  if (!window.confirm(`Remove “${w.en}” from Sam's words?`)) return;
+                  if (isCustom) removeCustomWord(w);
+                  else hideWord(w);
+                }}
+                style={{ ...ghostBtn, padding: "6px 8px", fontSize: 14, borderColor: "#F0B4B4", color: C.berry }}
+                title="Remove this word"
+              >
+                🗑
+              </button>
             </div>
           );
         })}
