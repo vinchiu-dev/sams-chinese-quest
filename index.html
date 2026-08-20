@@ -808,17 +808,37 @@ function ChineseApp({ onSwitchLang }) {
     setCustomWords((prev) => [...prev, word]);
     setPool((p) => (p.includes("my-words") ? p : [...p, "my-words"]));
   };
-  const removeCustomWord = (pinyinOrEn) =>
-    setCustomWords((prev) => prev.filter((w) => w.pinyin !== pinyinOrEn && w.en !== pinyinOrEn));
+  const removeCustomWord = (target) =>
+    setCustomWords((prev) =>
+      prev.filter((w) => {
+        if (typeof target === "string") return w.pinyin !== target && w.en !== target;
+        return !(
+          (w.hanzi || "") === (target.hanzi || "") &&
+          (w.pinyin || "") === (target.pinyin || "") &&
+          (w.en || "") === (target.en || "")
+        );
+      })
+    );
 
   // "My Words" behaves like a lesson so it flows through games + word list
   const MY_WORDS_ID = "my-words";
-  const MY_WORDS_LESSON = { id: MY_WORDS_ID, title: "Words We Added", subtitle: "words you added yourself", words: customWords };
+  // Once a word has been promoted into a real lesson, drop the custom copy —
+  // otherwise it shows twice in the word list and both games.
+  const lessonHanzi = new Set(LESSONS.flatMap((l) => (l.words || []).map((w) => w.hanzi).filter(Boolean)));
+  const lessonPinyin = new Set(LESSONS.flatMap((l) => (l.words || []).map((w) => (w.pinyin || "").toLowerCase()).filter(Boolean)));
+  const customFiltered = (customWords || []).filter(
+    (w) => !(w.hanzi && lessonHanzi.has(w.hanzi)) && !(w.pinyin && lessonPinyin.has((w.pinyin || "").toLowerCase()))
+  );
+  useEffect(() => {
+    if (customWords.length !== customFiltered.length) setCustomWords(customFiltered);
+  }, [customWords.length, customFiltered.length]);
+
+  const MY_WORDS_LESSON = { id: MY_WORDS_ID, title: "Words We Added", subtitle: "words you added yourself", words: customFiltered };
   const WOD_ID = "wod-history";
   const wodHistory = getWodHistory();
   const WOD_LESSON = { id: WOD_ID, title: "⭐ Words of the Day", subtitle: "every word of the day so far", words: wodHistory };
   const allLessons = LESSONS
-    .concat(customWords.length ? [MY_WORDS_LESSON] : [])
+    .concat(customFiltered.length ? [MY_WORDS_LESSON] : [])
     .concat(wodHistory.length ? [WOD_LESSON] : []);
 
   // words from the chosen lessons, minus any that have been archived (mastered)
@@ -3041,7 +3061,10 @@ function WordList({ allWords, archived, trouble, toggleTrouble, toggleArchived, 
   const [bulk, setBulk] = useState("");
   const [added, setAdded] = useState(0);
 
-  const customSet = new Set((customWords || []).map((w) => w.pinyin));
+  // key on whatever the word actually has — a word added as characters only
+  // has no pinyin, and would otherwise never show a delete button
+  const cwKey = (w) => [w.pinyin || "", w.hanzi || "", w.en || ""].join("|");
+  const customSet = new Set((customWords || []).map(cwKey));
 
   // Work out what the user typed: Chinese characters, pinyin, or English.
   const classify = (text) => {
@@ -3193,10 +3216,10 @@ function WordList({ allWords, archived, trouble, toggleTrouble, toggleArchived, 
               >
                 🔊
               </button>
-              {customSet.has(w.pinyin) && (
+              {customSet.has(cwKey(w)) && (
                 <button
                   onClick={() => {
-                    if (window.confirm(`Delete “${w.en}” from Words We Added?`)) removeCustomWord(w.pinyin);
+                    if (window.confirm(`Delete “${w.en}” from Words We Added?`)) removeCustomWord(w);
                   }}
                   style={{ ...ghostBtn, padding: "6px 8px", fontSize: 14, borderColor: "#F0B4B4", color: C.berry }}
                   title="Delete this word you added"
