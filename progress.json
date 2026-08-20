@@ -70,6 +70,265 @@
     "My little brother also likes to play.",
     "My big sister is six years old too."
   ],
+  "chips": 2,
+  "practiceDays": [
+    "2026-08-08",
+    "2026-08-12"
+  ],
+  "srs": {
+    "gēbo": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786234486743
+    },
+    "The watermelon is really delicious!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786234503153
+    },
+    "My mom is Chinese, my dad is American.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786235436239
+    },
+    "My toys are in the bedroom.": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786235487534
+    },
+    "Nose bumps nose!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786235507631
+    },
+    "Hello!": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1786235562763
+    },
+    "Grandpa, happy birthday!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786235532310
+    },
+    "This is my dad.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786235552958
+    },
+    "Is your big sister British?": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786235591917
+    },
+    "Are you an alien?": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786236990148
+    },
+    "The baby loves to cry.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237008621
+    },
+    "The rabbit's eyes hurt, the fox's ears hurt.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237136097
+    },
+    "hái yǒu": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237196201
+    },
+    "hǎochī": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237211346
+    },
+    "zài nǎr": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237223634
+    },
+    "qīngcài": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237233479
+    },
+    "ěrduo": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237237794
+    },
+    "láizì": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786551918950
+    },
+    "suì": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786551927985
+    },
+    "yīngguórén": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786551932003
+    },
+    "nǎ guó rén": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1786551960299
+    },
+    "měiguó": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786551938630
+    },
+    "jiào": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1786551967499
+    },
+    "wàixīngrén": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786551945573
+    },
+    "zhōngguórén": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786551947933
+    },
+    "xīngqiú": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786551955255
+    },
+    "měiguórén": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786551963931
+    },
+    "The alien is too cool!": {
+      "lvl": 0,
+      "seen": 5,
+      "right": 1,
+      "wrong": 4,
+      "last": 1786552768211
+    },
+    "My little brother also likes to play.": {
+      "lvl": 0,
+      "seen": 6,
+      "right": 4,
+      "wrong": 2,
+      "last": 1786552627473
+    },
+    "Goodbye, Mika!": {
+      "lvl": 0,
+      "seen": 4,
+      "right": 3,
+      "wrong": 1,
+      "last": 1786552709317
+    },
+    "I am also American.": {
+      "lvl": 5,
+      "seen": 9,
+      "right": 9,
+      "wrong": 0,
+      "last": 1786552782734
+    },
+    "I also want to eat watermelon.": {
+      "lvl": 3,
+      "seen": 3,
+      "right": 3,
+      "wrong": 0,
+      "last": 1786552837218
+    },
+    "Mika, you're too cool!": {
+      "lvl": 0,
+      "seen": 2,
+      "right": 1,
+      "wrong": 1,
+      "last": 1786552664864
+    }
+  },
+  "dayCount": {
+    "date": "2026-08-12",
+    "n": 30
+  },
+  "spokenCount": {
+    "date": "2026-08-18",
+    "n": 5
+  },
+  "wordOfDay": {
+    "date": "2026-08-18",
+    "word": {
+      "hanzi": "在",
+      "pinyin": "zài",
+      "en": "at / in",
+      "emoji": "📍",
+      "lesson": "Welcome to My House"
+    }
+  },
+  "wodHistory": [],
+  "wodDone": "",
+  "goalClaimed": "2026-08-12",
   "customWords": [
     {
       "en": "Defy gravity",
@@ -87,19 +346,6 @@
       "en": "有",
       "pinyin": "",
       "hanzi": "有",
-      "emoji": "📝",
-      "needsDef": true
-    }
-  ],
-  "en_starred": [
-    "abundant"
-  ],
-  "en_mastered": [],
-  "en_myWords": [
-    {
-      "word": "vegetable",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
       "emoji": "📝",
       "needsDef": true
     }
