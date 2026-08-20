@@ -630,11 +630,11 @@
       "last": 1787146578416
     },
     "yě": {
-      "lvl": 0,
-      "seen": 6,
-      "right": 2,
+      "lvl": 1,
+      "seen": 7,
+      "right": 3,
       "wrong": 4,
-      "last": 1787148503733
+      "last": 1787256818314
     },
     "jǐ suì": {
       "lvl": 0,
@@ -714,11 +714,11 @@
       "last": 1786969756575
     },
     "": {
-      "lvl": 0,
-      "seen": 6,
-      "right": 4,
+      "lvl": 1,
+      "seen": 7,
+      "right": 5,
       "wrong": 2,
-      "last": 1787146710881
+      "last": 1787256821368
     },
     "sān": {
       "lvl": 0,
@@ -1059,7 +1059,7 @@
   },
   "dayCount": {
     "date": "2026-08-20",
-    "n": 5
+    "n": 7
   },
   "spokenCount": {
     "date": "2026-08-18",
@@ -1097,23 +1097,10 @@
       "emoji": "➕"
     },
     {
-      "en": "有",
-      "pinyin": "",
-      "hanzi": "有",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
       "en": "to have / there is",
       "pinyin": "yǒu",
       "hanzi": "有",
       "emoji": "🙌"
-    },
-    {
-      "en": "Defy gravity",
-      "pinyin": "",
-      "hanzi": "",
-      "emoji": "📝"
     }
   ]
 }
