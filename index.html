@@ -4675,7 +4675,7 @@ function CarMode({ facts, onHome }) {
   const { lessons: LESSONS, sentences: SENTENCES } = getVocab();
   const [phase, setPhase] = useState("setup");     // setup | run | review
   const [deck, setDeck] = useState(() => loadLS("car_deck", "math"));
-  const [gap, setGap] = useState(() => loadLS("car_gap", 3.5));
+  const [gap, setGap] = useState(() => loadLS("car_gap", 6));
   const [len, setLen] = useState(() => loadLS("car_len", 12));
   const [tips, setTips] = useState(false);
 
@@ -4685,6 +4685,7 @@ function CarMode({ facts, onHome }) {
   const [paused, setPaused] = useState(false);
   const [flagged, setFlagged] = useState({});
   const [secs, setSecs] = useState(0);
+  const [markKey, setMarkKey] = useState(null);
 
   const cancelRef = useRef(false);
   const pauseRef = useRef(false);
@@ -4784,7 +4785,11 @@ function CarMode({ facts, onHome }) {
       await holdPause(); if (cancelRef.current) return;
       setReveal(true);
       await carSpeak(it.sayAnswer, it.answerLang || it.lang);
-      await carWait(700);
+      // a 2s window to tap "tricky" while the answer is still fresh —
+      // far easier than trying to remember which ones were hard at the end
+      setMarkKey(it.key);
+      await carWait(2000);
+      setMarkKey(null);
     }
     if (!cancelRef.current) { release(); setPhase("review"); }
   };
@@ -4866,15 +4871,15 @@ function CarMode({ facts, onHome }) {
           Thinking time before the answer
         </div>
         <div style={{ display: "flex", gap: 8, marginBottom: 6 }}>
-          {[2.5, 3.5, 5].map((g) => (
+          {[3, 6, 10].map((g) => (
             <button key={g} onClick={() => setGap(g)}
-              style={{ ...chip, flex: 1, padding: "11px 6px", fontSize: 15,
+              style={{ ...chip, flex: 1, padding: "18px 6px", fontSize: 20, fontWeight: 800, borderRadius: 16,
                 background: gap === g ? "#3BA0C8" : "#fff", color: gap === g ? "#fff" : C.ink,
                 borderColor: gap === g ? "#3BA0C8" : "#e3ddcf" }}>{g}s</button>
           ))}
         </div>
         <div style={{ fontSize: 12, color: "#7a7391", marginBottom: 16 }}>
-          Past about three seconds he's working it out rather than remembering it. Start at 3.5 and tighten.
+          Longer gaps give him room to think and say it out loud; shorter ones build instant recall. Start at 6s and tighten as he gets quicker.
         </div>
 
         <div style={{ fontSize: 11, fontWeight: 800, color: "#8b83a8", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 7 }}>How long</div>
@@ -4969,15 +4974,43 @@ function CarMode({ facts, onHome }) {
           )}
         </div>
 
-        <div style={{ display: "flex", gap: 10, marginTop: 16 }}>
+        {/* big "that was tricky" button — live for ~2s after each answer,
+            so you can flag it while it's fresh instead of recalling later */}
+        <button
+          onClick={() => { if (markKey) setFlagged((f) => { const n = Object.assign({}, f); n[markKey] = true; return n; }); }}
+          disabled={!markKey}
+          style={{
+            width: "100%",
+            marginTop: 16,
+            padding: "26px 12px",
+            fontSize: 22,
+            fontWeight: 800,
+            borderRadius: 22,
+            fontFamily: "inherit",
+            cursor: markKey ? "pointer" : "default",
+            border: "4px solid " + (markKey ? (flagged[markKey] ? C.berry : C.sun) : "#e7e0d0"),
+            background: markKey ? (flagged[markKey] ? "#FFECE4" : "#FFF7E6") : "#F4F1EA",
+            color: markKey ? C.ink : "#bdb6a6",
+            transition: "background .15s",
+          }}
+        >
+          {markKey
+            ? (flagged[markKey] ? "\u2b50 marked tricky" : "\u2b50 That was tricky")
+            : "\u2b50 \u2026"}
+        </button>
+
+        <div style={{ display: "flex", gap: 12, marginTop: 12 }}>
           <button onClick={() => setPaused((p) => !p)}
-            style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, flex: 1 }}>
+            style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, flex: 1, padding: "24px 10px", fontSize: 21, borderRadius: 20 }}>
             {paused ? "\u25b6\ufe0e Resume" : "\u23f8 Pause"}
           </button>
-          <button onClick={stopNow} style={{ ...bigBtn, background: C.berry, color: "#fff", flex: 1 }}>\u25a0 End</button>
+          <button onClick={stopNow}
+            style={{ ...bigBtn, background: C.berry, color: "#fff", flex: 1, padding: "24px 10px", fontSize: 21, borderRadius: 20 }}>
+            \u25a0 End
+          </button>
         </div>
         <div style={{ textAlign: "center", fontSize: 13, color: "#8b83a8", marginTop: 14, fontWeight: 700 }}>
-          Don't tap anything. You'll mark the slow ones at the end.
+          Tap ⭐ right after a slow one — or leave it and mark them all at the end.
         </div>
       </div>
     );
