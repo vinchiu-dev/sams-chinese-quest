@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-12",
+  "updated": "2026-08-21",
   "lists": [
     {
       "id": "en-starter-1",
@@ -296,6 +296,12 @@
           "definition": "to spend time talking and having fun with other people",
           "example": "He likes to socialize with his classmates at recess.",
           "emoji": "🗣️"
+        },
+        {
+          "word": "Brute",
+          "definition": "someone who is rough and cruel, using strength instead of thinking",
+          "example": "The giant was a brute who knocked down everything in his path.",
+          "emoji": "👹"
         }
       ]
     }
