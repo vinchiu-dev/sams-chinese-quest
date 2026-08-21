@@ -1,6 +1,5 @@
 {
   "trouble": [
-    "gēbo",
     "zài",
     "ne",
     "shūfáng",
@@ -29,6 +28,7 @@
     "kètīng",
     "qù",
     "shàngwǎng",
+    "gēbo",
     "bóbo",
     "yīngtáo",
     "téng",
@@ -1057,9 +1057,25 @@
       "last": 1787238477896
     }
   },
-  "dayCount": {},
-  "spokenCount": {},
-  "wordOfDay": null,
+  "dayCount": {
+    "date": "2026-08-20",
+    "n": 7
+  },
+  "spokenCount": {
+    "date": "2026-08-18",
+    "n": 3
+  },
+  "wordOfDay": {
+    "date": "2026-08-19",
+    "word": {
+      "en": "有",
+      "pinyin": "",
+      "hanzi": "有",
+      "emoji": "📝",
+      "needsDef": true,
+      "lesson": "Words We Added"
+    }
+  },
   "wodHistory": [
     {
       "en": "有",
@@ -1072,7 +1088,7 @@
     }
   ],
   "hiddenWords": [],
-  "wodDone": "",
-  "goalClaimed": "",
+  "wodDone": "2026-08-17",
+  "goalClaimed": "2026-08-19",
   "customWords": []
 }
