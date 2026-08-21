@@ -386,6 +386,7 @@ const srsRecord = (key, correct) => {
   else { cur.wrong += 1; cur.lvl = 0; }
   s[key] = cur;
   saveSrs(s);
+  bumpProgress();
 };
 
 // Weight = how badly this item needs practice. Higher = pick more often.
@@ -474,7 +475,7 @@ const bumpDayCount = (weight = 1) => {
 };
 
 const getChips = () => loadLS("chips", 0);
-const addChips = (n) => { saveLS("chips", Math.max(0, getChips() + n)); };
+const addChips = (n) => { saveLS("chips", Math.max(0, getChips() + n)); bumpProgress(); };
 const getChipLog = () => loadLS("chipLog", []);
 const logChips = (entry) => {
   const l = getChipLog();
@@ -685,6 +686,7 @@ const setWOD = (word) => {
     hist.push({ ...word, wodDate: todayKey() });
     saveLS("wodHistory", hist);
   }
+  bumpProgress();
 };
 const wodActive = () => {
   const w = getWOD();
@@ -698,6 +700,110 @@ const markWodDone = () => {
   logChips({ type: "wod", amount: 1, note: "Word of the day ⭐" });
   playFanfare();
   return true;
+};
+
+
+// ============================================================
+//  ONE canonical progress snapshot.
+//  Every screen syncs the SAME full payload. Previously the English
+//  side pushed a partial object, which silently wiped the word of the
+//  day, chips, SRS history and hidden words from progress.json.
+// ============================================================
+const SYNC_KEYS = {
+  // sets / arrays merged by union
+  trouble: [], archived: [], starredSentences: [], hiddenWords: [], practiceDays: [],
+  en_starred: [], en_mastered: [],
+  // objects & lists
+  customWords: [], en_myWords: [], wodHistory: [], srs: {}, chipLog: [],
+  // per-day markers
+  dayCount: {}, spokenCount: {}, wordOfDay: null,
+  goalClaimed: "", wodDone: "", spokenClaimed: "",
+  // preferences that should follow the child between devices
+  math_sets: ["add10"], car_deck: "math", car_gap: 6, car_len: 12,
+  soundOn: true, zh_slow: false, freezes: [],
+};
+
+
+// Some progress is written outside React state (word of the day, chips,
+// SRS, streaks). Those writers call bumpProgress() so the sync effect runs.
+let _progressListeners = [];
+const onProgressChange = (fn) => {
+  _progressListeners.push(fn);
+  return () => { _progressListeners = _progressListeners.filter((f) => f !== fn); };
+};
+const bumpProgress = () => { _progressListeners.forEach((f) => { try { f(); } catch (e) {} }); };
+
+const collectProgress = () => {
+  const out = {};
+  Object.keys(SYNC_KEYS).forEach((k) => { out[k] = loadLS(k, SYNC_KEYS[k]); });
+  out.chips = getChips();
+  return out;
+};
+
+let _pulledOnce = false;
+const markPulled = () => { _pulledOnce = true; };
+const syncAll = (setStatus) => {
+  // never push before we've merged what's already in the cloud
+  if (!_pulledOnce) return;
+  scheduleSync(collectProgress(), setStatus);
+};
+
+// Merge remote into local. Rules differ per field: union for sets,
+// higher-wins for counters, newest-wins for per-item records.
+const mergeRemoteProgress = (remote) => {
+  if (!remote) return;
+  const union = (k) => {
+    if (!Array.isArray(remote[k])) return;
+    const merged = Array.from(new Set([...(loadLS(k, []) || []), ...remote[k]]));
+    saveLS(k, k === "practiceDays" ? merged.slice(-400) : merged);
+  };
+  ["trouble", "archived", "starredSentences", "hiddenWords", "practiceDays",
+   "en_starred", "en_mastered", "freezes"].forEach(union);
+
+  // chips: keep the higher balance
+  if (typeof remote.chips === "number" && remote.chips > getChips()) saveLS("chips", remote.chips);
+
+  // custom word lists: add anything we don't already have
+  const addNew = (k, keyOf) => {
+    if (!Array.isArray(remote[k]) || !remote[k].length) return;
+    const mine = loadLS(k, []) || [];
+    const seen = new Set(mine.map(keyOf));
+    const merged = mine.concat(remote[k].filter((x) => !seen.has(keyOf(x))));
+    if (merged.length !== mine.length) saveLS(k, merged);
+  };
+  addNew("customWords", (w) => (w.hanzi || "") + "|" + (w.pinyin || "") + "|" + (w.en || ""));
+  addNew("en_myWords", (w) => (w.word || "").toLowerCase());
+  addNew("wodHistory", (w) => (w.pinyin || "") + "|" + (w.en || ""));
+
+  // today's counters: whichever device is further along
+  ["dayCount", "spokenCount"].forEach((k) => {
+    const r = remote[k];
+    if (r && r.date === todayKey()) {
+      const mine = loadLS(k, {});
+      const mineN = mine.date === todayKey() ? (mine.n || 0) : 0;
+      if ((r.n || 0) > mineN) saveLS(k, r);
+    }
+  });
+  ["goalClaimed", "wodDone", "spokenClaimed"].forEach((k) => {
+    if (remote[k] === todayKey()) saveLS(k, remote[k]);
+  });
+
+  // word of the day: whatever was set today, on any device
+  if (remote.wordOfDay && remote.wordOfDay.date === todayKey()) saveLS("wordOfDay", remote.wordOfDay);
+
+  // spaced repetition: keep the most recently touched record per item
+  if (remote.srs) {
+    const local = loadLS("srs", {});
+    Object.keys(remote.srs).forEach((k) => {
+      if (!local[k] || (remote.srs[k].last || 0) > (local[k].last || 0)) local[k] = remote.srs[k];
+    });
+    saveLS("srs", local);
+  }
+
+  // preferences: adopt remote only if this device has never set one
+  ["math_sets", "car_deck", "car_gap", "car_len", "soundOn", "zh_slow"].forEach((k) => {
+    if (localStorage.getItem(LS_PREFIX + k) === null && remote[k] !== undefined) saveLS(k, remote[k]);
+  });
 };
 
 // ---- palette: playful, high-contrast, "storybook" ----
@@ -745,59 +851,24 @@ function ChineseApp({ onSwitchLang }) {
     saveLS("archived", progress.archived);
     saveLS("starredSentences", progress.starredSentences);
     saveLS("customWords", progress.customWords);
-    scheduleSync(progress, setSyncStatus);
+    syncAll(setSyncStatus);
   }, [trouble, archived, starredSentences, customWords]);
+
+  // catch progress written outside React state (word of day, chips, SRS…)
+  useEffect(() => onProgressChange(() => syncAll(setSyncStatus)), []);
 
   // on boot: pull remote progress once and merge it in
   useEffect(() => {
     pullRemoteProgress().then((remote) => {
+      mergeRemoteProgress(remote);
+      markPulled();
       if (!remote) return;
-      setTrouble((prev) => new Set([...prev, ...(remote.trouble || [])]));
-      setArchived((prev) => new Set([...prev, ...(remote.archived || [])]));
-      setStarredSentences((prev) => new Set([...prev, ...(remote.starredSentences || [])]));
-      // chips: take the higher balance; practice days: union; srs: keep best level
-      if (typeof remote.chips === "number" && remote.chips > getChips()) saveLS("chips", remote.chips);
-      // today's practice count: keep whichever device is further along
-      if (remote.dayCount && remote.dayCount.date === todayKey()) {
-        const mine = loadLS("dayCount", {});
-        const mineN = mine.date === todayKey() ? (mine.n || 0) : 0;
-        if ((remote.dayCount.n || 0) > mineN) saveLS("dayCount", remote.dayCount);
-      }
-      if (remote.goalClaimed === todayKey()) saveLS("goalClaimed", remote.goalClaimed);
-      if (remote.wordOfDay && remote.wordOfDay.date === todayKey()) saveLS("wordOfDay", remote.wordOfDay);
-      if (remote.hiddenWords && remote.hiddenWords.length) {
-        const merged = Array.from(new Set([...loadLS("hiddenWords", []), ...remote.hiddenWords]));
-        saveLS("hiddenWords", merged);
-      }
-      if (remote.wodHistory && remote.wodHistory.length) {
-        const mine = loadLS("wodHistory", []);
-        const key = (w) => (w.pinyin || "") + "|" + (w.en || "");
-        const seen = new Set(mine.map(key));
-        const merged = mine.concat(remote.wodHistory.filter((w) => !seen.has(key(w))));
-        if (merged.length !== mine.length) saveLS("wodHistory", merged);
-      }
-      if (remote.wodDone === todayKey()) saveLS("wodDone", remote.wodDone);
-      if (remote.spokenCount && remote.spokenCount.date === todayKey()) {
-        const mine = loadLS("spokenCount", {});
-        const mineN = mine.date === todayKey() ? (mine.n || 0) : 0;
-        if ((remote.spokenCount.n || 0) > mineN) saveLS("spokenCount", remote.spokenCount);
-      }
-      if (remote.practiceDays) {
-        const merged = Array.from(new Set([...loadLS("practiceDays", []), ...remote.practiceDays]));
-        saveLS("practiceDays", merged.slice(-400));
-      }
-      if (remote.srs) {
-        const local = loadLS("srs", {});
-        Object.keys(remote.srs).forEach((k) => {
-          if (!local[k] || (remote.srs[k].last || 0) > (local[k].last || 0)) local[k] = remote.srs[k];
-        });
-        saveLS("srs", local);
-      }
-      setCustomWords((prev) => {
-        const seen = new Set(prev.map((w) => w.pinyin + "|" + w.en));
-        const extra = (remote.customWords || []).filter((w) => !seen.has(w.pinyin + "|" + w.en));
-        return [...prev, ...extra];
-      });
+      // reflect the merged values in this screen's state
+      setTrouble(new Set(loadLS("trouble", [])));
+      setArchived(new Set(loadLS("archived", [])));
+      setStarredSentences(new Set(loadLS("starredSentences", [])));
+      setCustomWords(loadLS("customWords", []));
+      setHidden(new Set(loadLS("hiddenWords", [])));
       setSyncStatus("synced");
     });
   }, []);
@@ -3516,19 +3587,15 @@ function EnglishApp({ onSwitchLang }) {
     saveLS("en_starred", [...starred]);
     saveLS("en_mastered", [...mastered]);
     saveLS("en_myWords", myWords);
-    scheduleSync({
-      trouble: loadLS("trouble", []),
-      archived: loadLS("archived", []),
-      starredSentences: loadLS("starredSentences", []),
-      customWords: loadLS("customWords", []),
-      en_starred: [...starred],
-      en_mastered: [...mastered],
-      en_myWords: myWords,
-    }, setSyncStatus);
+    syncAll(setSyncStatus);
   }, [starred, mastered, myWords]);
+
+  useEffect(() => onProgressChange(() => syncAll(setSyncStatus)), []);
 
   useEffect(() => {
     pullRemoteProgress().then((remote) => {
+      mergeRemoteProgress(remote);
+      markPulled();
       if (!remote) return;
       if (remote.en_starred) setStarred((p) => new Set([...p, ...remote.en_starred]));
       if (remote.en_mastered) setMastered((p) => new Set([...p, ...remote.en_mastered]));
@@ -4179,7 +4246,19 @@ function MathApp({ onSwitchLang }) {
   const [sets, setSets] = useState(() => loadLS("math_sets", ["add10"]));
   const [syncStatus, setSyncStatus] = useState("");
 
-  useEffect(() => { saveLS("math_sets", sets); }, [sets]);
+  useEffect(() => { saveLS("math_sets", sets); syncAll(setSyncStatus); }, [sets]);
+  useEffect(() => onProgressChange(() => syncAll(setSyncStatus)), []);
+
+  // math had no sync at all — chips, streak and set choices never travelled
+  useEffect(() => {
+    pullRemoteProgress().then((remote) => {
+      mergeRemoteProgress(remote);
+      markPulled();
+      if (!remote) return;
+      setSets(loadLS("math_sets", ["add10"]));
+      setSyncStatus("synced");
+    });
+  }, []);
 
   const toggleSet = (id) =>
     setSets((p) => (p.includes(id) ? p.filter((x) => x !== id) : [...p, id]));
