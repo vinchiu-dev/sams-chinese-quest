@@ -371,10 +371,10 @@
     },
     "shì": {
       "lvl": 0,
-      "seen": 12,
+      "seen": 13,
       "right": 2,
-      "wrong": 10,
-      "last": 1787427549024
+      "wrong": 11,
+      "last": 1787428213922
     },
     "The alien comes from another planet!": {
       "lvl": 1,
@@ -1253,7 +1253,7 @@
   ],
   "dayCount": {
     "date": "2026-08-22",
-    "n": 73
+    "n": 74
   },
   "spokenCount": {
     "date": "2026-08-21",
