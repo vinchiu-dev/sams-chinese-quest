@@ -1372,7 +1372,8 @@
   "spokenClaimed": "2026-08-16",
   "math_sets": [
     "sub10",
-    "neardbl"
+    "neardbl",
+    "add10"
   ],
   "car_deck": "words",
   "car_gap": 6,
