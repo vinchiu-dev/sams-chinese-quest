@@ -2257,9 +2257,7 @@ function Flashcards({ words, trouble, toggleTrouble, onlyTrouble, onHome }) {
       setFlipped(true);                  // keep the answer visible
       setHolding(true);
       speak(card);                       // hear it in good Mandarin
-      // Tricky-pile review waits for a tap so he can sit with the word;
-      // normal practice keeps the quick 2s rhythm.
-      if (!onlyTrouble) holdRef.current = setTimeout(advance, 2000);
+      // Always wait for a tap — he decides when he's done looking at it.
     } else {
       advance();
     }
@@ -2359,7 +2357,7 @@ function Flashcards({ words, trouble, toggleTrouble, onlyTrouble, onHome }) {
           </>
         )}
       </div>
-      {holding && onlyTrouble ? (
+      {holding ? (
         // review mode: sit with the word as long as you like
         <button onClick={advance} style={{ ...bigBtn, background: C.sky, width: "100%" }}>
           Next word →
