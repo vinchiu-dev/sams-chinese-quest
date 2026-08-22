@@ -1201,6 +1201,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1787438631351
+    },
+    "en:Fidget": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787438649121
     }
   },
   "chipLog": [
@@ -1267,7 +1274,7 @@
   ],
   "dayCount": {
     "date": "2026-08-22",
-    "n": 76
+    "n": 77
   },
   "spokenCount": {
     "date": "2026-08-21",
