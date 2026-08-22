@@ -13,7 +13,8 @@
     "gēbo",
     "jiā",
     "",
-    "nǎ"
+    "nǎ",
+    "jiào"
   ],
   "archived": [],
   "starredSentences": [
@@ -502,10 +503,10 @@
     },
     "jiào": {
       "lvl": 0,
-      "seen": 5,
+      "seen": 6,
       "right": 2,
-      "wrong": 3,
-      "last": 1787427497021
+      "wrong": 4,
+      "last": 1787427694286
     },
     "My big sister is six years old too.": {
       "lvl": 1,
@@ -1237,7 +1238,7 @@
   ],
   "dayCount": {
     "date": "2026-08-22",
-    "n": 66
+    "n": 68
   },
   "spokenCount": {
     "date": "2026-08-21",
