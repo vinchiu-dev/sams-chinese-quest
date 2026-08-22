@@ -170,11 +170,11 @@
   ],
   "srs": {
     "gēbo": {
-      "lvl": 2,
-      "seen": 2,
+      "lvl": 0,
+      "seen": 3,
       "right": 2,
-      "wrong": 0,
-      "last": 1787237300198
+      "wrong": 1,
+      "last": 1787406476475
     },
     "The watermelon is really delicious!": {
       "lvl": 1,
@@ -367,10 +367,10 @@
     },
     "shì": {
       "lvl": 0,
-      "seen": 8,
+      "seen": 9,
       "right": 2,
-      "wrong": 6,
-      "last": 1787406323249
+      "wrong": 7,
+      "last": 1787406490499
     },
     "The alien comes from another planet!": {
       "lvl": 1,
@@ -1157,11 +1157,11 @@
       "last": 1787406423289
     },
     "zài": {
-      "lvl": 2,
-      "seen": 2,
+      "lvl": 0,
+      "seen": 4,
       "right": 2,
-      "wrong": 0,
-      "last": 1787406240515
+      "wrong": 2,
+      "last": 1787406456244
     },
     "zài zuò shénme": {
       "lvl": 0,
@@ -1235,7 +1235,7 @@
   ],
   "dayCount": {
     "date": "2026-08-22",
-    "n": 24
+    "n": 28
   },
   "spokenCount": {
     "date": "2026-08-21",
