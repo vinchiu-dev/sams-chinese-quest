@@ -1024,6 +1024,11 @@ function ChineseApp({ onSwitchLang }) {
           <Flashcards words={activeWords} trouble={trouble} toggleTrouble={toggleTrouble} onHome={() => setScreen("home")} />
           </React.Fragment>
         )}
+        {screen === "car" && (
+          <React.Fragment><GameTitle>Car Mode</GameTitle>
+          <CarMode facts={[]} onHome={() => setScreen("home")} />
+          </React.Fragment>
+        )}
         {screen === "troubleflip" && (
           <Flashcards words={troubleWords} trouble={trouble} toggleTrouble={toggleTrouble} onlyTrouble onHome={() => setScreen("home")} />
         )}
@@ -1390,6 +1395,7 @@ function Home({
     { id: "tone", emoji: "🎧", name: "What's That Word Mean?", desc: "Hear a word, pick the meaning", color: C.leaf },
     { id: "sentencemean", emoji: "📣", name: "What's That Sentence Mean?", desc: "Hear a sentence, pick the meaning", color: C.sun },
     { id: "buildsentence", emoji: "🧩", name: "Build a Sentence", desc: "Put the words in the right order", color: C.leaf },
+    { id: "car", emoji: "🚗", name: "Car Mode", desc: "Eyes off, ears on", color: "#2A2440" },
   ];
 
   const newest = lessons[lessons.length - 1];
@@ -2226,7 +2232,9 @@ function Flashcards({ words, trouble, toggleTrouble, onlyTrouble, onHome }) {
       setFlipped(true);                  // keep the answer visible
       setHolding(true);
       speak(card);                       // hear it in good Mandarin
-      holdRef.current = setTimeout(advance, 2000);
+      // Tricky-pile review waits for a tap so he can sit with the word;
+      // normal practice keeps the quick 2s rhythm.
+      if (!onlyTrouble) holdRef.current = setTimeout(advance, 2000);
     } else {
       advance();
     }
@@ -2326,16 +2334,23 @@ function Flashcards({ words, trouble, toggleTrouble, onlyTrouble, onHome }) {
           </>
         )}
       </div>
-      <div style={{ display: "flex", gap: 12 }}>
-        <button onClick={() => next(false)} disabled={holding}
-          style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, flex: 1, opacity: holding ? 0.5 : 1 }}>
-          🔁 Not yet
+      {holding && onlyTrouble ? (
+        // review mode: sit with the word as long as you like
+        <button onClick={advance} style={{ ...bigBtn, background: C.sky, width: "100%" }}>
+          Next word →
         </button>
-        <button onClick={() => next(true)} disabled={holding}
-          style={{ ...bigBtn, background: C.leaf, flex: 1, opacity: holding ? 0.6 : 1 }}>
-          {holding ? "🔊 listen…" : "✓ Got it!"}
-        </button>
-      </div>
+      ) : (
+        <div style={{ display: "flex", gap: 12 }}>
+          <button onClick={() => next(false)} disabled={holding}
+            style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, flex: 1, opacity: holding ? 0.5 : 1 }}>
+            🔁 Not yet
+          </button>
+          <button onClick={() => next(true)} disabled={holding}
+            style={{ ...bigBtn, background: C.leaf, flex: 1, opacity: holding ? 0.6 : 1 }}>
+            {holding ? "🔊 listen…" : "✓ Got it!"}
+          </button>
+        </div>
+      )}
       <div style={{ marginTop: 10, fontSize: 12, color: "#9a94ad" }}>
         Tap the ⭐ to save a word you want to practice more.
       </div>
@@ -4970,7 +4985,12 @@ const CAR_TIPS = [
 function CarMode({ facts, onHome }) {
   const { lessons: LESSONS, sentences: SENTENCES } = getVocab();
   const [phase, setPhase] = useState("setup");     // setup | run | review
-  const [deck, setDeck] = useState(() => loadLS("car_deck", "math"));
+  const hasMath = (facts || []).length > 0;
+  const [deck, setDeck] = useState(() => {
+    const saved = loadLS("car_deck", "math");
+    // opened from the Chinese side (no math facts passed) — start on words
+    return !hasMath && saved === "math" ? "words" : saved;
+  });
   const [gap, setGap] = useState(() => loadLS("car_gap", 6));
   const [len, setLen] = useState(() => loadLS("car_len", 12));
   const [tips, setTips] = useState(false);
@@ -5127,7 +5147,7 @@ function CarMode({ facts, onHome }) {
     { id: "math",  emoji: "🔢", name: "Math facts", desc: "From the sets you picked" },
     { id: "words", emoji: "🦊", name: "Chinese words", desc: "English out → he says the Chinese" },
     { id: "sent",  emoji: "💬", name: "Chinese sentences", desc: "He hears it → says what it meant" },
-  ];
+  ].filter((d) => d.id !== "math" || hasMath);
 
   // ---------------- setup ----------------
   if (phase === "setup") {
