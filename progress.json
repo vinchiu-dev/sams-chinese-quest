@@ -70,7 +70,7 @@
     "My little brother also likes to play.",
     "My big sister is six years old too."
   ],
-  "chips": 8,
+  "chips": 9,
   "practiceDays": [
     "2026-08-08",
     "2026-08-10",
@@ -80,7 +80,8 @@
     "2026-08-16",
     "2026-08-17",
     "2026-08-19",
-    "2026-08-20"
+    "2026-08-20",
+    "2026-08-21"
   ],
   "srs": {
     "gēbo": {
@@ -742,11 +743,11 @@
       "last": 1787146630453
     },
     "jiā": {
-      "lvl": 0,
-      "seen": 2,
-      "right": 1,
+      "lvl": 1,
+      "seen": 3,
+      "right": 2,
       "wrong": 1,
-      "last": 1787156270071
+      "last": 1787355843607
     },
     "ge": {
       "lvl": 1,
@@ -1058,22 +1059,33 @@
     }
   },
   "dayCount": {
-    "date": "2026-08-20",
-    "n": 7
+    "date": "2026-08-21",
+    "n": 1
   },
   "spokenCount": {
-    "date": "2026-08-18",
-    "n": 3
+    "date": "2026-08-21",
+    "n": 7
   },
   "wordOfDay": {
-    "date": "2026-08-19",
+    "date": "2026-08-21",
     "word": {
-      "en": "有",
-      "pinyin": "",
-      "hanzi": "有",
-      "emoji": "📝",
-      "needsDef": true,
-      "lesson": "Words We Added"
+      "hanzi": "家",
+      "pinyin": "jiā",
+      "en": "home / family",
+      "emoji": "🏠",
+      "phrases": [
+        {
+          "en": "my family",
+          "pinyin": "wǒ jiā",
+          "hanzi": "我家"
+        },
+        {
+          "en": "at home",
+          "pinyin": "zài jiā",
+          "hanzi": "在家"
+        }
+      ],
+      "lesson": "How Many People?"
     }
   },
   "wodHistory": [
@@ -1085,10 +1097,38 @@
       "needsDef": true,
       "lesson": "Words We Added",
       "wodDate": "2026-08-19"
+    },
+    {
+      "hanzi": "家",
+      "pinyin": "jiā",
+      "en": "home / family",
+      "emoji": "🏠",
+      "phrases": [
+        {
+          "en": "my family",
+          "pinyin": "wǒ jiā",
+          "hanzi": "我家"
+        },
+        {
+          "en": "at home",
+          "pinyin": "zài jiā",
+          "hanzi": "在家"
+        }
+      ],
+      "lesson": "How Many People?",
+      "wodDate": "2026-08-21"
     }
   ],
   "hiddenWords": [],
-  "wodDone": "2026-08-17",
+  "wodDone": "2026-08-21",
   "goalClaimed": "2026-08-19",
-  "customWords": []
+  "customWords": [
+    {
+      "en": "See you tomorrow",
+      "pinyin": "",
+      "hanzi": "",
+      "emoji": "📝",
+      "needsDef": true
+    }
+  ]
 }
