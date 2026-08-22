@@ -67,7 +67,8 @@
     "contaminate",
     "hesitate",
     "abundant",
-    "Seize"
+    "Seize",
+    "peculiar"
   ],
   "en_mastered": [
     "gigantic",
@@ -1251,6 +1252,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1787438853719
+    },
+    "en:peculiar": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787438873634
     }
   },
   "chipLog": [
@@ -1317,7 +1325,7 @@
   ],
   "dayCount": {
     "date": "2026-08-22",
-    "n": 83
+    "n": 84
   },
   "spokenCount": {
     "date": "2026-08-21",
