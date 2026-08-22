@@ -719,7 +719,7 @@ const SYNC_KEYS = {
   dayCount: {}, spokenCount: {}, wordOfDay: null,
   goalClaimed: "", wodDone: "", spokenClaimed: "",
   // preferences that should follow the child between devices
-  math_sets: ["add10"], car_deck: "math", car_gap: 6, car_len: 12,
+  math_sets: ["add10"], car_deck: "math", car_gap: 6, car_len: 12, pool: null,
   soundOn: true, zh_slow: false, freezes: [],
 };
 
@@ -801,7 +801,7 @@ const mergeRemoteProgress = (remote) => {
   }
 
   // preferences: adopt remote only if this device has never set one
-  ["math_sets", "car_deck", "car_gap", "car_len", "soundOn", "zh_slow"].forEach((k) => {
+  ["math_sets", "car_deck", "car_gap", "car_len", "soundOn", "zh_slow", "pool"].forEach((k) => {
     if (localStorage.getItem(LS_PREFIX + k) === null && remote[k] !== undefined) saveLS(k, remote[k]);
   });
 };
@@ -822,7 +822,11 @@ function ChineseApp({ onSwitchLang }) {
   const [screen, setScreen] = useState("home"); // home | flashcards | sentence | clock | tone | wordlist
   const [slow, setSlow] = useState(() => loadLS("zh_slow", false));
   const toggleSlow = () => setSlow((s) => { const n = !s; saveLS("zh_slow", n); return n; });
-  const [pool, setPool] = useState(() => LESSONS.map((l) => l.id));
+  const [pool, setPool] = useState(() => {
+    const saved = loadLS("pool", null);
+    return Array.isArray(saved) && saved.length ? saved : LESSONS.map((l) => l.id);
+  });
+  useEffect(() => { saveLS("pool", pool); }, [pool]);
   const [trouble, setTrouble] = useState(() => new Set(loadLS("trouble", [])));
   const [archived, setArchived] = useState(() => new Set(loadLS("archived", [])));
   const [starredSentences, setStarredSentences] = useState(() => new Set(loadLS("starredSentences", [])));
@@ -918,28 +922,49 @@ function ChineseApp({ onSwitchLang }) {
   }, [customWords.length, customFiltered.length]);
 
   const MY_WORDS_LESSON = { id: MY_WORDS_ID, title: "Words We Added", subtitle: "words you added yourself", words: customFiltered };
+
+  // Every starred word, gathered from all lessons, as its own selectable set.
+  const STARRED_ID = "starred-words";
+  const starredWordList = LESSONS.concat([MY_WORDS_LESSON])
+    .flatMap((l) => l.words || [])
+    .filter((w) => w && trouble.has(w.pinyin) && !hidden.has(hideKey(w)));
+  const STARRED_LESSON = { id: STARRED_ID, title: "⭐ Starred Words", subtitle: "just the tricky ones", words: starredWordList };
   const WOD_ID = "wod-history";
   const wodHistory = getWodHistory();
   const WOD_LESSON = { id: WOD_ID, title: "⭐ Words of the Day", subtitle: "every word of the day so far", words: wodHistory };
   const allLessons = LESSONS
+    .concat(starredWordList.length ? [STARRED_LESSON] : [])
     .concat(customFiltered.length ? [MY_WORDS_LESSON] : [])
     .concat(wodHistory.length ? [WOD_LESSON] : []);
 
   // words from the chosen lessons, minus any that have been archived (mastered)
   const notHidden = (w) => !hidden.has(hideKey(w));
-  const activeWords = allLessons.filter((l) => pool.includes(l.id) || l.id === MY_WORDS_ID)
-    .flatMap((l) => l.words)
-    .filter(notHidden)
+  const dedupe = (arr) => {
+    const seen = new Set();
+    return arr.filter((w) => {
+      const k = w.pinyin || w.hanzi || w.en;
+      if (seen.has(k)) return false;
+      seen.add(k);
+      return true;
+    });
+  };
+  const activeWords = dedupe(
+    allLessons.filter((l) => pool.includes(l.id) || l.id === MY_WORDS_ID)
+      .flatMap((l) => l.words)
+      .filter(notHidden)
+  )
 
 
   // words for the master list — only from SELECTED lessons (plus manual adds),
   // so deselecting a lesson hides its words here too. archived stay visible here.
   // "Words We Added" is always in play — if you added a word deliberately,
   // it shouldn't need a lesson toggle to show up.
-  const listWords = allLessons
-    .filter((l) => pool.includes(l.id) || l.id === MY_WORDS_ID)
-    .flatMap((l) => l.words.map((w) => ({ ...w, lesson: l.title })))
-    .filter(notHidden);
+  const listWords = dedupe(
+    allLessons
+      .filter((l) => pool.includes(l.id) || l.id === MY_WORDS_ID)
+      .flatMap((l) => l.words.map((w) => ({ ...w, lesson: l.title })))
+      .filter(notHidden)
+  );
 
   // sentences for Say the Sentence — only those whose lesson(s) are selected
   const activeSentences = SENTENCES.filter((s) => {
@@ -1026,7 +1051,7 @@ function ChineseApp({ onSwitchLang }) {
         )}
         {screen === "car" && (
           <React.Fragment><GameTitle>Car Mode</GameTitle>
-          <CarMode facts={[]} onHome={() => setScreen("home")} />
+          <CarMode facts={[]} carWords={activeWords} carSentences={activeSentences} onHome={() => setScreen("home")} />
           </React.Fragment>
         )}
         {screen === "troubleflip" && (
@@ -1497,7 +1522,7 @@ function Home({
             >
               {(() => {
                 // "Words We Added" is pinned to the top; the rest are newest-first
-                const special = ["wod-history", "my-words"];
+                const special = ["starred-words", "wod-history", "my-words"];
                 const pinned = special
                   .map((id) => lessons.find((l) => l.id === id))
                   .filter(Boolean);
@@ -4982,7 +5007,7 @@ const CAR_TIPS = [
    "Add the digits. Or “make the biggest number you can.” No app required."],
 ];
 
-function CarMode({ facts, onHome }) {
+function CarMode({ facts, onHome, carWords, carSentences }) {
   const { lessons: LESSONS, sentences: SENTENCES } = getVocab();
   const [phase, setPhase] = useState("setup");     // setup | run | review
   const hasMath = (facts || []).length > 0;
@@ -5019,10 +5044,12 @@ function CarMode({ facts, onHome }) {
   }, [phase]);
 
   // ---- the three decks ----
-  const words = useMemo(
-    () => LESSONS.flatMap((l) => l.words || []).filter((w) => w && w.pinyin),
-    [LESSONS.length]
-  );
+  // Respect the lesson selection made on the home screen — otherwise picking
+  // "⭐ Starred Words" there would have no effect here.
+  const words = useMemo(() => {
+    if (Array.isArray(carWords) && carWords.length) return carWords.filter((w) => w && w.pinyin);
+    return LESSONS.flatMap((l) => l.words || []).filter((w) => w && w.pinyin);
+  }, [carWords, LESSONS.length]);
 
   const buildQueue = () => {
     const out = [];
@@ -5069,7 +5096,8 @@ function CarMode({ facts, onHome }) {
         });
       }
     } else {
-      const pool = shuffle(SENTENCES || []).slice(0, len);
+      const src = (Array.isArray(carSentences) && carSentences.length) ? carSentences : (SENTENCES || []);
+      const pool = shuffle(src).slice(0, len);
       for (const sn of pool) {
         out.push({
           key: "sen:" + (sn.pinyin || ""),
