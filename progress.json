@@ -367,10 +367,10 @@
     },
     "shì": {
       "lvl": 0,
-      "seen": 8,
+      "seen": 9,
       "right": 2,
-      "wrong": 6,
-      "last": 1787406323249
+      "wrong": 7,
+      "last": 1787406490499
     },
     "The alien comes from another planet!": {
       "lvl": 1,
@@ -423,10 +423,10 @@
     },
     "láizì": {
       "lvl": 0,
-      "seen": 7,
+      "seen": 8,
       "right": 3,
-      "wrong": 4,
-      "last": 1787406333267
+      "wrong": 5,
+      "last": 1787406500501
     },
     "měiguórén": {
       "lvl": 2,
@@ -1235,7 +1235,7 @@
   ],
   "dayCount": {
     "date": "2026-08-22",
-    "n": 27
+    "n": 29
   },
   "spokenCount": {
     "date": "2026-08-21",
