@@ -422,11 +422,11 @@
       "last": 1787146543652
     },
     "láizì": {
-      "lvl": 2,
-      "seen": 6,
+      "lvl": 0,
+      "seen": 7,
       "right": 3,
-      "wrong": 3,
-      "last": 1787406291341
+      "wrong": 4,
+      "last": 1787406333267
     },
     "měiguórén": {
       "lvl": 2,
@@ -1172,6 +1172,12 @@
     }
   },
   "chipLog": [
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1787406323250
+    },
     {
       "type": "wod",
       "amount": 1,
