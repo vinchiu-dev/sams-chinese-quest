@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-21",
+  "updated": "2026-08-22",
   "lists": [
     {
       "id": "en-starter-1",
@@ -302,6 +302,12 @@
           "definition": "someone who is rough and cruel, using strength instead of thinking",
           "example": "The giant was a brute who knocked down everything in his path.",
           "emoji": "👹"
+        },
+        {
+          "word": "Blitz",
+          "definition": "a sudden, fast attack or a burst of intense effort",
+          "example": "They did a cleaning blitz and tidied the whole house in an hour.",
+          "emoji": "⚡"
         }
       ]
     }
