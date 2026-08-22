@@ -719,11 +719,11 @@
       "last": 1787146578416
     },
     "yě": {
-      "lvl": 0,
-      "seen": 8,
-      "right": 3,
+      "lvl": 1,
+      "seen": 9,
+      "right": 4,
       "wrong": 5,
-      "last": 1787427487017
+      "last": 1787427893370
     },
     "jǐ suì": {
       "lvl": 0,
@@ -1282,7 +1282,10 @@
     "too-cool",
     "asking-about-people",
     "how-many-people",
-    "starred-words"
+    "starred-words",
+    "my-words",
+    "wod-history",
+    "everyone-at-home"
   ],
   "soundOn": true,
   "zh_slow": true,
