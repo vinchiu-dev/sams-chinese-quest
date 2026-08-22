@@ -176,11 +176,11 @@
   ],
   "srs": {
     "gēbo": {
-      "lvl": 0,
-      "seen": 4,
-      "right": 2,
+      "lvl": 1,
+      "seen": 5,
+      "right": 3,
       "wrong": 2,
-      "last": 1787407311485
+      "last": 1787439800663
     },
     "The watermelon is really delicious!": {
       "lvl": 1,
@@ -393,11 +393,11 @@
       "last": 1787427684339
     },
     "xīngqiú": {
-      "lvl": 2,
-      "seen": 2,
-      "right": 2,
+      "lvl": 3,
+      "seen": 3,
+      "right": 3,
       "wrong": 0,
-      "last": 1787146549579
+      "last": 1787439800662
     },
     "yīngguórén": {
       "lvl": 3,
@@ -505,11 +505,11 @@
       "last": 1786399229386
     },
     "jiào": {
-      "lvl": 0,
-      "seen": 6,
-      "right": 2,
+      "lvl": 1,
+      "seen": 7,
+      "right": 3,
       "wrong": 4,
-      "last": 1787427694286
+      "last": 1787439800659
     },
     "My big sister is six years old too.": {
       "lvl": 1,
@@ -757,11 +757,11 @@
       "last": 1787407233945
     },
     "kù": {
-      "lvl": 2,
-      "seen": 2,
+      "lvl": 0,
+      "seen": 3,
       "right": 2,
-      "wrong": 0,
-      "last": 1787146583923
+      "wrong": 1,
+      "last": 1787439800660
     },
     "Mǐkǎ": {
       "lvl": 3,
@@ -771,11 +771,11 @@
       "last": 1787439393136
     },
     "shàngwǎng": {
-      "lvl": 0,
-      "seen": 3,
-      "right": 1,
+      "lvl": 1,
+      "seen": 4,
+      "right": 2,
       "wrong": 2,
-      "last": 1787428093564
+      "last": 1787439800661
     },
     "zuò shénme": {
       "lvl": 1,
@@ -821,10 +821,10 @@
     },
     "nǎ": {
       "lvl": 0,
-      "seen": 2,
+      "seen": 3,
       "right": 1,
-      "wrong": 1,
-      "last": 1787427529016
+      "wrong": 2,
+      "last": 1787439800660
     },
     "yǒu": {
       "lvl": 3,
@@ -841,25 +841,25 @@
       "last": 1787407213268
     },
     "ge": {
-      "lvl": 1,
-      "seen": 3,
-      "right": 2,
-      "wrong": 1,
-      "last": 1787439393141
-    },
-    "rén": {
       "lvl": 0,
-      "seen": 2,
-      "right": 1,
-      "wrong": 1,
-      "last": 1787427519009
-    },
-    "bú shì": {
-      "lvl": 1,
       "seen": 4,
       "right": 2,
       "wrong": 2,
-      "last": 1787439393145
+      "last": 1787439800662
+    },
+    "rén": {
+      "lvl": 0,
+      "seen": 3,
+      "right": 1,
+      "wrong": 2,
+      "last": 1787439800664
+    },
+    "bú shì": {
+      "lvl": 0,
+      "seen": 5,
+      "right": 2,
+      "wrong": 3,
+      "last": 1787439800664
     },
     "Goodbye, Mika!": {
       "lvl": 0,
@@ -1275,11 +1275,25 @@
       "last": 1787438899538
     },
     "shūfáng": {
-      "lvl": 1,
-      "seen": 1,
+      "lvl": 0,
+      "seen": 2,
       "right": 1,
-      "wrong": 0,
-      "last": 1787439393144
+      "wrong": 1,
+      "last": 1787439800663
+    },
+    "shēnghuó": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1787439800656
+    },
+    "kuàilè": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1787439800662
     }
   },
   "chipLog": [
@@ -1346,7 +1360,7 @@
   ],
   "dayCount": {
     "date": "2026-08-22",
-    "n": 88
+    "n": 89
   },
   "spokenCount": {
     "date": "2026-08-21",
