@@ -70,7 +70,7 @@
     "My little brother also likes to play.",
     "My big sister is six years old too."
   ],
-  "chips": 9,
+  "hiddenWords": [],
   "practiceDays": [
     "2026-08-08",
     "2026-08-10",
@@ -82,6 +82,115 @@
     "2026-08-19",
     "2026-08-20",
     "2026-08-21"
+  ],
+  "en_starred": [
+    "contaminate",
+    "hesitate",
+    "abundant"
+  ],
+  "en_mastered": [
+    "gigantic",
+    "fragile",
+    "Anchor",
+    "Free loader"
+  ],
+  "customWords": [
+    {
+      "en": "See you tomorrow",
+      "pinyin": "",
+      "hanzi": "",
+      "emoji": "📝",
+      "needsDef": true
+    }
+  ],
+  "en_myWords": [
+    {
+      "word": "Authorities",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "cushion",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Status",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Currently",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Violate",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "vegetable",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "I will add those to the list",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Stimulate",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    }
+  ],
+  "wodHistory": [
+    {
+      "en": "有",
+      "pinyin": "",
+      "hanzi": "有",
+      "emoji": "📝",
+      "needsDef": true,
+      "lesson": "Words We Added",
+      "wodDate": "2026-08-19"
+    },
+    {
+      "hanzi": "家",
+      "pinyin": "jiā",
+      "en": "home / family",
+      "emoji": "🏠",
+      "phrases": [
+        {
+          "en": "my family",
+          "pinyin": "wǒ jiā",
+          "hanzi": "我家"
+        },
+        {
+          "en": "at home",
+          "pinyin": "zài jiā",
+          "hanzi": "在家"
+        }
+      ],
+      "lesson": "How Many People?",
+      "wodDate": "2026-08-21"
+    }
   ],
   "srs": {
     "gēbo": {
@@ -1058,6 +1167,62 @@
       "last": 1787238477896
     }
   },
+  "chipLog": [
+    {
+      "type": "wod",
+      "amount": 1,
+      "note": "Word of the day ⭐",
+      "at": 1787355843612
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1787146549580
+    },
+    {
+      "type": "wod",
+      "amount": 1,
+      "note": "Word of the day ⭐",
+      "at": 1786980036246
+    },
+    {
+      "type": "spoken",
+      "amount": 1,
+      "note": "Spoke 10 sentences 🗣️",
+      "at": 1786910827153
+    },
+    {
+      "type": "wod",
+      "amount": 1,
+      "note": "Word of the day ⭐",
+      "at": 1786901307500
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786840319065
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786453221690
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786409020277
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786237233480
+    }
+  ],
   "dayCount": {
     "date": "2026-08-21",
     "n": 1
@@ -1088,47 +1253,18 @@
       "lesson": "How Many People?"
     }
   },
-  "wodHistory": [
-    {
-      "en": "有",
-      "pinyin": "",
-      "hanzi": "有",
-      "emoji": "📝",
-      "needsDef": true,
-      "lesson": "Words We Added",
-      "wodDate": "2026-08-19"
-    },
-    {
-      "hanzi": "家",
-      "pinyin": "jiā",
-      "en": "home / family",
-      "emoji": "🏠",
-      "phrases": [
-        {
-          "en": "my family",
-          "pinyin": "wǒ jiā",
-          "hanzi": "我家"
-        },
-        {
-          "en": "at home",
-          "pinyin": "zài jiā",
-          "hanzi": "在家"
-        }
-      ],
-      "lesson": "How Many People?",
-      "wodDate": "2026-08-21"
-    }
-  ],
-  "hiddenWords": [],
-  "wodDone": "2026-08-21",
   "goalClaimed": "2026-08-19",
-  "customWords": [
-    {
-      "en": "See you tomorrow",
-      "pinyin": "",
-      "hanzi": "",
-      "emoji": "📝",
-      "needsDef": true
-    }
-  ]
+  "wodDone": "2026-08-21",
+  "spokenClaimed": "2026-08-16",
+  "math_sets": [
+    "sub10",
+    "neardbl"
+  ],
+  "car_deck": "math",
+  "car_gap": 6,
+  "car_len": 12,
+  "soundOn": true,
+  "zh_slow": true,
+  "freezes": [],
+  "chips": 9
 }
