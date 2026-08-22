@@ -1266,6 +1266,13 @@
       "right": 0,
       "wrong": 1,
       "last": 1787438877720
+    },
+    "en:nimble": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787438899538
     }
   },
   "chipLog": [
@@ -1332,7 +1339,7 @@
   ],
   "dayCount": {
     "date": "2026-08-22",
-    "n": 85
+    "n": 86
   },
   "spokenCount": {
     "date": "2026-08-21",
