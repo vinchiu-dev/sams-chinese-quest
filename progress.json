@@ -499,11 +499,11 @@
       "last": 1786399229386
     },
     "jiào": {
-      "lvl": 1,
-      "seen": 4,
+      "lvl": 0,
+      "seen": 5,
       "right": 2,
-      "wrong": 2,
-      "last": 1787237300196
+      "wrong": 3,
+      "last": 1787427497021
     },
     "My big sister is six years old too.": {
       "lvl": 1,
@@ -1235,7 +1235,7 @@
   ],
   "dayCount": {
     "date": "2026-08-22",
-    "n": 56
+    "n": 57
   },
   "spokenCount": {
     "date": "2026-08-21",
