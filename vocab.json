@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-19",
+  "updated": "2026-08-22",
   "lessons": [
     {
       "id": "little-fox-school-supplies",
@@ -337,7 +337,7 @@
         {
           "hanzi": "眼睛",
           "pinyin": "yǎnjing",
-          "en": "eye",
+          "en": "eye / eyes",
           "emoji": "👁️"
         },
         {
@@ -375,12 +375,6 @@
           "pinyin": "hóuzi",
           "en": "monkey",
           "emoji": "🐵"
-        },
-        {
-          "hanzi": "兔子",
-          "pinyin": "tùzi",
-          "en": "rabbit",
-          "emoji": "🐰"
         },
         {
           "hanzi": "狐狸",
@@ -715,7 +709,7 @@
         {
           "hanzi": "家",
           "pinyin": "jiā",
-          "en": "home / house",
+          "en": "home / family",
           "emoji": "🏠"
         },
         {
@@ -800,7 +794,7 @@
         {
           "hanzi": "在",
           "pinyin": "zài",
-          "en": "at / in",
+          "en": "at / in (a place)",
           "emoji": "📍"
         }
       ]
@@ -949,12 +943,6 @@
           "emoji": "🗣️"
         },
         {
-          "hanzi": "眼睛",
-          "pinyin": "yǎnjing",
-          "en": "eyes",
-          "emoji": "👀"
-        },
-        {
           "hanzi": "胳膊",
           "pinyin": "gēbo",
           "en": "arm",
@@ -992,19 +980,6 @@
           "emoji": "📚"
         },
         {
-          "hanzi": "客厅",
-          "pinyin": "kètīng",
-          "en": "living room",
-          "emoji": "🛋️",
-          "phrases": [
-            {
-              "en": "in the living room",
-              "pinyin": "zài kètīng",
-              "hanzi": "在客厅"
-            }
-          ]
-        },
-        {
           "hanzi": "上网",
           "pinyin": "shàngwǎng",
           "en": "to go online",
@@ -1023,15 +998,9 @@
           "emoji": "🌟"
         },
         {
-          "hanzi": "快乐",
-          "pinyin": "kuàilè",
-          "en": "happy / joyful",
-          "emoji": "😊"
-        },
-        {
           "hanzi": "在",
           "pinyin": "zài",
-          "en": "in the middle of (doing)",
+          "en": "in the middle of (doing something)",
           "emoji": "⏳"
         },
         {
@@ -1628,24 +1597,6 @@
               "en": "three cats",
               "pinyin": "sān zhī māo",
               "hanzi": "三只猫"
-            }
-          ]
-        },
-        {
-          "hanzi": "家",
-          "pinyin": "jiā",
-          "en": "home / family",
-          "emoji": "🏠",
-          "phrases": [
-            {
-              "en": "my family",
-              "pinyin": "wǒ jiā",
-              "hanzi": "我家"
-            },
-            {
-              "en": "at home",
-              "pinyin": "zài jiā",
-              "hanzi": "在家"
             }
           ]
         }
