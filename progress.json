@@ -367,10 +367,10 @@
     },
     "shì": {
       "lvl": 0,
-      "seen": 7,
+      "seen": 8,
       "right": 2,
-      "wrong": 5,
-      "last": 1787406291116
+      "wrong": 6,
+      "last": 1787406323249
     },
     "The alien comes from another planet!": {
       "lvl": 1,
@@ -1229,7 +1229,7 @@
   ],
   "dayCount": {
     "date": "2026-08-22",
-    "n": 13
+    "n": 15
   },
   "spokenCount": {
     "date": "2026-08-21",
@@ -1257,7 +1257,7 @@
       "lesson": "How Many People?"
     }
   },
-  "goalClaimed": "2026-08-19",
+  "goalClaimed": "2026-08-22",
   "wodDone": "2026-08-21",
   "spokenClaimed": "2026-08-16",
   "math_sets": [
@@ -1270,5 +1270,5 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "chips": 9
+  "chips": 10
 }
