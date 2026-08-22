@@ -1339,7 +1339,7 @@
   ],
   "dayCount": {
     "date": "2026-08-22",
-    "n": 87
+    "n": 88
   },
   "spokenCount": {
     "date": "2026-08-21",
@@ -1375,7 +1375,7 @@
     "neardbl",
     "add10"
   ],
-  "car_deck": "math",
+  "car_deck": "words",
   "car_gap": 6,
   "car_len": 12,
   "pool": [
