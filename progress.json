@@ -171,10 +171,10 @@
   "srs": {
     "gēbo": {
       "lvl": 0,
-      "seen": 3,
+      "seen": 4,
       "right": 2,
-      "wrong": 1,
-      "last": 1787406476475
+      "wrong": 2,
+      "last": 1787407311485
     },
     "The watermelon is really delicious!": {
       "lvl": 1,
@@ -360,17 +360,17 @@
     },
     "suì": {
       "lvl": 0,
-      "seen": 5,
+      "seen": 6,
       "right": 2,
-      "wrong": 3,
-      "last": 1787406353272
+      "wrong": 4,
+      "last": 1787407251852
     },
     "shì": {
       "lvl": 0,
-      "seen": 9,
+      "seen": 11,
       "right": 2,
-      "wrong": 7,
-      "last": 1787406490499
+      "wrong": 9,
+      "last": 1787407351474
     },
     "The alien comes from another planet!": {
       "lvl": 1,
@@ -408,11 +408,11 @@
       "last": 1787146530628
     },
     "nǎ guó rén": {
-      "lvl": 0,
-      "seen": 6,
-      "right": 2,
+      "lvl": 1,
+      "seen": 7,
+      "right": 3,
       "wrong": 4,
-      "last": 1787406520506
+      "last": 1787407224992
     },
     "wàixīngrén": {
       "lvl": 2,
@@ -423,10 +423,10 @@
     },
     "láizì": {
       "lvl": 0,
-      "seen": 8,
+      "seen": 9,
       "right": 3,
-      "wrong": 5,
-      "last": 1787406500501
+      "wrong": 6,
+      "last": 1787407192055
     },
     "měiguórén": {
       "lvl": 2,
@@ -724,10 +724,10 @@
     },
     "jǐ suì": {
       "lvl": 0,
-      "seen": 6,
+      "seen": 7,
       "right": 2,
-      "wrong": 4,
-      "last": 1787406536475
+      "wrong": 5,
+      "last": 1787407245949
     },
     "sānshíwǔ": {
       "lvl": 2,
@@ -744,11 +744,11 @@
       "last": 1787146527121
     },
     "jǐ": {
-      "lvl": 0,
-      "seen": 7,
-      "right": 3,
+      "lvl": 1,
+      "seen": 8,
+      "right": 4,
       "wrong": 4,
-      "last": 1787406510504
+      "last": 1787407233945
     },
     "kù": {
       "lvl": 2,
@@ -828,11 +828,11 @@
       "last": 1787146630453
     },
     "jiā": {
-      "lvl": 0,
-      "seen": 6,
-      "right": 2,
-      "wrong": 4,
-      "last": 1787406556477
+      "lvl": 2,
+      "seen": 9,
+      "right": 4,
+      "wrong": 5,
+      "last": 1787407213268
     },
     "ge": {
       "lvl": 1,
@@ -1144,31 +1144,31 @@
     },
     "qù": {
       "lvl": 0,
-      "seen": 2,
+      "seen": 3,
       "right": 1,
-      "wrong": 1,
-      "last": 1787406403284
+      "wrong": 2,
+      "last": 1787407281861
     },
     "zhēn": {
       "lvl": 0,
-      "seen": 2,
+      "seen": 3,
       "right": 1,
-      "wrong": 1,
-      "last": 1787406423289
+      "wrong": 2,
+      "last": 1787407331479
     },
     "zài": {
       "lvl": 0,
-      "seen": 4,
+      "seen": 6,
       "right": 2,
-      "wrong": 2,
-      "last": 1787406456244
+      "wrong": 4,
+      "last": 1787407271859
     },
     "zài zuò shénme": {
       "lvl": 0,
-      "seen": 2,
+      "seen": 3,
       "right": 1,
-      "wrong": 1,
-      "last": 1787406413287
+      "wrong": 2,
+      "last": 1787407292475
     }
   },
   "chipLog": [
@@ -1235,7 +1235,7 @@
   ],
   "dayCount": {
     "date": "2026-08-22",
-    "n": 33
+    "n": 49
   },
   "spokenCount": {
     "date": "2026-08-21",
