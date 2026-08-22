@@ -352,11 +352,11 @@
       "last": 1787237300197
     },
     "měiguó": {
-      "lvl": 0,
-      "seen": 3,
-      "right": 1,
+      "lvl": 1,
+      "seen": 4,
+      "right": 2,
       "wrong": 2,
-      "last": 1787148525726
+      "last": 1787427455703
     },
     "suì": {
       "lvl": 0,
@@ -1274,27 +1274,12 @@
   "car_gap": 6,
   "car_len": 12,
   "pool": [
-    "little-fox-school-supplies",
-    "question-words",
-    "starter-phrases",
-    "love-to-laugh",
-    "body-bumps",
-    "birthday-knock",
-    "greedy-monkey-fruit",
-    "silly-food",
-    "mealtime-picky",
-    "stationery-shop",
-    "welcome-home-rooms",
-    "fruit-i-eat",
-    "not-feeling-well",
-    "everyone-at-home",
-    "weekend-visit",
-    "bedroom-toys",
     "nationalities",
     "about-me",
     "too-cool",
     "asking-about-people",
-    "how-many-people"
+    "how-many-people",
+    "starred-words"
   ],
   "soundOn": true,
   "zh_slow": true,
