@@ -850,10 +850,10 @@
     },
     "bú shì": {
       "lvl": 0,
-      "seen": 2,
+      "seen": 3,
       "right": 1,
-      "wrong": 1,
-      "last": 1787156250074
+      "wrong": 2,
+      "last": 1787427477013
     },
     "Goodbye, Mika!": {
       "lvl": 0,
@@ -1235,7 +1235,7 @@
   ],
   "dayCount": {
     "date": "2026-08-22",
-    "n": 54
+    "n": 55
   },
   "spokenCount": {
     "date": "2026-08-21",
