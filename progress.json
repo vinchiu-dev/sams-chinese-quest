@@ -1215,6 +1215,34 @@
       "right": 0,
       "wrong": 1,
       "last": 1787438669622
+    },
+    "en:keen": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1787438767764
+    },
+    "en:jubilant": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1787438769933
+    },
+    "en:Minister": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1787438771118
+    },
+    "en:vivid": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1787438773207
     }
   },
   "chipLog": [
@@ -1281,7 +1309,7 @@
   ],
   "dayCount": {
     "date": "2026-08-22",
-    "n": 78
+    "n": 82
   },
   "spokenCount": {
     "date": "2026-08-21",
