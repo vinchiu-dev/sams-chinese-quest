@@ -43,7 +43,9 @@
     "wán yóuxì",
     "míngtiān jiàn"
   ],
-  "archived": [],
+  "archived": [
+    "měiguó"
+  ],
   "starredSentences": [
     "Wishing you a happy life!",
     "Let's go buy stationery!",
@@ -1435,11 +1437,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1787492893411,
+  "trouble_at": 1787492898852,
   "pool_at": 1787492853334,
-  "starredSentences_at": 1787492893411,
+  "starredSentences_at": 1787492898852,
   "hiddenWords_at": 1787492853626,
-  "archived_at": 1787492893411,
+  "archived_at": 1787492898852,
   "en_starred_at": 0,
   "chips": 10
 }
