@@ -733,9 +733,19 @@ const onProgressChange = (fn) => {
 };
 const bumpProgress = () => { _progressListeners.forEach((f) => { try { f(); } catch (e) {} }); };
 
+
+// For values where REMOVAL matters (unstarring a word, deselecting a lesson),
+// a union merge is wrong — it resurrects what you just removed. These carry a
+// timestamp and the most recently changed device wins the whole set.
+const TIMED_KEYS = ["trouble", "pool", "starredSentences", "hiddenWords", "archived", "en_starred"];
+const stampKey = (k) => k + "_at";
+const saveTimed = (k, v) => { saveLS(k, v); saveLS(stampKey(k), Date.now()); };
+const timedAt = (k) => loadLS(stampKey(k), 0);
+
 const collectProgress = () => {
   const out = {};
   Object.keys(SYNC_KEYS).forEach((k) => { out[k] = loadLS(k, SYNC_KEYS[k]); });
+  TIMED_KEYS.forEach((k) => { out[stampKey(k)] = timedAt(k); });
   out.chips = getChips();
   return out;
 };
@@ -757,8 +767,15 @@ const mergeRemoteProgress = (remote) => {
     const merged = Array.from(new Set([...(loadLS(k, []) || []), ...remote[k]]));
     saveLS(k, k === "practiceDays" ? merged.slice(-400) : merged);
   };
-  ["trouble", "archived", "starredSentences", "hiddenWords", "practiceDays",
-   "en_starred", "en_mastered", "freezes"].forEach(union);
+  // additive-only sets keep the union merge
+  ["practiceDays", "en_mastered", "freezes"].forEach(union);
+
+  // sets where removals matter: whichever device changed last wins outright
+  TIMED_KEYS.forEach((k) => {
+    if (remote[k] === undefined) return;
+    const rAt = remote[stampKey(k)] || 0;
+    if (rAt > timedAt(k)) { saveLS(k, remote[k]); saveLS(stampKey(k), rAt); }
+  });
 
   // chips: keep the higher balance
   if (typeof remote.chips === "number" && remote.chips > getChips()) saveLS("chips", remote.chips);
@@ -801,7 +818,7 @@ const mergeRemoteProgress = (remote) => {
   }
 
   // preferences: adopt remote only if this device has never set one
-  ["math_sets", "car_deck", "car_gap", "car_len", "soundOn", "zh_slow", "pool"].forEach((k) => {
+  ["math_sets", "car_deck", "car_gap", "car_len", "soundOn", "zh_slow"].forEach((k) => {
     if (localStorage.getItem(LS_PREFIX + k) === null && remote[k] !== undefined) saveLS(k, remote[k]);
   });
 };
@@ -819,14 +836,16 @@ const C = {
 
 function ChineseApp({ onSwitchLang }) {
   const { lessons: LESSONS, tagMap: SENTENCE_TAG_TO_LESSONS, sentences: SENTENCES } = getVocab();
-  const [screen, setScreen] = useState("home"); // home | flashcards | sentence | clock | tone | wordlist
+  const [screen, setScreen] = useState("home");
+  useBackToMenu(screen, setScreen); // home | flashcards | sentence | clock | tone | wordlist
+  useBackToMenu(screen, setScreen);
   const [slow, setSlow] = useState(() => loadLS("zh_slow", false));
   const toggleSlow = () => setSlow((s) => { const n = !s; saveLS("zh_slow", n); return n; });
   const [pool, setPool] = useState(() => {
     const saved = loadLS("pool", null);
     return Array.isArray(saved) && saved.length ? saved : LESSONS.map((l) => l.id);
   });
-  useEffect(() => { saveLS("pool", pool); }, [pool]);
+  useEffect(() => { saveTimed("pool", pool); }, [pool]);
   const [trouble, setTrouble] = useState(() => new Set(loadLS("trouble", [])));
   const [archived, setArchived] = useState(() => new Set(loadLS("archived", [])));
   const [starredSentences, setStarredSentences] = useState(() => new Set(loadLS("starredSentences", [])));
@@ -851,9 +870,9 @@ function ChineseApp({ onSwitchLang }) {
       goalClaimed: loadLS("goalClaimed", ""),
       customWords,
     };
-    saveLS("trouble", progress.trouble);
-    saveLS("archived", progress.archived);
-    saveLS("starredSentences", progress.starredSentences);
+    saveTimed("trouble", progress.trouble);
+    saveTimed("archived", progress.archived);
+    saveTimed("starredSentences", progress.starredSentences);
     saveLS("customWords", progress.customWords);
     syncAll(setSyncStatus);
   }, [trouble, archived, starredSentences, customWords]);
@@ -892,7 +911,7 @@ function ChineseApp({ onSwitchLang }) {
   // so we keep a hide-list instead — reversible, and it survives updates.
   const [hidden, setHidden] = useState(() => new Set(loadLS("hiddenWords", [])));
   const hideKey = (w) => (w.hanzi || "") + "|" + (w.pinyin || "") + "|" + (w.en || "");
-  useEffect(() => { saveLS("hiddenWords", [...hidden]); }, [hidden]);
+  useEffect(() => { saveTimed("hiddenWords", [...hidden]); }, [hidden]);
   const hideWord = (w) => setHidden((prev) => new Set([...prev, hideKey(w)]));
   const unhideAll = () => setHidden(new Set());
 
@@ -3611,6 +3630,7 @@ const speakEn = (text) => {
 function EnglishApp({ onSwitchLang }) {
   const { lists: LISTS } = getEnglish();
   const [screen, setScreen] = useState("home");
+  useBackToMenu(screen, setScreen);
   const [pool, setPool] = useState(() => {
     const ids = LISTS.map((l) => l.id);
     if ((loadLS("en_myWords", []) || []).length) ids.push("en-my-words");
@@ -3622,7 +3642,7 @@ function EnglishApp({ onSwitchLang }) {
   const [syncStatus, setSyncStatus] = useState("");
 
   useEffect(() => {
-    saveLS("en_starred", [...starred]);
+    saveTimed("en_starred", [...starred]);
     saveLS("en_mastered", [...mastered]);
     saveLS("en_myWords", myWords);
     syncAll(setSyncStatus);
@@ -4281,6 +4301,7 @@ const factsFor = (set) => {
 
 function MathApp({ onSwitchLang }) {
   const [screen, setScreen] = useState("home");
+  useBackToMenu(screen, setScreen);
   const [sets, setSets] = useState(() => loadLS("math_sets", ["add10"]));
   const [syncStatus, setSyncStatus] = useState("");
 
@@ -5399,6 +5420,20 @@ function CarMode({ facts, onHome, carWords, carSentences }) {
       </div>
     </div>
   );
+}
+
+
+// Browser Back should return to the app's menu, not navigate away from the
+// page (which used to lose the whole session). Each screen change away from
+// "home" pushes one history entry; Back pops it and we go home.
+function useBackToMenu(screen, setScreen) {
+  useEffect(() => {
+    if (screen === "home") return;
+    window.history.pushState({ samScreen: screen }, "");
+    const onPop = () => setScreen("home");
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, [screen, setScreen]);
 }
 
 function LanguageShell() {
