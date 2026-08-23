@@ -2,7 +2,6 @@
   "trouble": [
     "wòshì",
     "zài",
-    "ne",
     "shàngwǎng",
     "fángjiān",
     "gēbo",
@@ -1436,11 +1435,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1787492853626,
+  "trouble_at": 1787492893411,
   "pool_at": 1787492853334,
-  "starredSentences_at": 1787492853626,
-  "hiddenWords_at": 1787492853335,
-  "archived_at": 1787492853626,
+  "starredSentences_at": 1787492893411,
+  "hiddenWords_at": 1787492853626,
+  "archived_at": 1787492893411,
   "en_starred_at": 0,
   "chips": 10
 }
