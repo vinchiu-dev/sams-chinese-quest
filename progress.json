@@ -1357,6 +1357,13 @@
       "right": 0,
       "wrong": 1,
       "last": 1787439800662
+    },
+    "míngtiān jiàn": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787492283466
     }
   },
   "chipLog": [
@@ -1412,27 +1419,7 @@
   "car_gap": 10,
   "car_len": 12,
   "pool": [
-    "little-fox-school-supplies",
-    "question-words",
-    "starter-phrases",
-    "love-to-laugh",
-    "body-bumps",
-    "birthday-knock",
-    "greedy-monkey-fruit",
-    "silly-food",
-    "mealtime-picky",
-    "stationery-shop",
-    "welcome-home-rooms",
-    "fruit-i-eat",
-    "not-feeling-well",
-    "everyone-at-home",
-    "weekend-visit",
-    "bedroom-toys",
-    "nationalities",
-    "about-me",
-    "too-cool",
-    "asking-about-people",
-    "how-many-people"
+    "wod-history"
   ],
   "soundOn": true,
   "zh_slow": true,
