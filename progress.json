@@ -19,7 +19,8 @@
   ],
   "archived": [
     "měiguó",
-    "liù"
+    "liù",
+    "sān"
   ],
   "starredSentences": [
     "Let's go buy stationery!",
@@ -1455,11 +1456,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1787753164706,
+  "trouble_at": 1787753170025,
   "pool_at": 1787753092433,
-  "starredSentences_at": 1787753164706,
+  "starredSentences_at": 1787753170025,
   "hiddenWords_at": 1787753155458,
-  "archived_at": 1787753164706,
+  "archived_at": 1787753170025,
   "en_starred_at": 1787750358487,
   "chips": 10
 }
