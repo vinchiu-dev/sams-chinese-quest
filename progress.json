@@ -62,7 +62,8 @@
     "2026-08-20",
     "2026-08-21",
     "2026-08-22",
-    "2026-08-23"
+    "2026-08-23",
+    "2026-08-26"
   ],
   "en_starred": [
     "abundant"
@@ -400,11 +401,11 @@
       "last": 1787439393142
     },
     "shì": {
-      "lvl": 0,
-      "seen": 13,
-      "right": 2,
+      "lvl": 1,
+      "seen": 14,
+      "right": 3,
       "wrong": 11,
-      "last": 1787428213922
+      "last": 1787753102065
     },
     "The alien comes from another planet!": {
       "lvl": 1,
@@ -862,11 +863,11 @@
       "last": 1787439393143
     },
     "jiā": {
-      "lvl": 0,
-      "seen": 10,
-      "right": 4,
+      "lvl": 1,
+      "seen": 11,
+      "right": 5,
       "wrong": 6,
-      "last": 1787492294111
+      "last": 1787753104126
     },
     "ge": {
       "lvl": 0,
@@ -1394,8 +1395,8 @@
     }
   ],
   "dayCount": {
-    "date": "2026-08-22",
-    "n": 90
+    "date": "2026-08-26",
+    "n": 1
   },
   "spokenCount": {
     "date": "2026-08-21",
@@ -1435,23 +1436,24 @@
   "car_gap": 10,
   "car_len": 12,
   "pool": [
-    "nationalities",
     "about-me",
     "too-cool",
-    "asking-about-people",
-    "how-many-people",
     "starred-words",
     "my-words",
     "wod-history",
-    "everyone-at-home"
+    "where-born",
+    "nationalities",
+    "everyone-at-home",
+    "asking-about-people",
+    "how-many-people"
   ],
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
   "trouble_at": 1787753076505,
-  "pool_at": 1787753076121,
+  "pool_at": 1787753092433,
   "starredSentences_at": 1787753076505,
-  "hiddenWords_at": 1787753076122,
+  "hiddenWords_at": 1787753076506,
   "archived_at": 1787753076505,
   "en_starred_at": 1787750358487,
   "chips": 10
