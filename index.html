@@ -3844,10 +3844,10 @@ function EnHome({ wordCount, starredCount, totalCount, masteredCount, go, addMyW
     try { navigator.clipboard.writeText(txt); } catch (e) {}
   };
   const modes = [
+    { id:"spelling", emoji:"🔤", name:"Spelling", desc:"Hear it, spell it", color:C.leaf },
     { id:"flashcards", emoji:"🃏", name:"Flashcards", desc:"See the word, recall the meaning", color:"#5B8DEF" },
     { id:"quiz", emoji:"❓", name:"Quiz", desc:"Pick the right definition", color:"#8B6FE8" },
     { id:"speed", emoji:"⏱️", name:"Speed Round", desc:"How many in 60 seconds?", color:C.berry },
-    { id:"spelling", emoji:"🔤", name:"Spelling", desc:"Hear it, spell it", color:C.leaf },
   ];
   const noWords = wordCount === 0;
 
