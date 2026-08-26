@@ -15,7 +15,8 @@
     "",
     "nǎ",
     "jiào",
-    "wán yóuxì"
+    "wán yóuxì",
+    "yǒu"
   ],
   "archived": [
     "měiguó",
@@ -1456,11 +1457,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1787753170025,
+  "trouble_at": 1787753177764,
   "pool_at": 1787753092433,
-  "starredSentences_at": 1787753170025,
+  "starredSentences_at": 1787753177764,
   "hiddenWords_at": 1787753155458,
-  "archived_at": 1787753170025,
+  "archived_at": 1787753177764,
   "en_starred_at": 1787750358487,
   "chips": 10
 }
