@@ -18,7 +18,8 @@
     "wán yóuxì"
   ],
   "archived": [
-    "měiguó"
+    "měiguó",
+    "liù"
   ],
   "starredSentences": [
     "Let's go buy stationery!",
@@ -51,7 +52,9 @@
     "My little brother also likes to play.",
     "My big sister is six years old too."
   ],
-  "hiddenWords": [],
+  "hiddenWords": [
+    "米卡|Mǐkǎ|Mika (a name)"
+  ],
   "practiceDays": [
     "2026-08-08",
     "2026-08-10",
@@ -1452,11 +1455,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1787753138403,
+  "trouble_at": 1787753164706,
   "pool_at": 1787753092433,
-  "starredSentences_at": 1787753138403,
-  "hiddenWords_at": 1787753076506,
-  "archived_at": 1787753138403,
+  "starredSentences_at": 1787753164706,
+  "hiddenWords_at": 1787753155458,
+  "archived_at": 1787753164706,
   "en_starred_at": 1787750358487,
   "chips": 10
 }
