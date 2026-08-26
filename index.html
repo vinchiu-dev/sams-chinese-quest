@@ -96,7 +96,21 @@ let syncTimer = null;
 function scheduleSync(progress, setStatus) {
   if (!ghConfigured()) return;
   clearTimeout(syncTimer);
-  syncTimer = setTimeout(() => pushProgress(progress, setStatus), 2500);
+  window.__PENDING_PROGRESS__ = progress;
+  syncTimer = setTimeout(() => {
+    window.__PENDING_PROGRESS__ = null;
+    pushProgress(progress, setStatus);
+  }, 2500);
+}
+
+// Push straight away — used when the tab is being hidden or closed, so a
+// change made a second before switching devices isn't lost.
+function flushSync() {
+  const pending = window.__PENDING_PROGRESS__;
+  if (!pending) return;
+  clearTimeout(syncTimer);
+  window.__PENDING_PROGRESS__ = null;
+  try { pushProgress(pending); } catch (e) {}
 }
 
 async function pushProgress(progress, setStatus, retried) {
@@ -879,6 +893,17 @@ function ChineseApp({ onSwitchLang }) {
 
   // catch progress written outside React state (word of day, chips, SRS…)
   useEffect(() => onProgressChange(() => syncAll(setSyncStatus)), []);
+
+  const applyRemoteZh = React.useCallback(() => {
+    setTrouble(new Set(loadLS("trouble", [])));
+    setArchived(new Set(loadLS("archived", [])));
+    setStarredSentences(new Set(loadLS("starredSentences", [])));
+    setCustomWords(loadLS("customWords", []));
+    setHidden(new Set(loadLS("hiddenWords", [])));
+    const p = loadLS("pool", null);
+    if (Array.isArray(p) && p.length) setPool(p);
+  }, []);
+  useLiveSync(applyRemoteZh, setSyncStatus);
 
   // on boot: pull remote progress once and merge it in
   useEffect(() => {
@@ -3693,6 +3718,13 @@ function EnglishApp({ onSwitchLang }) {
 
   useEffect(() => onProgressChange(() => syncAll(setSyncStatus)), []);
 
+  const applyRemoteEn = React.useCallback(() => {
+    setStarred(new Set(loadLS("en_starred", [])));
+    setMastered(new Set(loadLS("en_mastered", [])));
+    setMyWords(loadLS("en_myWords", []));
+  }, []);
+  useLiveSync(applyRemoteEn, setSyncStatus);
+
   useEffect(() => {
     pullRemoteProgress().then((remote) => {
       mergeRemoteProgress(remote);
@@ -4350,6 +4382,11 @@ function MathApp({ onSwitchLang }) {
 
   useEffect(() => { saveLS("math_sets", sets); syncAll(setSyncStatus); }, [sets]);
   useEffect(() => onProgressChange(() => syncAll(setSyncStatus)), []);
+
+  const applyRemoteMath = React.useCallback(() => {
+    setSets(loadLS("math_sets", ["add10"]));
+  }, []);
+  useLiveSync(applyRemoteMath, setSyncStatus);
 
   // math had no sync at all — chips, streak and set choices never travelled
   useEffect(() => {
@@ -5477,6 +5514,39 @@ function useBackToMenu(screen, setScreen) {
     window.addEventListener("popstate", onPop);
     return () => window.removeEventListener("popstate", onPop);
   }, [screen, setScreen]);
+}
+
+
+// The app used to pull only once on mount. Devices left open (a phone in a
+// pocket, a Chromebook tab) therefore never saw changes made elsewhere, which
+// looked exactly like "starring didn't sync". Re-pull whenever the tab becomes
+// visible again, and flush any pending push before the page is hidden/closed.
+function useLiveSync(applyRemote, setStatus) {
+  useEffect(() => {
+    const pull = () => {
+      pullRemoteProgress().then((remote) => {
+        mergeRemoteProgress(remote);
+        markPulled();
+        if (remote) { applyRemote(); setStatus && setStatus("synced"); }
+      });
+    };
+    const onVisible = () => {
+      if (document.visibilityState === "visible") pull();
+      else flushSync();          // leaving: push now, don't wait out the debounce
+    };
+    document.addEventListener("visibilitychange", onVisible);
+    window.addEventListener("focus", pull);
+    window.addEventListener("pagehide", flushSync);
+    const poll = setInterval(() => {
+      if (document.visibilityState === "visible") pull();
+    }, 60000);                   // and a quiet re-check once a minute
+    return () => {
+      document.removeEventListener("visibilitychange", onVisible);
+      window.removeEventListener("focus", pull);
+      window.removeEventListener("pagehide", flushSync);
+      clearInterval(poll);
+    };
+  }, [applyRemote, setStatus]);
 }
 
 function LanguageShell() {
