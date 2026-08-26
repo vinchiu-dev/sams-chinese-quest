@@ -17,7 +17,9 @@
     "jiào",
     "wán yóuxì"
   ],
-  "archived": [],
+  "archived": [
+    "měiguó"
+  ],
   "starredSentences": [
     "Let's go buy stationery!",
     "My big sister is online in the study.",
@@ -1396,7 +1398,7 @@
   ],
   "dayCount": {
     "date": "2026-08-26",
-    "n": 9
+    "n": 10
   },
   "spokenCount": {
     "date": "2026-08-21",
@@ -1450,11 +1452,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1787753076505,
+  "trouble_at": 1787753138403,
   "pool_at": 1787753092433,
-  "starredSentences_at": 1787753076505,
+  "starredSentences_at": 1787753138403,
   "hiddenWords_at": 1787753076506,
-  "archived_at": 1787753076505,
+  "archived_at": 1787753138403,
   "en_starred_at": 1787750358487,
   "chips": 10
 }
