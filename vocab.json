@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-22",
+  "updated": "2026-08-25",
   "lessons": [
     {
       "id": "little-fox-school-supplies",
@@ -1601,6 +1601,73 @@
           ]
         }
       ]
+    },
+    {
+      "id": "where-born",
+      "title": "Where I Was Born",
+      "subtitle": "我在…出生 — introducing yourself properly",
+      "words": [
+        {
+          "hanzi": "出生",
+          "pinyin": "chūshēng",
+          "en": "to be born",
+          "emoji": "👶",
+          "phrases": [
+            {
+              "en": "born in America",
+              "pinyin": "zài Měiguó chūshēng",
+              "hanzi": "在美国出生"
+            },
+            {
+              "en": "born in 2019",
+              "pinyin": "2019 nián chūshēng",
+              "hanzi": "2019年出生"
+            },
+            {
+              "en": "Where were you born?",
+              "pinyin": "nǐ zài nǎ chūshēng?",
+              "hanzi": "你在哪出生？"
+            }
+          ]
+        },
+        {
+          "hanzi": "年",
+          "pinyin": "nián",
+          "en": "year",
+          "emoji": "📅",
+          "phrases": [
+            {
+              "en": "this year",
+              "pinyin": "jīnnián",
+              "hanzi": "今年"
+            },
+            {
+              "en": "in 2013",
+              "pinyin": "2013 nián",
+              "hanzi": "2013年"
+            }
+          ]
+        },
+        {
+          "hanzi": "你们好",
+          "pinyin": "nǐmen hǎo",
+          "en": "hello everyone",
+          "emoji": "👋",
+          "phrases": [
+            {
+              "en": "Hello everyone!",
+              "pinyin": "nǐmen hǎo!",
+              "hanzi": "你们好！"
+            }
+          ]
+        },
+        {
+          "hanzi": "呱呱星球",
+          "pinyin": "Guāguā xīngqiú",
+          "en": "Guagua planet",
+          "emoji": "🪐"
+        }
+      ]
     }
   ],
   "tagMap": {
@@ -1723,6 +1790,9 @@
     ],
     "howmany": [
       "how-many-people"
+    ],
+    "born": [
+      "where-born"
     ]
   },
   "sentences": [
@@ -3297,6 +3367,54 @@
       "pinyin": "Jīntiān jiā lǐ yǒu sān ge rén.",
       "hanzi": "今天家里有三个人。",
       "tag": "howmany"
+    },
+    {
+      "en": "Hello everyone!",
+      "pinyin": "Nǐmen hǎo!",
+      "hanzi": "你们好！",
+      "tag": "born"
+    },
+    {
+      "en": "My name is Mika.",
+      "pinyin": "Wǒ jiào Mǐkǎ.",
+      "hanzi": "我叫米卡。",
+      "tag": "born"
+    },
+    {
+      "en": "I was born on Guagua planet.",
+      "pinyin": "Wǒ zài Guāguā xīngqiú chūshēng.",
+      "hanzi": "我在呱呱星球出生。",
+      "tag": "born"
+    },
+    {
+      "en": "I was born in 2013.",
+      "pinyin": "Wǒ 2013 nián chūshēng.",
+      "hanzi": "我2013年出生。",
+      "tag": "born"
+    },
+    {
+      "en": "Welcome, Mika!",
+      "pinyin": "Huānyíng nǐ, Mǐkǎ!",
+      "hanzi": "欢迎你，米卡！",
+      "tag": "born"
+    },
+    {
+      "en": "I was born in America.",
+      "pinyin": "Wǒ zài Měiguó chūshēng.",
+      "hanzi": "我在美国出生。",
+      "tag": "born"
+    },
+    {
+      "en": "My mom was born in China.",
+      "pinyin": "Wǒ māma zài Zhōngguó chūshēng.",
+      "hanzi": "我妈妈在中国出生。",
+      "tag": "born"
+    },
+    {
+      "en": "Where were you born?",
+      "pinyin": "Nǐ zài nǎ chūshēng?",
+      "hanzi": "你在哪出生？",
+      "tag": "born"
     }
   ]
 }
