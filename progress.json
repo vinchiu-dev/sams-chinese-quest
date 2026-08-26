@@ -87,24 +87,9 @@
       "pinyin": "míngtiān jiàn",
       "hanzi": "明天见",
       "emoji": "👋"
-    },
-    {
-      "en": "See you tomorrow",
-      "pinyin": "",
-      "hanzi": "",
-      "emoji": "📝",
-      "needsDef": true
     }
   ],
-  "en_myWords": [
-    {
-      "word": "I will add those to the list",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    }
-  ],
+  "en_myWords": [],
   "wodHistory": [
     {
       "en": "有",
