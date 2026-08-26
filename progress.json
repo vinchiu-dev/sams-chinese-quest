@@ -1,42 +1,21 @@
 {
   "trouble": [
-    "gēbo",
     "zài",
-    "ne",
-    "shūfáng",
-    "fángjiān",
-    "biǎogē",
-    "chúfáng",
-    "wòshì",
-    "shēnghuó",
-    "zuò fàn",
-    "kàndào le",
-    "qiāo mén",
-    "wèishénme",
     "zài zuò shénme",
-    "táozi",
     "zhēn",
-    "chī fàn",
-    "kāi mén",
-    "hái yǒu",
-    "qīngcài",
     "suì",
     "shì",
     "láizì",
     "nǎ guó rén",
     "jǐ suì",
     "jǐ",
-    "kètīng",
     "qù",
-    "shàngwǎng",
-    "bóbo",
-    "yīngtáo",
-    "téng",
-    "qǐchuáng",
-    "wénjù diàn",
-    "dà xióng wánjù",
-    "xīhóngshì",
-    "měiguórén"
+    "gēbo",
+    "jiā",
+    "",
+    "nǎ",
+    "jiào",
+    "wán yóuxì"
   ],
   "archived": [],
   "starredSentences": [
@@ -96,6 +75,13 @@
   ],
   "customWords": [
     {
+      "en": "See you tomorrow",
+      "pinyin": "",
+      "hanzi": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
       "en": "see you tomorrow",
       "pinyin": "míngtiān jiàn",
       "hanzi": "明天见",
@@ -104,7 +90,56 @@
   ],
   "en_myWords": [
     {
+      "word": "Authorities",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "cushion",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Status",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Currently",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Violate",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "vegetable",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
       "word": "I will add those to the list",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Stimulate",
       "definition": "(definition coming — ask Claude to fill this in)",
       "example": "",
       "emoji": "📝",
@@ -120,6 +155,26 @@
       "needsDef": true,
       "lesson": "Words We Added",
       "wodDate": "2026-08-19"
+    },
+    {
+      "hanzi": "家",
+      "pinyin": "jiā",
+      "en": "home / family",
+      "emoji": "🏠",
+      "phrases": [
+        {
+          "en": "my family",
+          "pinyin": "wǒ jiā",
+          "hanzi": "我家"
+        },
+        {
+          "en": "at home",
+          "pinyin": "zài jiā",
+          "hanzi": "在家"
+        }
+      ],
+      "lesson": "How Many People?",
+      "wodDate": "2026-08-21"
     },
     {
       "hanzi": "有",
@@ -145,26 +200,6 @@
       ],
       "lesson": "How Many People?",
       "wodDate": "2026-08-20"
-    },
-    {
-      "hanzi": "家",
-      "pinyin": "jiā",
-      "en": "home / family",
-      "emoji": "🏠",
-      "phrases": [
-        {
-          "en": "my family",
-          "pinyin": "wǒ jiā",
-          "hanzi": "我家"
-        },
-        {
-          "en": "at home",
-          "pinyin": "zài jiā",
-          "hanzi": "在家"
-        }
-      ],
-      "lesson": "How Many People?",
-      "wodDate": "2026-08-21"
     }
   ],
   "srs": {
@@ -1296,50 +1331,128 @@
       "last": 1787492283466
     }
   },
-  "chipLog": [],
-  "dayCount": {},
-  "spokenCount": {},
-  "wordOfDay": null,
-  "goalClaimed": "",
-  "wodDone": "",
-  "spokenClaimed": "",
+  "chipLog": [
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1787406323250
+    },
+    {
+      "type": "wod",
+      "amount": 1,
+      "note": "Word of the day ⭐",
+      "at": 1787355843612
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1787146549580
+    },
+    {
+      "type": "wod",
+      "amount": 1,
+      "note": "Word of the day ⭐",
+      "at": 1786980036246
+    },
+    {
+      "type": "spoken",
+      "amount": 1,
+      "note": "Spoke 10 sentences 🗣️",
+      "at": 1786910827153
+    },
+    {
+      "type": "wod",
+      "amount": 1,
+      "note": "Word of the day ⭐",
+      "at": 1786901307500
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786840319065
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786453221690
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786409020277
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786237233480
+    }
+  ],
+  "dayCount": {
+    "date": "2026-08-22",
+    "n": 90
+  },
+  "spokenCount": {
+    "date": "2026-08-21",
+    "n": 7
+  },
+  "wordOfDay": {
+    "date": "2026-08-21",
+    "word": {
+      "hanzi": "家",
+      "pinyin": "jiā",
+      "en": "home / family",
+      "emoji": "🏠",
+      "phrases": [
+        {
+          "en": "my family",
+          "pinyin": "wǒ jiā",
+          "hanzi": "我家"
+        },
+        {
+          "en": "at home",
+          "pinyin": "zài jiā",
+          "hanzi": "在家"
+        }
+      ],
+      "lesson": "How Many People?"
+    }
+  },
+  "goalClaimed": "2026-08-22",
+  "wodDone": "2026-08-21",
+  "spokenClaimed": "2026-08-16",
   "math_sets": [
+    "sub10",
+    "neardbl",
     "add10"
   ],
   "car_deck": "words",
   "car_gap": 10,
   "car_len": 12,
   "pool": [
-    "little-fox-school-supplies",
-    "question-words",
-    "starter-phrases",
-    "love-to-laugh",
-    "body-bumps",
-    "birthday-knock",
-    "greedy-monkey-fruit",
-    "silly-food",
-    "mealtime-picky",
-    "stationery-shop",
-    "welcome-home-rooms",
-    "fruit-i-eat",
-    "not-feeling-well",
-    "everyone-at-home",
-    "weekend-visit",
-    "bedroom-toys",
     "nationalities",
     "about-me",
     "too-cool",
     "asking-about-people",
-    "how-many-people"
+    "how-many-people",
+    "starred-words",
+    "my-words",
+    "wod-history",
+    "everyone-at-home"
   ],
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1787750357492,
-  "pool_at": 1787750357123,
-  "starredSentences_at": 1787750357492,
-  "hiddenWords_at": 1787750357493,
-  "archived_at": 1787750357492,
+  "trouble_at": 1787753076505,
+  "pool_at": 1787753076121,
+  "starredSentences_at": 1787753076505,
+  "hiddenWords_at": 1787753076122,
+  "archived_at": 1787753076505,
   "en_starred_at": 1787750358487,
   "chips": 10
 }
