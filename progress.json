@@ -91,6 +91,7 @@
     "2026-08-15",
     "2026-08-16",
     "2026-08-17",
+    "2026-08-18",
     "2026-08-19",
     "2026-08-20",
     "2026-08-21",
@@ -109,6 +110,19 @@
     "Free loader"
   ],
   "customWords": [
+    {
+      "en": "also",
+      "pinyin": "yě",
+      "hanzi": "也",
+      "emoji": "➕"
+    },
+    {
+      "en": "有",
+      "pinyin": "",
+      "hanzi": "有",
+      "emoji": "📝",
+      "needsDef": true
+    },
     {
       "en": "see you tomorrow",
       "pinyin": "míngtiān jiàn",
@@ -826,6 +840,13 @@
       "wrong": 6,
       "last": 1787835624253
     },
+    "zài": {
+      "lvl": 1,
+      "seen": 7,
+      "right": 3,
+      "wrong": 4,
+      "last": 1787439393144
+    },
     "sān": {
       "lvl": 1,
       "seen": 3,
@@ -1176,13 +1197,6 @@
       "wrong": 4,
       "last": 1787753117715
     },
-    "zài": {
-      "lvl": 1,
-      "seen": 7,
-      "right": 3,
-      "wrong": 4,
-      "last": 1787439393144
-    },
     "zài zuò shénme": {
       "lvl": 0,
       "seen": 3,
@@ -1471,15 +1485,34 @@
       "last": 1787837824768
     }
   },
-  "chipLog": [],
+  "chipLog": [
+    {
+      "type": "wod",
+      "amount": 1,
+      "note": "Word of the day ⭐",
+      "at": 1787071035861
+    }
+  ],
   "dayCount": {
     "date": "2026-08-27",
     "n": 30
   },
-  "spokenCount": {},
-  "wordOfDay": null,
+  "spokenCount": {
+    "date": "2026-08-18",
+    "n": 5
+  },
+  "wordOfDay": {
+    "date": "2026-08-18",
+    "word": {
+      "hanzi": "在",
+      "pinyin": "zài",
+      "en": "at / in",
+      "emoji": "📍",
+      "lesson": "Welcome to My House"
+    }
+  },
   "goalClaimed": "2026-08-27",
-  "wodDone": "",
+  "wodDone": "2026-08-18",
   "spokenClaimed": "",
   "math_sets": [
     "add10"
@@ -1505,6 +1538,6 @@
   "starredSentences_at": 1787841469426,
   "hiddenWords_at": 1787841440038,
   "archived_at": 1787841469426,
-  "en_starred_at": 1787840772178,
+  "en_starred_at": 1787846614699,
   "chips": 11
 }
