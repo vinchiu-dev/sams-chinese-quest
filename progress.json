@@ -352,11 +352,11 @@
       "last": 1787237300195
     },
     "láizì": {
-      "lvl": 2,
-      "seen": 12,
-      "right": 5,
+      "lvl": 3,
+      "seen": 13,
+      "right": 6,
       "wrong": 7,
-      "last": 1787439393146
+      "last": 1787835616160
     },
     "suì": {
       "lvl": 2,
@@ -1428,7 +1428,7 @@
   "trouble_at": 1787835604015,
   "pool_at": 1787835604015,
   "starredSentences_at": 1787835604015,
-  "hiddenWords_at": 1787835542780,
+  "hiddenWords_at": 1787835604015,
   "archived_at": 1787835604015,
   "en_starred_at": 1787769364565,
   "chips": 10
