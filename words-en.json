@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "updated": "2026-08-22",
+  "version": 2,
+  "updated": "2026-08-27",
   "lists": [
     {
       "id": "en-starter-1",
@@ -368,6 +368,84 @@
           "definition": "talking with someone to reach a deal that works for both sides",
           "example": "They spent an hour negotiating who would do which chores.",
           "emoji": "🤝"
+        },
+        {
+          "word": "patience",
+          "definition": "being able to wait a long time without getting upset or giving up",
+          "example": "The assassin bug sat perfectly still for hours — hunting takes patience.",
+          "emoji": "⏳"
+        },
+        {
+          "word": "disguise",
+          "definition": "something you wear or do so people don't know who you really are",
+          "example": "He wore a beard and glasses as a disguise so nobody recognized him.",
+          "emoji": "🥸"
+        },
+        {
+          "word": "deceive",
+          "definition": "to make someone believe something that isn't true",
+          "example": "The bug plucked the web to deceive the spider into thinking a fly was trapped.",
+          "emoji": "🎭"
+        },
+        {
+          "word": "precise",
+          "definition": "exactly right, with nothing off by even a little",
+          "example": "You need a precise measurement, not a close guess.",
+          "emoji": "🎯"
+        },
+        {
+          "word": "lure",
+          "definition": "something that pulls you closer by looking good, like bait",
+          "example": "The bright sign was a lure to get people to stop at the stand.",
+          "emoji": "🪝"
+        },
+        {
+          "word": "vibration",
+          "definition": "a tiny fast shaking you can feel more than see",
+          "example": "She felt the vibration of the train before she could hear it.",
+          "emoji": "📳"
+        },
+        {
+          "word": "absorb",
+          "definition": "to soak something up and take it in",
+          "example": "A paper towel will absorb the spilled milk.",
+          "emoji": "🧽"
+        },
+        {
+          "word": "ingredient",
+          "definition": "one of the things something is made out of",
+          "example": "Flour is the main ingredient in bread.",
+          "emoji": "🥣"
+        },
+        {
+          "word": "gradual",
+          "definition": "happening slowly, a little at a time",
+          "example": "The hill had a gradual slope, so the climb was easy.",
+          "emoji": "📈"
+        },
+        {
+          "word": "artificial",
+          "definition": "made by people to copy something real",
+          "example": "The drink had no fruit in it, just artificial cherry flavor.",
+          "emoji": "🧪"
+        },
+        {
+          "word": "nutrient",
+          "definition": "something in food your body needs to grow and work",
+          "example": "Broccoli is packed with nutrients that help you grow.",
+          "emoji": "🥦"
+        },
+        {
+          "word": "processed",
+          "definition": "changed by lots of steps before it reaches you",
+          "example": "An apple isn't processed, but an apple fruit snack has been through many steps.",
+          "emoji": "🏭"
+        },
+        {
+          "word": "moderation",
+          "definition": "having some, but not too much",
+          "example": "He eats candy in moderation — a little sometimes, not a lot every day.",
+          "emoji": "⚖️"
         }
       ]
     }
