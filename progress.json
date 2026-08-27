@@ -74,7 +74,6 @@
     "We all love to eat fruit!",
     "Where do you come from?",
     "The alien is too cool!",
-    "My little brother also likes to play.",
     "My big sister is six years old too.",
     "Where is Uncle?",
     "What is your mom's name?",
@@ -1430,7 +1429,7 @@
   ],
   "dayCount": {
     "date": "2026-08-27",
-    "n": 11
+    "n": 12
   },
   "spokenCount": {
     "date": "2026-08-20",
@@ -1485,11 +1484,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1787836385120,
+  "trouble_at": 1787836410845,
   "pool_at": 1787836384083,
-  "starredSentences_at": 1787836385120,
+  "starredSentences_at": 1787836410846,
   "hiddenWords_at": 1787836384084,
-  "archived_at": 1787836385120,
+  "archived_at": 1787836410846,
   "en_starred_at": 1787769364565,
   "chips": 10
 }
