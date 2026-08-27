@@ -75,7 +75,8 @@
     "Where do you come from?",
     "The alien is too cool!",
     "My little brother also likes to play.",
-    "My big sister is six years old too."
+    "My big sister is six years old too.",
+    "Where is Uncle?"
   ],
   "hiddenWords": [],
   "practiceDays": [
@@ -1366,6 +1367,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1787835799583
+    },
+    "Where is Uncle?": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1787835822631
     }
   },
   "chipLog": [
@@ -1378,7 +1386,7 @@
   ],
   "dayCount": {
     "date": "2026-08-27",
-    "n": 3
+    "n": 5
   },
   "spokenCount": {
     "date": "2026-08-20",
@@ -1433,11 +1441,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1787835783946,
+  "trouble_at": 1787835822635,
   "pool_at": 1787835783946,
-  "starredSentences_at": 1787835783946,
+  "starredSentences_at": 1787835822635,
   "hiddenWords_at": 1787835783947,
-  "archived_at": 1787835783946,
+  "archived_at": 1787835822635,
   "en_starred_at": 1787769364565,
   "chips": 10
 }
