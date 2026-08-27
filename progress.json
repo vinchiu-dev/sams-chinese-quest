@@ -77,7 +77,8 @@
     "My big sister is six years old too.",
     "Where is Uncle?",
     "What is your mom's name?",
-    "It's okay, it doesn't hurt anymore."
+    "It's okay, it doesn't hurt anymore.",
+    "Uncle came today."
   ],
   "hiddenWords": [],
   "practiceDays": [
@@ -1431,6 +1432,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1787836561629
+    },
+    "Uncle came today.": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1787836606333
     }
   },
   "chipLog": [
@@ -1449,7 +1457,7 @@
   ],
   "dayCount": {
     "date": "2026-08-27",
-    "n": 15
+    "n": 16
   },
   "spokenCount": {
     "date": "2026-08-20",
@@ -1504,11 +1512,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1787836564109,
+  "trouble_at": 1787836606337,
   "pool_at": 1787836564109,
-  "starredSentences_at": 1787836564109,
-  "hiddenWords_at": 1787836504102,
-  "archived_at": 1787836564109,
+  "starredSentences_at": 1787836606337,
+  "hiddenWords_at": 1787836564110,
+  "archived_at": 1787836606337,
   "en_starred_at": 1787769364565,
   "chips": 11
 }
