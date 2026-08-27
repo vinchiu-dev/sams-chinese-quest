@@ -78,7 +78,8 @@
     "Where is Uncle?",
     "What is your mom's name?",
     "It's okay, it doesn't hurt anymore.",
-    "Uncle came today."
+    "Uncle came today.",
+    "I want to eat dumplings."
   ],
   "hiddenWords": [],
   "practiceDays": [
@@ -1446,6 +1447,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1787836685133
+    },
+    "I want to eat dumplings.": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1787836773645
     }
   },
   "chipLog": [
@@ -1464,7 +1472,7 @@
   ],
   "dayCount": {
     "date": "2026-08-27",
-    "n": 17
+    "n": 18
   },
   "spokenCount": {
     "date": "2026-08-20",
@@ -1519,11 +1527,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1787836744011,
+  "trouble_at": 1787836773649,
   "pool_at": 1787836744011,
-  "starredSentences_at": 1787836744011,
-  "hiddenWords_at": 1787836684040,
-  "archived_at": 1787836744011,
+  "starredSentences_at": 1787836773649,
+  "hiddenWords_at": 1787836744011,
+  "archived_at": 1787836773649,
   "en_starred_at": 1787769364565,
   "chips": 11
 }
