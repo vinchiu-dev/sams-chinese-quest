@@ -1040,8 +1040,13 @@ function ChineseApp({ onSwitchLang }) {
       return n;
     });
 
-  const troubleWords = activeWords.filter((w) => trouble.has(w.pinyin));
-  const starredSentenceList = activeSentences.filter((s) => starredSentences.has(s.en));
+  // The tricky pile deliberately IGNORES which lessons are selected. A word he
+  // struggled with shouldn't become unreachable just because that lesson is
+  // toggled off — that's the opposite of what starring is for.
+  const troubleWords = dedupe(
+    allLessons.flatMap((l) => l.words).filter(notHidden).filter((w) => trouble.has(w.pinyin))
+  );
+  const starredSentenceList = SENTENCES.filter((s) => starredSentences.has(s.en));
 
   const toggleArchived = (pinyin) =>
     setArchived((prev) => {
