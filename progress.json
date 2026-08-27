@@ -1403,6 +1403,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1787836067111
+    },
+    "What is your name?": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787836090899
     }
   },
   "chipLog": [
@@ -1473,7 +1480,7 @@
   "trouble_at": 1787836083950,
   "pool_at": 1787836083950,
   "starredSentences_at": 1787836083950,
-  "hiddenWords_at": 1787836023982,
+  "hiddenWords_at": 1787836083951,
   "archived_at": 1787836083950,
   "en_starred_at": 1787769364565,
   "chips": 10
