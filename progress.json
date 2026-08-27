@@ -1417,6 +1417,13 @@
       "right": 0,
       "wrong": 1,
       "last": 1787836220553
+    },
+    "How many people are in your family?": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787836492170
     }
   },
   "chipLog": [
@@ -1487,7 +1494,7 @@
   "trouble_at": 1787836443967,
   "pool_at": 1787836443967,
   "starredSentences_at": 1787836443967,
-  "hiddenWords_at": 1787836384084,
+  "hiddenWords_at": 1787836443967,
   "archived_at": 1787836443967,
   "en_starred_at": 1787769364565,
   "chips": 10
