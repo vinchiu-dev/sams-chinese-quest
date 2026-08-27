@@ -900,10 +900,10 @@
     },
     "nǎ": {
       "lvl": 0,
-      "seen": 3,
+      "seen": 4,
       "right": 1,
-      "wrong": 2,
-      "last": 1787439800660
+      "wrong": 3,
+      "last": 1787835744397
     },
     "yǒu": {
       "lvl": 3,
@@ -1429,7 +1429,7 @@
   "trouble_at": 1787835724006,
   "pool_at": 1787835724005,
   "starredSentences_at": 1787835724006,
-  "hiddenWords_at": 1787835663995,
+  "hiddenWords_at": 1787835724006,
   "archived_at": 1787835724006,
   "en_starred_at": 1787769364565,
   "chips": 10
