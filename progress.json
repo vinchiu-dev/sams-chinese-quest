@@ -76,7 +76,8 @@
     "The alien is too cool!",
     "My little brother also likes to play.",
     "My big sister is six years old too.",
-    "Where is Uncle?"
+    "Where is Uncle?",
+    "What is your mom's name?"
   ],
   "hiddenWords": [],
   "practiceDays": [
@@ -1381,6 +1382,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1787835911127
+    },
+    "What is your mom's name?": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1787835927153
     }
   },
   "chipLog": [
@@ -1393,7 +1401,7 @@
   ],
   "dayCount": {
     "date": "2026-08-27",
-    "n": 5
+    "n": 7
   },
   "spokenCount": {
     "date": "2026-08-20",
@@ -1448,11 +1456,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1787835903969,
+  "trouble_at": 1787835927156,
   "pool_at": 1787835903968,
-  "starredSentences_at": 1787835903969,
+  "starredSentences_at": 1787835927156,
   "hiddenWords_at": 1787835903969,
-  "archived_at": 1787835903969,
+  "archived_at": 1787835927156,
   "en_starred_at": 1787769364565,
   "chips": 10
 }
