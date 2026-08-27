@@ -254,11 +254,11 @@
       "last": 1786234503153
     },
     "My mom is Chinese, my dad is American.": {
-      "lvl": 2,
-      "seen": 2,
-      "right": 2,
+      "lvl": 3,
+      "seen": 3,
+      "right": 3,
       "wrong": 0,
-      "last": 1786452910227
+      "last": 1787837727229
     },
     "My toys are in the bedroom.": {
       "lvl": 0,
@@ -1574,7 +1574,7 @@
   "trouble_at": 1787837704002,
   "pool_at": 1787837704001,
   "starredSentences_at": 1787837704002,
-  "hiddenWords_at": 1787837643997,
+  "hiddenWords_at": 1787837704003,
   "archived_at": 1787837704002,
   "en_starred_at": 1787769364565,
   "chips": 11
