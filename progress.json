@@ -439,11 +439,11 @@
       "last": 1787836406310
     },
     "Goodbye, Mika!": {
-      "lvl": 0,
-      "seen": 4,
-      "right": 3,
+      "lvl": 1,
+      "seen": 5,
+      "right": 4,
       "wrong": 1,
-      "last": 1786552709317
+      "last": 1787836515516
     },
     "I am also American.": {
       "lvl": 5,
@@ -1494,7 +1494,7 @@
   "trouble_at": 1787836504102,
   "pool_at": 1787836504101,
   "starredSentences_at": 1787836504102,
-  "hiddenWords_at": 1787836443967,
+  "hiddenWords_at": 1787836504102,
   "archived_at": 1787836504102,
   "en_starred_at": 1787769364565,
   "chips": 10
