@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-25",
+  "updated": "2026-08-27",
   "lessons": [
     {
       "id": "little-fox-school-supplies",
@@ -1668,6 +1668,36 @@
           "emoji": "🪐"
         }
       ]
+    },
+    {
+      "id": "words-we-added",
+      "title": "Words We Added",
+      "subtitle": "extra words — not from a Little Fox video",
+      "words": [
+        {
+          "hanzi": "虫子",
+          "pinyin": "chóngzi",
+          "en": "bug / insect",
+          "emoji": "🐛",
+          "phrases": [
+            {
+              "en": "a bug",
+              "pinyin": "yí ge chóngzi",
+              "hanzi": "一个虫子"
+            },
+            {
+              "en": "I have a bug",
+              "pinyin": "wǒ yǒu chóngzi",
+              "hanzi": "我有虫子"
+            },
+            {
+              "en": "Where's the bug?",
+              "pinyin": "chóngzi zài nǎr?",
+              "hanzi": "虫子在哪儿？"
+            }
+          ]
+        }
+      ]
     }
   ],
   "tagMap": {
@@ -1793,6 +1823,9 @@
     ],
     "born": [
       "where-born"
+    ],
+    "added": [
+      "words-we-added"
     ]
   },
   "sentences": [
@@ -3415,6 +3448,24 @@
       "pinyin": "Nǐ zài nǎ chūshēng?",
       "hanzi": "你在哪出生？",
       "tag": "born"
+    },
+    {
+      "en": "I have a bug.",
+      "pinyin": "Wǒ yǒu chóngzi.",
+      "hanzi": "我有虫子。",
+      "tag": "added"
+    },
+    {
+      "en": "Where's the bug?",
+      "pinyin": "Chóngzi zài nǎr?",
+      "hanzi": "虫子在哪儿？",
+      "tag": "added"
+    },
+    {
+      "en": "Oh no, the bug dropped!",
+      "pinyin": "Tiān na, chóngzi diào le!",
+      "hanzi": "天哪，虫子掉了！",
+      "tag": "added"
     }
   ]
 }
