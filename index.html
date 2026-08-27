@@ -711,7 +711,7 @@ const markWodDone = () => {
   if (wodDoneToday()) return false;
   saveLS("wodDone", todayKey());
   addChips(1);
-  logChips({ type: "wod", amount: 1, note: "Word of the day ⭐" });
+  logChips({ type: "wod", amount: 1, note: "Word of the day 🌞" });
   playFanfare();
   return true;
 };
@@ -848,6 +848,13 @@ const C = {
   sun: "#F6C445",
 };
 
+const SPECIAL_LESSON_IDS = ["starred-words", "wod-history", "my-words", "words-we-added"];
+const ADDED_ID = "words-we-added";
+const recentRealLessonIds = (lessons) =>
+  (lessons || []).filter((l) => !SPECIAL_LESSON_IDS.includes(l.id)).slice(-6).map((l) => l.id);
+const recentPoolIds = (lessons) =>
+  [...new Set(recentRealLessonIds(lessons).concat(["starred-words", "wod-history", ADDED_ID]))];
+
 function ChineseApp({ onSwitchLang }) {
   const { lessons: LESSONS, tagMap: SENTENCE_TAG_TO_LESSONS, sentences: SENTENCES } = getVocab();
   const [screen, setScreen] = useState("home");
@@ -856,8 +863,12 @@ function ChineseApp({ onSwitchLang }) {
   const [slow, setSlow] = useState(() => loadLS("zh_slow", false));
   const toggleSlow = () => setSlow((s) => { const n = !s; saveLS("zh_slow", n); return n; });
   const [pool, setPool] = useState(() => {
+    const recent = recentPoolIds(LESSONS);
     const saved = loadLS("pool", null);
-    return Array.isArray(saved) && saved.length ? saved : LESSONS.map((l) => l.id);
+    if (!Array.isArray(saved) || !saved.length) return recent;
+    const realIds = LESSONS.filter((l) => !SPECIAL_LESSON_IDS.includes(l.id)).map((l) => l.id);
+    const wasAll = realIds.length > 0 && realIds.every((id) => saved.includes(id));
+    return wasAll ? recent : saved.map((id) => (id === "my-words" ? ADDED_ID : id));
   });
   useEffect(() => { saveTimed("pool", pool); }, [pool]);
   const [trouble, setTrouble] = useState(() => new Set(loadLS("trouble", [])));
@@ -930,7 +941,7 @@ function ChineseApp({ onSwitchLang }) {
 
   const addCustomWord = (word) => {
     setCustomWords((prev) => [...prev, word]);
-    setPool((p) => (p.includes("my-words") ? p : [...p, "my-words"]));
+    setPool((p) => (p.includes(ADDED_ID) ? p : [...p, ADDED_ID]));
   };
   // Words Vin has removed. Lesson words can't be deleted from vocab.json,
   // so we keep a hide-list instead — reversible, and it survives updates.
@@ -965,20 +976,40 @@ function ChineseApp({ onSwitchLang }) {
     if (customWords.length !== customFiltered.length) setCustomWords(customFiltered);
   }, [customWords.length, customFiltered.length]);
 
-  const MY_WORDS_LESSON = { id: MY_WORDS_ID, title: "Words We Added", subtitle: "words you added yourself", words: customFiltered };
+  const notHiddenEarly = (w) => !hidden.has(hideKey(w));
+  const dedupeEarly = (arr) => {
+    const seen = new Set();
+    return arr.filter((w) => {
+      const k = w.pinyin || w.hanzi || w.en;
+      if (seen.has(k)) return false;
+      seen.add(k);
+      return true;
+    });
+  };
+  const vocabAdded = LESSONS.find((l) => l.id === ADDED_ID) || { id: ADDED_ID, title: "Words We Added", subtitle: "words you added yourself", words: [] };
+  const ADDED_LESSON = {
+    id: ADDED_ID,
+    title: "Words We Added",
+    subtitle: vocabAdded.subtitle || "words you added yourself",
+    words: dedupeEarly([...(vocabAdded.words || []), ...customFiltered]),
+  };
+  const MY_WORDS_LESSON = ADDED_LESSON;
 
   // Every starred word, gathered from all lessons, as its own selectable set.
   const STARRED_ID = "starred-words";
-  const starredWordList = LESSONS.concat([MY_WORDS_LESSON])
-    .flatMap((l) => l.words || [])
-    .filter((w) => w && trouble.has(w.pinyin) && !hidden.has(hideKey(w)));
+  const starredWordList = dedupeEarly(
+    LESSONS.concat([ADDED_LESSON])
+      .flatMap((l) => l.words || [])
+      .filter((w) => w && trouble.has(w.pinyin) && notHiddenEarly(w))
+  );
   const STARRED_LESSON = { id: STARRED_ID, title: "⭐ Starred Words", subtitle: "just the tricky ones", words: starredWordList };
   const WOD_ID = "wod-history";
   const wodHistory = getWodHistory();
-  const WOD_LESSON = { id: WOD_ID, title: "⭐ Words of the Day", subtitle: "every word of the day so far", words: wodHistory };
+  const WOD_LESSON = { id: WOD_ID, title: "🌞 Words of the Day", subtitle: "every word of the day so far", words: wodHistory };
   const allLessons = LESSONS
+    .filter((l) => l.id !== ADDED_ID)
     .concat(starredWordList.length ? [STARRED_LESSON] : [])
-    .concat(customFiltered.length ? [MY_WORDS_LESSON] : [])
+    .concat(ADDED_LESSON.words.length ? [ADDED_LESSON] : [])
     .concat(wodHistory.length ? [WOD_LESSON] : []);
 
   // words from the chosen lessons, minus any that have been archived (mastered)
@@ -993,7 +1024,7 @@ function ChineseApp({ onSwitchLang }) {
     });
   };
   const activeWords = dedupe(
-    allLessons.filter((l) => pool.includes(l.id) || l.id === MY_WORDS_ID)
+    allLessons.filter((l) => pool.includes(l.id) || l.id === ADDED_ID)
       .flatMap((l) => l.words)
       .filter(notHidden)
   )
@@ -1005,7 +1036,7 @@ function ChineseApp({ onSwitchLang }) {
   // it shouldn't need a lesson toggle to show up.
   const listWords = dedupe(
     allLessons
-      .filter((l) => pool.includes(l.id) || l.id === MY_WORDS_ID)
+      .filter((l) => pool.includes(l.id) || l.id === ADDED_ID)
       .flatMap((l) => l.words.map((w) => ({ ...w, lesson: l.title })))
       .filter(notHidden)
   );
@@ -1021,8 +1052,9 @@ function ChineseApp({ onSwitchLang }) {
 
   const selectAllLessons = () => setPool(allLessons.map((l) => l.id));
   const selectNoLessons = () => setPool([]);
-  // newest real lesson lives at the END of the LESSONS array
-  const selectNewestLesson = () => setPool([LESSONS[LESSONS.length - 1].id]);
+  const newestReal = [...LESSONS].reverse().find((l) => !SPECIAL_LESSON_IDS.includes(l.id)) || LESSONS[LESSONS.length - 1];
+  const selectNewestLesson = () => setPool(newestReal ? [newestReal.id] : []);
+  const selectRecentLessons = () => setPool(recentPoolIds(LESSONS));
 
   const toggleTrouble = (pinyin) =>
     setTrouble((prev) => {
@@ -1080,6 +1112,7 @@ function ChineseApp({ onSwitchLang }) {
             selectAllLessons={selectAllLessons}
             selectNoLessons={selectNoLessons}
             selectNewestLesson={selectNewestLesson}
+            selectRecentLessons={selectRecentLessons}
             wordCount={activeWords.length}
             troubleCount={troubleWords.length}
             starredSentenceCount={starredSentenceList.length}
@@ -1210,8 +1243,8 @@ function Header({ onHome, showHome, onSwitchLang }) {
           </button>
         ) : (
           <React.Fragment>
-            <button onClick={onSwitchLang} style={{ ...ghostBtn, borderColor: "#5B8DEF", color: "#3B6FB8" }} title="Switch to English">
-              🇬🇧 EN
+            <button onClick={onSwitchLang} style={{ ...ghostBtn, borderColor: "#5B8DEF", color: "#3B6FB8", fontSize: 12, padding: "4px 9px", borderRadius: 10 }} title="Switch to English">
+              English
             </button>
           </React.Fragment>
         )}
@@ -1340,7 +1373,7 @@ function ChipsScreen({ onDone }) {
 
 function Home({
   lessons, pool, toggleLesson,
-  selectAllLessons, selectNoLessons, selectNewestLesson,
+  selectAllLessons, selectNoLessons, selectNewestLesson, selectRecentLessons,
   wordCount, troubleCount, starredSentenceCount, totalCount, archivedCount, go,
   addCustomWord, allWordsForWod,
 }) {
@@ -1472,7 +1505,7 @@ function Home({
     { id: "car", emoji: "🚗", name: "Car Mode", desc: "Eyes off, ears on", color: "#2A2440" },
   ];
 
-  const newest = lessons[lessons.length - 1];
+  const newest = [...lessons].reverse().find((l) => !["starred-words", "wod-history", "words-we-added"].includes(l.id)) || lessons[lessons.length - 1];
   const onCount = pool.length;
   const allOn = onCount === lessons.length;
   const noneOn = onCount === 0;
@@ -1519,10 +1552,10 @@ function Home({
             <span style={{ fontSize: 22 }}>📚</span>
             <span style={{ minWidth: 0 }}>
               <span style={{ display: "block", fontWeight: 800, fontSize: 15, color: C.ink }}>
-                {summary}
+                Lessons list
               </span>
               <span style={{ display: "block", fontSize: 12, color: "#7a7391" }}>
-                {wordCount} word{wordCount === 1 ? "" : "s"} in play · tap to change
+                {summary} · {wordCount} word{wordCount === 1 ? "" : "s"} in play · tap to change
               </span>
             </span>
           </span>
@@ -1550,8 +1583,15 @@ function Home({
                 ✕ Clear all
               </button>
               <button
-                onClick={selectNewestLesson}
+                onClick={selectRecentLessons}
                 style={{ ...miniBtn, borderColor: C.fox, color: C.fox }}
+                title="Last ~3 weeks, plus Starred / Words We Added / Words of the Day"
+              >
+                🕒 Recent only
+              </button>
+              <button
+                onClick={selectNewestLesson}
+                style={{ ...miniBtn, borderColor: "#c8c2d4", color: "#7a7391" }}
                 title={newest?.title}
               >
                 ✨ Newest only
@@ -1571,7 +1611,7 @@ function Home({
             >
               {(() => {
                 // "Words We Added" is pinned to the top; the rest are newest-first
-                const special = ["starred-words", "wod-history", "my-words"];
+                const special = ["starred-words", "wod-history", "words-we-added"];
                 const pinned = special
                   .map((id) => lessons.find((l) => l.id === id))
                   .filter(Boolean);
@@ -1605,7 +1645,7 @@ function Home({
         borderRadius: 18, padding: "12px 14px", marginBottom: 14 }}>
         {todaysWord ? (
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <span style={{ fontSize: 34 }}>{todaysWord.emoji || "⭐"}</span>
+            <span style={{ fontSize: 34 }}>{todaysWord.emoji || "🌞"}</span>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 0.5, textTransform: "uppercase", color: "#b9927a" }}>
                 Word of the day{wodDoneToday() ? " ✓" : ""}
@@ -1627,7 +1667,7 @@ function Home({
             style={{ width: "100%", background: "transparent", border: "none", cursor: "pointer",
               fontFamily: "inherit", textAlign: "left", padding: 0 }}>
             <span style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <span style={{ fontSize: 28 }}>⭐</span>
+              <span style={{ fontSize: 28 }}>🌞</span>
               <span>
                 <span style={{ display: "block", fontWeight: 800, fontSize: 15 }}>Pick a word of the day</span>
                 <span style={{ display: "block", fontSize: 12, color: "#7a7391" }}>
@@ -1700,7 +1740,7 @@ function Home({
           <span style={{ fontWeight: 800, fontSize: 14, marginTop: 4 }}>Tricky ones</span>
           <span style={{ fontSize: 11, color: "#7a7391", marginTop: 2 }}>
             {(troubleCount + starredSentenceCount) > 0
-              ? [troubleCount > 0 ? `${troubleCount} word${troubleCount === 1 ? "" : "s"}` : null,
+              ? [troubleCount > 0 ? `${troubleCount} starred` : null,
                  starredSentenceCount > 0 ? `${starredSentenceCount} sentence${starredSentenceCount === 1 ? "" : "s"}` : null]
                 .filter(Boolean).join(" · ")
               : "none yet"}
