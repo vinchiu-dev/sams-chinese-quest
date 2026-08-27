@@ -1439,6 +1439,13 @@
       "right": 0,
       "wrong": 1,
       "last": 1787836606333
+    },
+    "Sorry, I don't want to eat.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787836685133
     }
   },
   "chipLog": [
@@ -1512,11 +1519,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1787836624027,
-  "pool_at": 1787836624027,
-  "starredSentences_at": 1787836624027,
-  "hiddenWords_at": 1787836564110,
-  "archived_at": 1787836624027,
+  "trouble_at": 1787836684039,
+  "pool_at": 1787836684039,
+  "starredSentences_at": 1787836684039,
+  "hiddenWords_at": 1787836684040,
+  "archived_at": 1787836684039,
   "en_starred_at": 1787769364565,
   "chips": 11
 }
