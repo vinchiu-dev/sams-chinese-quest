@@ -97,8 +97,8 @@
     "2026-08-22",
     "2026-08-23",
     "2026-08-26",
-    "2026-08-27",
-    "2026-08-18"
+    "2026-08-18",
+    "2026-08-27"
   ],
   "en_starred": [
     "abundant"
@@ -111,17 +111,17 @@
   ],
   "customWords": [
     {
-      "en": "see you tomorrow",
-      "pinyin": "míngtiān jiàn",
-      "hanzi": "明天见",
-      "emoji": "👋"
-    },
-    {
       "en": "See you tomorrow",
       "pinyin": "",
       "hanzi": "",
       "emoji": "📝",
       "needsDef": true
+    },
+    {
+      "en": "see you tomorrow",
+      "pinyin": "míngtiān jiàn",
+      "hanzi": "明天见",
+      "emoji": "👋"
     }
   ],
   "en_myWords": [
@@ -193,6 +193,26 @@
       "wodDate": "2026-08-19"
     },
     {
+      "hanzi": "家",
+      "pinyin": "jiā",
+      "en": "home / family",
+      "emoji": "🏠",
+      "phrases": [
+        {
+          "en": "my family",
+          "pinyin": "wǒ jiā",
+          "hanzi": "我家"
+        },
+        {
+          "en": "at home",
+          "pinyin": "zài jiā",
+          "hanzi": "在家"
+        }
+      ],
+      "lesson": "How Many People?",
+      "wodDate": "2026-08-21"
+    },
+    {
       "hanzi": "有",
       "pinyin": "yǒu",
       "en": "to have / there is",
@@ -216,26 +236,6 @@
       ],
       "lesson": "How Many People?",
       "wodDate": "2026-08-20"
-    },
-    {
-      "hanzi": "家",
-      "pinyin": "jiā",
-      "en": "home / family",
-      "emoji": "🏠",
-      "phrases": [
-        {
-          "en": "my family",
-          "pinyin": "wǒ jiā",
-          "hanzi": "我家"
-        },
-        {
-          "en": "at home",
-          "pinyin": "zài jiā",
-          "hanzi": "在家"
-        }
-      ],
-      "lesson": "How Many People?",
-      "wodDate": "2026-08-21"
     }
   ],
   "srs": {
@@ -1521,17 +1521,104 @@
       "last": 1787837824768
     }
   },
-  "chipLog": [],
+  "chipLog": [
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1787406323250
+    },
+    {
+      "type": "wod",
+      "amount": 1,
+      "note": "Word of the day ⭐",
+      "at": 1787355843612
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1787146549580
+    },
+    {
+      "type": "wod",
+      "amount": 1,
+      "note": "Word of the day ⭐",
+      "at": 1786980036246
+    },
+    {
+      "type": "spoken",
+      "amount": 1,
+      "note": "Spoke 10 sentences 🗣️",
+      "at": 1786910827153
+    },
+    {
+      "type": "wod",
+      "amount": 1,
+      "note": "Word of the day ⭐",
+      "at": 1786901307500
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786840319065
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786453221690
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786409020277
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786237233480
+    }
+  ],
   "dayCount": {
     "date": "2026-08-27",
     "n": 30
   },
-  "spokenCount": {},
-  "wordOfDay": null,
+  "spokenCount": {
+    "date": "2026-08-21",
+    "n": 7
+  },
+  "wordOfDay": {
+    "date": "2026-08-21",
+    "word": {
+      "hanzi": "家",
+      "pinyin": "jiā",
+      "en": "home / family",
+      "emoji": "🏠",
+      "phrases": [
+        {
+          "en": "my family",
+          "pinyin": "wǒ jiā",
+          "hanzi": "我家"
+        },
+        {
+          "en": "at home",
+          "pinyin": "zài jiā",
+          "hanzi": "在家"
+        }
+      ],
+      "lesson": "How Many People?"
+    }
+  },
   "goalClaimed": "2026-08-27",
-  "wodDone": "",
-  "spokenClaimed": "",
+  "wodDone": "2026-08-21",
+  "spokenClaimed": "2026-08-16",
   "math_sets": [
+    "sub10",
+    "neardbl",
     "add10"
   ],
   "car_deck": "words",
@@ -1548,6 +1635,6 @@
   "starredSentences_at": 1787862855933,
   "hiddenWords_at": 1787862855933,
   "archived_at": 1787862855933,
-  "en_starred_at": 1787862881941,
+  "en_starred_at": 1787869011333,
   "chips": 11
 }
