@@ -1484,6 +1484,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1787837316268
+    },
+    "Mum says to eat your greens.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787837448626
     }
   },
   "chipLog": [
@@ -1560,7 +1567,7 @@
   "trouble_at": 1787837414998,
   "pool_at": 1787837414998,
   "starredSentences_at": 1787837414998,
-  "hiddenWords_at": 1787837414996,
+  "hiddenWords_at": 1787837414999,
   "archived_at": 1787837414998,
   "en_starred_at": 1787769364565,
   "chips": 11
