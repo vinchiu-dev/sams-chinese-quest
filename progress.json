@@ -100,56 +100,7 @@
   ],
   "en_myWords": [
     {
-      "word": "Authorities",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "cushion",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Status",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Currently",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Violate",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "vegetable",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
       "word": "I will add those to the list",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Stimulate",
       "definition": "(definition coming — ask Claude to fill this in)",
       "example": "",
       "emoji": "📝",
@@ -1662,11 +1613,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1787848002762,
-  "pool_at": 1787848002761,
-  "starredSentences_at": 1787848002762,
-  "hiddenWords_at": 1787848002761,
-  "archived_at": 1787848002762,
-  "en_starred_at": 1787847517293,
+  "trouble_at": 1787848028761,
+  "pool_at": 1787848028761,
+  "starredSentences_at": 1787848028761,
+  "hiddenWords_at": 1787848028762,
+  "archived_at": 1787848028761,
+  "en_starred_at": 1787848031892,
   "chips": 11
 }
