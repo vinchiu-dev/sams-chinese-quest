@@ -81,7 +81,8 @@
     "Uncle came today.",
     "I want to eat dumplings.",
     "Lunch is too bland.",
-    "Thank you, I'm very happy."
+    "Thank you, I'm very happy.",
+    "Where is your eraser?"
   ],
   "hiddenWords": [],
   "practiceDays": [
@@ -1505,6 +1506,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1787837735138
+    },
+    "Where is your eraser?": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1787837758594
     }
   },
   "chipLog": [
@@ -1523,7 +1531,7 @@
   ],
   "dayCount": {
     "date": "2026-08-27",
-    "n": 28
+    "n": 30
   },
   "spokenCount": {
     "date": "2026-08-20",
@@ -1578,11 +1586,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1787837704002,
+  "trouble_at": 1787837758598,
   "pool_at": 1787837704001,
-  "starredSentences_at": 1787837704002,
+  "starredSentences_at": 1787837758598,
   "hiddenWords_at": 1787837704003,
-  "archived_at": 1787837704002,
+  "archived_at": 1787837758598,
   "en_starred_at": 1787769364565,
   "chips": 11
 }
