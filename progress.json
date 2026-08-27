@@ -1498,6 +1498,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1787837550886
+    },
+    "Long time no see!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787837735138
     }
   },
   "chipLog": [
@@ -1516,7 +1523,7 @@
   ],
   "dayCount": {
     "date": "2026-08-27",
-    "n": 27
+    "n": 28
   },
   "spokenCount": {
     "date": "2026-08-20",
