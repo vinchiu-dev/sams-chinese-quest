@@ -79,7 +79,8 @@
     "What is your mom's name?",
     "It's okay, it doesn't hurt anymore.",
     "Uncle came today.",
-    "I want to eat dumplings."
+    "I want to eat dumplings.",
+    "Lunch is too bland."
   ],
   "hiddenWords": [],
   "practiceDays": [
@@ -1454,6 +1455,13 @@
       "right": 0,
       "wrong": 1,
       "last": 1787836773645
+    },
+    "Lunch is too bland.": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1787836803738
     }
   },
   "chipLog": [
@@ -1472,7 +1480,7 @@
   ],
   "dayCount": {
     "date": "2026-08-27",
-    "n": 18
+    "n": 19
   },
   "spokenCount": {
     "date": "2026-08-20",
@@ -1527,11 +1535,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1787836773649,
-  "pool_at": 1787836744011,
-  "starredSentences_at": 1787836773649,
+  "trouble_at": 1787836803918,
+  "pool_at": 1787836803917,
+  "starredSentences_at": 1787836803918,
   "hiddenWords_at": 1787836744011,
-  "archived_at": 1787836773649,
+  "archived_at": 1787836803918,
   "en_starred_at": 1787769364565,
   "chips": 11
 }
