@@ -1396,6 +1396,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1787835980604
+    },
+    "I want to eat blueberries.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787836067111
     }
   },
   "chipLog": [
@@ -1466,7 +1473,7 @@
   "trouble_at": 1787836023982,
   "pool_at": 1787836023982,
   "starredSentences_at": 1787836023982,
-  "hiddenWords_at": 1787835963973,
+  "hiddenWords_at": 1787836023982,
   "archived_at": 1787836023982,
   "en_starred_at": 1787769364565,
   "chips": 10
