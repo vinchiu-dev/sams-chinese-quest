@@ -1512,6 +1512,13 @@
       "right": 0,
       "wrong": 1,
       "last": 1787837758594
+    },
+    "Bóbo is Dad's older brother.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787837824768
     }
   },
   "chipLog": [
@@ -1585,11 +1592,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1787837791199,
-  "pool_at": 1787837764025,
-  "starredSentences_at": 1787837791199,
-  "hiddenWords_at": 1787837764026,
-  "archived_at": 1787837791199,
+  "trouble_at": 1787837824032,
+  "pool_at": 1787837824031,
+  "starredSentences_at": 1787837824032,
+  "hiddenWords_at": 1787837824032,
+  "archived_at": 1787837824032,
   "en_starred_at": 1787769364565,
   "chips": 11
 }
