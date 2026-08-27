@@ -1,29 +1,52 @@
 {
   "trouble": [
+    "wòshì",
     "zài",
+    "shàngwǎng",
+    "fángjiān",
+    "gēbo",
+    "bóbo",
+    "yīngtáo",
+    "biǎogē",
+    "chúfáng",
+    "shēnghuó",
+    "téng",
+    "zuò fàn",
+    "kàndào le",
+    "qiāo mén",
+    "wèishénme",
+    "qǐchuáng",
     "zài zuò shénme",
+    "táozi",
     "zhēn",
-    "suì",
-    "shì",
-    "láizì",
+    "chī fàn",
+    "kāi mén",
+    "hái yǒu",
+    "wénjù diàn",
+    "dà xióng wánjù",
+    "xīhóngshì",
+    "shūfáng",
+    "kètīng",
+    "qīngcài",
     "nǎ guó rén",
+    "shì",
+    "suì",
+    "měiguórén",
+    "láizì",
     "jǐ suì",
     "jǐ",
     "qù",
-    "gēbo",
     "jiā",
-    "",
     "nǎ",
     "jiào",
     "wán yóuxì",
-    "yǒu"
+    "míngtiān jiàn"
   ],
   "archived": [
-    "měiguó",
-    "liù",
-    "sān"
+    "měiguó"
   ],
   "starredSentences": [
+    "Wishing you a happy life!",
     "Let's go buy stationery!",
     "My big sister is online in the study.",
     "It's too sour!",
@@ -34,7 +57,6 @@
     "What is your mom doing?",
     "Today is the weekend, let's go buy stationery!",
     "Your life is really happy!",
-    "Wishing you a happy life!",
     "What is your dad doing?",
     "My toys are in the bedroom.",
     "Little Fox, your textbook dropped!",
@@ -51,12 +73,16 @@
     "We all love to eat fruit!",
     "Where do you come from?",
     "The alien is too cool!",
-    "My little brother also likes to play.",
-    "My big sister is six years old too."
+    "My big sister is six years old too.",
+    "Where is Uncle?",
+    "What is your mom's name?",
+    "It's okay, it doesn't hurt anymore.",
+    "Uncle came today.",
+    "I want to eat dumplings.",
+    "Lunch is too bland.",
+    "Thank you, I'm very happy."
   ],
-  "hiddenWords": [
-    "米卡|Mǐkǎ|Mika (a name)"
-  ],
+  "hiddenWords": [],
   "practiceDays": [
     "2026-08-08",
     "2026-08-10",
@@ -65,14 +91,14 @@
     "2026-08-15",
     "2026-08-16",
     "2026-08-17",
-    "2026-08-18",
     "2026-08-19",
     "2026-08-20",
     "2026-08-21",
     "2026-08-22",
     "2026-08-23",
     "2026-08-26",
-    "2026-08-27"
+    "2026-08-27",
+    "2026-08-18"
   ],
   "en_starred": [
     "abundant"
@@ -94,19 +120,6 @@
       "en": "See you tomorrow",
       "pinyin": "",
       "hanzi": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "en": "also",
-      "pinyin": "yě",
-      "hanzi": "也",
-      "emoji": "➕"
-    },
-    {
-      "en": "有",
-      "pinyin": "",
-      "hanzi": "有",
       "emoji": "📝",
       "needsDef": true
     }
@@ -863,13 +876,6 @@
       "wrong": 6,
       "last": 1787835624253
     },
-    "zài": {
-      "lvl": 1,
-      "seen": 7,
-      "right": 3,
-      "wrong": 4,
-      "last": 1787439393144
-    },
     "sān": {
       "lvl": 1,
       "seen": 3,
@@ -1220,6 +1226,13 @@
       "wrong": 4,
       "last": 1787753117715
     },
+    "zài": {
+      "lvl": 1,
+      "seen": 7,
+      "right": 3,
+      "wrong": 4,
+      "last": 1787439393144
+    },
     "zài zuò shénme": {
       "lvl": 0,
       "seen": 3,
@@ -1508,66 +1521,40 @@
       "last": 1787837824768
     }
   },
-  "chipLog": [
-    {
-      "type": "wod",
-      "amount": 1,
-      "note": "Word of the day ⭐",
-      "at": 1787071035861
-    }
-  ],
+  "chipLog": [],
   "dayCount": {
     "date": "2026-08-27",
     "n": 30
   },
-  "spokenCount": {
-    "date": "2026-08-18",
-    "n": 5
-  },
-  "wordOfDay": {
-    "date": "2026-08-18",
-    "word": {
-      "hanzi": "在",
-      "pinyin": "zài",
-      "en": "at / in",
-      "emoji": "📍",
-      "lesson": "Welcome to My House"
-    }
-  },
+  "spokenCount": {},
+  "wordOfDay": null,
   "goalClaimed": "2026-08-27",
-  "wodDone": "2026-08-18",
+  "wodDone": "",
   "spokenClaimed": "",
   "math_sets": [
-    "add10",
-    "bonds20",
-    "neardbl",
-    "add20",
-    "sub10",
-    "sub20"
+    "add10"
   ],
   "car_deck": "words",
   "car_gap": 10,
   "car_len": 12,
   "pool": [
-    "about-me",
-    "too-cool",
-    "starred-words",
-    "my-words",
     "wod-history",
+    "my-words",
     "where-born",
-    "nationalities",
-    "everyone-at-home",
+    "how-many-people",
     "asking-about-people",
-    "how-many-people"
+    "too-cool",
+    "about-me",
+    "nationalities"
   ],
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1787848028761,
-  "pool_at": 1787848028761,
-  "starredSentences_at": 1787848028761,
-  "hiddenWords_at": 1787848028762,
-  "archived_at": 1787848028761,
+  "trouble_at": 1787860383259,
+  "pool_at": 1787860382952,
+  "starredSentences_at": 1787860383259,
+  "hiddenWords_at": 1787860383257,
+  "archived_at": 1787860383259,
   "en_starred_at": 1787850715620,
   "chips": 11
 }
