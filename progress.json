@@ -1,52 +1,29 @@
 {
   "trouble": [
-    "wòshì",
     "zài",
-    "shàngwǎng",
-    "fángjiān",
-    "gēbo",
-    "bóbo",
-    "yīngtáo",
-    "biǎogē",
-    "chúfáng",
-    "shēnghuó",
-    "téng",
-    "zuò fàn",
-    "kàndào le",
-    "qiāo mén",
-    "wèishénme",
-    "qǐchuáng",
     "zài zuò shénme",
-    "táozi",
     "zhēn",
-    "chī fàn",
-    "kāi mén",
-    "hái yǒu",
-    "wénjù diàn",
-    "dà xióng wánjù",
-    "xīhóngshì",
-    "shūfáng",
-    "kètīng",
-    "qīngcài",
-    "nǎ guó rén",
-    "shì",
     "suì",
-    "měiguórén",
+    "shì",
     "láizì",
+    "nǎ guó rén",
     "jǐ suì",
     "jǐ",
     "qù",
+    "gēbo",
     "jiā",
+    "",
     "nǎ",
     "jiào",
     "wán yóuxì",
-    "míngtiān jiàn"
+    "yǒu"
   ],
   "archived": [
-    "měiguó"
+    "měiguó",
+    "liù",
+    "sān"
   ],
   "starredSentences": [
-    "Wishing you a happy life!",
     "Let's go buy stationery!",
     "My big sister is online in the study.",
     "It's too sour!",
@@ -57,6 +34,7 @@
     "What is your mom doing?",
     "Today is the weekend, let's go buy stationery!",
     "Your life is really happy!",
+    "Wishing you a happy life!",
     "What is your dad doing?",
     "My toys are in the bedroom.",
     "Little Fox, your textbook dropped!",
@@ -73,16 +51,12 @@
     "We all love to eat fruit!",
     "Where do you come from?",
     "The alien is too cool!",
-    "My big sister is six years old too.",
-    "Where is Uncle?",
-    "What is your mom's name?",
-    "It's okay, it doesn't hurt anymore.",
-    "Uncle came today.",
-    "I want to eat dumplings.",
-    "Lunch is too bland.",
-    "Thank you, I'm very happy."
+    "My little brother also likes to play.",
+    "My big sister is six years old too."
   ],
-  "hiddenWords": [],
+  "hiddenWords": [
+    "米卡|Mǐkǎ|Mika (a name)"
+  ],
   "practiceDays": [
     "2026-08-08",
     "2026-08-10",
@@ -91,13 +65,13 @@
     "2026-08-15",
     "2026-08-16",
     "2026-08-17",
-    "2026-08-18",
     "2026-08-19",
     "2026-08-20",
     "2026-08-21",
     "2026-08-22",
     "2026-08-23",
     "2026-08-26",
+    "2026-08-18",
     "2026-08-27"
   ],
   "en_starred": [
@@ -111,12 +85,6 @@
   ],
   "customWords": [
     {
-      "en": "see you tomorrow",
-      "pinyin": "míngtiān jiàn",
-      "hanzi": "明天见",
-      "emoji": "👋"
-    },
-    {
       "en": "See you tomorrow",
       "pinyin": "",
       "hanzi": "",
@@ -124,22 +92,64 @@
       "needsDef": true
     },
     {
-      "en": "also",
-      "pinyin": "yě",
-      "hanzi": "也",
-      "emoji": "➕"
-    },
-    {
-      "en": "有",
-      "pinyin": "",
-      "hanzi": "有",
-      "emoji": "📝",
-      "needsDef": true
+      "en": "see you tomorrow",
+      "pinyin": "míngtiān jiàn",
+      "hanzi": "明天见",
+      "emoji": "👋"
     }
   ],
   "en_myWords": [
     {
+      "word": "Authorities",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "cushion",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Status",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Currently",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Violate",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "vegetable",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
       "word": "I will add those to the list",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Stimulate",
       "definition": "(definition coming — ask Claude to fill this in)",
       "example": "",
       "emoji": "📝",
@@ -206,6 +216,26 @@
       "wodDate": "2026-08-19"
     },
     {
+      "hanzi": "家",
+      "pinyin": "jiā",
+      "en": "home / family",
+      "emoji": "🏠",
+      "phrases": [
+        {
+          "en": "my family",
+          "pinyin": "wǒ jiā",
+          "hanzi": "我家"
+        },
+        {
+          "en": "at home",
+          "pinyin": "zài jiā",
+          "hanzi": "在家"
+        }
+      ],
+      "lesson": "How Many People?",
+      "wodDate": "2026-08-21"
+    },
+    {
       "hanzi": "有",
       "pinyin": "yǒu",
       "en": "to have / there is",
@@ -229,26 +259,6 @@
       ],
       "lesson": "How Many People?",
       "wodDate": "2026-08-20"
-    },
-    {
-      "hanzi": "家",
-      "pinyin": "jiā",
-      "en": "home / family",
-      "emoji": "🏠",
-      "phrases": [
-        {
-          "en": "my family",
-          "pinyin": "wǒ jiā",
-          "hanzi": "我家"
-        },
-        {
-          "en": "at home",
-          "pinyin": "zài jiā",
-          "hanzi": "在家"
-        }
-      ],
-      "lesson": "How Many People?",
-      "wodDate": "2026-08-21"
     }
   ],
   "srs": {
@@ -889,13 +899,6 @@
       "wrong": 6,
       "last": 1787835624253
     },
-    "zài": {
-      "lvl": 1,
-      "seen": 7,
-      "right": 3,
-      "wrong": 4,
-      "last": 1787439393144
-    },
     "sān": {
       "lvl": 1,
       "seen": 3,
@@ -1246,6 +1249,13 @@
       "wrong": 4,
       "last": 1787753117715
     },
+    "zài": {
+      "lvl": 1,
+      "seen": 7,
+      "right": 3,
+      "wrong": 4,
+      "last": 1787439393144
+    },
     "zài zuò shénme": {
       "lvl": 0,
       "seen": 3,
@@ -1536,10 +1546,64 @@
   },
   "chipLog": [
     {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1787406323250
+    },
+    {
       "type": "wod",
       "amount": 1,
       "note": "Word of the day ⭐",
-      "at": 1787071035861
+      "at": 1787355843612
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1787146549580
+    },
+    {
+      "type": "wod",
+      "amount": 1,
+      "note": "Word of the day ⭐",
+      "at": 1786980036246
+    },
+    {
+      "type": "spoken",
+      "amount": 1,
+      "note": "Spoke 10 sentences 🗣️",
+      "at": 1786910827153
+    },
+    {
+      "type": "wod",
+      "amount": 1,
+      "note": "Word of the day ⭐",
+      "at": 1786901307500
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786840319065
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786453221690
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786409020277
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786237233480
     }
   ],
   "dayCount": {
@@ -1547,51 +1611,62 @@
     "n": 30
   },
   "spokenCount": {
-    "date": "2026-08-18",
-    "n": 5
+    "date": "2026-08-21",
+    "n": 7
   },
   "wordOfDay": {
-    "date": "2026-08-18",
+    "date": "2026-08-21",
     "word": {
-      "hanzi": "在",
-      "pinyin": "zài",
-      "en": "at / in",
-      "emoji": "📍",
-      "lesson": "Welcome to My House"
+      "hanzi": "家",
+      "pinyin": "jiā",
+      "en": "home / family",
+      "emoji": "🏠",
+      "phrases": [
+        {
+          "en": "my family",
+          "pinyin": "wǒ jiā",
+          "hanzi": "我家"
+        },
+        {
+          "en": "at home",
+          "pinyin": "zài jiā",
+          "hanzi": "在家"
+        }
+      ],
+      "lesson": "How Many People?"
     }
   },
   "goalClaimed": "2026-08-27",
-  "wodDone": "2026-08-18",
-  "spokenClaimed": "",
+  "wodDone": "2026-08-21",
+  "spokenClaimed": "2026-08-16",
   "math_sets": [
-    "add10",
-    "bonds20",
-    "neardbl",
-    "add20",
     "sub10",
-    "sub20"
+    "neardbl",
+    "add10"
   ],
   "car_deck": "words",
   "car_gap": 10,
   "car_len": 12,
   "pool": [
-    "wod-history",
-    "my-words",
-    "where-born",
-    "how-many-people",
-    "asking-about-people",
-    "too-cool",
     "about-me",
-    "nationalities"
+    "too-cool",
+    "starred-words",
+    "my-words",
+    "wod-history",
+    "where-born",
+    "nationalities",
+    "everyone-at-home",
+    "asking-about-people",
+    "how-many-people"
   ],
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1787847057033,
-  "pool_at": 1787847057004,
-  "starredSentences_at": 1787847057034,
-  "hiddenWords_at": 1787847057032,
-  "archived_at": 1787847057033,
+  "trouble_at": 1787848000356,
+  "pool_at": 1787848000100,
+  "starredSentences_at": 1787848000356,
+  "hiddenWords_at": 1787848000355,
+  "archived_at": 1787848000356,
   "en_starred_at": 1787847517293,
   "chips": 11
 }
