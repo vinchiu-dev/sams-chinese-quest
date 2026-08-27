@@ -484,11 +484,11 @@
       "last": 1786887676029
     },
     "My mom comes from China, she is Chinese.": {
-      "lvl": 1,
-      "seen": 1,
+      "lvl": 0,
+      "seen": 2,
       "right": 1,
-      "wrong": 0,
-      "last": 1786887847122
+      "wrong": 1,
+      "last": 1787836909783
     },
     "My name is Sam.": {
       "lvl": 2,
@@ -1545,7 +1545,7 @@
   "trouble_at": 1787836863947,
   "pool_at": 1787836863947,
   "starredSentences_at": 1787836863947,
-  "hiddenWords_at": 1787836803918,
+  "hiddenWords_at": 1787836863948,
   "archived_at": 1787836863947,
   "en_starred_at": 1787769364565,
   "chips": 11
