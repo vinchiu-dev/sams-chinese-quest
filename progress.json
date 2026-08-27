@@ -1477,6 +1477,13 @@
       "right": 0,
       "wrong": 1,
       "last": 1787837208823
+    },
+    "I'm not crying, I'm laughing.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787837316268
     }
   },
   "chipLog": [
@@ -1553,7 +1560,7 @@
   "trouble_at": 1787837284086,
   "pool_at": 1787837284086,
   "starredSentences_at": 1787837284086,
-  "hiddenWords_at": 1787837223990,
+  "hiddenWords_at": 1787837284087,
   "archived_at": 1787837284086,
   "en_starred_at": 1787769364565,
   "chips": 11
