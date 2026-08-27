@@ -1566,7 +1566,9 @@
   "math_sets": [
     "add10",
     "bonds20",
-    "neardbl"
+    "neardbl",
+    "add20",
+    "sub10"
   ],
   "car_deck": "words",
   "car_gap": 10,
