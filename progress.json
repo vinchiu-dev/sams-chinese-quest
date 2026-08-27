@@ -1462,6 +1462,13 @@
       "right": 0,
       "wrong": 1,
       "last": 1787836803738
+    },
+    "Is he British?": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1787836838702
     }
   },
   "chipLog": [
@@ -1538,7 +1545,7 @@
   "trouble_at": 1787836803918,
   "pool_at": 1787836803917,
   "starredSentences_at": 1787836803918,
-  "hiddenWords_at": 1787836744011,
+  "hiddenWords_at": 1787836803918,
   "archived_at": 1787836803918,
   "en_starred_at": 1787769364565,
   "chips": 11
