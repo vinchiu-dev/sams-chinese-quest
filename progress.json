@@ -81,8 +81,7 @@
     "Uncle came today.",
     "I want to eat dumplings.",
     "Lunch is too bland.",
-    "Thank you, I'm very happy.",
-    "Where is your eraser?"
+    "Thank you, I'm very happy."
   ],
   "hiddenWords": [],
   "practiceDays": [
@@ -1586,11 +1585,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1787837764025,
+  "trouble_at": 1787837791199,
   "pool_at": 1787837764025,
-  "starredSentences_at": 1787837764025,
-  "hiddenWords_at": 1787837704003,
-  "archived_at": 1787837764025,
+  "starredSentences_at": 1787837791199,
+  "hiddenWords_at": 1787837764026,
+  "archived_at": 1787837791199,
   "en_starred_at": 1787769364565,
   "chips": 11
 }
