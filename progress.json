@@ -77,7 +77,8 @@
     "My little brother also likes to play.",
     "My big sister is six years old too.",
     "Where is Uncle?",
-    "What is your mom's name?"
+    "What is your mom's name?",
+    "It's okay, it doesn't hurt anymore."
   ],
   "hiddenWords": [],
   "practiceDays": [
@@ -1410,6 +1411,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1787836090899
+    },
+    "It's okay, it doesn't hurt anymore.": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1787836220553
     }
   },
   "chipLog": [
@@ -1422,7 +1430,7 @@
   ],
   "dayCount": {
     "date": "2026-08-27",
-    "n": 10
+    "n": 11
   },
   "spokenCount": {
     "date": "2026-08-20",
@@ -1477,11 +1485,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1787836203992,
+  "trouble_at": 1787836220557,
   "pool_at": 1787836203992,
-  "starredSentences_at": 1787836203992,
-  "hiddenWords_at": 1787836144572,
-  "archived_at": 1787836203992,
+  "starredSentences_at": 1787836220558,
+  "hiddenWords_at": 1787836203993,
+  "archived_at": 1787836220557,
   "en_starred_at": 1787769364565,
   "chips": 10
 }
