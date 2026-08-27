@@ -1564,7 +1564,9 @@
   "wodDone": "2026-08-18",
   "spokenClaimed": "",
   "math_sets": [
-    "add10"
+    "add10",
+    "bonds20",
+    "neardbl"
   ],
   "car_deck": "words",
   "car_gap": 10,
