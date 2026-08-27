@@ -1353,11 +1353,11 @@
       "last": 1787439800662
     },
     "míngtiān jiàn": {
-      "lvl": 1,
-      "seen": 1,
+      "lvl": 0,
+      "seen": 2,
       "right": 1,
-      "wrong": 0,
-      "last": 1787492283466
+      "wrong": 1,
+      "last": 1787835670335
     }
   },
   "chipLog": [
@@ -1428,7 +1428,7 @@
   "trouble_at": 1787835663995,
   "pool_at": 1787835663994,
   "starredSentences_at": 1787835663995,
-  "hiddenWords_at": 1787835604015,
+  "hiddenWords_at": 1787835663995,
   "archived_at": 1787835663995,
   "en_starred_at": 1787769364565,
   "chips": 10
