@@ -111,19 +111,6 @@
   ],
   "customWords": [
     {
-      "en": "also",
-      "pinyin": "yě",
-      "hanzi": "也",
-      "emoji": "➕"
-    },
-    {
-      "en": "有",
-      "pinyin": "",
-      "hanzi": "有",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
       "en": "see you tomorrow",
       "pinyin": "míngtiān jiàn",
       "hanzi": "明天见",
@@ -133,6 +120,19 @@
       "en": "See you tomorrow",
       "pinyin": "",
       "hanzi": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "en": "also",
+      "pinyin": "yě",
+      "hanzi": "也",
+      "emoji": "➕"
+    },
+    {
+      "en": "有",
+      "pinyin": "",
+      "hanzi": "有",
       "emoji": "📝",
       "needsDef": true
     }
@@ -1587,11 +1587,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1787841469426,
-  "pool_at": 1787841469426,
-  "starredSentences_at": 1787841469426,
-  "hiddenWords_at": 1787841440038,
-  "archived_at": 1787841469426,
-  "en_starred_at": 1787846684983,
+  "trouble_at": 1787847057033,
+  "pool_at": 1787847057004,
+  "starredSentences_at": 1787847057034,
+  "hiddenWords_at": 1787847057032,
+  "archived_at": 1787847057033,
+  "en_starred_at": 1787847057778,
   "chips": 11
 }
