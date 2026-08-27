@@ -436,11 +436,11 @@
       "last": 1786889002413
     },
     "My little brother also likes to play.": {
-      "lvl": 1,
-      "seen": 7,
-      "right": 5,
+      "lvl": 2,
+      "seen": 8,
+      "right": 6,
       "wrong": 2,
-      "last": 1787836406310
+      "last": 1787837372565
     },
     "Goodbye, Mika!": {
       "lvl": 1,
@@ -1560,7 +1560,7 @@
   "trouble_at": 1787837344006,
   "pool_at": 1787837344005,
   "starredSentences_at": 1787837344006,
-  "hiddenWords_at": 1787837284087,
+  "hiddenWords_at": 1787837344006,
   "archived_at": 1787837344006,
   "en_starred_at": 1787769364565,
   "chips": 11
