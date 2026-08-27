@@ -1568,7 +1568,8 @@
     "bonds20",
     "neardbl",
     "add20",
-    "sub10"
+    "sub10",
+    "sub20"
   ],
   "car_deck": "words",
   "car_gap": 10,
