@@ -1415,7 +1415,7 @@
   ],
   "dayCount": {
     "date": "2026-08-27",
-    "n": 8
+    "n": 9
   },
   "spokenCount": {
     "date": "2026-08-20",
@@ -1470,11 +1470,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1787836023982,
-  "pool_at": 1787836023982,
-  "starredSentences_at": 1787836023982,
+  "trouble_at": 1787836083950,
+  "pool_at": 1787836083950,
+  "starredSentences_at": 1787836083950,
   "hiddenWords_at": 1787836023982,
-  "archived_at": 1787836023982,
+  "archived_at": 1787836083950,
   "en_starred_at": 1787769364565,
   "chips": 10
 }
