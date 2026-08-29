@@ -1581,10 +1581,10 @@
   "wodDone": "2026-08-21",
   "spokenClaimed": "2026-08-16",
   "math_sets": [
-    "sub20",
     "mul12",
     "div10",
-    "sub2d"
+    "sub2d",
+    "add2d"
   ],
   "car_deck": "math",
   "car_gap": 6,
