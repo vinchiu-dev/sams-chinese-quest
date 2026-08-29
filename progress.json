@@ -5,7 +5,6 @@
     "shàngwǎng",
     "fángjiān",
     "gēbo",
-    "bóbo",
     "biǎogē",
     "chúfáng",
     "shēnghuó",
@@ -1706,11 +1705,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788008913727,
+  "trouble_at": 1788008920372,
   "pool_at": 1788008904441,
-  "starredSentences_at": 1788008913727,
+  "starredSentences_at": 1788008920372,
   "hiddenWords_at": 1788008904442,
-  "archived_at": 1788008913727,
+  "archived_at": 1788008920372,
   "en_starred_at": 1788008829712,
   "chips": 11
 }
