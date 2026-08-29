@@ -1583,7 +1583,8 @@
   "math_sets": [
     "sub20",
     "mul12",
-    "div10"
+    "div10",
+    "sub2d"
   ],
   "car_deck": "math",
   "car_gap": 6,
