@@ -11,7 +11,6 @@
     "zhēn",
     "hái yǒu",
     "dà xióng wánjù",
-    "kètīng",
     "qīngcài",
     "nǎ guó rén",
     "shì",
@@ -1694,11 +1693,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788009014135,
+  "trouble_at": 1788009016795,
   "pool_at": 1788009014134,
-  "starredSentences_at": 1788009014135,
-  "hiddenWords_at": 1788009014128,
-  "archived_at": 1788009014135,
+  "starredSentences_at": 1788009016795,
+  "hiddenWords_at": 1788009014135,
+  "archived_at": 1788009016795,
   "en_starred_at": 1788008829712,
   "chips": 11
 }
