@@ -1656,8 +1656,8 @@
     "add20"
   ],
   "car_deck": "math",
-  "car_gap": 6,
-  "car_len": 12,
+  "car_gap": 10,
+  "car_len": 18,
   "pool": [
     "nationalities",
     "about-me",
