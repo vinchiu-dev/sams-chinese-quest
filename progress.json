@@ -35,7 +35,6 @@
     "",
     "nǎ",
     "jiào",
-    "wán yóuxì",
     "míngtiān jiàn",
     "nián",
     "huānyíng"
@@ -1704,11 +1703,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788008922913,
+  "trouble_at": 1788008926559,
   "pool_at": 1788008904441,
-  "starredSentences_at": 1788008922913,
+  "starredSentences_at": 1788008926559,
   "hiddenWords_at": 1788008904442,
-  "archived_at": 1788008922913,
+  "archived_at": 1788008926559,
   "en_starred_at": 1788008829712,
   "chips": 11
 }
