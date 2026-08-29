@@ -17,7 +17,6 @@
     "táozi",
     "zhēn",
     "chī fàn",
-    "kāi mén",
     "hái yǒu",
     "wénjù diàn",
     "dà xióng wánjù",
@@ -37,7 +36,8 @@
     "jiào",
     "míngtiān jiàn",
     "nián",
-    "huānyíng"
+    "huānyíng",
+    "wán yóuxì"
   ],
   "archived": [
     "měiguó"
@@ -1703,11 +1703,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788008926559,
+  "trouble_at": 1788008932342,
   "pool_at": 1788008904441,
-  "starredSentences_at": 1788008926559,
+  "starredSentences_at": 1788008932342,
   "hiddenWords_at": 1788008904442,
-  "archived_at": 1788008926559,
+  "archived_at": 1788008932342,
   "en_starred_at": 1788008829712,
   "chips": 11
 }
