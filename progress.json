@@ -21,7 +21,6 @@
     "hái yǒu",
     "wénjù diàn",
     "dà xióng wánjù",
-    "xīhóngshì",
     "shūfáng",
     "kètīng",
     "qīngcài",
@@ -1705,11 +1704,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788008920372,
+  "trouble_at": 1788008922913,
   "pool_at": 1788008904441,
-  "starredSentences_at": 1788008920372,
+  "starredSentences_at": 1788008922913,
   "hiddenWords_at": 1788008904442,
-  "archived_at": 1788008920372,
+  "archived_at": 1788008922913,
   "en_starred_at": 1788008829712,
   "chips": 11
 }
