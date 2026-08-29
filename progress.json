@@ -71,7 +71,8 @@
   ],
   "hiddenWords": [
     "呱呱星球|Guāguā xīngqiú|Guagua planet",
-    "有||有"
+    "有||有",
+    "米卡|Mǐkǎ|Mika (a name)"
   ],
   "practiceDays": [
     "2026-08-08",
@@ -1693,11 +1694,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788009008779,
-  "pool_at": 1788008998278,
-  "starredSentences_at": 1788009008779,
-  "hiddenWords_at": 1788008998279,
-  "archived_at": 1788009008779,
+  "trouble_at": 1788009014135,
+  "pool_at": 1788009014134,
+  "starredSentences_at": 1788009014135,
+  "hiddenWords_at": 1788009014128,
+  "archived_at": 1788009014135,
   "en_starred_at": 1788008829712,
   "chips": 11
 }
