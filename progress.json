@@ -1675,7 +1675,7 @@
   ],
   "dayCount": {
     "date": "2026-08-29",
-    "n": 1
+    "n": 2
   },
   "spokenCount": {
     "date": "2026-08-21",
@@ -1708,7 +1708,8 @@
   "spokenClaimed": "2026-08-16",
   "math_sets": [
     "mul12",
-    "div10"
+    "div10",
+    "plus10"
   ],
   "car_deck": "math",
   "car_gap": 6,
