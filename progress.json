@@ -13,7 +13,6 @@
     "zuò fàn",
     "kàndào le",
     "qiāo mén",
-    "wèishénme",
     "qǐchuáng",
     "zài zuò shénme",
     "táozi",
@@ -29,7 +28,6 @@
     "qīngcài",
     "nǎ guó rén",
     "shì",
-    "suì",
     "měiguórén",
     "láizì",
     "jǐ suì",
@@ -40,7 +38,8 @@
     "nǎ",
     "jiào",
     "wán yóuxì",
-    "míngtiān jiàn"
+    "míngtiān jiàn",
+    "nián"
   ],
   "archived": [
     "měiguó"
@@ -83,7 +82,8 @@
     "Thank you, I'm very happy."
   ],
   "hiddenWords": [
-    "呱呱星球|Guāguā xīngqiú|Guagua planet"
+    "呱呱星球|Guāguā xīngqiú|Guagua planet",
+    "有||有"
   ],
   "practiceDays": [
     "2026-08-08",
@@ -1705,11 +1705,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788008894904,
-  "pool_at": 1788008894904,
-  "starredSentences_at": 1788008894904,
-  "hiddenWords_at": 1788008894900,
-  "archived_at": 1788008894904,
+  "trouble_at": 1788008907613,
+  "pool_at": 1788008904441,
+  "starredSentences_at": 1788008907613,
+  "hiddenWords_at": 1788008904442,
+  "archived_at": 1788008907613,
   "en_starred_at": 1788008829712,
   "chips": 11
 }
