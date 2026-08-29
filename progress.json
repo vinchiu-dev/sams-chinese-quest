@@ -1,7 +1,6 @@
 {
   "trouble": [
     "zài",
-    "gēbo",
     "kàndào le",
     "qiāo mén",
     "zài zuò shénme",
@@ -1688,11 +1687,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788009038227,
+  "trouble_at": 1788009044297,
   "pool_at": 1788009014134,
-  "starredSentences_at": 1788009038227,
+  "starredSentences_at": 1788009044298,
   "hiddenWords_at": 1788009014135,
-  "archived_at": 1788009038227,
+  "archived_at": 1788009044298,
   "en_starred_at": 1788008829712,
   "chips": 11
 }
