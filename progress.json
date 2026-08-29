@@ -1,6 +1,5 @@
 {
   "trouble": [
-    "wòshì",
     "zài",
     "gēbo",
     "kàndào le",
@@ -8,7 +7,6 @@
     "zài zuò shénme",
     "zhēn",
     "hái yǒu",
-    "dà xióng wánjù",
     "nǎ guó rén",
     "shì",
     "měiguórén",
@@ -22,7 +20,8 @@
     "nián",
     "huānyíng",
     "wán yóuxì",
-    "qù"
+    "qù",
+    "dà xióng wánjù"
   ],
   "archived": [
     "měiguó"
@@ -1689,11 +1688,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788009027056,
+  "trouble_at": 1788009038227,
   "pool_at": 1788009014134,
-  "starredSentences_at": 1788009027056,
+  "starredSentences_at": 1788009038227,
   "hiddenWords_at": 1788009014135,
-  "archived_at": 1788009027056,
+  "archived_at": 1788009038227,
   "en_starred_at": 1788008829712,
   "chips": 11
 }
