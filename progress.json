@@ -1581,11 +1581,9 @@
   "wodDone": "2026-08-21",
   "spokenClaimed": "2026-08-16",
   "math_sets": [
-    "add20",
     "sub20",
-    "neardbl",
-    "mul5",
-    "mul10"
+    "mul12",
+    "div10"
   ],
   "car_deck": "math",
   "car_gap": 6,
