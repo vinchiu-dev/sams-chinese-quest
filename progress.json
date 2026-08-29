@@ -1709,7 +1709,8 @@
   "math_sets": [
     "mul12",
     "div10",
-    "plus10"
+    "plus10",
+    "mul10"
   ],
   "car_deck": "math",
   "car_gap": 6,
