@@ -116,6 +116,13 @@
       "example": "",
       "emoji": "📝",
       "needsDef": true
+    },
+    {
+      "word": "Murmur",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
     }
   ],
   "wodHistory": [
@@ -1598,6 +1605,6 @@
   "starredSentences_at": 1788013667965,
   "hiddenWords_at": 1788013667965,
   "archived_at": 1788013667965,
-  "en_starred_at": 1788013668814,
+  "en_starred_at": 1788013673680,
   "chips": 11
 }
