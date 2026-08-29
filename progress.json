@@ -2,21 +2,16 @@
   "trouble": [
     "wòshì",
     "zài",
-    "shàngwǎng",
     "fángjiān",
     "gēbo",
     "biǎogē",
     "chúfáng",
     "shēnghuó",
-    "téng",
-    "zuò fàn",
     "kàndào le",
     "qiāo mén",
-    "qǐchuáng",
     "zài zuò shénme",
     "táozi",
     "zhēn",
-    "chī fàn",
     "hái yǒu",
     "wénjù diàn",
     "dà xióng wánjù",
@@ -29,7 +24,6 @@
     "láizì",
     "jǐ suì",
     "jǐ",
-    "qù",
     "jiā",
     "",
     "nǎ",
@@ -37,7 +31,8 @@
     "míngtiān jiàn",
     "nián",
     "huānyíng",
-    "wán yóuxì"
+    "wán yóuxì",
+    "qù"
   ],
   "archived": [
     "měiguó"
@@ -1703,11 +1698,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788008932342,
-  "pool_at": 1788008904441,
-  "starredSentences_at": 1788008932342,
-  "hiddenWords_at": 1788008904442,
-  "archived_at": 1788008932342,
+  "trouble_at": 1788008955440,
+  "pool_at": 1788008954157,
+  "starredSentences_at": 1788008955440,
+  "hiddenWords_at": 1788008954158,
+  "archived_at": 1788008955440,
   "en_starred_at": 1788008829712,
   "chips": 11
 }
