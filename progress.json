@@ -1582,8 +1582,7 @@
   "spokenClaimed": "2026-08-16",
   "math_sets": [
     "mul12",
-    "div10",
-    "mul10"
+    "div10"
   ],
   "car_deck": "math",
   "car_gap": 6,
