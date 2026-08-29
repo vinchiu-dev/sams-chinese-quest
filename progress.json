@@ -1672,10 +1672,7 @@
   "wodDone": "2026-08-21",
   "spokenClaimed": "2026-08-16",
   "math_sets": [
-    "sub10",
-    "neardbl",
-    "bonds20",
-    "add20"
+    "bonds20"
   ],
   "car_deck": "math",
   "car_gap": 6,
