@@ -83,7 +83,9 @@
     "Lunch is too bland.",
     "Thank you, I'm very happy."
   ],
-  "hiddenWords": [],
+  "hiddenWords": [
+    "呱呱星球|Guāguā xīngqiú|Guagua planet"
+  ],
   "practiceDays": [
     "2026-08-08",
     "2026-08-10",
@@ -1675,23 +1677,16 @@
   "car_gap": 10,
   "car_len": 12,
   "pool": [
-    "wod-history",
-    "words-we-added",
-    "where-born",
-    "how-many-people",
-    "asking-about-people",
-    "too-cool",
-    "about-me",
-    "nationalities"
+    "where-born"
   ],
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788008832694,
-  "pool_at": 1788008832691,
-  "starredSentences_at": 1788008832694,
-  "hiddenWords_at": 1788008832691,
-  "archived_at": 1788008832694,
+  "trouble_at": 1788008848192,
+  "pool_at": 1788008848191,
+  "starredSentences_at": 1788008848192,
+  "hiddenWords_at": 1788008846097,
+  "archived_at": 1788008848192,
   "en_starred_at": 1788008829712,
   "chips": 11
 }
