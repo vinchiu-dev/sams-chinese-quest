@@ -2,7 +2,6 @@
   "trouble": [
     "wòshì",
     "zài",
-    "fángjiān",
     "gēbo",
     "biǎogē",
     "chúfáng",
@@ -1696,11 +1695,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788008998278,
+  "trouble_at": 1788009001790,
   "pool_at": 1788008998278,
-  "starredSentences_at": 1788008998278,
-  "hiddenWords_at": 1788008954158,
-  "archived_at": 1788008998278,
+  "starredSentences_at": 1788009001790,
+  "hiddenWords_at": 1788008998279,
+  "archived_at": 1788009001790,
   "en_starred_at": 1788008829712,
   "chips": 11
 }
