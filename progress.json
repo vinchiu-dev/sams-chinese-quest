@@ -115,104 +115,6 @@
       "example": "",
       "emoji": "📝",
       "needsDef": true
-    },
-    {
-      "word": "vegetable",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Authorities",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "cushion",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Status",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Currently",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Violate",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Stimulate",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "absorb",
-      "definition": "To soak something up and take it in.",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": false
-    },
-    {
-      "word": "ingredient",
-      "definition": "One of the things something is made out of.",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": false
-    },
-    {
-      "word": "gradual",
-      "definition": "Happening slowly, a little at a time.",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": false
-    },
-    {
-      "word": "artificial",
-      "definition": "Made by people to copy something real.",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": false
-    },
-    {
-      "word": "nutrient",
-      "definition": "Something in food your body needs to grow and work.",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": false
-    },
-    {
-      "word": "processed",
-      "definition": "Changed by lots of steps before it reaches you.",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": false
-    },
-    {
-      "word": "moderation",
-      "definition": "Having some, but not too much.",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": false
     }
   ],
   "wodHistory": [
@@ -1674,8 +1576,8 @@
   "trouble_at": 1788011710664,
   "pool_at": 1788011710418,
   "starredSentences_at": 1788011710664,
-  "hiddenWords_at": 1788011710419,
+  "hiddenWords_at": 1788011710664,
   "archived_at": 1788011710664,
-  "en_starred_at": 1788008829712,
+  "en_starred_at": 1788011724212,
   "chips": 11
 }
