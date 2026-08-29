@@ -114,13 +114,6 @@
   ],
   "customWords": [
     {
-      "en": "See you tomorrow",
-      "pinyin": "",
-      "hanzi": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
       "en": "see you tomorrow",
       "pinyin": "míngtiān jiàn",
       "hanzi": "明天见",
@@ -1682,11 +1675,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788008848192,
+  "trouble_at": 1788008854712,
   "pool_at": 1788008848191,
-  "starredSentences_at": 1788008848192,
-  "hiddenWords_at": 1788008846097,
-  "archived_at": 1788008848192,
+  "starredSentences_at": 1788008854712,
+  "hiddenWords_at": 1788008848193,
+  "archived_at": 1788008854712,
   "en_starred_at": 1788008829712,
   "chips": 11
 }
