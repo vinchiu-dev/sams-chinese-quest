@@ -1584,7 +1584,8 @@
     "mul12",
     "div10",
     "sub2d",
-    "add2d"
+    "add2d",
+    "mul10"
   ],
   "car_deck": "math",
   "car_gap": 6,
