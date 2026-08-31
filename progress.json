@@ -61,8 +61,8 @@
   ],
   "hiddenWords": [],
   "practiceDays": [
-    "2026-08-10",
     "2026-08-08",
+    "2026-08-10",
     "2026-08-11",
     "2026-08-12",
     "2026-08-15",
@@ -197,153 +197,6 @@
     }
   ],
   "srs": {
-    "I am six years old.": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786382999346
-    },
-    "Today is the weekend — the alien is playing at my house!": {
-      "lvl": 0,
-      "seen": 1,
-      "right": 0,
-      "wrong": 1,
-      "last": 1786887676029
-    },
-    "My mom comes from China, she is Chinese.": {
-      "lvl": 0,
-      "seen": 2,
-      "right": 1,
-      "wrong": 1,
-      "last": 1787836909783
-    },
-    "My name is Sam.": {
-      "lvl": 2,
-      "seen": 2,
-      "right": 2,
-      "wrong": 0,
-      "last": 1786887414720
-    },
-    "I am American.": {
-      "lvl": 5,
-      "seen": 6,
-      "right": 5,
-      "wrong": 1,
-      "last": 1786453065261
-    },
-    "Are you an alien?": {
-      "lvl": 0,
-      "seen": 3,
-      "right": 1,
-      "wrong": 2,
-      "last": 1786452990764
-    },
-    "Who is knocking on the door?": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786383565233
-    },
-    "wánjù": {
-      "lvl": 2,
-      "seen": 2,
-      "right": 2,
-      "wrong": 0,
-      "last": 1787237300197
-    },
-    "měiguó": {
-      "lvl": 1,
-      "seen": 4,
-      "right": 2,
-      "wrong": 2,
-      "last": 1787427455703
-    },
-    "suì": {
-      "lvl": 0,
-      "seen": 10,
-      "right": 4,
-      "wrong": 6,
-      "last": 1788182534398
-    },
-    "shì": {
-      "lvl": 1,
-      "seen": 14,
-      "right": 3,
-      "wrong": 11,
-      "last": 1787753102065
-    },
-    "The alien comes from another planet!": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786888506708
-    },
-    "Is your big sister British?": {
-      "lvl": 1,
-      "seen": 2,
-      "right": 1,
-      "wrong": 1,
-      "last": 1786452579626
-    },
-    "liù": {
-      "lvl": 4,
-      "seen": 4,
-      "right": 4,
-      "wrong": 0,
-      "last": 1787835627819
-    },
-    "xīngqiú": {
-      "lvl": 3,
-      "seen": 3,
-      "right": 3,
-      "wrong": 0,
-      "last": 1787439800662
-    },
-    "yīngguórén": {
-      "lvl": 4,
-      "seen": 4,
-      "right": 4,
-      "wrong": 0,
-      "last": 1787835631153
-    },
-    "zhōngguórén": {
-      "lvl": 5,
-      "seen": 5,
-      "right": 5,
-      "wrong": 0,
-      "last": 1788196197153
-    },
-    "nǎ guó rén": {
-      "lvl": 1,
-      "seen": 7,
-      "right": 3,
-      "wrong": 4,
-      "last": 1787407224992
-    },
-    "wàixīngrén": {
-      "lvl": 2,
-      "seen": 2,
-      "right": 2,
-      "wrong": 0,
-      "last": 1787146543652
-    },
-    "láizì": {
-      "lvl": 0,
-      "seen": 14,
-      "right": 6,
-      "wrong": 8,
-      "last": 1788182534396
-    },
-    "měiguórén": {
-      "lvl": 3,
-      "seen": 3,
-      "right": 3,
-      "wrong": 0,
-      "last": 1788196203146
-    },
     "gēbo": {
       "lvl": 1,
       "seen": 5,
@@ -400,6 +253,20 @@
       "wrong": 0,
       "last": 1786235552958
     },
+    "Is your big sister British?": {
+      "lvl": 1,
+      "seen": 2,
+      "right": 1,
+      "wrong": 1,
+      "last": 1786452579626
+    },
+    "Are you an alien?": {
+      "lvl": 0,
+      "seen": 3,
+      "right": 1,
+      "wrong": 2,
+      "last": 1786452990764
+    },
     "The baby loves to cry.": {
       "lvl": 1,
       "seen": 1,
@@ -449,6 +316,48 @@
       "wrong": 0,
       "last": 1787237300195
     },
+    "I am six years old.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786382999346
+    },
+    "Today is the weekend — the alien is playing at my house!": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786887676029
+    },
+    "My mom comes from China, she is Chinese.": {
+      "lvl": 0,
+      "seen": 2,
+      "right": 1,
+      "wrong": 1,
+      "last": 1787836909783
+    },
+    "My name is Sam.": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1786887414720
+    },
+    "I am American.": {
+      "lvl": 5,
+      "seen": 6,
+      "right": 5,
+      "wrong": 1,
+      "last": 1786453065261
+    },
+    "Who is knocking on the door?": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786383565233
+    },
     "Dad, I don't feel well...": {
       "lvl": 0,
       "seen": 1,
@@ -462,6 +371,97 @@
       "right": 0,
       "wrong": 1,
       "last": 1786383673939
+    },
+    "wánjù": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1787237300197
+    },
+    "měiguó": {
+      "lvl": 1,
+      "seen": 4,
+      "right": 2,
+      "wrong": 2,
+      "last": 1787427455703
+    },
+    "suì": {
+      "lvl": 0,
+      "seen": 10,
+      "right": 4,
+      "wrong": 6,
+      "last": 1788182534398
+    },
+    "shì": {
+      "lvl": 1,
+      "seen": 14,
+      "right": 3,
+      "wrong": 11,
+      "last": 1787753102065
+    },
+    "The alien comes from another planet!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786888506708
+    },
+    "liù": {
+      "lvl": 4,
+      "seen": 4,
+      "right": 4,
+      "wrong": 0,
+      "last": 1787835627819
+    },
+    "xīngqiú": {
+      "lvl": 3,
+      "seen": 3,
+      "right": 3,
+      "wrong": 0,
+      "last": 1787439800662
+    },
+    "yīngguórén": {
+      "lvl": 4,
+      "seen": 4,
+      "right": 4,
+      "wrong": 0,
+      "last": 1787835631153
+    },
+    "zhōngguórén": {
+      "lvl": 5,
+      "seen": 5,
+      "right": 5,
+      "wrong": 0,
+      "last": 1788196197153
+    },
+    "nǎ guó rén": {
+      "lvl": 1,
+      "seen": 7,
+      "right": 3,
+      "wrong": 4,
+      "last": 1787407224992
+    },
+    "wàixīngrén": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1787146543652
+    },
+    "láizì": {
+      "lvl": 0,
+      "seen": 14,
+      "right": 6,
+      "wrong": 8,
+      "last": 1788182534396
+    },
+    "měiguórén": {
+      "lvl": 3,
+      "seen": 3,
+      "right": 3,
+      "wrong": 0,
+      "last": 1788196203146
     },
     "The little monkey's head hurts a bit.": {
       "lvl": 1,
@@ -1682,16 +1682,101 @@
       "last": 1788196220600
     }
   },
-  "chipLog": [],
+  "chipLog": [
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1787406323250
+    },
+    {
+      "type": "wod",
+      "amount": 1,
+      "note": "Word of the day ⭐",
+      "at": 1787355843612
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1787146549580
+    },
+    {
+      "type": "wod",
+      "amount": 1,
+      "note": "Word of the day ⭐",
+      "at": 1786980036246
+    },
+    {
+      "type": "spoken",
+      "amount": 1,
+      "note": "Spoke 10 sentences 🗣️",
+      "at": 1786910827153
+    },
+    {
+      "type": "wod",
+      "amount": 1,
+      "note": "Word of the day ⭐",
+      "at": 1786901307500
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786840319065
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786453221690
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786409020277
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786237233480
+    }
+  ],
   "dayCount": {
     "date": "2026-08-31",
     "n": 4
   },
-  "spokenCount": {},
-  "wordOfDay": null,
-  "goalClaimed": "",
-  "wodDone": "",
-  "spokenClaimed": "",
+  "spokenCount": {
+    "date": "2026-08-21",
+    "n": 7
+  },
+  "wordOfDay": {
+    "date": "2026-08-21",
+    "word": {
+      "hanzi": "家",
+      "pinyin": "jiā",
+      "en": "home / family",
+      "emoji": "🏠",
+      "phrases": [
+        {
+          "en": "my family",
+          "pinyin": "wǒ jiā",
+          "hanzi": "我家"
+        },
+        {
+          "en": "at home",
+          "pinyin": "zài jiā",
+          "hanzi": "在家"
+        }
+      ],
+      "lesson": "How Many People?"
+    }
+  },
+  "goalClaimed": "2026-08-27",
+  "wodDone": "2026-08-21",
+  "spokenClaimed": "2026-08-16",
   "math_sets": [
     "mul12",
     "div10",
@@ -1718,11 +1803,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788196263881,
-  "pool_at": 1788196263880,
-  "starredSentences_at": 1788196263881,
-  "hiddenWords_at": 1788196203778,
-  "archived_at": 1788196263881,
-  "en_starred_at": 1788195197962,
+  "trouble_at": 1788196274683,
+  "pool_at": 1788196274667,
+  "starredSentences_at": 1788196274683,
+  "hiddenWords_at": 1788196274668,
+  "archived_at": 1788196274683,
+  "en_starred_at": 1788196272227,
   "chips": 11
 }
