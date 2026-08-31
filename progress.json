@@ -1731,6 +1731,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1788196712845
+    },
+    "I don't eat greens.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1788196750195
     }
   },
   "chipLog": [],
@@ -1772,7 +1779,7 @@
   "trouble_at": 1788196743708,
   "pool_at": 1788196743707,
   "starredSentences_at": 1788196743708,
-  "hiddenWords_at": 1788196683833,
+  "hiddenWords_at": 1788196743709,
   "archived_at": 1788196743708,
   "en_starred_at": 1788196272227,
   "chips": 11
