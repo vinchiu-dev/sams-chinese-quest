@@ -99,10 +99,9 @@
     },
     {
       "en": "See you tomorrow",
-      "pinyin": "",
-      "hanzi": "",
-      "emoji": "📝",
-      "needsDef": true
+      "pinyin": "míngtiān jiàn",
+      "hanzi": "明天见",
+      "emoji": "👋"
     },
     {
       "en": "Green bottle blue tarantula",
@@ -112,43 +111,7 @@
       "needsDef": true
     }
   ],
-  "en_myWords": [
-    {
-      "word": "I will add those to the list",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Murmur",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Swell",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Knapsack",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Compass",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    }
-  ],
+  "en_myWords": [],
   "wodHistory": [
     {
       "en": "有",
