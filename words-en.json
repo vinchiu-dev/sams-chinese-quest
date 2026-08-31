@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-08-27",
+  "updated": "2026-08-31",
   "lists": [
     {
       "id": "en-starter-1",
@@ -446,6 +446,30 @@
           "definition": "having some, but not too much",
           "example": "He eats candy in moderation — a little sometimes, not a lot every day.",
           "emoji": "⚖️"
+        },
+        {
+          "word": "murmur",
+          "definition": "to say something in a low, soft voice that is hard to make out",
+          "example": "The crowd murmured to each other while they waited for the show to start.",
+          "emoji": "🤫"
+        },
+        {
+          "word": "swell",
+          "definition": "to grow bigger by puffing out or filling up",
+          "example": "The bee sting made his thumb swell to twice its normal size.",
+          "emoji": "🎈"
+        },
+        {
+          "word": "knapsack",
+          "definition": "a bag you carry on your back to hold supplies for a trip",
+          "example": "She packed a sandwich, a map, and a flashlight into her knapsack.",
+          "emoji": "🎒"
+        },
+        {
+          "word": "compass",
+          "definition": "a tool with a magnetic needle that always points north so you can find your direction",
+          "example": "When the trail disappeared, the compass showed them which way to go.",
+          "emoji": "🧭"
         }
       ]
     }
