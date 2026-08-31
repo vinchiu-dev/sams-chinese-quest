@@ -59,7 +59,8 @@
     "Are you an alien?",
     "The alien comes from another planet!",
     "Is your big sister British?",
-    "What's your nationality?"
+    "What's your nationality?",
+    "What is your name?"
   ],
   "hiddenWords": [],
   "practiceDays": [
@@ -1382,11 +1383,11 @@
       "last": 1787836067111
     },
     "What is your name?": {
-      "lvl": 1,
-      "seen": 1,
+      "lvl": 0,
+      "seen": 2,
       "right": 1,
-      "wrong": 0,
-      "last": 1787836090899
+      "wrong": 1,
+      "last": 1788196508783
     },
     "It's okay, it doesn't hurt anymore.": {
       "lvl": 0,
@@ -1714,7 +1715,7 @@
   "chipLog": [],
   "dayCount": {
     "date": "2026-08-31",
-    "n": 6
+    "n": 7
   },
   "spokenCount": {},
   "wordOfDay": null,
@@ -1747,11 +1748,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788196503732,
+  "trouble_at": 1788196508786,
   "pool_at": 1788196503732,
-  "starredSentences_at": 1788196503732,
-  "hiddenWords_at": 1788196443904,
-  "archived_at": 1788196503732,
+  "starredSentences_at": 1788196508786,
+  "hiddenWords_at": 1788196503733,
+  "archived_at": 1788196508786,
   "en_starred_at": 1788196272227,
   "chips": 11
 }
