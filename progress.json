@@ -1455,11 +1455,11 @@
       "last": 1787836838702
     },
     "Thank you, I'm very happy.": {
-      "lvl": 0,
-      "seen": 1,
-      "right": 0,
+      "lvl": 1,
+      "seen": 2,
+      "right": 1,
       "wrong": 1,
-      "last": 1787837208823
+      "last": 1788197019229
     },
     "I'm not crying, I'm laughing.": {
       "lvl": 1,
@@ -1809,7 +1809,7 @@
   "trouble_at": 1788196996383,
   "pool_at": 1788196996383,
   "starredSentences_at": 1788196996383,
-  "hiddenWords_at": 1788196936656,
+  "hiddenWords_at": 1788196996384,
   "archived_at": 1788196996383,
   "en_starred_at": 1788196272227,
   "chips": 12
