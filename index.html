@@ -5175,6 +5175,13 @@ function CarMode({ facts, onHome, carWords, carSentences }) {
   const cancelRef = useRef(false);
   const pauseRef = useRef(false);
   const wakeRef = useRef(null);
+  // Tapping the big card skips whatever pause we're sitting in: the thinking
+  // gap jumps straight to the answer, the marking window jumps to the next
+  // question. One tap = one skip, so it can't run away from you. A tap landing
+  // mid-speech is stored and consumed by the next pause rather than cutting the
+  // audio off — hearing the Chinese said properly is the point.
+  const skipRef = useRef(false);
+  const [skipHint, setSkipHint] = useState(false);
   useEffect(() => { pauseRef.current = paused; }, [paused]);
   useEffect(() => { saveLS("car_deck", deck); }, [deck]);
   useEffect(() => { saveLS("car_gap", gap); }, [gap]);
@@ -5260,23 +5267,41 @@ function CarMode({ facts, onHome, carWords, carSentences }) {
 
   const holdPause = async () => { while (pauseRef.current && !cancelRef.current) await carWait(180); };
 
+  // Same as carWait, but checks every 60ms for a queued tap and returns early.
+  const waitSkippable = async (ms) => {
+    const step = 60;
+    for (let e = 0; e < ms; e += step) {
+      if (cancelRef.current) return;
+      if (skipRef.current && !pauseRef.current) { skipRef.current = false; return; }
+      await carWait(step);
+    }
+  };
+
+  const tapAhead = () => {
+    if (pauseRef.current || cancelRef.current) return;
+    skipRef.current = true;
+    setSkipHint(true);
+    setTimeout(() => setSkipHint(false), 260);
+  };
+
   const runLoop = async (q) => {
     for (let i = 0; i < q.length; i++) {
       if (cancelRef.current) return;
       setIdx(i); setReveal(false);
+      skipRef.current = false;              // a new question starts clean
       await holdPause(); if (cancelRef.current) return;
       const it = q[i];
       await carSpeak(it.say, it.sayLang || it.lang);
       if (it.listen) { await carWait(600); await carSpeak(it.say, it.sayLang || it.lang); }
       await holdPause(); if (cancelRef.current) return;
-      await carWait(gap * 1000);
+      await waitSkippable(gap * 1000);
       await holdPause(); if (cancelRef.current) return;
       setReveal(true);
       await carSpeak(it.sayAnswer, it.answerLang || it.lang);
       // a 2s window to tap "tricky" while the answer is still fresh —
       // far easier than trying to remember which ones were hard at the end
       setMarkKey(it.key);
-      await carWait(2000);
+      await waitSkippable(2000);
       setMarkKey(null);
     }
     if (!cancelRef.current) { release(); setPhase("review"); }
@@ -5439,8 +5464,18 @@ function CarMode({ facts, onHome, carWords, carSentences }) {
           <div style={{ width: ((idx + 1) / queue.length) * 100 + "%", height: "100%", background: "#3BA0C8", transition: "width .3s" }} />
         </div>
 
-        <div style={{ background: C.ink, borderRadius: 28, padding: "40px 18px", minHeight: 260,
-          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
+        <div
+          onClick={tapAhead}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => { if (e.key === " " || e.key === "Enter") { e.preventDefault(); tapAhead(); } }}
+          style={{ background: C.ink, borderRadius: 28, padding: "40px 18px", minHeight: 260,
+          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center",
+          cursor: paused ? "default" : "pointer", userSelect: "none", WebkitUserSelect: "none",
+          WebkitTapHighlightColor: "transparent", touchAction: "manipulation",
+          outline: skipHint ? "4px solid " + C.sun : "4px solid transparent",
+          transform: skipHint ? "scale(0.985)" : "none",
+          transition: "outline-color .12s, transform .12s" }}>
           {it.closer && (
             <div style={{ background: C.leaf, color: "#fff", borderRadius: 20, padding: "4px 14px", fontSize: 12, fontWeight: 800, marginBottom: 12 }}>
               finish strong
@@ -5457,7 +5492,7 @@ function CarMode({ facts, onHome, carWords, carSentences }) {
             <div style={{ marginTop: 16, fontSize: 34, fontWeight: 800, color: C.sun, lineHeight: 1.25 }}>{it.answer}</div>
           ) : (
             <div style={{ marginTop: 14, fontSize: 15, fontWeight: 700, color: "#b9b2cf" }}>
-              {paused ? "paused" : "say it out loud…"}
+              {paused ? "paused" : "say it out loud…  ·  tap to skip ahead"}
             </div>
           )}
         </div>
@@ -5498,7 +5533,7 @@ function CarMode({ facts, onHome, carWords, carSentences }) {
           </button>
         </div>
         <div style={{ textAlign: "center", fontSize: 13, color: "#8b83a8", marginTop: 14, fontWeight: 700 }}>
-          Tap ⭐ right after a slow one — or leave it and mark them all at the end.
+          Tap the black card to move on the moment he's answered. Tap ⭐ right after a slow one — or leave it and mark them all at the end.
         </div>
       </div>
     );
