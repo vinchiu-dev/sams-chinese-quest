@@ -99,9 +99,10 @@
     },
     {
       "en": "See you tomorrow",
-      "pinyin": "míngtiān jiàn",
-      "hanzi": "明天见",
-      "emoji": "👋"
+      "pinyin": "",
+      "hanzi": "",
+      "emoji": "📝",
+      "needsDef": true
     },
     {
       "en": "Green bottle blue tarantula",
@@ -109,9 +110,51 @@
       "hanzi": "",
       "emoji": "📝",
       "needsDef": true
+    },
+    {
+      "en": "See you tomorrow",
+      "pinyin": "míngtiān jiàn",
+      "hanzi": "明天见",
+      "emoji": "👋"
     }
   ],
-  "en_myWords": [],
+  "en_myWords": [
+    {
+      "word": "I will add those to the list",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Murmur",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Swell",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Knapsack",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Compass",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    }
+  ],
   "wodHistory": [
     {
       "en": "有",
@@ -1697,11 +1740,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788196383748,
-  "pool_at": 1788196383747,
-  "starredSentences_at": 1788196383748,
-  "hiddenWords_at": 1788196323886,
-  "archived_at": 1788196383748,
+  "trouble_at": 1788196443902,
+  "pool_at": 1788196443901,
+  "starredSentences_at": 1788196443902,
+  "hiddenWords_at": 1788196383749,
+  "archived_at": 1788196443902,
   "en_starred_at": 1788196272227,
   "chips": 11
 }
