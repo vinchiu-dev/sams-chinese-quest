@@ -106,10 +106,11 @@
       "needsDef": true
     },
     {
-      "en": "green bottle blue spider",
-      "pinyin": "lǜ píng lán zhīzhū",
-      "hanzi": "绿瓶蓝蜘蛛",
-      "emoji": "🕷️"
+      "en": "Green bottle blue tarantula",
+      "pinyin": "",
+      "hanzi": "",
+      "emoji": "📝",
+      "needsDef": true
     },
     {
       "en": "See you tomorrow",
@@ -1709,6 +1710,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1788196497236
+    },
+    "I love the Earth.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1788196538512
     }
   },
   "chipLog": [],
