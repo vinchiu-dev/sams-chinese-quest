@@ -1,32 +1,40 @@
 {
   "trouble": [
     "zài",
+    "ne",
+    "shūfáng",
+    "shàngwǎng",
+    "fángjiān",
+    "bóbo",
+    "yīngtáo",
+    "biǎogē",
+    "chúfáng",
+    "wòshì",
+    "kètīng",
+    "shēnghuó",
+    "téng",
+    "zuò fàn",
     "kàndào le",
     "qiāo mén",
+    "wèishénme",
+    "qǐchuáng",
     "zài zuò shénme",
+    "táozi",
     "zhēn",
+    "chī fàn",
+    "kāi mén",
     "hái yǒu",
-    "nǎ guó rén",
+    "wénjù diàn",
+    "dà xióng wánjù",
+    "xīhóngshì",
+    "gēbo",
+    "qīngcài",
+    "suì",
     "shì",
-    "měiguórén",
-    "láizì",
-    "jǐ",
-    "jiā",
-    "",
-    "nǎ",
-    "jiào",
-    "míngtiān jiàn",
-    "nián",
-    "huānyíng",
-    "wán yóuxì",
-    "qù",
-    "dà xióng wánjù"
+    "měiguórén"
   ],
-  "archived": [
-    "měiguó"
-  ],
+  "archived": [],
   "starredSentences": [
-    "Wishing you a happy life!",
     "Let's go buy stationery!",
     "My big sister is online in the study.",
     "It's too sour!",
@@ -37,6 +45,7 @@
     "What is your mom doing?",
     "Today is the weekend, let's go buy stationery!",
     "Your life is really happy!",
+    "Wishing you a happy life!",
     "What is your dad doing?",
     "My toys are in the bedroom.",
     "Little Fox, your textbook dropped!",
@@ -47,29 +56,12 @@
     "Are you an alien?",
     "The alien comes from another planet!",
     "Is your big sister British?",
-    "What's your nationality?",
-    "I don't feel well, I want to lie on the bed.",
-    "Big brother is playing games in the study.",
-    "We all love to eat fruit!",
-    "Where do you come from?",
-    "The alien is too cool!",
-    "My big sister is six years old too.",
-    "Where is Uncle?",
-    "What is your mom's name?",
-    "It's okay, it doesn't hurt anymore.",
-    "Uncle came today.",
-    "I want to eat dumplings.",
-    "Lunch is too bland.",
-    "Thank you, I'm very happy."
+    "What's your nationality?"
   ],
-  "hiddenWords": [
-    "呱呱星球|Guāguā xīngqiú|Guagua planet",
-    "有||有",
-    "米卡|Mǐkǎ|Mika (a name)"
-  ],
+  "hiddenWords": [],
   "practiceDays": [
-    "2026-08-08",
     "2026-08-10",
+    "2026-08-08",
     "2026-08-11",
     "2026-08-12",
     "2026-08-15",
@@ -204,125 +196,6 @@
     }
   ],
   "srs": {
-    "gēbo": {
-      "lvl": 1,
-      "seen": 5,
-      "right": 3,
-      "wrong": 2,
-      "last": 1787439800663
-    },
-    "The watermelon is really delicious!": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786234503153
-    },
-    "My mom is Chinese, my dad is American.": {
-      "lvl": 3,
-      "seen": 3,
-      "right": 3,
-      "wrong": 0,
-      "last": 1787837727229
-    },
-    "My toys are in the bedroom.": {
-      "lvl": 0,
-      "seen": 1,
-      "right": 0,
-      "wrong": 1,
-      "last": 1786235487534
-    },
-    "Nose bumps nose!": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786235507631
-    },
-    "Hello!": {
-      "lvl": 2,
-      "seen": 2,
-      "right": 2,
-      "wrong": 0,
-      "last": 1786235562763
-    },
-    "Grandpa, happy birthday!": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786235532310
-    },
-    "This is my dad.": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786235552958
-    },
-    "Is your big sister British?": {
-      "lvl": 1,
-      "seen": 2,
-      "right": 1,
-      "wrong": 1,
-      "last": 1786452579626
-    },
-    "Are you an alien?": {
-      "lvl": 0,
-      "seen": 3,
-      "right": 1,
-      "wrong": 2,
-      "last": 1786452990764
-    },
-    "The baby loves to cry.": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786237008621
-    },
-    "The rabbit's eyes hurt, the fox's ears hurt.": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786237136097
-    },
-    "hái yǒu": {
-      "lvl": 2,
-      "seen": 2,
-      "right": 2,
-      "wrong": 0,
-      "last": 1787406224695
-    },
-    "hǎochī": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786237211346
-    },
-    "zài nǎr": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786237223634
-    },
-    "qīngcài": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786237233479
-    },
-    "ěrduo": {
-      "lvl": 2,
-      "seen": 2,
-      "right": 2,
-      "wrong": 0,
-      "last": 1787237300195
-    },
     "I am six years old.": {
       "lvl": 1,
       "seen": 1,
@@ -358,26 +231,19 @@
       "wrong": 1,
       "last": 1786453065261
     },
+    "Are you an alien?": {
+      "lvl": 0,
+      "seen": 3,
+      "right": 1,
+      "wrong": 2,
+      "last": 1786452990764
+    },
     "Who is knocking on the door?": {
       "lvl": 1,
       "seen": 1,
       "right": 1,
       "wrong": 0,
       "last": 1786383565233
-    },
-    "Dad, I don't feel well...": {
-      "lvl": 0,
-      "seen": 1,
-      "right": 0,
-      "wrong": 1,
-      "last": 1786383572397
-    },
-    "Mom loves to laugh.": {
-      "lvl": 0,
-      "seen": 1,
-      "right": 0,
-      "wrong": 1,
-      "last": 1786383673939
     },
     "wánjù": {
       "lvl": 2,
@@ -413,6 +279,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1786888506708
+    },
+    "Is your big sister British?": {
+      "lvl": 1,
+      "seen": 2,
+      "right": 1,
+      "wrong": 1,
+      "last": 1786452579626
     },
     "liù": {
       "lvl": 4,
@@ -469,6 +342,125 @@
       "right": 2,
       "wrong": 0,
       "last": 1787146568368
+    },
+    "gēbo": {
+      "lvl": 1,
+      "seen": 5,
+      "right": 3,
+      "wrong": 2,
+      "last": 1787439800663
+    },
+    "The watermelon is really delicious!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786234503153
+    },
+    "My mom is Chinese, my dad is American.": {
+      "lvl": 3,
+      "seen": 3,
+      "right": 3,
+      "wrong": 0,
+      "last": 1787837727229
+    },
+    "My toys are in the bedroom.": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786235487534
+    },
+    "Nose bumps nose!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786235507631
+    },
+    "Hello!": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1786235562763
+    },
+    "Grandpa, happy birthday!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786235532310
+    },
+    "This is my dad.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786235552958
+    },
+    "The baby loves to cry.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237008621
+    },
+    "The rabbit's eyes hurt, the fox's ears hurt.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237136097
+    },
+    "hái yǒu": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1787406224695
+    },
+    "hǎochī": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237211346
+    },
+    "zài nǎr": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237223634
+    },
+    "qīngcài": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786237233479
+    },
+    "ěrduo": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1787237300195
+    },
+    "Dad, I don't feel well...": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786383572397
+    },
+    "Mom loves to laugh.": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1786383673939
     },
     "The little monkey's head hurts a bit.": {
       "lvl": 1,
@@ -1647,101 +1639,16 @@
       "last": 1788182534403
     }
   },
-  "chipLog": [
-    {
-      "type": "daily",
-      "amount": 1,
-      "note": "Daily goal",
-      "at": 1787406323250
-    },
-    {
-      "type": "wod",
-      "amount": 1,
-      "note": "Word of the day ⭐",
-      "at": 1787355843612
-    },
-    {
-      "type": "daily",
-      "amount": 1,
-      "note": "Daily goal",
-      "at": 1787146549580
-    },
-    {
-      "type": "wod",
-      "amount": 1,
-      "note": "Word of the day ⭐",
-      "at": 1786980036246
-    },
-    {
-      "type": "spoken",
-      "amount": 1,
-      "note": "Spoke 10 sentences 🗣️",
-      "at": 1786910827153
-    },
-    {
-      "type": "wod",
-      "amount": 1,
-      "note": "Word of the day ⭐",
-      "at": 1786901307500
-    },
-    {
-      "type": "daily",
-      "amount": 1,
-      "note": "Daily goal",
-      "at": 1786840319065
-    },
-    {
-      "type": "daily",
-      "amount": 1,
-      "note": "Daily goal",
-      "at": 1786453221690
-    },
-    {
-      "type": "daily",
-      "amount": 1,
-      "note": "Daily goal",
-      "at": 1786409020277
-    },
-    {
-      "type": "daily",
-      "amount": 1,
-      "note": "Daily goal",
-      "at": 1786237233480
-    }
-  ],
+  "chipLog": [],
   "dayCount": {
     "date": "2026-08-31",
     "n": 1
   },
-  "spokenCount": {
-    "date": "2026-08-21",
-    "n": 7
-  },
-  "wordOfDay": {
-    "date": "2026-08-21",
-    "word": {
-      "hanzi": "家",
-      "pinyin": "jiā",
-      "en": "home / family",
-      "emoji": "🏠",
-      "phrases": [
-        {
-          "en": "my family",
-          "pinyin": "wǒ jiā",
-          "hanzi": "我家"
-        },
-        {
-          "en": "at home",
-          "pinyin": "zài jiā",
-          "hanzi": "在家"
-        }
-      ],
-      "lesson": "How Many People?"
-    }
-  },
-  "goalClaimed": "2026-08-27",
-  "wodDone": "2026-08-21",
-  "spokenClaimed": "2026-08-16",
+  "spokenCount": {},
+  "wordOfDay": null,
+  "goalClaimed": "",
+  "wodDone": "",
+  "spokenClaimed": "",
   "math_sets": [
     "mul12",
     "div10",
@@ -1760,22 +1667,16 @@
     "where-born",
     "starred-words",
     "wod-history",
-    "words-we-added",
-    "everyone-at-home",
-    "welcome-home-rooms",
-    "fruit-i-eat",
-    "body-bumps",
-    "starter-phrases",
-    "question-words"
+    "words-we-added"
   ],
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788193797662,
-  "pool_at": 1788193797317,
-  "starredSentences_at": 1788193797662,
-  "hiddenWords_at": 1788193797662,
-  "archived_at": 1788193797662,
+  "trouble_at": 1788195844184,
+  "pool_at": 1788195843468,
+  "starredSentences_at": 1788195844184,
+  "hiddenWords_at": 1788195843471,
+  "archived_at": 1788195844184,
   "en_starred_at": 1788195197962,
   "chips": 11
 }
