@@ -62,7 +62,8 @@
     "What's your nationality?",
     "What is your name?",
     "I also want to eat watermelon.",
-    "Scissors are not for playing with."
+    "Scissors are not for playing with.",
+    "I was born in America."
   ],
   "hiddenWords": [],
   "practiceDays": [
@@ -1753,6 +1754,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1788196868899
+    },
+    "I was born in America.": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1788196924013
     }
   },
   "chipLog": [
@@ -1765,7 +1773,7 @@
   ],
   "dayCount": {
     "date": "2026-08-31",
-    "n": 17
+    "n": 18
   },
   "spokenCount": {},
   "wordOfDay": null,
@@ -1798,11 +1806,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788196887193,
+  "trouble_at": 1788196924018,
   "pool_at": 1788196876327,
-  "starredSentences_at": 1788196887193,
+  "starredSentences_at": 1788196924018,
   "hiddenWords_at": 1788196876328,
-  "archived_at": 1788196887193,
+  "archived_at": 1788196924018,
   "en_starred_at": 1788196272227,
   "chips": 12
 }
