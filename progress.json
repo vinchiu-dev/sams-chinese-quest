@@ -33,7 +33,8 @@
     "shì",
     "měiguórén",
     "xǐ yīfu",
-    "yǒu"
+    "yǒu",
+    "zhēn hǎochī"
   ],
   "archived": [],
   "starredSentences": [
@@ -1688,6 +1689,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1788196220600
+    },
+    "zhēn hǎochī": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1788196347283
     }
   },
   "chipLog": [],
@@ -1726,11 +1734,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788196327907,
+  "trouble_at": 1788196347287,
   "pool_at": 1788196323885,
-  "starredSentences_at": 1788196327907,
+  "starredSentences_at": 1788196347288,
   "hiddenWords_at": 1788196323886,
-  "archived_at": 1788196327907,
+  "archived_at": 1788196347287,
   "en_starred_at": 1788196272227,
   "chips": 11
 }
