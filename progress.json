@@ -256,11 +256,11 @@
       "last": 1786453065261
     },
     "Are you an alien?": {
-      "lvl": 0,
-      "seen": 3,
-      "right": 1,
+      "lvl": 1,
+      "seen": 4,
+      "right": 2,
       "wrong": 2,
-      "last": 1786452990764
+      "last": 1788196649906
     },
     "Who is knocking on the door?": {
       "lvl": 1,
@@ -1765,7 +1765,7 @@
   "trouble_at": 1788196623754,
   "pool_at": 1788196623752,
   "starredSentences_at": 1788196623754,
-  "hiddenWords_at": 1788196564282,
+  "hiddenWords_at": 1788196623754,
   "archived_at": 1788196623754,
   "en_starred_at": 1788196272227,
   "chips": 11
