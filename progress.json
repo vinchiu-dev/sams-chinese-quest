@@ -83,7 +83,8 @@
     "2026-08-26",
     "2026-08-18",
     "2026-08-27",
-    "2026-08-29"
+    "2026-08-29",
+    "2026-08-31"
   ],
   "en_starred": [
     "abundant"
@@ -372,11 +373,11 @@
       "last": 1787427455703
     },
     "suì": {
-      "lvl": 2,
-      "seen": 9,
+      "lvl": 0,
+      "seen": 10,
       "right": 4,
-      "wrong": 5,
-      "last": 1787753123697
+      "wrong": 6,
+      "last": 1788182534398
     },
     "shì": {
       "lvl": 1,
@@ -435,11 +436,11 @@
       "last": 1787146543652
     },
     "láizì": {
-      "lvl": 3,
-      "seen": 13,
+      "lvl": 0,
+      "seen": 14,
       "right": 6,
-      "wrong": 7,
-      "last": 1787835616160
+      "wrong": 8,
+      "last": 1788182534396
     },
     "měiguórén": {
       "lvl": 2,
@@ -512,11 +513,11 @@
       "last": 1786399229386
     },
     "jiào": {
-      "lvl": 1,
-      "seen": 7,
+      "lvl": 0,
+      "seen": 8,
       "right": 3,
-      "wrong": 4,
-      "last": 1787439800659
+      "wrong": 5,
+      "last": 1788182534402
     },
     "My big sister is six years old too.": {
       "lvl": 1,
@@ -757,18 +758,18 @@
       "last": 1787439393138
     },
     "jǐ": {
-      "lvl": 1,
-      "seen": 8,
-      "right": 4,
+      "lvl": 2,
+      "seen": 9,
+      "right": 5,
       "wrong": 4,
-      "last": 1787407233945
+      "last": 1788182534394
     },
     "kù": {
-      "lvl": 0,
-      "seen": 3,
-      "right": 2,
+      "lvl": 1,
+      "seen": 4,
+      "right": 3,
       "wrong": 1,
-      "last": 1787439800660
+      "last": 1788182534401
     },
     "Mǐkǎ": {
       "lvl": 3,
@@ -827,11 +828,11 @@
       "last": 1787427465008
     },
     "nǎ": {
-      "lvl": 0,
-      "seen": 4,
-      "right": 1,
+      "lvl": 1,
+      "seen": 5,
+      "right": 2,
       "wrong": 3,
-      "last": 1787835744397
+      "last": 1788182534390
     },
     "yǒu": {
       "lvl": 3,
@@ -848,11 +849,11 @@
       "last": 1787835648723
     },
     "ge": {
-      "lvl": 1,
-      "seen": 5,
-      "right": 3,
+      "lvl": 2,
+      "seen": 6,
+      "right": 4,
       "wrong": 2,
-      "last": 1787753125687
+      "last": 1788182534395
     },
     "rén": {
       "lvl": 0,
@@ -1178,10 +1179,10 @@
     },
     "zài zuò shénme": {
       "lvl": 0,
-      "seen": 3,
+      "seen": 4,
       "right": 1,
-      "wrong": 2,
-      "last": 1787407292475
+      "wrong": 3,
+      "last": 1788182534399
     },
     "ne": {
       "lvl": 1,
@@ -1191,11 +1192,11 @@
       "last": 1787427999884
     },
     "wán yóuxì": {
-      "lvl": 1,
-      "seen": 2,
-      "right": 1,
+      "lvl": 2,
+      "seen": 3,
+      "right": 2,
       "wrong": 1,
-      "last": 1787439393143
+      "last": 1788182534400
     },
     "en:abundant": {
       "lvl": 1,
@@ -1303,11 +1304,11 @@
       "last": 1787439800662
     },
     "míngtiān jiàn": {
-      "lvl": 0,
-      "seen": 2,
-      "right": 1,
+      "lvl": 1,
+      "seen": 3,
+      "right": 2,
       "wrong": 1,
-      "last": 1787835670335
+      "last": 1788182534392
     },
     "I was born on Guagua planet.": {
       "lvl": 1,
@@ -1609,6 +1610,20 @@
       "right": 1,
       "wrong": 0,
       "last": 1788020209262
+    },
+    "nián": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1788182534398
+    },
+    "nǐmen hǎo": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1788182534403
     }
   },
   "chipLog": [
@@ -1674,8 +1689,8 @@
     }
   ],
   "dayCount": {
-    "date": "2026-08-29",
-    "n": 2
+    "date": "2026-08-31",
+    "n": 1
   },
   "spokenCount": {
     "date": "2026-08-21",
@@ -1729,11 +1744,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788182476617,
-  "pool_at": 1788182476617,
-  "starredSentences_at": 1788182476617,
-  "hiddenWords_at": 1788182416474,
-  "archived_at": 1788182476617,
+  "trouble_at": 1788182536846,
+  "pool_at": 1788182536846,
+  "starredSentences_at": 1788182536847,
+  "hiddenWords_at": 1788182476617,
+  "archived_at": 1788182536846,
   "en_starred_at": 1788092374122,
   "chips": 11
 }
