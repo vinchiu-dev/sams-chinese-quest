@@ -1784,6 +1784,13 @@
       "right": 0,
       "wrong": 1,
       "last": 1788197279813
+    },
+    "Little brother is crying.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1788197365715
     }
   },
   "chipLog": [
@@ -1832,7 +1839,7 @@
   "trouble_at": 1788197356440,
   "pool_at": 1788197356440,
   "starredSentences_at": 1788197356440,
-  "hiddenWords_at": 1788197296400,
+  "hiddenWords_at": 1788197356441,
   "archived_at": 1788197356440,
   "en_starred_at": 1788196272227,
   "chips": 12
