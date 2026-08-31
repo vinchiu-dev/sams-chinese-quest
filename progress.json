@@ -107,19 +107,6 @@
       "hanzi": "",
       "emoji": "📝",
       "needsDef": true
-    },
-    {
-      "en": "also",
-      "pinyin": "yě",
-      "hanzi": "也",
-      "emoji": "➕"
-    },
-    {
-      "en": "有",
-      "pinyin": "",
-      "hanzi": "有",
-      "emoji": "📝",
-      "needsDef": true
     }
   ],
   "en_myWords": [
@@ -1725,9 +1712,9 @@
     "plus10",
     "mul10"
   ],
-  "car_deck": "math",
+  "car_deck": "words",
   "car_gap": 6,
-  "car_len": 18,
+  "car_len": 12,
   "pool": [
     "nationalities",
     "about-me",
@@ -1742,11 +1729,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788013667965,
-  "pool_at": 1788013667943,
-  "starredSentences_at": 1788013667965,
-  "hiddenWords_at": 1788013667965,
-  "archived_at": 1788013667965,
+  "trouble_at": 1788182176458,
+  "pool_at": 1788182176209,
+  "starredSentences_at": 1788182176458,
+  "hiddenWords_at": 1788182176456,
+  "archived_at": 1788182176458,
   "en_starred_at": 1788092374122,
   "chips": 11
 }
