@@ -1738,16 +1738,23 @@
       "right": 1,
       "wrong": 0,
       "last": 1788196750195
+    },
+    "Auntie, long time no see!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1788196835784
     }
   },
   "chipLog": [],
   "dayCount": {
     "date": "2026-08-31",
-    "n": 14
+    "n": 15
   },
   "spokenCount": {},
   "wordOfDay": null,
-  "goalClaimed": "",
+  "goalClaimed": "2026-08-31",
   "wodDone": "",
   "spokenClaimed": "",
   "math_sets": [
@@ -1779,8 +1786,8 @@
   "trouble_at": 1788196816302,
   "pool_at": 1788196816099,
   "starredSentences_at": 1788196816302,
-  "hiddenWords_at": 1788196816100,
+  "hiddenWords_at": 1788196816303,
   "archived_at": 1788196816302,
   "en_starred_at": 1788196272227,
-  "chips": 11
+  "chips": 12
 }
