@@ -1667,16 +1667,19 @@
     "where-born",
     "starred-words",
     "wod-history",
-    "words-we-added"
+    "words-we-added",
+    "everyone-at-home",
+    "welcome-home-rooms",
+    "greedy-monkey-fruit"
   ],
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788195844184,
-  "pool_at": 1788195843468,
-  "starredSentences_at": 1788195844184,
-  "hiddenWords_at": 1788195843471,
-  "archived_at": 1788195844184,
+  "trouble_at": 1788195903754,
+  "pool_at": 1788195903754,
+  "starredSentences_at": 1788195903755,
+  "hiddenWords_at": 1788195844185,
+  "archived_at": 1788195903755,
   "en_starred_at": 1788195197962,
   "chips": 11
 }
