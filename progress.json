@@ -1666,6 +1666,13 @@
       "right": 0,
       "wrong": 1,
       "last": 1788196190788
+    },
+    "dà xióng wánjù": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1788196208928
     }
   },
   "chipLog": [],
@@ -1707,7 +1714,7 @@
   "trouble_at": 1788196203777,
   "pool_at": 1788196203776,
   "starredSentences_at": 1788196203777,
-  "hiddenWords_at": 1788196143755,
+  "hiddenWords_at": 1788196203778,
   "archived_at": 1788196203777,
   "en_starred_at": 1788195197962,
   "chips": 11
