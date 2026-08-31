@@ -221,11 +221,11 @@
   ],
   "srs": {
     "I am six years old.": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1786382999346
+      "last": 1788196806356
     },
     "Today is the weekend — the alien is playing at my house!": {
       "lvl": 0,
@@ -1779,7 +1779,7 @@
   "trouble_at": 1788196803752,
   "pool_at": 1788196803751,
   "starredSentences_at": 1788196803752,
-  "hiddenWords_at": 1788196797904,
+  "hiddenWords_at": 1788196803752,
   "archived_at": 1788196803752,
   "en_starred_at": 1788196272227,
   "chips": 11
