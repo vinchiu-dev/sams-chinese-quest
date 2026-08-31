@@ -338,11 +338,11 @@
       "last": 1788182534396
     },
     "měiguórén": {
-      "lvl": 2,
-      "seen": 2,
-      "right": 2,
+      "lvl": 3,
+      "seen": 3,
+      "right": 3,
       "wrong": 0,
-      "last": 1787146568368
+      "last": 1788196203146
     },
     "gēbo": {
       "lvl": 1,
@@ -1704,11 +1704,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788196190792,
-  "pool_at": 1788196143753,
-  "starredSentences_at": 1788196190792,
+  "trouble_at": 1788196203777,
+  "pool_at": 1788196203776,
+  "starredSentences_at": 1788196203777,
   "hiddenWords_at": 1788196143755,
-  "archived_at": 1788196190792,
+  "archived_at": 1788196203777,
   "en_starred_at": 1788195197962,
   "chips": 11
 }
