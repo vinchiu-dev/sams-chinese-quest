@@ -107,16 +107,23 @@
       "needsDef": true
     },
     {
-      "en": "green bottle blue spider",
-      "pinyin": "lǜ píng lán zhīzhū",
-      "hanzi": "绿瓶蓝蜘蛛",
-      "emoji": "🕷️"
+      "en": "Green bottle blue tarantula",
+      "pinyin": "",
+      "hanzi": "",
+      "emoji": "📝",
+      "needsDef": true
     },
     {
       "en": "See you tomorrow",
       "pinyin": "míngtiān jiàn",
       "hanzi": "明天见",
       "emoji": "👋"
+    },
+    {
+      "en": "green bottle blue spider",
+      "pinyin": "lǜ píng lán zhīzhū",
+      "hanzi": "绿瓶蓝蜘蛛",
+      "emoji": "🕷️"
     }
   ],
   "en_myWords": [
@@ -1755,11 +1762,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788196564282,
-  "pool_at": 1788196564282,
-  "starredSentences_at": 1788196564282,
-  "hiddenWords_at": 1788196503733,
-  "archived_at": 1788196564282,
+  "trouble_at": 1788196623754,
+  "pool_at": 1788196623752,
+  "starredSentences_at": 1788196623754,
+  "hiddenWords_at": 1788196564282,
+  "archived_at": 1788196623754,
   "en_starred_at": 1788196272227,
   "chips": 11
 }
