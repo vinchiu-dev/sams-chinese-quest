@@ -60,7 +60,8 @@
     "The alien comes from another planet!",
     "Is your big sister British?",
     "What's your nationality?",
-    "What is your name?"
+    "What is your name?",
+    "I also want to eat watermelon."
   ],
   "hiddenWords": [],
   "practiceDays": [
@@ -99,11 +100,24 @@
       "emoji": "👋"
     },
     {
+      "en": "See you tomorrow",
+      "pinyin": "",
+      "hanzi": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
       "en": "Green bottle blue tarantula",
       "pinyin": "",
       "hanzi": "",
       "emoji": "📝",
       "needsDef": true
+    },
+    {
+      "en": "See you tomorrow",
+      "pinyin": "míngtiān jiàn",
+      "hanzi": "明天见",
+      "emoji": "👋"
     }
   ],
   "en_myWords": [
@@ -901,11 +915,11 @@
       "last": 1786552782734
     },
     "I also want to eat watermelon.": {
-      "lvl": 3,
-      "seen": 3,
+      "lvl": 0,
+      "seen": 4,
       "right": 3,
-      "wrong": 0,
-      "last": 1786552837218
+      "wrong": 1,
+      "last": 1788196560197
     },
     "math:+:4:4": {
       "lvl": 2,
@@ -1709,7 +1723,7 @@
   "chipLog": [],
   "dayCount": {
     "date": "2026-08-31",
-    "n": 7
+    "n": 9
   },
   "spokenCount": {},
   "wordOfDay": null,
@@ -1742,11 +1756,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788196508786,
+  "trouble_at": 1788196560202,
   "pool_at": 1788196503732,
-  "starredSentences_at": 1788196508786,
+  "starredSentences_at": 1788196560202,
   "hiddenWords_at": 1788196503733,
-  "archived_at": 1788196508786,
+  "archived_at": 1788196560202,
   "en_starred_at": 1788196272227,
   "chips": 11
 }
