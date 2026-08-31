@@ -1702,6 +1702,13 @@
       "right": 0,
       "wrong": 1,
       "last": 1788196347283
+    },
+    "I want to eat watermelon and grapes!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1788196497236
     }
   },
   "chipLog": [],
@@ -1743,7 +1750,7 @@
   "trouble_at": 1788196443902,
   "pool_at": 1788196443901,
   "starredSentences_at": 1788196443902,
-  "hiddenWords_at": 1788196383749,
+  "hiddenWords_at": 1788196443904,
   "archived_at": 1788196443902,
   "en_starred_at": 1788196272227,
   "chips": 11
