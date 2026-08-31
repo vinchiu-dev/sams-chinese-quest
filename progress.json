@@ -1644,12 +1644,19 @@
       "right": 1,
       "wrong": 0,
       "last": 1788195999473
+    },
+    "tānchī": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1788196019591
     }
   },
   "chipLog": [],
   "dayCount": {
     "date": "2026-08-31",
-    "n": 1
+    "n": 2
   },
   "spokenCount": {},
   "wordOfDay": null,
