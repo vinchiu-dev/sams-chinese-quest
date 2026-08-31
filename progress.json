@@ -1724,6 +1724,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1788196538512
+    },
+    "Welcome, Mika!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1788196712845
     }
   },
   "chipLog": [],
@@ -1765,7 +1772,7 @@
   "trouble_at": 1788196683832,
   "pool_at": 1788196683832,
   "starredSentences_at": 1788196683832,
-  "hiddenWords_at": 1788196623754,
+  "hiddenWords_at": 1788196683833,
   "archived_at": 1788196683832,
   "en_starred_at": 1788196272227,
   "chips": 11
