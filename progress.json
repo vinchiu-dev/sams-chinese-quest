@@ -1713,7 +1713,7 @@
     "mul10"
   ],
   "car_deck": "words",
-  "car_gap": 6,
+  "car_gap": 10,
   "car_len": 12,
   "pool": [
     "nationalities",
@@ -1729,11 +1729,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788182176458,
-  "pool_at": 1788182176209,
-  "starredSentences_at": 1788182176458,
+  "trouble_at": 1788182236490,
+  "pool_at": 1788182236490,
+  "starredSentences_at": 1788182236490,
   "hiddenWords_at": 1788182176456,
-  "archived_at": 1788182176458,
+  "archived_at": 1788182236490,
   "en_starred_at": 1788092374122,
   "chips": 11
 }
