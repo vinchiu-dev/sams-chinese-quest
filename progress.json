@@ -1651,6 +1651,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1788196019591
+    },
+    "chúfáng": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1788196024155
     }
   },
   "chipLog": [],
@@ -1689,11 +1696,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788195963760,
-  "pool_at": 1788195963759,
-  "starredSentences_at": 1788195963760,
-  "hiddenWords_at": 1788195963761,
-  "archived_at": 1788195963760,
+  "trouble_at": 1788196023690,
+  "pool_at": 1788196023689,
+  "starredSentences_at": 1788196023690,
+  "hiddenWords_at": 1788196023690,
+  "archived_at": 1788196023690,
   "en_starred_at": 1788195197962,
   "chips": 11
 }
