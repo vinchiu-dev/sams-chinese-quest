@@ -131,6 +131,20 @@
       "example": "",
       "emoji": "📝",
       "needsDef": true
+    },
+    {
+      "word": "Knapsack",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Compass",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
     }
   ],
   "wodHistory": [
@@ -1762,6 +1776,6 @@
   "starredSentences_at": 1788193797662,
   "hiddenWords_at": 1788193797662,
   "archived_at": 1788193797662,
-  "en_starred_at": 1788195175100,
+  "en_starred_at": 1788195197962,
   "chips": 11
 }
