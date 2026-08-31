@@ -1739,16 +1739,22 @@
     "where-born",
     "starred-words",
     "wod-history",
-    "words-we-added"
+    "words-we-added",
+    "everyone-at-home",
+    "welcome-home-rooms",
+    "fruit-i-eat",
+    "body-bumps",
+    "starter-phrases",
+    "question-words"
   ],
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788182536846,
-  "pool_at": 1788182536846,
-  "starredSentences_at": 1788182536847,
-  "hiddenWords_at": 1788182476617,
-  "archived_at": 1788182536846,
+  "trouble_at": 1788182596773,
+  "pool_at": 1788182596773,
+  "starredSentences_at": 1788182596773,
+  "hiddenWords_at": 1788182536847,
+  "archived_at": 1788182596773,
   "en_starred_at": 1788092374122,
   "chips": 11
 }
