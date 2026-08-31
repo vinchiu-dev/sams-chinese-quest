@@ -64,7 +64,8 @@
     "I also want to eat watermelon.",
     "Scissors are not for playing with.",
     "I was born in America.",
-    "I want ten cherries."
+    "I want ten cherries.",
+    "I have two big bear toys."
   ],
   "hiddenWords": [],
   "practiceDays": [
@@ -1776,6 +1777,13 @@
       "right": 0,
       "wrong": 1,
       "last": 1788197138844
+    },
+    "I have two big bear toys.": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1788197279813
     }
   },
   "chipLog": [
@@ -1788,7 +1796,7 @@
   ],
   "dayCount": {
     "date": "2026-08-31",
-    "n": 21
+    "n": 22
   },
   "spokenCount": {},
   "wordOfDay": null,
@@ -1821,11 +1829,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788197236513,
+  "trouble_at": 1788197279818,
   "pool_at": 1788197236512,
-  "starredSentences_at": 1788197236513,
-  "hiddenWords_at": 1788197176479,
-  "archived_at": 1788197236513,
+  "starredSentences_at": 1788197279818,
+  "hiddenWords_at": 1788197236513,
+  "archived_at": 1788197279818,
   "en_starred_at": 1788196272227,
   "chips": 12
 }
