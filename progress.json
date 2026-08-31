@@ -1341,11 +1341,11 @@
       "last": 1787835799583
     },
     "Where is Uncle?": {
-      "lvl": 0,
-      "seen": 1,
-      "right": 0,
+      "lvl": 1,
+      "seen": 2,
+      "right": 1,
       "wrong": 1,
-      "last": 1787835822631
+      "last": 1788196379604
     },
     "Steamed buns are really delicious!": {
       "lvl": 1,
