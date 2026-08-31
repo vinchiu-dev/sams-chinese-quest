@@ -31,7 +31,8 @@
     "qīngcài",
     "suì",
     "shì",
-    "měiguórén"
+    "měiguórén",
+    "xǐ yīfu"
   ],
   "archived": [],
   "starredSentences": [
@@ -834,11 +835,11 @@
       "last": 1787835624253
     },
     "sān": {
-      "lvl": 1,
-      "seen": 3,
-      "right": 2,
+      "lvl": 2,
+      "seen": 4,
+      "right": 3,
       "wrong": 1,
-      "last": 1787427465008
+      "last": 1788196192710
     },
     "nǎ": {
       "lvl": 1,
@@ -1658,6 +1659,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1788196024155
+    },
+    "xǐ yīfu": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1788196190788
     }
   },
   "chipLog": [],
@@ -1696,11 +1704,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788196143754,
+  "trouble_at": 1788196190792,
   "pool_at": 1788196143753,
-  "starredSentences_at": 1788196143754,
-  "hiddenWords_at": 1788196083762,
-  "archived_at": 1788196143754,
+  "starredSentences_at": 1788196190792,
+  "hiddenWords_at": 1788196143755,
+  "archived_at": 1788196190792,
   "en_starred_at": 1788195197962,
   "chips": 11
 }
