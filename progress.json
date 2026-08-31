@@ -101,6 +101,13 @@
       "hanzi": "",
       "emoji": "📝",
       "needsDef": true
+    },
+    {
+      "en": "Green bottle blue tarantula",
+      "pinyin": "",
+      "hanzi": "",
+      "emoji": "📝",
+      "needsDef": true
     }
   ],
   "en_myWords": [
@@ -1803,11 +1810,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788196274683,
+  "trouble_at": 1788196296073,
   "pool_at": 1788196274667,
-  "starredSentences_at": 1788196274683,
-  "hiddenWords_at": 1788196274668,
-  "archived_at": 1788196274683,
+  "starredSentences_at": 1788196296073,
+  "hiddenWords_at": 1788196274684,
+  "archived_at": 1788196296073,
   "en_starred_at": 1788196272227,
   "chips": 11
 }
