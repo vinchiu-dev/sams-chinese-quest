@@ -1729,7 +1729,7 @@
   "chipLog": [],
   "dayCount": {
     "date": "2026-08-31",
-    "n": 9
+    "n": 10
   },
   "spokenCount": {},
   "wordOfDay": null,
@@ -1762,11 +1762,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788196623754,
-  "pool_at": 1788196623752,
-  "starredSentences_at": 1788196623754,
+  "trouble_at": 1788196683832,
+  "pool_at": 1788196683832,
+  "starredSentences_at": 1788196683832,
   "hiddenWords_at": 1788196623754,
-  "archived_at": 1788196623754,
+  "archived_at": 1788196683832,
   "en_starred_at": 1788196272227,
   "chips": 11
 }
