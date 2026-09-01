@@ -1837,11 +1837,11 @@
       "last": 1788196712845
     },
     "I don't eat greens.": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1788196750195
+      "last": 1788285391908
     },
     "Auntie, long time no see!": {
       "lvl": 1,
@@ -2000,7 +2000,7 @@
   ],
   "dayCount": {
     "date": "2026-09-01",
-    "n": 15
+    "n": 16
   },
   "spokenCount": {},
   "wordOfDay": null,
