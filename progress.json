@@ -1968,6 +1968,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1788285272212
+    },
+    "Strawberries are very tasty.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1788285321671
     }
   },
   "chipLog": [
@@ -2013,7 +2020,7 @@
   "trouble_at": 1788285314284,
   "pool_at": 1788285314284,
   "starredSentences_at": 1788285314285,
-  "hiddenWords_at": 1788285254208,
+  "hiddenWords_at": 1788285314286,
   "archived_at": 1788285314285,
   "en_starred_at": 1788196272227,
   "chips": 12
