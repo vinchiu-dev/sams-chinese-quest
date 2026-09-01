@@ -1982,6 +1982,12 @@
       "type": "daily",
       "amount": 1,
       "note": "Daily goal",
+      "at": 1788285371259
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
       "at": 1788196835787
     }
   ],
@@ -2017,11 +2023,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788285314284,
-  "pool_at": 1788285314284,
-  "starredSentences_at": 1788285314285,
+  "trouble_at": 1788285374164,
+  "pool_at": 1788285374164,
+  "starredSentences_at": 1788285374164,
   "hiddenWords_at": 1788285314286,
-  "archived_at": 1788285314285,
+  "archived_at": 1788285374164,
   "en_starred_at": 1788196272227,
   "chips": 13
 }
