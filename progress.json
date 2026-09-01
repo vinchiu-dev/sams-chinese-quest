@@ -1911,6 +1911,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1788284877559
+    },
+    "Let's go and eat.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1788284994724
     }
   },
   "chipLog": [
@@ -1972,7 +1979,7 @@
   "trouble_at": 1788284974880,
   "pool_at": 1788284974880,
   "starredSentences_at": 1788284974880,
-  "hiddenWords_at": 1788284914907,
+  "hiddenWords_at": 1788284974882,
   "archived_at": 1788284974880,
   "en_starred_at": 1788196272227,
   "chips": 12
