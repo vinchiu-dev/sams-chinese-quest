@@ -1889,6 +1889,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1788197365715
+    },
+    "I want to eat strawberries.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1788284740059
     }
   },
   "chipLog": [
@@ -1950,7 +1957,7 @@
   "trouble_at": 1788284734836,
   "pool_at": 1788284734835,
   "starredSentences_at": 1788284734836,
-  "hiddenWords_at": 1788284674897,
+  "hiddenWords_at": 1788284734837,
   "archived_at": 1788284734836,
   "en_starred_at": 1788196272227,
   "chips": 12
