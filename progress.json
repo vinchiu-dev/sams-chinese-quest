@@ -2041,6 +2041,13 @@
       "right": 0,
       "wrong": 1,
       "last": 1788285789204
+    },
+    "We all love eating dumplings.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1788285948422
     }
   },
   "chipLog": [
@@ -2092,7 +2099,7 @@
   "trouble_at": 1788285914339,
   "pool_at": 1788285914339,
   "starredSentences_at": 1788285914339,
-  "hiddenWords_at": 1788285854344,
+  "hiddenWords_at": 1788285914340,
   "archived_at": 1788285914339,
   "en_starred_at": 1788196272227,
   "chips": 13
