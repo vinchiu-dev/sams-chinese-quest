@@ -1952,11 +1952,11 @@
       "last": 1788285178816
     },
     "Do you have a little brother?": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1788285221877
+      "last": 1788285954358
     },
     "Uncle comes to open the door.": {
       "lvl": 1,
@@ -2066,7 +2066,7 @@
   ],
   "dayCount": {
     "date": "2026-09-01",
-    "n": 31
+    "n": 32
   },
   "spokenCount": {},
   "wordOfDay": null,
