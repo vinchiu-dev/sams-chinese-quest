@@ -1494,11 +1494,11 @@
       "last": 1788285371256
     },
     "What is your name?": {
-      "lvl": 0,
-      "seen": 2,
-      "right": 1,
+      "lvl": 1,
+      "seen": 3,
+      "right": 2,
       "wrong": 1,
-      "last": 1788196508783
+      "last": 1788285482460
     },
     "It's okay, it doesn't hurt anymore.": {
       "lvl": 0,
@@ -2033,7 +2033,7 @@
   "trouble_at": 1788285434237,
   "pool_at": 1788285434237,
   "starredSentences_at": 1788285434237,
-  "hiddenWords_at": 1788285374165,
+  "hiddenWords_at": 1788285434238,
   "archived_at": 1788285434237,
   "en_starred_at": 1788196272227,
   "chips": 13
