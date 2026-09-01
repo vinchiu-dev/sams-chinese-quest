@@ -668,11 +668,11 @@
       "last": 1786888918575
     },
     "I come from America.": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1786452670063
+      "last": 1788285508749
     },
     "What's your nationality?": {
       "lvl": 0,
@@ -2007,7 +2007,7 @@
   ],
   "dayCount": {
     "date": "2026-09-01",
-    "n": 18
+    "n": 19
   },
   "spokenCount": {},
   "wordOfDay": null,
