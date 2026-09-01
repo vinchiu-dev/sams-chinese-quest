@@ -408,11 +408,11 @@
       "last": 1786888506708
     },
     "Is your big sister British?": {
-      "lvl": 1,
-      "seen": 2,
-      "right": 1,
+      "lvl": 2,
+      "seen": 3,
+      "right": 2,
       "wrong": 1,
-      "last": 1786452579626
+      "last": 1788284789292
     },
     "liù": {
       "lvl": 4,
@@ -1958,7 +1958,7 @@
   "trouble_at": 1788284765109,
   "pool_at": 1788284765109,
   "starredSentences_at": 1788284765109,
-  "hiddenWords_at": 1788284765103,
+  "hiddenWords_at": 1788284765110,
   "archived_at": 1788284765109,
   "en_starred_at": 1788196272227,
   "chips": 12
