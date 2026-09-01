@@ -2066,7 +2066,7 @@
   ],
   "dayCount": {
     "date": "2026-09-01",
-    "n": 33
+    "n": 34
   },
   "spokenCount": {},
   "wordOfDay": null,
@@ -2096,11 +2096,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788285914339,
-  "pool_at": 1788285914339,
-  "starredSentences_at": 1788285914339,
+  "trouble_at": 1788285974214,
+  "pool_at": 1788285974214,
+  "starredSentences_at": 1788285974214,
   "hiddenWords_at": 1788285914340,
-  "archived_at": 1788285914339,
+  "archived_at": 1788285974214,
   "en_starred_at": 1788196272227,
   "chips": 13
 }
