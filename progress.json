@@ -507,11 +507,11 @@
       "last": 1786235507631
     },
     "Hello!": {
-      "lvl": 2,
-      "seen": 2,
-      "right": 2,
+      "lvl": 3,
+      "seen": 3,
+      "right": 3,
       "wrong": 0,
-      "last": 1786235562763
+      "last": 1788285513985
     },
     "Grandpa, happy birthday!": {
       "lvl": 1,
@@ -2007,7 +2007,7 @@
   ],
   "dayCount": {
     "date": "2026-09-01",
-    "n": 19
+    "n": 20
   },
   "spokenCount": {},
   "wordOfDay": null,
