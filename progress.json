@@ -1940,6 +1940,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1788285120192
+    },
+    "The hippo is very big.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1788285178816
     }
   },
   "chipLog": [
@@ -2001,7 +2008,7 @@
   "trouble_at": 1788285154856,
   "pool_at": 1788285154856,
   "starredSentences_at": 1788285154856,
-  "hiddenWords_at": 1788285094833,
+  "hiddenWords_at": 1788285154857,
   "archived_at": 1788285154856,
   "en_starred_at": 1788196272227,
   "chips": 12
