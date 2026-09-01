@@ -1896,11 +1896,11 @@
       "last": 1788197365715
     },
     "I want to eat strawberries.": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1788284740059
+      "last": 1788285979454
     },
     "Pandas love eating greens.": {
       "lvl": 1,
@@ -2099,7 +2099,7 @@
   "trouble_at": 1788285974214,
   "pool_at": 1788285974214,
   "starredSentences_at": 1788285974214,
-  "hiddenWords_at": 1788285914340,
+  "hiddenWords_at": 1788285974214,
   "archived_at": 1788285974214,
   "en_starred_at": 1788196272227,
   "chips": 13
