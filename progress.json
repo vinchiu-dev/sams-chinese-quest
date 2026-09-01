@@ -1982,6 +1982,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1788285386762
+    },
+    "Why aren't you eating?": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1788285497989
     }
   },
   "chipLog": [
@@ -2033,7 +2040,7 @@
   "trouble_at": 1788285494199,
   "pool_at": 1788285494199,
   "starredSentences_at": 1788285494199,
-  "hiddenWords_at": 1788285434238,
+  "hiddenWords_at": 1788285494200,
   "archived_at": 1788285494199,
   "en_starred_at": 1788196272227,
   "chips": 13
