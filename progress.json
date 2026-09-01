@@ -1933,6 +1933,13 @@
       "right": 0,
       "wrong": 1,
       "last": 1788285087560
+    },
+    "My mom is thirty-five.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1788285120192
     }
   },
   "chipLog": [
@@ -1994,7 +2001,7 @@
   "trouble_at": 1788285094832,
   "pool_at": 1788285094832,
   "starredSentences_at": 1788285094832,
-  "hiddenWords_at": 1788285034761,
+  "hiddenWords_at": 1788285094833,
   "archived_at": 1788285094832,
   "en_starred_at": 1788196272227,
   "chips": 12
