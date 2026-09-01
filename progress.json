@@ -1975,6 +1975,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1788285321671
+    },
+    "No, this is my mom.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1788285386762
     }
   },
   "chipLog": [
@@ -2026,7 +2033,7 @@
   "trouble_at": 1788285374164,
   "pool_at": 1788285374164,
   "starredSentences_at": 1788285374164,
-  "hiddenWords_at": 1788285314286,
+  "hiddenWords_at": 1788285374165,
   "archived_at": 1788285374164,
   "en_starred_at": 1788196272227,
   "chips": 13
