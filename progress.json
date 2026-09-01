@@ -410,11 +410,11 @@
       "last": 1786888506708
     },
     "Is your big sister British?": {
-      "lvl": 2,
-      "seen": 3,
-      "right": 2,
+      "lvl": 3,
+      "seen": 4,
+      "right": 3,
       "wrong": 1,
-      "last": 1788284789292
+      "last": 1788285641464
     },
     "liù": {
       "lvl": 4,
@@ -2036,7 +2036,7 @@
   ],
   "dayCount": {
     "date": "2026-09-01",
-    "n": 24
+    "n": 25
   },
   "spokenCount": {},
   "wordOfDay": null,
