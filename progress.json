@@ -1852,11 +1852,11 @@
       "last": 1788196835784
     },
     "Dumplings are really delicious!": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1788196868899
+      "last": 1788285647977
     },
     "I was born in America.": {
       "lvl": 0,
@@ -2036,7 +2036,7 @@
   ],
   "dayCount": {
     "date": "2026-09-01",
-    "n": 25
+    "n": 26
   },
   "spokenCount": {},
   "wordOfDay": null,
