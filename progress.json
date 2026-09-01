@@ -1487,11 +1487,11 @@
       "last": 1788196781502
     },
     "I want to eat blueberries.": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1787836067111
+      "last": 1788285371256
     },
     "What is your name?": {
       "lvl": 0,
@@ -1987,11 +1987,11 @@
   ],
   "dayCount": {
     "date": "2026-09-01",
-    "n": 13
+    "n": 15
   },
   "spokenCount": {},
   "wordOfDay": null,
-  "goalClaimed": "2026-08-31",
+  "goalClaimed": "2026-09-01",
   "wodDone": "",
   "spokenClaimed": "",
   "math_sets": [
@@ -2023,5 +2023,5 @@
   "hiddenWords_at": 1788285314286,
   "archived_at": 1788285314285,
   "en_starred_at": 1788196272227,
-  "chips": 12
+  "chips": 13
 }
