@@ -65,7 +65,8 @@
     "Scissors are not for playing with.",
     "I was born in America.",
     "I want ten cherries.",
-    "I have two big bear toys."
+    "I have two big bear toys.",
+    "You're so greedy!"
   ],
   "hiddenWords": [],
   "practiceDays": [
@@ -1983,11 +1984,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788285034761,
+  "trouble_at": 1788285083109,
   "pool_at": 1788285034760,
-  "starredSentences_at": 1788285034761,
-  "hiddenWords_at": 1788284974882,
-  "archived_at": 1788285034761,
+  "starredSentences_at": 1788285083109,
+  "hiddenWords_at": 1788285034761,
+  "archived_at": 1788285083109,
   "en_starred_at": 1788196272227,
   "chips": 12
 }
