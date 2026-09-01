@@ -1959,7 +1959,7 @@
   ],
   "dayCount": {
     "date": "2026-09-01",
-    "n": 8
+    "n": 9
   },
   "spokenCount": {},
   "wordOfDay": null,
@@ -1976,22 +1976,6 @@
   "car_gap": 10,
   "car_len": 12,
   "pool": [
-    "little-fox-school-supplies",
-    "question-words",
-    "starter-phrases",
-    "love-to-laugh",
-    "body-bumps",
-    "birthday-knock",
-    "greedy-monkey-fruit",
-    "silly-food",
-    "mealtime-picky",
-    "stationery-shop",
-    "welcome-home-rooms",
-    "fruit-i-eat",
-    "not-feeling-well",
-    "everyone-at-home",
-    "weekend-visit",
-    "bedroom-toys",
     "nationalities",
     "about-me",
     "too-cool",
@@ -1999,17 +1983,17 @@
     "how-many-people",
     "where-born",
     "starred-words",
-    "words-we-added",
-    "wod-history"
+    "wod-history",
+    "words-we-added"
   ],
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788285154856,
-  "pool_at": 1788285154856,
-  "starredSentences_at": 1788285154856,
-  "hiddenWords_at": 1788285154857,
-  "archived_at": 1788285154856,
+  "trouble_at": 1788285194140,
+  "pool_at": 1788285193938,
+  "starredSentences_at": 1788285194140,
+  "hiddenWords_at": 1788285193942,
+  "archived_at": 1788285194140,
   "en_starred_at": 1788196272227,
   "chips": 12
 }
