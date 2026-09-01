@@ -68,7 +68,8 @@
     "I have two big bear toys.",
     "You're so greedy!",
     "This bun is too big.",
-    "What's wrong?"
+    "What's wrong?",
+    "What time is it now?"
   ],
   "hiddenWords": [],
   "practiceDays": [
@@ -2033,6 +2034,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1788285766418
+    },
+    "What time is it now?": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1788285789204
     }
   },
   "chipLog": [
@@ -2051,7 +2059,7 @@
   ],
   "dayCount": {
     "date": "2026-09-01",
-    "n": 29
+    "n": 31
   },
   "spokenCount": {},
   "wordOfDay": null,
@@ -2081,11 +2089,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788285764174,
+  "trouble_at": 1788285789208,
   "pool_at": 1788285734238,
-  "starredSentences_at": 1788285764174,
+  "starredSentences_at": 1788285789208,
   "hiddenWords_at": 1788285734240,
-  "archived_at": 1788285764174,
+  "archived_at": 1788285789208,
   "en_starred_at": 1788196272227,
   "chips": 13
 }
