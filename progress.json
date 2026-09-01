@@ -67,7 +67,9 @@
     "I want ten cherries.",
     "I have two big bear toys.",
     "You're so greedy!",
-    "This bun is too big."
+    "This bun is too big.",
+    "What's wrong?",
+    "Sorry!"
   ],
   "hiddenWords": [],
   "practiceDays": [
@@ -2018,6 +2020,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1788285632113
+    },
+    "What's wrong?": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1788285756741
     }
   },
   "chipLog": [
@@ -2036,7 +2045,7 @@
   ],
   "dayCount": {
     "date": "2026-09-01",
-    "n": 27
+    "n": 28
   },
   "spokenCount": {},
   "wordOfDay": null,
@@ -2066,11 +2075,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788285734239,
+  "trouble_at": 1788285758278,
   "pool_at": 1788285734238,
-  "starredSentences_at": 1788285734239,
-  "hiddenWords_at": 1788285674286,
-  "archived_at": 1788285734239,
+  "starredSentences_at": 1788285758278,
+  "hiddenWords_at": 1788285734240,
+  "archived_at": 1788285758278,
   "en_starred_at": 1788196272227,
   "chips": 13
 }
