@@ -1996,6 +1996,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1788285526558
+    },
+    "How old is your mom?": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1788285559966
     }
   },
   "chipLog": [
@@ -2047,7 +2054,7 @@
   "trouble_at": 1788285554182,
   "pool_at": 1788285554181,
   "starredSentences_at": 1788285554182,
-  "hiddenWords_at": 1788285494200,
+  "hiddenWords_at": 1788285554183,
   "archived_at": 1788285554182,
   "en_starred_at": 1788196272227,
   "chips": 13
