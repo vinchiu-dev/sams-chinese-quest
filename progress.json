@@ -66,7 +66,8 @@
     "I was born in America.",
     "I want ten cherries.",
     "I have two big bear toys.",
-    "You're so greedy!"
+    "You're so greedy!",
+    "This bun is too big."
   ],
   "hiddenWords": [],
   "practiceDays": [
@@ -2003,6 +2004,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1788285559966
+    },
+    "This bun is too big.": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1788285580301
     }
   },
   "chipLog": [
@@ -2021,7 +2029,7 @@
   ],
   "dayCount": {
     "date": "2026-09-01",
-    "n": 22
+    "n": 24
   },
   "spokenCount": {},
   "wordOfDay": null,
@@ -2051,11 +2059,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788285554182,
+  "trouble_at": 1788285580305,
   "pool_at": 1788285554181,
-  "starredSentences_at": 1788285554182,
+  "starredSentences_at": 1788285580305,
   "hiddenWords_at": 1788285554183,
-  "archived_at": 1788285554182,
+  "archived_at": 1788285580305,
   "en_starred_at": 1788196272227,
   "chips": 13
 }
