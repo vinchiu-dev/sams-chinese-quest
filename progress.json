@@ -1897,6 +1897,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1788284740059
+    },
+    "Pandas love eating greens.": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1788284851932
     }
   },
   "chipLog": [
@@ -1958,7 +1965,7 @@
   "trouble_at": 1788284794859,
   "pool_at": 1788284794859,
   "starredSentences_at": 1788284794860,
-  "hiddenWords_at": 1788284765110,
+  "hiddenWords_at": 1788284794860,
   "archived_at": 1788284794860,
   "en_starred_at": 1788196272227,
   "chips": 12
