@@ -149,6 +149,13 @@
       "example": "",
       "emoji": "📝",
       "needsDef": true
+    },
+    {
+      "word": "Undocumented",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
     }
   ],
   "wodHistory": [
@@ -1966,6 +1973,6 @@
   "starredSentences_at": 1788357886876,
   "hiddenWords_at": 1788357886877,
   "archived_at": 1788357886876,
-  "en_starred_at": 1788381315731,
+  "en_starred_at": 1788381328835,
   "chips": 13
 }
