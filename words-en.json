@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-08-31",
+  "updated": "2026-09-02",
   "lists": [
     {
       "id": "en-starter-1",
@@ -470,6 +470,12 @@
           "definition": "a tool with a magnetic needle that always points north so you can find your direction",
           "example": "When the trail disappeared, the compass showed them which way to go.",
           "emoji": "🧭"
+        },
+        {
+          "word": "accumulate",
+          "definition": "to gather more and more of something over time",
+          "example": "Leaves accumulate on the lawn if nobody rakes them.",
+          "emoji": "🍂"
         }
       ]
     }
