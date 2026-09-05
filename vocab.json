@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-27",
+  "updated": "2026-08-31",
   "lessons": [
     {
       "id": "little-fox-school-supplies",
@@ -1698,6 +1698,103 @@
           ]
         }
       ]
+    },
+    {
+      "id": "where-are-we",
+      "title": "Where Are We?",
+      "subtitle": "我们在哪儿？— places and pointing things out",
+      "words": [
+        {
+          "hanzi": "哪儿",
+          "pinyin": "nǎr",
+          "en": "where",
+          "emoji": "❓",
+          "phrases": [
+            {
+              "en": "Where are we?",
+              "pinyin": "wǒmen zài nǎr?",
+              "hanzi": "我们在哪儿？"
+            },
+            {
+              "en": "Where is mom?",
+              "pinyin": "māma zài nǎr?",
+              "hanzi": "妈妈在哪儿？"
+            },
+            {
+              "en": "Where is my backpack?",
+              "pinyin": "wǒ de shūbāo zài nǎr?",
+              "hanzi": "我的书包在哪儿？"
+            }
+          ]
+        },
+        {
+          "hanzi": "这儿",
+          "pinyin": "zhèr",
+          "en": "here",
+          "emoji": "📍",
+          "phrases": [
+            {
+              "en": "We are here",
+              "pinyin": "wǒmen zài zhèr",
+              "hanzi": "我们在这儿"
+            },
+            {
+              "en": "Here is my home",
+              "pinyin": "zhèr shì wǒ jiā",
+              "hanzi": "这儿是我家"
+            }
+          ]
+        },
+        {
+          "hanzi": "中国",
+          "pinyin": "Zhōngguó",
+          "en": "China",
+          "emoji": "🇨🇳",
+          "phrases": [
+            {
+              "en": "This is China",
+              "pinyin": "zhèr shì Zhōngguó",
+              "hanzi": "这儿是中国"
+            },
+            {
+              "en": "born in China",
+              "pinyin": "zài Zhōngguó chūshēng",
+              "hanzi": "在中国出生"
+            }
+          ]
+        },
+        {
+          "hanzi": "上海",
+          "pinyin": "Shànghǎi",
+          "en": "Shanghai",
+          "emoji": "🏙️",
+          "phrases": [
+            {
+              "en": "Shanghai, China",
+              "pinyin": "Zhōngguó Shànghǎi",
+              "hanzi": "中国上海"
+            }
+          ]
+        },
+        {
+          "hanzi": "对",
+          "pinyin": "duì",
+          "en": "right / correct / yes",
+          "emoji": "✅",
+          "phrases": [
+            {
+              "en": "Yes, I am American",
+              "pinyin": "duì, wǒ shì Měiguórén",
+              "hanzi": "对，我是美国人"
+            },
+            {
+              "en": "That's right!",
+              "pinyin": "duì!",
+              "hanzi": "对！"
+            }
+          ]
+        }
+      ]
     }
   ],
   "tagMap": {
@@ -1826,6 +1923,9 @@
     ],
     "added": [
       "words-we-added"
+    ],
+    "wherewe": [
+      "where-are-we"
     ]
   },
   "sentences": [
@@ -3466,6 +3566,60 @@
       "pinyin": "Tiān na, chóngzi diào le!",
       "hanzi": "天哪，虫子掉了！",
       "tag": "added"
+    },
+    {
+      "en": "Where are we?",
+      "pinyin": "Wǒmen zài nǎr?",
+      "hanzi": "我们在哪儿？",
+      "tag": "wherewe"
+    },
+    {
+      "en": "We are here.",
+      "pinyin": "Wǒmen zài zhèr.",
+      "hanzi": "我们在这儿。",
+      "tag": "wherewe"
+    },
+    {
+      "en": "This is China.",
+      "pinyin": "Zhèr shì Zhōngguó.",
+      "hanzi": "这儿是中国。",
+      "tag": "wherewe"
+    },
+    {
+      "en": "This is Shanghai, China.",
+      "pinyin": "Zhèr shì Zhōngguó Shànghǎi.",
+      "hanzi": "这儿是中国上海。",
+      "tag": "wherewe"
+    },
+    {
+      "en": "Are you Chinese?",
+      "pinyin": "Nǐ shì Zhōngguórén ma?",
+      "hanzi": "你是中国人吗？",
+      "tag": "wherewe"
+    },
+    {
+      "en": "Yes, I am Chinese.",
+      "pinyin": "Duì, wǒ shì Zhōngguórén.",
+      "hanzi": "对，我是中国人。",
+      "tag": "wherewe"
+    },
+    {
+      "en": "Where is my backpack?",
+      "pinyin": "Wǒ de shūbāo zài nǎr?",
+      "hanzi": "我的书包在哪儿？",
+      "tag": "wherewe"
+    },
+    {
+      "en": "Mom was born in Shanghai.",
+      "pinyin": "Māma zài Shànghǎi chūshēng.",
+      "hanzi": "妈妈在上海出生。",
+      "tag": "wherewe"
+    },
+    {
+      "en": "Where is little brother? He's in the kitchen.",
+      "pinyin": "Dìdi zài nǎr? Tā zài chúfáng.",
+      "hanzi": "弟弟在哪儿？他在厨房。",
+      "tag": "wherewe"
     }
   ]
 }
