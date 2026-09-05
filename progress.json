@@ -65,11 +65,7 @@
     "Scissors are not for playing with.",
     "I was born in America.",
     "I want ten cherries.",
-    "I have two big bear toys.",
-    "You're so greedy!",
-    "This bun is too big.",
-    "What's wrong?",
-    "What time is it now?"
+    "I have two big bear toys."
   ],
   "hiddenWords": [],
   "practiceDays": [
@@ -86,8 +82,8 @@
     "2026-08-22",
     "2026-08-23",
     "2026-08-26",
-    "2026-08-27",
     "2026-08-18",
+    "2026-08-27",
     "2026-08-29",
     "2026-08-31",
     "2026-09-01"
@@ -144,6 +140,34 @@
       "needsDef": true
     },
     {
+      "word": "Murmur",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Swell",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Knapsack",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Compass",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
       "word": "coincide",
       "definition": "(definition coming — ask Claude to fill this in)",
       "example": "",
@@ -169,6 +193,26 @@
       "wodDate": "2026-08-19"
     },
     {
+      "hanzi": "家",
+      "pinyin": "jiā",
+      "en": "home / family",
+      "emoji": "🏠",
+      "phrases": [
+        {
+          "en": "my family",
+          "pinyin": "wǒ jiā",
+          "hanzi": "我家"
+        },
+        {
+          "en": "at home",
+          "pinyin": "zài jiā",
+          "hanzi": "在家"
+        }
+      ],
+      "lesson": "How Many People?",
+      "wodDate": "2026-08-21"
+    },
+    {
       "hanzi": "有",
       "pinyin": "yǒu",
       "en": "to have / there is",
@@ -192,26 +236,6 @@
       ],
       "lesson": "How Many People?",
       "wodDate": "2026-08-20"
-    },
-    {
-      "hanzi": "家",
-      "pinyin": "jiā",
-      "en": "home / family",
-      "emoji": "🏠",
-      "phrases": [
-        {
-          "en": "my family",
-          "pinyin": "wǒ jiā",
-          "hanzi": "我家"
-        },
-        {
-          "en": "at home",
-          "pinyin": "zài jiā",
-          "hanzi": "在家"
-        }
-      ],
-      "lesson": "How Many People?",
-      "wodDate": "2026-08-21"
     }
   ],
   "srs": {
@@ -1938,18 +1962,106 @@
       "last": 1788285948422
     }
   },
-  "chipLog": [],
+  "chipLog": [
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1787406323250
+    },
+    {
+      "type": "wod",
+      "amount": 1,
+      "note": "Word of the day ⭐",
+      "at": 1787355843612
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1787146549580
+    },
+    {
+      "type": "wod",
+      "amount": 1,
+      "note": "Word of the day ⭐",
+      "at": 1786980036246
+    },
+    {
+      "type": "spoken",
+      "amount": 1,
+      "note": "Spoke 10 sentences 🗣️",
+      "at": 1786910827153
+    },
+    {
+      "type": "wod",
+      "amount": 1,
+      "note": "Word of the day ⭐",
+      "at": 1786901307500
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786840319065
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786453221690
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786409020277
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786237233480
+    }
+  ],
   "dayCount": {
-    "date": "2026-08-27",
-    "n": 30
+    "date": "2026-08-31",
+    "n": 23
   },
-  "spokenCount": {},
-  "wordOfDay": null,
-  "goalClaimed": "2026-08-27",
-  "wodDone": "",
-  "spokenClaimed": "",
+  "spokenCount": {
+    "date": "2026-08-21",
+    "n": 7
+  },
+  "wordOfDay": {
+    "date": "2026-08-21",
+    "word": {
+      "hanzi": "家",
+      "pinyin": "jiā",
+      "en": "home / family",
+      "emoji": "🏠",
+      "phrases": [
+        {
+          "en": "my family",
+          "pinyin": "wǒ jiā",
+          "hanzi": "我家"
+        },
+        {
+          "en": "at home",
+          "pinyin": "zài jiā",
+          "hanzi": "在家"
+        }
+      ],
+      "lesson": "How Many People?"
+    }
+  },
+  "goalClaimed": "2026-08-31",
+  "wodDone": "2026-08-21",
+  "spokenClaimed": "2026-08-16",
   "math_sets": [
-    "add10"
+    "mul12",
+    "div10",
+    "plus10",
+    "mul10"
   ],
   "car_deck": "words",
   "car_gap": 10,
@@ -1963,16 +2075,19 @@
     "where-born",
     "starred-words",
     "wod-history",
-    "words-we-added"
+    "words-we-added",
+    "everyone-at-home",
+    "welcome-home-rooms",
+    "greedy-monkey-fruit"
   ],
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788357886876,
-  "pool_at": 1788357886843,
-  "starredSentences_at": 1788357886876,
-  "hiddenWords_at": 1788357886877,
-  "archived_at": 1788357886876,
+  "trouble_at": 1788614631566,
+  "pool_at": 1788614631274,
+  "starredSentences_at": 1788614631566,
+  "hiddenWords_at": 1788614631274,
+  "archived_at": 1788614631566,
   "en_starred_at": 1788381593009,
   "chips": 13
 }
