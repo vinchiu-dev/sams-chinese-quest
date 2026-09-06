@@ -2078,16 +2078,17 @@
     "words-we-added",
     "everyone-at-home",
     "welcome-home-rooms",
-    "greedy-monkey-fruit"
+    "greedy-monkey-fruit",
+    "where-are-we"
   ],
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788705917998,
-  "pool_at": 1788705917603,
-  "starredSentences_at": 1788705917998,
-  "hiddenWords_at": 1788705917603,
-  "archived_at": 1788705917998,
+  "trouble_at": 1788705977888,
+  "pool_at": 1788705977888,
+  "starredSentences_at": 1788705977888,
+  "hiddenWords_at": 1788705917999,
+  "archived_at": 1788705977888,
   "en_starred_at": 1788381593009,
   "chips": 13
 }
