@@ -240,11 +240,11 @@
   ],
   "srs": {
     "gēbo": {
-      "lvl": 1,
-      "seen": 5,
-      "right": 3,
+      "lvl": 2,
+      "seen": 6,
+      "right": 4,
       "wrong": 2,
-      "last": 1787439800663
+      "last": 1788706227950
     },
     "The watermelon is really delicious!": {
       "lvl": 1,
@@ -422,11 +422,11 @@
       "last": 1787237300197
     },
     "měiguó": {
-      "lvl": 1,
-      "seen": 4,
-      "right": 2,
+      "lvl": 2,
+      "seen": 5,
+      "right": 3,
       "wrong": 2,
-      "last": 1787427455703
+      "last": 1788706227948
     },
     "suì": {
       "lvl": 0,
@@ -779,25 +779,25 @@
       "last": 1788285774002
     },
     "tài kù le": {
-      "lvl": 1,
-      "seen": 4,
+      "lvl": 0,
+      "seen": 5,
       "right": 3,
-      "wrong": 1,
-      "last": 1787835637612
+      "wrong": 2,
+      "last": 1788706227940
     },
     "yě": {
-      "lvl": 2,
-      "seen": 10,
+      "lvl": 0,
+      "seen": 11,
       "right": 5,
-      "wrong": 5,
-      "last": 1787753122114
+      "wrong": 6,
+      "last": 1788706227933
     },
     "jǐ suì": {
-      "lvl": 1,
-      "seen": 9,
+      "lvl": 0,
+      "seen": 10,
       "right": 3,
-      "wrong": 6,
-      "last": 1787753107936
+      "wrong": 7,
+      "last": 1788706227944
     },
     "sānshíwǔ": {
       "lvl": 3,
@@ -835,11 +835,11 @@
       "last": 1787439393136
     },
     "shàngwǎng": {
-      "lvl": 1,
-      "seen": 4,
-      "right": 2,
+      "lvl": 2,
+      "seen": 5,
+      "right": 3,
       "wrong": 2,
-      "last": 1787439800661
+      "last": 1788706227938
     },
     "zuò shénme": {
       "lvl": 1,
@@ -891,11 +891,11 @@
       "last": 1788182534390
     },
     "yǒu": {
-      "lvl": 0,
-      "seen": 4,
-      "right": 3,
+      "lvl": 1,
+      "seen": 5,
+      "right": 4,
       "wrong": 1,
-      "last": 1788196327904
+      "last": 1788706227947
     },
     "jiā": {
       "lvl": 2,
@@ -919,11 +919,11 @@
       "last": 1787835754403
     },
     "bú shì": {
-      "lvl": 1,
-      "seen": 6,
-      "right": 3,
+      "lvl": 2,
+      "seen": 7,
+      "right": 4,
       "wrong": 3,
-      "last": 1787753119835
+      "last": 1788706227946
     },
     "Goodbye, Mika!": {
       "lvl": 1,
@@ -1235,17 +1235,17 @@
     },
     "zài zuò shénme": {
       "lvl": 0,
-      "seen": 4,
+      "seen": 5,
       "right": 1,
-      "wrong": 3,
-      "last": 1788182534399
+      "wrong": 4,
+      "last": 1788706227949
     },
     "ne": {
-      "lvl": 1,
-      "seen": 1,
+      "lvl": 0,
+      "seen": 2,
       "right": 1,
-      "wrong": 0,
-      "last": 1787427999884
+      "wrong": 1,
+      "last": 1788706227945
     },
     "wán yóuxì": {
       "lvl": 2,
@@ -1347,10 +1347,10 @@
     },
     "shēnghuó": {
       "lvl": 0,
-      "seen": 2,
+      "seen": 3,
       "right": 0,
-      "wrong": 2,
-      "last": 1788196335588
+      "wrong": 3,
+      "last": 1788706227941
     },
     "kuàilè": {
       "lvl": 0,
@@ -1360,11 +1360,11 @@
       "last": 1787439800662
     },
     "míngtiān jiàn": {
-      "lvl": 1,
-      "seen": 3,
-      "right": 2,
+      "lvl": 2,
+      "seen": 4,
+      "right": 3,
       "wrong": 1,
-      "last": 1788182534392
+      "last": 1788706227943
     },
     "I was born on Guagua planet.": {
       "lvl": 1,
@@ -2087,7 +2087,7 @@
   "trouble_at": 1788706217893,
   "pool_at": 1788706217893,
   "starredSentences_at": 1788706217894,
-  "hiddenWords_at": 1788706157991,
+  "hiddenWords_at": 1788706217894,
   "archived_at": 1788706217893,
   "en_starred_at": 1788381593009,
   "chips": 13
