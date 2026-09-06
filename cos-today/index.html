@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CoS · Today</title>
+<style>
+  :root {
+    --bg: #f4f7fb;
+    --card: #ffffff;
+    --ink: #1e293b;
+    --muted: #64748b;
+    --line: #e2e8f0;
+    --blue: #2563eb;
+    --blue-soft: #dbeafe;
+    --blue-deep: #1d4ed8;
+    --gray: #94a3b8;
+    --green: #16a34a;
+    --green-soft: #dcfce7;
+    --amber: #d97706;
+    --amber-soft: #fef3c7;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    background:
+      radial-gradient(900px 420px at 0% 0%, #dbeafe 0%, transparent 55%),
+      radial-gradient(700px 380px at 100% 10%, #e2e8f0 0%, transparent 50%),
+      var(--bg);
+    color: var(--ink);
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 28px 18px 72px; }
+  .top {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    gap: 12px; margin-bottom: 22px;
+  }
+  .eyebrow {
+    color: var(--blue); font-size: 12px; font-weight: 700;
+    letter-spacing: .14em; text-transform: uppercase; margin: 0 0 6px;
+  }
+  h1 { margin: 0; font-size: 30px; letter-spacing: -.04em; }
+  .sub { margin: 6px 0 0; color: var(--muted); font-size: 14px; line-height: 1.4; }
+  .stamp {
+    font-size: 12px; color: var(--muted); background: var(--card);
+    border: 1px solid var(--line); border-radius: 999px; padding: 7px 12px;
+    white-space: nowrap;
+  }
+  .section {
+    margin: 26px 0 10px; font-size: 11px; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--gray);
+  }
+  .hero {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  }
+  @media (max-width: 720px) { .hero { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 20px;
+    padding: 18px 18px 16px; box-shadow: 0 10px 30px rgba(37, 99, 235, .06);
+  }
+  .card.life {
+    background: linear-gradient(160deg, #ffffff 0%, #eff6ff 100%);
+    border-color: #bfdbfe;
+  }
+  .card.done {
+    background: linear-gradient(160deg, #ffffff 0%, var(--green-soft) 100%);
+    border-color: #86efac;
+  }
+  .label-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .kind {
+    font-size: 11px; font-weight: 700; color: var(--blue-deep);
+    letter-spacing: .08em; text-transform: uppercase;
+  }
+  .pill {
+    font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 999px;
+    background: #f1f5f9; color: var(--muted); border: 1px solid var(--line);
+  }
+  .pill.open { background: var(--amber-soft); color: var(--amber); border-color: #fde68a; }
+  .pill.done { background: var(--green-soft); color: var(--green); border-color: #86efac; }
+  .pill.active { background: var(--blue-soft); color: var(--blue-deep); border-color: #93c5fd; }
+  h2 { margin: 10px 0 8px; font-size: 20px; letter-spacing: -.03em; }
+  .blocker { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.45; }
+  .stack { display: grid; gap: 10px; }
+  .row {
+    display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: start;
+    background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+    padding: 14px 16px; box-shadow: 0 6px 18px rgba(15, 23, 42, .04);
+  }
+  .row.done { border-color: #86efac; background: linear-gradient(90deg, #fff, #f0fdf4); }
+  .row h3 { margin: 0 0 6px; font-size: 16px; letter-spacing: -.02em; }
+  .row p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.4; }
+  .below { display: grid; gap: 8px; }
+  .mini {
+    display: flex; justify-content: space-between; gap: 12px; align-items: baseline;
+    background: #eef2f7; border-radius: 14px; padding: 12px 14px;
+    font-size: 13px; color: var(--muted);
+  }
+  .mini strong { color: var(--ink); font-weight: 600; }
+  .hint {
+    margin-top: 28px; padding: 14px 16px; border-radius: 14px;
+    background: var(--blue-soft); color: #1e3a8a; font-size: 13px; line-height: 1.45;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <p class="eyebrow">Chief of Staff · today</p>
+        <h1>Life first, then the work</h1>
+        <p class="sub">Green = you told me it’s done for today. Everything else guides what we talk about next.</p>
+      </div>
+      <div class="stamp">Sep 6 · evening</div>
+    </div>
+
+    <div class="section">Life</div>
+    <div class="hero">
+      <article class="card life" id="gratitude">
+        <div class="label-row"><span class="kind">Life</span><span class="pill open" data-pill>Open</span></div>
+        <h2>Gratitude + relationship</h2>
+        <p class="blocker">Savor the day · listen first with Tanya if there’s tension</p>
+      </article>
+      <article class="card life" id="healthspan">
+        <div class="label-row"><span class="kind">Life</span><span class="pill open" data-pill>Open</span></div>
+        <h2>Family healthspan</h2>
+        <p class="blocker">Something real for you, the kids, Ma, or Bob — not a lecture</p>
+      </article>
+    </div>
+
+    <div class="section">Work</div>
+    <div class="stack">
+      <article class="row" id="emc">
+        <div>
+          <h3>Keep EMC strong</h3>
+          <p>Funnel teach · Brands weekend / close path</p>
+        </div>
+        <span class="pill open" data-pill>Needs you</span>
+      </article>
+      <article class="row" id="suppliers">
+        <div>
+          <h3>New high-value suppliers</h3>
+          <p>Relationship → list → BOFU Ads → YouTube. STS waiting on Judy Welcome + Dropbox</p>
+        </div>
+        <span class="pill active" data-pill>Moving</span>
+      </article>
+      <article class="row" id="daddy">
+        <div>
+          <h3>Daddy School</h3>
+          <p>Weekly outlines · daily activity log + scan of written work</p>
+        </div>
+        <span class="pill active" data-pill>Ready</span>
+      </article>
+      <article class="row" id="bc">
+        <div>
+          <h3>Blue Coast</h3>
+          <p>Events growth first, then OTA</p>
+        </div>
+        <span class="pill active" data-pill>Active</span>
+      </article>
+    </div>
+
+    <div class="section">Below the line</div>
+    <div class="below">
+      <div class="mini"><strong>Ads MCC + ESS / PD drafts</strong><span>Sign in on Ads Manager computer</span></div>
+      <div class="mini"><strong>ESS CRO</strong><span>Theme on your laptop · Cherry: sold-out + Judge.me</span></div>
+      <div class="mini"><strong>BC Workspace storage</strong><span>stay@ trash · archive to personal</span></div>
+      <div class="mini"><strong>Acquisitions</strong><span>Background digs</span></div>
+    </div>
+
+    <div class="hint">Glance here before we dig into chat. Tell me “gratitude done” / “healthspan done” / “EMC done for today” and I’ll turn those green.</div>
+  </div>
+</body>
+</html>
