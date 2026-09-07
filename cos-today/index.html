@@ -10,20 +10,10 @@
     --card: #ffffff;
     --ink: #0f172a;
     --muted: #475569;
-    --line: #c7d7fe;
-    --blue: #2563eb;
-    --blue-soft: #dbeafe;
-    --violet: #7c3aed;
-    --violet-soft: #ede9fe;
-    --pink: #db2777;
-    --pink-soft: #fce7f3;
-    --teal: #0d9488;
-    --teal-soft: #ccfbf1;
     --green: #16a34a;
     --green-soft: #dcfce7;
     --amber: #d97706;
     --amber-soft: #fef3c7;
-    --sky: #0284c7;
   }
   * { box-sizing: border-box; }
   body {
@@ -38,25 +28,15 @@
     min-height: 100vh;
   }
   .wrap { max-width: 880px; margin: 0 auto; padding: 28px 18px 72px; }
-  .top {
-    display: flex; justify-content: space-between; align-items: flex-start;
-    gap: 12px; margin-bottom: 22px;
-  }
+  .top { margin-bottom: 22px; }
   a.hero-link {
-    text-decoration: none; color: inherit; display: block; flex: 1;
+    text-decoration: none; display: block;
     border-radius: 22px; padding: 18px 18px 16px;
     background: linear-gradient(135deg, #4f46e5 0%, #2563eb 45%, #06b6d4 100%);
     color: #fff; box-shadow: 0 16px 40px rgba(37,99,235,.28);
-    transition: transform .15s ease, box-shadow .15s ease;
   }
-  a.hero-link:hover { transform: translateY(-1px); box-shadow: 0 20px 48px rgba(37,99,235,.35); }
   a.hero-link h1 { margin: 0; font-size: 28px; letter-spacing: -.04em; line-height: 1.15; color: #fff; }
   a.hero-link .sub { margin: 10px 0 0; color: rgba(255,255,255,.92); font-size: 15px; line-height: 1.45; }
-  .stamp {
-    font-size: 12px; color: #4338ca; background: rgba(255,255,255,.85);
-    border: 1px solid #c7d2fe; border-radius: 999px; padding: 7px 12px;
-    white-space: nowrap; align-self: flex-start;
-  }
   .section {
     margin: 26px 0 10px; font-size: 11px; font-weight: 800;
     letter-spacing: .14em; text-transform: uppercase; color: #6366f1;
@@ -64,16 +44,13 @@
   .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   @media (max-width: 720px) {
     .hero { grid-template-columns: 1fr; }
-    .top { flex-direction: column; }
     a.hero-link h1 { font-size: 24px; }
   }
   .card {
     background: var(--card); border: 1px solid #ddd6fe; border-radius: 20px;
     padding: 18px 18px 16px; box-shadow: 0 10px 28px rgba(79,70,229,.08);
   }
-  .card.life {
-    background: linear-gradient(160deg, #ffffff 0%, #eef2ff 100%);
-  }
+  .card.life { background: linear-gradient(160deg, #ffffff 0%, #eef2ff 100%); }
   .card.done {
     background: linear-gradient(160deg, #ffffff 0%, var(--green-soft) 100%);
     border-color: #86efac;
@@ -81,11 +58,11 @@
   .label-row { display: flex; justify-content: flex-end; align-items: center; gap: 10px; }
   .pill {
     font-size: 11px; font-weight: 800; padding: 4px 9px; border-radius: 999px;
-    background: #f1f5f9; color: var(--muted); border: 1px solid #e2e8f0;
+    background: var(--amber-soft); color: var(--amber); border: 1px solid #fde68a;
+    cursor: pointer; user-select: none;
   }
-  .pill.open { background: var(--amber-soft); color: var(--amber); border-color: #fde68a; }
   .pill.done { background: var(--green-soft); color: var(--green); border-color: #86efac; }
-  .pill.active { background: #e0f2fe; color: var(--sky); border-color: #7dd3fc; }
+  .pill.open { background: var(--amber-soft); color: var(--amber); border-color: #fde68a; }
   h2 { margin: 8px 0 8px; font-size: 20px; letter-spacing: -.03em; }
   .blocker { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.45; }
   .stack { display: grid; gap: 10px; }
@@ -122,18 +99,17 @@
         <h1>We've already won, celebrate</h1>
         <p class="sub">We don't need to do anything for everything to be wonderful.</p>
       </a>
-      <div class="stamp">Sep 6</div>
     </div>
 
     <div class="section">Life</div>
     <div class="hero">
-      <article class="card life done" id="gratitude">
-        <div class="label-row"><span class="pill done" data-pill>Done</span></div>
+      <article class="card life" id="gratitude" data-card>
+        <div class="label-row"><button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button></div>
         <h2>Gratitude + relationship</h2>
         <p class="blocker">Savor the day · listen first with Tanya if there's tension</p>
       </article>
-      <article class="card life" id="healthspan">
-        <div class="label-row"><span class="pill open" data-pill>Open</span></div>
+      <article class="card life" id="healthspan" data-card>
+        <div class="label-row"><button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button></div>
         <h2>Family healthspan</h2>
         <p class="blocker">Something real for you, the kids, Ma, or Bob — not a lecture</p>
       </article>
@@ -141,33 +117,33 @@
 
     <div class="section">Work</div>
     <div class="stack">
-      <article class="row" id="emc">
+      <article class="row" id="emc" data-card>
         <div>
           <h3>EMC growth</h3>
           <p>Funnel teach · Brands weekend / close path</p>
         </div>
-        <span class="pill open" data-pill>Needs you</span>
+        <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
       </article>
-      <article class="row" id="suppliers">
+      <article class="row" id="suppliers" data-card>
         <div>
           <h3>New high-value suppliers</h3>
           <p>Relationship → market → BOFU Ads → YouTube. STS waiting on Judy Welcome + Dropbox</p>
         </div>
-        <span class="pill active" data-pill>Moving</span>
+        <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
       </article>
-      <article class="row" id="daddy">
+      <article class="row" id="daddy" data-card>
         <div>
           <h3>Daddy School</h3>
           <p>Weekly outlines · daily activity log + scan of written work</p>
         </div>
-        <span class="pill active" data-pill>Ready</span>
+        <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
       </article>
-      <article class="row" id="bc">
+      <article class="row" id="bc" data-card>
         <div>
           <h3>Blue Coast</h3>
           <p>Events growth first, then OTA</p>
         </div>
-        <span class="pill active" data-pill>Active</span>
+        <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
       </article>
     </div>
 
@@ -175,11 +151,50 @@
     <div class="below">
       <div class="mini"><strong>Ads MCC + ESS / PD drafts</strong><span>Sign in on Ads Manager computer</span></div>
       <div class="mini"><strong>ESS CRO</strong><span>Theme on your laptop · Cherry: sold-out + Judge.me</span></div>
-      <div class="mini"><strong>BC Workspace storage</strong><span>stay@ trash · archive to personal</span></div>
+      <div class="mini"><strong>BC Workspace storage</strong><span>~1.4 GB free · archives pending offload</span></div>
       <div class="mini"><strong>Acquisitions</strong><span>Background digs</span></div>
     </div>
 
-    <div class="hint">Tap the blue celebration header anytime for the Keep note. Tell me “healthspan done” / “EMC done today” and I’ll turn those green.</div>
+    <div class="hint">Tap any status to toggle <strong>Done</strong> / <strong>Open</strong> (saves on this phone for today). Tap the blue celebration header anytime for the Keep note.</div>
   </div>
+<script>
+(function () {
+  const tz = 'America/New_York';
+  function dayKey() {
+    try {
+      return new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+    } catch (e) {
+      return new Date().toISOString().slice(0, 10);
+    }
+  }
+  function storeKey(id) { return 'cosToday:' + dayKey() + ':' + id; }
+  function apply(card, status) {
+    const pill = card.querySelector('[data-pill]');
+    const done = status === 'done';
+    card.classList.toggle('done', done);
+    pill.classList.toggle('done', done);
+    pill.classList.toggle('open', !done);
+    pill.textContent = done ? 'Done' : 'Open';
+    pill.setAttribute('aria-pressed', done ? 'true' : 'false');
+  }
+  function load(card) {
+    const saved = localStorage.getItem(storeKey(card.id));
+    apply(card, saved === 'done' ? 'done' : 'open');
+  }
+  function toggle(card) {
+    const next = card.classList.contains('done') ? 'open' : 'done';
+    localStorage.setItem(storeKey(card.id), next);
+    apply(card, next);
+  }
+  document.querySelectorAll('[data-card]').forEach(function (card) {
+    load(card);
+    card.querySelector('[data-pill]').addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      toggle(card);
+    });
+  });
+})();
+</script>
 </body>
 </html>
