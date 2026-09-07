@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="cos-content-version" content="2026-09-07-align-v1"/>
 <title>CoS · Today</title>
 <style>
   :root {
@@ -55,16 +56,23 @@
     background: linear-gradient(160deg, #ffffff 0%, var(--green-soft) 100%);
     border-color: #86efac;
   }
-  .label-row { display: flex; justify-content: flex-end; align-items: center; gap: 10px; }
+  .head-row {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; margin: 0 0 8px;
+  }
+  .head-row h2, .head-row h3 {
+    margin: 0; flex: 1; min-width: 0;
+    font-size: 20px; letter-spacing: -.03em; outline: none; border-radius: 8px;
+  }
+  .row .head-row h3 { font-size: 16px; letter-spacing: -.02em; }
   .pill {
+    flex: 0 0 auto;
     font-size: 11px; font-weight: 800; padding: 4px 9px; border-radius: 999px;
     background: var(--amber-soft); color: var(--amber); border: 1px solid #fde68a;
     cursor: pointer; user-select: none;
   }
   .pill.done { background: var(--green-soft); color: var(--green); border-color: #86efac; }
   .pill.open { background: var(--amber-soft); color: var(--amber); border-color: #fde68a; }
-  h2, h3 { margin: 8px 0 8px; font-size: 20px; letter-spacing: -.03em; outline: none; border-radius: 8px; }
-  .row h3 { margin: 0 0 6px; font-size: 16px; letter-spacing: -.02em; }
   .blocker, .row p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.45; outline: none; border-radius: 8px; }
   .row p { font-size: 13px; line-height: 1.4; }
   [data-edit]:focus, .mini [contenteditable]:focus {
@@ -73,7 +81,6 @@
   }
   .stack { display: grid; gap: 10px; }
   .row {
-    display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: start;
     background: var(--card); border: 1px solid #e2e8f0; border-radius: 16px;
     padding: 14px 16px; box-shadow: 0 8px 22px rgba(15,23,42,.05);
   }
@@ -109,13 +116,17 @@
     <div class="section">Life</div>
     <div class="hero">
       <article class="card life" id="gratitude" data-card>
-        <div class="label-row"><button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button></div>
-        <h2 data-edit="title">Savor my people</h2>
+        <div class="head-row">
+          <h2 data-edit="title">Savor my people</h2>
+          <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
+        </div>
         <p class="blocker" data-edit="body">Gratitude + relationship (empathize)</p>
       </article>
       <article class="card life" id="healthspan" data-card>
-        <div class="label-row"><button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button></div>
-        <h2 data-edit="title">Improve family healthspan</h2>
+        <div class="head-row">
+          <h2 data-edit="title">Improve family healthspan</h2>
+          <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
+        </div>
         <p class="blocker" data-edit="body">Squat snacks on · something real for you, the kids, Ma, or Bob</p>
       </article>
     </div>
@@ -123,32 +134,32 @@
     <div class="section">Work</div>
     <div class="stack">
       <article class="row" id="emc" data-card>
-        <div>
+        <div class="head-row">
           <h3 data-edit="title">EMC growth</h3>
-          <p data-edit="body">Teach funnel check, then dashboard</p>
+          <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
         </div>
-        <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
+        <p data-edit="body">Teach funnel check, then dashboard</p>
       </article>
       <article class="row" id="suppliers" data-card>
-        <div>
+        <div class="head-row">
           <h3 data-edit="title">New high-value suppliers</h3>
-          <p data-edit="body">Playbook: list → BOFU Ads → 3–4 YT. STS: Judy Welcome + Dropbox</p>
+          <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
         </div>
-        <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
+        <p data-edit="body">Playbook: list → BOFU Ads → 3–4 YT. STS: Judy Welcome + Dropbox</p>
       </article>
       <article class="row" id="daddy" data-card>
-        <div>
+        <div class="head-row">
           <h3 data-edit="title">Daddy School</h3>
-          <p data-edit="body">Earth/orbit week · daily activity log + scan of written work</p>
+          <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
         </div>
-        <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
+        <p data-edit="body">Earth/orbit week · daily activity log + scan of written work</p>
       </article>
       <article class="row" id="bc" data-card>
-        <div>
+        <div class="head-row">
           <h3 data-edit="title">Blue Coast</h3>
-          <p data-edit="body">Events growth first, then OTA · form/confirm live</p>
+          <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
         </div>
-        <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
+        <p data-edit="body">Events growth first, then OTA · form/confirm live</p>
       </article>
     </div>
 
@@ -160,11 +171,12 @@
       <div class="mini" data-mini="acq"><strong data-edit="title">Acquisitions</strong><span data-edit="body">Background digs</span></div>
     </div>
 
-    <div class="hint">Tap a status for <strong>Done</strong> / <strong>Open</strong>. Tap any title or line to edit (saves on this phone). Blue header opens the Keep note.</div>
+    <div class="hint">Tap a status for <strong>Done</strong> / <strong>Open</strong>. Tap any title or line to edit. CoS syncs copy both ways at 9am / 11am / 3pm / 7pm ET.</div>
   </div>
 <script>
 (function () {
   const tz = 'America/New_York';
+  const pageVer = (document.querySelector('meta[name="cos-content-version"]') || {}).content || '';
   function dayKey() {
     try {
       return new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
@@ -174,6 +186,14 @@
   }
   function statusKey(id) { return 'cosToday:' + dayKey() + ':' + id; }
   function textKey(scope, field) { return 'cosTodayText:' + scope + ':' + field; }
+
+  // When CoS ships a new content version, drop stale phone text so the page sync wins.
+  if (pageVer && localStorage.getItem('cosTodayText:version') !== pageVer) {
+    Object.keys(localStorage).forEach(function (k) {
+      if (k.indexOf('cosTodayText:') === 0 && k !== 'cosTodayText:version') localStorage.removeItem(k);
+    });
+    localStorage.setItem('cosTodayText:version', pageVer);
+  }
 
   function applyStatus(card, status) {
     const pill = card.querySelector('[data-pill]');
