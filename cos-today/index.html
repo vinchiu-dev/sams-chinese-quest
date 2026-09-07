@@ -106,6 +106,12 @@
   }
   .mini strong { color: var(--ink); font-weight: 700; outline: none; border-radius: 6px; }
   .mini span { outline: none; border-radius: 6px; text-align: right; }
+  .stamp {
+    font-size: 12px; font-weight: 700; color: #4338ca;
+    background: #eef2ff; border: 1px solid #c7d2fe;
+    border-radius: 999px; padding: 8px 12px; white-space: nowrap;
+    align-self: center;
+  }
   .hint {
     margin-top: 28px; padding: 14px 16px; border-radius: 14px;
     background: linear-gradient(90deg, #dbeafe, #fce7f3); color: #1e3a8a; font-size: 13px; line-height: 1.45;
@@ -125,6 +131,7 @@
     <div class="toolbar">
       <button type="button" class="sync-btn" id="syncBtn">Sync edits to CoS</button>
       <div class="sync-msg" id="syncMsg">Edits save on this phone. Tap Sync to copy them for Chief of Staff (and open the shared Drive doc).</div>
+      <div class="stamp" id="dayStamp">Mon · Sep 7</div>
     </div>
 
     <div class="section">Life</div>
@@ -132,12 +139,12 @@
       <article class="card life" id="gratitude" data-card>
         <div class="label-row"><button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button></div>
         <h2 data-edit="title">Gratitude + relationship</h2>
-        <p class="blocker" data-edit="body">Savor the day · listen first with Tanya if there's tension</p>
+        <p class="blocker" data-edit="body">Morning celebrate · listen first with Tanya if there's tension</p>
       </article>
       <article class="card life" id="healthspan" data-card>
         <div class="label-row"><button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button></div>
         <h2 data-edit="title">Family healthspan</h2>
-        <p class="blocker" data-edit="body">Something real for you, the kids, Ma, or Bob — not a lecture</p>
+        <p class="blocker" data-edit="body">Squat snacks on · something real for you, the kids, Ma, or Bob</p>
       </article>
     </div>
 
@@ -146,28 +153,28 @@
       <article class="row" id="emc" data-card>
         <div>
           <h3 data-edit="title">EMC growth</h3>
-          <p data-edit="body">Funnel teach · Brands weekend / close path</p>
+          <p data-edit="body">Funnel teach today · Brands weekend close path</p>
         </div>
         <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
       </article>
       <article class="row" id="suppliers" data-card>
         <div>
           <h3 data-edit="title">New high-value suppliers</h3>
-          <p data-edit="body">Relationship → market → BOFU Ads → YouTube. STS waiting on Judy Welcome + Dropbox</p>
+          <p data-edit="body">Playbook: list → BOFU Ads → 3–4 YT. STS: Judy Welcome + Dropbox</p>
         </div>
         <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
       </article>
       <article class="row" id="daddy" data-card>
         <div>
           <h3 data-edit="title">Daddy School</h3>
-          <p data-edit="body">Weekly outlines · daily activity log + scan of written work</p>
+          <p data-edit="body">Earth/orbit week · daily activity log + scan of written work</p>
         </div>
         <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
       </article>
       <article class="row" id="bc" data-card>
         <div>
           <h3 data-edit="title">Blue Coast</h3>
-          <p data-edit="body">Events growth first, then OTA</p>
+          <p data-edit="body">Events growth first, then OTA · form/confirm live</p>
         </div>
         <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
       </article>
@@ -177,7 +184,7 @@
     <div class="below" id="below">
       <div class="mini" data-mini="ads"><strong data-edit="title">Ads MCC + ESS / PD drafts</strong><span data-edit="body">Sign in on Ads Manager computer</span></div>
       <div class="mini" data-mini="ess"><strong data-edit="title">ESS CRO</strong><span data-edit="body">Theme on your laptop · Cherry: sold-out + Judge.me</span></div>
-      <div class="mini" data-mini="storage"><strong data-edit="title">BC Workspace storage</strong><span data-edit="body">~2.8 GB free · archives on personal BC archive</span></div>
+      <div class="mini" data-mini="storage"><strong data-edit="title">BC Workspace storage</strong><span data-edit="body">~2.8 GB free · big archives on personal Drive</span></div>
       <div class="mini" data-mini="acq"><strong data-edit="title">Acquisitions</strong><span data-edit="body">Background digs</span></div>
     </div>
 
