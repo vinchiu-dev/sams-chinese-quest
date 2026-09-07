@@ -63,8 +63,14 @@
   }
   .pill.done { background: var(--green-soft); color: var(--green); border-color: #86efac; }
   .pill.open { background: var(--amber-soft); color: var(--amber); border-color: #fde68a; }
-  h2 { margin: 8px 0 8px; font-size: 20px; letter-spacing: -.03em; }
-  .blocker { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.45; }
+  h2, h3 { margin: 8px 0 8px; font-size: 20px; letter-spacing: -.03em; outline: none; border-radius: 8px; }
+  .row h3 { margin: 0 0 6px; font-size: 16px; letter-spacing: -.02em; }
+  .blocker, .row p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.45; outline: none; border-radius: 8px; }
+  .row p { font-size: 13px; line-height: 1.4; }
+  [data-edit]:focus, .mini [contenteditable]:focus {
+    box-shadow: 0 0 0 2px rgba(37,99,235,.35);
+    background: rgba(255,255,255,.7);
+  }
   .stack { display: grid; gap: 10px; }
   .row {
     display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: start;
@@ -76,15 +82,14 @@
   .row#daddy { border-left: 4px solid #7c3aed; }
   .row#bc { border-left: 4px solid #0d9488; }
   .row.done { border-color: #86efac; background: linear-gradient(90deg, #fff, #f0fdf4); }
-  .row h3 { margin: 0 0 6px; font-size: 16px; letter-spacing: -.02em; }
-  .row p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.4; }
   .below { display: grid; gap: 8px; }
   .mini {
     display: flex; justify-content: space-between; gap: 12px; align-items: baseline;
     background: linear-gradient(90deg, #eef2ff, #fdf2f8); border-radius: 14px; padding: 12px 14px;
     font-size: 13px; color: var(--muted); border: 1px solid #e9d5ff;
   }
-  .mini strong { color: var(--ink); font-weight: 700; }
+  .mini strong { color: var(--ink); font-weight: 700; outline: none; border-radius: 6px; }
+  .mini span { outline: none; border-radius: 6px; text-align: right; }
   .hint {
     margin-top: 28px; padding: 14px 16px; border-radius: 14px;
     background: linear-gradient(90deg, #dbeafe, #fce7f3); color: #1e3a8a; font-size: 13px; line-height: 1.45;
@@ -105,13 +110,13 @@
     <div class="hero">
       <article class="card life" id="gratitude" data-card>
         <div class="label-row"><button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button></div>
-        <h2>Gratitude + relationship</h2>
-        <p class="blocker">Savor the day · listen first with Tanya if there's tension</p>
+        <h2 data-edit="title">Gratitude + relationship</h2>
+        <p class="blocker" data-edit="body">Savor the day · listen first with Tanya if there's tension</p>
       </article>
       <article class="card life" id="healthspan" data-card>
         <div class="label-row"><button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button></div>
-        <h2>Family healthspan</h2>
-        <p class="blocker">Something real for you, the kids, Ma, or Bob — not a lecture</p>
+        <h2 data-edit="title">Family healthspan</h2>
+        <p class="blocker" data-edit="body">Something real for you, the kids, Ma, or Bob — not a lecture</p>
       </article>
     </div>
 
@@ -119,43 +124,43 @@
     <div class="stack">
       <article class="row" id="emc" data-card>
         <div>
-          <h3>EMC growth</h3>
-          <p>Funnel teach · Brands weekend / close path</p>
+          <h3 data-edit="title">EMC growth</h3>
+          <p data-edit="body">Funnel teach · Brands weekend / close path</p>
         </div>
         <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
       </article>
       <article class="row" id="suppliers" data-card>
         <div>
-          <h3>New high-value suppliers</h3>
-          <p>Relationship → market → BOFU Ads → YouTube. STS waiting on Judy Welcome + Dropbox</p>
+          <h3 data-edit="title">New high-value suppliers</h3>
+          <p data-edit="body">Relationship → market → BOFU Ads → YouTube. STS waiting on Judy Welcome + Dropbox</p>
         </div>
         <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
       </article>
       <article class="row" id="daddy" data-card>
         <div>
-          <h3>Daddy School</h3>
-          <p>Weekly outlines · daily activity log + scan of written work</p>
+          <h3 data-edit="title">Daddy School</h3>
+          <p data-edit="body">Weekly outlines · daily activity log + scan of written work</p>
         </div>
         <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
       </article>
       <article class="row" id="bc" data-card>
         <div>
-          <h3>Blue Coast</h3>
-          <p>Events growth first, then OTA</p>
+          <h3 data-edit="title">Blue Coast</h3>
+          <p data-edit="body">Events growth first, then OTA</p>
         </div>
         <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
       </article>
     </div>
 
     <div class="section">Below the line</div>
-    <div class="below">
-      <div class="mini"><strong>Ads MCC + ESS / PD drafts</strong><span>Sign in on Ads Manager computer</span></div>
-      <div class="mini"><strong>ESS CRO</strong><span>Theme on your laptop · Cherry: sold-out + Judge.me</span></div>
-      <div class="mini"><strong>BC Workspace storage</strong><span>~1.4 GB free · archives pending offload</span></div>
-      <div class="mini"><strong>Acquisitions</strong><span>Background digs</span></div>
+    <div class="below" id="below">
+      <div class="mini" data-mini="ads"><strong data-edit="title">Ads MCC + ESS / PD drafts</strong><span data-edit="body">Sign in on Ads Manager computer</span></div>
+      <div class="mini" data-mini="ess"><strong data-edit="title">ESS CRO</strong><span data-edit="body">Theme on your laptop · Cherry: sold-out + Judge.me</span></div>
+      <div class="mini" data-mini="storage"><strong data-edit="title">BC Workspace storage</strong><span data-edit="body">~1.4 GB free · archives pending offload</span></div>
+      <div class="mini" data-mini="acq"><strong data-edit="title">Acquisitions</strong><span data-edit="body">Background digs</span></div>
     </div>
 
-    <div class="hint">Tap any status to toggle <strong>Done</strong> / <strong>Open</strong> (saves on this phone for today). Tap the blue celebration header anytime for the Keep note.</div>
+    <div class="hint">Tap a status for <strong>Done</strong> / <strong>Open</strong>. Tap any title or line to edit it (saves on this phone). Blue header opens the Keep note.</div>
   </div>
 <script>
 (function () {
@@ -167,8 +172,10 @@
       return new Date().toISOString().slice(0, 10);
     }
   }
-  function storeKey(id) { return 'cosToday:' + dayKey() + ':' + id; }
-  function apply(card, status) {
+  function statusKey(id) { return 'cosToday:' + dayKey() + ':' + id; }
+  function textKey(scope, field) { return 'cosTodayText:' + scope + ':' + field; }
+
+  function applyStatus(card, status) {
     const pill = card.querySelector('[data-pill]');
     const done = status === 'done';
     card.classList.toggle('done', done);
@@ -177,21 +184,52 @@
     pill.textContent = done ? 'Done' : 'Open';
     pill.setAttribute('aria-pressed', done ? 'true' : 'false');
   }
-  function load(card) {
-    const saved = localStorage.getItem(storeKey(card.id));
-    apply(card, saved === 'done' ? 'done' : 'open');
+
+  function loadStatus(card) {
+    applyStatus(card, localStorage.getItem(statusKey(card.id)) === 'done' ? 'done' : 'open');
   }
-  function toggle(card) {
+
+  function toggleStatus(card) {
     const next = card.classList.contains('done') ? 'open' : 'done';
-    localStorage.setItem(storeKey(card.id), next);
-    apply(card, next);
+    localStorage.setItem(statusKey(card.id), next);
+    applyStatus(card, next);
   }
+
+  function wireEditable(el, scope, field) {
+    const saved = localStorage.getItem(textKey(scope, field));
+    if (saved != null && saved !== '') el.textContent = saved;
+    el.setAttribute('contenteditable', 'true');
+    el.setAttribute('spellcheck', 'true');
+    el.addEventListener('click', function (e) { e.stopPropagation(); });
+    el.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && field === 'title') {
+        e.preventDefault();
+        el.blur();
+      }
+    });
+    function save() {
+      localStorage.setItem(textKey(scope, field), el.textContent.trim());
+    }
+    el.addEventListener('blur', save);
+    el.addEventListener('input', save);
+  }
+
   document.querySelectorAll('[data-card]').forEach(function (card) {
-    load(card);
+    loadStatus(card);
     card.querySelector('[data-pill]').addEventListener('click', function (e) {
       e.preventDefault();
       e.stopPropagation();
-      toggle(card);
+      toggleStatus(card);
+    });
+    card.querySelectorAll('[data-edit]').forEach(function (el) {
+      wireEditable(el, card.id, el.getAttribute('data-edit'));
+    });
+  });
+
+  document.querySelectorAll('[data-mini]').forEach(function (mini) {
+    const id = mini.getAttribute('data-mini');
+    mini.querySelectorAll('[data-edit]').forEach(function (el) {
+      wireEditable(el, 'mini-' + id, el.getAttribute('data-edit'));
     });
   });
 })();
