@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="cos-content-version" content="2026-09-07-11am-v1"/>
+<meta name="cos-content-version" content="2026-09-07-3pm-vin-priority-v1"/>
 <title>CoS · Today</title>
 <style>
   :root {
@@ -171,7 +171,7 @@
       <div class="mini" data-mini="acq"><strong data-edit="title">Acquisitions</strong><span data-edit="body">Background digs</span></div>
     </div>
 
-    <div class="hint">Tap a status for <strong>Done</strong> / <strong>Open</strong>. Tap any title or line to edit. CoS syncs copy both ways at 9am / 11am / 3pm / 7pm ET.</div>
+    <div class="hint">Tap a status for <strong>Done</strong> / <strong>Open</strong>. Tap any title or line to edit — <strong>your wording stays</strong>; CoS never overwrites it. Syncs at 9am / 11am / 3pm / 7pm ET.</div>
   </div>
 <script>
 (function () {
@@ -187,13 +187,9 @@
   function statusKey(id) { return 'cosToday:' + dayKey() + ':' + id; }
   function textKey(scope, field) { return 'cosTodayText:' + scope + ':' + field; }
 
-  // When CoS ships a new content version, drop stale phone text so the page sync wins.
-  if (pageVer && localStorage.getItem('cosTodayText:version') !== pageVer) {
-    Object.keys(localStorage).forEach(function (k) {
-      if (k.indexOf('cosTodayText:') === 0 && k !== 'cosTodayText:version') localStorage.removeItem(k);
-    });
-    localStorage.setItem('cosTodayText:version', pageVer);
-  }
+  // Vin's edits win. Never wipe phone text when CoS ships a new version —
+  // localStorage overrides stay; shipped HTML only fills fields with no local save.
+  if (pageVer) localStorage.setItem('cosTodayText:version', pageVer);
 
   function applyStatus(card, status) {
     const pill = card.querySelector('[data-pill]');
