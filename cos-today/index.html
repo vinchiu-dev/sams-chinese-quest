@@ -28,7 +28,7 @@
     min-height: 100vh;
   }
   .wrap { max-width: 880px; margin: 0 auto; padding: 28px 18px 72px; }
-  .top { margin-bottom: 14px; }
+  .top { margin-bottom: 22px; }
   a.hero-link {
     text-decoration: none; display: block;
     border-radius: 22px; padding: 18px 18px 16px;
@@ -37,22 +37,6 @@
   }
   a.hero-link h1 { margin: 0; font-size: 28px; letter-spacing: -.04em; line-height: 1.15; color: #fff; }
   a.hero-link .sub { margin: 10px 0 0; color: rgba(255,255,255,.92); font-size: 15px; line-height: 1.45; }
-  .toolbar {
-    display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 18px;
-  }
-  .sync-btn {
-    appearance: none; border: 0; cursor: pointer;
-    background: linear-gradient(135deg, #2563eb, #7c3aed);
-    color: #fff; font-weight: 800; font-size: 13px;
-    padding: 12px 16px; border-radius: 999px;
-    box-shadow: 0 10px 24px rgba(37,99,235,.25);
-  }
-  .sync-btn:active { transform: scale(.98); }
-  .sync-msg {
-    flex: 1; min-width: 180px; font-size: 12px; color: #3730a3;
-    background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 14px;
-    padding: 10px 12px; line-height: 1.35;
-  }
   .section {
     margin: 26px 0 10px; font-size: 11px; font-weight: 800;
     letter-spacing: .14em; text-transform: uppercase; color: #6366f1;
@@ -106,12 +90,6 @@
   }
   .mini strong { color: var(--ink); font-weight: 700; outline: none; border-radius: 6px; }
   .mini span { outline: none; border-radius: 6px; text-align: right; }
-  .stamp {
-    font-size: 12px; font-weight: 700; color: #4338ca;
-    background: #eef2ff; border: 1px solid #c7d2fe;
-    border-radius: 999px; padding: 8px 12px; white-space: nowrap;
-    align-self: center;
-  }
   .hint {
     margin-top: 28px; padding: 14px 16px; border-radius: 14px;
     background: linear-gradient(90deg, #dbeafe, #fce7f3); color: #1e3a8a; font-size: 13px; line-height: 1.45;
@@ -128,22 +106,16 @@
       </a>
     </div>
 
-    <div class="toolbar">
-      <button type="button" class="sync-btn" id="syncBtn">Sync edits to CoS</button>
-      <div class="sync-msg" id="syncMsg">Edits save on this phone. Tap Sync to copy them for Chief of Staff (and open the shared Drive doc).</div>
-      <div class="stamp" id="dayStamp">Mon · Sep 7</div>
-    </div>
-
     <div class="section">Life</div>
     <div class="hero">
       <article class="card life" id="gratitude" data-card>
         <div class="label-row"><button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button></div>
-        <h2 data-edit="title">Gratitude + relationship</h2>
-        <p class="blocker" data-edit="body">Morning celebrate · listen first with Tanya if there's tension</p>
+        <h2 data-edit="title">Savor my people</h2>
+        <p class="blocker" data-edit="body">Gratitude + relationship (empathize)</p>
       </article>
       <article class="card life" id="healthspan" data-card>
         <div class="label-row"><button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button></div>
-        <h2 data-edit="title">Family healthspan</h2>
+        <h2 data-edit="title">Improve family healthspan</h2>
         <p class="blocker" data-edit="body">Squat snacks on · something real for you, the kids, Ma, or Bob</p>
       </article>
     </div>
@@ -153,7 +125,7 @@
       <article class="row" id="emc" data-card>
         <div>
           <h3 data-edit="title">EMC growth</h3>
-          <p data-edit="body">Funnel teach today · Brands weekend close path</p>
+          <p data-edit="body">Teach funnel check, then dashboard</p>
         </div>
         <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
       </article>
@@ -184,16 +156,15 @@
     <div class="below" id="below">
       <div class="mini" data-mini="ads"><strong data-edit="title">Ads MCC + ESS / PD drafts</strong><span data-edit="body">Sign in on Ads Manager computer</span></div>
       <div class="mini" data-mini="ess"><strong data-edit="title">ESS CRO</strong><span data-edit="body">Theme on your laptop · Cherry: sold-out + Judge.me</span></div>
-      <div class="mini" data-mini="storage"><strong data-edit="title">BC Workspace storage</strong><span data-edit="body">~2.8 GB free · big archives on personal Drive</span></div>
+      <div class="mini" data-mini="storage"><strong data-edit="title">BC Workspace storage</strong><span data-edit="body">~2.8 GB free · archives on personal BC archive</span></div>
       <div class="mini" data-mini="acq"><strong data-edit="title">Acquisitions</strong><span data-edit="body">Background digs</span></div>
     </div>
 
-    <div class="hint">Tap a status for <strong>Done</strong> / <strong>Open</strong>. Tap any title or line to edit. Tap <strong>Sync edits to CoS</strong> after you change wording so CoS can read your goals.</div>
+    <div class="hint">Tap a status for <strong>Done</strong> / <strong>Open</strong>. Tap any title or line to edit (saves on this phone). Blue header opens the Keep note.</div>
   </div>
 <script>
 (function () {
   const tz = 'America/New_York';
-  const DOC_URL = 'https://docs.google.com/document/d/1pibDlEOAdUqIs9TUXFUY_bEexeJyhYmmCOUhKYsODjQ/edit';
   function dayKey() {
     try {
       return new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
@@ -232,51 +203,9 @@
     });
     function save() {
       localStorage.setItem(textKey(scope, field), el.textContent.trim());
-      localStorage.setItem('cosTodayText:dirty', '1');
-      document.getElementById('syncMsg').textContent = 'Unsynced edits on this phone — tap Sync so CoS can read them.';
     }
     el.addEventListener('blur', save);
     el.addEventListener('input', save);
-  }
-
-  function buildSnapshot() {
-    const lines = [];
-    lines.push('CoS Today — Vin live edits');
-    lines.push('Day (ET): ' + dayKey());
-    lines.push('');
-    document.querySelectorAll('[data-card]').forEach(function (card) {
-      const titleEl = card.querySelector('[data-edit="title"]');
-      const bodyEl = card.querySelector('[data-edit="body"]');
-      const status = card.classList.contains('done') ? 'Done' : 'Open';
-      lines.push('## ' + (titleEl ? titleEl.textContent.trim() : card.id));
-      lines.push('Status: ' + status);
-      if (bodyEl) lines.push(bodyEl.textContent.trim());
-      lines.push('');
-    });
-    lines.push('## Below the line');
-    document.querySelectorAll('[data-mini]').forEach(function (mini) {
-      const t = mini.querySelector('[data-edit="title"]');
-      const b = mini.querySelector('[data-edit="body"]');
-      lines.push('- ' + (t ? t.textContent.trim() : '') + ': ' + (b ? b.textContent.trim() : ''));
-    });
-    lines.push('');
-    lines.push('## Free notes / goals / thoughts');
-    lines.push('(add anything else below when you paste into the Drive doc)');
-    return lines.join('\n');
-  }
-
-  async function syncToCos() {
-    const snap = buildSnapshot();
-    localStorage.setItem('cosTodayText:lastSync', snap);
-    localStorage.setItem('cosTodayText:dirty', '0');
-    const msg = document.getElementById('syncMsg');
-    try {
-      await navigator.clipboard.writeText(snap);
-      msg.textContent = 'Copied. Paste into CoS chat (or the Drive doc). Opening the doc…';
-    } catch (e) {
-      msg.textContent = 'Copy blocked — paste from the Drive doc after you drop the text there. Opening doc…';
-    }
-    window.open(DOC_URL, '_blank', 'noopener');
   }
 
   document.querySelectorAll('[data-card]').forEach(function (card) {
@@ -294,13 +223,6 @@
       wireEditable(el, 'mini-' + id, el.getAttribute('data-edit'));
     });
   });
-  document.getElementById('syncBtn').addEventListener('click', function (e) {
-    e.preventDefault();
-    syncToCos();
-  });
-  if (localStorage.getItem('cosTodayText:dirty') === '1') {
-    document.getElementById('syncMsg').textContent = 'Unsynced edits on this phone — tap Sync so CoS can read them.';
-  }
 })();
 </script>
 </body>
