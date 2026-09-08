@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="cos-content-version" content="2026-09-08-morning-glance-v1"/>
+<meta name="cos-content-version" content="2026-09-08-work-stack-v1"/>
 <title>CoS · Today</title>
 <style>
   :root {
@@ -88,6 +88,15 @@
   .pill.open { background: var(--yellow-soft); color: var(--yellow-ink); border-color: #f0d84a; }
   .blocker, .row p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.45; outline: none; border-radius: 8px; }
   .row p { font-size: 13px; line-height: 1.4; }
+  .row p.cos-note {
+    margin-top: 6px;
+    font-size: 11px;
+    line-height: 1.35;
+    color: #64748b;
+    font-weight: 500;
+    letter-spacing: .01em;
+    user-select: none;
+  }
   [data-edit]:focus, .mini [contenteditable]:focus {
     box-shadow: 0 0 0 2px rgba(230,194,0,.55);
     background: rgba(255,255,255,.85);
@@ -97,11 +106,26 @@
     background: var(--card); border: 1px solid rgba(255,255,255,.5); border-radius: 16px;
     padding: 14px 16px; box-shadow: 0 8px 22px rgba(0,26,158,.14);
     backdrop-filter: blur(8px);
+    touch-action: manipulation;
+    transition: transform .12s ease, opacity .12s ease, box-shadow .12s ease;
+  }
+  .row.dragging {
+    opacity: .72;
+    transform: scale(1.03);
+    box-shadow: 0 14px 32px rgba(0,26,158,.28);
+    z-index: 5;
+    position: relative;
+  }
+  .row.drag-over {
+    outline: 2px dashed rgba(230,194,0,.7);
+    outline-offset: 2px;
   }
   .row#emc { border-left: 4px solid var(--blue-rich); }
+  .row#ads { border-left: 4px solid #ff7a18; }
+  .row#dynamic { border-left: 4px solid #7c3aed; }
   .row#suppliers { border-left: 4px solid var(--pink); }
-  .row#daddy { border-left: 4px solid var(--yellow); }
   .row#bc { border-left: 4px solid #3dd0ff; }
+  .row#daddy { border-left: 4px solid var(--yellow); }
   .row.done { border-color: var(--green-border); background: linear-gradient(90deg, #fff, var(--green-soft)); }
   .below { display: grid; gap: 8px; }
   .mini {
@@ -150,51 +174,70 @@
     </div>
 
     <div class="section">Work</div>
-    <div class="stack">
-      <article class="row" id="emc" data-card>
+    <div class="stack" id="work-stack">
+      <article class="row" id="emc" data-card data-work>
         <div class="head-row">
           <h3 data-edit="title">EMC growth</h3>
           <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
         </div>
         <p data-edit="body">Today: funnel teach, then dashboard</p>
+        <p class="cos-note" data-cos-note>Funnel teach today · sales #1</p>
       </article>
-      <article class="row" id="suppliers" data-card>
+      <article class="row" id="ads" data-card data-work>
+        <div class="head-row">
+          <h3 data-edit="title">Ads MCC</h3>
+          <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
+        </div>
+        <p data-edit="body">New products + holiday promos with Asim</p>
+        <p class="cos-note" data-cos-note>Asim: new products + holiday promos · ~$6k/yr · CoS take more post-Q4</p>
+      </article>
+      <article class="row" id="dynamic" data-card data-work>
+        <div class="head-row">
+          <h3 data-edit="title">Dynamic / ESS</h3>
+          <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
+        </div>
+        <p data-edit="body">YouTube + CRO · branded search near Osaki</p>
+        <p class="cos-note" data-cos-note>ESS YouTube + CRO · branded search near Osaki</p>
+      </article>
+      <article class="row" id="suppliers" data-card data-work>
         <div class="head-row">
           <h3 data-edit="title">New high-value suppliers</h3>
           <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
         </div>
         <p data-edit="body">Today: STS Judy Welcome + Dropbox · list → BOFU Ads → 3–4 YT</p>
+        <p class="cos-note" data-cos-note>Fertile attributes · backup-power first</p>
       </article>
-      <article class="row" id="daddy" data-card>
-        <div class="head-row">
-          <h3 data-edit="title">Daddy School</h3>
-          <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
-        </div>
-        <p data-edit="body">Earth/orbit week · daily activity log + scan of written work</p>
-      </article>
-      <article class="row" id="bc" data-card>
+      <article class="row" id="bc" data-card data-work>
         <div class="head-row">
           <h3 data-edit="title">Blue Coast</h3>
           <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
         </div>
         <p data-edit="body">Events growth first, then OTA · form/confirm live</p>
+        <p class="cos-note" data-cos-note>Events + TikTok organic · Agoda/Booking OTA + lean weekday promos</p>
+      </article>
+      <article class="row" id="daddy" data-card data-work>
+        <div class="head-row">
+          <h3 data-edit="title">Daddy School</h3>
+          <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
+        </div>
+        <p data-edit="body">Earth/orbit week · daily activity log + scan of written work</p>
+        <p class="cos-note" data-cos-note>Earth/orbit week · keep light under money stack</p>
       </article>
     </div>
 
     <div class="section">Below the line</div>
     <div class="below" id="below">
-      <div class="mini" data-mini="ads"><strong data-edit="title">Ads MCC + ESS / PD drafts</strong><span data-edit="body">Sign in on Ads Manager computer</span></div>
-      <div class="mini" data-mini="ess"><strong data-edit="title">ESS CRO</strong><span data-edit="body">Theme on your laptop · Cherry: sold-out + Judge.me</span></div>
       <div class="mini" data-mini="storage"><strong data-edit="title">BC Workspace storage</strong><span data-edit="body">~2.8 GB free · archives on personal BC archive</span></div>
       <div class="mini" data-mini="acq"><strong data-edit="title">Acquisitions</strong><span data-edit="body">Background digs</span></div>
     </div>
 
-    <div class="hint">Tap a status for <strong>Done</strong> / <strong>Open</strong>. Tap any title or line to edit — <strong>your wording stays</strong>; CoS never overwrites it. Syncs at 9am / 11am / 3pm / 7pm ET.</div>
+    <div class="hint">Tap a status for <strong>Done</strong> / <strong>Open</strong>. Tap any title or line to edit — <strong>your wording stays</strong>; CoS never overwrites it. Press-and-hold a Work row to reorder. CoS notes stay under your lines. Syncs at 9am / 11am / 3pm / 7pm ET.</div>
   </div>
 <script>
 (function () {
   const tz = 'America/New_York';
   const pageVer = (document.querySelector('meta[name="cos-content-version"]') || {}).content || '';
+  const WORK_ORDER_KEY = 'cosTodayWorkOrder';
   function dayKey() {
     try {
       return new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
@@ -257,6 +300,111 @@
       wireEditable(el, 'mini-' + id, el.getAttribute('data-edit'));
     });
   });
+
+  // Press-and-hold reorder for Work cards only. CoS notes are never in localStorage.
+  (function wireWorkReorder() {
+    const stack = document.getElementById('work-stack');
+    if (!stack) return;
+    const HOLD_MS = 400;
+
+    function currentIds() {
+      return Array.from(stack.querySelectorAll('[data-work]')).map(function (el) { return el.id; });
+    }
+    function applyOrder(ids) {
+      const map = {};
+      Array.from(stack.querySelectorAll('[data-work]')).forEach(function (el) { map[el.id] = el; });
+      const allPresent = ids.every(function (id) { return map[id]; }) && ids.length === Object.keys(map).length;
+      if (!allPresent) return false;
+      ids.forEach(function (id) { stack.appendChild(map[id]); });
+      return true;
+    }
+    function persistOrder() {
+      try { localStorage.setItem(WORK_ORDER_KEY, JSON.stringify(currentIds())); } catch (e) {}
+    }
+    try {
+      const raw = localStorage.getItem(WORK_ORDER_KEY);
+      if (raw) {
+        const ids = JSON.parse(raw);
+        if (Array.isArray(ids)) applyOrder(ids);
+      }
+    } catch (e) {}
+
+    let holdTimer = null;
+    let dragging = null;
+    let startY = 0;
+    let pointerId = null;
+
+    function clearHold() {
+      if (holdTimer) { clearTimeout(holdTimer); holdTimer = null; }
+    }
+    function isInteractiveTarget(t) {
+      if (!t || !t.closest) return true;
+      if (t.closest('[contenteditable="true"]')) return true;
+      if (t.closest('[data-pill]')) return true;
+      if (t.closest('a, button, input, textarea, select, label')) return true;
+      return false;
+    }
+    function endDrag() {
+      clearHold();
+      if (dragging) {
+        dragging.classList.remove('dragging');
+        stack.querySelectorAll('.drag-over').forEach(function (el) { el.classList.remove('drag-over'); });
+        persistOrder();
+        dragging = null;
+      }
+      pointerId = null;
+    }
+    function rowFromPoint(clientX, clientY) {
+      const el = document.elementFromPoint(clientX, clientY);
+      return el && el.closest ? el.closest('#work-stack [data-work]') : null;
+    }
+    function maybeReorder(clientY) {
+      if (!dragging) return;
+      const over = rowFromPoint(
+        dragging.getBoundingClientRect().left + dragging.offsetWidth / 2,
+        clientY
+      );
+      stack.querySelectorAll('.drag-over').forEach(function (el) { el.classList.remove('drag-over'); });
+      if (!over || over === dragging) return;
+      over.classList.add('drag-over');
+      const siblings = currentIds();
+      const from = siblings.indexOf(dragging.id);
+      const to = siblings.indexOf(over.id);
+      if (from < 0 || to < 0 || from === to) return;
+      if (from < to) stack.insertBefore(dragging, over.nextSibling);
+      else stack.insertBefore(dragging, over);
+    }
+
+    stack.addEventListener('pointerdown', function (e) {
+      const row = e.target && e.target.closest ? e.target.closest('[data-work]') : null;
+      if (!row || !stack.contains(row)) return;
+      if (isInteractiveTarget(e.target)) return;
+      if (e.button != null && e.button !== 0) return;
+      startY = e.clientY;
+      pointerId = e.pointerId;
+      clearHold();
+      holdTimer = setTimeout(function () {
+        holdTimer = null;
+        dragging = row;
+        dragging.classList.add('dragging');
+        try { row.setPointerCapture(pointerId); } catch (err) {}
+      }, HOLD_MS);
+    });
+
+    stack.addEventListener('pointermove', function (e) {
+      if (pointerId != null && e.pointerId !== pointerId) return;
+      if (!dragging) {
+        if (holdTimer && Math.abs(e.clientY - startY) > 10) clearHold();
+        return;
+      }
+      e.preventDefault();
+      maybeReorder(e.clientY);
+    });
+
+    stack.addEventListener('pointerup', endDrag);
+    stack.addEventListener('pointercancel', endDrag);
+    stack.addEventListener('lostpointercapture', endDrag);
+  })();
 })();
 </script>
 </body>
