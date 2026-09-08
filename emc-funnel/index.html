@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="emc-funnel-version" content="2026-09-08-v1"/>
+<meta name="emc-funnel-version" content="2026-09-08-run1"/>
 <title>EMC Funnel · 10-day audit</title>
 <style>
   :root {
@@ -173,7 +173,7 @@
       <div class="meta">
         <span class="chip">Last run: <strong id="last-run-date" data-edit>Not run yet</strong></span>
         <span class="chip">Windows: <strong id="windows-label" data-edit>Set last 10d / prior 10d</strong></span>
-        <span class="chip">Version <strong>2026-09-08-v1</strong></span>
+        <span class="chip">Version <strong>2026-09-08-run1</strong></span>
       </div>
     </header>
 
@@ -199,28 +199,28 @@
             <h2>TOF · Top of funnel</h2>
             <span class="role">Google Ads · GA4 · YouTube Studio</span>
           </div>
-          <span class="pill unknown" data-status="tof">Unknown</span>
+          <span class="pill yellow" data-status="tof">Yellow</span>
         </div>
         <div class="metrics">
           <div class="metric">
             <div class="label">Ads spend</div>
-            <div class="value" data-metric="ads_spend">—</div>
-            <div class="delta" data-metric-delta="ads_spend">vs prior 10d: —</div>
+            <div class="value" data-metric="ads_spend">$4,061</div>
+            <div class="delta" data-metric-delta="ads_spend">vs prior: $2,626 (+55%)</div>
           </div>
           <div class="metric">
             <div class="label">Ads clicks</div>
-            <div class="value" data-metric="ads_clicks">—</div>
-            <div class="delta" data-metric-delta="ads_clicks">vs prior 10d: —</div>
+            <div class="value" data-metric="ads_clicks">5,817</div>
+            <div class="delta" data-metric-delta="ads_clicks">vs prior: ~4,096 · CPC $0.70</div>
           </div>
           <div class="metric">
             <div class="label">GA4 sessions</div>
-            <div class="value" data-metric="ga4_sessions">—</div>
-            <div class="delta" data-metric-delta="ga4_sessions">vs prior 10d: —</div>
+            <div class="value" data-metric="ga4_sessions">~64k users</div>
+            <div class="delta" data-metric-delta="ga4_sessions">sessions TBD · GA4 partial</div>
           </div>
           <div class="metric">
             <div class="label">YT watch hours</div>
             <div class="value" data-metric="yt_watch_hours">—</div>
-            <div class="delta" data-metric-delta="yt_watch_hours">vs prior 10d / YoY: —</div>
+            <div class="delta" data-metric-delta="yt_watch_hours">YT not pulled this run</div>
           </div>
         </div>
         <div class="cos-note" data-cos-note contenteditable="true" data-placeholder="CoS note: channel mix, tracking breaks, spend jumps…"></div>
@@ -232,28 +232,28 @@
             <h2>Mid · Capture &amp; answer</h2>
             <span class="role">Leads / calls / chats · CallRail · RC · Answer Connect</span>
           </div>
-          <span class="pill unknown" data-status="mid">Unknown</span>
+          <span class="pill yellow" data-status="mid">Yellow</span>
         </div>
         <div class="metrics">
           <div class="metric">
             <div class="label">CallRail calls</div>
-            <div class="value" data-metric="callrail_calls">—</div>
-            <div class="delta" data-metric-delta="callrail_calls">qualified: —</div>
+            <div class="value" data-metric="callrail_calls">17</div>
+            <div class="delta" data-metric-delta="callrail_calls">prior 16 · Ads-src 6 vs 3</div>
           </div>
           <div class="metric">
             <div class="label">RC answered / abandoned</div>
             <div class="value" data-metric="rc_answer_abandon">—</div>
-            <div class="delta" data-metric-delta="rc_answer_abandon">overflow / AC: —</div>
+            <div class="delta" data-metric-delta="rc_answer_abandon">RC not pulled</div>
           </div>
           <div class="metric">
             <div class="label">Chats / forms</div>
-            <div class="value" data-metric="chats_forms">—</div>
-            <div class="delta" data-metric-delta="chats_forms">vs prior 10d: —</div>
+            <div class="value" data-metric="chats_forms">Zendesk 4</div>
+            <div class="delta" data-metric-delta="chats_forms">in CallRail attribution</div>
           </div>
           <div class="metric">
             <div class="label">AC leak tests</div>
             <div class="value" data-metric="ac_leak">—</div>
-            <div class="delta" data-metric-delta="ac_leak">Ruth test batch: —</div>
+            <div class="delta" data-metric-delta="ac_leak">Ruth/AC not pulled</div>
           </div>
         </div>
         <div class="cos-note" data-cos-note contenteditable="true" data-placeholder="CoS note: tagging %, routing, AC miss rate…"></div>
@@ -265,28 +265,28 @@
             <h2>BOF · Conversion to sales</h2>
             <span class="role">Business Checklist · CallRail closed · closer capacity</span>
           </div>
-          <span class="pill unknown" data-status="bof">Unknown</span>
+          <span class="pill yellow" data-status="bof">Yellow</span>
         </div>
         <div class="metrics">
           <div class="metric">
             <div class="label">Closed sales</div>
-            <div class="value" data-metric="closed_sales">—</div>
-            <div class="delta" data-metric-delta="closed_sales">vs prior 10d: —</div>
+            <div class="value" data-metric="closed_sales">10</div>
+            <div class="delta" data-metric-delta="closed_sales">checklist Aug 29–Sep 7</div>
           </div>
           <div class="metric">
             <div class="label">Revenue</div>
-            <div class="value" data-metric="revenue">—</div>
-            <div class="delta" data-metric-delta="revenue">vs prior 10d: —</div>
+            <div class="value" data-metric="revenue">$58.3k</div>
+            <div class="delta" data-metric-delta="revenue">ads 6.96% of sales</div>
           </div>
           <div class="metric">
             <div class="label">Close rate proxy</div>
-            <div class="value" data-metric="close_rate">—</div>
-            <div class="delta" data-metric-delta="close_rate">sales ÷ qualified / answered</div>
+            <div class="value" data-metric="close_rate">10÷17 calls</div>
+            <div class="delta" data-metric-delta="close_rate">~59% vs CallRail total</div>
           </div>
           <div class="metric">
             <div class="label">Capacity note</div>
             <div class="value" data-metric="capacity">—</div>
-            <div class="delta" data-metric-delta="capacity">closers on shift</div>
+            <div class="delta" data-metric-delta="capacity">not assessed</div>
           </div>
         </div>
         <div class="cos-note" data-cos-note contenteditable="true" data-placeholder="CoS note: process dig if TOF/Mid steady…"></div>
@@ -334,7 +334,7 @@
       <a href="https://docs.google.com/document/d/1rYekaYPpaQG6u83GS2DtrXguzEG2BXEvil_9eXlUc4Q/edit" target="_blank" rel="noopener">EMC Planner</a>
       · Checklist sheet <code>19cWkmcUCmANzLIa1RsAPxATVQ_T0sgCTrKh9CRdKcSk</code>
     </div>
-    <p class="footer-meta">EMC Funnel glance · 2026-09-08-v1 · pills default Unknown until CoS fills a run</p>
+    <p class="footer-meta">EMC Funnel glance · 2026-09-08-run1 · Run filled 2026-09-08 ET · Last 10d Aug 29–Sep 7 · Prior Aug 19–28</p>
   </div>
   <script>
     (function () {
