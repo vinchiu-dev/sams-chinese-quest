@@ -2,9 +2,19 @@
   "version": "2026-09-08-v1",
   "last_run_at_et": null,
   "windows": {
-    "last_10d": { "start_et": null, "end_et": null },
-    "prior_10d": { "start_et": null, "end_et": null },
-    "yoy_10d": { "start_et": null, "end_et": null, "pulled": false }
+    "last_10d": {
+      "start_et": null,
+      "end_et": null
+    },
+    "prior_10d": {
+      "start_et": null,
+      "end_et": null
+    },
+    "yoy_10d": {
+      "start_et": null,
+      "end_et": null,
+      "pulled": false
+    }
   },
   "statuses": {
     "tof": "Unknown",
@@ -78,5 +88,5 @@
   },
   "blockers": [],
   "planner_note_pasted": false,
-  "dashboard_published_url": null
+  "dashboard_published_url": "https://vinchiu-dev.github.io/sams-chinese-quest/emc-funnel/"
 }
