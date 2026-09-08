@@ -42,7 +42,7 @@
       "ads_cpc_delta": 0.03
     },
     "deltas_vs_yoy_10d": {},
-    "cos_note": "Spend +55% vs prior 10d; conversions 5 vs 11; CPC flat. Visible campaigns Search. GA4 ~64k active users last 10d (sessions/prior incomplete).",
+    "cos_note": "Spend +55% vs prior 10d; conversions 5 vs 11; CPC flat. Visible campaigns Search. GA4 ~64k active users last 10d (sessions/prior incomplete). Mix Aug28\u2013Sep7: Brands $2226 / PMax $31 / Static $282; account $4403.",
     "sources_pulled": [
       "google_ads",
       "ga4_partial"
@@ -55,6 +55,33 @@
       "ads_cpc": 0.67,
       "ads_conversions": 11,
       "ads_cost_per_conversion": 238.77
+    },
+    "campaign_mix_aug28_sep7": {
+      "Brands": {
+        "cost": 2226.24,
+        "clicks": 806,
+        "cpc": 2.76,
+        "conv": 0
+      },
+      "Sales-Performance Max-4-Remarketing": {
+        "cost": 31.24,
+        "clicks": 9,
+        "cpc": 3.47,
+        "conv": 5
+      },
+      "Remarketing Static": {
+        "cost": 282.43,
+        "clicks": 4489,
+        "cpc": 0.06,
+        "conv": 0
+      },
+      "account_total": {
+        "cost": 4403.09,
+        "clicks": 6280,
+        "cpc": 0.7,
+        "conv": 5
+      },
+      "note": "Clicks inferred for some rows; Brands ~half of account spend."
     }
   },
   "mid": {
@@ -129,7 +156,6 @@
     "YT Studio not pulled",
     "RC/AC answer rates not pulled",
     "Margin/payment mix not pulled",
-    "Brands/PMax/Static mix pending if Ads session drops",
     "Checklist CSV may lag live sheet"
   ],
   "planner_note_pasted": false,
