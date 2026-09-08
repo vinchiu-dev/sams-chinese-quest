@@ -560,6 +560,24 @@
           "definition": "the line where the sky seems to meet the land or sea",
           "example": "The Sun slipped toward the horizon at sunset.",
           "emoji": "🌄"
+        },
+        {
+          "word": "stoop",
+          "definition": "to bend your body forward and down",
+          "example": "He had to stoop to pick up the pebble.",
+          "emoji": "🙇"
+        },
+        {
+          "word": "wade",
+          "definition": "to walk through shallow water",
+          "example": "They wade across the creek in their boots.",
+          "emoji": "🥾"
+        },
+        {
+          "word": "hobble",
+          "definition": "to walk with difficulty, often because something hurts",
+          "example": "After he stubbed his toe, he had to hobble to the chair.",
+          "emoji": "🤕"
         }
       ]
     }
