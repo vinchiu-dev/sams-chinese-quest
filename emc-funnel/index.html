@@ -3,30 +3,16 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="emc-funnel-version" content="2026-09-08-run1"/>
-<title>EMC Funnel · 10-day audit</title>
+<meta name="emc-funnel-version" content="2026-09-08-notice-v2"/>
+<title>EMC Funnel · What to notice</title>
 <style>
   :root {
-    --blue-deep: #001a9e;
-    --blue-rich: #0126de;
-    --pink: #e018cf;
-    --pink-hot: #ff2ec8;
-    --green: #1fc41a;
-    --green-soft: #d8ffd6;
-    --green-border: #4ae045;
-    --green-ink: #0f8a0c;
-    --yellow: #e6c200;
-    --yellow-soft: #fff4a8;
-    --yellow-ink: #7a6200;
-    --red: #e11d48;
-    --red-soft: #ffe4e8;
-    --red-ink: #9f1239;
-    --unknown: #94a3b8;
-    --unknown-soft: #e2e8f0;
-    --unknown-ink: #475569;
-    --card: rgba(255,255,255,.94);
-    --ink: #0b1220;
-    --muted: #334155;
+    --blue-deep: #001a9e; --blue-rich: #0126de; --pink: #e018cf;
+    --green: #1fc41a; --green-soft: #d8ffd6; --green-ink: #0f8a0c;
+    --yellow: #e6c200; --yellow-soft: #fff4a8; --yellow-ink: #7a6200;
+    --red: #e11d48; --red-soft: #ffe4e8; --red-ink: #9f1239;
+    --unknown: #94a3b8; --unknown-soft: #e2e8f0; --unknown-ink: #475569;
+    --ink: #0b1220; --muted: #334155; --card: rgba(255,255,255,.95);
   }
   * { box-sizing: border-box; }
   body {
@@ -35,314 +21,197 @@
     background:
       radial-gradient(900px 520px at 0% 0%, rgba(1,38,222,.55) 0%, transparent 55%),
       radial-gradient(860px 480px at 100% 15%, rgba(224,24,207,.45) 0%, transparent 52%),
-      radial-gradient(700px 420px at 50% 110%, rgba(255,46,200,.28) 0%, transparent 48%),
       linear-gradient(165deg, #001a9e 0%, #0a2ad8 38%, #9b18d4 72%, #e018cf 100%);
-    color: var(--ink);
-    min-height: 100vh;
+    color: var(--ink); min-height: 100vh;
   }
-  .wrap { max-width: 960px; margin: 0 auto; padding: 28px 18px 72px; }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 24px 16px 64px; }
   .hero {
-    border-radius: 22px; padding: 18px 18px 16px;
+    border-radius: 22px; padding: 18px 18px 14px;
     background: linear-gradient(135deg, #001a9e 0%, #0126de 42%, #c218d8 78%, #e018cf 100%);
     color: #fff; box-shadow: 0 16px 40px rgba(0,26,158,.35);
-    border: 1px solid rgba(230,194,0,.35);
-    margin-bottom: 18px;
+    border: 1px solid rgba(230,194,0,.35); margin-bottom: 14px;
   }
-  .hero h1 { margin: 0; font-size: 26px; letter-spacing: -.04em; line-height: 1.15; }
-  .hero h1::after {
-    content: ""; display: inline-block; width: 10px; height: 10px; margin-left: 10px;
-    border-radius: 999px; background: var(--yellow); box-shadow: 0 0 0 3px rgba(230,194,0,.25);
-    vertical-align: middle;
-  }
-  .hero .sub { margin: 10px 0 0; color: rgba(255,255,255,.92); font-size: 14px; line-height: 1.45; }
-  .meta {
-    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; align-items: center;
-  }
+  .hero h1 { margin: 0; font-size: 24px; letter-spacing: -.03em; }
+  .hero .sub { margin: 8px 0 0; color: rgba(255,255,255,.92); font-size: 13px; line-height: 1.4; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
   .chip {
     font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 999px;
     background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.28); color: #fff;
   }
-  .chip strong { color: var(--yellow-soft); font-weight: 800; }
+  .chip strong { color: var(--yellow-soft); }
+  .notice {
+    background: linear-gradient(160deg, #fff 0%, var(--yellow-soft) 100%);
+    border: 2px solid rgba(230,194,0,.7); border-radius: 20px;
+    padding: 16px 18px; margin-bottom: 16px;
+    box-shadow: 0 12px 32px rgba(0,26,158,.22);
+  }
+  .notice .label {
+    font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--yellow-ink); margin: 0 0 8px;
+  }
+  .notice ol { margin: 0; padding-left: 1.15rem; }
+  .notice li { margin: 0 0 8px; font-size: 15px; line-height: 1.4; font-weight: 650; }
+  .notice li:last-child { margin-bottom: 0; }
+  .notice .dig {
+    margin-top: 12px; padding-top: 10px; border-top: 1px dashed rgba(122,98,0,.35);
+    font-size: 13px; color: var(--muted); line-height: 1.4;
+  }
   .section {
-    margin: 22px 0 10px; font-size: 11px; font-weight: 800;
+    margin: 18px 0 8px; font-size: 11px; font-weight: 800;
     letter-spacing: .14em; text-transform: uppercase; color: var(--yellow);
     text-shadow: 0 1px 2px rgba(0,0,0,.25);
   }
-  .leak {
-    background: linear-gradient(160deg, rgba(255,255,255,.96) 0%, rgba(255,244,168,.55) 100%);
-    border: 1px solid rgba(230,194,0,.55); border-radius: 20px;
-    padding: 16px 18px; box-shadow: 0 10px 28px rgba(0,26,158,.18);
-    margin-bottom: 8px;
-  }
-  .leak h2 { margin: 0 0 6px; font-size: 18px; letter-spacing: -.02em; }
-  .leak p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.45; }
-  .stages { display: grid; gap: 12px; }
   .stage {
-    background: var(--card); border: 1px solid rgba(255,255,255,.55); border-radius: 20px;
-    padding: 16px 16px 14px; box-shadow: 0 10px 28px rgba(0,26,158,.18);
-    backdrop-filter: blur(8px);
+    background: var(--card); border-radius: 18px; padding: 14px 16px 12px;
+    margin-bottom: 10px; border: 1px solid rgba(255,255,255,.5);
+    box-shadow: 0 8px 24px rgba(0,26,158,.16);
   }
-  .stage.tof { border-left: 5px solid var(--blue-rich); }
-  .stage.mid { border-left: 5px solid #ff7a18; }
-  .stage.bof { border-left: 5px solid #7c3aed; }
-  .stage.margin { border-left: 5px solid var(--pink); }
-  .head-row {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 12px; margin: 0 0 10px;
+  .stage .top { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; }
+  .stage h2 { margin: 0; font-size: 17px; letter-spacing: -.02em; }
+  .q { margin: 4px 0 0; font-size: 13px; color: var(--muted); font-weight: 600; }
+  .ans { margin: 10px 0 0; font-size: 14px; line-height: 1.45; font-weight: 650; }
+  .dig-if {
+    margin: 8px 0 0; font-size: 12.5px; line-height: 1.4; color: var(--muted);
+    background: #f8fafc; border-radius: 10px; padding: 8px 10px;
   }
-  .head-row h2 {
-    margin: 0; font-size: 18px; letter-spacing: -.03em;
-  }
-  .head-row .role {
-    display: block; margin-top: 2px; font-size: 12px; font-weight: 600; color: var(--muted);
-  }
-  .pill {
-    flex: 0 0 auto;
-    font-size: 11px; font-weight: 800; padding: 5px 10px; border-radius: 999px;
-    background: var(--unknown-soft); color: var(--unknown-ink); border: 1px solid #cbd5e1;
-    user-select: none;
-  }
-  .pill.green { background: var(--green-soft); color: var(--green-ink); border-color: var(--green-border); }
-  .pill.yellow { background: var(--yellow-soft); color: var(--yellow-ink); border-color: #f0d84a; }
-  .pill.red { background: var(--red-soft); color: var(--red-ink); border-color: #fb7185; }
-  .pill.unknown { background: var(--unknown-soft); color: var(--unknown-ink); border-color: #cbd5e1; }
   .metrics {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
-  }
-  @media (max-width: 720px) {
-    .metrics { grid-template-columns: 1fr; }
-    .hero h1 { font-size: 22px; }
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px; margin-top: 10px;
   }
   .metric {
-    background: linear-gradient(90deg, rgba(255,255,255,.9), rgba(255,244,168,.28));
-    border: 1px solid rgba(230,194,0,.28); border-radius: 14px; padding: 10px 12px;
+    background: #f8fafc; border-radius: 12px; padding: 8px 10px;
+    border: 1px solid #e2e8f0;
   }
-  .metric .label {
-    font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: #64748b;
+  .metric .lab { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #64748b; }
+  .metric .val { font-size: 15px; font-weight: 800; margin-top: 2px; }
+  .metric .delta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .pill {
+    font-size: 11px; font-weight: 800; padding: 4px 9px; border-radius: 999px;
+    white-space: nowrap; border: 1px solid transparent;
   }
-  .metric .value {
-    margin-top: 4px; font-size: 16px; font-weight: 800; letter-spacing: -.02em; color: var(--ink);
+  .pill.green { background: var(--green-soft); color: var(--green-ink); border-color: #86efac; }
+  .pill.yellow { background: var(--yellow-soft); color: var(--yellow-ink); border-color: #fde047; }
+  .pill.red { background: var(--red-soft); color: var(--red-ink); border-color: #fda4af; }
+  .pill.unknown { background: var(--unknown-soft); color: var(--unknown-ink); border-color: #cbd5e1; }
+  .legend {
+    background: rgba(255,255,255,.9); border-radius: 16px; padding: 12px 14px;
+    font-size: 12.5px; line-height: 1.45; color: var(--muted); margin-top: 14px;
   }
-  .metric .delta {
-    margin-top: 2px; font-size: 12px; color: var(--muted);
-  }
-  .cos-note {
-    margin-top: 10px;
-    font-size: 12px;
-    line-height: 1.4;
-    color: #64748b;
-    font-weight: 500;
-    min-height: 1.4em;
-    border-radius: 8px;
-    outline: none;
-  }
-  .cos-note:empty::before {
-    content: attr(data-placeholder);
-    color: #94a3b8;
-    font-style: italic;
-  }
-  [data-edit]:focus, .cos-note:focus {
-    box-shadow: 0 0 0 2px rgba(230,194,0,.55);
-    background: rgba(255,255,255,.85);
-  }
-  .flow {
-    display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
-    margin: 8px 0 18px; color: #fff; font-size: 12px; font-weight: 800; letter-spacing: .06em;
-    text-transform: uppercase; text-shadow: 0 1px 2px rgba(0,0,0,.25);
-  }
-  .flow span.arrow { opacity: .7; }
-  .hint {
-    margin-top: 22px; padding: 14px 16px; border-radius: 14px;
-    background: linear-gradient(90deg, rgba(1,38,222,.18), rgba(224,24,207,.18));
-    color: #fff; font-size: 13px; line-height: 1.45;
-    border: 1px solid rgba(230,194,0,.4);
-    text-shadow: 0 1px 2px rgba(0,0,0,.25);
-  }
-  .hint a { color: var(--yellow-soft); font-weight: 700; }
-  .hint strong { color: var(--yellow-soft); }
-  .footer-meta {
-    margin-top: 14px; font-size: 11px; color: rgba(255,255,255,.75); text-align: center;
-  }
+  .legend strong { color: var(--ink); }
+  .footer { margin-top: 14px; font-size: 11px; color: rgba(255,255,255,.85); }
+  a { color: #1d4ed8; }
 </style>
 </head>
 <body>
   <div class="wrap">
-    <header class="hero">
-      <h1>EMC Funnel · 10-day audit</h1>
-      <p class="sub">TOF → Mid → BOF → Margin. Fill pills from live pulls only — no invented numbers. CoS notes are editable locally.</p>
+    <div class="hero">
+      <h1>EMC Funnel · What to notice</h1>
+      <p class="sub">Planner-style glance: diagnosis first, metrics as evidence. Ads conversions are secondary — CallRail leads/closed sales + checklist sales are the truth.</p>
       <div class="meta">
-        <span class="chip">Last run: <strong id="last-run-date" data-edit>Not run yet</strong></span>
-        <span class="chip">Windows: <strong id="windows-label" data-edit>Set last 10d / prior 10d</strong></span>
-        <span class="chip">Version <strong>2026-09-08-run1</strong></span>
+        <span class="chip">Last run <strong>Sep 8, 2026</strong></span>
+        <span class="chip">Last 10d <strong>Aug 29–Sep 7</strong></span>
+        <span class="chip">Prior <strong>Aug 19–28</strong></span>
       </div>
-    </header>
-
-    <div class="flow">
-      <span>TOF</span><span class="arrow">→</span>
-      <span>Mid</span><span class="arrow">→</span>
-      <span>BOF</span><span class="arrow">→</span>
-      <span>Margin</span>
     </div>
 
-    <section class="leak" id="leak-callout">
-      <h2>Where’s the leak?</h2>
-      <p id="leak-text" data-edit contenteditable="true">Unknown until first run — pull TOF → Mid → BOF → Margin, then one sentence here.</p>
-      <div class="cos-note" data-cos-note contenteditable="true" data-placeholder="CoS note: decision rule used, blockers, next pull…"></div>
-    </section>
+    <div class="notice">
+      <p class="label">Notice this</p>
+      <ol>
+        <li><strong>Scale without payback:</strong> Ads spend +55% ($4.1k vs $2.6k) while CallRail calls stayed flat (17 vs 16). Paid demand rose; captured phone volume did not.</li>
+        <li><strong>Efficiency guardrail:</strong> Ads ≈ <strong>6–7% of sales</strong> (checklist ~$58–73k depending on export) — over the <strong>5% ceiling</strong> / target <strong>3–4%</strong>. Bid cuts applied Sep 8; recheck Sep 9–12 on Sep 13.</li>
+        <li><strong>Where spend lives:</strong> Brands ~half ($2.2k). Static is cheap click noise ($282). PMax is a trickle ($31) — not the rebound story.</li>
+      </ol>
+      <p class="dig"><strong>Dig here:</strong> Mid→BOF (CallRail tagging / closed sales by source) + Brands pace after bid cuts. Don’t blame PMax. Ignore Ads “5 conversions” as the main light.</p>
+    </div>
 
     <div class="section">Stages</div>
-    <div class="stages">
 
-      <article class="stage tof" id="stage-tof">
-        <div class="head-row">
-          <div>
-            <h2>TOF · Top of funnel</h2>
-            <span class="role">Google Ads · GA4 · YouTube Studio</span>
-          </div>
-          <span class="pill yellow" data-status="tof">Yellow</span>
+    <article class="stage">
+      <div class="top">
+        <div>
+          <h2>TOF · Paid / traffic demand</h2>
+          <p class="q">Is paid demand healthy — and scaling with real leads?</p>
         </div>
-        <div class="metrics">
-          <div class="metric">
-            <div class="label">Ads spend</div>
-            <div class="value" data-metric="ads_spend">$4,061</div>
-            <div class="delta" data-metric-delta="ads_spend">vs prior $2,626 · Brands $2.2k / Static $282 / PMax $31</div>
-          </div>
-          <div class="metric">
-            <div class="label">Ads clicks</div>
-            <div class="value" data-metric="ads_clicks">5,817</div>
-            <div class="delta" data-metric-delta="ads_clicks">vs prior: ~4,096 · CPC $0.70</div>
-          </div>
-          <div class="metric">
-            <div class="label">GA4 sessions</div>
-            <div class="value" data-metric="ga4_sessions">~64k users</div>
-            <div class="delta" data-metric-delta="ga4_sessions">sessions TBD · GA4 partial</div>
-          </div>
-          <div class="metric">
-            <div class="label">YT watch hours</div>
-            <div class="value" data-metric="yt_watch_hours">—</div>
-            <div class="delta" data-metric-delta="yt_watch_hours">YT not pulled this run</div>
-          </div>
-        </div>
-        <div class="cos-note" data-cos-note contenteditable="true" data-placeholder="CoS note: channel mix, tracking breaks, spend jumps…"></div>
-      </article>
+        <span class="pill yellow">Yellow</span>
+      </div>
+      <p class="ans">Spend and clicks are up, but that’s not the same as profitable demand. Brands is carrying spend; PMax is not.</p>
+      <p class="dig-if"><strong>Dig here if…</strong> spend jumps &gt;~25% without CallRail Google Ads qualified leads / closed sales rising · Brands CPC or clicks collapse · tracking/UTM breaks · YT watch hours off YoY pace.</p>
+      <div class="metrics">
+        <div class="metric"><div class="lab">Ads spend</div><div class="val">$4,061</div><div class="delta">prior $2,626 (+55%)</div></div>
+        <div class="metric"><div class="lab">Clicks / CPC</div><div class="val">5,817 · $0.70</div><div class="delta">prior ~4.1k · $0.67</div></div>
+        <div class="metric"><div class="lab">Brands / Static / PMax</div><div class="val">$2.2k / $282 / $31</div><div class="delta">Aug 28–Sep 7 account $4.4k</div></div>
+        <div class="metric"><div class="lab">Ads conv (weak)</div><div class="val">5 vs 11</div><div class="delta">do not steer on this alone</div></div>
+      </div>
+    </article>
 
-      <article class="stage mid" id="stage-mid">
-        <div class="head-row">
-          <div>
-            <h2>Mid · Capture &amp; answer</h2>
-            <span class="role">Leads / calls / chats · CallRail · RC · Answer Connect</span>
-          </div>
-          <span class="pill yellow" data-status="mid">Yellow</span>
+    <article class="stage">
+      <div class="top">
+        <div>
+          <h2>Mid · Capture &amp; answer</h2>
+          <p class="q">Are we capturing and answering the demand we create?</p>
         </div>
-        <div class="metrics">
-          <div class="metric">
-            <div class="label">CallRail calls</div>
-            <div class="value" data-metric="callrail_calls">17</div>
-            <div class="delta" data-metric-delta="callrail_calls">prior 16 · Ads-src 6 vs 3</div>
-          </div>
-          <div class="metric">
-            <div class="label">RC answered / abandoned</div>
-            <div class="value" data-metric="rc_answer_abandon">—</div>
-            <div class="delta" data-metric-delta="rc_answer_abandon">RC not pulled</div>
-          </div>
-          <div class="metric">
-            <div class="label">Chats / forms</div>
-            <div class="value" data-metric="chats_forms">Zendesk 4</div>
-            <div class="delta" data-metric-delta="chats_forms">in CallRail attribution</div>
-          </div>
-          <div class="metric">
-            <div class="label">AC leak tests</div>
-            <div class="value" data-metric="ac_leak">—</div>
-            <div class="delta" data-metric-delta="ac_leak">Ruth/AC not pulled</div>
-          </div>
-        </div>
-        <div class="cos-note" data-cos-note contenteditable="true" data-placeholder="CoS note: tagging %, routing, AC miss rate…"></div>
-      </article>
+        <span class="pill yellow">Yellow</span>
+      </div>
+      <p class="ans">Phone volume did not scale with spend. Ads-attributed calls only 6 vs 3 prior. Tagging is nearly empty — treat source quality as incomplete.</p>
+      <p class="dig-if"><strong>Dig here if…</strong> TOF steady but leads/calls down · abandoned rising · AC may be missing (Ruth 10 test calls) · RC routing lets AC eat while closers are free · tagging % too low to trust.</p>
+      <div class="metrics">
+        <div class="metric"><div class="lab">CallRail calls</div><div class="val">17</div><div class="delta">prior 16 (flat)</div></div>
+        <div class="metric"><div class="lab">Ads-source calls</div><div class="val">6</div><div class="delta">prior 3</div></div>
+        <div class="metric"><div class="lab">Tagging / Sale Closed</div><div class="val">Weak</div><div class="delta">Sale Closed empty this window</div></div>
+        <div class="metric"><div class="lab">RC / AC</div><div class="val">—</div><div class="delta">not pulled this run</div></div>
+      </div>
+    </article>
 
-      <article class="stage bof" id="stage-bof">
-        <div class="head-row">
-          <div>
-            <h2>BOF · Conversion to sales</h2>
-            <span class="role">Business Checklist · CallRail closed · closer capacity</span>
-          </div>
-          <span class="pill yellow" data-status="bof">Yellow</span>
+    <article class="stage">
+      <div class="top">
+        <div>
+          <h2>BOF · Conversion to sales</h2>
+          <p class="q">Are qualified conversations becoming closed sales — efficiently?</p>
         </div>
-        <div class="metrics">
-          <div class="metric">
-            <div class="label">Closed sales</div>
-            <div class="value" data-metric="closed_sales">10</div>
-            <div class="delta" data-metric-delta="closed_sales">checklist Aug 29–Sep 7</div>
-          </div>
-          <div class="metric">
-            <div class="label">Revenue</div>
-            <div class="value" data-metric="revenue">$58.3k</div>
-            <div class="delta" data-metric-delta="revenue">ads 6.96% of sales</div>
-          </div>
-          <div class="metric">
-            <div class="label">Close rate proxy</div>
-            <div class="value" data-metric="close_rate">10÷17 calls</div>
-            <div class="delta" data-metric-delta="close_rate">~59% vs CallRail total</div>
-          </div>
-          <div class="metric">
-            <div class="label">Capacity note</div>
-            <div class="value" data-metric="capacity">—</div>
-            <div class="delta" data-metric-delta="capacity">not assessed</div>
-          </div>
-        </div>
-        <div class="cos-note" data-cos-note contenteditable="true" data-placeholder="CoS note: process dig if TOF/Mid steady…"></div>
-      </article>
+        <span class="pill yellow">Yellow</span>
+      </div>
+      <p class="ans">Checklist shows 10 closes / ~$58.3k in the window (live sheet may read closer to ~$73k). Ads as % of sales is over the ceiling either way. Sales rebound is not a CallRail lead flood.</p>
+      <p class="dig-if"><strong>Dig here if…</strong> Mid leads hold but sales fall · ads % of sales &gt;5% · cost per CallRail closed sale by campaign worsens · closer capacity strain with rising leads.</p>
+      <div class="metrics">
+        <div class="metric"><div class="lab">Closed sales</div><div class="val">10</div><div class="delta">checklist Aug 29–Sep 7</div></div>
+        <div class="metric"><div class="lab">Revenue</div><div class="val">~$58–73k</div><div class="delta">reconcile live sheet Sep 13</div></div>
+        <div class="metric"><div class="lab">Ads % of sales</div><div class="val">~6–7%</div><div class="delta">ceiling 5% · target 3–4%</div></div>
+        <div class="metric"><div class="lab">Calls→sales proxy</div><div class="val">10 ÷ 17</div><div class="delta">not qualified-based</div></div>
+      </div>
+    </article>
 
-      <article class="stage margin" id="stage-margin">
-        <div class="head-row">
-          <div>
-            <h2>Margin · Payment &amp; discount</h2>
-            <span class="role">Prefer check / ACH / Zelle · avoid Affirm drag</span>
-          </div>
-          <span class="pill unknown" data-status="margin">Unknown</span>
+    <article class="stage">
+      <div class="top">
+        <div>
+          <h2>Margin · Bucket before pour</h2>
+          <p class="q">Is margin leaking after the sale?</p>
         </div>
-        <div class="metrics">
-          <div class="metric">
-            <div class="label">Check / ACH / Zelle share</div>
-            <div class="value" data-metric="preferred_pay_share">—</div>
-            <div class="delta" data-metric-delta="preferred_pay_share">of closes in window</div>
-          </div>
-          <div class="metric">
-            <div class="label">Affirm / financing share</div>
-            <div class="value" data-metric="financing_share">—</div>
-            <div class="delta" data-metric-delta="financing_share">of closes in window</div>
-          </div>
-          <div class="metric">
-            <div class="label">Discount exceptions</div>
-            <div class="value" data-metric="discount_exceptions">—</div>
-            <div class="delta" data-metric-delta="discount_exceptions">stacked / off-script</div>
-          </div>
-          <div class="metric">
-            <div class="label">Fee drag (if known)</div>
-            <div class="value" data-metric="fee_drag">—</div>
-            <div class="delta" data-metric-delta="fee_drag">fees ÷ gross — leave — if not pulled</div>
-          </div>
-        </div>
-        <div class="cos-note" data-cos-note contenteditable="true" data-placeholder="CoS note: warranty-for-check offers made? promo live?"></div>
-      </article>
+        <span class="pill unknown">Unknown</span>
+      </div>
+      <p class="ans">Not pulled this run. Planner still cares: refunds &lt;~5%, payment fees down, check/ACH/Zelle over Affirm.</p>
+      <p class="dig-if"><strong>Dig here if…</strong> refund rate climbing · Affirm/financing share up · check/ACH/Zelle share down · fee drag / NMAP soft · warranty-for-check offers not happening.</p>
+      <div class="metrics">
+        <div class="metric"><div class="lab">Check/ACH/Zelle</div><div class="val">—</div><div class="delta">pull next run</div></div>
+        <div class="metric"><div class="lab">Affirm / financing</div><div class="val">—</div><div class="delta">pull next run</div></div>
+        <div class="metric"><div class="lab">Refunds / sales</div><div class="val">—</div><div class="delta">target &lt;~5%</div></div>
+        <div class="metric"><div class="lab">Fee drag</div><div class="val">—</div><div class="delta">aim fees/gross ~2%</div></div>
+      </div>
+    </article>
 
-    </div>
-
-    <div class="hint">
-      <strong>Decision rules (short):</strong> TOF+Mid steady → dig process (BOF). Traffic down → dig Ads/YT. TOF steady but leads down → dig Mid capture. Answer/abandon bad → RC + AC leak tests (Ruth). Sales OK but margin soft → payment mix + discount discipline.
+    <div class="legend">
+      <strong>How to read this board (Planner rules):</strong>
+      (1) Scale without payback — spend/YT up but CallRail qualified leads &amp; closed sales don’t.
+      (2) Localize the drop — sales → clicks → which campaign.
+      (3) Answer leaks — abandoned / AC / Ruth tests / RC routing.
+      (4) Bucket before pour — refunds + payment mix.
+      (5) Guardrails — ads ≤5% of sales (target 3–4%); MER~10 only if NI grows; cost/closed sale by campaign.
+      (6) Log concurrent changes (bid cuts, new campaigns, routing) so you don’t blame the wrong stage.
       <br/><br/>
-      Playbook: see repo <code>PROCESS.md</code> · Live log:
+      Playbook + live log:
       <a href="https://docs.google.com/document/d/1rYekaYPpaQG6u83GS2DtrXguzEG2BXEvil_9eXlUc4Q/edit" target="_blank" rel="noopener">EMC Planner</a>
-      · Checklist sheet <code>19cWkmcUCmANzLIa1RsAPxATVQ_T0sgCTrKh9CRdKcSk</code>
+      · Checklist <code>19cWkmcUCmANzLIa1RsAPxATVQ_T0sgCTrKh9CRdKcSk</code>
     </div>
-    <p class="footer-meta">EMC Funnel glance · 2026-09-08-run1 · Run filled 2026-09-08 ET · Last 10d Aug 29–Sep 7 · Prior Aug 19–28</p>
+    <p class="footer">EMC Funnel notice-v2 · filled Sep 8, 2026 ET · concurrent: Vin lowered many bids Sep 8</p>
   </div>
-  <script>
-    (function () {
-      // Soft local edits for CoS glance fills; not a backend.
-      document.querySelectorAll('[data-edit],[data-cos-note]').forEach(function (el) {
-        el.addEventListener('blur', function () { /* keep editable */ });
-      });
-    })();
-  </script>
 </body>
 </html>
