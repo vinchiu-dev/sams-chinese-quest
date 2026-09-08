@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="emc-funnel-version" content="2026-09-08-v1"/>
+<title>EMC Funnel · 10-day audit</title>
+<style>
+  :root {
+    --blue-deep: #001a9e;
+    --blue-rich: #0126de;
+    --pink: #e018cf;
+    --pink-hot: #ff2ec8;
+    --green: #1fc41a;
+    --green-soft: #d8ffd6;
+    --green-border: #4ae045;
+    --green-ink: #0f8a0c;
+    --yellow: #e6c200;
+    --yellow-soft: #fff4a8;
+    --yellow-ink: #7a6200;
+    --red: #e11d48;
+    --red-soft: #ffe4e8;
+    --red-ink: #9f1239;
+    --unknown: #94a3b8;
+    --unknown-soft: #e2e8f0;
+    --unknown-ink: #475569;
+    --card: rgba(255,255,255,.94);
+    --ink: #0b1220;
+    --muted: #334155;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    background:
+      radial-gradient(900px 520px at 0% 0%, rgba(1,38,222,.55) 0%, transparent 55%),
+      radial-gradient(860px 480px at 100% 15%, rgba(224,24,207,.45) 0%, transparent 52%),
+      radial-gradient(700px 420px at 50% 110%, rgba(255,46,200,.28) 0%, transparent 48%),
+      linear-gradient(165deg, #001a9e 0%, #0a2ad8 38%, #9b18d4 72%, #e018cf 100%);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 28px 18px 72px; }
+  .hero {
+    border-radius: 22px; padding: 18px 18px 16px;
+    background: linear-gradient(135deg, #001a9e 0%, #0126de 42%, #c218d8 78%, #e018cf 100%);
+    color: #fff; box-shadow: 0 16px 40px rgba(0,26,158,.35);
+    border: 1px solid rgba(230,194,0,.35);
+    margin-bottom: 18px;
+  }
+  .hero h1 { margin: 0; font-size: 26px; letter-spacing: -.04em; line-height: 1.15; }
+  .hero h1::after {
+    content: ""; display: inline-block; width: 10px; height: 10px; margin-left: 10px;
+    border-radius: 999px; background: var(--yellow); box-shadow: 0 0 0 3px rgba(230,194,0,.25);
+    vertical-align: middle;
+  }
+  .hero .sub { margin: 10px 0 0; color: rgba(255,255,255,.92); font-size: 14px; line-height: 1.45; }
+  .meta {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; align-items: center;
+  }
+  .chip {
+    font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 999px;
+    background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.28); color: #fff;
+  }
+  .chip strong { color: var(--yellow-soft); font-weight: 800; }
+  .section {
+    margin: 22px 0 10px; font-size: 11px; font-weight: 800;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--yellow);
+    text-shadow: 0 1px 2px rgba(0,0,0,.25);
+  }
+  .leak {
+    background: linear-gradient(160deg, rgba(255,255,255,.96) 0%, rgba(255,244,168,.55) 100%);
+    border: 1px solid rgba(230,194,0,.55); border-radius: 20px;
+    padding: 16px 18px; box-shadow: 0 10px 28px rgba(0,26,158,.18);
+    margin-bottom: 8px;
+  }
+  .leak h2 { margin: 0 0 6px; font-size: 18px; letter-spacing: -.02em; }
+  .leak p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.45; }
+  .stages { display: grid; gap: 12px; }
+  .stage {
+    background: var(--card); border: 1px solid rgba(255,255,255,.55); border-radius: 20px;
+    padding: 16px 16px 14px; box-shadow: 0 10px 28px rgba(0,26,158,.18);
+    backdrop-filter: blur(8px);
+  }
+  .stage.tof { border-left: 5px solid var(--blue-rich); }
+  .stage.mid { border-left: 5px solid #ff7a18; }
+  .stage.bof { border-left: 5px solid #7c3aed; }
+  .stage.margin { border-left: 5px solid var(--pink); }
+  .head-row {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; margin: 0 0 10px;
+  }
+  .head-row h2 {
+    margin: 0; font-size: 18px; letter-spacing: -.03em;
+  }
+  .head-row .role {
+    display: block; margin-top: 2px; font-size: 12px; font-weight: 600; color: var(--muted);
+  }
+  .pill {
+    flex: 0 0 auto;
+    font-size: 11px; font-weight: 800; padding: 5px 10px; border-radius: 999px;
+    background: var(--unknown-soft); color: var(--unknown-ink); border: 1px solid #cbd5e1;
+    user-select: none;
+  }
+  .pill.green { background: var(--green-soft); color: var(--green-ink); border-color: var(--green-border); }
+  .pill.yellow { background: var(--yellow-soft); color: var(--yellow-ink); border-color: #f0d84a; }
+  .pill.red { background: var(--red-soft); color: var(--red-ink); border-color: #fb7185; }
+  .pill.unknown { background: var(--unknown-soft); color: var(--unknown-ink); border-color: #cbd5e1; }
+  .metrics {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  }
+  @media (max-width: 720px) {
+    .metrics { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 22px; }
+  }
+  .metric {
+    background: linear-gradient(90deg, rgba(255,255,255,.9), rgba(255,244,168,.28));
+    border: 1px solid rgba(230,194,0,.28); border-radius: 14px; padding: 10px 12px;
+  }
+  .metric .label {
+    font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: #64748b;
+  }
+  .metric .value {
+    margin-top: 4px; font-size: 16px; font-weight: 800; letter-spacing: -.02em; color: var(--ink);
+  }
+  .metric .delta {
+    margin-top: 2px; font-size: 12px; color: var(--muted);
+  }
+  .cos-note {
+    margin-top: 10px;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #64748b;
+    font-weight: 500;
+    min-height: 1.4em;
+    border-radius: 8px;
+    outline: none;
+  }
+  .cos-note:empty::before {
+    content: attr(data-placeholder);
+    color: #94a3b8;
+    font-style: italic;
+  }
+  [data-edit]:focus, .cos-note:focus {
+    box-shadow: 0 0 0 2px rgba(230,194,0,.55);
+    background: rgba(255,255,255,.85);
+  }
+  .flow {
+    display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+    margin: 8px 0 18px; color: #fff; font-size: 12px; font-weight: 800; letter-spacing: .06em;
+    text-transform: uppercase; text-shadow: 0 1px 2px rgba(0,0,0,.25);
+  }
+  .flow span.arrow { opacity: .7; }
+  .hint {
+    margin-top: 22px; padding: 14px 16px; border-radius: 14px;
+    background: linear-gradient(90deg, rgba(1,38,222,.18), rgba(224,24,207,.18));
+    color: #fff; font-size: 13px; line-height: 1.45;
+    border: 1px solid rgba(230,194,0,.4);
+    text-shadow: 0 1px 2px rgba(0,0,0,.25);
+  }
+  .hint a { color: var(--yellow-soft); font-weight: 700; }
+  .hint strong { color: var(--yellow-soft); }
+  .footer-meta {
+    margin-top: 14px; font-size: 11px; color: rgba(255,255,255,.75); text-align: center;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <h1>EMC Funnel · 10-day audit</h1>
+      <p class="sub">TOF → Mid → BOF → Margin. Fill pills from live pulls only — no invented numbers. CoS notes are editable locally.</p>
+      <div class="meta">
+        <span class="chip">Last run: <strong id="last-run-date" data-edit>Not run yet</strong></span>
+        <span class="chip">Windows: <strong id="windows-label" data-edit>Set last 10d / prior 10d</strong></span>
+        <span class="chip">Version <strong>2026-09-08-v1</strong></span>
+      </div>
+    </header>
+
+    <div class="flow">
+      <span>TOF</span><span class="arrow">→</span>
+      <span>Mid</span><span class="arrow">→</span>
+      <span>BOF</span><span class="arrow">→</span>
+      <span>Margin</span>
+    </div>
+
+    <section class="leak" id="leak-callout">
+      <h2>Where’s the leak?</h2>
+      <p id="leak-text" data-edit contenteditable="true">Unknown until first run — pull TOF → Mid → BOF → Margin, then one sentence here.</p>
+      <div class="cos-note" data-cos-note contenteditable="true" data-placeholder="CoS note: decision rule used, blockers, next pull…"></div>
+    </section>
+
+    <div class="section">Stages</div>
+    <div class="stages">
+
+      <article class="stage tof" id="stage-tof">
+        <div class="head-row">
+          <div>
+            <h2>TOF · Top of funnel</h2>
+            <span class="role">Google Ads · GA4 · YouTube Studio</span>
+          </div>
+          <span class="pill unknown" data-status="tof">Unknown</span>
+        </div>
+        <div class="metrics">
+          <div class="metric">
+            <div class="label">Ads spend</div>
+            <div class="value" data-metric="ads_spend">—</div>
+            <div class="delta" data-metric-delta="ads_spend">vs prior 10d: —</div>
+          </div>
+          <div class="metric">
+            <div class="label">Ads clicks</div>
+            <div class="value" data-metric="ads_clicks">—</div>
+            <div class="delta" data-metric-delta="ads_clicks">vs prior 10d: —</div>
+          </div>
+          <div class="metric">
+            <div class="label">GA4 sessions</div>
+            <div class="value" data-metric="ga4_sessions">—</div>
+            <div class="delta" data-metric-delta="ga4_sessions">vs prior 10d: —</div>
+          </div>
+          <div class="metric">
+            <div class="label">YT watch hours</div>
+            <div class="value" data-metric="yt_watch_hours">—</div>
+            <div class="delta" data-metric-delta="yt_watch_hours">vs prior 10d / YoY: —</div>
+          </div>
+        </div>
+        <div class="cos-note" data-cos-note contenteditable="true" data-placeholder="CoS note: channel mix, tracking breaks, spend jumps…"></div>
+      </article>
+
+      <article class="stage mid" id="stage-mid">
+        <div class="head-row">
+          <div>
+            <h2>Mid · Capture &amp; answer</h2>
+            <span class="role">Leads / calls / chats · CallRail · RC · Answer Connect</span>
+          </div>
+          <span class="pill unknown" data-status="mid">Unknown</span>
+        </div>
+        <div class="metrics">
+          <div class="metric">
+            <div class="label">CallRail calls</div>
+            <div class="value" data-metric="callrail_calls">—</div>
+            <div class="delta" data-metric-delta="callrail_calls">qualified: —</div>
+          </div>
+          <div class="metric">
+            <div class="label">RC answered / abandoned</div>
+            <div class="value" data-metric="rc_answer_abandon">—</div>
+            <div class="delta" data-metric-delta="rc_answer_abandon">overflow / AC: —</div>
+          </div>
+          <div class="metric">
+            <div class="label">Chats / forms</div>
+            <div class="value" data-metric="chats_forms">—</div>
+            <div class="delta" data-metric-delta="chats_forms">vs prior 10d: —</div>
+          </div>
+          <div class="metric">
+            <div class="label">AC leak tests</div>
+            <div class="value" data-metric="ac_leak">—</div>
+            <div class="delta" data-metric-delta="ac_leak">Ruth test batch: —</div>
+          </div>
+        </div>
+        <div class="cos-note" data-cos-note contenteditable="true" data-placeholder="CoS note: tagging %, routing, AC miss rate…"></div>
+      </article>
+
+      <article class="stage bof" id="stage-bof">
+        <div class="head-row">
+          <div>
+            <h2>BOF · Conversion to sales</h2>
+            <span class="role">Business Checklist · CallRail closed · closer capacity</span>
+          </div>
+          <span class="pill unknown" data-status="bof">Unknown</span>
+        </div>
+        <div class="metrics">
+          <div class="metric">
+            <div class="label">Closed sales</div>
+            <div class="value" data-metric="closed_sales">—</div>
+            <div class="delta" data-metric-delta="closed_sales">vs prior 10d: —</div>
+          </div>
+          <div class="metric">
+            <div class="label">Revenue</div>
+            <div class="value" data-metric="revenue">—</div>
+            <div class="delta" data-metric-delta="revenue">vs prior 10d: —</div>
+          </div>
+          <div class="metric">
+            <div class="label">Close rate proxy</div>
+            <div class="value" data-metric="close_rate">—</div>
+            <div class="delta" data-metric-delta="close_rate">sales ÷ qualified / answered</div>
+          </div>
+          <div class="metric">
+            <div class="label">Capacity note</div>
+            <div class="value" data-metric="capacity">—</div>
+            <div class="delta" data-metric-delta="capacity">closers on shift</div>
+          </div>
+        </div>
+        <div class="cos-note" data-cos-note contenteditable="true" data-placeholder="CoS note: process dig if TOF/Mid steady…"></div>
+      </article>
+
+      <article class="stage margin" id="stage-margin">
+        <div class="head-row">
+          <div>
+            <h2>Margin · Payment &amp; discount</h2>
+            <span class="role">Prefer check / ACH / Zelle · avoid Affirm drag</span>
+          </div>
+          <span class="pill unknown" data-status="margin">Unknown</span>
+        </div>
+        <div class="metrics">
+          <div class="metric">
+            <div class="label">Check / ACH / Zelle share</div>
+            <div class="value" data-metric="preferred_pay_share">—</div>
+            <div class="delta" data-metric-delta="preferred_pay_share">of closes in window</div>
+          </div>
+          <div class="metric">
+            <div class="label">Affirm / financing share</div>
+            <div class="value" data-metric="financing_share">—</div>
+            <div class="delta" data-metric-delta="financing_share">of closes in window</div>
+          </div>
+          <div class="metric">
+            <div class="label">Discount exceptions</div>
+            <div class="value" data-metric="discount_exceptions">—</div>
+            <div class="delta" data-metric-delta="discount_exceptions">stacked / off-script</div>
+          </div>
+          <div class="metric">
+            <div class="label">Fee drag (if known)</div>
+            <div class="value" data-metric="fee_drag">—</div>
+            <div class="delta" data-metric-delta="fee_drag">fees ÷ gross — leave — if not pulled</div>
+          </div>
+        </div>
+        <div class="cos-note" data-cos-note contenteditable="true" data-placeholder="CoS note: warranty-for-check offers made? promo live?"></div>
+      </article>
+
+    </div>
+
+    <div class="hint">
+      <strong>Decision rules (short):</strong> TOF+Mid steady → dig process (BOF). Traffic down → dig Ads/YT. TOF steady but leads down → dig Mid capture. Answer/abandon bad → RC + AC leak tests (Ruth). Sales OK but margin soft → payment mix + discount discipline.
+      <br/><br/>
+      Playbook: see repo <code>PROCESS.md</code> · Live log:
+      <a href="https://docs.google.com/document/d/1rYekaYPpaQG6u83GS2DtrXguzEG2BXEvil_9eXlUc4Q/edit" target="_blank" rel="noopener">EMC Planner</a>
+      · Checklist sheet <code>19cWkmcUCmANzLIa1RsAPxATVQ_T0sgCTrKh9CRdKcSk</code>
+    </div>
+    <p class="footer-meta">EMC Funnel glance · 2026-09-08-v1 · pills default Unknown until CoS fills a run</p>
+  </div>
+  <script>
+    (function () {
+      // Soft local edits for CoS glance fills; not a backend.
+      document.querySelectorAll('[data-edit],[data-cos-note]').forEach(function (el) {
+        el.addEventListener('blur', function () { /* keep editable */ });
+      });
+    })();
+  </script>
+</body>
+</html>
