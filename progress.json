@@ -130,6 +130,13 @@
       "pinyin": "lǜ píng lán zhīzhū",
       "hanzi": "绿瓶蓝蜘蛛",
       "emoji": "🕷️"
+    },
+    {
+      "en": "Wrestling",
+      "pinyin": "",
+      "hanzi": "",
+      "emoji": "📝",
+      "needsDef": true
     }
   ],
   "en_myWords": [
@@ -2057,11 +2064,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788900572492,
+  "trouble_at": 1788900582578,
   "pool_at": 1788900572479,
-  "starredSentences_at": 1788900572492,
-  "hiddenWords_at": 1788900572479,
-  "archived_at": 1788900572492,
+  "starredSentences_at": 1788900582578,
+  "hiddenWords_at": 1788900572492,
+  "archived_at": 1788900582578,
   "en_starred_at": 1788900564898,
   "chips": 13
 }
