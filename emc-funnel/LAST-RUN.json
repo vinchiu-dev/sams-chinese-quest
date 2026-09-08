@@ -1,14 +1,14 @@
 {
   "version": "2026-09-08-v1",
-  "last_run_at_et": null,
+  "last_run_at_et": "2026-09-08T17:01:00-04:00",
   "windows": {
     "last_10d": {
-      "start_et": null,
-      "end_et": null
+      "start_et": "2026-08-29",
+      "end_et": "2026-09-07"
     },
     "prior_10d": {
-      "start_et": null,
-      "end_et": null
+      "start_et": "2026-08-19",
+      "end_et": "2026-08-28"
     },
     "yoy_10d": {
       "start_et": null,
@@ -17,34 +17,57 @@
     }
   },
   "statuses": {
-    "tof": "Unknown",
-    "mid": "Unknown",
-    "bof": "Unknown",
+    "tof": "Yellow",
+    "mid": "Yellow",
+    "bof": "Yellow",
     "margin": "Unknown"
   },
-  "leak_callout": null,
+  "leak_callout": "Spend +55% vs prior 10d; Ads conv 5 vs 11; CallRail calls flat 17 vs 16; checklist sales ~$58.3k \u2192 ads 6.96% of sales (over 5%). Bid cuts applied Sep 8 \u2014 recheck Sep 9\u201312 on Sep 13. Dig Mid\u2192BOF tagging/close + spend pace.",
   "concurrent_changes": [],
   "tof": {
-    "ads_spend": null,
-    "ads_clicks": null,
-    "ads_impressions": null,
-    "ads_cpc": null,
-    "ads_conversions": null,
-    "ads_cost_per_conversion": null,
+    "ads_spend": 4061.22,
+    "ads_clicks": 5817,
+    "ads_impressions": 86054,
+    "ads_cpc": 0.7,
+    "ads_conversions": 5,
+    "ads_cost_per_conversion": 812.24,
     "ga4_sessions": null,
-    "ga4_users": null,
+    "ga4_users": 64000,
     "yt_watch_hours": null,
     "yt_views": null,
     "yt_shopping_clicks": null,
-    "deltas_vs_prior_10d": {},
+    "deltas_vs_prior_10d": {
+      "ads_spend_pct": 54.6,
+      "ads_conversions_delta": -6,
+      "ads_cpc_delta": 0.03
+    },
     "deltas_vs_yoy_10d": {},
-    "cos_note": null,
-    "sources_pulled": []
+    "cos_note": "Spend +55% vs prior 10d; conversions 5 vs 11; CPC flat. Visible campaigns Search. GA4 ~64k active users last 10d (sessions/prior incomplete).",
+    "sources_pulled": [
+      "google_ads",
+      "ga4_partial"
+    ],
+    "prior_10d": {
+      "ads_spend": 2626.47,
+      "ads_clicks": 4096,
+      "ads_impressions": 78269,
+      "ads_ctr": 5.23,
+      "ads_cpc": 0.67,
+      "ads_conversions": 11,
+      "ads_cost_per_conversion": 238.77
+    }
   },
   "mid": {
-    "callrail_calls": null,
+    "callrail_calls": 17,
     "callrail_qualified": null,
-    "callrail_by_source": {},
+    "callrail_by_source": {
+      "google_ads": 6,
+      "zendesk_chat_website": 4,
+      "google_organic": 3,
+      "safe_menlosecurity": 2,
+      "direct": 1,
+      "easymassagechairs_com": 1
+    },
     "rc_inbound": null,
     "rc_answered": null,
     "rc_abandoned": null,
@@ -56,17 +79,33 @@
     "ruth_test_calls": null,
     "ruth_test_ac_misses": null,
     "callrail_tagging_pct": null,
-    "cos_note": null,
-    "sources_pulled": []
+    "cos_note": "Calls flat 17 vs 16 prior while Ads spend +55%. Ads-attributed calls 6 vs 3. Tagging nearly empty (1 Existing Customer in prior; Sale Closed empty). Qualified not reliably distinct from Total.",
+    "sources_pulled": [
+      "callrail"
+    ],
+    "prior_10d": {
+      "callrail_calls": 16,
+      "callrail_by_source": {
+        "direct": 5,
+        "google_ads": 3,
+        "google_organic": 3,
+        "youtube_organic": 3,
+        "bing_organic": 1,
+        "zendesk_chat_website": 1
+      }
+    }
   },
   "bof": {
-    "closed_sales": null,
-    "revenue": null,
+    "closed_sales": 10,
+    "revenue": 58305.96,
     "close_rate_vs_qualified": null,
-    "close_rate_vs_answered": null,
+    "close_rate_vs_answered": 0.588,
     "closer_capacity_note": null,
-    "cos_note": null,
-    "sources_pulled": []
+    "cos_note": "Business Checklist CSV (local export ~1:10pm ET Sep 8): 10 non-cancelled Sale>0 rows Aug 29\u2013Sep 7 = $58,305.96. Ads Cost $4,061 / sales = 6.96% (over 5% ceiling; target 3\u20134%). CallRail Sale Closed empty \u2014 using checklist not Ads conv.",
+    "sources_pulled": [
+      "business_checklist_csv"
+    ],
+    "ads_pct_of_sales": 6.96
   },
   "margin": {
     "preferred_pay_share": null,
@@ -86,7 +125,13 @@
     "cos_note": null,
     "sources_pulled": []
   },
-  "blockers": [],
+  "blockers": [
+    "YT Studio not pulled",
+    "RC/AC answer rates not pulled",
+    "Margin/payment mix not pulled",
+    "Brands/PMax/Static mix pending if Ads session drops",
+    "Checklist CSV may lag live sheet"
+  ],
   "planner_note_pasted": false,
   "dashboard_published_url": "https://vinchiu-dev.github.io/sams-chinese-quest/emc-funnel/"
 }
