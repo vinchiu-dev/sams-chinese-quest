@@ -1,0 +1,82 @@
+{
+  "version": "2026-09-08-v1",
+  "last_run_at_et": null,
+  "windows": {
+    "last_10d": { "start_et": null, "end_et": null },
+    "prior_10d": { "start_et": null, "end_et": null },
+    "yoy_10d": { "start_et": null, "end_et": null, "pulled": false }
+  },
+  "statuses": {
+    "tof": "Unknown",
+    "mid": "Unknown",
+    "bof": "Unknown",
+    "margin": "Unknown"
+  },
+  "leak_callout": null,
+  "concurrent_changes": [],
+  "tof": {
+    "ads_spend": null,
+    "ads_clicks": null,
+    "ads_impressions": null,
+    "ads_cpc": null,
+    "ads_conversions": null,
+    "ads_cost_per_conversion": null,
+    "ga4_sessions": null,
+    "ga4_users": null,
+    "yt_watch_hours": null,
+    "yt_views": null,
+    "yt_shopping_clicks": null,
+    "deltas_vs_prior_10d": {},
+    "deltas_vs_yoy_10d": {},
+    "cos_note": null,
+    "sources_pulled": []
+  },
+  "mid": {
+    "callrail_calls": null,
+    "callrail_qualified": null,
+    "callrail_by_source": {},
+    "rc_inbound": null,
+    "rc_answered": null,
+    "rc_abandoned": null,
+    "rc_overflow_answered": null,
+    "chats": null,
+    "forms": null,
+    "ac_handled": null,
+    "ac_miss_rate_test": null,
+    "ruth_test_calls": null,
+    "ruth_test_ac_misses": null,
+    "callrail_tagging_pct": null,
+    "cos_note": null,
+    "sources_pulled": []
+  },
+  "bof": {
+    "closed_sales": null,
+    "revenue": null,
+    "close_rate_vs_qualified": null,
+    "close_rate_vs_answered": null,
+    "closer_capacity_note": null,
+    "cos_note": null,
+    "sources_pulled": []
+  },
+  "margin": {
+    "preferred_pay_share": null,
+    "financing_share": null,
+    "payment_mix": {
+      "check": null,
+      "ach_bank": null,
+      "zelle": null,
+      "card": null,
+      "paypal": null,
+      "affirm_financing": null,
+      "other": null
+    },
+    "discount_exceptions": null,
+    "fee_drag_pct": null,
+    "warranty_for_check_offers_noted": null,
+    "cos_note": null,
+    "sources_pulled": []
+  },
+  "blockers": [],
+  "planner_note_pasted": false,
+  "dashboard_published_url": null
+}
