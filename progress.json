@@ -141,34 +141,6 @@
       "needsDef": true
     },
     {
-      "word": "Murmur",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Swell",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Knapsack",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Compass",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
       "word": "coincide",
       "definition": "(definition coming — ask Claude to fill this in)",
       "example": "",
@@ -2085,11 +2057,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1788714424798,
-  "pool_at": 1788714424797,
-  "starredSentences_at": 1788714424798,
-  "hiddenWords_at": 1788706717792,
-  "archived_at": 1788714424798,
-  "en_starred_at": 1788381593009,
+  "trouble_at": 1788883466541,
+  "pool_at": 1788883466245,
+  "starredSentences_at": 1788883466541,
+  "hiddenWords_at": 1788883466542,
+  "archived_at": 1788883466541,
+  "en_starred_at": 1788883467032,
   "chips": 13
 }
