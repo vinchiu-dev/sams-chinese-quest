@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-09-08",
+  "updated": "2026-09-09",
   "lists": [
     {
       "id": "en-starter-1",
@@ -578,6 +578,96 @@
           "definition": "to walk with difficulty, often because something hurts",
           "example": "After he stubbed his toe, he had to hobble to the chair.",
           "emoji": "🤕"
+        },
+        {
+          "word": "carbohydrate",
+          "definition": "a main quick fuel in foods like bread, rice, fruit, and oatmeal",
+          "example": "Oatmeal is rich in carbohydrate that gives lasting go-power for tag.",
+          "emoji": "🍞"
+        },
+        {
+          "word": "protein",
+          "definition": "building material in food that helps repair and grow muscle",
+          "example": "Eggs and beans give protein that helps muscles recover after play.",
+          "emoji": "🥚"
+        },
+        {
+          "word": "fiber",
+          "definition": "the tough plant part that helps you feel full and slows a sugar rush",
+          "example": "An apple with the skin has fiber that slows how fast sugar hits your blood.",
+          "emoji": "🌾"
+        },
+        {
+          "word": "calorie",
+          "definition": "a unit that measures how much energy a food can give",
+          "example": "A calorie is a unit of energy — some foods pack more calories in a small bite.",
+          "emoji": "🔢"
+        },
+        {
+          "word": "stamina",
+          "definition": "energy that lasts through a long game or task",
+          "example": "Good fuel gives you stamina to finish the whole soccer game.",
+          "emoji": "🔋"
+        },
+        {
+          "word": "hydrate",
+          "definition": "to give your body enough water so it can work well",
+          "example": "Drink water after tag so you hydrate and keep your cells working.",
+          "emoji": "💧"
+        },
+        {
+          "word": "cavity",
+          "definition": "a hole in a tooth made over time by acid from mouth germs",
+          "example": "Frequent sugary sips can help cause a cavity in a tooth.",
+          "emoji": "🦷"
+        },
+        {
+          "word": "plaque",
+          "definition": "a sticky film of germs and leftovers on teeth",
+          "example": "Brushing helps wipe away plaque before it harms enamel.",
+          "emoji": "🪥"
+        },
+        {
+          "word": "portion",
+          "definition": "how much of a food you take at one time",
+          "example": "A small portion of chips can be a sometimes food.",
+          "emoji": "🍽️"
+        },
+        {
+          "word": "sodium",
+          "definition": "a part of salt; bodies need a little, not a huge everyday pile",
+          "example": "Many packaged snacks are high in sodium, which can make you thirsty.",
+          "emoji": "🧂"
+        },
+        {
+          "word": "balanced",
+          "definition": "giving the body more than one kind of help at once",
+          "example": "A balanced plate has vegetables, grains, and protein together.",
+          "emoji": "⚖️"
+        },
+        {
+          "word": "variety",
+          "definition": "using different foods and colors so more nutrients show up",
+          "example": "Eating a variety of colorful vegetables brings different helpers.",
+          "emoji": "🌈"
+        },
+        {
+          "word": "label",
+          "definition": "the facts panel on a package that lists servings, sugars, and more",
+          "example": "Read the nutrition label to compare added sugars in two yogurts.",
+          "emoji": "🏷️"
+        },
+        {
+          "word": "serving",
+          "definition": "the amount listed on a label that the numbers refer to",
+          "example": "Check the serving size before you trust the sugar number.",
+          "emoji": "📏"
+        },
+        {
+          "word": "recover",
+          "definition": "to repair and refill after hard play or exercise",
+          "example": "After soccer, a snack with carbs and protein helps you recover.",
+          "emoji": "🩹"
         }
       ]
     }
