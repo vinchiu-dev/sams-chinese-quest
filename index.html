@@ -733,6 +733,7 @@ const SYNC_KEYS = {
   dayCount: {}, spokenCount: {}, wordOfDay: null,
   goalClaimed: "", wodDone: "", spokenClaimed: "",
   // preferences that should follow the child between devices
+  math_missed: [],
   math_sets: ["add10"], car_deck: "math", car_gap: 6, car_len: 12, pool: null,
   soundOn: true, zh_slow: false, freezes: [],
 };
@@ -751,7 +752,7 @@ const bumpProgress = () => { _progressListeners.forEach((f) => { try { f(); } ca
 // For values where REMOVAL matters (unstarring a word, deselecting a lesson),
 // a union merge is wrong — it resurrects what you just removed. These carry a
 // timestamp and the most recently changed device wins the whole set.
-const TIMED_KEYS = ["trouble", "pool", "starredSentences", "hiddenWords", "archived", "en_starred"];
+const TIMED_KEYS = ["trouble", "pool", "starredSentences", "hiddenWords", "archived", "en_starred", "math_missed"];
 const stampKey = (k) => k + "_at";
 const saveTimed = (k, v) => { saveLS(k, v); saveLS(stampKey(k), Date.now()); };
 const timedAt = (k) => loadLS(stampKey(k), 0);
@@ -4511,6 +4512,8 @@ const playCelebrate = () => {
 // "gen" marks sets that need special generation rather than a plain a×b sweep.
 const MATH_SETS = [
   // --- the foundations: these are what "automaticity" actually means ---
+  { id: "bonds8",  title: "Make 8",           emoji: "8️⃣", op: "+", gen: "bond", total: 8,   group: "Foundations" },
+  { id: "bonds9",  title: "Make 9",           emoji: "9️⃣", op: "+", gen: "bond", total: 9,   group: "Foundations" },
   { id: "bonds10", title: "Make 10",          emoji: "🔟", op: "+", gen: "bond", total: 10,  group: "Foundations" },
   { id: "bonds20", title: "Make 20",          emoji: "🔟", op: "+", gen: "bond", total: 20,  group: "Foundations" },
   { id: "doubles", title: "Doubles (7+7)",    emoji: "👯", op: "+", gen: "double", max: 12,  group: "Foundations" },
@@ -4570,17 +4573,74 @@ const factsFor = (set) => {
   return out;
 };
 
+// Sep 9 schoolwork weak bonds — seed the missed pile once so Vin can drill them
+// without waiting for another wrong answer. Reverse forms included (natural for bonds).
+const DEFAULT_MATH_MISSED = [
+  "math:bond:9:3", "math:bond:9:6",   // 3+6=9 / 6+3=9
+  "math:bond:8:2", "math:bond:8:6",   // 2+6=8 / 6+2=8
+  "math:bond:8:1", "math:bond:8:7",   // 1+7=8 / 7+1=8
+];
+
+const loadMathMissed = () => {
+  const raw = loadLS("math_missed", null);
+  if (raw === null) {
+    saveTimed("math_missed", DEFAULT_MATH_MISSED.slice());
+    return DEFAULT_MATH_MISSED.slice();
+  }
+  return Array.isArray(raw) ? raw : [];
+};
+
+// Rebuild a fact from its SRS key so the missed pile works even when the
+// matching set chip isn't on — same idea as Chinese starring ignoring lessons.
+const factFromMathKey = (key) => {
+  if (!key || typeof key !== "string" || !key.startsWith("math:")) return null;
+  const parts = key.split(":");
+  if (parts.length < 4) return null;
+  const kind = parts[1];
+  const n1 = Number(parts[2]);
+  const n2 = Number(parts[3]);
+  if (!Number.isFinite(n1) || !Number.isFinite(n2)) return null;
+  if (kind === "bond") {
+    // math:bond:total:x  →  x + (total−x) = total
+    const total = n1, x = n2;
+    return { key, a: x, b: total - x, op: "+", ans: total };
+  }
+  if (kind === "+") return { key, a: n1, b: n2, op: "+", ans: n1 + n2 };
+  if (kind === "-") return { key, a: n1, b: n2, op: "-", ans: n1 - n2 };
+  if (kind === "*") return { key, a: n1, b: n2, op: "*", ans: n1 * n2 };
+  if (kind === "/") return { key, a: n1, b: n2, op: "/", ans: n2 ? Math.round(n1 / n2) : 0 };
+  return null;
+};
+
+const factsFromMissed = (missed) => {
+  const out = [];
+  const seen = new Set();
+  (missed || []).forEach((k) => {
+    if (seen.has(k)) return;
+    const f = factFromMathKey(k);
+    if (f) { seen.add(k); out.push(f); }
+  });
+  return out;
+};
+
+// Seed once at load so a Chinese/English sync can't push empty math_missed
+// before MathApp has ever mounted.
+try { loadMathMissed(); } catch (e) {}
+
 function MathApp({ onSwitchLang }) {
   const [screen, setScreen] = useState("home");
   useBackToMenu(screen, setScreen);
   const [sets, setSets] = useState(() => loadLS("math_sets", ["add10"]));
+  const [missed, setMissed] = useState(() => new Set(loadMathMissed()));
   const [syncStatus, setSyncStatus] = useState("");
 
   useEffect(() => { saveLS("math_sets", sets); syncAll(setSyncStatus); }, [sets]);
+  useEffect(() => { saveTimed("math_missed", [...missed]); syncAll(setSyncStatus); }, [missed]);
   useEffect(() => onProgressChange(() => syncAll(setSyncStatus)), []);
 
   const applyRemoteMath = React.useCallback(() => {
     setSets(loadLS("math_sets", ["add10"]));
+    setMissed(new Set(loadMathMissed()));
   }, []);
   useLiveSync(applyRemoteMath, setSyncStatus);
 
@@ -4591,6 +4651,7 @@ function MathApp({ onSwitchLang }) {
       markPulled();
       if (!remote) return;
       setSets(loadLS("math_sets", ["add10"]));
+      setMissed(new Set(loadMathMissed()));
       setSyncStatus("synced");
     });
   }, []);
@@ -4598,7 +4659,30 @@ function MathApp({ onSwitchLang }) {
   const toggleSet = (id) =>
     setSets((p) => (p.includes(id) ? p.filter((x) => x !== id) : [...p, id]));
 
+  const toggleMissed = (key) =>
+    setMissed((prev) => {
+      const n = new Set(prev);
+      n.has(key) ? n.delete(key) : n.add(key);
+      return n;
+    });
+
+  // add-only: games auto-collect facts Sam gets wrong (mirrors Chinese addTrouble)
+  const addMissed = (key) =>
+    setMissed((prev) => {
+      if (!key || prev.has(key)) return prev;
+      const n = new Set(prev);
+      n.add(key);
+      // soft cap so the pile stays drillable
+      if (n.size > 40) {
+        const arr = [...n];
+        return new Set(arr.slice(arr.length - 40));
+      }
+      return n;
+    });
+
   const facts = MATH_SETS.filter((s) => sets.includes(s.id)).flatMap(factsFor);
+  // Missed pile deliberately ignores which sets are selected — like Chinese starring.
+  const missedFacts = factsFromMissed([...missed]);
   const home = () => setScreen("home");
 
   return (
@@ -4620,7 +4704,8 @@ function MathApp({ onSwitchLang }) {
         </div>
 
         {screen === "home" && (
-          <MathHome sets={sets} toggleSet={toggleSet} count={facts.length} go={setScreen} />
+          <MathHome sets={sets} toggleSet={toggleSet} count={facts.length}
+            missedCount={missedFacts.length} go={setScreen} />
         )}
         {screen === "car" && (
           <React.Fragment><GameTitle>Car Mode</GameTitle>
@@ -4629,17 +4714,22 @@ function MathApp({ onSwitchLang }) {
         )}
         {screen === "quick" && (
           <React.Fragment><GameTitle>Quick Facts</GameTitle>
-          <MathQuick facts={facts} onHome={home} />
+          <MathQuick facts={facts} onHome={home} missed={missed} toggleMissed={toggleMissed} addMissed={addMissed} />
           </React.Fragment>
         )}
         {screen === "speed" && (
           <React.Fragment><GameTitle>Speed Round</GameTitle>
-          <MathSpeed facts={facts} onHome={home} />
+          <MathSpeed facts={facts} onHome={home} missed={missed} toggleMissed={toggleMissed} addMissed={addMissed} />
           </React.Fragment>
         )}
         {screen === "missing" && (
           <React.Fragment><GameTitle>Missing Number</GameTitle>
-          <MathMissing facts={facts} onHome={home} />
+          <MathMissing facts={facts} onHome={home} missed={missed} toggleMissed={toggleMissed} addMissed={addMissed} />
+          </React.Fragment>
+        )}
+        {screen === "missed" && (
+          <React.Fragment><GameTitle>Missed ones</GameTitle>
+          <MathQuick facts={missedFacts} onHome={home} missed={missed} toggleMissed={toggleMissed} addMissed={addMissed} onlyMissed />
           </React.Fragment>
         )}
         {screen === "compare" && (
@@ -4663,7 +4753,7 @@ function MathApp({ onSwitchLang }) {
   );
 }
 
-function MathHome({ sets, toggleSet, count, go }) {
+function MathHome({ sets, toggleSet, count, go, missedCount = 0 }) {
   const modes = [
     { id:"quick",   emoji:"⚡", name:"Quick Facts",   desc:"Type the answer",        color:"#7C5CE0" },
     { id:"speed",   emoji:"⏱️", name:"Speed Round",   desc:"How many in 60s?",       color:C.berry },
@@ -4701,6 +4791,29 @@ function MathHome({ sets, toggleSet, count, go }) {
         </div>
       </div>
 
+      {/* Missed / tricky pile — deliberate worksheet-miss drill, ignores set chips */}
+      <button
+        onClick={() => missedCount > 0 && go("missed")}
+        disabled={missedCount === 0}
+        style={{
+          ...modeBtn, width: "100%", marginBottom: 14, display: "flex", flexDirection: "row",
+          alignItems: "center", gap: 14, textAlign: "left", padding: "16px 18px",
+          background: missedCount > 0 ? "#FFF9EC" : "#fff", borderColor: C.sun,
+          opacity: missedCount === 0 ? 0.55 : 1,
+          cursor: missedCount === 0 ? "not-allowed" : "pointer",
+        }}
+      >
+        <span style={{ fontSize: 40 }}>⭐</span>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontWeight: 800, fontSize: 18 }}>Missed ones</div>
+          <div style={{ fontSize: 13, color: "#7a7391", marginTop: 2 }}>
+            {missedCount > 0
+              ? `${missedCount} tricky fact${missedCount === 1 ? "" : "s"} — drill just these`
+              : "none yet — wrong answers land here"}
+          </div>
+        </div>
+      </button>
+
       <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
         {modes.map((m) => (
           <button key={m.id} onClick={() => (m.always || !none) && go(m.id)} disabled={none && !m.always}
@@ -4721,9 +4834,10 @@ function MathHome({ sets, toggleSet, count, go }) {
   );
 }
 
-const FactCard = ({ f, children, border }) => (
-  <div style={{ background:"#fff", borderRadius:24, padding:"28px 20px", textAlign:"center",
+const FactCard = ({ f, children, border, star }) => (
+  <div style={{ position:"relative", background:"#fff", borderRadius:24, padding:"28px 20px", textAlign:"center",
     border:`4px solid ${border}`, boxShadow:`0 8px 0 rgba(124,92,224,0.25)` }}>
+    {star}
     <div style={{ fontSize:44, fontWeight:800, letterSpacing:1 }}>
       {f.a} {opSymbol[f.op]} {f.b}
     </div>
@@ -4732,7 +4846,7 @@ const FactCard = ({ f, children, border }) => (
 );
 
 // ---- Quick Facts: type the answer ----
-function MathQuick({ facts, onHome }) {
+function MathQuick({ facts, onHome, missed, toggleMissed, addMissed, onlyMissed }) {
   const advRef = useRef(null);
   const nextRef = useRef(() => {});
   useEffect(() => () => { if (advRef.current) clearTimeout(advRef.current); }, []);
@@ -4742,9 +4856,25 @@ function MathQuick({ facts, onHome }) {
   const [score, setScore] = useState(0);
   const [done, setDone] = useState(0);
 
+  // if the missed pile empties mid-session, fall back gracefully
+  useEffect(() => {
+    if (!facts.length) return;
+    if (f && facts.some((x) => x.key === f.key)) return;
+    setF(srsPick(facts, (x) => x.key) || facts[0]);
+    setEntry(""); setResult(null);
+  }, [facts]);
+
+  if (!facts.length) return <Center><div style={{fontSize:54}}>{onlyMissed ? "⭐" : "🔢"}</div>
+    <h2>{onlyMissed ? "No missed facts" : "No facts picked"}</h2>
+    <p style={{ color:"#7a7391", textAlign:"center", maxWidth:280 }}>
+      {onlyMissed ? "Wrong answers (and ⭐ taps) land here. Nice work clearing the pile!" : "Pick a set on the menu."}
+    </p>
+    <button onClick={onHome} style={{ ...bigBtn, background:"#7C5CE0", marginTop:16 }}>⬅ Back to menu</button></Center>;
+
   if (!f) return <Center><div style={{fontSize:54}}>🔢</div><h2>No facts picked</h2>
     <button onClick={onHome} style={{ ...bigBtn, background:"#7C5CE0", marginTop:16 }}>⬅ Back to menu</button></Center>;
 
+  const flagged = missed ? missed.has(f.key) : false;
   const check = () => {
     if (result) return;
     const ok = entry.trim() !== "" && Number(entry) === f.ans;
@@ -4752,6 +4882,7 @@ function MathQuick({ facts, onHome }) {
     setDone((d) => d + 1);
     if (ok) { setScore((s) => s + 1); playCorrect(score); } else playSoftMiss();
     srsRecord(f.key, ok);
+    if (!ok && addMissed) addMissed(f.key);
     recordEffort();
     // Correct answers roll straight on — a right answer needs no dwell time.
     // Wrong ones wait, so he actually reads the correct answer.
@@ -4766,9 +4897,10 @@ function MathQuick({ facts, onHome }) {
 
   return (
     <div>
-      <Progress value={score} total={Math.max(done,1)} label={`✅ ${score} / ${done}`} />
+      <Progress value={score} total={Math.max(done,1)} label={`✅ ${score} / ${done}${onlyMissed ? ` · ${facts.length} in pile` : ""}`} />
       <div style={{ marginTop:14 }}>
-        <FactCard f={f} border={result==="right"?C.leaf:result==="wrong"?"#F0A5A5":"#7C5CE0"}>
+        <FactCard f={f} border={result==="right"?C.leaf:result==="wrong"?"#F0A5A5": flagged ? C.sun : "#7C5CE0"}
+          star={toggleMissed ? <StarButton flagged={flagged} onClick={() => toggleMissed(f.key)} /> : null}>
           <input value={entry} onChange={(e)=>setEntry(e.target.value.replace(/[^0-9-]/g,""))}
             onKeyDown={(e)=>{ if(e.key==="Enter") result?next():check(); }}
             inputMode="numeric" placeholder="?" autoFocus
@@ -4794,7 +4926,7 @@ function MathQuick({ facts, onHome }) {
 }
 
 // ---- Speed Round: 60s, multiple choice (one effort per round) ----
-function MathSpeed({ facts, onHome }) {
+function MathSpeed({ facts, onHome, missed, toggleMissed, addMissed }) {
   const [phase, setPhase] = useState("ready");
   const [time, setTime] = useState(60);
   const [score, setScore] = useState(0);
@@ -4827,6 +4959,7 @@ function MathSpeed({ facts, onHome }) {
     setFlash(ok ? "right" : "wrong");
     if (ok) { setScore((s)=>s+1); playCorrect(score); } else playSoftMiss();
     srsRecord(round.q.key, ok);
+    if (!ok && addMissed) addMissed(round.q.key);
     const prev = round.q.key;
     setTimeout(()=>{ setFlash(null); setRound(build(prev)); }, 200);
   };
@@ -4857,8 +4990,10 @@ function MathSpeed({ facts, onHome }) {
         <Badge color="#7C5CE0">⭐ {score}</Badge>
         <div style={{ fontSize:30, fontWeight:800, color: time<=10 ? C.berry : C.ink }}>⏱️ {time}s</div>
       </div>
-      <div style={{ background: flash==="right"?"#EAF7F0":flash==="wrong"?"#FBE0E0":"#fff",
-        borderRadius:24, padding:"26px 20px", textAlign:"center", border:`4px solid ${C.berry}`, transition:"background 0.15s" }}>
+      <div style={{ position:"relative", background: flash==="right"?"#EAF7F0":flash==="wrong"?"#FBE0E0":"#fff",
+        borderRadius:24, padding:"26px 20px", textAlign:"center",
+        border:`4px solid ${(missed && missed.has(round.q.key)) ? C.sun : C.berry}`, transition:"background 0.15s" }}>
+        {toggleMissed && <StarButton flagged={missed && missed.has(round.q.key)} onClick={() => toggleMissed(round.q.key)} />}
         <div style={{ fontSize:44, fontWeight:800 }}>{round.q.a} {opSymbol[round.q.op]} {round.q.b}</div>
       </div>
       <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10, marginTop:14 }}>
@@ -5182,7 +5317,7 @@ function MathSkip({ onHome }) {
 }
 
 // ---- Missing Number: 5 × ? = 30 ----
-function MathMissing({ facts, onHome }) {
+function MathMissing({ facts, onHome, missed, toggleMissed, addMissed }) {
   const advRef = useRef(null);
   const nextRef = useRef(() => {});
   useEffect(() => () => { if (advRef.current) clearTimeout(advRef.current); }, []);
@@ -5203,6 +5338,7 @@ function MathMissing({ facts, onHome }) {
     setDone((d)=>d+1);
     if (ok) { setScore((s)=>s+1); playCorrect(score); } else playSoftMiss();
     srsRecord(f.key, ok);
+    if (!ok && addMissed) addMissed(f.key);
     recordEffort();
     if (ok) advRef.current = setTimeout(nextRef.current, 1200);
   };
@@ -5212,11 +5348,13 @@ function MathMissing({ facts, onHome }) {
   };
   nextRef.current = next;
 
+  const flagged = missed ? missed.has(f.key) : false;
   return (
     <div>
       <Progress value={score} total={Math.max(done,1)} label={`✅ ${score} / ${done}`} />
-      <div style={{ marginTop:14, background:"#fff", borderRadius:24, padding:"28px 20px", textAlign:"center",
-        border:`4px solid ${result==="right"?C.leaf:result==="wrong"?"#F0A5A5":C.leaf}`, boxShadow:"0 8px 0 rgba(95,184,148,0.25)" }}>
+      <div style={{ position:"relative", marginTop:14, background:"#fff", borderRadius:24, padding:"28px 20px", textAlign:"center",
+        border:`4px solid ${result==="right"?C.leaf:result==="wrong"?"#F0A5A5": flagged ? C.sun : C.leaf}`, boxShadow:"0 8px 0 rgba(95,184,148,0.25)" }}>
+        {toggleMissed && <StarButton flagged={flagged} onClick={() => toggleMissed(f.key)} />}
         <div style={{ fontSize:40, fontWeight:800 }}>
           {f.a} {opSymbol[f.op]} <span style={{ color:C.berry }}>?</span> = {f.ans}
         </div>
