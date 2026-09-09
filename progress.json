@@ -167,6 +167,13 @@
       "example": "",
       "emoji": "📝",
       "needsDef": true
+    },
+    {
+      "word": "Ancestors",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
     }
   ],
   "wodHistory": [
@@ -2076,6 +2083,6 @@
   "starredSentences_at": 1788965376827,
   "hiddenWords_at": 1788965376828,
   "archived_at": 1788965376827,
-  "en_starred_at": 1788965426729,
+  "en_starred_at": 1788965429744,
   "chips": 13
 }
