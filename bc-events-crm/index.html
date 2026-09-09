@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1E71A7" />
+  <title>Blue Coast Events CRM</title>
+  <style>
+    :root {
+      --accent: #1E71A7;
+      --accent-soft: #e8f3f9;
+      --bg: #f4f6f8;
+      --card: #ffffff;
+      --text: #1a2332;
+      --muted: #5c6b7a;
+      --border: #dde3ea;
+      --won: #1a7f4b;
+      --lost: #9b3b3b;
+      --shadow: 0 1px 3px rgba(16, 40, 60, 0.08);
+      --radius: 10px;
+      --drawer-w: min(420px, 100vw);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.4;
+      min-height: 100vh;
+    }
+    body.drawer-open { overflow: hidden; }
+
+    .topbar {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px 10px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      box-shadow: var(--shadow);
+    }
+    .topbar-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px 16px;
+      justify-content: space-between;
+    }
+    .brand h1 {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+    }
+    .north-star {
+      margin: 2px 0 0;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .north-star strong { color: var(--accent); font-weight: 600; }
+    .lead-count {
+      font-size: 0.85rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .banner {
+      margin-top: 10px;
+      background: var(--accent-soft);
+      border: 1px solid #c5dceb;
+      color: #154a6e;
+      font-size: 0.8rem;
+      padding: 8px 12px;
+      border-radius: 8px;
+    }
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .filters label {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    select {
+      font: inherit;
+      font-size: 0.9rem;
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--text);
+      min-width: 140px;
+      text-transform: none;
+      letter-spacing: normal;
+      font-weight: 400;
+    }
+
+    .board-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 14px 12px 28px;
+    }
+    #board {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      min-width: min-content;
+    }
+    .column {
+      flex: 0 0 270px;
+      width: 270px;
+      background: #eef1f4;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      max-height: calc(100vh - 160px);
+      display: flex;
+      flex-direction: column;
+    }
+    .column-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      background: #f8fafb;
+      border-radius: var(--radius) var(--radius) 0 0;
+      position: sticky;
+      top: 0;
+    }
+    .column-header h2 {
+      margin: 0;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .col-count {
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      min-width: 22px;
+      height: 22px;
+      border-radius: 11px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 6px;
+    }
+    .column-body {
+      padding: 8px;
+      overflow-y: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .empty {
+      margin: 12px 4px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+    }
+    .error { color: var(--lost); padding: 24px; }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 11px;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      outline: none;
+    }
+    .card:hover, .card:focus {
+      border-color: var(--accent);
+      box-shadow: 0 2px 8px rgba(30, 113, 167, 0.18);
+    }
+    .card-top {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 6px;
+    }
+    .badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      background: var(--accent-soft);
+      color: var(--accent);
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+    .stage-pill {
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: #e8ebef;
+      color: var(--muted);
+    }
+    .stage-won { background: #e3f5eb; color: var(--won); }
+    .stage-lost { background: #f8e8e8; color: var(--lost); }
+    .card-title {
+      margin: 0 0 2px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+    .card-org, .card-meta, .card-contact, .card-updated, .card-fo-preview, .card-lost {
+      margin: 2px 0 0;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .card-org { color: var(--text); font-weight: 500; }
+    .card-fo-preview {
+      margin-top: 6px;
+      padding-top: 6px;
+      border-top: 1px dashed var(--border);
+      color: #3d5a6e;
+      font-style: italic;
+    }
+    .card-lost { color: var(--lost); font-weight: 500; }
+
+    #backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 35, 50, 0.45);
+      z-index: 40;
+    }
+    #backdrop.open { display: block; }
+
+    #drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: var(--drawer-w);
+      height: 100%;
+      background: var(--card);
+      z-index: 50;
+      transform: translateX(105%);
+      transition: transform 0.22s ease;
+      box-shadow: -4px 0 24px rgba(0,0,0,0.12);
+      display: flex;
+      flex-direction: column;
+    }
+    #drawer.open { transform: translateX(0); }
+    .drawer-header {
+      padding: 14px 16px 10px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .drawer-header h2 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: var(--accent);
+    }
+    #drawer-sub {
+      margin: 4px 0 0;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .icon-btn {
+      border: none;
+      background: #eef1f4;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--text);
+      flex-shrink: 0;
+    }
+    .drawer-body {
+      padding: 14px 16px 24px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .field {
+      margin-bottom: 14px;
+    }
+    .field > span, .field > label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .field p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+    .seed-box {
+      background: #f7f9fb;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 0.85rem;
+      white-space: pre-wrap;
+      max-height: 140px;
+      overflow-y: auto;
+    }
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      font: inherit;
+      font-size: 0.95rem;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      resize: vertical;
+    }
+    textarea:focus, select:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+    }
+    .drawer-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      font: inherit;
+      font-weight: 600;
+      padding: 11px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    .btn-primary:active { opacity: 0.9; }
+    #save-msg {
+      font-size: 0.8rem;
+      color: var(--won);
+      font-weight: 600;
+    }
+
+    @media (max-width: 600px) {
+      .column { flex: 0 0 85vw; width: 85vw; max-height: calc(100vh - 200px); }
+      #drawer { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-row">
+      <div class="brand">
+        <h1>Blue Coast Events CRM</h1>
+        <p class="north-star">North star: <strong id="north-star">YoY event sales growth</strong></p>
+      </div>
+      <span class="lead-count" id="lead-count">—</span>
+    </div>
+    <div class="banner" role="status">
+      FO notes save on this device for now; CoS will wire a shared Sheet for multi-device sync.
+    </div>
+    <div class="filters">
+      <label>Source
+        <select id="filter-source" aria-label="Filter by source">
+          <option value="all">All sources</option>
+        </select>
+      </label>
+      <label>Pipeline
+        <select id="filter-status" aria-label="Filter by pipeline status">
+          <option value="open">Open</option>
+          <option value="won">Won</option>
+          <option value="lost">Lost</option>
+          <option value="all">All</option>
+        </select>
+      </label>
+    </div>
+  </header>
+
+  <div class="board-wrap">
+    <div id="board" aria-label="Events pipeline board"></div>
+  </div>
+
+  <div id="backdrop" aria-hidden="true"></div>
+  <aside id="drawer" aria-label="Lead detail" role="dialog" aria-modal="true">
+    <div class="drawer-header">
+      <div>
+        <h2 id="drawer-title">Lead</h2>
+        <p id="drawer-sub"></p>
+      </div>
+      <button type="button" class="icon-btn" id="btn-close" aria-label="Close">×</button>
+    </div>
+    <div class="drawer-body">
+      <div class="field">
+        <span>Contact</span>
+        <p id="drawer-contact"></p>
+      </div>
+      <div class="field">
+        <span>Dates / Pax / Inquiry</span>
+        <p id="drawer-dates"></p>
+      </div>
+      <div class="field">
+        <span>Stage</span>
+        <select id="stage-select" aria-label="Change stage"></select>
+      </div>
+      <div class="field">
+        <span>Seed / inbox notes</span>
+        <div class="seed-box" id="drawer-seed"></div>
+      </div>
+      <div class="field">
+        <label for="fo-notes">FO notes</label>
+        <textarea id="fo-notes" placeholder="Call notes, next steps, quote amounts…"></textarea>
+      </div>
+      <div class="field" id="lost-reason-wrap" hidden>
+        <label for="lost-reason">Lost reason</label>
+        <textarea id="lost-reason" placeholder="Why lost / past…"></textarea>
+      </div>
+      <div class="drawer-actions">
+        <button type="button" class="btn-primary" id="btn-save">Save</button>
+        <span id="save-msg" hidden>Saved on this device</span>
+      </div>
+    </div>
+  </aside>
+
+  <script src="app.js"></script>
+</body>
+</html>
