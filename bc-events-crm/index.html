@@ -83,7 +83,26 @@
       padding: 3px 8px;
       border-radius: 6px;
       line-height: 1.3;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px 10px;
     }
+    .banner a { color: #0d4f7a; font-weight: 600; }
+    .banner-btn {
+      margin-left: auto;
+      border: 1px solid #9bc0d8;
+      background: #fff;
+      color: #154a6e;
+      font: inherit;
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .banner-btn:hover { background: #eef6fb; }
 
     .revenue-panel {
       margin-top: 7px;
@@ -563,8 +582,9 @@
       </div>
       <span class="lead-count" id="lead-count">—</span>
     </div>
-    <div class="banner" role="status">
-      FO notes save on this device for now; CoS will wire a shared Sheet for multi-device sync.
+    <div class="banner" role="status" id="banner">
+      FO notes/revenue sync via <a id="fo-sheet-link" href="https://docs.google.com/spreadsheets/d/1YEjZCTYaIA6iv-q5u7RbHxRqug-t63RBsSy6h3ijGdw/edit" target="_blank" rel="noopener">FO Shared Sheet</a> (not device-only). Save updates the revenue chart immediately; CoS merges the Sheet into the published CRM.
+      <button type="button" class="banner-btn" id="btn-refresh-fo" title="Reload FO overlay CSV">Refresh FO data</button>
     </div>
 
     <section class="revenue-panel" aria-label="Running event revenue by source">
@@ -647,7 +667,7 @@
       </div>
       <div class="drawer-actions">
         <button type="button" class="btn-primary" id="btn-save">Save</button>
-        <span id="save-msg" hidden>Saved on this device</span>
+        <span id="save-msg" hidden>Saved</span>
       </div>
     </div>
   </aside>

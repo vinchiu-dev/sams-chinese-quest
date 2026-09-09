@@ -1,0 +1,8 @@
+{
+  "fo_sheet_title": "BC Events CRM — FO ledger",
+  "fo_sheet_id": "1YEjZCTYaIA6iv-q5u7RbHxRqug-t63RBsSy6h3ijGdw",
+  "fo_sheet_edit_url": "https://docs.google.com/spreadsheets/d/1YEjZCTYaIA6iv-q5u7RbHxRqug-t63RBsSy6h3ijGdw/edit",
+  "fo_sheet_csv_url": "https://docs.google.com/spreadsheets/d/1YEjZCTYaIA6iv-q5u7RbHxRqug-t63RBsSy6h3ijGdw/export?format=csv",
+  "fo_overlay_csv": "fo-overlay.csv",
+  "notes": "Share the Sheet as Anyone with the link (Viewer) so GH Pages can fetch fo_sheet_csv_url. Until then, CoS sync publishes fo-overlay.csv from the Sheet."
+}

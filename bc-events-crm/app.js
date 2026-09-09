@@ -1,4 +1,4 @@
-/* Blue Coast Events CRM — channels, revenue by source, FO notes (localStorage) */
+/* Blue Coast Events CRM — FO overlay (localStorage + shared Sheet/CSV), revenue chart */
 (function () {
   const LS_KEY = "bc-events-crm-overlay-v1";
 
@@ -26,12 +26,19 @@
   let baseLeads = [];
   let stages = [];
   let channels = [];
-  let overlay = loadOverlay();
+  /** Remote FO sheet / fo-overlay.csv rows keyed by lead id */
+  let remoteOverlay = {};
+  let config = {
+    fo_sheet_edit_url: "",
+    fo_sheet_csv_url: "",
+    fo_overlay_csv: "fo-overlay.csv",
+  };
+  let localOverlay = loadLocalOverlay();
   let activeId = null;
   let channelFilter = "all";
   let statusFilter = "open";
 
-  function loadOverlay() {
+  function loadLocalOverlay() {
     try {
       return JSON.parse(localStorage.getItem(LS_KEY) || "{}");
     } catch {
@@ -39,19 +46,40 @@
     }
   }
 
-  function saveOverlay() {
-    localStorage.setItem(LS_KEY, JSON.stringify(overlay));
+  function saveLocalOverlay() {
+    localStorage.setItem(LS_KEY, JSON.stringify(localOverlay));
+  }
+
+  /** Merge priority: leads.json < remote FO sheet/CSV < localStorage (device Save wins immediately) */
+  function overlayFor(id) {
+    const remote = remoteOverlay[id] || {};
+    const local = localOverlay[id] || {};
+    const out = { ...remote };
+    Object.keys(local).forEach((k) => {
+      if (local[k] != null && local[k] !== "") out[k] = local[k];
+      else if (local[k] === "" && (k === "fo_notes" || k === "lost_reason")) out[k] = local[k];
+      else if (local[k] === null && k === "revenue_php") out[k] = null;
+      else if (Object.prototype.hasOwnProperty.call(local, k) && k === "revenue_php") out[k] = local[k];
+      else if (Object.prototype.hasOwnProperty.call(local, k) && local[k] !== undefined) out[k] = local[k];
+    });
+    // Always prefer local stage/channel/revenue/notes/lost/last_updated when local row exists
+    if (localOverlay[id]) {
+      ["stage", "marketing_channel", "fo_notes", "lost_reason", "revenue_php", "last_updated"].forEach((k) => {
+        if (Object.prototype.hasOwnProperty.call(local, k)) out[k] = local[k];
+      });
+    }
+    return out;
   }
 
   function mergedLead(base) {
-    const o = overlay[base.id] || {};
+    const o = overlayFor(base.id);
     return {
       ...base,
       stage: o.stage || base.stage,
       fo_notes: o.fo_notes != null ? o.fo_notes : base.fo_notes || "",
       lost_reason: o.lost_reason != null ? o.lost_reason : base.lost_reason || "",
       marketing_channel: o.marketing_channel || base.marketing_channel || "Walk-in / other",
-      revenue_php: o.revenue_php != null ? o.revenue_php : base.revenue_php,
+      revenue_php: Object.prototype.hasOwnProperty.call(o, "revenue_php") ? o.revenue_php : base.revenue_php,
       last_updated: o.last_updated || base.last_updated,
     };
   }
@@ -153,10 +181,14 @@
     document.getElementById("rev-donut-sub").textContent = `${totalWon} won`;
 
     const hint = document.getElementById("rev-hint");
-    hint.hidden = hasData && totalRev > 0;
     if (!hasData || totalRev === 0) {
-      hint.textContent = "Add revenue on Won leads to populate.";
+      hint.textContent =
+        totalWon > 0
+          ? "Won leads present — enter ₱ revenue in the drawer (or FO Shared Sheet) to fill the chart."
+          : "Add revenue on Won leads to populate.";
       hint.hidden = false;
+    } else {
+      hint.hidden = true;
     }
 
     const legend = document.getElementById("rev-legend");
@@ -190,9 +222,7 @@
         angle = end;
       });
     } else {
-      // Empty-state ring at zero — honest ₱0 / no wins visual
       slices = `<circle cx="${cx}" cy="${cy}" r="${(rOuter + rInner) / 2}" fill="none" stroke="#d5dee6" stroke-width="${rOuter - rInner}"></circle>`;
-      // Tiny tick marks for axes feel
       for (let i = 0; i < 8; i++) {
         const a = i * 45;
         const p1 = polarToCartesian(cx, cy, rOuter + 1, a);
@@ -366,32 +396,189 @@
       revenue_php = Number.isFinite(n) ? n : null;
     }
     const today = new Date().toISOString().slice(0, 10);
-    overlay[activeId] = {
-      ...(overlay[activeId] || {}),
+    localOverlay[activeId] = {
+      ...(localOverlay[activeId] || {}),
       stage,
       fo_notes,
       marketing_channel,
-      lost_reason: stage === "lost" ? lost_reason : overlay[activeId]?.lost_reason || "",
-      revenue_php: stage === "won" ? revenue_php : overlay[activeId]?.revenue_php ?? null,
+      lost_reason: stage === "lost" ? lost_reason : localOverlay[activeId]?.lost_reason || "",
+      revenue_php: stage === "won" ? revenue_php : localOverlay[activeId]?.revenue_php ?? null,
       last_updated: today,
     };
-    saveOverlay();
+    saveLocalOverlay();
     const msg = document.getElementById("save-msg");
-    msg.textContent = "Saved on this device";
+    msg.textContent = "Saved — chart updated (this device). Mirror to FO Shared Sheet for other devices.";
     msg.hidden = false;
     setTimeout(() => {
       msg.hidden = true;
-    }, 1800);
+    }, 2800);
+    // Chart + board recompute from merged leads immediately
     render();
   }
 
+  function parseCsv(text) {
+    const rows = [];
+    let i = 0;
+    let field = "";
+    let row = [];
+    let inQuotes = false;
+    const pushField = () => {
+      row.push(field);
+      field = "";
+    };
+    const pushRow = () => {
+      if (row.length > 1 || (row.length === 1 && row[0] !== "")) rows.push(row);
+      row = [];
+    };
+    while (i < text.length) {
+      const c = text[i];
+      if (inQuotes) {
+        if (c === '"') {
+          if (text[i + 1] === '"') {
+            field += '"';
+            i += 2;
+            continue;
+          }
+          inQuotes = false;
+          i++;
+          continue;
+        }
+        field += c;
+        i++;
+        continue;
+      }
+      if (c === '"') {
+        inQuotes = true;
+        i++;
+        continue;
+      }
+      if (c === ",") {
+        pushField();
+        i++;
+        continue;
+      }
+      if (c === "\n" || c === "\r") {
+        pushField();
+        pushRow();
+        if (c === "\r" && text[i + 1] === "\n") i++;
+        i++;
+        continue;
+      }
+      field += c;
+      i++;
+    }
+    if (field.length || row.length) {
+      pushField();
+      pushRow();
+    }
+    return rows;
+  }
+
+  function csvRowsToOverlay(rows) {
+    if (!rows.length) return {};
+    const headers = rows[0].map((h) => String(h || "").trim().toLowerCase());
+    const idx = (name) => headers.indexOf(name);
+    const idI = idx("lead_id");
+    if (idI < 0) return {};
+    const map = {};
+    for (let r = 1; r < rows.length; r++) {
+      const cells = rows[r];
+      const id = (cells[idI] || "").trim();
+      if (!id) continue;
+      const get = (name) => {
+        const j = idx(name);
+        return j >= 0 ? (cells[j] != null ? String(cells[j]) : "") : "";
+      };
+      const revRaw = get("revenue_php").trim();
+      let revenue_php = null;
+      if (revRaw !== "") {
+        const n = Number(revRaw.replace(/,/g, ""));
+        revenue_php = Number.isFinite(n) ? n : null;
+      }
+      const stage = get("stage").trim();
+      const marketing_channel = get("marketing_channel").trim();
+      map[id] = {
+        stage: stage || undefined,
+        marketing_channel: marketing_channel || undefined,
+        fo_notes: get("fo_notes"),
+        lost_reason: get("lost_reason"),
+        revenue_php,
+        last_updated: get("last_updated").trim() || undefined,
+      };
+    }
+    return map;
+  }
+
+  async function fetchText(url) {
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) throw new Error(String(res.status));
+    const text = await res.text();
+    // Google login HTML is not CSV
+    if (/^\s*<(!DOCTYPE|html)/i.test(text)) throw new Error("not-csv");
+    return text;
+  }
+
+  async function loadRemoteFoOverlay() {
+    const tried = [];
+    const urls = [];
+    if (config.fo_sheet_csv_url) urls.push({ kind: "sheet", url: config.fo_sheet_csv_url });
+    if (config.fo_overlay_csv) urls.push({ kind: "repo", url: config.fo_overlay_csv + "?t=" + Date.now() });
+
+    let loaded = null;
+    for (const item of urls) {
+      try {
+        const text = await fetchText(item.url);
+        const map = csvRowsToOverlay(parseCsv(text));
+        loaded = { kind: item.kind, map, count: Object.keys(map).length };
+        break;
+      } catch (e) {
+        tried.push(item.kind + ":" + (e.message || e));
+      }
+    }
+    if (loaded) {
+      remoteOverlay = loaded.map;
+      return loaded;
+    }
+    remoteOverlay = {};
+    return { kind: "none", map: {}, count: 0, tried };
+  }
+
+  function updateBanner(syncInfo) {
+    const el = document.getElementById("banner");
+    if (!el) return;
+    const sheetUrl = config.fo_sheet_edit_url || "#";
+    const src =
+      syncInfo.kind === "sheet"
+        ? "live FO Sheet CSV"
+        : syncInfo.kind === "repo"
+          ? "FO overlay CSV (repo mirror)"
+          : "local device only (remote FO CSV not readable yet)";
+    el.innerHTML = `FO notes/revenue sync via <a href="${escapeHtml(sheetUrl)}" target="_blank" rel="noopener">FO Shared Sheet</a> + this device. Chart merges Sheet/CSV over <code>leads.json</code>; Save updates chart immediately (${escapeHtml(src)}).`;
+  }
+
   async function init() {
+    try {
+      const cfgRes = await fetch("config.json?t=" + Date.now());
+      if (cfgRes.ok) config = { ...config, ...(await cfgRes.json()) };
+    } catch {
+      /* optional */
+    }
+
     const res = await fetch("leads.json?t=" + Date.now());
     const data = await res.json();
     baseLeads = data.leads || [];
     stages = data.stages || Object.keys(stageMeta).map((id) => ({ id, label: stageMeta[id].label }));
     channels = data.marketing_channels || Object.keys(CHANNEL_SHORT);
     document.getElementById("north-star").textContent = data.north_star || "YoY event sales growth";
+
+    const sheetLink = document.getElementById("fo-sheet-link");
+    if (sheetLink && config.fo_sheet_edit_url) {
+      sheetLink.href = config.fo_sheet_edit_url;
+      sheetLink.hidden = false;
+    }
+
+    const syncInfo = await loadRemoteFoOverlay();
+    updateBanner(syncInfo);
 
     document.getElementById("filter-status").addEventListener("change", (e) => {
       statusFilter = e.target.value;
@@ -404,6 +591,16 @@
       toggleLostReason(e.target.value);
       toggleRevenue(e.target.value);
     });
+    const btnRefresh = document.getElementById("btn-refresh-fo");
+    if (btnRefresh) {
+      btnRefresh.addEventListener("click", async () => {
+        btnRefresh.disabled = true;
+        const info = await loadRemoteFoOverlay();
+        updateBanner(info);
+        render();
+        btnRefresh.disabled = false;
+      });
+    }
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeDrawer();
     });
