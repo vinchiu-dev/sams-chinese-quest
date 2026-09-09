@@ -26,7 +26,7 @@
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.4;
+      line-height: 1.35;
       min-height: 100vh;
     }
     body.drawer-open { overflow: hidden; }
@@ -34,7 +34,7 @@
     .topbar {
       background: var(--card);
       border-bottom: 1px solid var(--border);
-      padding: 12px 16px 10px;
+      padding: 8px 14px 8px;
       position: sticky;
       top: 0;
       z-index: 20;
@@ -44,142 +44,251 @@
       display: flex;
       flex-wrap: wrap;
       align-items: baseline;
-      gap: 8px 16px;
+      gap: 4px 12px;
       justify-content: space-between;
+    }
+    .brand {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 6px 10px;
+      min-width: 0;
     }
     .brand h1 {
       margin: 0;
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       font-weight: 700;
       color: var(--accent);
       letter-spacing: -0.02em;
+      line-height: 1.2;
     }
     .north-star {
-      margin: 2px 0 0;
-      font-size: 0.8rem;
+      margin: 0;
+      font-size: 0.72rem;
       color: var(--muted);
+      white-space: nowrap;
     }
     .north-star strong { color: var(--accent); font-weight: 600; }
     .lead-count {
-      font-size: 0.85rem;
+      font-size: 0.78rem;
       color: var(--muted);
       white-space: nowrap;
     }
     .banner {
-      margin-top: 10px;
+      margin-top: 5px;
       background: var(--accent-soft);
       border: 1px solid #c5dceb;
       color: #154a6e;
-      font-size: 0.8rem;
-      padding: 8px 12px;
-      border-radius: 8px;
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      line-height: 1.3;
     }
 
     .revenue-panel {
-      margin-top: 12px;
+      margin-top: 7px;
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 8px;
       overflow: hidden;
       background: #fafcfd;
     }
-    .revenue-panel h2 {
+    .rev-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 5px 10px;
+      background: #f0f4f7;
+      border-bottom: 1px solid var(--border);
+    }
+    .rev-head h2 {
       margin: 0;
-      padding: 8px 12px;
-      font-size: 0.78rem;
+      font-size: 0.68rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.04em;
       color: var(--muted);
-      background: #f0f4f7;
-      border-bottom: 1px solid var(--border);
     }
-    .revenue-scroll { overflow-x: auto; }
-    #revenue-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.82rem;
-      min-width: 420px;
-    }
-    #revenue-table th, #revenue-table td {
-      padding: 6px 10px;
-      text-align: left;
-      border-bottom: 1px solid var(--border);
-    }
-    #revenue-table th {
-      font-size: 0.68rem;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-      color: var(--muted);
+    .rev-total {
+      font-size: 0.72rem;
       font-weight: 700;
+      color: var(--won);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
     }
-    .rev-count, .rev-amt { white-space: nowrap; font-variant-numeric: tabular-nums; }
-    .rev-amt { font-weight: 600; color: var(--won); }
-    .rev-bar-cell { width: 40%; min-width: 80px; }
-    .rev-bar {
-      height: 8px;
-      background: var(--accent);
-      border-radius: 4px;
-      max-width: 100%;
+    .rev-chart-wrap {
+      display: grid;
+      grid-template-columns: minmax(110px, 150px) 1fr;
+      gap: 8px 12px;
+      padding: 8px 10px 6px;
+      max-height: 160px;
+      align-items: center;
     }
-    .rev-total td {
-      font-weight: 700;
-      background: #f0f4f7;
-      border-bottom: none;
-    }
-
-    .filters {
+    .rev-donut-box {
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-      align-items: flex-end;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      height: 120px;
     }
-    .filters label {
+    .rev-donut-box svg { width: 120px; height: 120px; display: block; }
+    .rev-donut-center {
+      position: absolute;
+      inset: 0;
       display: flex;
       flex-direction: column;
-      gap: 2px;
-      font-size: 0.7rem;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      text-align: center;
+      line-height: 1.15;
+    }
+    .rev-donut-center .big {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+    .rev-donut-center .sub {
+      font-size: 0.62rem;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+    .rev-legend {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px 10px;
+      max-height: 140px;
+      overflow: hidden;
+      font-size: 0.68rem;
+      align-content: start;
+    }
+    .rev-leg-item {
+      display: grid;
+      grid-template-columns: 8px 1fr auto;
+      gap: 5px;
+      align-items: center;
+      min-width: 0;
+    }
+    .rev-swatch {
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .rev-leg-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--text);
+      font-weight: 600;
+    }
+    .rev-leg-meta {
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+      font-size: 0.64rem;
+    }
+    .rev-bars {
+      display: none;
+      flex-direction: column;
+      gap: 3px;
+      padding: 8px 10px 4px;
+      max-height: 148px;
+      overflow: hidden;
+    }
+    .rev-bar-row {
+      display: grid;
+      grid-template-columns: 72px 1fr 78px;
+      gap: 6px;
+      align-items: center;
+      font-size: 0.68rem;
+    }
+    .rev-bar-label {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .rev-bar-track {
+      height: 10px;
+      background: #e6edf2;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .rev-bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 5px;
+      min-width: 0;
+    }
+    .rev-bar-meta {
+      text-align: right;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+      font-size: 0.64rem;
+    }
+    .rev-bar-meta strong { color: var(--won); font-weight: 700; }
+    .rev-hint {
+      margin: 0;
+      padding: 0 10px 7px;
+      font-size: 0.68rem;
+      color: var(--muted);
+      line-height: 1.25;
+    }
+    .rev-hint[hidden] { display: none !important; }
+
+    .filters-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 8px;
+      margin-top: 7px;
+      align-items: center;
+    }
+    .filters-row label.pipe-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.68rem;
       text-transform: uppercase;
       letter-spacing: 0.04em;
       color: var(--muted);
       font-weight: 600;
+      flex-shrink: 0;
     }
     select {
       font: inherit;
-      font-size: 0.9rem;
-      padding: 8px 10px;
+      font-size: 0.82rem;
+      padding: 5px 8px;
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 7px;
       background: #fff;
       color: var(--text);
-      min-width: 120px;
+      min-width: 96px;
       text-transform: none;
       letter-spacing: normal;
       font-weight: 400;
     }
-    .chips-label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: var(--muted);
-      font-weight: 600;
-      margin: 10px 0 6px;
-    }
     #channel-chips {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 4px;
+      flex: 1;
+      min-width: 0;
     }
     .chip {
       border: 1px solid var(--border);
       background: #fff;
       color: var(--text);
       font: inherit;
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       font-weight: 600;
-      padding: 6px 10px;
+      padding: 4px 8px;
       border-radius: 999px;
       cursor: pointer;
+      line-height: 1.2;
     }
     .chip span {
       color: var(--muted);
@@ -196,7 +305,7 @@
     .board-wrap {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
-      padding: 14px 12px 28px;
+      padding: 10px 12px 28px;
     }
     #board {
       display: flex;
@@ -210,7 +319,7 @@
       background: #eef1f4;
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      max-height: calc(100vh - 280px);
+      max-height: calc(100vh - 220px);
       display: flex;
       flex-direction: column;
     }
@@ -435,9 +544,13 @@
       font-weight: 600;
     }
 
-    @media (max-width: 600px) {
-      .column { flex: 0 0 85vw; width: 85vw; max-height: calc(100vh - 320px); }
+    @media (max-width: 720px) {
+      .rev-chart-wrap { display: none; }
+      .rev-bars { display: flex; max-height: 132px; }
+      .rev-bar-row { grid-template-columns: 64px 1fr 70px; }
+      .column { flex: 0 0 85vw; width: 85vw; max-height: calc(100vh - 280px); }
       #drawer { width: 100%; }
+      .north-star { white-space: normal; }
     }
   </style>
 </head>
@@ -455,24 +568,26 @@
     </div>
 
     <section class="revenue-panel" aria-label="Running event revenue by source">
-      <h2>Running event revenue by source</h2>
-      <div class="revenue-scroll">
-        <table id="revenue-table">
-          <thead>
-            <tr>
-              <th>Channel</th>
-              <th>Won</th>
-              <th>₱ revenue</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="revenue-body"></tbody>
-        </table>
+      <div class="rev-head">
+        <h2>Revenue by source</h2>
+        <span class="rev-total" id="rev-total">₱0 · 0 won</span>
       </div>
+      <div class="rev-chart-wrap" id="rev-chart-wrap">
+        <div class="rev-donut-box">
+          <svg id="rev-donut" viewBox="0 0 120 120" aria-hidden="true"></svg>
+          <div class="rev-donut-center">
+            <span class="big" id="rev-donut-big">₱0</span>
+            <span class="sub" id="rev-donut-sub">0 won</span>
+          </div>
+        </div>
+        <div class="rev-legend" id="rev-legend"></div>
+      </div>
+      <div class="rev-bars" id="rev-bars" aria-hidden="true"></div>
+      <p class="rev-hint" id="rev-hint">Add revenue on Won leads to populate.</p>
     </section>
 
-    <div class="filters">
-      <label>Pipeline
+    <div class="filters-row">
+      <label class="pipe-label">Pipeline
         <select id="filter-status" aria-label="Filter by pipeline status">
           <option value="open">Open</option>
           <option value="won">Won</option>
@@ -480,9 +595,8 @@
           <option value="all">All</option>
         </select>
       </label>
+      <div id="channel-chips" role="group" aria-label="Filter by marketing channel"></div>
     </div>
-    <div class="chips-label">Marketing channel</div>
-    <div id="channel-chips" role="group" aria-label="Filter by marketing channel"></div>
   </header>
 
   <div class="board-wrap">

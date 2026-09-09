@@ -10,7 +10,7 @@ YoY event sales growth — track open pipeline, won revenue by marketing channel
 
 ## Marketing channels
 
-Every lead has a `marketing_channel` used on cards, filter chips, and the **Running event revenue by source** strip:
+Every lead has a `marketing_channel` used on cards, filter chips, and the **Revenue by source** chart:
 
 - Google Ads
 - Google Organic

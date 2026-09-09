@@ -114,32 +114,108 @@
     return channels.map((ch) => map[ch]).filter(Boolean);
   }
 
+  const CHART_COLORS = [
+    "#1E71A7",
+    "#3d8fbf",
+    "#5aa3cc",
+    "#2f6f8f",
+    "#7ab3d4",
+    "#154a6e",
+    "#4d9bbb",
+    "#86c0dc",
+    "#0f3d5c",
+  ];
+
+  function polarToCartesian(cx, cy, r, angleDeg) {
+    const rad = ((angleDeg - 90) * Math.PI) / 180;
+    return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+  }
+
+  function donutSlice(cx, cy, rOuter, rInner, startAngle, endAngle) {
+    if (endAngle - startAngle <= 0.001) return "";
+    const large = endAngle - startAngle > 180 ? 1 : 0;
+    const so = polarToCartesian(cx, cy, rOuter, endAngle);
+    const eo = polarToCartesian(cx, cy, rOuter, startAngle);
+    const si = polarToCartesian(cx, cy, rInner, endAngle);
+    const ei = polarToCartesian(cx, cy, rInner, startAngle);
+    return `M ${so.x} ${so.y} A ${rOuter} ${rOuter} 0 ${large} 0 ${eo.x} ${eo.y} L ${ei.x} ${ei.y} A ${rInner} ${rInner} 0 ${large} 1 ${si.x} ${si.y} Z`;
+  }
+
   function renderRevenue() {
     const rows = revenueByChannel(allLeads());
     const totalRev = rows.reduce((s, r) => s + r.revenue_php, 0);
     const totalWon = rows.reduce((s, r) => s + r.won_count, 0);
+    const hasData = totalRev > 0 || totalWon > 0;
     const maxRev = Math.max(1, ...rows.map((r) => r.revenue_php));
 
-    const el = document.getElementById("revenue-body");
-    el.innerHTML =
-      rows
-        .map((r) => {
-          const pct = Math.round((r.revenue_php / maxRev) * 100);
-          const barW = r.won_count || r.revenue_php ? Math.max(pct, r.won_count ? 4 : 0) : 0;
-          return `<tr>
-            <td class="rev-ch">${escapeHtml(r.channel)}</td>
-            <td class="rev-count">${r.won_count}</td>
-            <td class="rev-amt">${formatPhp(r.revenue_php)}</td>
-            <td class="rev-bar-cell"><div class="rev-bar" style="width:${barW}%"></div></td>
-          </tr>`;
-        })
-        .join("") +
-      `<tr class="rev-total">
-        <td>Total won</td>
-        <td>${totalWon}</td>
-        <td>${formatPhp(totalRev)}</td>
-        <td></td>
-      </tr>`;
+    document.getElementById("rev-total").textContent = `${formatPhp(totalRev)} · ${totalWon} won`;
+    document.getElementById("rev-donut-big").textContent = formatPhp(totalRev);
+    document.getElementById("rev-donut-sub").textContent = `${totalWon} won`;
+
+    const hint = document.getElementById("rev-hint");
+    hint.hidden = hasData && totalRev > 0;
+    if (!hasData || totalRev === 0) {
+      hint.textContent = "Add revenue on Won leads to populate.";
+      hint.hidden = false;
+    }
+
+    const legend = document.getElementById("rev-legend");
+    legend.innerHTML = rows
+      .map((r, i) => {
+        const short = CHANNEL_SHORT[r.channel] || r.channel;
+        const color = CHART_COLORS[i % CHART_COLORS.length];
+        return `<div class="rev-leg-item" title="${escapeHtml(r.channel)}">
+          <span class="rev-swatch" style="background:${color}"></span>
+          <span class="rev-leg-name">${escapeHtml(short)}</span>
+          <span class="rev-leg-meta">${formatPhp(r.revenue_php)} · ${r.won_count}</span>
+        </div>`;
+      })
+      .join("");
+
+    const svg = document.getElementById("rev-donut");
+    const cx = 60;
+    const cy = 60;
+    const rOuter = 52;
+    const rInner = 34;
+    let slices = "";
+    if (totalRev > 0) {
+      let angle = 0;
+      rows.forEach((r, i) => {
+        if (!r.revenue_php) return;
+        const sweep = (r.revenue_php / totalRev) * 360;
+        const end = angle + sweep;
+        const d = donutSlice(cx, cy, rOuter, rInner, angle, end);
+        const color = CHART_COLORS[i % CHART_COLORS.length];
+        slices += `<path d="${d}" fill="${color}"></path>`;
+        angle = end;
+      });
+    } else {
+      // Empty-state ring at zero — honest ₱0 / no wins visual
+      slices = `<circle cx="${cx}" cy="${cy}" r="${(rOuter + rInner) / 2}" fill="none" stroke="#d5dee6" stroke-width="${rOuter - rInner}"></circle>`;
+      // Tiny tick marks for axes feel
+      for (let i = 0; i < 8; i++) {
+        const a = i * 45;
+        const p1 = polarToCartesian(cx, cy, rOuter + 1, a);
+        const p2 = polarToCartesian(cx, cy, rOuter + 5, a);
+        slices += `<line x1="${p1.x}" y1="${p1.y}" x2="${p2.x}" y2="${p2.y}" stroke="#c5d0da" stroke-width="1.5"/>`;
+      }
+    }
+    svg.innerHTML = slices;
+
+    const bars = document.getElementById("rev-bars");
+    bars.innerHTML = rows
+      .map((r, i) => {
+        const short = CHANNEL_SHORT[r.channel] || r.channel;
+        const pct = totalRev > 0 ? Math.round((r.revenue_php / maxRev) * 100) : 0;
+        const color = CHART_COLORS[i % CHART_COLORS.length];
+        const w = r.revenue_php > 0 ? Math.max(pct, 3) : 0;
+        return `<div class="rev-bar-row" title="${escapeHtml(r.channel)}">
+          <span class="rev-bar-label">${escapeHtml(short)}</span>
+          <div class="rev-bar-track"><div class="rev-bar-fill" style="width:${w}%;background:${color}"></div></div>
+          <span class="rev-bar-meta"><strong>${formatPhp(r.revenue_php)}</strong> · ${r.won_count}</span>
+        </div>`;
+      })
+      .join("");
   }
 
   function renderChips() {
