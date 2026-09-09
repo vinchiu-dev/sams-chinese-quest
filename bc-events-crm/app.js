@@ -458,7 +458,16 @@
     if (!rows.length) return [];
     const headers = rows[0].map((h) => String(h || "").trim().toLowerCase());
     const idx = (name) => headers.indexOf(name);
-    const idI = idx("lead_id") >= 0 ? idx("lead_id") : idx("id");
+    let idI = idx("lead_id") >= 0 ? idx("lead_id") : idx("id");
+    // Sheet A1 sometimes overwritten with share URL — treat col0 as lead_id if needed
+    if (idI < 0 && headers.length && headers[0].includes("docs.google.com")) {
+      headers[0] = "lead_id";
+      idI = 0;
+    }
+    if (idI < 0 && rows.length > 1 && /^[0-9a-f]{10,}$/i.test(String(rows[1][0] || "").trim())) {
+      headers[0] = "lead_id";
+      idI = 0;
+    }
     if (idI < 0) return [];
     const get = (cells, name) => {
       const j = idx(name);
