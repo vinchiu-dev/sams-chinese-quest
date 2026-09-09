@@ -48,7 +48,9 @@
       "fo_notes": "",
       "lost_reason": "",
       "subject": "EVENT INQUIRY — Jes Pacis",
-      "related_contacts": []
+      "related_contacts": [],
+      "marketing_channel": "Website form (unknown)",
+      "revenue_php": null
     },
     {
       "id": "1a05fa60f43657bd",
@@ -68,7 +70,9 @@
       "fo_notes": "",
       "lost_reason": "",
       "subject": "EVENT INQUIRY — Eden Bagunu",
-      "related_contacts": []
+      "related_contacts": [],
+      "marketing_channel": "Website form (unknown)",
+      "revenue_php": null
     },
     {
       "id": "1a05cc8dfecb94e6",
@@ -88,7 +92,9 @@
       "fo_notes": "",
       "lost_reason": "",
       "subject": "EVENT INQUIRY — Dwight Gabriel Sevilleja",
-      "related_contacts": []
+      "related_contacts": [],
+      "marketing_channel": "Website form (unknown)",
+      "revenue_php": null
     },
     {
       "id": "1a0584ae2dc4b164",
@@ -108,7 +114,9 @@
       "fo_notes": "",
       "lost_reason": "",
       "subject": "EVENT INQUIRY — Samuel Chiu",
-      "related_contacts": []
+      "related_contacts": [],
+      "marketing_channel": "Website form (unknown)",
+      "revenue_php": null
     },
     {
       "id": "1a06a4cf767aa8bc",
@@ -134,7 +142,9 @@
           "email": "justineregencia@fixerink.com",
           "role": "Fixerink coordinator"
         }
-      ]
+      ],
+      "marketing_channel": "Walk-in / other",
+      "revenue_php": null
     },
     {
       "id": "1a0849038ec8f5d3",
@@ -154,7 +164,9 @@
       "fo_notes": "",
       "lost_reason": "",
       "subject": "Goods2026-119-Catering-Services-with-Hall-and-Accommodation-for-Review-and-Finalization-Financial-Plan-2027-and-QBEDP-SDO-Proper (1).pdf",
-      "related_contacts": []
+      "related_contacts": [],
+      "marketing_channel": "Gov RFQ / email",
+      "revenue_php": null
     },
     {
       "id": "19dcc722dafd1d2f",
@@ -174,7 +186,9 @@
       "fo_notes": "",
       "lost_reason": "",
       "subject": "Contact Form : Marie Luz Bravo",
-      "related_contacts": []
+      "related_contacts": [],
+      "marketing_channel": "Website form (unknown)",
+      "revenue_php": null
     },
     {
       "id": "19d657cb34fb731d",
@@ -194,7 +208,9 @@
       "fo_notes": "",
       "lost_reason": "",
       "subject": "Request for Quotation",
-      "related_contacts": []
+      "related_contacts": [],
+      "marketing_channel": "Gov RFQ / email",
+      "revenue_php": null
     },
     {
       "id": "19bdf82caf0d84fa",
@@ -214,7 +230,9 @@
       "fo_notes": "",
       "lost_reason": "",
       "subject": "Contact Form : Ederlyn Viernes",
-      "related_contacts": []
+      "related_contacts": [],
+      "marketing_channel": "Website form (unknown)",
+      "revenue_php": null
     },
     {
       "id": "19ffa2ef9d5abbf8",
@@ -234,7 +252,9 @@
       "fo_notes": "",
       "lost_reason": "",
       "subject": "Request for Quotation - OPPIT 2026",
-      "related_contacts": []
+      "related_contacts": [],
+      "marketing_channel": "Gov RFQ / email",
+      "revenue_php": null
     },
     {
       "id": "19fefe982f0baf34",
@@ -254,7 +274,9 @@
       "fo_notes": "",
       "lost_reason": "",
       "subject": "Request for Quotation (RFQ 26-08-0618)",
-      "related_contacts": []
+      "related_contacts": [],
+      "marketing_channel": "Gov RFQ / email",
+      "revenue_php": null
     },
     {
       "id": "1a0774e185c315dd",
@@ -274,7 +296,9 @@
       "fo_notes": "",
       "lost_reason": "",
       "subject": "Mini Request for Quotation 30000032681",
-      "related_contacts": []
+      "related_contacts": [],
+      "marketing_channel": "Gov RFQ / email",
+      "revenue_php": null
     },
     {
       "id": "1928dd01b2cf54e9",
@@ -294,7 +318,9 @@
       "fo_notes": "",
       "lost_reason": "Past RFQ / no outcome in inbox",
       "subject": "RFQ - ACCOMMODATION",
-      "related_contacts": []
+      "related_contacts": [],
+      "marketing_channel": "Gov RFQ / email",
+      "revenue_php": null
     },
     {
       "id": "19f824291a8b9ccd",
@@ -314,7 +340,9 @@
       "fo_notes": "",
       "lost_reason": "",
       "subject": "Request for Quotation || Coron 180 Hotel",
-      "related_contacts": []
+      "related_contacts": [],
+      "marketing_channel": "Walk-in / other",
+      "revenue_php": null
     },
     {
       "id": "19abe1b5587513ac",
@@ -334,7 +362,9 @@
       "fo_notes": "",
       "lost_reason": "",
       "subject": "INVITATION TO BID - GOODS2025-176",
-      "related_contacts": []
+      "related_contacts": [],
+      "marketing_channel": "Gov RFQ / email",
+      "revenue_php": null
     },
     {
       "id": "19ce2a5b47269344",
@@ -354,7 +384,20 @@
       "fo_notes": "",
       "lost_reason": "",
       "subject": "Hotel Reservation Inquiry",
-      "related_contacts": []
+      "related_contacts": [],
+      "marketing_channel": "Walk-in / other",
+      "revenue_php": null
     }
+  ],
+  "marketing_channels": [
+    "Google Ads",
+    "Google Organic",
+    "FB Ads",
+    "FB Organic",
+    "TikTok",
+    "Website form (unknown)",
+    "Gov RFQ / email",
+    "Messenger",
+    "Walk-in / other"
   ]
 }

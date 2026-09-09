@@ -74,11 +74,65 @@
       padding: 8px 12px;
       border-radius: 8px;
     }
+
+    .revenue-panel {
+      margin-top: 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fafcfd;
+    }
+    .revenue-panel h2 {
+      margin: 0;
+      padding: 8px 12px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      background: #f0f4f7;
+      border-bottom: 1px solid var(--border);
+    }
+    .revenue-scroll { overflow-x: auto; }
+    #revenue-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      min-width: 420px;
+    }
+    #revenue-table th, #revenue-table td {
+      padding: 6px 10px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    #revenue-table th {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--muted);
+      font-weight: 700;
+    }
+    .rev-count, .rev-amt { white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .rev-amt { font-weight: 600; color: var(--won); }
+    .rev-bar-cell { width: 40%; min-width: 80px; }
+    .rev-bar {
+      height: 8px;
+      background: var(--accent);
+      border-radius: 4px;
+      max-width: 100%;
+    }
+    .rev-total td {
+      font-weight: 700;
+      background: #f0f4f7;
+      border-bottom: none;
+    }
+
     .filters {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
       margin-top: 10px;
+      align-items: flex-end;
     }
     .filters label {
       display: flex;
@@ -98,11 +152,46 @@
       border-radius: 8px;
       background: #fff;
       color: var(--text);
-      min-width: 140px;
+      min-width: 120px;
       text-transform: none;
       letter-spacing: normal;
       font-weight: 400;
     }
+    .chips-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      font-weight: 600;
+      margin: 10px 0 6px;
+    }
+    #channel-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .chip {
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      font: inherit;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    .chip span {
+      color: var(--muted);
+      font-weight: 500;
+      margin-left: 2px;
+    }
+    .chip.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+    .chip.active span { color: rgba(255,255,255,0.85); }
 
     .board-wrap {
       overflow-x: auto;
@@ -121,7 +210,7 @@
       background: #eef1f4;
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      max-height: calc(100vh - 160px);
+      max-height: calc(100vh - 280px);
       display: flex;
       flex-direction: column;
     }
@@ -133,14 +222,11 @@
       border-bottom: 1px solid var(--border);
       background: #f8fafb;
       border-radius: var(--radius) var(--radius) 0 0;
-      position: sticky;
-      top: 0;
     }
     .column-header h2 {
       margin: 0;
       font-size: 0.82rem;
       font-weight: 700;
-      color: var(--text);
     }
     .col-count {
       background: var(--accent);
@@ -196,21 +282,17 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.03em;
-      background: var(--accent-soft);
-      color: var(--accent);
       padding: 2px 7px;
       border-radius: 4px;
     }
-    .stage-pill {
-      font-size: 0.65rem;
-      font-weight: 600;
-      padding: 2px 6px;
-      border-radius: 4px;
-      background: #e8ebef;
-      color: var(--muted);
+    .channel-badge {
+      background: var(--accent);
+      color: #fff;
     }
-    .stage-won { background: #e3f5eb; color: var(--won); }
-    .stage-lost { background: #f8e8e8; color: var(--lost); }
+    .source-badge {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
     .card-title {
       margin: 0 0 2px;
       font-size: 0.95rem;
@@ -223,6 +305,12 @@
       color: var(--muted);
     }
     .card-org { color: var(--text); font-weight: 500; }
+    .card-rev {
+      margin: 4px 0 0;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--won);
+    }
     .card-fo-preview {
       margin-top: 6px;
       padding-top: 6px;
@@ -290,9 +378,7 @@
       overflow-y: auto;
       flex: 1;
     }
-    .field {
-      margin-bottom: 14px;
-    }
+    .field { margin-bottom: 14px; }
     .field > span, .field > label {
       display: block;
       font-size: 0.7rem;
@@ -302,10 +388,7 @@
       color: var(--muted);
       margin-bottom: 4px;
     }
-    .field p {
-      margin: 0;
-      font-size: 0.9rem;
-    }
+    .field p { margin: 0; font-size: 0.9rem; }
     .seed-box {
       background: #f7f9fb;
       border: 1px solid var(--border);
@@ -316,17 +399,16 @@
       max-height: 140px;
       overflow-y: auto;
     }
-    textarea {
+    textarea, input[type="number"] {
       width: 100%;
-      min-height: 120px;
       font: inherit;
       font-size: 0.95rem;
       padding: 10px;
       border: 1px solid var(--border);
       border-radius: 8px;
-      resize: vertical;
     }
-    textarea:focus, select:focus {
+    textarea { min-height: 120px; resize: vertical; }
+    textarea:focus, select:focus, input:focus {
       outline: 2px solid var(--accent);
       outline-offset: 1px;
     }
@@ -347,7 +429,6 @@
       cursor: pointer;
       font-size: 0.95rem;
     }
-    .btn-primary:active { opacity: 0.9; }
     #save-msg {
       font-size: 0.8rem;
       color: var(--won);
@@ -355,7 +436,7 @@
     }
 
     @media (max-width: 600px) {
-      .column { flex: 0 0 85vw; width: 85vw; max-height: calc(100vh - 200px); }
+      .column { flex: 0 0 85vw; width: 85vw; max-height: calc(100vh - 320px); }
       #drawer { width: 100%; }
     }
   </style>
@@ -372,12 +453,25 @@
     <div class="banner" role="status">
       FO notes save on this device for now; CoS will wire a shared Sheet for multi-device sync.
     </div>
+
+    <section class="revenue-panel" aria-label="Running event revenue by source">
+      <h2>Running event revenue by source</h2>
+      <div class="revenue-scroll">
+        <table id="revenue-table">
+          <thead>
+            <tr>
+              <th>Channel</th>
+              <th>Won</th>
+              <th>₱ revenue</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="revenue-body"></tbody>
+        </table>
+      </div>
+    </section>
+
     <div class="filters">
-      <label>Source
-        <select id="filter-source" aria-label="Filter by source">
-          <option value="all">All sources</option>
-        </select>
-      </label>
       <label>Pipeline
         <select id="filter-status" aria-label="Filter by pipeline status">
           <option value="open">Open</option>
@@ -387,6 +481,8 @@
         </select>
       </label>
     </div>
+    <div class="chips-label">Marketing channel</div>
+    <div id="channel-chips" role="group" aria-label="Filter by marketing channel"></div>
   </header>
 
   <div class="board-wrap">
@@ -412,8 +508,16 @@
         <p id="drawer-dates"></p>
       </div>
       <div class="field">
+        <span>Marketing channel</span>
+        <select id="channel-select" aria-label="Marketing channel"></select>
+      </div>
+      <div class="field">
         <span>Stage</span>
         <select id="stage-select" aria-label="Change stage"></select>
+      </div>
+      <div class="field" id="revenue-wrap" hidden>
+        <label for="revenue-php">Won revenue (₱)</label>
+        <input type="number" id="revenue-php" min="0" step="1" placeholder="e.g. 85000" inputmode="numeric" />
       </div>
       <div class="field">
         <span>Seed / inbox notes</span>
