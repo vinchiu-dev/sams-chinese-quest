@@ -4,20 +4,25 @@
 **FO Shared Sheet:** https://docs.google.com/spreadsheets/d/1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y/edit  
 **Repo folder:** `bc-events-crm/`
 
-**Canonical Sheet (2026-09-09):** https://docs.google.com/spreadsheets/d/1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y/edit — full 16 leads. Page prefers Sheet CSV; localStorage drafts do not permanently override other devices.
+**Canonical Sheet (2026-09-09):** https://docs.google.com/spreadsheets/d/1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y/edit — full 16 leads. Sheet is source of truth; drawer Save POSTs to Apps Script when `fo_sheet_write_url` is set; Refresh loads Sheet CSV; localStorage drafts are fallback only.
 ## Architecture (static GitHub Pages)
 
-1. **`leads.json`** — seeded pipeline (Gmail EVENT INQUIRY, email RFQs, etc.). CoS republishes after inbox ingest.
-2. **FO Shared Sheet** — source of truth for FO overlays: `stage`, `marketing_channel`, `revenue_php`, `fo_notes`, `lost_reason`, `last_updated` keyed by `lead_id`.
-3. **`fo-overlay.csv`** — same-origin mirror of the Sheet (always fetchable from GH Pages). CoS overwrites this from the Sheet on sync.
-4. **Browser `localStorage`** (`bc-events-crm-overlay-v1`) — FO drawer Save writes here and **recomputes the revenue chart immediately**. Local wins over remote until CoS republishes.
+1. **FO Shared Sheet** — **source of truth** for the ledger + FO overlays: `stage`, `marketing_channel`, `revenue_php`, `fo_notes`, `lost_reason`, `last_updated`, `editor` keyed by `lead_id`.
+2. **Drawer Save → Apps Script write-back** — when `config.json` → `fo_sheet_write_url` is set, Save POSTs FO fields to `scripts/SheetWriteback.gs` (deployed web app). Script upserts by `lead_id` and **only overwrites fields present in the POST** (never blanks omitted columns). On success the page toasts sync + **Refresh from Sheet** so Sheet CSV wins for all viewers.
+3. **Refresh / CSV load** — page prefers `fo_sheet_csv_url` (Sheet export), then `synced-ledger.csv` / `fo-overlay.csv` mirrors, then `leads.json`.
+4. **Local drafts** (`localStorage` `bc-events-crm-draft-v2`) — fallback for instant UI when write URL is empty or POST fails. Cleared by **Refresh from Sheet** / Clear local drafts. Not multi-device.
+5. **`leads.json`** — seeded pipeline (Gmail EVENT INQUIRY, email RFQs, etc.). CoS republishes after inbox ingest.
 
-Merge order in `app.js`: `leads.json` ← FO Sheet / `fo-overlay.csv` ← localStorage.
+Merge order in `app.js`: Sheet CSV / mirror / `leads.json` base ← optional this-session drafts (only when Save applied them).
+
+### Deploy write-back (CoS / Vin)
+
+Paste the Apps Script web app URL into `config.json` → `fo_sheet_write_url` after deploy. Leave `""` until then. Steps: **[scripts/DEPLOY-WRITEBACK.md](./scripts/DEPLOY-WRITEBACK.md)**.
 
 ### One-time Sheet share (for live CSV fetch)
 
-In Google Sheets: **Share → Anyone with the link → Viewer**.  
-Then the page can also hit `config.json` → `fo_sheet_csv_url` (export CSV). Until shared, Refresh FO data still loads `fo-overlay.csv`.
+In Google Sheets: **Share → Anyone with the link → Viewer** (or Editor for FO).  
+Then the page can hit `config.json` → `fo_sheet_csv_url` (export CSV). Until shared, Refresh still loads `synced-ledger.csv` / `fo-overlay.csv`.
 
 Optional: **File → Share → Publish to web** (CSV) and paste that URL into `config.json` `fo_sheet_csv_url`.
 
@@ -26,10 +31,10 @@ Optional: **File → Share → Publish to web** (CSV) and paste that URL into `c
 1. Open the CRM → click a lead → set **Stage = Won**.
 2. Enter **Won revenue (₱)** = confirmed total event/group revenue (never invent; nightly rate alone is not enough).
 3. Set **Marketing channel** (Google Ads, Messenger, etc.).
-4. Click **Save** → chart updates on this device immediately.
-5. For multi-device durability: also upsert the same row in the **FO Shared Sheet** (columns match `fo-overlay.csv`), **or** rely on weekday CoS sync if FO only uses the drawer (CoS should harvest local notes when Vin pastes / Sheet is edited).
+4. Click **Save** → local draft updates the chart immediately; if write-back is deployed, POST upserts the Shared Sheet and Refresh reloads Sheet CSV for all devices.
+5. If write URL is empty or sync fails: toast says **local draft only** and opens the Shared Sheet link — copy the row there (or edit in Sheet) so other devices see it.
 
-Preferred durable path: FO edits the Shared Sheet (or Vin mirrors drawer edits into the Sheet). CoS morning sync publishes Sheet → `fo-overlay.csv` (+ optional field merge into `leads.json`) → push `main`.
+Preferred durable path: Drawer Save → Apps Script → Shared Sheet (or edit Sheet directly). CoS morning sync still republishes Sheet → `fo-overlay.csv` / `synced-ledger.csv` (+ optional `leads.json` merge) → push `main` as a CDN fallback.
 
 ## CoS ingest sources
 
@@ -68,4 +73,4 @@ Writes `fo-overlay.csv` and optionally patches `leads.json` FO fields.
 
 - **Cloudbeds:** no reliable event-booking email feed; needs dashboard access or webhook.
 - **Messenger:** no automated Page inbox connector; FO/Vin paste required.
-- **Apps Script POST from drawer:** not deployed (static Pages); Sheet + CoS republish is the durable path.
+- **Apps Script POST from drawer:** source ready at `scripts/SheetWriteback.gs` — deploy web app + set `fo_sheet_write_url` (see `scripts/DEPLOY-WRITEBACK.md`). Until then Sheet edit + CoS republish remains the durable path.

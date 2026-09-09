@@ -36,6 +36,7 @@
   let config = {
     fo_sheet_edit_url: "https://docs.google.com/spreadsheets/d/1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y/edit",
     fo_sheet_csv_url: "https://docs.google.com/spreadsheets/d/1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y/export?format=csv",
+    fo_sheet_write_url: "",
     synced_ledger_csv: "synced-ledger.csv",
   };
 
@@ -516,7 +517,7 @@
     document.getElementById("revenue-wrap").hidden = stage !== "won";
   }
 
-  function saveDrawer() {
+  async function saveDrawer() {
     if (!activeId) return;
     const stage = document.getElementById("stage-select").value;
     const fo_notes = document.getElementById("fo-notes").value;
@@ -529,24 +530,81 @@
       revenue_php = Number.isFinite(n) ? n : null;
     }
     const today = new Date().toISOString().slice(0, 10);
+    const lostOut = stage === "lost" ? lost_reason : draftOverlay[activeId]?.lost_reason || "";
+    const revOut = stage === "won" ? revenue_php : draftOverlay[activeId]?.revenue_php ?? null;
     draftOverlay[activeId] = {
       ...(draftOverlay[activeId] || {}),
       stage,
       fo_notes,
       marketing_channel,
-      lost_reason: stage === "lost" ? lost_reason : draftOverlay[activeId]?.lost_reason || "",
-      revenue_php: stage === "won" ? revenue_php : draftOverlay[activeId]?.revenue_php ?? null,
+      lost_reason: lostOut,
+      revenue_php: revOut,
       last_updated: today,
     };
     saveDraft();
     applyDrafts = true;
     const msg = document.getElementById("save-msg");
-    msg.textContent = "Local draft only — copy into Shared Sheet for all devices.";
-    msg.hidden = false;
-    setTimeout(() => {
-      msg.hidden = true;
-    }, 3200);
     render();
+
+    const writeUrl = String(config.fo_sheet_write_url || "").trim();
+    const sheetEdit = config.fo_sheet_edit_url || "#";
+
+    function flashSaveMsg(text, ms) {
+      msg.textContent = text;
+      msg.hidden = false;
+      setTimeout(() => {
+        msg.hidden = true;
+      }, ms || 3600);
+    }
+
+    if (!writeUrl) {
+      flashSaveMsg("Local draft only — copy into Shared Sheet for all devices.");
+      showToast("Local draft only — open Shared Sheet to sync for all devices.");
+      return;
+    }
+
+    const lead = allLeads().find((l) => l.id === activeId);
+    const payload = {
+      lead_id: activeId,
+      stage,
+      marketing_channel,
+      fo_notes,
+      revenue_php: revOut,
+      lost_reason: lostOut,
+      last_updated: today,
+      editor: "drawer",
+    };
+    if (lead) {
+      if (lead.name) payload.name = lead.name;
+      if (lead.org) payload.org = lead.org;
+    }
+
+    try {
+      // text/plain avoids Apps Script CORS preflight; body is still JSON
+      const res = await fetch(writeUrl, {
+        method: "POST",
+        mode: "cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      let data = {};
+      try {
+        data = await res.json();
+      } catch {
+        data = {};
+      }
+      if (!data.ok) throw new Error(data.error || "writeback rejected");
+      flashSaveMsg("Synced to Shared Sheet for all devices.");
+      showToast("Synced to Shared Sheet — refreshing…");
+      await refreshFromSheet();
+    } catch (err) {
+      flashSaveMsg("Local draft only (Sheet sync failed). Open Shared Sheet to copy.", 5000);
+      showToast("Sheet sync failed — local draft only. Open Shared Sheet.");
+      try {
+        if (sheetEdit && sheetEdit !== "#") window.open(sheetEdit, "_blank", "noopener");
+      } catch {}
+    }
   }
 
   function parseCsv(text) {

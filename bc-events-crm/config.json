@@ -3,7 +3,8 @@
   "fo_sheet_id": "1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y",
   "fo_sheet_edit_url": "https://docs.google.com/spreadsheets/d/1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y/edit",
   "fo_sheet_csv_url": "https://docs.google.com/spreadsheets/d/1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y/export?format=csv",
+  "fo_sheet_write_url": "",
   "synced_ledger_csv": "synced-ledger.csv",
   "fo_overlay_csv": "fo-overlay.csv",
-  "notes": "Sheet is the multi-device source of truth. Share as Anyone with the link → Editor so FO can edit and GH Pages can fetch CSV. Until public, page loads synced-ledger.csv mirror; CoS refresh republishes from Sheet."
+  "notes": "Sheet is the multi-device source of truth. Drawer Save POSTs to fo_sheet_write_url (Apps Script) when set; Refresh loads Sheet CSV. Share Sheet as Anyone with the link → Editor so FO can edit and GH Pages can fetch CSV. Until public, page loads synced-ledger.csv mirror; CoS refresh republishes from Sheet. Leave fo_sheet_write_url empty until Apps Script is deployed — see SYNC.md / scripts/DEPLOY-WRITEBACK.md."
 }
