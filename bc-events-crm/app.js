@@ -1,6 +1,6 @@
-/* Blue Coast Events CRM — FO overlay (localStorage + shared Sheet/CSV), revenue chart */
+/* Blue Coast Events CRM — Sheet is multi-device source of truth; page is live view */
 (function () {
-  const LS_KEY = "bc-events-crm-overlay-v1";
+  const LS_DRAFT_KEY = "bc-events-crm-draft-v2";
 
   const stageMeta = {
     new_inquiry: { label: "New inquiry", open: true },
@@ -26,53 +26,44 @@
   let baseLeads = [];
   let stages = [];
   let channels = [];
-  /** Remote FO sheet / fo-overlay.csv rows keyed by lead id */
-  let remoteOverlay = {};
-  let config = {
-    fo_sheet_edit_url: "",
-    fo_sheet_csv_url: "",
-    fo_overlay_csv: "fo-overlay.csv",
-  };
-  let localOverlay = loadLocalOverlay();
+  /** Optional this-session drafts only — cleared on Refresh from Sheet */
+  let draftOverlay = loadDraft();
+  let applyDrafts = false; // off by default so other devices aren't overridden
+  let dataSource = "none";
   let activeId = null;
   let channelFilter = "all";
   let statusFilter = "open";
+  let config = {
+    fo_sheet_edit_url: "https://docs.google.com/spreadsheets/d/1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y/edit",
+    fo_sheet_csv_url: "https://docs.google.com/spreadsheets/d/1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y/export?format=csv",
+    synced_ledger_csv: "synced-ledger.csv",
+  };
 
-  function loadLocalOverlay() {
+  function loadDraft() {
     try {
-      return JSON.parse(localStorage.getItem(LS_KEY) || "{}");
+      return JSON.parse(localStorage.getItem(LS_DRAFT_KEY) || "{}");
     } catch {
       return {};
     }
   }
 
-  function saveLocalOverlay() {
-    localStorage.setItem(LS_KEY, JSON.stringify(localOverlay));
+  function saveDraft() {
+    localStorage.setItem(LS_DRAFT_KEY, JSON.stringify(draftOverlay));
   }
 
-  /** Merge priority: leads.json < remote FO sheet/CSV < localStorage (device Save wins immediately) */
-  function overlayFor(id) {
-    const remote = remoteOverlay[id] || {};
-    const local = localOverlay[id] || {};
-    const out = { ...remote };
-    Object.keys(local).forEach((k) => {
-      if (local[k] != null && local[k] !== "") out[k] = local[k];
-      else if (local[k] === "" && (k === "fo_notes" || k === "lost_reason")) out[k] = local[k];
-      else if (local[k] === null && k === "revenue_php") out[k] = null;
-      else if (Object.prototype.hasOwnProperty.call(local, k) && k === "revenue_php") out[k] = local[k];
-      else if (Object.prototype.hasOwnProperty.call(local, k) && local[k] !== undefined) out[k] = local[k];
-    });
-    // Always prefer local stage/channel/revenue/notes/lost/last_updated when local row exists
-    if (localOverlay[id]) {
-      ["stage", "marketing_channel", "fo_notes", "lost_reason", "revenue_php", "last_updated"].forEach((k) => {
-        if (Object.prototype.hasOwnProperty.call(local, k)) out[k] = local[k];
-      });
-    }
-    return out;
+  function clearDrafts() {
+    draftOverlay = {};
+    localStorage.removeItem(LS_DRAFT_KEY);
+    // also clear legacy overlay so it cannot resurrect
+    try {
+      localStorage.removeItem("bc-events-crm-overlay-v1");
+    } catch {}
+    applyDrafts = false;
   }
 
   function mergedLead(base) {
-    const o = overlayFor(base.id);
+    if (!applyDrafts) return { ...base };
+    const o = draftOverlay[base.id] || {};
     return {
       ...base,
       stage: o.stage || base.stage,
@@ -143,15 +134,8 @@
   }
 
   const CHART_COLORS = [
-    "#1E71A7",
-    "#3d8fbf",
-    "#5aa3cc",
-    "#2f6f8f",
-    "#7ab3d4",
-    "#154a6e",
-    "#4d9bbb",
-    "#86c0dc",
-    "#0f3d5c",
+    "#1E71A7", "#3d8fbf", "#5aa3cc", "#2f6f8f", "#7ab3d4",
+    "#154a6e", "#4d9bbb", "#86c0dc", "#0f3d5c",
   ];
 
   function polarToCartesian(cx, cy, r, angleDeg) {
@@ -184,8 +168,8 @@
     if (!hasData || totalRev === 0) {
       hint.textContent =
         totalWon > 0
-          ? "Won leads present — enter ₱ revenue in the drawer (or FO Shared Sheet) to fill the chart."
-          : "Add revenue on Won leads to populate.";
+          ? "Won leads present — enter ₱ revenue in the Shared Sheet to fill the chart."
+          : "Add revenue on Won leads in the Shared Sheet to populate.";
       hint.hidden = false;
     } else {
       hint.hidden = true;
@@ -205,10 +189,7 @@
       .join("");
 
     const svg = document.getElementById("rev-donut");
-    const cx = 60;
-    const cy = 60;
-    const rOuter = 52;
-    const rInner = 34;
+    const cx = 60, cy = 60, rOuter = 52, rInner = 34;
     let slices = "";
     if (totalRev > 0) {
       let angle = 0;
@@ -217,8 +198,7 @@
         const sweep = (r.revenue_php / totalRev) * 360;
         const end = angle + sweep;
         const d = donutSlice(cx, cy, rOuter, rInner, angle, end);
-        const color = CHART_COLORS[i % CHART_COLORS.length];
-        slices += `<path d="${d}" fill="${color}"></path>`;
+        slices += `<path d="${d}" fill="${CHART_COLORS[i % CHART_COLORS.length]}"></path>`;
         angle = end;
       });
     } else {
@@ -396,23 +376,23 @@
       revenue_php = Number.isFinite(n) ? n : null;
     }
     const today = new Date().toISOString().slice(0, 10);
-    localOverlay[activeId] = {
-      ...(localOverlay[activeId] || {}),
+    draftOverlay[activeId] = {
+      ...(draftOverlay[activeId] || {}),
       stage,
       fo_notes,
       marketing_channel,
-      lost_reason: stage === "lost" ? lost_reason : localOverlay[activeId]?.lost_reason || "",
-      revenue_php: stage === "won" ? revenue_php : localOverlay[activeId]?.revenue_php ?? null,
+      lost_reason: stage === "lost" ? lost_reason : draftOverlay[activeId]?.lost_reason || "",
+      revenue_php: stage === "won" ? revenue_php : draftOverlay[activeId]?.revenue_php ?? null,
       last_updated: today,
     };
-    saveLocalOverlay();
+    saveDraft();
+    applyDrafts = true;
     const msg = document.getElementById("save-msg");
-    msg.textContent = "Saved — chart updated (this device). Mirror to FO Shared Sheet for other devices.";
+    msg.textContent = "Local draft only — copy into Shared Sheet for all devices.";
     msg.hidden = false;
     setTimeout(() => {
       msg.hidden = true;
-    }, 2800);
-    // Chart + board recompute from merged leads immediately
+    }, 3200);
     render();
   }
 
@@ -474,111 +454,158 @@
     return rows;
   }
 
-  function csvRowsToOverlay(rows) {
-    if (!rows.length) return {};
+  function csvToLeads(rows) {
+    if (!rows.length) return [];
     const headers = rows[0].map((h) => String(h || "").trim().toLowerCase());
     const idx = (name) => headers.indexOf(name);
-    const idI = idx("lead_id");
-    if (idI < 0) return {};
-    const map = {};
+    const idI = idx("lead_id") >= 0 ? idx("lead_id") : idx("id");
+    if (idI < 0) return [];
+    const get = (cells, name) => {
+      const j = idx(name);
+      return j >= 0 && cells[j] != null ? String(cells[j]) : "";
+    };
+    const out = [];
     for (let r = 1; r < rows.length; r++) {
       const cells = rows[r];
       const id = (cells[idI] || "").trim();
       if (!id) continue;
-      const get = (name) => {
-        const j = idx(name);
-        return j >= 0 ? (cells[j] != null ? String(cells[j]) : "") : "";
-      };
-      const revRaw = get("revenue_php").trim();
+      const revRaw = get(cells, "revenue_php").trim();
       let revenue_php = null;
       if (revRaw !== "") {
         const n = Number(revRaw.replace(/,/g, ""));
         revenue_php = Number.isFinite(n) ? n : null;
       }
-      const stage = get("stage").trim();
-      const marketing_channel = get("marketing_channel").trim();
-      map[id] = {
-        stage: stage || undefined,
-        marketing_channel: marketing_channel || undefined,
-        fo_notes: get("fo_notes"),
-        lost_reason: get("lost_reason"),
+      out.push({
+        id,
+        name: get(cells, "name"),
+        org: get(cells, "org"),
+        email: get(cells, "email") || null,
+        phone: get(cells, "phone") || null,
+        source: get(cells, "source"),
+        source_badge: get(cells, "source_badge") || "Other",
+        inquiry_date: get(cells, "inquiry_date"),
+        event_dates: get(cells, "event_dates"),
+        pax: get(cells, "pax"),
+        event_type: get(cells, "event_type"),
+        stage: get(cells, "stage") || "new_inquiry",
+        marketing_channel: get(cells, "marketing_channel") || "Walk-in / other",
         revenue_php,
-        last_updated: get("last_updated").trim() || undefined,
-      };
+        fo_notes: get(cells, "fo_notes"),
+        lost_reason: get(cells, "lost_reason"),
+        seed_notes: get(cells, "seed_notes"),
+        last_updated: get(cells, "last_updated"),
+        subject: get(cells, "subject"),
+      });
     }
-    return map;
+    return out;
   }
 
   async function fetchText(url) {
     const res = await fetch(url, { cache: "no-store" });
     if (!res.ok) throw new Error(String(res.status));
     const text = await res.text();
-    // Google login HTML is not CSV
     if (/^\s*<(!DOCTYPE|html)/i.test(text)) throw new Error("not-csv");
     return text;
   }
 
-  async function loadRemoteFoOverlay() {
+  async function loadLeadsFromRemote() {
     const tried = [];
-    const urls = [];
-    if (config.fo_sheet_csv_url) urls.push({ kind: "sheet", url: config.fo_sheet_csv_url });
-    if (config.fo_overlay_csv) urls.push({ kind: "repo", url: config.fo_overlay_csv + "?t=" + Date.now() });
+    const candidates = [];
+    if (config.fo_sheet_csv_url) candidates.push({ kind: "sheet", url: config.fo_sheet_csv_url });
+    if (config.synced_ledger_csv) candidates.push({ kind: "mirror", url: config.synced_ledger_csv + "?t=" + Date.now() });
 
-    let loaded = null;
-    for (const item of urls) {
+    for (const c of candidates) {
       try {
-        const text = await fetchText(item.url);
-        const map = csvRowsToOverlay(parseCsv(text));
-        loaded = { kind: item.kind, map, count: Object.keys(map).length };
-        break;
+        const text = await fetchText(c.url);
+        const leads = csvToLeads(parseCsv(text));
+        if (!leads.length) throw new Error("empty");
+        return { kind: c.kind, leads };
       } catch (e) {
-        tried.push(item.kind + ":" + (e.message || e));
+        tried.push(c.kind + ":" + (e.message || e));
       }
     }
-    if (loaded) {
-      remoteOverlay = loaded.map;
-      return loaded;
-    }
-    remoteOverlay = {};
-    return { kind: "none", map: {}, count: 0, tried };
+    return { kind: "json", leads: null, tried };
   }
 
-  function updateBanner(syncInfo) {
+  function updateBanner() {
     const el = document.getElementById("banner");
     if (!el) return;
     const sheetUrl = config.fo_sheet_edit_url || "#";
-    const src =
-      syncInfo.kind === "sheet"
-        ? "live FO Sheet CSV"
-        : syncInfo.kind === "repo"
-          ? "FO overlay CSV (repo mirror)"
-          : "local device only (remote FO CSV not readable yet)";
-    el.innerHTML = `FO notes/revenue sync via <a href="${escapeHtml(sheetUrl)}" target="_blank" rel="noopener">FO Shared Sheet</a> + this device. Chart merges Sheet/CSV over <code>leads.json</code>; Save updates chart immediately (${escapeHtml(src)}).`;
+    const srcLabel =
+      dataSource === "sheet"
+        ? "live Shared Sheet"
+        : dataSource === "mirror"
+          ? "repo Sheet mirror (synced-ledger.csv)"
+          : "leads.json fallback";
+    const draftNote = applyDrafts
+      ? ' <strong>Local drafts ON</strong> — click Refresh to prefer Sheet for all devices.'
+      : "";
+    el.innerHTML = `Source of truth: <a href="${escapeHtml(sheetUrl)}" target="_blank" rel="noopener">Shared Sheet</a> (edit there for every device). Page live view from <em>${escapeHtml(srcLabel)}</em>.${draftNote}
+      <button type="button" class="banner-btn" id="btn-refresh-fo">Refresh from Sheet</button>
+      <button type="button" class="banner-btn" id="btn-clear-draft">Clear local drafts</button>`;
+    document.getElementById("btn-refresh-fo")?.addEventListener("click", () => refreshFromSheet());
+    document.getElementById("btn-clear-draft")?.addEventListener("click", () => {
+      clearDrafts();
+      updateBanner();
+      render();
+    });
+  }
+
+  async function refreshFromSheet() {
+    clearDrafts();
+    const loaded = await loadLeadsFromRemote();
+    if (loaded.leads) {
+      baseLeads = loaded.leads;
+      dataSource = loaded.kind;
+    } else {
+      // keep current base; still cleared drafts
+      dataSource = dataSource || "json";
+    }
+    updateBanner();
+    render();
   }
 
   async function init() {
     try {
       const cfgRes = await fetch("config.json?t=" + Date.now());
       if (cfgRes.ok) config = { ...config, ...(await cfgRes.json()) };
-    } catch {
-      /* optional */
+    } catch {}
+
+    stages = Object.keys(stageMeta).map((id) => ({ id, label: stageMeta[id].label }));
+    channels = Object.keys(CHANNEL_SHORT);
+
+    const loaded = await loadLeadsFromRemote();
+    if (loaded.leads) {
+      baseLeads = loaded.leads;
+      dataSource = loaded.kind;
+    } else {
+      const res = await fetch("leads.json?t=" + Date.now());
+      const data = await res.json();
+      baseLeads = data.leads || [];
+      stages = data.stages || stages;
+      channels = data.marketing_channels || channels;
+      document.getElementById("north-star").textContent = data.north_star || "YoY event sales growth";
+      dataSource = "json";
     }
 
-    const res = await fetch("leads.json?t=" + Date.now());
-    const data = await res.json();
-    baseLeads = data.leads || [];
-    stages = data.stages || Object.keys(stageMeta).map((id) => ({ id, label: stageMeta[id].label }));
-    channels = data.marketing_channels || Object.keys(CHANNEL_SHORT);
-    document.getElementById("north-star").textContent = data.north_star || "YoY event sales growth";
+    // Prefer Sheet stages/channels lists when present in JSON meta
+    try {
+      const meta = await fetch("leads.json?t=" + Date.now());
+      if (meta.ok) {
+        const data = await meta.json();
+        if (data.stages) stages = data.stages;
+        if (data.marketing_channels) channels = data.marketing_channels;
+        if (data.north_star) document.getElementById("north-star").textContent = data.north_star;
+      }
+    } catch {}
 
-    const sheetLink = document.getElementById("fo-sheet-link");
-    if (sheetLink && config.fo_sheet_edit_url) {
-      sheetLink.href = config.fo_sheet_edit_url;
-      sheetLink.hidden = false;
-    }
+    // Do not auto-apply legacy localStorage overlays
+    try {
+      localStorage.removeItem("bc-events-crm-overlay-v1");
+    } catch {}
+    applyDrafts = false;
 
-    const syncInfo = await loadRemoteFoOverlay();
-    updateBanner(syncInfo);
+    updateBanner();
 
     document.getElementById("filter-status").addEventListener("change", (e) => {
       statusFilter = e.target.value;
@@ -591,25 +618,20 @@
       toggleLostReason(e.target.value);
       toggleRevenue(e.target.value);
     });
-    const btnRefresh = document.getElementById("btn-refresh-fo");
-    if (btnRefresh) {
-      btnRefresh.addEventListener("click", async () => {
-        btnRefresh.disabled = true;
-        const info = await loadRemoteFoOverlay();
-        updateBanner(info);
-        render();
-        btnRefresh.disabled = false;
-      });
-    }
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeDrawer();
     });
+
+    const sheetLink = document.getElementById("fo-sheet-link");
+    if (sheetLink && config.fo_sheet_edit_url) {
+      sheetLink.href = config.fo_sheet_edit_url;
+    }
 
     render();
   }
 
   init().catch((err) => {
     document.getElementById("board").innerHTML =
-      `<p class="error">Failed to load leads.json: ${escapeHtml(err.message)}</p>`;
+      `<p class="error">Failed to load CRM data: ${escapeHtml(err.message)}</p>`;
   });
 })();

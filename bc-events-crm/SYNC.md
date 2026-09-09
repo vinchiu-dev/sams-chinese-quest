@@ -1,9 +1,10 @@
 # Blue Coast Events CRM — CoS sync
 
 **Live:** https://vinchiu-dev.github.io/sams-chinese-quest/bc-events-crm/  
-**FO Shared Sheet:** https://docs.google.com/spreadsheets/d/1YEjZCTYaIA6iv-q5u7RbHxRqug-t63RBsSy6h3ijGdw/edit  
+**FO Shared Sheet:** https://docs.google.com/spreadsheets/d/1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y/edit  
 **Repo folder:** `bc-events-crm/`
 
+**Canonical Sheet (2026-09-09):** https://docs.google.com/spreadsheets/d/1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y/edit — full 16 leads. Page prefers Sheet CSV; localStorage drafts do not permanently override other devices.
 ## Architecture (static GitHub Pages)
 
 1. **`leads.json`** — seeded pipeline (Gmail EVENT INQUIRY, email RFQs, etc.). CoS republishes after inbox ingest.
@@ -45,7 +46,7 @@ Preferred durable path: FO edits the Shared Sheet (or Vin mirrors drawer edits i
 
 > **BC Events CRM — weekday morning sync (Mon–Fri ~08:30 America/New_York)**  
 > 1. Gmail (`vin.chiu@gmail.com`): search last 24–48h for EVENT INQUIRY, contact form, RFQ/BAC event bids, Fixerink/group stay threads. Upsert into `bc-events-crm/leads.json` (stable `id` when possible).  
-> 2. Download **BC Events CRM — FO ledger** Sheet (Drive connector `read_file_content` or export CSV) → write `bc-events-crm/fo-overlay.csv` with headers: `lead_id,name,org,stage,marketing_channel,revenue_php,fo_notes,lost_reason,last_updated,editor`.  
+> 2. Download **BC Events CRM — synced ledger** Sheet (Drive connector `read_file_content` or export CSV) → write `bc-events-crm/fo-overlay.csv` with headers: `lead_id,name,org,stage,marketing_channel,revenue_php,fo_notes,lost_reason,last_updated,editor`.  
 > 3. Optionally merge FO Sheet fields into matching `leads.json` rows (do not overwrite FO blanks over known seed notes; never invent revenue).  
 > 4. Scan for Cloudbeds **group** confirmations only; note gaps in SEED-SUMMARY if none.  
 > 5. Messenger: if Vin/FO left notes in Sheet or chat, apply channel=Messenger + notes.  

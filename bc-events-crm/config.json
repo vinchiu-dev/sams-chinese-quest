@@ -1,8 +1,9 @@
 {
-  "fo_sheet_title": "BC Events CRM — FO ledger",
-  "fo_sheet_id": "1YEjZCTYaIA6iv-q5u7RbHxRqug-t63RBsSy6h3ijGdw",
-  "fo_sheet_edit_url": "https://docs.google.com/spreadsheets/d/1YEjZCTYaIA6iv-q5u7RbHxRqug-t63RBsSy6h3ijGdw/edit",
-  "fo_sheet_csv_url": "https://docs.google.com/spreadsheets/d/1YEjZCTYaIA6iv-q5u7RbHxRqug-t63RBsSy6h3ijGdw/export?format=csv",
+  "fo_sheet_title": "BC Events CRM — synced ledger",
+  "fo_sheet_id": "1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y",
+  "fo_sheet_edit_url": "https://docs.google.com/spreadsheets/d/1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y/edit",
+  "fo_sheet_csv_url": "https://docs.google.com/spreadsheets/d/1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y/export?format=csv",
+  "synced_ledger_csv": "synced-ledger.csv",
   "fo_overlay_csv": "fo-overlay.csv",
-  "notes": "Share the Sheet as Anyone with the link (Viewer) so GH Pages can fetch fo_sheet_csv_url. Until then, CoS sync publishes fo-overlay.csv from the Sheet."
+  "notes": "Sheet is the multi-device source of truth. Share as Anyone with the link → Editor so FO can edit and GH Pages can fetch CSV. Until public, page loads synced-ledger.csv mirror; CoS refresh republishes from Sheet."
 }
