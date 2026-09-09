@@ -253,6 +253,160 @@
     });
   }
 
+  function showToast(message) {
+    const el = document.getElementById("toast");
+    if (!el) return;
+    el.textContent = message;
+    el.classList.add("show");
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => el.classList.remove("show"), 3400);
+  }
+
+  function moveLeadToStage(id, stage) {
+    const lead = allLeads().find((l) => l.id === id);
+    if (!lead || !stage || lead.stage === stage) return false;
+    const today = new Date().toISOString().slice(0, 10);
+    draftOverlay[id] = {
+      ...(draftOverlay[id] || {}),
+      stage,
+      last_updated: today,
+    };
+    saveDraft();
+    applyDrafts = true;
+    showToast("Local draft only — copy into Shared Sheet for all devices.");
+    updateBanner();
+    render();
+    return true;
+  }
+
+  function bindBoardDnD(board) {
+    let pointerDrag = null;
+
+    function clearDragOver() {
+      board.querySelectorAll(".column.drag-over").forEach((c) => c.classList.remove("drag-over"));
+    }
+
+    function columnAtPoint(x, y) {
+      const el = document.elementFromPoint(x, y);
+      return el ? el.closest(".column") : null;
+    }
+
+    function endPointerDrag(x, y) {
+      if (!pointerDrag) return;
+      const { id, card, handle } = pointerDrag;
+      try {
+        handle.releasePointerCapture(pointerDrag.pointerId);
+      } catch {}
+      card.classList.remove("dragging");
+      const col = columnAtPoint(x, y);
+      clearDragOver();
+      pointerDrag = null;
+      if (col && col.dataset.stage) moveLeadToStage(id, col.dataset.stage);
+    }
+
+    board.querySelectorAll(".card").forEach((card) => {
+      card.addEventListener("click", (e) => {
+        if (e.target.closest(".card-drag-handle")) return;
+        if (card.dataset.suppressClick === "1") {
+          delete card.dataset.suppressClick;
+          return;
+        }
+        openDrawer(card.dataset.id);
+      });
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openDrawer(card.dataset.id);
+        }
+      });
+    });
+
+    board.querySelectorAll(".card-drag-handle").forEach((handle) => {
+      handle.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+
+      // HTML5 DnD (desktop)
+      handle.addEventListener("dragstart", (e) => {
+        const card = handle.closest(".card");
+        if (!card) return;
+        const id = card.dataset.id;
+        e.dataTransfer.setData("text/plain", id);
+        e.dataTransfer.setData("application/x-bc-lead-id", id);
+        e.dataTransfer.effectAllowed = "move";
+        card.classList.add("dragging");
+      });
+      handle.addEventListener("dragend", () => {
+        board.querySelectorAll(".card.dragging").forEach((c) => c.classList.remove("dragging"));
+        clearDragOver();
+      });
+
+      // Pointer fallback (touch / when HTML5 DnD is weak)
+      handle.addEventListener("pointerdown", (e) => {
+        if (e.pointerType === "mouse" && e.button !== 0) return;
+        // Prefer native HTML5 DnD for mouse; use pointer path for touch/pen
+        if (e.pointerType === "mouse") return;
+        const card = handle.closest(".card");
+        if (!card) return;
+        e.preventDefault();
+        e.stopPropagation();
+        pointerDrag = {
+          id: card.dataset.id,
+          card,
+          handle,
+          pointerId: e.pointerId,
+          startX: e.clientX,
+          startY: e.clientY,
+          moved: false,
+        };
+        handle.setPointerCapture(e.pointerId);
+        card.classList.add("dragging");
+      });
+      handle.addEventListener("pointermove", (e) => {
+        if (!pointerDrag || pointerDrag.pointerId !== e.pointerId) return;
+        const dx = e.clientX - pointerDrag.startX;
+        const dy = e.clientY - pointerDrag.startY;
+        if (!pointerDrag.moved && dx * dx + dy * dy > 36) {
+          pointerDrag.moved = true;
+          pointerDrag.card.dataset.suppressClick = "1";
+        }
+        clearDragOver();
+        const col = columnAtPoint(e.clientX, e.clientY);
+        if (col) col.classList.add("drag-over");
+      });
+      handle.addEventListener("pointerup", (e) => {
+        if (!pointerDrag || pointerDrag.pointerId !== e.pointerId) return;
+        endPointerDrag(e.clientX, e.clientY);
+      });
+      handle.addEventListener("pointercancel", (e) => {
+        if (!pointerDrag || pointerDrag.pointerId !== e.pointerId) return;
+        pointerDrag.card.classList.remove("dragging");
+        clearDragOver();
+        pointerDrag = null;
+      });
+    });
+
+    board.querySelectorAll(".column").forEach((col) => {
+      col.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = "move";
+        col.classList.add("drag-over");
+      });
+      col.addEventListener("dragleave", (e) => {
+        if (!col.contains(e.relatedTarget)) col.classList.remove("drag-over");
+      });
+      col.addEventListener("drop", (e) => {
+        e.preventDefault();
+        col.classList.remove("drag-over");
+        const id =
+          e.dataTransfer.getData("application/x-bc-lead-id") || e.dataTransfer.getData("text/plain");
+        const stage = col.dataset.stage;
+        if (id && stage) moveLeadToStage(id, stage);
+      });
+    });
+  }
+
   function render() {
     const leads = allLeads();
     const filtered = leads.filter(matchesFilters);
@@ -277,9 +431,7 @@
       })
       .join("");
 
-    board.querySelectorAll(".card").forEach((el) => {
-      el.addEventListener("click", () => openDrawer(el.dataset.id));
-    });
+    bindBoardDnD(board);
   }
 
   function cardHtml(lead) {
@@ -294,6 +446,7 @@
         : "";
     return `
       <article class="card" data-id="${escapeHtml(lead.id)}" tabindex="0" role="button">
+        <span class="card-drag-handle" draggable="true" role="button" tabindex="-1" aria-label="Drag to change stage" title="Drag to move stage">⋮⋮</span>
         <div class="card-top">
           <span class="badge channel-badge" title="${escapeHtml(ch)}">${escapeHtml(chShort)}</span>
           <span class="badge source-badge">${escapeHtml(lead.source_badge || "Other")}</span>
