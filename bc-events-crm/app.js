@@ -154,12 +154,39 @@
     return `M ${so.x} ${so.y} A ${rOuter} ${rOuter} 0 ${large} 0 ${eo.x} ${eo.y} L ${ei.x} ${ei.y} A ${rInner} ${rInner} 0 ${large} 1 ${si.x} ${si.y} Z`;
   }
 
+  const REV_COLLAPSE_KEY = "bc-crm-rev-collapsed";
+
+  function applyRevCollapsed(collapsed) {
+    const panel = document.getElementById("revenue-panel");
+    const btn = document.getElementById("rev-toggle");
+    if (!panel || !btn) return;
+    panel.classList.toggle("is-collapsed", collapsed);
+    btn.setAttribute("aria-expanded", collapsed ? "false" : "true");
+  }
+
+  function initRevCollapse() {
+    const btn = document.getElementById("rev-toggle");
+    if (!btn || btn.dataset.bound === "1") return;
+    btn.dataset.bound = "1";
+    let collapsed = false;
+    try {
+      collapsed = localStorage.getItem(REV_COLLAPSE_KEY) === "1";
+    } catch (_) {}
+    applyRevCollapsed(collapsed);
+    btn.addEventListener("click", () => {
+      const next = !document.getElementById("revenue-panel").classList.contains("is-collapsed");
+      applyRevCollapsed(next);
+      try {
+        localStorage.setItem(REV_COLLAPSE_KEY, next ? "1" : "0");
+      } catch (_) {}
+    });
+  }
+
   function renderRevenue() {
     const rows = revenueByChannel(allLeads());
     const totalRev = rows.reduce((s, r) => s + r.revenue_php, 0);
     const totalWon = rows.reduce((s, r) => s + r.won_count, 0);
     const hasData = totalRev > 0 || totalWon > 0;
-    const maxRev = Math.max(1, ...rows.map((r) => r.revenue_php));
 
     document.getElementById("rev-total").textContent = `${formatPhp(totalRev)} · ${totalWon} won`;
     document.getElementById("rev-donut-big").textContent = formatPhp(totalRev);
@@ -213,20 +240,6 @@
     }
     svg.innerHTML = slices;
 
-    const bars = document.getElementById("rev-bars");
-    bars.innerHTML = rows
-      .map((r, i) => {
-        const short = CHANNEL_SHORT[r.channel] || r.channel;
-        const pct = totalRev > 0 ? Math.round((r.revenue_php / maxRev) * 100) : 0;
-        const color = CHART_COLORS[i % CHART_COLORS.length];
-        const w = r.revenue_php > 0 ? Math.max(pct, 3) : 0;
-        return `<div class="rev-bar-row" title="${escapeHtml(r.channel)}">
-          <span class="rev-bar-label">${escapeHtml(short)}</span>
-          <div class="rev-bar-track"><div class="rev-bar-fill" style="width:${w}%;background:${color}"></div></div>
-          <span class="rev-bar-meta"><strong>${formatPhp(r.revenue_php)}</strong> · ${r.won_count}</span>
-        </div>`;
-      })
-      .join("");
   }
 
   function renderChips() {

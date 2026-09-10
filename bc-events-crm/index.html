@@ -109,7 +109,7 @@
     .banner-btn:hover { background: #eef6fb; }
 
     .revenue-panel {
-      margin-top: 7px;
+      margin-top: 6px;
       border: 1px solid var(--border);
       border-radius: 8px;
       overflow: hidden;
@@ -120,10 +120,34 @@
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      padding: 5px 10px;
+      width: 100%;
+      padding: 4px 10px;
       background: #f0f4f7;
+      border: 0;
       border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      font: inherit;
+      text-align: left;
+      color: inherit;
     }
+    .rev-head:hover { background: #e8eef3; }
+    .rev-head-left {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 0;
+    }
+    .rev-chevron {
+      display: inline-block;
+      width: 0.7rem;
+      color: var(--muted);
+      font-size: 0.62rem;
+      transition: transform 0.12s ease;
+      flex-shrink: 0;
+    }
+    .revenue-panel.is-collapsed .rev-chevron { transform: rotate(-90deg); }
+    .revenue-panel.is-collapsed .rev-head { border-bottom: 0; }
+    .revenue-panel.is-collapsed .rev-body { display: none; }
     .rev-head h2 {
       margin: 0;
       font-size: 0.68rem;
@@ -139,12 +163,13 @@
       font-variant-numeric: tabular-nums;
       white-space: nowrap;
     }
+    .rev-body { border-top: 0; }
     .rev-chart-wrap {
       display: grid;
-      grid-template-columns: minmax(110px, 150px) 1fr;
-      gap: 8px 12px;
-      padding: 8px 10px 6px;
-      max-height: 118px;
+      grid-template-columns: 72px 1fr;
+      gap: 6px 10px;
+      padding: 6px 10px 4px;
+      max-height: 78px;
       align-items: center;
     }
     .rev-donut-box {
@@ -152,9 +177,10 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      height: 96px;
+      height: 64px;
+      width: 64px;
     }
-    .rev-donut-box svg { width: 96px; height: 96px; display: block; }
+    .rev-donut-box svg { width: 64px; height: 64px; display: block; }
     .rev-donut-center {
       position: absolute;
       inset: 0;
@@ -167,23 +193,23 @@
       line-height: 1.15;
     }
     .rev-donut-center .big {
-      font-size: 0.78rem;
+      font-size: 0.58rem;
       font-weight: 700;
       color: var(--text);
       font-variant-numeric: tabular-nums;
     }
     .rev-donut-center .sub {
-      font-size: 0.62rem;
+      font-size: 0.52rem;
       color: var(--muted);
-      margin-top: 1px;
+      margin-top: 0;
     }
     .rev-legend {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 2px 10px;
-      max-height: 110px;
+      gap: 1px 8px;
+      max-height: 68px;
       overflow: hidden;
-      font-size: 0.68rem;
+      font-size: 0.62rem;
       align-content: start;
     }
     .rev-leg-item {
@@ -643,8 +669,7 @@
     }
 
     @media (max-width: 720px) {
-      .rev-chart-wrap { display: none; }
-      .rev-bars { display: flex; max-height: 88px; }
+      .rev-chart-wrap { grid-template-columns: 64px 1fr; max-height: 72px; }
       .rev-bar-row { grid-template-columns: 64px 1fr 70px; }
       .column { flex: 0 0 85vw; width: 85vw; max-height: 100%; height: 100%; }
       #drawer { width: 100%; }
@@ -669,23 +694,27 @@
       <button type="button" class="banner-btn" id="btn-clear-draft">Clear local drafts</button>
     </div>
 
-    <section class="revenue-panel" aria-label="Running event revenue by source">
-      <div class="rev-head">
-        <h2>Revenue by source</h2>
+    <section class="revenue-panel" id="revenue-panel" aria-label="Running event revenue by source">
+      <button type="button" class="rev-head" id="rev-toggle" aria-expanded="true" aria-controls="rev-body" title="Collapse or expand revenue chart">
+        <span class="rev-head-left">
+          <span class="rev-chevron" aria-hidden="true">▾</span>
+          <h2>Revenue by source</h2>
+        </span>
         <span class="rev-total" id="rev-total">₱0 · 0 won</span>
-      </div>
-      <div class="rev-chart-wrap" id="rev-chart-wrap">
-        <div class="rev-donut-box">
-          <svg id="rev-donut" viewBox="0 0 120 120" aria-hidden="true"></svg>
-          <div class="rev-donut-center">
-            <span class="big" id="rev-donut-big">₱0</span>
-            <span class="sub" id="rev-donut-sub">0 won</span>
+      </button>
+      <div class="rev-body" id="rev-body">
+        <div class="rev-chart-wrap" id="rev-chart-wrap">
+          <div class="rev-donut-box">
+            <svg id="rev-donut" viewBox="0 0 120 120" aria-hidden="true"></svg>
+            <div class="rev-donut-center">
+              <span class="big" id="rev-donut-big">₱0</span>
+              <span class="sub" id="rev-donut-sub">0 won</span>
+            </div>
           </div>
+          <div class="rev-legend" id="rev-legend"></div>
         </div>
-        <div class="rev-legend" id="rev-legend"></div>
+        <p class="rev-hint" id="rev-hint">Add revenue on Won leads to populate.</p>
       </div>
-      <div class="rev-bars" id="rev-bars" aria-hidden="true"></div>
-      <p class="rev-hint" id="rev-hint">Add revenue on Won leads to populate.</p>
     </section>
 
     <div class="filters-row">
