@@ -192,20 +192,13 @@
     document.getElementById("rev-donut-big").textContent = formatPhp(totalRev);
     document.getElementById("rev-donut-sub").textContent = `${totalWon} won`;
 
-    const hint = document.getElementById("rev-hint");
-    if (!hasData || totalRev === 0) {
-      hint.textContent =
-        totalWon > 0
-          ? "Won leads present — enter ₱ revenue in the Shared Sheet to fill the chart."
-          : "Add revenue on Won leads in the Shared Sheet to populate.";
-      hint.hidden = false;
-    } else {
-      hint.hidden = true;
-    }
-
+    // Compact legend: only channels with won revenue or won count
     const legend = document.getElementById("rev-legend");
-    legend.innerHTML = rows
-      .map((r, i) => {
+    const legendRows = rows.filter((r) => r.revenue_php > 0 || r.won_count > 0);
+    const showRows = legendRows.length ? legendRows : rows.slice(0, 4);
+    legend.innerHTML = showRows
+      .map((r) => {
+        const i = rows.indexOf(r);
         const short = CHANNEL_SHORT[r.channel] || r.channel;
         const color = CHART_COLORS[i % CHART_COLORS.length];
         return `<div class="rev-leg-item" title="${escapeHtml(r.channel)}">
@@ -243,12 +236,13 @@
   }
 
   function renderChips() {
+    const wrap = document.getElementById("channel-chips");
+    if (!wrap) return;
     const leads = allLeads();
     const counts = {};
     leads.forEach((l) => {
       counts[l.marketing_channel] = (counts[l.marketing_channel] || 0) + 1;
     });
-    const wrap = document.getElementById("channel-chips");
     const chips = [
       { id: "all", label: "All", n: leads.length },
       ...channels.map((ch) => ({ id: ch, label: CHANNEL_SHORT[ch] || ch, n: counts[ch] || 0 })),
@@ -424,7 +418,8 @@
   function render() {
     const leads = allLeads();
     const filtered = leads.filter(matchesFilters);
-    document.getElementById("lead-count").textContent = `${filtered.length} of ${leads.length} leads`;
+    const leadCountEl = document.getElementById("lead-count");
+    if (leadCountEl) leadCountEl.textContent = `${filtered.length} of ${leads.length} leads`;
     renderRevenue();
     renderChips();
 
@@ -840,7 +835,7 @@
 
     updateBanner();
 
-    document.getElementById("filter-status").addEventListener("change", (e) => {
+    document.getElementById("filter-status")?.addEventListener("change", (e) => {
       statusFilter = e.target.value;
       render();
     });
@@ -859,6 +854,16 @@
     if (sheetLink && config.fo_sheet_edit_url) {
       sheetLink.href = config.fo_sheet_edit_url;
     }
+
+
+    // Auto-refresh from Sheet (no manual refresh UI)
+    const AUTO_MS = 60 * 1000;
+    setInterval(() => {
+      if (document.visibilityState === "visible") refreshFromSheet();
+    }, AUTO_MS);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") refreshFromSheet();
+    });
 
     render();
   }
