@@ -443,22 +443,44 @@
     bindBoardDnD(board);
   }
 
+  function normalizeWebLabel(s) {
+    const t = String(s || "").trim().toLowerCase();
+    if (!t) return "";
+    if (/^(web\s*form|website|form|website form)/.test(t) || t.includes("website form")) return "Web form";
+    return "";
+  }
+
+  /** One card tag only — channel for pie, unless channel is generic Other and source is specific. */
+  function cardTag(lead) {
+    const ch = lead.marketing_channel || "Walk-in / other";
+    const chShort = CHANNEL_SHORT[ch] || ch;
+    const src = String(lead.source_badge || "").trim();
+    const webFromCh = normalizeWebLabel(ch) || normalizeWebLabel(chShort);
+    const webFromSrc = normalizeWebLabel(src);
+    if (webFromCh || webFromSrc) return "Web form";
+    if ((ch === "Walk-in / other" || chShort === "Other") && src && !/^(other|unknown)$/i.test(src)) {
+      return src;
+    }
+    if (src && src.toLowerCase() === chShort.toLowerCase()) return chShort;
+    // Drop redundant Form/Website/Email-as-Other pairs — channel wins for attribution
+    return chShort;
+  }
+
   function cardHtml(lead) {
     const { title, sub } = displayName(lead);
     const dates = [lead.event_dates, lead.pax ? `${lead.pax} pax` : null].filter(Boolean).join(" · ");
     const notesPreview = (lead.fo_notes || "").trim();
     const ch = lead.marketing_channel || "Walk-in / other";
-    const chShort = CHANNEL_SHORT[ch] || ch;
+    const tag = cardTag(lead);
     const rev =
-      lead.stage === "won" && lead.revenue_php != null && lead.revenue_php !== ""
-        ? `<p class="card-rev">${formatPhp(lead.revenue_php)}</p>`
+      lead.revenue_php != null && lead.revenue_php !== "" && Number(lead.revenue_php) > 0
+        ? `<p class="card-rev">${formatPhp(lead.revenue_php)}${lead.stage === "won" ? "" : " · quote"}</p>`
         : "";
     return `
       <article class="card" data-id="${escapeHtml(lead.id)}" tabindex="0" role="button">
         <span class="card-drag-handle" draggable="true" role="button" tabindex="-1" aria-label="Drag to change stage" title="Drag to move stage">⋮⋮</span>
         <div class="card-top">
-          <span class="badge channel-badge" title="${escapeHtml(ch)}">${escapeHtml(chShort)}</span>
-          <span class="badge source-badge">${escapeHtml(lead.source_badge || "Other")}</span>
+          <span class="badge channel-badge" title="${escapeHtml(ch)} · ${escapeHtml(lead.source_badge || "")}">${escapeHtml(tag)}</span>
         </div>
         <h3 class="card-title">${escapeHtml(title)}</h3>
         ${sub ? `<p class="card-org">${escapeHtml(sub)}</p>` : ""}
@@ -522,7 +544,15 @@
   }
 
   function toggleRevenue(stage) {
-    document.getElementById("revenue-wrap").hidden = stage !== "won";
+    const wrap = document.getElementById("revenue-wrap");
+    if (wrap) wrap.hidden = false;
+    const hint = document.getElementById("revenue-hint");
+    if (hint) {
+      hint.textContent =
+        stage === "won"
+          ? "Counts toward the pie chart (Won)."
+          : "Saved with the lead — counts on the pie when stage is Won.";
+    }
   }
 
   async function saveDrawer() {
@@ -539,7 +569,8 @@
     }
     const today = new Date().toISOString().slice(0, 10);
     const lostOut = stage === "lost" ? lost_reason : draftOverlay[activeId]?.lost_reason || "";
-    const revOut = stage === "won" ? revenue_php : draftOverlay[activeId]?.revenue_php ?? null;
+    // Keep amount at any stage so FO can enter early; pie only counts Won.
+    const revOut = revenue_php;
     draftOverlay[activeId] = {
       ...(draftOverlay[activeId] || {}),
       stage,

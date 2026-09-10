@@ -621,6 +621,12 @@
       outline: 2px solid var(--accent);
       outline-offset: 1px;
     }
+    .field-hint {
+      margin: 4px 0 0;
+      font-size: 0.68rem;
+      color: var(--muted);
+      line-height: 1.25;
+    }
     .drawer-actions {
       display: flex;
       align-items: center;
@@ -730,6 +736,11 @@
       <button type="button" class="icon-btn" id="btn-close" aria-label="Close">×</button>
     </div>
     <div class="drawer-body">
+      <div class="field" id="revenue-wrap">
+        <label for="revenue-php">Event amount (₱)</label>
+        <input type="number" id="revenue-php" min="0" step="1" placeholder="e.g. 85000" inputmode="numeric" />
+        <p class="field-hint" id="revenue-hint">Feeds the pie chart when stage is Won.</p>
+      </div>
       <div class="field">
         <span>Contact</span>
         <p id="drawer-contact"></p>
@@ -745,10 +756,6 @@
       <div class="field">
         <span>Stage</span>
         <select id="stage-select" aria-label="Change stage"></select>
-      </div>
-      <div class="field" id="revenue-wrap" hidden>
-        <label for="revenue-php">Won revenue (₱)</label>
-        <input type="number" id="revenue-php" min="0" step="1" placeholder="e.g. 85000" inputmode="numeric" />
       </div>
       <div class="field">
         <span>Seed / inbox notes</span>
