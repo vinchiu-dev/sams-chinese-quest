@@ -2079,6 +2079,14 @@
   "goalClaimed": "2026-08-31",
   "wodDone": "2026-08-21",
   "spokenClaimed": "2026-08-16",
+  "math_missed": [
+    "math:bond:9:3",
+    "math:bond:9:6",
+    "math:bond:8:2",
+    "math:bond:8:6",
+    "math:bond:8:1",
+    "math:bond:8:7"
+  ],
   "math_sets": [
     "mul12",
     "div10",
@@ -2111,6 +2119,7 @@
   "starredSentences_at": 1788965376827,
   "hiddenWords_at": 1788965376828,
   "archived_at": 1788965376827,
-  "en_starred_at": 1788970837920,
+  "en_starred_at": 1788999384694,
+  "math_missed_at": 1788999384303,
   "chips": 13
 }
