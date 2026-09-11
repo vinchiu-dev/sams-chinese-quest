@@ -1118,9 +1118,7 @@
         const overBody = e.target.closest && e.target.closest(".column-body");
         if (absX > absY || e.shiftKey) {
           e.preventDefault();
-          wrap.scrollLeft += e.shiftKey && absX <= absY ? e.deltaY : e.deltaX + (e.shiftKey ? 0 : 0);
-          if (e.shiftKey) wrap.scrollLeft += e.deltaY;
-          else wrap.scrollLeft += e.deltaX;
+          wrap.scrollLeft += e.shiftKey ? e.deltaY : e.deltaX;
         } else if (overBody) {
           // native vertical on column-body via JS because touch-action none
           overBody.scrollTop += e.deltaY;
