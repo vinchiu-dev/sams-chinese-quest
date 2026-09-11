@@ -277,7 +277,7 @@
   const REV_OPEN_KEY = "bc-crm-rev-open";
 
   function applyRevOpen(open) {
-    const panel = document.getElementById("revenue-panel");
+    const panel = document.getElementById("insights-panel");
     const btn = document.getElementById("rev-toggle");
     if (!panel || !btn) return;
     panel.classList.toggle("is-open", !!open);
@@ -295,7 +295,7 @@
     } catch (_) {}
     applyRevOpen(open);
     btn.addEventListener("click", () => {
-      const next = !document.getElementById("revenue-panel").classList.contains("is-open");
+      const next = !document.getElementById("insights-panel").classList.contains("is-open");
       applyRevOpen(next);
       try {
         localStorage.setItem(REV_OPEN_KEY, next ? "1" : "0");
@@ -338,25 +338,28 @@
     const lostEl = document.getElementById("lost-insight");
     if (!srcEl || !lostEl) return;
 
-    const sources = sourceInquirySummary(leads).slice(0, 6);
+    const sources = sourceInquirySummary(leads).slice(0, 8);
     if (!sources.length) {
-      srcEl.innerHTML = '<strong>Sources</strong><span class="insight-bits empty">no leads yet</span>';
+      srcEl.textContent = "No leads yet.";
+      srcEl.classList.add("lost-summary-empty");
     } else {
-      const bits = sources
-        .map((s) => `${escapeHtml(CHANNEL_SHORT[s.channel] || s.channel)} ${s.n}`)
+      srcEl.classList.remove("lost-summary-empty");
+      srcEl.textContent = sources
+        .map((s) => `${CHANNEL_SHORT[s.channel] || s.channel} ${s.n}`)
         .join(" · ");
-      srcEl.innerHTML = `<strong>Sources</strong><span class="insight-bits">${bits}</span>`;
     }
 
-    const lost = lostReasonSummary(leads).slice(0, 5);
+    const lost = lostReasonSummary(leads).slice(0, 8);
     const lostTotal = leads.filter((l) => l.stage === "lost").length;
     if (!lostTotal) {
-      lostEl.innerHTML = '<strong>Why lost</strong><span class="insight-bits empty">none yet</span>';
+      lostEl.innerHTML = '<li class="lost-summary-empty" style="display:block;border:0">None yet — fill Reason it was lost when you mark Lost.</li>';
     } else {
-      const bits = lost
-        .map((r) => `${escapeHtml(r.reason)} ${r.n}`)
-        .join(" · ");
-      lostEl.innerHTML = `<strong>Why lost</strong><span class="insight-bits">${bits}</span>`;
+      lostEl.innerHTML = lost
+        .map(
+          (r) =>
+            `<li><span>${escapeHtml(r.reason)}</span><span class="n">${r.n}</span></li>`
+        )
+        .join("");
     }
   }
 

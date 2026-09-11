@@ -124,22 +124,98 @@
     }
     .rev-link:hover { color: var(--accent); }
     .rev-link[aria-expanded="true"] { color: var(--accent); }
-    .insight-bar {
-      margin-top: 4px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px 14px;
-      font-size: 0.7rem;
-      line-height: 1.35;
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      border: 0;
+    }
+    .brand-logo {
+      display: block;
+      height: 36px;
+      width: auto;
+      object-fit: contain;
+    }
+    .brand-events {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #2C7CB9;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      align-self: center;
+    }
+    .insights-panel-inner {
+      padding: 10px 12px 12px;
+      display: grid;
+      gap: 12px;
+    }
+    .insights-purpose {
+      margin: 0;
+      padding: 8px 10px;
+      background: #eef6fb;
+      border: 1px solid #c5dceb;
+      border-radius: 8px;
+      font-size: 0.72rem;
+      color: #154a6e;
+      line-height: 1.45;
+    }
+    .insights-purpose strong {
+      display: block;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+      color: #0d4f7a;
+    }
+    .insights-purpose ol {
+      margin: 0;
+      padding-left: 1.1rem;
+    }
+    .insights-purpose li { margin: 0 0 2px; }
+    .insights-section-title {
+      margin: 0 0 4px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
       color: var(--muted);
     }
-    .insight-bar strong {
+    .lost-summary-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      font-size: 0.78rem;
       color: #334155;
-      font-weight: 700;
-      margin-right: 4px;
     }
-    .insight-bar .insight-bits { color: #475569; }
-    .insight-bar .empty { color: #94a3b8; font-weight: 500; }
+    .lost-summary-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 3px 0;
+      border-bottom: 1px solid #eef2f6;
+    }
+    .lost-summary-list li:last-child { border-bottom: 0; }
+    .lost-summary-list .n {
+      font-weight: 700;
+      color: var(--lost);
+      font-variant-numeric: tabular-nums;
+    }
+    .lost-summary-empty {
+      margin: 0;
+      font-size: 0.75rem;
+      color: #94a3b8;
+    }
+    .sources-line {
+      margin: 0;
+      font-size: 0.75rem;
+      color: #475569;
+      line-height: 1.4;
+    }
     .revenue-panel {
       display: none;
       margin-top: 6px;
@@ -677,7 +753,7 @@
     .btn-add {
       appearance: none;
       border: none;
-      background: #0d9488;
+      background: #FF70AD;
       color: #fff;
       font: inherit;
       font-size: 0.82rem;
@@ -688,7 +764,7 @@
       white-space: nowrap;
       box-shadow: 0 1px 2px rgba(0,0,0,0.12);
     }
-    .btn-add:hover { background: #0f766e; }
+    .btn-add:hover { background: #e85a97; }
     #add-modal {
       position: fixed;
       inset: 0;
@@ -788,33 +864,50 @@
   <header class="topbar">
     <div class="topbar-row">
       <div class="brand">
-        <h1>Blue Coast Events</h1>
-        <button type="button" class="rev-link" id="rev-toggle" aria-expanded="false" aria-controls="revenue-panel" title="Show won revenue by marketing channel">Revenue by source</button>
+        <img class="brand-logo" src="blue-coast-logo.png" width="150" height="52" alt="Blue Coast Beach Hotel" />
+        <span class="brand-events">Events</span>
+        <button type="button" class="rev-link" id="rev-toggle" aria-expanded="false" aria-controls="insights-panel" title="Sources, lost reasons, and why this board">Insights</button>
         <p class="north-star" hidden>North star: <strong id="north-star">YoY event sales growth</strong></p>
+        <h1 class="visually-hidden">Blue Coast Events</h1>
       </div>
       <div class="topbar-actions">
         <button type="button" class="btn-add" id="btn-add-event">+ Add event</button>
       </div>
     </div>
 
-    <div class="insight-bar" id="insight-bar" aria-label="Pipeline insights">
-      <div id="source-insight"><strong>Sources</strong><span class="insight-bits empty">—</span></div>
-      <div id="lost-insight"><strong>Why lost</strong><span class="insight-bits empty">—</span></div>
-    </div>
-
-    <section class="revenue-panel" id="revenue-panel" aria-label="Running event revenue by source" hidden>
-      <div class="rev-body" id="rev-body">
-        <div class="rev-chart-wrap" id="rev-chart-wrap">
-          <div class="rev-donut-box">
-            <svg id="rev-donut" viewBox="0 0 120 120" aria-hidden="true"></svg>
-            <div class="rev-donut-center">
-              <span class="big" id="rev-donut-big">₱0</span>
-              <span class="sub" id="rev-donut-sub">0 won</span>
-            </div>
-          </div>
-          <div class="rev-legend" id="rev-legend"></div>
+    <section class="revenue-panel" id="insights-panel" aria-label="Events insights" hidden>
+      <div class="insights-panel-inner">
+        <div class="insights-purpose">
+          <strong>Use this board to</strong>
+          <ol>
+            <li>Win more events — quote every open RFQ in <em>New inquiry</em> / <em>Working quote</em></li>
+            <li>Follow up — work <em>Quoted, to follow up</em> before leads go cold</li>
+            <li>See where leads come from — FB Ads, PhilGEPS, Google Ads, and the rest</li>
+            <li>Learn why we lose — fill <em>Reason it was lost</em> so patterns show up here</li>
+          </ol>
         </div>
-        <p class="rev-total" id="rev-total" style="margin:0;padding:2px 10px 6px;font-size:0.7rem;color:#64748b;">₱0 · 0 won</p>
+        <div>
+          <h2 class="insights-section-title">Won revenue by source</h2>
+          <div class="rev-chart-wrap" id="rev-chart-wrap">
+            <div class="rev-donut-box">
+              <svg id="rev-donut" viewBox="0 0 120 120" aria-hidden="true"></svg>
+              <div class="rev-donut-center">
+                <span class="big" id="rev-donut-big">₱0</span>
+                <span class="sub" id="rev-donut-sub">0 won</span>
+              </div>
+            </div>
+            <div class="rev-legend" id="rev-legend"></div>
+          </div>
+          <p class="rev-total" id="rev-total" style="margin:4px 0 0;font-size:0.7rem;color:#64748b;">₱0 · 0 won</p>
+        </div>
+        <div>
+          <h2 class="insights-section-title">Lead sources</h2>
+          <p class="sources-line" id="source-insight">—</p>
+        </div>
+        <div>
+          <h2 class="insights-section-title">Why we lost</h2>
+          <ul class="lost-summary-list" id="lost-insight"></ul>
+        </div>
       </div>
     </section>
   </header>
