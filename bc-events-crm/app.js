@@ -5,7 +5,7 @@
 
   const stageMeta = {
     new_inquiry: { label: "New inquiry", open: true },
-    preparing_quote: { label: "Working quote", open: true },
+    preparing_quote: { label: "Preparing quote", open: true },
     quoted: { label: "Quoted, to follow up", open: true },
     won: { label: "Won", open: false },
     lost: { label: "Lost", open: false },
@@ -616,6 +616,7 @@
       .join("");
 
     bindBoardDnD(board);
+    if (window.__bcUpdateBoardScroll) window.__bcUpdateBoardScroll();
   }
 
   function normalizeWebLabel(s) {
@@ -653,7 +654,7 @@
         : "";
     return `
       <article class="card" data-id="${escapeHtml(lead.id)}" tabindex="0" role="button">
-        <span class="card-drag-handle" draggable="true" role="button" tabindex="-1" aria-label="Drag to change stage" title="Drag to move stage">⋮⋮</span>
+        <span class="card-drag-handle" draggable="true" role="button" tabindex="-1" aria-label="Drag to change status" title="Drag to move status">⋮⋮</span>
         <div class="card-top">
           <span class="badge channel-badge" title="${escapeHtml(ch)} · ${escapeHtml(lead.source_badge || "")}">${escapeHtml(tag)}</span>
         </div>
@@ -722,12 +723,7 @@
     const wrap = document.getElementById("revenue-wrap");
     if (wrap) wrap.hidden = false;
     const hint = document.getElementById("revenue-hint");
-    if (hint) {
-      hint.textContent =
-        stage === "won"
-          ? "Counts toward the pie chart (Won)."
-          : "Saved with the lead — counts on the pie when stage is Won.";
-    }
+    if (hint) hint.hidden = true;
   }
 
   async function saveDrawer() {
@@ -1100,6 +1096,85 @@
     if (config.fo_sheet_edit_url && copied) {
       // don't auto-open new tab every time — toast is enough
     }
+  }
+
+
+  function initBoardScroll() {
+    const wrap = document.getElementById("board-wrap");
+    const left = document.getElementById("board-scroll-left");
+    const right = document.getElementById("board-scroll-right");
+    if (!wrap || !left || !right || wrap.dataset.scrollBound === "1") return;
+    wrap.dataset.scrollBound = "1";
+
+    function updateBtns() {
+      const max = wrap.scrollWidth - wrap.clientWidth;
+      left.disabled = wrap.scrollLeft <= 2;
+      right.disabled = wrap.scrollLeft >= max - 2;
+    }
+
+    function scrollByCols(dir) {
+      const col = wrap.querySelector(".column");
+      const step = col ? col.getBoundingClientRect().width + 12 : Math.max(220, wrap.clientWidth * 0.7);
+      wrap.scrollBy({ left: dir * step, behavior: "smooth" });
+    }
+
+    left.addEventListener("click", () => scrollByCols(-1));
+    right.addEventListener("click", () => scrollByCols(1));
+    wrap.addEventListener("scroll", updateBtns, { passive: true });
+    window.addEventListener("resize", updateBtns);
+
+    // Trackpad / mouse wheel: vertical wheel → horizontal board scroll when shift or primarily sideways
+    wrap.addEventListener(
+      "wheel",
+      (e) => {
+        const mostlyX = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+        if (mostlyX) return; // native horizontal already
+        if (e.shiftKey || Math.abs(e.deltaY) > 0) {
+          // Convert vertical wheel to horizontal board scroll (when not over a scrolling column body intent)
+          const overColBody = e.target.closest && e.target.closest(".column-body");
+          if (overColBody && !e.shiftKey) {
+            // let column scroll vertically unless at edge and user wants board
+            const body = overColBody;
+            const atTop = body.scrollTop <= 0 && e.deltaY < 0;
+            const atBot = body.scrollTop + body.clientHeight >= body.scrollHeight - 1 && e.deltaY > 0;
+            if (!atTop && !atBot) return;
+          }
+          if (wrap.scrollWidth <= wrap.clientWidth + 2) return;
+          e.preventDefault();
+          wrap.scrollLeft += e.deltaY + e.deltaX;
+          updateBtns();
+        }
+      },
+      { passive: false }
+    );
+
+    // Drag-to-pan empty board / headers (not on cards)
+    let pan = null;
+    wrap.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      if (e.target.closest(".card, .card-drag-handle, button, a, input, textarea, select")) return;
+      pan = { id: e.pointerId, x: e.clientX, left: wrap.scrollLeft, moved: false };
+      try { wrap.setPointerCapture(e.pointerId); } catch (_) {}
+    });
+    wrap.addEventListener("pointermove", (e) => {
+      if (!pan || pan.id !== e.pointerId) return;
+      const dx = e.clientX - pan.x;
+      if (!pan.moved && Math.abs(dx) > 4) pan.moved = true;
+      if (pan.moved) {
+        wrap.scrollLeft = pan.left - dx;
+        updateBtns();
+      }
+    });
+    function endPan(e) {
+      if (!pan || pan.id !== e.pointerId) return;
+      pan = null;
+    }
+    wrap.addEventListener("pointerup", endPan);
+    wrap.addEventListener("pointercancel", endPan);
+
+    // Initial + after renders
+    window.__bcUpdateBoardScroll = updateBtns;
+    setTimeout(updateBtns, 0);
   }
 
   async function init() {

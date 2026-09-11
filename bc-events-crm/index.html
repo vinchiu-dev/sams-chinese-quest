@@ -420,6 +420,45 @@
     }
     .chip.active span { color: rgba(255,255,255,0.85); }
 
+    .board-shell {
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .board-scroll-bar {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 6px;
+      padding: 0 12px 2px;
+      flex-shrink: 0;
+    }
+    .board-scroll-btn {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: #154a6e;
+      width: 34px;
+      height: 28px;
+      border-radius: 7px;
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+    .board-scroll-btn:hover { background: #eef6fb; border-color: #9bc0d8; }
+    .board-scroll-btn:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+    .board-scroll-hint {
+      margin-right: auto;
+      font-size: 0.68rem;
+      color: var(--muted);
+    }
     .board-wrap {
       flex: 1 1 auto;
       min-height: 0;
@@ -427,8 +466,21 @@
       overflow-y: hidden;
       -webkit-overflow-scrolling: touch;
       overscroll-behavior-x: contain;
-      /* Keep touch-action auto so column-body can still pan-y (ancestor pan-x ∩ pan-y = none). */
-      padding: 8px 12px 12px;
+      padding: 4px 12px 12px;
+      scrollbar-width: auto;
+      scrollbar-color: #1E71A7 #dce6ee;
+      cursor: grab;
+    }
+    .board-wrap:active { cursor: grabbing; }
+    .board-wrap::-webkit-scrollbar { height: 12px; }
+    .board-wrap::-webkit-scrollbar-track {
+      background: #dce6ee;
+      border-radius: 6px;
+    }
+    .board-wrap::-webkit-scrollbar-thumb {
+      background: #1E71A7;
+      border-radius: 6px;
+      border: 2px solid #dce6ee;
     }
     #board {
       display: flex;
@@ -440,6 +492,7 @@
     .column {
       flex: 0 0 min(270px, 33vw);
       width: min(270px, 33vw);
+      max-width: min(270px, 33vw);
       background: #eef1f4;
       border-radius: var(--radius);
       border: 1px solid var(--border);
@@ -447,6 +500,8 @@
       height: 100%;
       display: flex;
       flex-direction: column;
+      overflow-x: hidden;
+      overflow-y: hidden;
     }
     .column.drag-over {
       outline: 2px solid var(--accent);
@@ -482,13 +537,15 @@
     }
     .column-body {
       padding: 8px;
+      overflow-x: hidden;
       overflow-y: auto;
       flex: 1;
       min-height: 0;
       display: flex;
       flex-direction: column;
       gap: 8px;
-      overscroll-behavior: contain;
+      overscroll-behavior-y: contain;
+      overscroll-behavior-x: none;
     }
     .empty {
       margin: 12px 4px;
@@ -509,6 +566,10 @@
       outline: none;
       position: relative;
       user-select: none;
+      max-width: 100%;
+      overflow-x: hidden;
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
     .card:hover, .card:focus {
       border-color: var(--accent);
@@ -746,9 +807,18 @@
 
     .topbar-actions {
       display: flex;
-      align-items: center;
-      gap: 8px;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: flex-start;
+      gap: 2px;
       margin-left: auto;
+      margin-top: -2px;
+      align-self: flex-start;
+    }
+    .topbar-actions .rev-link {
+      font-size: 0.7rem;
+      line-height: 1.2;
+      padding: 0 2px;
     }
     .btn-add {
       appearance: none;
@@ -866,12 +936,12 @@
       <div class="brand">
         <img class="brand-logo" src="blue-coast-logo.png" width="150" height="52" alt="Blue Coast Beach Hotel" />
         <span class="brand-events">Events</span>
-        <button type="button" class="rev-link" id="rev-toggle" aria-expanded="false" aria-controls="insights-panel" title="Sources, lost reasons, and why this board">Insights</button>
         <p class="north-star" hidden>North star: <strong id="north-star">YoY event sales growth</strong></p>
         <h1 class="visually-hidden">Blue Coast Events</h1>
       </div>
       <div class="topbar-actions">
         <button type="button" class="btn-add" id="btn-add-event">+ Add event</button>
+        <button type="button" class="rev-link" id="rev-toggle" aria-expanded="false" aria-controls="insights-panel" title="Sources, lost reasons, and why this board">Insights</button>
       </div>
     </div>
 
@@ -880,7 +950,7 @@
         <div class="insights-purpose">
           <strong>Use this board to</strong>
           <ol>
-            <li>Win more events — quote every open RFQ in <em>New inquiry</em> / <em>Working quote</em></li>
+            <li>Win more events — quote every open RFQ in <em>New inquiry</em> / <em>Preparing quote</em></li>
             <li>Follow up — work <em>Quoted, to follow up</em> before leads go cold</li>
             <li>See where leads come from — FB Ads, PhilGEPS, Google Ads, and the rest</li>
             <li>Learn why we lose — fill <em>Reason it was lost</em> so patterns show up here</li>
@@ -912,8 +982,15 @@
     </section>
   </header>
 
-  <div class="board-wrap">
-    <div id="board" aria-label="Events pipeline board"></div>
+  <div class="board-shell">
+    <div class="board-scroll-bar">
+      <span class="board-scroll-hint">Swipe or use arrows to move across statuses</span>
+      <button type="button" class="board-scroll-btn" id="board-scroll-left" aria-label="Scroll columns left">‹</button>
+      <button type="button" class="board-scroll-btn" id="board-scroll-right" aria-label="Scroll columns right">›</button>
+    </div>
+    <div class="board-wrap" id="board-wrap">
+      <div id="board" aria-label="Events pipeline board"></div>
+    </div>
   </div>
 
   <div id="backdrop" aria-hidden="true"></div>
@@ -929,7 +1006,6 @@
       <div class="field" id="revenue-wrap">
         <label for="revenue-php">Event amount (₱)</label>
         <input type="number" id="revenue-php" min="0" step="1" placeholder="e.g. 85000" inputmode="numeric" />
-        <p class="field-hint" id="revenue-hint">Feeds the pie chart when stage is Won.</p>
       </div>
       <div class="field">
         <span>Contact</span>
@@ -940,15 +1016,15 @@
         <p id="drawer-dates"></p>
       </div>
       <div class="field">
-        <span>Marketing channel</span>
-        <select id="channel-select" aria-label="Marketing channel"></select>
+        <span>Source of the bid</span>
+        <select id="channel-select" aria-label="Source of the bid"></select>
       </div>
       <div class="field">
-        <span>Stage</span>
-        <select id="stage-select" aria-label="Change stage"></select>
+        <span>Status</span>
+        <select id="stage-select" aria-label="Change status"></select>
       </div>
       <div class="field">
-        <span>Seed / inbox notes</span>
+        <span>Initial notes</span>
         <div class="seed-box" id="drawer-seed"></div>
       </div>
       <div class="field">
@@ -997,11 +1073,11 @@
         <input id="add-pax" placeholder="e.g. 80" />
       </div>
       <div class="field">
-        <label for="add-channel">Marketing channel</label>
+        <label for="add-channel">Source of the bid</label>
         <select id="add-channel"></select>
       </div>
       <div class="field">
-        <label for="add-stage">Stage</label>
+        <label for="add-stage">Status</label>
         <select id="add-stage"></select>
       </div>
       <div class="field">
