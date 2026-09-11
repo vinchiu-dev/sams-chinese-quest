@@ -5,9 +5,8 @@
 
   const stageMeta = {
     new_inquiry: { label: "New inquiry", open: true },
-    preparing_quote: { label: "Preparing quote", open: true },
+    preparing_quote: { label: "Working quote", open: true },
     quoted: { label: "Quoted, to follow up", open: true },
-    site_visit_negotiation: { label: "Site visit / Negotiation", open: true },
     won: { label: "Won", open: false },
     lost: { label: "Lost", open: false },
   };
@@ -16,8 +15,11 @@
   function normalizeLeadStage(lead) {
     let stage = String(lead.stage || "new_inquiry").trim() || "new_inquiry";
     if (stage === "contacted") stage = "preparing_quote";
-    // Don't touch terminal / late pipeline
-    if (stage === "won" || stage === "lost" || stage === "site_visit_negotiation") return stage;
+    if (stage === "site_visit_negotiation" || stage === "site_visit" || stage === "negotiation") {
+      stage = "preparing_quote";
+    }
+    // Don't touch terminal
+    if (stage === "won" || stage === "lost") return stage;
 
     const blob = `${lead.seed_notes || ""} ${lead.fo_notes || ""} ${lead.subject || ""}`;
     const quoteSent =
@@ -391,6 +393,7 @@
   function moveLeadToStage(id, stage) {
     const lead = allLeads().find((l) => l.id === id);
     if (stage === "contacted") stage = "preparing_quote";
+    if (stage === "site_visit_negotiation" || stage === "site_visit" || stage === "negotiation") stage = "preparing_quote";
     if (!lead || !stage || lead.stage === stage) return false;
     const today = new Date().toISOString().slice(0, 10);
     draftOverlay[id] = {

@@ -9,15 +9,11 @@
     },
     {
       "id": "preparing_quote",
-      "label": "Preparing quote"
+      "label": "Working quote"
     },
     {
       "id": "quoted",
       "label": "Quoted, to follow up"
-    },
-    {
-      "id": "site_visit_negotiation",
-      "label": "Site visit / Negotiation"
     },
     {
       "id": "won",
