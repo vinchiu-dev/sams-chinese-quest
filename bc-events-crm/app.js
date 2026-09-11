@@ -281,25 +281,41 @@
     const btn = document.getElementById("rev-toggle");
     if (!panel || !btn) return;
     panel.classList.toggle("is-open", !!open);
-    panel.hidden = !open;
+    panel.setAttribute("aria-hidden", open ? "false" : "true");
     btn.setAttribute("aria-expanded", open ? "true" : "false");
+    if (open) {
+      renderRevenue();
+      renderInsights();
+      document.getElementById("insights-close")?.focus();
+    }
   }
 
   function initRevCollapse() {
     const btn = document.getElementById("rev-toggle");
-    if (!btn || btn.dataset.bound === "1") return;
+    const panel = document.getElementById("insights-panel");
+    const closeBtn = document.getElementById("insights-close");
+    if (!btn || !panel || btn.dataset.bound === "1") return;
     btn.dataset.bound = "1";
-    let open = false;
-    try {
-      open = localStorage.getItem(REV_OPEN_KEY) === "1";
-    } catch (_) {}
-    applyRevOpen(open);
-    btn.addEventListener("click", () => {
-      const next = !document.getElementById("insights-panel").classList.contains("is-open");
+    applyRevOpen(false);
+    const openInsights = () => applyRevOpen(true);
+    const closeInsights = () => applyRevOpen(false);
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const next = !panel.classList.contains("is-open");
       applyRevOpen(next);
-      try {
-        localStorage.setItem(REV_OPEN_KEY, next ? "1" : "0");
-      } catch (_) {}
+    });
+    closeBtn?.addEventListener("click", (e) => {
+      e.preventDefault();
+      closeInsights();
+    });
+    panel.addEventListener("click", (e) => {
+      if (e.target === panel) closeInsights();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && panel.classList.contains("is-open")) {
+        closeInsights();
+      }
     });
   }
 
@@ -1091,26 +1107,33 @@
     if (!wrap || wrap.dataset.scrollBound === "1") return;
     wrap.dataset.scrollBound = "1";
 
-    // Wheel / trackpad: map to board horizontal when gesture is sideways,
-    // or Shift+wheel; leave pure vertical wheel for column-body scroll.
+    let pan = null;
+
     wrap.addEventListener(
       "wheel",
       (e) => {
         if (wrap.scrollWidth <= wrap.clientWidth + 2) return;
         const absX = Math.abs(e.deltaX);
         const absY = Math.abs(e.deltaY);
+        const overBody = e.target.closest && e.target.closest(".column-body");
         if (absX > absY || e.shiftKey) {
           e.preventDefault();
-          wrap.scrollLeft += e.shiftKey && absX <= absY ? e.deltaY : e.deltaX + (e.shiftKey ? e.deltaY : 0);
+          wrap.scrollLeft += e.shiftKey && absX <= absY ? e.deltaY : e.deltaX + (e.shiftKey ? 0 : 0);
+          if (e.shiftKey) wrap.scrollLeft += e.deltaY;
+          else wrap.scrollLeft += e.deltaX;
+        } else if (overBody) {
+          // native vertical on column-body via JS because touch-action none
+          overBody.scrollTop += e.deltaY;
+          e.preventDefault();
+        } else {
+          // default: vertical wheel pans board horizontally when not over a column body
+          e.preventDefault();
+          wrap.scrollLeft += e.deltaY;
         }
       },
       { passive: false }
     );
 
-    // Drag-to-pan horizontally anywhere on the board (including cards/columns).
-    // Vertical intent on a column-body scrolls that column instead.
-    // Drag-handle keeps card-move DnD. A moved pan suppresses card click.
-    let pan = null;
     wrap.addEventListener("pointerdown", (e) => {
       if (e.pointerType === "mouse" && e.button !== 0) return;
       if (e.target.closest(".card-drag-handle, button, a, input, textarea, select")) return;
@@ -1119,29 +1142,27 @@
         x: e.clientX,
         y: e.clientY,
         left: wrap.scrollLeft,
+        top: 0,
         moved: false,
-        mode: null, // "x" | "y"
+        mode: null,
         card: e.target.closest(".card"),
         colBody: e.target.closest(".column-body"),
-        startScrollTop: 0,
       };
-      if (pan.colBody) pan.startScrollTop = pan.colBody.scrollTop;
+      if (pan.colBody) pan.top = pan.colBody.scrollTop;
+      wrap.classList.add("is-panning");
       try {
         wrap.setPointerCapture(e.pointerId);
       } catch (_) {}
     });
+
     wrap.addEventListener("pointermove", (e) => {
       if (!pan || pan.id !== e.pointerId) return;
       const dx = e.clientX - pan.x;
       const dy = e.clientY - pan.y;
       if (!pan.mode) {
-        if (dx * dx + dy * dy < 36) return;
-        // Prefer horizontal board pan unless clearly vertical over a scrollable column
-        if (pan.colBody && Math.abs(dy) > Math.abs(dx) * 1.15) {
-          pan.mode = "y";
-        } else {
-          pan.mode = "x";
-        }
+        if (dx * dx + dy * dy < 25) return;
+        if (pan.colBody && Math.abs(dy) > Math.abs(dx) * 1.2) pan.mode = "y";
+        else pan.mode = "x";
         pan.moved = true;
         if (pan.card) pan.card.dataset.suppressClick = "1";
       }
@@ -1149,18 +1170,22 @@
         e.preventDefault();
         wrap.scrollLeft = pan.left - dx;
       } else if (pan.mode === "y" && pan.colBody) {
-        pan.colBody.scrollTop = pan.startScrollTop - dy;
+        e.preventDefault();
+        pan.colBody.scrollTop = pan.top - dy;
       }
     });
+
     function endPan(e) {
       if (!pan || pan.id !== e.pointerId) return;
       const card = pan.card;
       const moved = pan.moved;
       pan = null;
+      wrap.classList.remove("is-panning");
       if (card && moved) {
+        // keep suppress through the click that follows pointerup
         setTimeout(() => {
           delete card.dataset.suppressClick;
-        }, 0);
+        }, 50);
       }
     }
     wrap.addEventListener("pointerup", endPan);

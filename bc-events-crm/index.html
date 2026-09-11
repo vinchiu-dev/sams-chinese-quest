@@ -218,13 +218,60 @@
     }
     .revenue-panel {
       display: none;
-      margin-top: 6px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-      background: #fafcfd;
     }
-    .revenue-panel.is-open { display: block; }
+    .insights-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 12px;
+      background: rgba(15, 23, 42, 0.45);
+    }
+    .insights-overlay.is-open { display: flex; }
+    .insights-sheet {
+      width: min(520px, 100%);
+      max-height: min(88vh, 720px);
+      overflow: auto;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.28);
+      position: relative;
+    }
+    .insights-sheet-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 12px 14px 0;
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 1;
+    }
+    .insights-sheet-head h2 {
+      margin: 0;
+      font-size: 1.05rem;
+      color: #154a6e;
+    }
+    .insights-close {
+      appearance: none;
+      border: 1px solid #cbd5e1;
+      background: #fff;
+      color: #334155;
+      font: inherit;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .insights-close:hover { background: #f1f5f9; }
+    @media (min-width: 721px) {
+      .insights-overlay { align-items: center; }
+    }
     .rev-total {
       font-size: 0.72rem;
       font-weight: 700;
@@ -431,9 +478,10 @@
       scrollbar-width: thin;
       scrollbar-color: #1E71A7 #dce6ee;
       cursor: grab;
-      touch-action: pan-y pinch-zoom;
+      /* none = our pointer pan owns horizontal; vertical still handled in JS on column-body */
+      touch-action: none;
     }
-    .board-wrap:active { cursor: grabbing; }
+    .board-wrap.is-panning { cursor: grabbing; }
     .board-wrap::-webkit-scrollbar { height: 10px; }
     .board-wrap::-webkit-scrollbar-track {
       background: #dce6ee;
@@ -445,8 +493,7 @@
       border: 2px solid #dce6ee;
     }
     .column, .column-header, .column-body, .card {
-      /* Horizontal pans go to the board; columns only scroll vertically */
-      touch-action: pan-y;
+      touch-action: none;
     }
     .card-drag-handle {
       touch-action: none;
@@ -930,7 +977,14 @@
       </div>
     </div>
 
-    <section class="revenue-panel" id="insights-panel" aria-label="Events insights" hidden>
+  </header>
+
+  <div class="insights-overlay" id="insights-panel" aria-hidden="true">
+    <div class="insights-sheet" role="dialog" aria-modal="true" aria-labelledby="insights-title">
+      <div class="insights-sheet-head">
+        <h2 id="insights-title">Insights</h2>
+        <button type="button" class="insights-close" id="insights-close">Close</button>
+      </div>
       <div class="insights-panel-inner">
         <div class="insights-purpose">
           <strong>Use this board to</strong>
@@ -964,8 +1018,8 @@
           <ul class="lost-summary-list" id="lost-insight"></ul>
         </div>
       </div>
-    </section>
-  </header>
+    </div>
+  </div>
 
   <div class="board-wrap" id="board-wrap">
     <div id="board" aria-label="Events pipeline board"></div>
