@@ -1910,6 +1910,199 @@
           "emoji": "📆"
         }
       ]
+    },
+    {
+      "id": "colors",
+      "title": "Colors",
+      "subtitle": "红色, 黄色, 黑色… — naming colors",
+      "words": [
+        {
+          "hanzi": "红色",
+          "pinyin": "hóngsè",
+          "en": "red",
+          "emoji": "🔴",
+          "phrases": [
+            {
+              "en": "red apple",
+              "pinyin": "hóngsè de píngguǒ",
+              "hanzi": "红色的苹果"
+            },
+            {
+              "en": "I like red",
+              "pinyin": "wǒ xǐhuan hóngsè",
+              "hanzi": "我喜欢红色"
+            }
+          ]
+        },
+        {
+          "hanzi": "黄色",
+          "pinyin": "huángsè",
+          "en": "yellow",
+          "emoji": "🟡",
+          "phrases": [
+            {
+              "en": "yellow banana",
+              "pinyin": "huángsè de xiāngjiāo",
+              "hanzi": "黄色的香蕉"
+            }
+          ]
+        },
+        {
+          "hanzi": "黑色",
+          "pinyin": "hēisè",
+          "en": "black",
+          "emoji": "⚫",
+          "phrases": [
+            {
+              "en": "black shoes",
+              "pinyin": "hēisè de xié",
+              "hanzi": "黑色的鞋"
+            }
+          ]
+        },
+        {
+          "hanzi": "白色",
+          "pinyin": "báisè",
+          "en": "white",
+          "emoji": "⚪",
+          "phrases": [
+            {
+              "en": "white socks",
+              "pinyin": "báisè de wàzi",
+              "hanzi": "白色的袜子"
+            }
+          ]
+        },
+        {
+          "hanzi": "绿色",
+          "pinyin": "lǜsè",
+          "en": "green",
+          "emoji": "🟢",
+          "phrases": [
+            {
+              "en": "green grapes",
+              "pinyin": "lǜsè de pútáo",
+              "hanzi": "绿色的葡萄"
+            }
+          ]
+        },
+        {
+          "hanzi": "蓝色",
+          "pinyin": "lánsè",
+          "en": "blue",
+          "emoji": "🔵",
+          "phrases": [
+            {
+              "en": "blue backpack",
+              "pinyin": "lánsè de shūbāo",
+              "hanzi": "蓝色的书包"
+            }
+          ]
+        },
+        {
+          "hanzi": "粉色",
+          "pinyin": "fěnsè",
+          "en": "pink",
+          "emoji": "🩷",
+          "phrases": [
+            {
+              "en": "pink dress",
+              "pinyin": "fěnsè de qúnzi",
+              "hanzi": "粉色的裙子"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "clothes",
+      "title": "Clothes",
+      "subtitle": "穿, 裤子, 裙子… — getting dressed",
+      "words": [
+        {
+          "hanzi": "穿",
+          "pinyin": "chuān",
+          "en": "to wear",
+          "emoji": "👕",
+          "phrases": [
+            {
+              "en": "I'm wearing a red shirt",
+              "pinyin": "wǒ chuān hóngsè de chènshān",
+              "hanzi": "我穿红色的衬衫"
+            },
+            {
+              "en": "What are you wearing?",
+              "pinyin": "nǐ chuān shénme?",
+              "hanzi": "你穿什么？"
+            }
+          ]
+        },
+        {
+          "hanzi": "裤子",
+          "pinyin": "kùzi",
+          "en": "pants",
+          "emoji": "👖",
+          "phrases": [
+            {
+              "en": "blue pants",
+              "pinyin": "lánsè de kùzi",
+              "hanzi": "蓝色的裤子"
+            }
+          ]
+        },
+        {
+          "hanzi": "裙子",
+          "pinyin": "qúnzi",
+          "en": "dress",
+          "emoji": "👗",
+          "phrases": [
+            {
+              "en": "pink dress",
+              "pinyin": "fěnsè de qúnzi",
+              "hanzi": "粉色的裙子"
+            }
+          ]
+        },
+        {
+          "hanzi": "衬衫",
+          "pinyin": "chènshān",
+          "en": "shirt",
+          "emoji": "👔",
+          "phrases": [
+            {
+              "en": "white shirt",
+              "pinyin": "báisè de chènshān",
+              "hanzi": "白色的衬衫"
+            }
+          ]
+        },
+        {
+          "hanzi": "鞋",
+          "pinyin": "xié",
+          "en": "shoes",
+          "emoji": "👟",
+          "phrases": [
+            {
+              "en": "black shoes",
+              "pinyin": "hēisè de xié",
+              "hanzi": "黑色的鞋"
+            }
+          ]
+        },
+        {
+          "hanzi": "T恤",
+          "pinyin": "T-xù",
+          "en": "T-shirt",
+          "emoji": "👕",
+          "phrases": [
+            {
+              "en": "green T-shirt",
+              "pinyin": "lǜsè de T-xù",
+              "hanzi": "绿色的T恤"
+            }
+          ]
+        }
+      ]
     }
   ],
   "tagMap": {
@@ -2044,6 +2237,10 @@
     ],
     "months": [
       "months-dates"
+    ],
+    "clothes": [
+      "colors",
+      "clothes"
     ]
   },
   "sentences": [
@@ -3786,6 +3983,60 @@
       "pinyin": "Wǒ jiǔ yuè chūshēng.",
       "hanzi": "我九月出生。",
       "tag": "months"
+    },
+    {
+      "en": "I am wearing a red shirt.",
+      "pinyin": "Wǒ chuān hóngsè de chènshān.",
+      "hanzi": "我穿红色的衬衫。",
+      "tag": "clothes"
+    },
+    {
+      "en": "My pants are blue.",
+      "pinyin": "Wǒ de kùzi shì lánsè.",
+      "hanzi": "我的裤子是蓝色。",
+      "tag": "clothes"
+    },
+    {
+      "en": "She is wearing a pink dress.",
+      "pinyin": "Tā chuān fěnsè de qúnzi.",
+      "hanzi": "她穿粉色的裙子。",
+      "tag": "clothes"
+    },
+    {
+      "en": "What are you wearing today?",
+      "pinyin": "Nǐ jīntiān chuān shénme?",
+      "hanzi": "你今天穿什么？",
+      "tag": "clothes"
+    },
+    {
+      "en": "I like green T-shirts.",
+      "pinyin": "Wǒ xǐhuan lǜsè de T-xù.",
+      "hanzi": "我喜欢绿色的T恤。",
+      "tag": "clothes"
+    },
+    {
+      "en": "My shoes are black and white.",
+      "pinyin": "Wǒ de xié shì hēisè hé báisè.",
+      "hanzi": "我的鞋是黑色和白色。",
+      "tag": "clothes"
+    },
+    {
+      "en": "My little brother is wearing yellow pants.",
+      "pinyin": "Wǒ dìdi chuān huángsè de kùzi.",
+      "hanzi": "我弟弟穿黄色的裤子。",
+      "tag": "clothes"
+    },
+    {
+      "en": "I like red apples and green grapes.",
+      "pinyin": "Wǒ xǐhuan hóngsè de píngguǒ hé lǜsè de pútáo.",
+      "hanzi": "我喜欢红色的苹果和绿色的葡萄。",
+      "tag": "clothes"
+    },
+    {
+      "en": "My backpack is blue.",
+      "pinyin": "Wǒ de shūbāo shì lánsè.",
+      "hanzi": "我的书包是蓝色。",
+      "tag": "clothes"
     }
   ]
 }
