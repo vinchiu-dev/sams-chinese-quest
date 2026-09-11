@@ -4,12 +4,54 @@
 
   const stageMeta = {
     new_inquiry: { label: "New inquiry", open: true },
-    contacted: { label: "Contacted", open: true },
-    quoted: { label: "Quoted", open: true },
+    preparing_quote: { label: "Preparing quote", open: true },
+    quoted: { label: "Quoted, to follow up", open: true },
     site_visit_negotiation: { label: "Site visit / Negotiation", open: true },
     won: { label: "Won", open: false },
     lost: { label: "Lost", open: false },
   };
+
+  /** Map legacy Sheet stages + auto-advance when FO/stay already replied or quoted. */
+  function normalizeLeadStage(lead) {
+    let stage = String(lead.stage || "new_inquiry").trim() || "new_inquiry";
+    if (stage === "contacted") stage = "preparing_quote";
+    // Don't touch terminal / late pipeline
+    if (stage === "won" || stage === "lost" || stage === "site_visit_negotiation") return stage;
+
+    const blob = `${lead.seed_notes || ""} ${lead.fo_notes || ""} ${lead.subject || ""}`;
+    const quoteSent =
+      /sent[^.]{0,80}(package rates|quote images|quote\b)|package rates pdf|hotel acknowledged.{0,40}sent quote/i.test(
+        blob
+      );
+    const responded =
+      /already (sent|called|replied)|angge[^.]{0,60}called|fo[^.]{0,80}(called|sent|replied)|stay@ already|details ask|replied that she already|sent the details/i.test(
+        blob
+      );
+
+    if (quoteSent && (stage === "new_inquiry" || stage === "preparing_quote")) {
+      return "quoted";
+    }
+    if (responded && stage === "new_inquiry") {
+      return "preparing_quote";
+    }
+    return stage;
+  }
+
+  function leadSortKey(lead) {
+    // Newest first: prefer inquiry_date, then last_updated
+    const a = String(lead.inquiry_date || "").trim();
+    const b = String(lead.last_updated || "").trim();
+    return b > a ? b : a || "0000-00-00";
+  }
+
+  function sortLeadsNewestFirst(arr) {
+    return [...arr].sort((x, y) => {
+      const dy = leadSortKey(y);
+      const dx = leadSortKey(x);
+      if (dy !== dx) return dy < dx ? -1 : 1;
+      return String(y.id).localeCompare(String(x.id));
+    });
+  }
 
   const CHANNEL_SHORT = {
     "Google Ads": "Google Ads",
@@ -77,7 +119,10 @@
   }
 
   function allLeads() {
-    return baseLeads.map(mergedLead);
+    return baseLeads.map((l) => {
+      const m = mergedLead(l);
+      return { ...m, stage: normalizeLeadStage(m) };
+    });
   }
 
   function escapeHtml(s) {
@@ -272,6 +317,7 @@
 
   function moveLeadToStage(id, stage) {
     const lead = allLeads().find((l) => l.id === id);
+    if (stage === "contacted") stage = "preparing_quote";
     if (!lead || !stage || lead.stage === stage) return false;
     const today = new Date().toISOString().slice(0, 10);
     draftOverlay[id] = {
@@ -426,7 +472,7 @@
     const board = document.getElementById("board");
     board.innerHTML = stages
       .map((st) => {
-        const colLeads = filtered.filter((l) => l.stage === st.id);
+        const colLeads = sortLeadsNewestFirst(filtered.filter((l) => l.stage === st.id));
         return `
         <section class="column" data-stage="${st.id}">
           <header class="column-header">
@@ -746,7 +792,7 @@
         event_dates: get(cells, "event_dates"),
         pax: get(cells, "pax"),
         event_type: get(cells, "event_type"),
-        stage: get(cells, "stage") || "new_inquiry",
+        stage: get(cells, "stage") || "new_inquiry", // normalized below
         marketing_channel: get(cells, "marketing_channel") || "Walk-in / other",
         revenue_php,
         fo_notes: get(cells, "fo_notes"),
@@ -756,7 +802,7 @@
         subject: get(cells, "subject"),
       });
     }
-    return out;
+    return out.map((lead) => ({ ...lead, stage: normalizeLeadStage(lead) }));
   }
 
   async function fetchText(url) {
@@ -814,7 +860,7 @@
     clearDrafts();
     const loaded = await loadLeadsFromRemote();
     if (loaded.leads) {
-      baseLeads = loaded.leads;
+      baseLeads = loaded.leads.map((lead) => ({ ...lead, stage: normalizeLeadStage(lead) }));
       dataSource = loaded.kind;
     } else {
       // keep current base; still cleared drafts
@@ -835,28 +881,29 @@
 
     const loaded = await loadLeadsFromRemote();
     if (loaded.leads) {
-      baseLeads = loaded.leads;
+      baseLeads = loaded.leads.map((lead) => ({ ...lead, stage: normalizeLeadStage(lead) }));
       dataSource = loaded.kind;
     } else {
       const res = await fetch("leads.json?t=" + Date.now());
       const data = await res.json();
-      baseLeads = data.leads || [];
+      baseLeads = (data.leads || []).map((lead) => ({ ...lead, stage: normalizeLeadStage(lead) }));
       stages = data.stages || stages;
       channels = data.marketing_channels || channels;
       document.getElementById("north-star").textContent = data.north_star || "YoY event sales growth";
       dataSource = "json";
     }
 
-    // Prefer Sheet stages/channels lists when present in JSON meta
+    // Prefer channels / north_star from leads.json; stages always from stageMeta (labels + preparing_quote)
     try {
       const meta = await fetch("leads.json?t=" + Date.now());
       if (meta.ok) {
         const data = await meta.json();
-        if (data.stages) stages = data.stages;
         if (data.marketing_channels) channels = data.marketing_channels;
         if (data.north_star) document.getElementById("north-star").textContent = data.north_star;
       }
     } catch {}
+    stages = Object.keys(stageMeta).map((id) => ({ id, label: stageMeta[id].label }));
+    baseLeads = baseLeads.map((lead) => ({ ...lead, stage: normalizeLeadStage(lead) }));
 
     // Do not auto-apply legacy localStorage overlays
     try {
