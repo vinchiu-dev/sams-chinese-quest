@@ -311,7 +311,13 @@
       console.warn("BC CRM: Insights elements missing", { btn: !!btn, panel: !!panel });
       return;
     }
-    if (btn.dataset.bound === "1") return;
+    // Boot script in index.html owns click binding — only wire refresh helper here
+    if (btn.dataset.bootBound === "1" || btn.dataset.bound === "1") {
+      window.__bcRefreshInsights = function () {
+        try { renderRevenue(); renderInsights(); } catch (err) { console.warn(err); }
+      };
+      return;
+    }
     btn.dataset.bound = "1";
     const closeInsights = () => applyRevOpen(false);
     const toggleInsights = (e) => {

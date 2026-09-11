@@ -846,8 +846,18 @@
     .topbar-actions .rev-link {
       font-size: 0.78rem;
       line-height: 1.2;
-      padding: 6px 8px;
+      padding: 6px 10px;
       min-height: 32px;
+      text-decoration: none;
+      border: 1px solid #9bc0d8;
+      border-radius: 8px;
+      background: #fff;
+      color: #0d4f7a;
+    }
+    .topbar-actions .rev-link:hover,
+    .topbar-actions .rev-link[aria-expanded="true"] {
+      background: #eef6fb;
+      color: var(--accent);
     }
     .btn-add {
       appearance: none;
@@ -997,17 +1007,17 @@
       </div>
       <div class="topbar-actions">
         <button type="button" class="btn-add" id="btn-add-event">+ Add event</button>
-        <button type="button" class="rev-link" id="rev-toggle" aria-expanded="false" aria-controls="insights-panel" title="Sources, lost reasons, and why this board" onclick="(function(ev){ev.preventDefault();ev.stopPropagation();var p=document.getElementById('insights-panel');var b=document.getElementById('rev-toggle');if(!p)return;var open=!p.classList.contains('is-open');p.classList.toggle('is-open',open);p.setAttribute('aria-hidden',open?'false':'true');if(b)b.setAttribute('aria-expanded',open?'true':'false');if(open&&window.__bcRefreshInsights)window.__bcRefreshInsights();})(event)">Insights</button>
+        <button type="button" class="rev-link" id="rev-toggle" aria-expanded="false" aria-controls="insights-panel" title="Sources, lost reasons, and why this board">Insights</button>
       </div>
     </div>
 
   </header>
 
-  <div class="insights-overlay" id="insights-panel" aria-hidden="true" onclick="if(event.target===this){this.classList.remove('is-open');this.setAttribute('aria-hidden','true');var b=document.getElementById('rev-toggle');if(b)b.setAttribute('aria-expanded','false');}">
+  <div class="insights-overlay" id="insights-panel" aria-hidden="true">
     <div class="insights-sheet" role="dialog" aria-modal="true" aria-labelledby="insights-title">
       <div class="insights-sheet-head">
         <h2 id="insights-title">Insights</h2>
-        <button type="button" class="insights-close" id="insights-close" onclick="(function(ev){ev.preventDefault();var p=document.getElementById('insights-panel');var b=document.getElementById('rev-toggle');if(!p)return;p.classList.remove('is-open');p.setAttribute('aria-hidden','true');if(b)b.setAttribute('aria-expanded','false');})(event)">Close</button>
+        <button type="button" class="insights-close" id="insights-close">Close</button>
       </div>
       <div class="insights-panel-inner">
         <div class="insights-purpose">
@@ -1194,6 +1204,6 @@
   })();
   </script>
 
-  <script src="app.js?v=20260911-1051"></script>
+  <script src="app.js?v=20260911-1056"></script>
 </body>
 </html>
