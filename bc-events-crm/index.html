@@ -674,6 +674,107 @@
       opacity: 1;
     }
 
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+    }
+    .btn-add {
+      appearance: none;
+      border: none;
+      background: #0d9488;
+      color: #fff;
+      font: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+    }
+    .btn-add:hover { background: #0f766e; }
+    #add-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 12px;
+      background: rgba(15, 23, 42, 0.45);
+    }
+    #add-modal.open { display: flex; }
+    .add-card {
+      width: min(440px, 100%);
+      max-height: min(92vh, 720px);
+      overflow: auto;
+      background: #fff;
+      border-radius: 14px 14px 10px 10px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.28);
+      padding: 14px 14px 16px;
+    }
+    .add-card h2 {
+      margin: 0 0 4px;
+      font-size: 1.05rem;
+    }
+    .add-card .add-sub {
+      margin: 0 0 12px;
+      font-size: 0.75rem;
+      color: var(--muted, #64748b);
+      line-height: 1.35;
+    }
+    .add-card .field { margin-bottom: 10px; }
+    .add-card label, .add-card .field > span {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #475569;
+      margin-bottom: 4px;
+    }
+    .add-card input, .add-card select, .add-card textarea {
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font: inherit;
+      font-size: 0.9rem;
+    }
+    .add-card textarea { min-height: 72px; resize: vertical; }
+    .add-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .add-actions .btn-primary {
+      flex: 1;
+      appearance: none;
+      border: none;
+      background: #0d9488;
+      color: #fff;
+      font-weight: 700;
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .add-actions .btn-ghost {
+      appearance: none;
+      border: 1px solid #cbd5e1;
+      background: #fff;
+      color: #334155;
+      font-weight: 600;
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    @media (min-width: 721px) {
+      #add-modal { align-items: center; }
+      .add-card { border-radius: 14px; }
+    }
+
     @media (max-width: 720px) {
       .rev-chart-wrap { grid-template-columns: 64px 1fr; max-height: 72px; }
       .rev-bar-row { grid-template-columns: 64px 1fr 70px; }
@@ -696,6 +797,9 @@
       <div class="brand">
         <h1>Blue Coast Events</h1>
         <p class="north-star">North star: <strong id="north-star">YoY event sales growth</strong></p>
+      </div>
+      <div class="topbar-actions">
+        <button type="button" class="btn-add" id="btn-add-event">+ Add event</button>
       </div>
     </div>
 
@@ -775,6 +879,54 @@
       </div>
     </div>
   </aside>
+
+
+  <div id="add-modal" aria-hidden="true">
+    <div class="add-card" role="dialog" aria-modal="true" aria-labelledby="add-title">
+      <h2 id="add-title">Add event</h2>
+      <p class="add-sub">Creates a card on the board. Also copies a Sheet row so every device stays in sync.</p>
+      <div class="field">
+        <label for="add-name">Guest / contact name *</label>
+        <input id="add-name" autocomplete="name" required />
+      </div>
+      <div class="field">
+        <label for="add-org">Org / agency</label>
+        <input id="add-org" />
+      </div>
+      <div class="field">
+        <label for="add-phone">Phone</label>
+        <input id="add-phone" inputmode="tel" />
+      </div>
+      <div class="field">
+        <label for="add-email">Email</label>
+        <input id="add-email" type="email" inputmode="email" />
+      </div>
+      <div class="field">
+        <label for="add-dates">Event dates</label>
+        <input id="add-dates" placeholder="e.g. 2026-10-12 to 2026-10-14" />
+      </div>
+      <div class="field">
+        <label for="add-pax">Pax / rooms</label>
+        <input id="add-pax" placeholder="e.g. 80" />
+      </div>
+      <div class="field">
+        <label for="add-channel">Marketing channel</label>
+        <select id="add-channel"></select>
+      </div>
+      <div class="field">
+        <label for="add-stage">Stage</label>
+        <select id="add-stage"></select>
+      </div>
+      <div class="field">
+        <label for="add-notes">Notes</label>
+        <textarea id="add-notes" placeholder="What they want, next step…"></textarea>
+      </div>
+      <div class="add-actions">
+        <button type="button" class="btn-ghost" id="btn-add-cancel">Cancel</button>
+        <button type="button" class="btn-primary" id="btn-add-save">Add to board</button>
+      </div>
+    </div>
+  </div>
 
   <div id="toast" role="status" aria-live="polite"></div>
   <script src="app.js"></script>

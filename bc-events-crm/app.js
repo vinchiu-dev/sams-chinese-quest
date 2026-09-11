@@ -1,6 +1,7 @@
 /* Blue Coast Events CRM — Sheet is multi-device source of truth; page is live view */
 (function () {
   const LS_DRAFT_KEY = "bc-events-crm-draft-v2";
+  const LS_ADDS_KEY = "bc-events-crm-adds-v1";
 
   const stageMeta = {
     new_inquiry: { label: "New inquiry", open: true },
@@ -70,6 +71,7 @@
   let channels = [];
   /** Optional this-session drafts only — cleared on Refresh from Sheet */
   let draftOverlay = loadDraft();
+  let localAdds = loadAdds();
   let applyDrafts = false; // off by default so other devices aren't overridden
   let dataSource = "none";
   let activeId = null;
@@ -92,6 +94,74 @@
 
   function saveDraft() {
     localStorage.setItem(LS_DRAFT_KEY, JSON.stringify(draftOverlay));
+  }
+
+  function loadAdds() {
+    try {
+      const a = JSON.parse(localStorage.getItem(LS_ADDS_KEY) || "[]");
+      return Array.isArray(a) ? a : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveAdds() {
+    localStorage.setItem(LS_ADDS_KEY, JSON.stringify(localAdds));
+  }
+
+  function newLeadId() {
+    const hex = Array.from(crypto.getRandomValues(new Uint8Array(7)))
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("");
+    return "1a" + hex.slice(0, 14);
+  }
+
+  function showToast(msg) {
+    const el = document.getElementById("toast");
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.add("show");
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => el.classList.remove("show"), 3200);
+  }
+
+  function leadToSheetRow(lead) {
+    const cells = [
+      lead.id,
+      lead.name || "",
+      lead.org || "",
+      lead.stage || "new_inquiry",
+      lead.marketing_channel || "Walk-in / other",
+      lead.inquiry_date || "",
+      lead.event_dates || "",
+      lead.pax || "",
+      lead.email || "",
+      lead.phone || "",
+      lead.revenue_php != null && lead.revenue_php !== "" ? lead.revenue_php : "",
+      lead.lost_reason || "",
+      lead.fo_notes || "",
+      lead.seed_notes || "",
+      lead.source || "manual add",
+      lead.source_badge || "Other",
+      lead.event_type || "",
+      lead.subject || "",
+      lead.last_updated || "",
+      lead.editor || "fo-add",
+    ];
+    return cells.map((c) => {
+      const s = String(c == null ? "" : c);
+      if (/[\t\n\r"]/.test(s)) return '"' + s.replace(/"/g, '""') + '"';
+      return s;
+    }).join("\t");
+  }
+
+  async function copyText(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      return false;
+    }
   }
 
   function clearDrafts() {
@@ -119,7 +189,10 @@
   }
 
   function allLeads() {
-    return baseLeads.map((l) => {
+    const byId = new Map();
+    for (const l of baseLeads) byId.set(l.id, l);
+    for (const l of localAdds) byId.set(l.id, { ...(byId.get(l.id) || {}), ...l });
+    return [...byId.values()].map((l) => {
       const m = mergedLead(l);
       return { ...m, stage: normalizeLeadStage(m) };
     });
@@ -862,12 +935,110 @@
     if (loaded.leads) {
       baseLeads = loaded.leads.map((lead) => ({ ...lead, stage: normalizeLeadStage(lead) }));
       dataSource = loaded.kind;
+      const sheetIds = new Set(baseLeads.map((l) => l.id));
+      localAdds = localAdds.filter((l) => !sheetIds.has(l.id));
+      saveAdds();
     } else {
       // keep current base; still cleared drafts
       dataSource = dataSource || "json";
     }
     updateBanner();
     render();
+  }
+
+
+  function openAddModal() {
+    const modal = document.getElementById("add-modal");
+    if (!modal) return;
+    const chSel = document.getElementById("add-channel");
+    const stSel = document.getElementById("add-stage");
+    chSel.innerHTML = channels
+      .map((c) => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`)
+      .join("");
+    chSel.value = "Walk-in / other";
+    stSel.innerHTML = stages
+      .map((s) => `<option value="${s.id}">${escapeHtml(s.label)}</option>`)
+      .join("");
+    stSel.value = "new_inquiry";
+    document.getElementById("add-name").value = "";
+    document.getElementById("add-org").value = "";
+    document.getElementById("add-phone").value = "";
+    document.getElementById("add-email").value = "";
+    document.getElementById("add-dates").value = "";
+    document.getElementById("add-pax").value = "";
+    document.getElementById("add-notes").value = "";
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+    setTimeout(() => document.getElementById("add-name")?.focus(), 50);
+  }
+
+  function closeAddModal() {
+    const modal = document.getElementById("add-modal");
+    if (!modal) return;
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+  }
+
+  async function saveNewEvent() {
+    const name = document.getElementById("add-name").value.trim();
+    if (!name) {
+      showToast("Name is required");
+      document.getElementById("add-name")?.focus();
+      return;
+    }
+    const today = new Date().toISOString().slice(0, 10);
+    const notes = document.getElementById("add-notes").value.trim();
+    const lead = {
+      id: newLeadId(),
+      name,
+      org: document.getElementById("add-org").value.trim(),
+      email: document.getElementById("add-email").value.trim() || null,
+      phone: document.getElementById("add-phone").value.trim() || null,
+      source: "manual add (FO)",
+      source_badge: "Other",
+      inquiry_date: today,
+      event_dates: document.getElementById("add-dates").value.trim(),
+      pax: document.getElementById("add-pax").value.trim(),
+      event_type: "event inquiry",
+      stage: document.getElementById("add-stage").value || "new_inquiry",
+      marketing_channel: document.getElementById("add-channel").value || "Walk-in / other",
+      revenue_php: null,
+      fo_notes: notes,
+      lost_reason: "",
+      seed_notes: notes ? `Manual add ${today}: ${notes}` : `Manual add ${today}`,
+      last_updated: today,
+      subject: `EVENT — ${name}`,
+      editor: "fo-add",
+    };
+
+    localAdds = [lead, ...localAdds.filter((l) => l.id !== lead.id)];
+    saveAdds();
+    // Also put on base so card appears even before next Sheet pull
+    baseLeads = [lead, ...baseLeads.filter((l) => l.id !== lead.id)];
+
+    const row = leadToSheetRow(lead);
+    const copied = await copyText(row);
+    if (config.fo_sheet_write_url) {
+      try {
+        await fetch(config.fo_sheet_write_url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action: "upsert", lead }),
+        });
+      } catch {}
+    }
+
+    closeAddModal();
+    render();
+    showToast(
+      copied
+        ? "Added to board — Sheet row copied. Paste into the Shared Sheet for all devices."
+        : "Added to board — open Shared Sheet and add the row for all devices."
+    );
+    // Soft-open sheet for FO
+    if (config.fo_sheet_edit_url && copied) {
+      // don't auto-open new tab every time — toast is enough
+    }
   }
 
   async function init() {
@@ -920,6 +1091,14 @@
     document.getElementById("btn-close").addEventListener("click", closeDrawer);
     document.getElementById("backdrop").addEventListener("click", closeDrawer);
     document.getElementById("btn-save").addEventListener("click", saveDrawer);
+
+    document.getElementById("btn-add-event")?.addEventListener("click", openAddModal);
+    document.getElementById("btn-add-cancel")?.addEventListener("click", closeAddModal);
+    document.getElementById("btn-add-save")?.addEventListener("click", () => saveNewEvent());
+    document.getElementById("add-modal")?.addEventListener("click", (e) => {
+      if (e.target && e.target.id === "add-modal") closeAddModal();
+    });
+
     document.getElementById("stage-select").addEventListener("change", (e) => {
       toggleLostReason(e.target.value);
       toggleRevenue(e.target.value);
