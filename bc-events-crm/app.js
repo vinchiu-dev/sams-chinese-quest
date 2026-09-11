@@ -616,7 +616,6 @@
       .join("");
 
     bindBoardDnD(board);
-    if (window.__bcUpdateBoardScroll) window.__bcUpdateBoardScroll();
   }
 
   function normalizeWebLabel(s) {
@@ -1089,80 +1088,83 @@
 
   function initBoardScroll() {
     const wrap = document.getElementById("board-wrap");
-    const left = document.getElementById("board-scroll-left");
-    const right = document.getElementById("board-scroll-right");
-    if (!wrap || !left || !right || wrap.dataset.scrollBound === "1") return;
+    if (!wrap || wrap.dataset.scrollBound === "1") return;
     wrap.dataset.scrollBound = "1";
 
-    function updateBtns() {
-      const max = wrap.scrollWidth - wrap.clientWidth;
-      left.disabled = wrap.scrollLeft <= 2;
-      right.disabled = wrap.scrollLeft >= max - 2;
-    }
-
-    function scrollByCols(dir) {
-      const col = wrap.querySelector(".column");
-      const step = col ? col.getBoundingClientRect().width + 12 : Math.max(220, wrap.clientWidth * 0.7);
-      wrap.scrollBy({ left: dir * step, behavior: "smooth" });
-    }
-
-    left.addEventListener("click", () => scrollByCols(-1));
-    right.addEventListener("click", () => scrollByCols(1));
-    wrap.addEventListener("scroll", updateBtns, { passive: true });
-    window.addEventListener("resize", updateBtns);
-
-    // Trackpad / mouse wheel: vertical wheel → horizontal board scroll when shift or primarily sideways
+    // Wheel / trackpad: map to board horizontal when gesture is sideways,
+    // or Shift+wheel; leave pure vertical wheel for column-body scroll.
     wrap.addEventListener(
       "wheel",
       (e) => {
-        const mostlyX = Math.abs(e.deltaX) > Math.abs(e.deltaY);
-        if (mostlyX) return; // native horizontal already
-        if (e.shiftKey || Math.abs(e.deltaY) > 0) {
-          // Convert vertical wheel to horizontal board scroll (when not over a scrolling column body intent)
-          const overColBody = e.target.closest && e.target.closest(".column-body");
-          if (overColBody && !e.shiftKey) {
-            // let column scroll vertically unless at edge and user wants board
-            const body = overColBody;
-            const atTop = body.scrollTop <= 0 && e.deltaY < 0;
-            const atBot = body.scrollTop + body.clientHeight >= body.scrollHeight - 1 && e.deltaY > 0;
-            if (!atTop && !atBot) return;
-          }
-          if (wrap.scrollWidth <= wrap.clientWidth + 2) return;
+        if (wrap.scrollWidth <= wrap.clientWidth + 2) return;
+        const absX = Math.abs(e.deltaX);
+        const absY = Math.abs(e.deltaY);
+        if (absX > absY || e.shiftKey) {
           e.preventDefault();
-          wrap.scrollLeft += e.deltaY + e.deltaX;
-          updateBtns();
+          wrap.scrollLeft += e.shiftKey && absX <= absY ? e.deltaY : e.deltaX + (e.shiftKey ? e.deltaY : 0);
         }
       },
       { passive: false }
     );
 
-    // Drag-to-pan empty board / headers (not on cards)
+    // Drag-to-pan horizontally anywhere on the board (including cards/columns).
+    // Vertical intent on a column-body scrolls that column instead.
+    // Drag-handle keeps card-move DnD. A moved pan suppresses card click.
     let pan = null;
     wrap.addEventListener("pointerdown", (e) => {
       if (e.pointerType === "mouse" && e.button !== 0) return;
-      if (e.target.closest(".card, .card-drag-handle, button, a, input, textarea, select")) return;
-      pan = { id: e.pointerId, x: e.clientX, left: wrap.scrollLeft, moved: false };
-      try { wrap.setPointerCapture(e.pointerId); } catch (_) {}
+      if (e.target.closest(".card-drag-handle, button, a, input, textarea, select")) return;
+      pan = {
+        id: e.pointerId,
+        x: e.clientX,
+        y: e.clientY,
+        left: wrap.scrollLeft,
+        moved: false,
+        mode: null, // "x" | "y"
+        card: e.target.closest(".card"),
+        colBody: e.target.closest(".column-body"),
+        startScrollTop: 0,
+      };
+      if (pan.colBody) pan.startScrollTop = pan.colBody.scrollTop;
+      try {
+        wrap.setPointerCapture(e.pointerId);
+      } catch (_) {}
     });
     wrap.addEventListener("pointermove", (e) => {
       if (!pan || pan.id !== e.pointerId) return;
       const dx = e.clientX - pan.x;
-      if (!pan.moved && Math.abs(dx) > 4) pan.moved = true;
-      if (pan.moved) {
+      const dy = e.clientY - pan.y;
+      if (!pan.mode) {
+        if (dx * dx + dy * dy < 36) return;
+        // Prefer horizontal board pan unless clearly vertical over a scrollable column
+        if (pan.colBody && Math.abs(dy) > Math.abs(dx) * 1.15) {
+          pan.mode = "y";
+        } else {
+          pan.mode = "x";
+        }
+        pan.moved = true;
+        if (pan.card) pan.card.dataset.suppressClick = "1";
+      }
+      if (pan.mode === "x") {
+        e.preventDefault();
         wrap.scrollLeft = pan.left - dx;
-        updateBtns();
+      } else if (pan.mode === "y" && pan.colBody) {
+        pan.colBody.scrollTop = pan.startScrollTop - dy;
       }
     });
     function endPan(e) {
       if (!pan || pan.id !== e.pointerId) return;
+      const card = pan.card;
+      const moved = pan.moved;
       pan = null;
+      if (card && moved) {
+        setTimeout(() => {
+          delete card.dataset.suppressClick;
+        }, 0);
+      }
     }
     wrap.addEventListener("pointerup", endPan);
     wrap.addEventListener("pointercancel", endPan);
-
-    // Initial + after renders
-    window.__bcUpdateBoardScroll = updateBtns;
-    setTimeout(updateBtns, 0);
   }
 
   async function init() {
