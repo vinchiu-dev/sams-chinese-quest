@@ -428,37 +428,37 @@
       position: relative;
     }
     .board-scroll-bar {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 6px;
-      padding: 0 12px 2px;
-      flex-shrink: 0;
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 5;
     }
     .board-scroll-btn {
+      pointer-events: auto;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
       appearance: none;
       border: 1px solid var(--border);
-      background: #fff;
+      background: rgba(255,255,255,0.95);
       color: #154a6e;
-      width: 34px;
-      height: 28px;
-      border-radius: 7px;
-      font-size: 1rem;
+      width: 36px;
+      height: 56px;
+      border-radius: 10px;
+      font-size: 1.35rem;
       font-weight: 700;
       line-height: 1;
       cursor: pointer;
-      box-shadow: var(--shadow);
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.18);
     }
+    .board-scroll-btn#board-scroll-left { left: 6px; }
+    .board-scroll-btn#board-scroll-right { right: 6px; }
     .board-scroll-btn:hover { background: #eef6fb; border-color: #9bc0d8; }
     .board-scroll-btn:disabled {
-      opacity: 0.35;
+      opacity: 0.25;
       cursor: default;
     }
-    .board-scroll-hint {
-      margin-right: auto;
-      font-size: 0.68rem;
-      color: var(--muted);
-    }
+    .board-scroll-hint { display: none; }
     .board-wrap {
       flex: 1 1 auto;
       min-height: 0;
@@ -466,7 +466,7 @@
       overflow-y: hidden;
       -webkit-overflow-scrolling: touch;
       overscroll-behavior-x: contain;
-      padding: 4px 12px 12px;
+      padding: 8px 12px 12px;
       scrollbar-width: auto;
       scrollbar-color: #1E71A7 #dce6ee;
       cursor: grab;
@@ -559,7 +559,7 @@
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 10px 11px;
+      padding: 14px 14px 12px;
       box-shadow: var(--shadow);
       cursor: pointer;
       transition: border-color 0.15s, box-shadow 0.15s;
@@ -568,8 +568,24 @@
       user-select: none;
       max-width: 100%;
       overflow-x: hidden;
-      overflow-wrap: anywhere;
-      word-break: break-word;
+      flex-shrink: 0;
+    }
+    .card.card-compact .card-title {
+      margin: 0;
+      padding-right: 28px;
+      font-size: 0.95rem;
+      line-height: 1.35;
+    }
+    .card.card-compact .card-rev {
+      margin: 6px 0 0;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+    .card.card-compact .card-rev.is-empty {
+      color: #94a3b8;
+      font-weight: 400;
     }
     .card:hover, .card:focus {
       border-color: var(--accent);
@@ -983,8 +999,7 @@
   </header>
 
   <div class="board-shell">
-    <div class="board-scroll-bar">
-      <span class="board-scroll-hint">Swipe or use arrows to move across statuses</span>
+    <div class="board-scroll-bar" aria-hidden="false">
       <button type="button" class="board-scroll-btn" id="board-scroll-left" aria-label="Scroll columns left">‹</button>
       <button type="button" class="board-scroll-btn" id="board-scroll-right" aria-label="Scroll columns right">›</button>
     </div>

@@ -643,29 +643,17 @@
   }
 
   function cardHtml(lead) {
-    const { title, sub } = displayName(lead);
-    const dates = [lead.event_dates, lead.pax ? `${lead.pax} pax` : null].filter(Boolean).join(" · ");
-    const notesPreview = (lead.fo_notes || "").trim();
-    const ch = lead.marketing_channel || "Walk-in / other";
-    const tag = cardTag(lead);
-    const rev =
-      lead.revenue_php != null && lead.revenue_php !== "" && Number(lead.revenue_php) > 0
-        ? `<p class="card-rev">${formatPhp(lead.revenue_php)}${lead.stage === "won" ? "" : " · quote"}</p>`
-        : "";
+    const { title } = displayName(lead);
+    const hasRev =
+      lead.revenue_php != null && lead.revenue_php !== "" && Number(lead.revenue_php) > 0;
+    const revLine = hasRev
+      ? `<p class="card-rev">${formatPhp(lead.revenue_php)}</p>`
+      : `<p class="card-rev is-empty">Amount TBD</p>`;
     return `
-      <article class="card" data-id="${escapeHtml(lead.id)}" tabindex="0" role="button">
+      <article class="card card-compact" data-id="${escapeHtml(lead.id)}" tabindex="0" role="button">
         <span class="card-drag-handle" draggable="true" role="button" tabindex="-1" aria-label="Drag to change status" title="Drag to move status">⋮⋮</span>
-        <div class="card-top">
-          <span class="badge channel-badge" title="${escapeHtml(ch)} · ${escapeHtml(lead.source_badge || "")}">${escapeHtml(tag)}</span>
-        </div>
         <h3 class="card-title">${escapeHtml(title)}</h3>
-        ${sub ? `<p class="card-org">${escapeHtml(sub)}</p>` : ""}
-        ${dates ? `<p class="card-meta">${escapeHtml(dates)}</p>` : ""}
-        <p class="card-contact">${escapeHtml(formatContact(lead))}</p>
-        <p class="card-updated">Updated ${escapeHtml(lead.last_updated || "—")}</p>
-        ${rev}
-        ${notesPreview ? `<p class="card-fo-preview">FO: ${escapeHtml(notesPreview.slice(0, 80))}${notesPreview.length > 80 ? "…" : ""}</p>` : ""}
-        ${lead.stage === "lost" && lead.lost_reason ? `<p class="card-lost">${escapeHtml(lead.lost_reason)}</p>` : ""}
+        ${revLine}
       </article>`;
   }
 
