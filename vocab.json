@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-31",
+  "updated": "2026-09-11",
   "lessons": [
     {
       "id": "little-fox-school-supplies",
@@ -1795,6 +1795,121 @@
           ]
         }
       ]
+    },
+    {
+      "id": "months-dates",
+      "title": "Months & Dates",
+      "subtitle": "一月, 二月… — the months, and saying a date",
+      "words": [
+        {
+          "hanzi": "月",
+          "pinyin": "yuè",
+          "en": "month",
+          "emoji": "🌙",
+          "phrases": [
+            {
+              "en": "which month?",
+              "pinyin": "jǐ yuè?",
+              "hanzi": "几月？"
+            },
+            {
+              "en": "this month",
+              "pinyin": "zhège yuè",
+              "hanzi": "这个月"
+            }
+          ]
+        },
+        {
+          "hanzi": "号",
+          "pinyin": "hào",
+          "en": "day of the month (the ~th)",
+          "emoji": "📅",
+          "phrases": [
+            {
+              "en": "which day?",
+              "pinyin": "jǐ hào?",
+              "hanzi": "几号？"
+            },
+            {
+              "en": "today's date",
+              "pinyin": "jīntiān jǐ hào?",
+              "hanzi": "今天几号？"
+            }
+          ]
+        },
+        {
+          "hanzi": "一月",
+          "pinyin": "yī yuè",
+          "en": "January",
+          "emoji": "1️⃣"
+        },
+        {
+          "hanzi": "二月",
+          "pinyin": "èr yuè",
+          "en": "February",
+          "emoji": "2️⃣"
+        },
+        {
+          "hanzi": "三月",
+          "pinyin": "sān yuè",
+          "en": "March",
+          "emoji": "3️⃣"
+        },
+        {
+          "hanzi": "四月",
+          "pinyin": "sì yuè",
+          "en": "April",
+          "emoji": "4️⃣"
+        },
+        {
+          "hanzi": "五月",
+          "pinyin": "wǔ yuè",
+          "en": "May",
+          "emoji": "5️⃣"
+        },
+        {
+          "hanzi": "六月",
+          "pinyin": "liù yuè",
+          "en": "June",
+          "emoji": "6️⃣"
+        },
+        {
+          "hanzi": "七月",
+          "pinyin": "qī yuè",
+          "en": "July",
+          "emoji": "7️⃣"
+        },
+        {
+          "hanzi": "八月",
+          "pinyin": "bā yuè",
+          "en": "August",
+          "emoji": "8️⃣"
+        },
+        {
+          "hanzi": "九月",
+          "pinyin": "jiǔ yuè",
+          "en": "September",
+          "emoji": "9️⃣"
+        },
+        {
+          "hanzi": "十月",
+          "pinyin": "shí yuè",
+          "en": "October",
+          "emoji": "🔟"
+        },
+        {
+          "hanzi": "十一月",
+          "pinyin": "shíyī yuè",
+          "en": "November",
+          "emoji": "📆"
+        },
+        {
+          "hanzi": "十二月",
+          "pinyin": "shí’èr yuè",
+          "en": "December",
+          "emoji": "📆"
+        }
+      ]
     }
   ],
   "tagMap": {
@@ -1926,6 +2041,9 @@
     ],
     "wherewe": [
       "where-are-we"
+    ],
+    "months": [
+      "months-dates"
     ]
   },
   "sentences": [
@@ -3620,6 +3738,54 @@
       "pinyin": "Dìdi zài nǎr? Tā zài chúfáng.",
       "hanzi": "弟弟在哪儿？他在厨房。",
       "tag": "wherewe"
+    },
+    {
+      "en": "January 25th.",
+      "pinyin": "Yī yuè èrshíwǔ hào.",
+      "hanzi": "一月二十五号。",
+      "tag": "months"
+    },
+    {
+      "en": "August 11th.",
+      "pinyin": "Bā yuè shíyī hào.",
+      "hanzi": "八月十一号。",
+      "tag": "months"
+    },
+    {
+      "en": "September 24th.",
+      "pinyin": "Jiǔ yuè èrshísì hào.",
+      "hanzi": "九月二十四号。",
+      "tag": "months"
+    },
+    {
+      "en": "November 28th.",
+      "pinyin": "Shíyī yuè èrshíbā hào.",
+      "hanzi": "十一月二十八号。",
+      "tag": "months"
+    },
+    {
+      "en": "What month is it?",
+      "pinyin": "Xiànzài jǐ yuè?",
+      "hanzi": "现在几月？",
+      "tag": "months"
+    },
+    {
+      "en": "Today is January 25th.",
+      "pinyin": "Jīntiān shì yī yuè èrshíwǔ hào.",
+      "hanzi": "今天是一月二十五号。",
+      "tag": "months"
+    },
+    {
+      "en": "My birthday is in August.",
+      "pinyin": "Wǒ de shēngrì zài bā yuè.",
+      "hanzi": "我的生日在八月。",
+      "tag": "months"
+    },
+    {
+      "en": "I was born in September.",
+      "pinyin": "Wǒ jiǔ yuè chūshēng.",
+      "hanzi": "我九月出生。",
+      "tag": "months"
     }
   ]
 }
