@@ -1326,12 +1326,8 @@
   }
 
   // Bind UI that must work even if Sheet/leads fetch is slow or fails
-  try {
-    initRevCollapse();
-    initBoardScroll();
-  } catch (err) {
-    console.warn("BC CRM early bind", err);
-  }
+  try { initRevCollapse(); } catch (err) { console.warn("BC CRM insights bind", err); }
+  try { initBoardScroll(); } catch (err) { console.warn("BC CRM scroll bind", err); }
 
   init().catch((err) => {
     document.getElementById("board").innerHTML =

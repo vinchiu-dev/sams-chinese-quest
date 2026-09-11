@@ -229,7 +229,7 @@
       padding: 12px;
       background: rgba(15, 23, 42, 0.45);
     }
-    .insights-overlay.is-open { display: flex; }
+    .insights-overlay.is-open { display: flex !important; visibility: visible !important; opacity: 1 !important; }
     .insights-sheet {
       width: min(520px, 100%);
       max-height: min(88vh, 720px);
@@ -1151,6 +1151,49 @@
   </div>
 
   <div id="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=20260911-1048"></script>
+  
+  <script>
+  (function () {
+    function bindInsights() {
+      var panel = document.getElementById("insights-panel");
+      var btn = document.getElementById("rev-toggle");
+      var closeBtn = document.getElementById("insights-close");
+      if (!panel || !btn || btn.dataset.bootBound === "1") return;
+      btn.dataset.bootBound = "1";
+      function setOpen(open) {
+        panel.classList.toggle("is-open", !!open);
+        panel.setAttribute("aria-hidden", open ? "false" : "true");
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+        if (open && window.__bcRefreshInsights) {
+          try { window.__bcRefreshInsights(); } catch (e) {}
+        }
+      }
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        setOpen(!panel.classList.contains("is-open"));
+      });
+      if (closeBtn) {
+        closeBtn.addEventListener("click", function (e) {
+          e.preventDefault();
+          setOpen(false);
+        });
+      }
+      panel.addEventListener("click", function (e) {
+        if (e.target === panel) setOpen(false);
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && panel.classList.contains("is-open")) setOpen(false);
+      });
+    }
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", bindInsights);
+    } else {
+      bindInsights();
+    }
+  })();
+  </script>
+
+  <script src="app.js?v=20260911-1051"></script>
 </body>
 </html>
