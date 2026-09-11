@@ -477,8 +477,6 @@
       padding: 8px 12px 12px;
       scrollbar-width: thin;
       scrollbar-color: #1E71A7 #dce6ee;
-      /* Native: horizontal board scroll */
-      touch-action: pan-x;
     }
     .board-wrap::-webkit-scrollbar { height: 10px; }
     .board-wrap::-webkit-scrollbar-track {
@@ -489,20 +487,6 @@
       background: #1E71A7;
       border-radius: 6px;
       border: 2px solid #dce6ee;
-    }
-    .column-header {
-      touch-action: pan-x;
-    }
-    .column-body {
-      /* Native: vertical scroll inside a status column */
-      touch-action: pan-y;
-    }
-    .card {
-      /* Allow horizontal to bubble to board; vertical to column-body */
-      touch-action: pan-x pan-y;
-    }
-    .card-drag-handle {
-      touch-action: none;
     }
     #board {
       display: flex;
@@ -538,6 +522,7 @@
       border-bottom: 1px solid var(--border);
       background: #f8fafb;
       border-radius: var(--radius) var(--radius) 0 0;
+      touch-action: pan-x;
     }
     .column-header h2 {
       margin: 0;
@@ -568,6 +553,7 @@
       gap: 8px;
       overscroll-behavior-y: contain;
       overscroll-behavior-x: none;
+      touch-action: pan-y;
     }
     .empty {
       margin: 12px 4px;
@@ -591,6 +577,7 @@
       max-width: 100%;
       overflow-x: hidden;
       flex-shrink: 0;
+      touch-action: pan-x pan-y;
     }
     .card.card-compact .card-title {
       margin: 0;
@@ -1160,6 +1147,6 @@
   </div>
 
   <div id="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=scroll-fix-2"></script>
+  <script src="app.js?v=scroll-fix-3"></script>
 </body>
 </html>
