@@ -284,11 +284,24 @@
     panel.setAttribute("aria-hidden", open ? "false" : "true");
     btn.setAttribute("aria-expanded", open ? "true" : "false");
     if (open) {
-      renderRevenue();
-      renderInsights();
+      try {
+        renderRevenue();
+        renderInsights();
+      } catch (err) {
+        console.warn("BC CRM insights render", err);
+      }
       document.getElementById("insights-close")?.focus();
     }
   }
+
+  window.__bcRefreshInsights = function () {
+    try {
+      renderRevenue();
+      renderInsights();
+    } catch (err) {
+      console.warn("BC CRM insights refresh", err);
+    }
+  };
 
   function initRevCollapse() {
     const btn = document.getElementById("rev-toggle");
@@ -1112,18 +1125,105 @@
     const wrap = document.getElementById("board-wrap");
     if (!wrap || wrap.dataset.scrollBound === "1") return;
     wrap.dataset.scrollBound = "1";
-    // Native CSS handles touch pan-x on board and pan-y on columns.
-    // Shift+wheel still pans horizontally for desktop trackpads/mice.
+
+    let pan = null;
+
     wrap.addEventListener(
       "wheel",
       (e) => {
-        if (!e.shiftKey) return;
-        if (wrap.scrollWidth <= wrap.clientWidth + 2) return;
-        e.preventDefault();
-        wrap.scrollLeft += e.deltaY;
+        const overBody = e.target.closest && e.target.closest(".column-body");
+        const absX = Math.abs(e.deltaX);
+        const absY = Math.abs(e.deltaY);
+        if (absX > absY || e.shiftKey) {
+          e.preventDefault();
+          wrap.scrollLeft += e.shiftKey ? e.deltaY : e.deltaX;
+          return;
+        }
+        if (overBody) {
+          // vertical wheel inside column
+          overBody.scrollTop += e.deltaY;
+          e.preventDefault();
+          return;
+        }
+        // elsewhere: vertical wheel pans board horizontally
+        if (wrap.scrollWidth > wrap.clientWidth + 2) {
+          e.preventDefault();
+          wrap.scrollLeft += e.deltaY;
+        }
       },
       { passive: false }
     );
+
+    wrap.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      if (e.target.closest(".card-drag-handle, button, a, input, textarea, select")) return;
+      pan = {
+        id: e.pointerId,
+        startX: e.clientX,
+        startY: e.clientY,
+        originX: e.clientX,
+        originY: e.clientY,
+        left: wrap.scrollLeft,
+        colBody: e.target.closest(".column-body"),
+        colTop: 0,
+        axis: null,
+        moved: false,
+        card: e.target.closest(".card"),
+      };
+      if (pan.colBody) pan.colTop = pan.colBody.scrollTop;
+      wrap.classList.add("is-panning");
+      try {
+        wrap.setPointerCapture(e.pointerId);
+      } catch (_) {}
+    });
+
+    wrap.addEventListener(
+      "pointermove",
+      (e) => {
+        if (!pan || pan.id !== e.pointerId) return;
+        const dx = e.clientX - pan.originX;
+        const dy = e.clientY - pan.originY;
+        if (!pan.axis) {
+          if (dx * dx + dy * dy < 64) return; // 8px
+          // Prefer horizontal whenever the gesture is mostly sideways —
+          // this is what makes the whole board (cards included) scroll statuses.
+          pan.axis = Math.abs(dx) >= Math.abs(dy) * 0.85 ? "x" : "y";
+          pan.moved = true;
+          pan.startX = e.clientX;
+          pan.startY = e.clientY;
+          pan.left = wrap.scrollLeft;
+          if (pan.colBody) pan.colTop = pan.colBody.scrollTop;
+          if (pan.card) pan.card.dataset.suppressClick = "1";
+        }
+        if (pan.axis === "x") {
+          e.preventDefault();
+          wrap.scrollLeft = pan.left - (e.clientX - pan.startX);
+        } else if (pan.axis === "y" && pan.colBody) {
+          e.preventDefault();
+          pan.colBody.scrollTop = pan.colTop - (e.clientY - pan.startY);
+        } else if (pan.axis === "y") {
+          // vertical outside a column body → treat as horizontal board pan
+          e.preventDefault();
+          wrap.scrollLeft = pan.left - (e.clientX - pan.startX);
+        }
+      },
+      { passive: false }
+    );
+
+    function endPan(e) {
+      if (!pan || pan.id !== e.pointerId) return;
+      const card = pan.card;
+      const moved = pan.moved;
+      pan = null;
+      wrap.classList.remove("is-panning");
+      if (card && moved) {
+        setTimeout(() => {
+          delete card.dataset.suppressClick;
+        }, 80);
+      }
+    }
+    wrap.addEventListener("pointerup", endPan);
+    wrap.addEventListener("pointercancel", endPan);
   }
 
   async function init() {
@@ -1223,6 +1323,14 @@
     });
 
     render();
+  }
+
+  // Bind UI that must work even if Sheet/leads fetch is slow or fails
+  try {
+    initRevCollapse();
+    initBoardScroll();
+  } catch (err) {
+    console.warn("BC CRM early bind", err);
   }
 
   init().catch((err) => {

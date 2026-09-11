@@ -477,6 +477,12 @@
       padding: 8px 12px 12px;
       scrollbar-width: thin;
       scrollbar-color: #1E71A7 #dce6ee;
+      touch-action: none;
+      cursor: grab;
+    }
+    .board-wrap.is-panning { cursor: grabbing; }
+    #board, .column, .column-header, .column-body, .card {
+      touch-action: none;
     }
     .board-wrap::-webkit-scrollbar { height: 10px; }
     .board-wrap::-webkit-scrollbar-track {
@@ -522,7 +528,6 @@
       border-bottom: 1px solid var(--border);
       background: #f8fafb;
       border-radius: var(--radius) var(--radius) 0 0;
-      touch-action: pan-x;
     }
     .column-header h2 {
       margin: 0;
@@ -553,7 +558,6 @@
       gap: 8px;
       overscroll-behavior-y: contain;
       overscroll-behavior-x: none;
-      touch-action: pan-y;
     }
     .empty {
       margin: 12px 4px;
@@ -577,7 +581,6 @@
       max-width: 100%;
       overflow-x: hidden;
       flex-shrink: 0;
-      touch-action: pan-x pan-y;
     }
     .card.card-compact .card-title {
       margin: 0;
@@ -993,17 +996,17 @@
       </div>
       <div class="topbar-actions">
         <button type="button" class="btn-add" id="btn-add-event">+ Add event</button>
-        <button type="button" class="rev-link" id="rev-toggle" aria-expanded="false" aria-controls="insights-panel" title="Sources, lost reasons, and why this board" onclick="if(window.__bcToggleInsights){window.__bcToggleInsights(event);}">Insights</button>
+        <button type="button" class="rev-link" id="rev-toggle" aria-expanded="false" aria-controls="insights-panel" title="Sources, lost reasons, and why this board" onclick="(function(ev){ev.preventDefault();ev.stopPropagation();var p=document.getElementById('insights-panel');var b=document.getElementById('rev-toggle');if(!p)return;var open=!p.classList.contains('is-open');p.classList.toggle('is-open',open);p.setAttribute('aria-hidden',open?'false':'true');if(b)b.setAttribute('aria-expanded',open?'true':'false');if(open&&window.__bcRefreshInsights)window.__bcRefreshInsights();})(event)">Insights</button>
       </div>
     </div>
 
   </header>
 
-  <div class="insights-overlay" id="insights-panel" aria-hidden="true">
+  <div class="insights-overlay" id="insights-panel" aria-hidden="true" onclick="if(event.target===this){this.classList.remove('is-open');this.setAttribute('aria-hidden','true');var b=document.getElementById('rev-toggle');if(b)b.setAttribute('aria-expanded','false');}">
     <div class="insights-sheet" role="dialog" aria-modal="true" aria-labelledby="insights-title">
       <div class="insights-sheet-head">
         <h2 id="insights-title">Insights</h2>
-        <button type="button" class="insights-close" id="insights-close">Close</button>
+        <button type="button" class="insights-close" id="insights-close" onclick="(function(ev){ev.preventDefault();var p=document.getElementById('insights-panel');var b=document.getElementById('rev-toggle');if(!p)return;p.classList.remove('is-open');p.setAttribute('aria-hidden','true');if(b)b.setAttribute('aria-expanded','false');})(event)">Close</button>
       </div>
       <div class="insights-panel-inner">
         <div class="insights-purpose">
@@ -1147,6 +1150,6 @@
   </div>
 
   <div id="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=scroll-fix-3"></script>
+  <script src="app.js?v=scroll-fix-4"></script>
 </body>
 </html>
