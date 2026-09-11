@@ -294,28 +294,34 @@
     const btn = document.getElementById("rev-toggle");
     const panel = document.getElementById("insights-panel");
     const closeBtn = document.getElementById("insights-close");
-    if (!btn || !panel || btn.dataset.bound === "1") return;
+    if (!btn || !panel) {
+      console.warn("BC CRM: Insights elements missing", { btn: !!btn, panel: !!panel });
+      return;
+    }
+    if (btn.dataset.bound === "1") return;
     btn.dataset.bound = "1";
-    applyRevOpen(false);
-    const openInsights = () => applyRevOpen(true);
     const closeInsights = () => applyRevOpen(false);
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const next = !panel.classList.contains("is-open");
-      applyRevOpen(next);
-    });
+    const toggleInsights = (e) => {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      applyRevOpen(!panel.classList.contains("is-open"));
+    };
+    window.__bcToggleInsights = toggleInsights;
+    window.__bcCloseInsights = closeInsights;
+    applyRevOpen(false);
+    btn.addEventListener("click", toggleInsights);
     closeBtn?.addEventListener("click", (e) => {
       e.preventDefault();
+      e.stopPropagation();
       closeInsights();
     });
     panel.addEventListener("click", (e) => {
       if (e.target === panel) closeInsights();
     });
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && panel.classList.contains("is-open")) {
-        closeInsights();
-      }
+      if (e.key === "Escape" && panel.classList.contains("is-open")) closeInsights();
     });
   }
 
@@ -1106,88 +1112,18 @@
     const wrap = document.getElementById("board-wrap");
     if (!wrap || wrap.dataset.scrollBound === "1") return;
     wrap.dataset.scrollBound = "1";
-
-    let pan = null;
-
+    // Native CSS handles touch pan-x on board and pan-y on columns.
+    // Shift+wheel still pans horizontally for desktop trackpads/mice.
     wrap.addEventListener(
       "wheel",
       (e) => {
+        if (!e.shiftKey) return;
         if (wrap.scrollWidth <= wrap.clientWidth + 2) return;
-        const absX = Math.abs(e.deltaX);
-        const absY = Math.abs(e.deltaY);
-        const overBody = e.target.closest && e.target.closest(".column-body");
-        if (absX > absY || e.shiftKey) {
-          e.preventDefault();
-          wrap.scrollLeft += e.shiftKey ? e.deltaY : e.deltaX;
-        } else if (overBody) {
-          // native vertical on column-body via JS because touch-action none
-          overBody.scrollTop += e.deltaY;
-          e.preventDefault();
-        } else {
-          // default: vertical wheel pans board horizontally when not over a column body
-          e.preventDefault();
-          wrap.scrollLeft += e.deltaY;
-        }
+        e.preventDefault();
+        wrap.scrollLeft += e.deltaY;
       },
       { passive: false }
     );
-
-    wrap.addEventListener("pointerdown", (e) => {
-      if (e.pointerType === "mouse" && e.button !== 0) return;
-      if (e.target.closest(".card-drag-handle, button, a, input, textarea, select")) return;
-      pan = {
-        id: e.pointerId,
-        x: e.clientX,
-        y: e.clientY,
-        left: wrap.scrollLeft,
-        top: 0,
-        moved: false,
-        mode: null,
-        card: e.target.closest(".card"),
-        colBody: e.target.closest(".column-body"),
-      };
-      if (pan.colBody) pan.top = pan.colBody.scrollTop;
-      wrap.classList.add("is-panning");
-      try {
-        wrap.setPointerCapture(e.pointerId);
-      } catch (_) {}
-    });
-
-    wrap.addEventListener("pointermove", (e) => {
-      if (!pan || pan.id !== e.pointerId) return;
-      const dx = e.clientX - pan.x;
-      const dy = e.clientY - pan.y;
-      if (!pan.mode) {
-        if (dx * dx + dy * dy < 25) return;
-        if (pan.colBody && Math.abs(dy) > Math.abs(dx) * 1.2) pan.mode = "y";
-        else pan.mode = "x";
-        pan.moved = true;
-        if (pan.card) pan.card.dataset.suppressClick = "1";
-      }
-      if (pan.mode === "x") {
-        e.preventDefault();
-        wrap.scrollLeft = pan.left - dx;
-      } else if (pan.mode === "y" && pan.colBody) {
-        e.preventDefault();
-        pan.colBody.scrollTop = pan.top - dy;
-      }
-    });
-
-    function endPan(e) {
-      if (!pan || pan.id !== e.pointerId) return;
-      const card = pan.card;
-      const moved = pan.moved;
-      pan = null;
-      wrap.classList.remove("is-panning");
-      if (card && moved) {
-        // keep suppress through the click that follows pointerup
-        setTimeout(() => {
-          delete card.dataset.suppressClick;
-        }, 50);
-      }
-    }
-    wrap.addEventListener("pointerup", endPan);
-    wrap.addEventListener("pointercancel", endPan);
   }
 
   async function init() {
@@ -1241,8 +1177,12 @@
     document.getElementById("backdrop").addEventListener("click", closeDrawer);
     document.getElementById("btn-save").addEventListener("click", saveDrawer);
 
+    initRevCollapse();
+    initBoardScroll();
+
     document.getElementById("btn-add-event")?.addEventListener("click", openAddModal);
     document.getElementById("btn-add-cancel")?.addEventListener("click", closeAddModal);
+    document.getElementById("btn-add-x")?.addEventListener("click", closeAddModal);
     document.getElementById("btn-add-save")?.addEventListener("click", () => saveNewEvent());
     document.getElementById("add-modal")?.addEventListener("click", (e) => {
       if (e.target && e.target.id === "add-modal") closeAddModal();
@@ -1253,7 +1193,18 @@
       toggleRevenue(e.target.value);
     });
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeDrawer();
+      if (e.key !== "Escape") return;
+      const addModal = document.getElementById("add-modal");
+      if (addModal && addModal.classList.contains("open")) {
+        closeAddModal();
+        return;
+      }
+      const insights = document.getElementById("insights-panel");
+      if (insights && insights.classList.contains("is-open")) {
+        applyRevOpen(false);
+        return;
+      }
+      closeDrawer();
     });
 
     const sheetLink = document.getElementById("fo-sheet-link");

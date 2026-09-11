@@ -477,11 +477,9 @@
       padding: 8px 12px 12px;
       scrollbar-width: thin;
       scrollbar-color: #1E71A7 #dce6ee;
-      cursor: grab;
-      /* none = our pointer pan owns horizontal; vertical still handled in JS on column-body */
-      touch-action: none;
+      /* Native: horizontal board scroll */
+      touch-action: pan-x;
     }
-    .board-wrap.is-panning { cursor: grabbing; }
     .board-wrap::-webkit-scrollbar { height: 10px; }
     .board-wrap::-webkit-scrollbar-track {
       background: #dce6ee;
@@ -492,8 +490,16 @@
       border-radius: 6px;
       border: 2px solid #dce6ee;
     }
-    .column, .column-header, .column-body, .card {
-      touch-action: none;
+    .column-header {
+      touch-action: pan-x;
+    }
+    .column-body {
+      /* Native: vertical scroll inside a status column */
+      touch-action: pan-y;
+    }
+    .card {
+      /* Allow horizontal to bubble to board; vertical to column-body */
+      touch-action: pan-x pan-y;
     }
     .card-drag-handle {
       touch-action: none;
@@ -848,9 +854,10 @@
       align-self: flex-start;
     }
     .topbar-actions .rev-link {
-      font-size: 0.7rem;
+      font-size: 0.78rem;
       line-height: 1.2;
-      padding: 0 2px;
+      padding: 6px 8px;
+      min-height: 32px;
     }
     .btn-add {
       appearance: none;
@@ -887,6 +894,32 @@
       box-shadow: 0 16px 40px rgba(0,0,0,0.28);
       padding: 14px 14px 16px;
     }
+    .add-card-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .add-card-head h2 {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+    .add-close {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: #64748b;
+      font: inherit;
+      font-size: 1.6rem;
+      line-height: 1;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .add-close:hover { background: #f1f5f9; color: #0f172a; }
     .add-card h2 {
       margin: 0 0 4px;
       font-size: 1.05rem;
@@ -973,7 +1006,7 @@
       </div>
       <div class="topbar-actions">
         <button type="button" class="btn-add" id="btn-add-event">+ Add event</button>
-        <button type="button" class="rev-link" id="rev-toggle" aria-expanded="false" aria-controls="insights-panel" title="Sources, lost reasons, and why this board">Insights</button>
+        <button type="button" class="rev-link" id="rev-toggle" aria-expanded="false" aria-controls="insights-panel" title="Sources, lost reasons, and why this board" onclick="if(window.__bcToggleInsights){window.__bcToggleInsights(event);}">Insights</button>
       </div>
     </div>
 
@@ -1078,7 +1111,10 @@
 
   <div id="add-modal" aria-hidden="true">
     <div class="add-card" role="dialog" aria-modal="true" aria-labelledby="add-title">
-      <h2 id="add-title">Add event</h2>
+      <div class="add-card-head">
+        <h2 id="add-title">Add event</h2>
+        <button type="button" class="add-close" id="btn-add-x" aria-label="Close">×</button>
+      </div>
       <p class="add-sub">Creates a card on the board. Also copies a Sheet row so every device stays in sync.</p>
       <div class="field">
         <label for="add-name">Guest / contact name *</label>
@@ -1124,6 +1160,6 @@
   </div>
 
   <div id="toast" role="status" aria-live="polite"></div>
-  <script src="app.js"></script>
+  <script src="app.js?v=scroll-fix-2"></script>
 </body>
 </html>
