@@ -274,32 +274,90 @@
     return `M ${so.x} ${so.y} A ${rOuter} ${rOuter} 0 ${large} 0 ${eo.x} ${eo.y} L ${ei.x} ${ei.y} A ${rInner} ${rInner} 0 ${large} 1 ${si.x} ${si.y} Z`;
   }
 
-  const REV_COLLAPSE_KEY = "bc-crm-rev-collapsed";
+  const REV_OPEN_KEY = "bc-crm-rev-open";
 
-  function applyRevCollapsed(collapsed) {
+  function applyRevOpen(open) {
     const panel = document.getElementById("revenue-panel");
     const btn = document.getElementById("rev-toggle");
     if (!panel || !btn) return;
-    panel.classList.toggle("is-collapsed", collapsed);
-    btn.setAttribute("aria-expanded", collapsed ? "false" : "true");
+    panel.classList.toggle("is-open", !!open);
+    panel.hidden = !open;
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
   }
 
   function initRevCollapse() {
     const btn = document.getElementById("rev-toggle");
     if (!btn || btn.dataset.bound === "1") return;
     btn.dataset.bound = "1";
-    let collapsed = false;
+    let open = false;
     try {
-      collapsed = localStorage.getItem(REV_COLLAPSE_KEY) === "1";
+      open = localStorage.getItem(REV_OPEN_KEY) === "1";
     } catch (_) {}
-    applyRevCollapsed(collapsed);
+    applyRevOpen(open);
     btn.addEventListener("click", () => {
-      const next = !document.getElementById("revenue-panel").classList.contains("is-collapsed");
-      applyRevCollapsed(next);
+      const next = !document.getElementById("revenue-panel").classList.contains("is-open");
+      applyRevOpen(next);
       try {
-        localStorage.setItem(REV_COLLAPSE_KEY, next ? "1" : "0");
+        localStorage.setItem(REV_OPEN_KEY, next ? "1" : "0");
       } catch (_) {}
     });
+  }
+
+  function normalizeLostReason(raw) {
+    const t = String(raw || "").trim().replace(/\s+/g, " ");
+    if (!t) return "Unspecified";
+    const s = t.length > 48 ? t.slice(0, 45) + "…" : t;
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
+  function lostReasonSummary(leads) {
+    const counts = {};
+    leads.filter((l) => l.stage === "lost").forEach((l) => {
+      const key = normalizeLostReason(l.lost_reason);
+      counts[key] = (counts[key] || 0) + 1;
+    });
+    return Object.entries(counts)
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+      .map(([reason, n]) => ({ reason, n }));
+  }
+
+  function sourceInquirySummary(leads) {
+    const counts = {};
+    leads.forEach((l) => {
+      const ch = l.marketing_channel || "Walk-in / other";
+      counts[ch] = (counts[ch] || 0) + 1;
+    });
+    return Object.entries(counts)
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+      .map(([channel, n]) => ({ channel, n }));
+  }
+
+  function renderInsights() {
+    const leads = allLeads();
+    const srcEl = document.getElementById("source-insight");
+    const lostEl = document.getElementById("lost-insight");
+    if (!srcEl || !lostEl) return;
+
+    const sources = sourceInquirySummary(leads).slice(0, 6);
+    if (!sources.length) {
+      srcEl.innerHTML = '<strong>Sources</strong><span class="insight-bits empty">no leads yet</span>';
+    } else {
+      const bits = sources
+        .map((s) => `${escapeHtml(CHANNEL_SHORT[s.channel] || s.channel)} ${s.n}`)
+        .join(" · ");
+      srcEl.innerHTML = `<strong>Sources</strong><span class="insight-bits">${bits}</span>`;
+    }
+
+    const lost = lostReasonSummary(leads).slice(0, 5);
+    const lostTotal = leads.filter((l) => l.stage === "lost").length;
+    if (!lostTotal) {
+      lostEl.innerHTML = '<strong>Why lost</strong><span class="insight-bits empty">none yet</span>';
+    } else {
+      const bits = lost
+        .map((r) => `${escapeHtml(r.reason)} ${r.n}`)
+        .join(" · ");
+      lostEl.innerHTML = `<strong>Why lost</strong><span class="insight-bits">${bits}</span>`;
+    }
   }
 
   function renderRevenue() {
@@ -381,14 +439,6 @@
     });
   }
 
-  function showToast(message) {
-    const el = document.getElementById("toast");
-    if (!el) return;
-    el.textContent = message;
-    el.classList.add("show");
-    clearTimeout(showToast._t);
-    showToast._t = setTimeout(() => el.classList.remove("show"), 3400);
-  }
 
   function moveLeadToStage(id, stage) {
     const lead = allLeads().find((l) => l.id === id);
@@ -682,6 +732,11 @@
     const stage = document.getElementById("stage-select").value;
     const fo_notes = document.getElementById("fo-notes").value;
     const lost_reason = document.getElementById("lost-reason").value;
+    if (stage === "lost" && !String(lost_reason || "").trim()) {
+      showToast("Add a reason it was lost — feeds the Why lost summary");
+      document.getElementById("lost-reason")?.focus();
+      return;
+    }
     const marketing_channel = document.getElementById("channel-select").value;
     const revRaw = document.getElementById("revenue-php").value.trim();
     let revenue_php = null;

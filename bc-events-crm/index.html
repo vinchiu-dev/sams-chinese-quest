@@ -108,54 +108,47 @@
     }
     .banner-btn:hover { background: #eef6fb; }
 
+    .rev-link {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: #0d4f7a;
+      font: inherit;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      white-space: nowrap;
+    }
+    .rev-link:hover { color: var(--accent); }
+    .rev-link[aria-expanded="true"] { color: var(--accent); }
+    .insight-bar {
+      margin-top: 4px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 14px;
+      font-size: 0.7rem;
+      line-height: 1.35;
+      color: var(--muted);
+    }
+    .insight-bar strong {
+      color: #334155;
+      font-weight: 700;
+      margin-right: 4px;
+    }
+    .insight-bar .insight-bits { color: #475569; }
+    .insight-bar .empty { color: #94a3b8; font-weight: 500; }
     .revenue-panel {
+      display: none;
       margin-top: 6px;
       border: 1px solid var(--border);
       border-radius: 8px;
       overflow: hidden;
       background: #fafcfd;
     }
-    .rev-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      width: 100%;
-      padding: 4px 10px;
-      background: #f0f4f7;
-      border: 0;
-      border-bottom: 1px solid var(--border);
-      cursor: pointer;
-      font: inherit;
-      text-align: left;
-      color: inherit;
-    }
-    .rev-head:hover { background: #e8eef3; }
-    .rev-head-left {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      min-width: 0;
-    }
-    .rev-chevron {
-      display: inline-block;
-      width: 0.7rem;
-      color: var(--muted);
-      font-size: 0.62rem;
-      transition: transform 0.12s ease;
-      flex-shrink: 0;
-    }
-    .revenue-panel.is-collapsed .rev-chevron { transform: rotate(-90deg); }
-    .revenue-panel.is-collapsed .rev-head { border-bottom: 0; }
-    .revenue-panel.is-collapsed .rev-body { display: none; }
-    .rev-head h2 {
-      margin: 0;
-      font-size: 0.68rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: var(--muted);
-    }
+    .revenue-panel.is-open { display: block; }
     .rev-total {
       font-size: 0.72rem;
       font-weight: 700;
@@ -796,21 +789,20 @@
     <div class="topbar-row">
       <div class="brand">
         <h1>Blue Coast Events</h1>
-        <p class="north-star">North star: <strong id="north-star">YoY event sales growth</strong></p>
+        <button type="button" class="rev-link" id="rev-toggle" aria-expanded="false" aria-controls="revenue-panel" title="Show won revenue by marketing channel">Revenue by source</button>
+        <p class="north-star" hidden>North star: <strong id="north-star">YoY event sales growth</strong></p>
       </div>
       <div class="topbar-actions">
         <button type="button" class="btn-add" id="btn-add-event">+ Add event</button>
       </div>
     </div>
 
-    <section class="revenue-panel" id="revenue-panel" aria-label="Running event revenue by source">
-      <button type="button" class="rev-head" id="rev-toggle" aria-expanded="true" aria-controls="rev-body" title="Collapse or expand revenue chart">
-        <span class="rev-head-left">
-          <span class="rev-chevron" aria-hidden="true">▾</span>
-          <h2>Revenue by source</h2>
-        </span>
-        <span class="rev-total" id="rev-total">₱0 · 0 won</span>
-      </button>
+    <div class="insight-bar" id="insight-bar" aria-label="Pipeline insights">
+      <div id="source-insight"><strong>Sources</strong><span class="insight-bits empty">—</span></div>
+      <div id="lost-insight"><strong>Why lost</strong><span class="insight-bits empty">—</span></div>
+    </div>
+
+    <section class="revenue-panel" id="revenue-panel" aria-label="Running event revenue by source" hidden>
       <div class="rev-body" id="rev-body">
         <div class="rev-chart-wrap" id="rev-chart-wrap">
           <div class="rev-donut-box">
@@ -822,6 +814,7 @@
           </div>
           <div class="rev-legend" id="rev-legend"></div>
         </div>
+        <p class="rev-total" id="rev-total" style="margin:0;padding:2px 10px 6px;font-size:0.7rem;color:#64748b;">₱0 · 0 won</p>
       </div>
     </section>
   </header>
@@ -870,8 +863,9 @@
         <textarea id="fo-notes" placeholder="Call notes, next steps, quote amounts…"></textarea>
       </div>
       <div class="field" id="lost-reason-wrap" hidden>
-        <label for="lost-reason">Lost reason</label>
-        <textarea id="lost-reason" placeholder="Why lost / past…"></textarea>
+        <label for="lost-reason">Reason it was lost</label>
+        <textarea id="lost-reason" placeholder="e.g. Price, chose another hotel, no reply, specs…" required></textarea>
+        <p class="field-hint">Shows in the Why lost summary on the board.</p>
       </div>
       <div class="drawer-actions">
         <button type="button" class="btn-primary" id="btn-save">Save</button>
