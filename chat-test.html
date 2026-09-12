@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Chat widget test</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1f2430;
+    background: #f6f7f9;
+    line-height: 1.55;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 48px 20px 140px; }
+  h1 { font-size: 28px; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .sub { color: #6b7280; margin: 0 0 32px; }
+  .card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 16px;
+  }
+  .card h2 { font-size: 16px; margin: 0 0 10px; }
+  ul { margin: 0; padding-left: 20px; }
+  li { margin: 6px 0; }
+  code {
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-radius: 5px;
+    padding: 1px 6px;
+    font-size: 13px;
+  }
+  .status {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 14px; font-weight: 600;
+    padding: 8px 14px; border-radius: 999px;
+    background: #fff7ed; border: 1px solid #fed7aa; color: #9a3412;
+  }
+  .status.ok { background: #ecfdf5; border-color: #a7f3d0; color: #065f46; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: currentColor; }
+  .filler { color: #9ca3af; font-size: 14px; }
+  footer { margin-top: 28px; font-size: 13px; color: #9ca3af; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Chat widget test page</h1>
+    <p class="sub">Zoho SalesIQ embed — staging only, not linked from anywhere.</p>
+
+    <div class="card">
+      <h2>Widget status</h2>
+      <div id="status" class="status"><span class="dot"></span><span id="statusText">Loading widget…</span></div>
+      <p class="filler" style="margin-bottom:0">
+        If it loads, the chat launcher appears in the bottom-right corner.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>What to try</h2>
+      <ul>
+        <li>Open the launcher and start a visitor chat</li>
+        <li>Check it arrives in the SalesIQ operator console</li>
+        <li>Reply from the console and confirm it appears here</li>
+        <li>Test on mobile — the launcher and keyboard behaviour differ</li>
+        <li>Leave a message while set to offline, confirm the email lands</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Page notes</h2>
+      <ul>
+        <li>Marked <code>noindex</code> so it won't show up in search</li>
+        <li>Nothing else runs on this page, so anything you see is the widget</li>
+        <li>Some content below purely so the page scrolls on mobile</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Scroll filler</h2>
+      <p class="filler">
+        This paragraph exists only to give the page some height, so you can check the
+        chat launcher stays anchored while scrolling and doesn't cover anything
+        important on a phone. Scroll to the bottom and back up while the widget is
+        open to see how it behaves.
+      </p>
+      <p class="filler">
+        Worth checking on a real phone rather than a desktop browser window resized
+        to be narrow — mobile keyboards and viewport units behave differently, and
+        that is where chat widgets usually misbehave.
+      </p>
+    </div>
+
+    <footer>Test page · no analytics · no tracking beyond the widget itself</footer>
+  </div>
+
+<!-- ===== Zoho SalesIQ ===== -->
+<script>window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}}</script>
+<script id="zsiqscript" src="https://salesiq.zohopublic.com/widget?wc=siq36affc83a7c6b929de1add347bdbec9cb666301ec21324b717c449828a3b60b0" defer></script>
+
+<script>
+  // Simple load check so you can tell "widget broken" from "widget just slow".
+  (function () {
+    var el = document.getElementById("status");
+    var txt = document.getElementById("statusText");
+    var settled = false;
+    function ok(msg) {
+      if (settled) return;
+      settled = true;
+      el.className = "status ok";
+      txt.textContent = msg;
+    }
+    function fail(msg) {
+      if (settled) return;
+      settled = true;
+      txt.textContent = msg;
+    }
+    document.getElementById("zsiqscript").addEventListener("error", function () {
+      fail("Widget script failed to load — check the ID or your network.");
+    });
+    var tries = 0;
+    var poll = setInterval(function () {
+      tries++;
+      if (window.$zoho && window.$zoho.salesiq && typeof window.$zoho.salesiq.floatbutton !== "undefined") {
+        clearInterval(poll);
+        ok("Widget loaded — look bottom-right.");
+      } else if (tries > 20) {
+        clearInterval(poll);
+        fail("Widget didn't initialise after 10s. Script may be blocked (ad blocker?).");
+      }
+    }, 500);
+  })();
+</script>
+</body>
+</html>
