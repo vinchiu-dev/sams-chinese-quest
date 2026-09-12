@@ -2103,6 +2103,187 @@
           ]
         }
       ]
+    },
+    {
+      "id": "date-numbers",
+      "title": "Date Numbers",
+      "subtitle": "一, 二, 三…三十一 — counting to 31 for dates",
+      "words": [
+        {
+          "hanzi": "一",
+          "pinyin": "yī",
+          "en": "1",
+          "emoji": "1️⃣"
+        },
+        {
+          "hanzi": "二",
+          "pinyin": "èr",
+          "en": "2",
+          "emoji": "2️⃣"
+        },
+        {
+          "hanzi": "四",
+          "pinyin": "sì",
+          "en": "4",
+          "emoji": "4️⃣"
+        },
+        {
+          "hanzi": "五",
+          "pinyin": "wǔ",
+          "en": "5",
+          "emoji": "5️⃣"
+        },
+        {
+          "hanzi": "七",
+          "pinyin": "qī",
+          "en": "7",
+          "emoji": "7️⃣"
+        },
+        {
+          "hanzi": "八",
+          "pinyin": "bā",
+          "en": "8",
+          "emoji": "8️⃣"
+        },
+        {
+          "hanzi": "九",
+          "pinyin": "jiǔ",
+          "en": "9",
+          "emoji": "9️⃣"
+        },
+        {
+          "hanzi": "十",
+          "pinyin": "shí",
+          "en": "10",
+          "emoji": "🔟"
+        },
+        {
+          "hanzi": "十一",
+          "pinyin": "shíyī",
+          "en": "11",
+          "emoji": "🔢"
+        },
+        {
+          "hanzi": "十二",
+          "pinyin": "shíèr",
+          "en": "12",
+          "emoji": "🔢"
+        },
+        {
+          "hanzi": "十三",
+          "pinyin": "shísān",
+          "en": "13",
+          "emoji": "🔢"
+        },
+        {
+          "hanzi": "十四",
+          "pinyin": "shísì",
+          "en": "14",
+          "emoji": "🔢"
+        },
+        {
+          "hanzi": "十五",
+          "pinyin": "shíwǔ",
+          "en": "15",
+          "emoji": "🔢"
+        },
+        {
+          "hanzi": "十六",
+          "pinyin": "shíliù",
+          "en": "16",
+          "emoji": "🔢"
+        },
+        {
+          "hanzi": "十七",
+          "pinyin": "shíqī",
+          "en": "17",
+          "emoji": "🔢"
+        },
+        {
+          "hanzi": "十八",
+          "pinyin": "shíbā",
+          "en": "18",
+          "emoji": "🔢"
+        },
+        {
+          "hanzi": "十九",
+          "pinyin": "shíjiǔ",
+          "en": "19",
+          "emoji": "🔢"
+        },
+        {
+          "hanzi": "二十",
+          "pinyin": "èrshí",
+          "en": "20",
+          "emoji": "🔢"
+        },
+        {
+          "hanzi": "二十一",
+          "pinyin": "èrshíyī",
+          "en": "21",
+          "emoji": "🔢"
+        },
+        {
+          "hanzi": "二十二",
+          "pinyin": "èrshíèr",
+          "en": "22",
+          "emoji": "🔢"
+        },
+        {
+          "hanzi": "二十三",
+          "pinyin": "èrshísān",
+          "en": "23",
+          "emoji": "🔢"
+        },
+        {
+          "hanzi": "二十四",
+          "pinyin": "èrshísì",
+          "en": "24",
+          "emoji": "🔢"
+        },
+        {
+          "hanzi": "二十五",
+          "pinyin": "èrshíwǔ",
+          "en": "25",
+          "emoji": "🔢"
+        },
+        {
+          "hanzi": "二十六",
+          "pinyin": "èrshíliù",
+          "en": "26",
+          "emoji": "🔢"
+        },
+        {
+          "hanzi": "二十七",
+          "pinyin": "èrshíqī",
+          "en": "27",
+          "emoji": "🔢"
+        },
+        {
+          "hanzi": "二十八",
+          "pinyin": "èrshíbā",
+          "en": "28",
+          "emoji": "🔢"
+        },
+        {
+          "hanzi": "二十九",
+          "pinyin": "èrshíjiǔ",
+          "en": "29",
+          "emoji": "🔢"
+        },
+        {
+          "hanzi": "三十",
+          "pinyin": "sānshí",
+          "en": "30",
+          "emoji": "🔢"
+        },
+        {
+          "hanzi": "三十一",
+          "pinyin": "sānshíyī",
+          "en": "31",
+          "emoji": "🔢"
+        }
+      ]
     }
   ],
   "tagMap": {
@@ -2241,6 +2422,9 @@
     "clothes": [
       "colors",
       "clothes"
+    ],
+    "datenums": [
+      "date-numbers"
     ]
   },
   "sentences": [
@@ -4037,6 +4221,48 @@
       "pinyin": "Wǒ de shūbāo shì lánsè.",
       "hanzi": "我的书包是蓝色。",
       "tag": "clothes"
+    },
+    {
+      "en": "One, two, three.",
+      "pinyin": "Yī, èr, sān.",
+      "hanzi": "一，二，三。",
+      "tag": "datenums"
+    },
+    {
+      "en": "I am counting to ten.",
+      "pinyin": "Wǒ shǔ dào shí.",
+      "hanzi": "我数到十。",
+      "tag": "datenums"
+    },
+    {
+      "en": "Today is the 15th.",
+      "pinyin": "Jīntiān shì shíwǔ hào.",
+      "hanzi": "今天是十五号。",
+      "tag": "datenums"
+    },
+    {
+      "en": "Today is the 20th.",
+      "pinyin": "Jīntiān shì èrshí hào.",
+      "hanzi": "今天是二十号。",
+      "tag": "datenums"
+    },
+    {
+      "en": "Today is the 31st.",
+      "pinyin": "Jīntiān shì sānshíyī hào.",
+      "hanzi": "今天是三十一号。",
+      "tag": "datenums"
+    },
+    {
+      "en": "My mom is thirty-one years old.",
+      "pinyin": "Wǒ māma sānshíyī suì.",
+      "hanzi": "我妈妈三十一岁。",
+      "tag": "datenums"
+    },
+    {
+      "en": "I have twenty crayons.",
+      "pinyin": "Wǒ yǒu èrshí zhī bǐ.",
+      "hanzi": "我有二十支笔。",
+      "tag": "datenums"
     }
   ]
 }
