@@ -108,10 +108,37 @@
       "emoji": "👋"
     },
     {
+      "en": "See you tomorrow",
+      "pinyin": "",
+      "hanzi": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "en": "Green bottle blue tarantula",
+      "pinyin": "",
+      "hanzi": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "en": "See you tomorrow",
+      "pinyin": "míngtiān jiàn",
+      "hanzi": "明天见",
+      "emoji": "👋"
+    },
+    {
       "en": "green bottle blue spider",
       "pinyin": "lǜ píng lán zhīzhū",
       "hanzi": "绿瓶蓝蜘蛛",
       "emoji": "🕷️"
+    },
+    {
+      "en": "Wrestling",
+      "pinyin": "",
+      "hanzi": "",
+      "emoji": "📝",
+      "needsDef": true
     },
     {
       "en": "Wrestling",
@@ -120,7 +147,71 @@
       "emoji": "📝"
     }
   ],
-  "en_myWords": [],
+  "en_myWords": [
+    {
+      "word": "I will add those to the list",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "coincide",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Undocumented",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Curiosity",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Ancestors",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Settlers",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Orchard",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Lumbered",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "word": "Plague",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    }
+  ],
   "wodHistory": [
     {
       "en": "有",
@@ -2027,11 +2118,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1789228754658,
-  "pool_at": 1789228754657,
-  "starredSentences_at": 1789228754658,
-  "hiddenWords_at": 1789223551538,
-  "archived_at": 1789228754658,
+  "trouble_at": 1789308524175,
+  "pool_at": 1789308523828,
+  "starredSentences_at": 1789308524175,
+  "hiddenWords_at": 1789308523829,
+  "archived_at": 1789308524175,
   "en_starred_at": 1789223548866,
   "math_missed_at": 1789223551159,
   "chips": 13
