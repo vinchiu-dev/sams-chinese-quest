@@ -2096,10 +2096,9 @@
     "math:bond:8:7"
   ],
   "math_sets": [
-    "mul12",
-    "div10",
-    "plus10",
-    "mul10"
+    "sub10",
+    "sub20",
+    "add20"
   ],
   "car_deck": "words",
   "car_gap": 10,
