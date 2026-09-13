@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-09-09",
+  "updated": "2026-09-12",
   "lists": [
     {
       "id": "en-starter-1",
@@ -668,6 +668,66 @@
           "definition": "to repair and refill after hard play or exercise",
           "example": "After soccer, a snack with carbs and protein helps you recover.",
           "emoji": "🩹"
+        },
+        {
+          "word": "Humble",
+          "definition": "not thinking you're better or more important than others, even when you've done something great",
+          "example": "Even after winning, she stayed humble and thanked her whole team.",
+          "emoji": "🙏"
+        },
+        {
+          "word": "Loyal",
+          "definition": "always faithful and supportive to someone, even when things get hard",
+          "example": "His dog was so loyal that it waited by the door for him every day.",
+          "emoji": "🤝"
+        },
+        {
+          "word": "Coincide",
+          "definition": "to happen at the same time as something else",
+          "example": "His birthday happens to coincide with the first day of summer.",
+          "emoji": "📆"
+        },
+        {
+          "word": "Undocumented",
+          "definition": "not written down or officially recorded anywhere",
+          "example": "The old trail was undocumented, so nobody had a map of it.",
+          "emoji": "📄"
+        },
+        {
+          "word": "Curiosity",
+          "definition": "a strong desire to learn or know about something",
+          "example": "Her curiosity led her to open every drawer in the mysterious room.",
+          "emoji": "🔍"
+        },
+        {
+          "word": "Ancestors",
+          "definition": "family members who lived a long time before you, like great-great-grandparents",
+          "example": "Her ancestors came from a small village near the mountains.",
+          "emoji": "🌳"
+        },
+        {
+          "word": "Settlers",
+          "definition": "people who move to a new place to live there and build a home",
+          "example": "The settlers built wooden houses near the river.",
+          "emoji": "🏡"
+        },
+        {
+          "word": "Orchard",
+          "definition": "a piece of land where fruit trees are grown",
+          "example": "They picked apples together in the orchard behind the farm.",
+          "emoji": "🍎"
+        },
+        {
+          "word": "Lumbered",
+          "definition": "moved in a slow, heavy, clumsy way",
+          "example": "The tired bear lumbered back to its cave after a long day.",
+          "emoji": "🐻"
+        },
+        {
+          "word": "Plague",
+          "definition": "a serious disease that spreads quickly and affects many people; also, to bother constantly",
+          "example": "Mosquitoes seemed to plague the campsite every single night.",
+          "emoji": "🦟"
         }
       ]
     }
