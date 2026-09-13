@@ -108,21 +108,19 @@
       "emoji": "👋"
     },
     {
-      "en": "See you tomorrow",
-      "pinyin": "",
-      "hanzi": "",
-      "emoji": "📝",
-      "needsDef": true
+      "en": "see you tomorrow",
+      "pinyin": "míngtiān jiàn",
+      "hanzi": "明天见",
+      "emoji": "📝"
     },
     {
-      "en": "Green bottle blue tarantula",
-      "pinyin": "",
-      "hanzi": "",
-      "emoji": "📝",
-      "needsDef": true
+      "en": "tarantula",
+      "pinyin": "bǔniǎozhī",
+      "hanzi": "捕鸟蛛",
+      "emoji": "📝"
     },
     {
-      "en": "See you tomorrow",
+      "en": "see you tomorrow",
       "pinyin": "míngtiān jiàn",
       "hanzi": "明天见",
       "emoji": "👋"
@@ -135,77 +133,12 @@
     },
     {
       "en": "Wrestling",
-      "pinyin": "",
-      "hanzi": "",
-      "emoji": "📝",
-      "needsDef": true
+      "pinyin": "shuāijiāo",
+      "hanzi": "摔跤",
+      "emoji": "📝"
     }
   ],
-  "en_myWords": [
-    {
-      "word": "I will add those to the list",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "coincide",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Undocumented",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Curiosity",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Ancestors",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Settlers",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Orchard",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Lumbered",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Plague",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    }
-  ],
+  "en_myWords": [],
   "wodHistory": [
     {
       "en": "有",
