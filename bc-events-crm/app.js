@@ -311,14 +311,16 @@
       console.warn("BC CRM: Insights elements missing", { btn: !!btn, panel: !!panel });
       return;
     }
-    // Boot script in index.html owns click binding — only wire refresh helper here
-    if (btn.dataset.bootBound === "1" || btn.dataset.bound === "1") {
+    // Boot script in index.html owns click binding — only wire refresh helper here.
+    // Guard against double-bind: two listeners toggle open then closed on one click.
+    if (btn.dataset.bootBound === "1" || btn.dataset.bound === "1" || window.__bcInsightsBound) {
       window.__bcRefreshInsights = function () {
         try { renderRevenue(); renderInsights(); } catch (err) { console.warn(err); }
       };
       return;
     }
     btn.dataset.bound = "1";
+    window.__bcInsightsBound = true;
     const closeInsights = () => applyRevOpen(false);
     const toggleInsights = (e) => {
       if (e) {

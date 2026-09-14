@@ -1033,7 +1033,7 @@
       .revenue-panel { margin-top: 5px; }
     }
   </style>
-  <!-- build insights-winrate-yoy-20260914 -->
+  <!-- build insights-double-toggle-fix-20260914 -->
 </head>
 <body>
   <header class="topbar">
@@ -1218,12 +1218,18 @@
   
   <script>
   (function () {
+    // Bind immediately: this script sits after #rev-toggle / #insights-panel in the DOM.
+    // Do NOT defer to DOMContentLoaded — app.js also calls initRevCollapse() while
+    // readyState is still "loading", and a deferred bind would race and double-toggle
+    // (open then close on the same click).
     function bindInsights() {
       var panel = document.getElementById("insights-panel");
       var btn = document.getElementById("rev-toggle");
       var closeBtn = document.getElementById("insights-close");
-      if (!panel || !btn || btn.dataset.bootBound === "1") return;
+      if (!panel || !btn) return;
+      if (btn.dataset.bootBound === "1" || btn.dataset.bound === "1" || window.__bcInsightsBound) return;
       btn.dataset.bootBound = "1";
+      window.__bcInsightsBound = true;
       function setOpen(open) {
         panel.classList.toggle("is-open", !!open);
         panel.setAttribute("aria-hidden", open ? "false" : "true");
@@ -1250,14 +1256,10 @@
         if (e.key === "Escape" && panel.classList.contains("is-open")) setOpen(false);
       });
     }
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", bindInsights);
-    } else {
-      bindInsights();
-    }
+    bindInsights();
   })();
   </script>
 
-  <script src="app.js?v=20260911-1056"></script>
+  <script src="app.js?v=20260914-1012"></script>
 </body>
 </html>
