@@ -2056,7 +2056,8 @@
   ],
   "math_sets": [
     "sub20",
-    "add20"
+    "add20",
+    "plus10"
   ],
   "car_deck": "math",
   "car_gap": 10,
