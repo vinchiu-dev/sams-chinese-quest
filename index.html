@@ -5486,6 +5486,16 @@ function CarMode({ facts, onHome, carWords, carSentences }) {
           answer: w.pinyin,
           sayAnswer: w.hanzi || w.pinyin,
           lang: "en-US", answerLang: "zh-CN",
+          // not answered in time -> add it to the starred pile for later
+          star: (function (pin) {
+            return function () {
+              const cur = loadLS("trouble", []) || [];
+              if (cur.indexOf(pin) === -1) {
+                saveTimed("trouble", cur.concat([pin]));
+                bumpProgress();
+              }
+            };
+          })(w.pinyin),
         });
       }
     } else {
@@ -5510,13 +5520,15 @@ function CarMode({ facts, onHome, carWords, carSentences }) {
   const holdPause = async () => { while (pauseRef.current && !cancelRef.current) await carWait(180); };
 
   // Same as carWait, but checks every 60ms for a queued tap and returns early.
+  // Returns true if the child tapped before the time ran out.
   const waitSkippable = async (ms) => {
     const step = 60;
     for (let e = 0; e < ms; e += step) {
-      if (cancelRef.current) return;
-      if (skipRef.current && !pauseRef.current) { skipRef.current = false; return; }
+      if (cancelRef.current) return false;
+      if (skipRef.current && !pauseRef.current) { skipRef.current = false; return true; }
       await carWait(step);
     }
+    return false;
   };
 
   const tapAhead = () => {
@@ -5536,17 +5548,21 @@ function CarMode({ facts, onHome, carWords, carSentences }) {
       await carSpeak(it.say, it.sayLang || it.lang);
       if (it.listen) { await carWait(600); await carSpeak(it.say, it.sayLang || it.lang); }
       await holdPause(); if (cancelRef.current) return;
-      await waitSkippable(gap * 1000);
+      // Tap the card as soon as he knows it. Letting the timer run out is
+      // itself the signal that it needs more work — no button, no prompt,
+      // and deliberately no on-screen "that was tricky" feedback, so a slow
+      // one never feels like a telling-off.
+      const knewIt = await waitSkippable(gap * 1000);
       await holdPause(); if (cancelRef.current) return;
       setReveal(true);
       await carSpeak(it.sayAnswer, it.answerLang || it.lang);
-      // a 2s window to tap "tricky" while the answer is still fresh —
-      // far easier than trying to remember which ones were hard at the end
-      setMarkKey(it.key);
-      await waitSkippable(2000);
-      setMarkKey(null);
+      if (!it.closer && String(it.key).indexOf("sen:") !== 0) {
+        srsRecord(it.key, knewIt);
+        if (!knewIt && it.star) it.star();
+      }
+      await waitSkippable(900);
     }
-    if (!cancelRef.current) { release(); setPhase("review"); }
+    if (!cancelRef.current) { release(); finishSession(); }
   };
 
   const release = () => {
@@ -5568,18 +5584,14 @@ function CarMode({ facts, onHome, carWords, carSentences }) {
     runLoop(q);
   };
 
-  const stopNow = () => { release(); setPhase(idx > 0 ? "review" : "setup"); };
+  const stopNow = () => { release(); if (idx > 0) finishSession(); else setPhase("setup"); };
 
-  const saveReview = () => {
-    const asked = queue.slice(0, Math.min(queue.length, idx + 1));
-    asked.forEach((it) => {
-      if (it.closer) return;                       // the confidence closers never score
-      if (String(it.key).indexOf("sen:") === 0) return;
-      srsRecord(it.key, !flagged[it.key]);
-    });
+  // Scoring already happened per-question during the run, so there is nothing
+  // to confirm at the end — just bank the effort and show a plain well-done.
+  const finishSession = () => {
     recordEffort();
     markPracticedToday();
-    setPhase("setup");
+    setPhase("done");
   };
 
   const decks = [
@@ -5734,35 +5746,10 @@ function CarMode({ facts, onHome, carWords, carSentences }) {
             <div style={{ marginTop: 16, fontSize: 34, fontWeight: 800, color: C.sun, lineHeight: 1.25 }}>{it.answer}</div>
           ) : (
             <div style={{ marginTop: 14, fontSize: 15, fontWeight: 700, color: "#b9b2cf" }}>
-              {paused ? "paused" : "say it out loud…  ·  tap to skip ahead"}
+              {paused ? "paused" : "say it out loud, then tap"}
             </div>
           )}
         </div>
-
-        {/* big "that was tricky" button — live for ~2s after each answer,
-            so you can flag it while it's fresh instead of recalling later */}
-        <button
-          onClick={() => { if (markKey) setFlagged((f) => { const n = Object.assign({}, f); n[markKey] = true; return n; }); }}
-          disabled={!markKey}
-          style={{
-            width: "100%",
-            marginTop: 16,
-            padding: "26px 12px",
-            fontSize: 22,
-            fontWeight: 800,
-            borderRadius: 22,
-            fontFamily: "inherit",
-            cursor: markKey ? "pointer" : "default",
-            border: "4px solid " + (markKey ? (flagged[markKey] ? C.berry : C.sun) : "#e7e0d0"),
-            background: markKey ? (flagged[markKey] ? "#FFECE4" : "#FFF7E6") : "#F4F1EA",
-            color: markKey ? C.ink : "#bdb6a6",
-            transition: "background .15s",
-          }}
-        >
-          {markKey
-            ? (flagged[markKey] ? "⭐ marked tricky" : "⭐ That was tricky")
-            : "⭐ …"}
-        </button>
 
         <div style={{ display: "flex", gap: 12, marginTop: 12 }}>
           <button onClick={() => setPaused((p) => !p)}
@@ -5775,52 +5762,38 @@ function CarMode({ facts, onHome, carWords, carSentences }) {
           </button>
         </div>
         <div style={{ textAlign: "center", fontSize: 13, color: "#8b83a8", marginTop: 14, fontWeight: 700 }}>
-          Tap the black card to move on the moment he's answered. Tap ⭐ right after a slow one — or leave it and mark them all at the end.
+          Tap the big card the moment he answers. Anything he doesn't get in time comes back more often by itself.
         </div>
       </div>
     );
   }
 
-  // ---------------- review ----------------
-  const asked = queue.slice(0, Math.min(queue.length, idx + 1));
-  const nFlag = Object.keys(flagged).filter((k) => flagged[k]).length;
+  // ---------------- done ----------------
+  // No confirmation step: every question was already scored during the run
+  // (tapped in time = knew it, ran out = comes back more often).
+  const answered = Math.min(queue.length, idx + 1);
   return (
-    <div>
-      <div style={{ background: "#fff", borderRadius: 22, border: "3px solid #cfe3f5", padding: "16px", marginBottom: 14 }}>
-        <div style={{ fontWeight: 800, fontSize: 19, marginBottom: 4 }}>Which ones were slow?</div>
-        <div style={{ fontSize: 13.5, color: "#7a7391", lineHeight: 1.5 }}>
-          Anything much past three seconds. Tap it and it comes back more often on its own. Do this parked.
-        </div>
+    <Center>
+      <div style={{ fontSize: 60 }}>🚗</div>
+      <h2 style={{ margin: "10px 0 4px" }}>Nice driving!</h2>
+      <div style={{ fontSize: 16, color: "#7a7391" }}>
+        {answered} question{answered === 1 ? "" : "s"} practised out loud.
       </div>
 
-      <div style={{ display: "grid", gap: 8, marginBottom: 16 }}>
-        {asked.map((it, i) => {
-          const on = !!flagged[it.key];
-          return (
-            <button key={it.key + "-" + i}
-              onClick={() => setFlagged((f) => { const n = Object.assign({}, f); n[it.key] = !n[it.key]; return n; })}
-              style={{ display: "flex", alignItems: "center", gap: 11, textAlign: "left",
-                background: on ? "#FFECE4" : "#fff", border: on ? "3px solid " + C.berry : "3px solid #e7e0d0",
-                borderRadius: 16, padding: "11px 13px", fontFamily: "inherit", color: C.ink, cursor: "pointer" }}>
-              <span style={{ fontSize: 20 }}>{on ? "🐌" : "⚡"}</span>
-              <span style={{ fontWeight: 800, fontSize: 16, flex: 1 }}>{it.show}</span>
-              <span style={{ fontSize: 14, color: "#7a7391", fontWeight: 700, maxWidth: 150, textAlign: "right" }}>{it.answer}</span>
-            </button>
-          );
-        })}
-      </div>
-
-      <button onClick={saveReview} style={{ ...bigBtn, background: C.leaf, color: "#fff", width: "100%" }}>
-        {nFlag ? "Save — " + nFlag + " to practise more" : "All quick! Save and finish"}
-      </button>
-
-      <div style={{ background: "#fff", borderRadius: 18, border: "3px solid " + C.sun, padding: "13px 15px", marginTop: 14 }}>
+      <div style={{ background: "#fff", borderRadius: 18, border: "3px solid " + C.sun, padding: "13px 15px", marginTop: 20, maxWidth: 380 }}>
         <div style={{ fontWeight: 800, fontSize: 16 }}>🔁 Now let him quiz you</div>
         <div style={{ fontSize: 13.5, color: "#7a7391", marginTop: 3, lineHeight: 1.5 }}>
           Hand it back to Sam for two minutes and get some wrong. Catching you is worth more than anything the app just did.
         </div>
       </div>
-    </div>
+
+      <button onClick={() => setPhase("setup")} style={{ ...bigBtn, background: C.leaf, color: "#fff", width: "100%", maxWidth: 380, marginTop: 18 }}>
+        Go again
+      </button>
+      <button onClick={onHome} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, width: "100%", maxWidth: 380, marginTop: 10 }}>
+        ⬅ Back to menu
+      </button>
+    </Center>
   );
 }
 
