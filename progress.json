@@ -2058,7 +2058,8 @@
     "sub20",
     "add20",
     "plus10",
-    "neardbl"
+    "neardbl",
+    "bonds20"
   ],
   "car_deck": "math",
   "car_gap": 10,
