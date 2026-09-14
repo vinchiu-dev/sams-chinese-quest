@@ -1396,7 +1396,6 @@ function Home({
   const [bulk, setBulk] = useState("");
   const [added, setAdded] = useState(0);
   const [looking, setLooking] = useState(false);
-  const [preview, setPreview] = useState(null);
 
   // Figure out whether a line is Chinese characters, pinyin, or English.
   const classifyZh = (text) => {
@@ -1407,34 +1406,45 @@ function Home({
     return { en: t, pinyin: "", hanzi: "" };
   };
 
-  // Look up anything the user typed in Chinese and fill in the rest,
-  // then show it for checking before it joins the word list.
-  const buildPreview = async () => {
+  // Look up anything typed in Chinese and add it straight away — one tap,
+  // no separate confirm step. The lookup still runs so pinyin/English get
+  // filled in automatically; anything the dictionary can't resolve is
+  // flagged with needsDef, same as before, for Claude to finish later.
+  const addNow = async () => {
     setLooking(true);
     const lines = bulk.split("\n").map((s) => s.trim()).filter(Boolean);
-    const rows = [];
+    let n = 0;
     for (const line of lines) {
       const parts = parseLine(line);
       if (!parts) continue;
       let { en, pinyin, hanzi } = parts;
-      let note = "";
+      let exact = true;
       if (hanzi && (!en || !pinyin)) {
         const hit = await lookupZh(hanzi);
         if (hit && hit.pinyin) {
           if (!pinyin) pinyin = hit.pinyin;
           if (!en && hit.en) en = hit.en;
-          if (!hit.exact) note = "not in the dictionary — pinyin is a best guess";
-          else if (!en) note = "no plain-English meaning found";
+          exact = !!hit.exact && !!en;
         } else {
-          note = "couldn't find this one — type the meaning yourself";
+          exact = false;
         }
       } else if (!hanzi) {
-        note = "no Chinese characters, so there's nothing to look up";
+        exact = !!(en && pinyin);
       }
-      rows.push({ en: en || "", pinyin: pinyin || "", hanzi: hanzi || "", note });
+      if (!en && !pinyin && !hanzi) continue;
+      addCustomWord({
+        en: en || pinyin || hanzi,
+        pinyin: pinyin || "",
+        hanzi: hanzi || "",
+        emoji: "📝",
+        needsDef: !(en && pinyin && hanzi) || !exact,
+      });
+      n++;
     }
     setLooking(false);
-    setPreview(rows);
+    setAdded(n);
+    setBulk("");
+    setTimeout(() => setAdded(0), 4000);
   };
 
   const parseLine = (line) => {
@@ -1451,25 +1461,6 @@ function Home({
       return merged;
     }
     return classifyZh(line);
-  };
-
-  const confirmPreview = () => {
-    let n = 0;
-    (preview || []).forEach((row) => {
-      if (!row.hanzi && !row.pinyin && !row.en) return;
-      addCustomWord({
-        en: row.en || row.pinyin || row.hanzi,
-        pinyin: row.pinyin || "",
-        hanzi: row.hanzi || "",
-        emoji: "📝",
-        needsDef: !(row.en && row.pinyin && row.hanzi),
-      });
-      n++;
-    });
-    setAdded(n);
-    setPreview(null);
-    setBulk("");
-    setTimeout(() => setAdded(0), 4000);
   };
 
   const submitZhWords = () => {
@@ -1784,8 +1775,8 @@ function Home({
         <div style={{ background: "#fff", borderRadius: 20, border: `3px solid ${C.leaf}`, marginTop: 12, padding: 16 }}>
           <div style={{ fontWeight: 800, fontSize: 15, marginBottom: 6 }}>➕ Add words</div>
           <div style={{ fontSize: 12, color: "#5c7a6c", marginBottom: 10, lineHeight: 1.5 }}>
-            One per line. Type just the Chinese — the pinyin and the English get
-            filled in for you, and you can fix anything before it's saved.
+            One per line. Type just the Chinese, pinyin, or English — it's added
+            right away, and the pinyin/English get filled in automatically where possible.
           </div>
           <textarea
             value={bulk}
@@ -1794,48 +1785,10 @@ function Home({
             placeholder={"猫\n蜘蛛\n卷笔刀"}
             style={{ ...inp, fontFamily: "inherit", fontSize: 15, lineHeight: 1.6, resize: "vertical" }}
           />
-          <button onClick={buildPreview} disabled={!bulk.trim() || looking}
+          <button onClick={addNow} disabled={!bulk.trim() || looking}
             style={{ ...bigBtn, background: C.leaf, width: "100%", marginTop: 10, fontSize: 15, padding: "12px", opacity: bulk.trim() && !looking ? 1 : 0.5 }}>
-            {looking ? "Looking them up…" : "🔎 Look them up"}
+            {looking ? "Adding…" : "✓ Add words"}
           </button>
-
-          {preview && (
-            <div style={{ marginTop: 14 }}>
-              <div style={{ fontWeight: 800, fontSize: 14, marginBottom: 8 }}>
-                Check these, then add {preview.length === 1 ? "it" : "them"}
-              </div>
-              {preview.map((row, i) => (
-                <div key={i} style={{ background: "#F7FBF8", border: "2px solid #dfeee6", borderRadius: 14, padding: "10px 12px", marginBottom: 8 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-                    <div style={{ fontSize: 22, fontWeight: 800, minWidth: 60 }}>{row.hanzi || "—"}</div>
-                    <button onClick={() => speak({ hanzi: row.hanzi, pinyin: row.pinyin })}
-                      style={{ ...ghostBtn, padding: "5px 10px", fontSize: 13 }}>🔊</button>
-                    <button onClick={() => setPreview(preview.filter((_, k) => k !== i))}
-                      style={{ ...ghostBtn, padding: "5px 10px", fontSize: 13, marginLeft: "auto", color: C.berry, borderColor: "#f0cfd8" }}>remove</button>
-                  </div>
-                  <input value={row.pinyin} placeholder="pinyin"
-                    onChange={(e) => setPreview(preview.map((r, k) => (k === i ? Object.assign({}, r, { pinyin: e.target.value }) : r)))}
-                    style={{ ...inp, fontSize: 14, padding: "8px 10px", marginBottom: 6 }} />
-                  <input value={row.en} placeholder="what it means in English"
-                    onChange={(e) => setPreview(preview.map((r, k) => (k === i ? Object.assign({}, r, { en: e.target.value }) : r)))}
-                    style={{ ...inp, fontSize: 14, padding: "8px 10px" }} />
-                  {row.note && (
-                    <div style={{ fontSize: 11.5, color: "#a8752f", marginTop: 6, fontWeight: 700 }}>⚠ {row.note}</div>
-                  )}
-                </div>
-              ))}
-              <div style={{ display: "flex", gap: 8 }}>
-                <button onClick={confirmPreview}
-                  style={{ ...bigBtn, background: C.leaf, flex: 2, fontSize: 15, padding: "12px" }}>
-                  ✓ Add {preview.length} to the word list
-                </button>
-                <button onClick={() => setPreview(null)}
-                  style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, flex: 1, fontSize: 15, padding: "12px" }}>
-                  Back
-                </button>
-              </div>
-            </div>
-          )}
           {added > 0 && (
             <div style={{ marginTop: 10, fontWeight: 700, color: C.leaf, fontSize: 14 }}>
               Added {added} word{added === 1 ? "" : "s"} to “Words We Added”.
