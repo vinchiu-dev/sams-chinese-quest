@@ -615,11 +615,11 @@
       "last": 1789323781583
     },
     "math:+:8:0": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1786839880578
+      "last": 1789406700464
     },
     "math:+:5:6": {
       "lvl": 2,
@@ -685,18 +685,18 @@
       "last": 1789323781576
     },
     "math:+:10:10": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1786840268759
+      "last": 1789406700459
     },
     "math:+:23:10": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1786840300833
+      "last": 1789406700460
     },
     "math:+:2:6": {
       "lvl": 2,
@@ -706,11 +706,11 @@
       "last": 1787238277626
     },
     "math:+:43:10": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1786840329823
+      "last": 1789406700463
     },
     "math:bond:20:18": {
       "lvl": 0,
@@ -1978,6 +1978,62 @@
       "right": 0,
       "wrong": 1,
       "last": 1789406519958
+    },
+    "math:bond:20:0": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1789406700460
+    },
+    "math:+:2:3": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1789406700461
+    },
+    "math:+:9:10": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1789406700462
+    },
+    "math:bond:20:19": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1789406700462
+    },
+    "math:+:0:2": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1789406700463
+    },
+    "math:bond:20:14": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1789406700463
+    },
+    "math:bond:20:7": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1789406700464
+    },
+    "math:+:11:12": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1789406700465
     }
   },
   "chipLog": [
