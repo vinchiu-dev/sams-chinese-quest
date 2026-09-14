@@ -185,6 +185,45 @@
       letter-spacing: 0.04em;
       color: var(--muted);
     }
+
+    .insights-metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .insight-metric {
+      margin: 0;
+      padding: 8px 10px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+    }
+    .insight-metric .metric-value {
+      display: block;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #0f172a;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.2;
+    }
+    .insight-metric .metric-value.is-na {
+      font-size: 0.95rem;
+      color: #64748b;
+    }
+    .insight-metric .metric-formula {
+      display: block;
+      margin-top: 2px;
+      font-size: 0.62rem;
+      color: #64748b;
+      line-height: 1.35;
+    }
+    .insight-metric .metric-detail {
+      display: block;
+      margin-top: 3px;
+      font-size: 0.65rem;
+      color: #94a3b8;
+      line-height: 1.3;
+    }
     .lost-summary-list {
       margin: 0;
       padding: 0;
@@ -994,7 +1033,7 @@
       .revenue-panel { margin-top: 5px; }
     }
   </style>
-  <!-- build d35c3b8-insights-pan -->
+  <!-- build insights-winrate-yoy-20260914 -->
 </head>
 <body>
   <header class="topbar">
@@ -1007,7 +1046,7 @@
       </div>
       <div class="topbar-actions">
         <button type="button" class="btn-add" id="btn-add-event">+ Add event</button>
-        <button type="button" class="rev-link" id="rev-toggle" aria-expanded="false" aria-controls="insights-panel" title="Sources, lost reasons, and why this board">Insights</button>
+        <button type="button" class="rev-link" id="rev-toggle" aria-expanded="false" aria-controls="insights-panel" title="Win rate, YoY revenue, sources, lost reasons">Insights</button>
       </div>
     </div>
 
@@ -1028,6 +1067,21 @@
             <li>See where leads come from — FB Ads, PhilGEPS, Google Ads, and the rest</li>
             <li>Learn why we lose — fill <em>Reason it was lost</em> so patterns show up here</li>
           </ol>
+        </div>
+        <div>
+          <h2 class="insights-section-title">Key metrics</h2>
+          <div class="insights-metrics">
+            <div class="insight-metric">
+              <span class="metric-value" id="win-rate-value">—</span>
+              <span class="metric-formula" id="win-rate-formula">Win rate = Won ÷ (Won + Lost)</span>
+              <span class="metric-detail" id="win-rate-detail">Open pipeline excluded</span>
+            </div>
+            <div class="insight-metric">
+              <span class="metric-value" id="yoy-rev-value">—</span>
+              <span class="metric-formula" id="yoy-rev-formula">YoY events revenue growth (YTD)</span>
+              <span class="metric-detail" id="yoy-rev-detail">Won revenue this YTD vs prior YTD</span>
+            </div>
+          </div>
         </div>
         <div>
           <h2 class="insights-section-title">Won revenue by source</h2>

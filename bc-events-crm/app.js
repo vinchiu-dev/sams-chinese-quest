@@ -373,11 +373,126 @@
       .map(([channel, n]) => ({ channel, n }));
   }
 
+
+  function parseLeadYmd(lead) {
+    const raw = String(lead.last_updated || lead.inquiry_date || "").trim();
+    const m = raw.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (!m) return null;
+    return { y: Number(m[1]), m: Number(m[2]), d: Number(m[3]), iso: m[0] };
+  }
+
+  function isOnOrBeforeYtd(ymd, year, month, day) {
+    if (!ymd || ymd.y !== year) return false;
+    if (ymd.m < month) return true;
+    if (ymd.m > month) return false;
+    return ymd.d <= day;
+  }
+
+  /** Win rate = Won ÷ (Won + Lost). Open pipeline is not in the denominator. */
+  function computeWinRate(leads) {
+    const won = leads.filter((l) => l.stage === "won").length;
+    const lost = leads.filter((l) => l.stage === "lost").length;
+    const closed = won + lost;
+    if (!closed) {
+      return {
+        display: "N/A",
+        isNa: true,
+        detail: "No closed deals yet · open pipeline excluded",
+      };
+    }
+    const pct = (won / closed) * 100;
+    const rounded = Number.isInteger(pct) ? String(pct) : pct.toFixed(1);
+    return {
+      display: `${rounded}%`,
+      isNa: false,
+      detail: `${won} won · ${lost} lost · ${closed} closed (open excluded)`,
+    };
+  }
+
+  /**
+   * YoY events revenue growth = this calendar YTD won revenue vs prior calendar YTD.
+   * Attribution date: last_updated, else inquiry_date. Never invents numbers.
+   */
+  function computeYoyEventsRevenueGrowth(leads) {
+    const now = new Date();
+    const cy = now.getFullYear();
+    const py = cy - 1;
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+
+    let thisRev = 0;
+    let priorRev = 0;
+    let thisWon = 0;
+    let priorWon = 0;
+    let thisWithRev = 0;
+    let priorWithRev = 0;
+
+    leads.forEach((l) => {
+      if (l.stage !== "won") return;
+      const ymd = parseLeadYmd(l);
+      if (!ymd) return;
+      const revNum = Number(l.revenue_php);
+      const hasRev = Number.isFinite(revNum) && revNum > 0;
+      if (isOnOrBeforeYtd(ymd, cy, month, day)) {
+        thisWon += 1;
+        if (hasRev) {
+          thisRev += revNum;
+          thisWithRev += 1;
+        }
+      }
+      if (isOnOrBeforeYtd(ymd, py, month, day)) {
+        priorWon += 1;
+        if (hasRev) {
+          priorRev += revNum;
+          priorWithRev += 1;
+        }
+      }
+    });
+
+    const fmt = (n) =>
+      "₱" + Number(n).toLocaleString("en-PH", { maximumFractionDigits: 0 });
+
+    if (priorWon === 0 || priorWithRev === 0 || priorRev <= 0) {
+      return {
+        display: "N/A",
+        isNa: true,
+        detail: `Insufficient prior-year data · ${cy} YTD ${fmt(thisRev)} (${thisWon} won)`,
+      };
+    }
+
+    const pct = ((thisRev - priorRev) / priorRev) * 100;
+    const rounded = Number.isInteger(pct) ? String(pct) : pct.toFixed(1);
+    const sign = pct > 0 ? "+" : "";
+    return {
+      display: `${sign}${rounded}%`,
+      isNa: false,
+      detail: `${cy} YTD ${fmt(thisRev)} vs ${py} YTD ${fmt(priorRev)}`,
+    };
+  }
+
   function renderInsights() {
     const leads = allLeads();
     const srcEl = document.getElementById("source-insight");
     const lostEl = document.getElementById("lost-insight");
+    const winEl = document.getElementById("win-rate-value");
+    const winDetail = document.getElementById("win-rate-detail");
+    const yoyEl = document.getElementById("yoy-rev-value");
+    const yoyDetail = document.getElementById("yoy-rev-detail");
     if (!srcEl || !lostEl) return;
+
+    const win = computeWinRate(leads);
+    if (winEl) {
+      winEl.textContent = win.display;
+      winEl.classList.toggle("is-na", !!win.isNa);
+    }
+    if (winDetail) winDetail.textContent = win.detail;
+
+    const yoy = computeYoyEventsRevenueGrowth(leads);
+    if (yoyEl) {
+      yoyEl.textContent = yoy.display;
+      yoyEl.classList.toggle("is-na", !!yoy.isNa);
+    }
+    if (yoyDetail) yoyDetail.textContent = yoy.detail;
 
     const sources = sourceInquirySummary(leads).slice(0, 8);
     if (!sources.length) {
