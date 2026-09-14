@@ -169,6 +169,13 @@
       "example": "",
       "emoji": "📝",
       "needsDef": true
+    },
+    {
+      "word": "Exquisite",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
     }
   ],
   "wodHistory": [
@@ -2080,7 +2087,7 @@
   "starredSentences_at": 1789346650065,
   "hiddenWords_at": 1789346650066,
   "archived_at": 1789346650065,
-  "en_starred_at": 1789346652193,
+  "en_starred_at": 1789346667383,
   "math_missed_at": 1789345210016,
   "chips": 13
 }
