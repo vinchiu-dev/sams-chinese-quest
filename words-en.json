@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-09-12",
+  "updated": "2026-09-14",
   "lists": [
     {
       "id": "en-starter-1",
@@ -728,6 +728,24 @@
           "definition": "a serious disease that spreads quickly and affects many people; also, to bother constantly",
           "example": "Mosquitoes seemed to plague the campsite every single night.",
           "emoji": "🦟"
+        },
+        {
+          "word": "Occasionally",
+          "definition": "sometimes, but not often",
+          "example": "We occasionally get pizza for dinner on Fridays.",
+          "emoji": "🕐"
+        },
+        {
+          "word": "Temporary",
+          "definition": "lasting for only a short time, not permanent",
+          "example": "The bridge was temporary until the new one was built.",
+          "emoji": "⏳"
+        },
+        {
+          "word": "Exquisite",
+          "definition": "extremely beautiful or finely made",
+          "example": "The necklace had an exquisite pattern of tiny blue jewels.",
+          "emoji": "✨"
         }
       ]
     }
