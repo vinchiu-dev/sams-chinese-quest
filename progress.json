@@ -169,62 +169,6 @@
       "example": "",
       "emoji": "📝",
       "needsDef": true
-    },
-    {
-      "word": "coincide",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Undocumented",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Curiosity",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Ancestors",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Settlers",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Orchard",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Lumbered",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Plague",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
     }
   ],
   "wodHistory": [
@@ -2131,12 +2075,12 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1789346047435,
-  "pool_at": 1789346047435,
-  "starredSentences_at": 1789346047435,
-  "hiddenWords_at": 1789345364374,
-  "archived_at": 1789346047435,
-  "en_starred_at": 1789323663310,
+  "trouble_at": 1789346650065,
+  "pool_at": 1789346649776,
+  "starredSentences_at": 1789346650065,
+  "hiddenWords_at": 1789346650066,
+  "archived_at": 1789346650065,
+  "en_starred_at": 1789346652193,
   "math_missed_at": 1789345210016,
   "chips": 13
 }
