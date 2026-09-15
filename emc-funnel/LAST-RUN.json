@@ -3,7 +3,7 @@
   "channel": "easy-massage-chair",
   "channel_label": "Easy Massage Chair",
   "cadence": "weekly",
-  "last_run_at_et": "2026-09-15T16:18:00-04:00",
+  "last_run_at_et": "2026-09-15T16:24:00-04:00",
   "dashboard_published_url": "https://vinchiu-dev.github.io/sams-chinese-quest/emc-funnel/",
   "dashboard_ux": "weekly-funnel-v1",
   "windows": {
@@ -51,11 +51,16 @@
       "label": "YouTube views + watch hours",
       "status": "Steady",
       "note": "Last7 ~12.0k views / 322h vs prior ~12.4k / 344h; YoY ~4.8k / 182h."
+    },
+    {
+      "id": "ads_pct_of_sales",
+      "label": "Ads % of Checklist sales",
+      "status": "Steady",
+      "note": "Last7 ~3.66% (target 3\u20134%)."
     }
   ],
   "leak_callout": null,
   "blockers": [
-    "Google Ads not pulled \u2014 Zapier Google Ads has 0 connections; needs browser or Ads OAuth",
     "CallRail unique sales calls / YT phone # not pulled \u2014 no CallRail connector; needs browser",
     "RingCentral Sales EMC team-answer % \u2014 Zapier RC OAuth expired (Token is expired / OAU-210); reconnect RingCentralCLIAPI then retry",
     "Zoho chat not pulled",
@@ -67,7 +72,8 @@
   "sources_pulled": [
     "business_checklist_drive_csv",
     "ga4_browser",
-    "youtube_studio_browser"
+    "youtube_studio_browser",
+    "google_ads_browser"
   ],
   "planner_note_pasted": false,
   "traffic": {
@@ -179,51 +185,51 @@
           "note": null
         },
         "spend": {
-          "last_7d": null,
-          "prior_7d": null,
-          "yoy_7d": null,
-          "wow_pct": null,
-          "yoy_pct": null,
-          "status": "Unknown",
-          "note": "Google Ads cost."
+          "last_7d": 1773.01,
+          "prior_7d": 2887.26,
+          "yoy_7d": 1037.63,
+          "wow_pct": -38.6,
+          "yoy_pct": 70.9,
+          "status": "Yellow",
+          "note": "Google Ads cost \u2014 soft WoW after Sep 8 bid cuts; up YoY."
         },
         "clicks": {
-          "last_7d": null,
-          "prior_7d": null,
-          "yoy_7d": null,
-          "wow_pct": null,
-          "yoy_pct": null,
-          "status": "Unknown",
+          "last_7d": 1876,
+          "prior_7d": 4235,
+          "yoy_7d": 420,
+          "wow_pct": -55.7,
+          "yoy_pct": 346.7,
+          "status": "Yellow",
           "note": null
         },
         "impressions": {
-          "last_7d": null,
-          "prior_7d": null,
-          "yoy_7d": null,
-          "wow_pct": null,
-          "yoy_pct": null,
-          "status": "Unknown",
+          "last_7d": 22050,
+          "prior_7d": 55467,
+          "yoy_7d": 4880,
+          "wow_pct": -60.2,
+          "yoy_pct": 351.8,
+          "status": "Yellow",
           "note": null
         },
         "cpc": {
-          "last_7d": null,
-          "prior_7d": null,
-          "yoy_7d": null,
-          "wow_pct": null,
-          "yoy_pct": null,
-          "status": "Unknown",
-          "note": null
+          "last_7d": 0.95,
+          "prior_7d": 0.68,
+          "yoy_7d": 2.47,
+          "wow_pct": 39.7,
+          "yoy_pct": -61.5,
+          "status": "Steady",
+          "note": "Avg CPC rose WoW as volume fell."
         },
         "conversions": {
-          "last_7d": null,
-          "prior_7d": null,
-          "yoy_7d": null,
-          "wow_pct": null,
+          "last_7d": 1.0,
+          "prior_7d": 4.0,
+          "yoy_7d": 0.0,
+          "wow_pct": -75.0,
           "yoy_pct": null,
           "status": "Unknown",
           "note": "Weak signal \u2014 do not steer on Ads conversions."
         },
-        "note": null
+        "note": "CID 233-345-8216. Rough mix: Search / Display (incl. Remarketing Static) / PMax; Shopping+Smart $0. Demand Gen not separate."
       },
       {
         "id": "google_organic",
@@ -492,13 +498,13 @@
       "note": "revenue / yt_views \u2014 YT Studio not pulled."
     },
     "ads_pct_of_sales": {
-      "last_7d": null,
-      "prior_7d": null,
+      "last_7d": 3.66,
+      "prior_7d": 5.42,
       "yoy_7d": null,
-      "wow_pct": null,
+      "wow_pct": -32.5,
       "yoy_pct": null,
-      "status": "Unknown",
-      "note": "Ads spend not pulled this run."
+      "status": "Steady",
+      "note": "Ads $1,773.01 \u00f7 Checklist sales $48,474.93 = 3.66%. Inside 3\u20134% band / under 5% ceiling."
     },
     "cos_note": "Last 7d (Sep 8\u201314): 11 closes, $48,474.93 revenue, $14,130.93 GP. Prior 7d (Sep 1\u20137): 9 closes, $53,306.96 revenue, $15,367.28 GP. WoW: closes +22%, revenue \u22129.1%, GP \u22128.0%. Avg GP/call Unknown until CallRail."
   },
