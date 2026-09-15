@@ -3,7 +3,7 @@
   "channel": "easy-massage-chair",
   "channel_label": "Easy Massage Chair",
   "cadence": "weekly",
-  "last_run_at_et": "2026-09-15T16:05:00-04:00",
+  "last_run_at_et": "2026-09-15T16:18:00-04:00",
   "dashboard_published_url": "https://vinchiu-dev.github.io/sams-chinese-quest/emc-funnel/",
   "dashboard_ux": "weekly-funnel-v1",
   "windows": {
@@ -45,10 +45,16 @@
       "where_to_dig": "GA4 Explore \u2192 Session default channel group + Session source/medium for Direct; exclude known spam hosts; recompute users without Direct."
     }
   ],
-  "steady_checks": [],
+  "steady_checks": [
+    {
+      "id": "yt_views_watch_hours",
+      "label": "YouTube views + watch hours",
+      "status": "Steady",
+      "note": "Last7 ~12.0k views / 322h vs prior ~12.4k / 344h; YoY ~4.8k / 182h."
+    }
+  ],
   "leak_callout": null,
   "blockers": [
-    "YouTube Studio views + watch hours not pulled \u2014 needs box Chrome signed into EMC YT channel",
     "Google Ads not pulled \u2014 Zapier Google Ads has 0 connections; needs browser or Ads OAuth",
     "CallRail unique sales calls / YT phone # not pulled \u2014 no CallRail connector; needs browser",
     "RingCentral Sales EMC team-answer % \u2014 Zapier RC OAuth expired (Token is expired / OAU-210); reconnect RingCentralCLIAPI then retry",
@@ -60,12 +66,13 @@
   ],
   "sources_pulled": [
     "business_checklist_drive_csv",
-    "ga4_browser"
+    "ga4_browser",
+    "youtube_studio_browser"
   ],
   "planner_note_pasted": false,
   "traffic": {
     "status": "Yellow",
-    "status_reason": "GA4 Direct sessions jumped to ~110k (YoY ~3k) while Organic/Paid stayed small \u2014 overall users are not trustworthy as demand.",
+    "status_reason": "YT views/watch hours Steady (soft WoW, strong YoY). Overall GA4 still Yellow from Direct junk spike \u2014 do not use raw users as demand.",
     "pmax_retargeting_filtered": false,
     "pmax_retargeting_note": "Direct spike dominates overall users this week; filter Direct (and known junk PMax/remarketing) before using GA4 users as a conversion denominator. Engagement ~21s/active user.",
     "overall": {
@@ -88,22 +95,22 @@
         "note": "GA4 sessions \u2014 same Direct inflation warning."
       },
       "yt_views": {
-        "last_7d": null,
-        "prior_7d": null,
-        "yoy_7d": null,
-        "wow_pct": null,
-        "yoy_pct": null,
-        "status": "Unknown",
-        "note": "YouTube Studio views \u2014 highlight."
+        "last_7d": 12006,
+        "prior_7d": 12373,
+        "yoy_7d": 4825,
+        "wow_pct": -3.0,
+        "yoy_pct": 148.8,
+        "status": "Steady",
+        "note": "YouTube Studio views \u2014 Easy Massage Chair channel."
       },
       "yt_watch_hours": {
-        "last_7d": null,
-        "prior_7d": null,
-        "yoy_7d": null,
-        "wow_pct": null,
-        "yoy_pct": null,
-        "status": "Unknown",
-        "note": "YouTube Studio watch time (hours) \u2014 highlight."
+        "last_7d": 321.8,
+        "prior_7d": 343.7,
+        "yoy_7d": 181.8,
+        "wow_pct": -6.4,
+        "yoy_pct": 77.0,
+        "status": "Steady",
+        "note": "YouTube Studio watch time (hours) \u2014 channel reported hours directly."
       }
     },
     "sources": [
@@ -130,24 +137,24 @@
           "note": null
         },
         "views": {
-          "last_7d": null,
-          "prior_7d": null,
-          "yoy_7d": null,
-          "wow_pct": null,
-          "yoy_pct": null,
-          "status": "Unknown",
-          "note": "YT Studio views (channel), not GA4 session proxy."
+          "last_7d": 12006,
+          "prior_7d": 12373,
+          "yoy_7d": 4825,
+          "wow_pct": -3.0,
+          "yoy_pct": 148.8,
+          "status": "Steady",
+          "note": "YT Studio views (channel)."
         },
         "watch_hours": {
-          "last_7d": null,
-          "prior_7d": null,
-          "yoy_7d": null,
-          "wow_pct": null,
-          "yoy_pct": null,
-          "status": "Unknown",
+          "last_7d": 321.8,
+          "prior_7d": 343.7,
+          "yoy_7d": 181.8,
+          "wow_pct": -6.4,
+          "yoy_pct": 77.0,
+          "status": "Steady",
           "note": null
         },
-        "note": null
+        "note": "Easy Massage Chair channel \u2014 Studio pull 2026-09-15."
       },
       {
         "id": "google_ads",
