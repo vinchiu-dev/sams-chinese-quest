@@ -93,7 +93,7 @@
       "event_dates": null,
       "pax": null,
       "event_type": "event inquiry (details sparse — name/phone/email only)",
-      "stage": "preparing_quote",
+      "stage": "new_inquiry",
       "last_updated": "2026-09-15",
       "seed_notes": "Same-day Goods2026-119/QBEDP PDF also in inbox; may or may not be related. Form routed via stay@.",
       "fo_notes": "",
