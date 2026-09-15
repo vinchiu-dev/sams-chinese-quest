@@ -80,7 +80,7 @@
   let dataSource = "none";
   let activeId = null;
   let channelFilter = "all";
-  let statusFilter = "open";
+  let statusFilter = "all"; // show all stages on board (no status UI; "open" hid Won/Lost)
   let config = {
     fo_sheet_edit_url: "https://docs.google.com/spreadsheets/d/1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y/edit",
     fo_sheet_csv_url: "https://docs.google.com/spreadsheets/d/1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y/export?format=csv",

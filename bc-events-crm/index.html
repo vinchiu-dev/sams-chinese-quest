@@ -1356,7 +1356,7 @@
   <script>
   (function () {
     // Bind immediately: this script sits after #rev-toggle / #insights-panel in the DOM.
-    // Do NOT defer to DOMContentLoaded — app.js?v=20260915-delete also calls initRevCollapse() while
+    // Do NOT defer to DOMContentLoaded — app.js?v=20260915-wonfix also calls initRevCollapse() while
     // readyState is still "loading", and a deferred bind would race and double-toggle
     // (open then close on the same click).
     function bindInsights() {
@@ -1397,6 +1397,6 @@
   })();
   </script>
 
-  <script src="app.js?v=20260915-delete"></script>
+  <script src="app.js?v=20260915-wonfix"></script>
 </body>
 </html>
