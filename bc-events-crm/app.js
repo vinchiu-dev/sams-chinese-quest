@@ -14,6 +14,8 @@
   /** Map legacy Sheet stages + auto-advance when FO/stay already replied or quoted. */
   function normalizeLeadStage(lead) {
     let stage = String(lead.stage || "new_inquiry").trim() || "new_inquiry";
+    // Soft-deleted stays deleted (not remapped to a board column)
+    if (stage === "deleted") return "deleted";
     if (stage === "contacted") stage = "preparing_quote";
     if (stage === "site_visit_negotiation" || stage === "site_visit" || stage === "negotiation") {
       stage = "preparing_quote";
@@ -84,6 +86,7 @@
     fo_sheet_csv_url: "https://docs.google.com/spreadsheets/d/1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y/export?format=csv",
     fo_sheet_write_url: "",
     synced_ledger_csv: "synced-ledger.csv",
+    delete_password_sha256: "",
   };
 
   function loadDraft() {
@@ -126,6 +129,105 @@
     clearTimeout(showToast._t);
     showToast._t = setTimeout(() => el.classList.remove("show"), 3200);
   }
+
+  async function sha256Hex(text) {
+    const data = new TextEncoder().encode(String(text));
+    const digest = await crypto.subtle.digest("SHA-256", data);
+    return Array.from(new Uint8Array(digest))
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("");
+  }
+
+  function openDeleteModal() {
+    const modal = document.getElementById("delete-modal");
+    const input = document.getElementById("delete-password");
+    if (!modal) return;
+    if (input) input.value = "";
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+    setTimeout(() => input?.focus(), 50);
+  }
+
+  function closeDeleteModal() {
+    const modal = document.getElementById("delete-modal");
+    const input = document.getElementById("delete-password");
+    if (modal) {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+    }
+    if (input) input.value = "";
+  }
+
+  async function confirmRemoveLead() {
+    if (!activeId) return;
+    const expected = String(config.delete_password_sha256 || "").trim().toLowerCase();
+    if (!expected) {
+      showToast("Delete password not configured");
+      return;
+    }
+    const pw = document.getElementById("delete-password")?.value || "";
+    let hex = "";
+    try {
+      hex = (await sha256Hex(pw)).toLowerCase();
+    } catch (err) {
+      showToast("Could not verify password");
+      return;
+    }
+    if (hex !== expected) {
+      showToast("Wrong password");
+      document.getElementById("delete-password")?.focus();
+      return;
+    }
+
+    const id = activeId;
+    const today = new Date().toISOString().slice(0, 10);
+    draftOverlay[id] = {
+      ...(draftOverlay[id] || {}),
+      stage: "deleted",
+      editor: "delete",
+      last_updated: today,
+    };
+    saveDraft();
+    applyDrafts = true;
+
+    localAdds = localAdds.filter((l) => l.id !== id);
+    saveAdds();
+
+    closeDeleteModal();
+    closeDrawer();
+    render();
+    showToast("Removed");
+
+    const writeUrl = String(config.fo_sheet_write_url || "").trim();
+    if (!writeUrl) return;
+
+    const payload = {
+      lead_id: id,
+      stage: "deleted",
+      last_updated: today,
+      editor: "delete",
+    };
+    try {
+      const res = await fetch(writeUrl, {
+        method: "POST",
+        mode: "cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      let data = {};
+      try {
+        data = await res.json();
+      } catch {
+        data = {};
+      }
+      if (!data.ok) throw new Error(data.error || "writeback rejected");
+    } catch (err) {
+      // Local soft-delete already applied; Sheet sync optional when URL set
+      console.warn("BC CRM delete writeback", err);
+    }
+  }
+
 
   function leadToSheetRow(lead) {
     const cells = [
@@ -177,8 +279,17 @@
   }
 
   function mergedLead(base) {
-    if (!applyDrafts) return { ...base };
     const o = draftOverlay[base.id] || {};
+    // Soft-delete drafts always apply so removed cards stay hidden after reload
+    if (o.stage === "deleted") {
+      return {
+        ...base,
+        stage: "deleted",
+        last_updated: o.last_updated || base.last_updated,
+        editor: o.editor || "delete",
+      };
+    }
+    if (!applyDrafts) return { ...base };
     return {
       ...base,
       stage: o.stage || base.stage,
@@ -194,10 +305,12 @@
     const byId = new Map();
     for (const l of baseLeads) byId.set(l.id, l);
     for (const l of localAdds) byId.set(l.id, { ...(byId.get(l.id) || {}), ...l });
-    return [...byId.values()].map((l) => {
-      const m = mergedLead(l);
-      return { ...m, stage: normalizeLeadStage(m) };
-    });
+    return [...byId.values()]
+      .map((l) => {
+        const m = mergedLead(l);
+        return { ...m, stage: normalizeLeadStage(m) };
+      })
+      .filter((l) => l.stage !== "deleted");
   }
 
   function escapeHtml(s) {
@@ -231,6 +344,7 @@
   }
 
   function matchesFilters(lead) {
+    if (lead.stage === "deleted") return false;
     if (channelFilter !== "all" && lead.marketing_channel !== channelFilter) return false;
     const open = stageMeta[lead.stage]?.open;
     if (statusFilter === "open" && !open) return false;
@@ -536,6 +650,7 @@
         (l.marketing_channel || "") === "Google Ads" &&
         l.stage !== "lost" &&
         l.stage !== "won" &&
+        l.stage !== "deleted" &&
         Number(l.revenue_php) > 0
     );
     const pipeRev = pipeline.reduce((s, l) => s + (Number(l.revenue_php) || 0), 0);
@@ -1429,6 +1544,18 @@
     document.getElementById("btn-close").addEventListener("click", closeDrawer);
     document.getElementById("backdrop").addEventListener("click", closeDrawer);
     document.getElementById("btn-save").addEventListener("click", saveDrawer);
+    document.getElementById("btn-remove")?.addEventListener("click", openDeleteModal);
+    document.getElementById("btn-delete-cancel")?.addEventListener("click", closeDeleteModal);
+    document.getElementById("btn-delete-confirm")?.addEventListener("click", () => confirmRemoveLead());
+    document.getElementById("delete-modal")?.addEventListener("click", (e) => {
+      if (e.target && e.target.id === "delete-modal") closeDeleteModal();
+    });
+    document.getElementById("delete-password")?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        confirmRemoveLead();
+      }
+    });
 
     initRevCollapse();
     initBoardScroll();
@@ -1447,6 +1574,11 @@
     });
     document.addEventListener("keydown", (e) => {
       if (e.key !== "Escape") return;
+      const delModal = document.getElementById("delete-modal");
+      if (delModal && delModal.classList.contains("open")) {
+        closeDeleteModal();
+        return;
+      }
       const addModal = document.getElementById("add-modal");
       if (addModal && addModal.classList.contains("open")) {
         closeAddModal();

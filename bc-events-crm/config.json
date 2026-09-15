@@ -6,5 +6,6 @@
   "fo_sheet_write_url": "",
   "synced_ledger_csv": "synced-ledger.csv",
   "fo_overlay_csv": "fo-overlay.csv",
+  "delete_password_sha256": "0bba49ccff41515951fc34752f3f168768386162c89a5ff4e977ccbf542fed6a",
   "notes": "Sheet is the multi-device source of truth. Drawer Save POSTs to fo_sheet_write_url (Apps Script) when set; Refresh loads Sheet CSV. Share Sheet as Anyone with the link → Editor so FO can edit and GH Pages can fetch CSV. Until public, page loads synced-ledger.csv mirror; CoS refresh republishes from Sheet. Leave fo_sheet_write_url empty until Apps Script is deployed — see SYNC.md / scripts/DEPLOY-WRITEBACK.md."
 }

@@ -10,7 +10,9 @@
 
 var SHEET_ID = "1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y";
 
-/** Columns we may write when present in the POST body (merge — never blank omitted fields). */
+/** Columns we may write when present in the POST body (merge — never blank omitted fields).
+ *  stage value "deleted" is allowed (password-gated soft-remove from the CRM page).
+ */
 var WRITABLE = [
   "name",
   "org",

@@ -847,6 +847,84 @@
       font-weight: 600;
     }
 
+
+    .btn-danger {
+      appearance: none;
+      border: 1px solid #f1b4b4;
+      background: #fff5f5;
+      color: #b42318;
+      font: inherit;
+      font-weight: 600;
+      padding: 11px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      margin-left: auto;
+    }
+    .btn-danger:hover { background: #ffe8e8; border-color: #e89a9a; }
+    #delete-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 95;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 12px;
+      background: rgba(15, 23, 42, 0.45);
+    }
+    #delete-modal.open { display: flex; }
+    .delete-card {
+      width: min(400px, 100%);
+      background: #fff;
+      border-radius: 14px 14px 10px 10px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.28);
+      padding: 14px 14px 16px;
+    }
+    .delete-card h2 {
+      margin: 0 0 6px;
+      font-size: 1.05rem;
+      color: #0f172a;
+    }
+    .delete-card .add-sub {
+      margin: 0 0 12px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+    .delete-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .delete-actions .btn-ghost {
+      appearance: none;
+      border: 1px solid #cbd5e1;
+      background: #fff;
+      color: #334155;
+      font-weight: 600;
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font: inherit;
+    }
+    .delete-actions .btn-danger-confirm {
+      flex: 1;
+      appearance: none;
+      border: none;
+      background: #b42318;
+      color: #fff;
+      font-weight: 700;
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font: inherit;
+    }
+    .delete-actions .btn-danger-confirm:hover { background: #912018; }
+    @media (min-width: 721px) {
+      #delete-modal { align-items: center; }
+      .delete-card { border-radius: 14px; }
+    }
+
     #toast {
       position: fixed;
       left: 50%;
@@ -1201,6 +1279,7 @@
       <div class="drawer-actions">
         <button type="button" class="btn-primary" id="btn-save">Save</button>
         <span id="save-msg" hidden>Saved</span>
+        <button type="button" class="btn-danger" id="btn-remove">Remove from board</button>
       </div>
     </div>
   </aside>
@@ -1256,12 +1335,28 @@
     </div>
   </div>
 
+
+  <div id="delete-modal" aria-hidden="true">
+    <div class="delete-card" role="dialog" aria-modal="true" aria-labelledby="delete-title">
+      <h2 id="delete-title">Remove from board</h2>
+      <p class="add-sub">Password required. Soft-deletes this event (hidden from the board). FO cannot remove freely.</p>
+      <div class="field">
+        <label for="delete-password">Password</label>
+        <input id="delete-password" type="password" autocomplete="current-password" />
+      </div>
+      <div class="delete-actions">
+        <button type="button" class="btn-ghost" id="btn-delete-cancel">Cancel</button>
+        <button type="button" class="btn-danger-confirm" id="btn-delete-confirm">Confirm remove</button>
+      </div>
+    </div>
+  </div>
+
   <div id="toast" role="status" aria-live="polite"></div>
   
   <script>
   (function () {
     // Bind immediately: this script sits after #rev-toggle / #insights-panel in the DOM.
-    // Do NOT defer to DOMContentLoaded — app.js?v=20260915-gads also calls initRevCollapse() while
+    // Do NOT defer to DOMContentLoaded — app.js?v=20260915-delete also calls initRevCollapse() while
     // readyState is still "loading", and a deferred bind would race and double-toggle
     // (open then close on the same click).
     function bindInsights() {
@@ -1302,6 +1397,6 @@
   })();
   </script>
 
-  <script src="app.js?v=20260915-gads"></script>
+  <script src="app.js?v=20260915-delete"></script>
 </body>
 </html>

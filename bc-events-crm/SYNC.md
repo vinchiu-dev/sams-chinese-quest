@@ -74,3 +74,16 @@ Writes `fo-overlay.csv` and optionally patches `leads.json` FO fields.
 - **Cloudbeds:** no reliable event-booking email feed; needs dashboard access or webhook.
 - **Messenger:** no automated Page inbox connector; FO/Vin paste required.
 - **Apps Script POST from drawer:** source ready at `scripts/SheetWriteback.gs` — deploy web app + set `fo_sheet_write_url` (see `scripts/DEPLOY-WRITEBACK.md`). Until then Sheet edit + CoS republish remains the durable path.
+
+## Google Ads attribution (required for ad ROI)
+
+1. Ads final URL / suffix must include: `utm_source=google&utm_medium=cpc&utm_campaign=bc-events`
+2. Formidable notification email for EVENT INQUIRY must include UTM fields (and gclid if present) as rows — not only Name/Phone/Email.
+3. CRM sync maps `utm_source=google` + `utm_medium=cpc|paid` (or gclid) → `marketing_channel=Google Ads`.
+4. Revenue strip + Insights pie count **Won** ₱ where channel is Google Ads (FO enters amount).
+
+Without (1)+(2), form leads stay `Website form (unknown)` and cannot prove ad ROI.
+
+## Password-gated remove (Vin only)
+
+Drawer **Remove from board** asks for a password (SHA-256 stored in `config.json` as `delete_password_sha256` — never plaintext in repo). On success the lead is soft-deleted (`stage=deleted` in local draft overlay; optional Sheet write-back POSTs the same stage when `fo_sheet_write_url` is set). Deleted leads are hidden from the board, Insights pie, Google Ads strip, and filters — not shown as a column. FO cannot remove freely without the password.
