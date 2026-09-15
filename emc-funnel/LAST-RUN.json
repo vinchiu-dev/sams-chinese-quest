@@ -3,7 +3,7 @@
   "channel": "easy-massage-chair",
   "channel_label": "Easy Massage Chair",
   "cadence": "weekly",
-  "last_run_at_et": "2026-09-15T15:53:00-04:00",
+  "last_run_at_et": "2026-09-15T16:05:00-04:00",
   "dashboard_published_url": "https://vinchiu-dev.github.io/sams-chinese-quest/emc-funnel/",
   "dashboard_ux": "weekly-funnel-v1",
   "windows": {
@@ -20,7 +20,7 @@
     "yoy_7d": {
       "start_et": "2025-09-08",
       "end_et": "2025-09-14",
-      "pulled": false,
+      "pulled": true,
       "label": "YoY 7d"
     },
     "chart_30_50d": {
@@ -31,17 +31,23 @@
     }
   },
   "statuses": {
-    "traffic": "Unknown",
+    "traffic": "Yellow",
     "leads": "Unknown",
     "money": "Unknown",
     "answer": "Unknown",
     "context": "Unknown"
   },
-  "notices": [],
+  "notices": [
+    {
+      "severity": "yellow",
+      "title": "GA4 Direct traffic looks like junk inflation",
+      "body": "Sep 8\u201314: ~152k active users / ~148k sessions, but Direct alone ~110k sessions (YoY Direct ~3k). Organic Search 385 and Google Ads\u2013mapped paid ~812 \u2014 real demand channels did not explode. Avg engagement ~21s/user. Do not use raw GA4 users for calls-per-visitor until Direct is filtered; dig bot/spam referrers and measurement.",
+      "where_to_dig": "GA4 Explore \u2192 Session default channel group + Session source/medium for Direct; exclude known spam hosts; recompute users without Direct."
+    }
+  ],
   "steady_checks": [],
   "leak_callout": null,
   "blockers": [
-    "GA4 not pulled \u2014 no browserUse/Task on this executor; no GA4 connector",
     "YouTube Studio views + watch hours not pulled \u2014 needs box Chrome signed into EMC YT channel",
     "Google Ads not pulled \u2014 Zapier Google Ads has 0 connections; needs browser or Ads OAuth",
     "CallRail unique sales calls / YT phone # not pulled \u2014 no CallRail connector; needs browser",
@@ -50,35 +56,36 @@
     "Google Trends \u2014 HTTP 429 from trends.google.com this run; checked:false",
     "Tuan Google Messages not checked",
     "YoY 7d money \u2014 Business Checklist export has no 2025 rows (coverage 2026-01-01\u21922026-09-14)",
-    "Chart 42d daily series empty \u2014 GA4/YT/Ads daily not exported"
+    "Chart 42d daily series empty \u2014 GA4 daily export not pulled yet (totals only)"
   ],
   "sources_pulled": [
-    "business_checklist_drive_csv"
+    "business_checklist_drive_csv",
+    "ga4_browser"
   ],
   "planner_note_pasted": false,
   "traffic": {
-    "status": "Unknown",
-    "status_reason": "GA4, YouTube Studio, and Google Ads not opened this run \u2014 executor has no browserUse/Task dispatch; Zapier Google Ads has 0 connected accounts.",
+    "status": "Yellow",
+    "status_reason": "GA4 Direct sessions jumped to ~110k (YoY ~3k) while Organic/Paid stayed small \u2014 overall users are not trustworthy as demand.",
     "pmax_retargeting_filtered": false,
-    "pmax_retargeting_note": "When quoting site traffic for conversion denominators, filter known low-quality PMax / remarketing Static if those streams are junk this week.",
+    "pmax_retargeting_note": "Direct spike dominates overall users this week; filter Direct (and known junk PMax/remarketing) before using GA4 users as a conversion denominator. Engagement ~21s/active user.",
     "overall": {
       "users": {
-        "last_7d": null,
-        "prior_7d": null,
-        "yoy_7d": null,
-        "wow_pct": null,
-        "yoy_pct": null,
-        "status": "Unknown",
-        "note": "GA4 active users / users. Prefer this as visitor denominator."
+        "last_7d": 152428,
+        "prior_7d": 62506,
+        "yoy_7d": 3887,
+        "wow_pct": 143.9,
+        "yoy_pct": 3821.5,
+        "status": "Yellow",
+        "note": "GA4 active users \u2014 inflated by Direct spike; do not use as clean visitor denominator."
       },
       "sessions": {
-        "last_7d": null,
-        "prior_7d": null,
-        "yoy_7d": null,
-        "wow_pct": null,
-        "yoy_pct": null,
-        "status": "Unknown",
-        "note": "GA4 sessions."
+        "last_7d": 148495,
+        "prior_7d": 62603,
+        "yoy_7d": 4316,
+        "wow_pct": 137.2,
+        "yoy_pct": 3340.6,
+        "status": "Yellow",
+        "note": "GA4 sessions \u2014 same Direct inflation warning."
       },
       "yt_views": {
         "last_7d": null,
@@ -147,13 +154,13 @@
         "label": "Google Ads",
         "highlight": false,
         "sessions": {
-          "last_7d": null,
-          "prior_7d": null,
-          "yoy_7d": null,
-          "wow_pct": null,
-          "yoy_pct": null,
-          "status": "Unknown",
-          "note": "GA4 paid / Ads-attributed sessions."
+          "last_7d": 812,
+          "prior_7d": 1103,
+          "yoy_7d": 357,
+          "wow_pct": -26.4,
+          "yoy_pct": 127.5,
+          "status": "Yellow",
+          "note": "GA4 Paid Search + Cross-network sessions (mapped to Google Ads). Soft WoW after Sep 8 bid cuts."
         },
         "users": {
           "last_7d": null,
@@ -216,13 +223,13 @@
         "label": "Google Organic",
         "highlight": false,
         "sessions": {
-          "last_7d": null,
-          "prior_7d": null,
-          "yoy_7d": null,
-          "wow_pct": null,
-          "yoy_pct": null,
-          "status": "Unknown",
-          "note": null
+          "last_7d": 385,
+          "prior_7d": 444,
+          "yoy_7d": 534,
+          "wow_pct": -13.3,
+          "yoy_pct": -27.9,
+          "status": "Steady",
+          "note": "GA4 Organic Search sessions."
         },
         "users": {
           "last_7d": null,
@@ -231,7 +238,7 @@
           "wow_pct": null,
           "yoy_pct": null,
           "status": "Unknown",
-          "note": null
+          "note": "Channel table was sessions; users not broken out."
         },
         "note": null
       },
@@ -240,13 +247,13 @@
         "label": "Direct",
         "highlight": false,
         "sessions": {
-          "last_7d": null,
-          "prior_7d": null,
-          "yoy_7d": null,
-          "wow_pct": null,
-          "yoy_pct": null,
-          "status": "Unknown",
-          "note": null
+          "last_7d": 109542,
+          "prior_7d": 39566,
+          "yoy_7d": 3095,
+          "wow_pct": 176.9,
+          "yoy_pct": 3439.3,
+          "status": "Red",
+          "note": "Direct explode vs YoY \u2014 likely bots/junk; exclude from conversion denominators."
         },
         "users": {
           "last_7d": null,
@@ -264,13 +271,13 @@
         "label": "Referral / other",
         "highlight": false,
         "sessions": {
-          "last_7d": null,
-          "prior_7d": null,
-          "yoy_7d": null,
-          "wow_pct": null,
-          "yoy_pct": null,
-          "status": "Unknown",
-          "note": null
+          "last_7d": 127,
+          "prior_7d": 110,
+          "yoy_7d": 125,
+          "wow_pct": 15.5,
+          "yoy_pct": 1.6,
+          "status": "Steady",
+          "note": "GA4 Referral sessions."
         },
         "users": {
           "last_7d": null,
@@ -408,7 +415,8 @@
     "ux_review_prompts": [
       "Not triggered \u2014 leads metrics Unknown (CallRail not pulled); no WoW/YoY move to evaluate."
     ],
-    "cos_note": "Need CallRail unique sales calls + YT phone # for Last/Prior/YoY 7d."
+    "cos_note": "Need CallRail unique sales calls + YT phone # for Last/Prior/YoY 7d.",
+    "engagement_note": "GA4 average engagement time ~21s per active user (Last 7d) \u2014 suspiciously low with Direct spike."
   },
   "money": {
     "status": "Unknown",
