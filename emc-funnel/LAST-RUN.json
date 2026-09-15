@@ -3,31 +3,31 @@
   "channel": "easy-massage-chair",
   "channel_label": "Easy Massage Chair",
   "cadence": "weekly",
-  "last_run_at_et": null,
+  "last_run_at_et": "2026-09-15T15:53:00-04:00",
   "dashboard_published_url": "https://vinchiu-dev.github.io/sams-chinese-quest/emc-funnel/",
   "dashboard_ux": "weekly-funnel-v1",
   "windows": {
     "last_7d": {
-      "start_et": null,
-      "end_et": null,
+      "start_et": "2026-09-08",
+      "end_et": "2026-09-14",
       "label": "Last 7d"
     },
     "prior_7d": {
-      "start_et": null,
-      "end_et": null,
+      "start_et": "2026-09-01",
+      "end_et": "2026-09-07",
       "label": "Prior 7d"
     },
     "yoy_7d": {
-      "start_et": null,
-      "end_et": null,
+      "start_et": "2025-09-08",
+      "end_et": "2025-09-14",
       "pulled": false,
       "label": "YoY 7d"
     },
     "chart_30_50d": {
-      "start_et": null,
-      "end_et": null,
+      "start_et": "2026-08-04",
+      "end_et": "2026-09-14",
       "days": 42,
-      "note": "Use 30–50 full ET days for line charts; default 42. Prefer YoY same-period overlay when pulled."
+      "note": "Use 30\u201350 full ET days for line charts; default 42. Prefer YoY same-period overlay when pulled."
     }
   },
   "statuses": {
@@ -41,22 +41,24 @@
   "steady_checks": [],
   "leak_callout": null,
   "blockers": [
-    "Weekly cadence not yet run — first data pull still pending",
-    "GA4 not pulled for last 7d / prior 7d / YoY 7d",
-    "YouTube Studio views + watch hours not pulled",
-    "Google Ads not pulled for weekly windows",
-    "CallRail unique sales calls / YT phone # not pulled for weekly windows",
-    "Business Checklist sales + GP not pulled for weekly windows",
-    "RingCentral Sales EMC team-answer % during business hours not pulled",
+    "GA4 not pulled \u2014 no browserUse/Task on this executor; no GA4 connector",
+    "YouTube Studio views + watch hours not pulled \u2014 needs box Chrome signed into EMC YT channel",
+    "Google Ads not pulled \u2014 Zapier Google Ads has 0 connections; needs browser or Ads OAuth",
+    "CallRail unique sales calls / YT phone # not pulled \u2014 no CallRail connector; needs browser",
+    "RingCentral Sales EMC team-answer % \u2014 Zapier RC OAuth expired (Token is expired / OAU-210); reconnect RingCentralCLIAPI then retry",
     "Zoho chat not pulled",
-    "Google Trends not checked this week",
-    "Tuan Google Messages not checked this week"
+    "Google Trends \u2014 HTTP 429 from trends.google.com this run; checked:false",
+    "Tuan Google Messages not checked",
+    "YoY 7d money \u2014 Business Checklist export has no 2025 rows (coverage 2026-01-01\u21922026-09-14)",
+    "Chart 42d daily series empty \u2014 GA4/YT/Ads daily not exported"
   ],
-  "sources_pulled": [],
+  "sources_pulled": [
+    "business_checklist_drive_csv"
+  ],
   "planner_note_pasted": false,
   "traffic": {
     "status": "Unknown",
-    "status_reason": "Not pulled — first weekly run pending.",
+    "status_reason": "GA4, YouTube Studio, and Google Ads not opened this run \u2014 executor has no browserUse/Task dispatch; Zapier Google Ads has 0 connected accounts.",
     "pmax_retargeting_filtered": false,
     "pmax_retargeting_note": "When quoting site traffic for conversion denominators, filter known low-quality PMax / remarketing Static if those streams are junk this week.",
     "overall": {
@@ -85,7 +87,7 @@
         "wow_pct": null,
         "yoy_pct": null,
         "status": "Unknown",
-        "note": "YouTube Studio views — highlight."
+        "note": "YouTube Studio views \u2014 highlight."
       },
       "yt_watch_hours": {
         "last_7d": null,
@@ -94,7 +96,7 @@
         "wow_pct": null,
         "yoy_pct": null,
         "status": "Unknown",
-        "note": "YouTube Studio watch time (hours) — highlight."
+        "note": "YouTube Studio watch time (hours) \u2014 highlight."
       }
     },
     "sources": [
@@ -205,7 +207,7 @@
           "wow_pct": null,
           "yoy_pct": null,
           "status": "Unknown",
-          "note": "Weak signal — do not steer on Ads conversions."
+          "note": "Weak signal \u2014 do not steer on Ads conversions."
         },
         "note": null
       },
@@ -311,11 +313,11 @@
         "organic_sessions": null
       }
     },
-    "cos_note": null
+    "cos_note": "Traffic block: need box browser login to GA4 (EMC), YT Studio, Ads CID 233-345-8216."
   },
   "leads": {
     "status": "Unknown",
-    "status_reason": "Not pulled — first weekly run pending.",
+    "status_reason": "CallRail not opened this run (no CallRail connector; browser Task unavailable on this executor). Zoho not pulled.",
     "pmax_retargeting_filtered": false,
     "unique_sales_calls": {
       "last_7d": null,
@@ -387,7 +389,7 @@
       "wow_pct": null,
       "yoy_pct": null,
       "status": "Unknown",
-      "note": "GA4 bounce rate 0–1 (or 0–100 with note). Filter PMax/retargeting when noted."
+      "note": "GA4 bounce rate 0\u20131 (or 0\u2013100 with note). Filter PMax/retargeting when noted."
     },
     "chats": {
       "last_7d": null,
@@ -403,38 +405,40 @@
       "prior_7d": {},
       "yoy_7d": {}
     },
-    "ux_review_prompts": [],
-    "cos_note": null
+    "ux_review_prompts": [
+      "Not triggered \u2014 leads metrics Unknown (CallRail not pulled); no WoW/YoY move to evaluate."
+    ],
+    "cos_note": "Need CallRail unique sales calls + YT phone # for Last/Prior/YoY 7d."
   },
   "money": {
     "status": "Unknown",
-    "status_reason": "Not pulled — first weekly run pending.",
+    "status_reason": "Checklist revenue/GP/closes pulled for Last 7d vs Prior 7d; KEY avg GP/call Unknown without CallRail unique calls; YoY 7d not in sheet (no 2025 rows).",
     "closed_sales": {
-      "last_7d": null,
-      "prior_7d": null,
+      "last_7d": 11,
+      "prior_7d": 9,
       "yoy_7d": null,
-      "wow_pct": null,
+      "wow_pct": 22.2,
       "yoy_pct": null,
       "status": "Unknown",
-      "note": "Business Checklist non-cancelled Sale>0 rows in window."
+      "note": "Business Checklist non-cancelled Sale>0 rows by sale Date. YoY unavailable \u2014 sheet coverage starts 2026-01-01."
     },
     "revenue": {
-      "last_7d": null,
-      "prior_7d": null,
+      "last_7d": 48474.93,
+      "prior_7d": 53306.96,
       "yoy_7d": null,
-      "wow_pct": null,
+      "wow_pct": -9.1,
       "yoy_pct": null,
       "status": "Unknown",
-      "note": "Checklist revenue for those rows."
+      "note": "Checklist Sale sum for those rows. WoW \u22129.1% while closes 11 vs 9 \u2014 smaller ticket/mix."
     },
     "gross_profit": {
-      "last_7d": null,
-      "prior_7d": null,
+      "last_7d": 14130.93,
+      "prior_7d": 15367.28,
       "yoy_7d": null,
-      "wow_pct": null,
+      "wow_pct": -8.0,
       "yoy_pct": null,
       "status": "Unknown",
-      "note": "Checklist GP for those rows. Do not apply a guessed margin %."
+      "note": "Checklist Gross column sum. All last/prior rows had GP present."
     },
     "avg_revenue_per_sales_call": {
       "last_7d": null,
@@ -443,7 +447,7 @@
       "wow_pct": null,
       "yoy_pct": null,
       "status": "Unknown",
-      "note": "revenue / unique_sales_calls."
+      "note": "revenue / unique_sales_calls \u2014 blocked; CallRail not pulled this run."
     },
     "avg_gp_per_sales_call": {
       "last_7d": null,
@@ -452,7 +456,7 @@
       "wow_pct": null,
       "yoy_pct": null,
       "status": "Unknown",
-      "note": "KEY. gross_profit / unique_sales_calls."
+      "note": "KEY. gross_profit / unique_sales_calls \u2014 blocked; CallRail not pulled this run."
     },
     "revenue_per_visitor": {
       "last_7d": null,
@@ -461,7 +465,7 @@
       "wow_pct": null,
       "yoy_pct": null,
       "status": "Unknown",
-      "note": "revenue / ga4_users."
+      "note": "revenue / ga4_users \u2014 GA4 not pulled."
     },
     "revenue_per_yt_view": {
       "last_7d": null,
@@ -470,7 +474,7 @@
       "wow_pct": null,
       "yoy_pct": null,
       "status": "Unknown",
-      "note": "revenue / yt_views."
+      "note": "revenue / yt_views \u2014 YT Studio not pulled."
     },
     "ads_pct_of_sales": {
       "last_7d": null,
@@ -479,14 +483,14 @@
       "wow_pct": null,
       "yoy_pct": null,
       "status": "Unknown",
-      "note": "Optional. Ads spend / revenue. EMC ceiling 5%, target 3–4%."
+      "note": "Ads spend not pulled this run."
     },
-    "cos_note": null
+    "cos_note": "Last 7d (Sep 8\u201314): 11 closes, $48,474.93 revenue, $14,130.93 GP. Prior 7d (Sep 1\u20137): 9 closes, $53,306.96 revenue, $15,367.28 GP. WoW: closes +22%, revenue \u22129.1%, GP \u22128.0%. Avg GP/call Unknown until CallRail."
   },
   "answer": {
     "status": "Unknown",
-    "status_reason": "Not pulled — first weekly run pending.",
-    "business_hours_note": "Confirm Sales EMC staffed hours in RingCentral; do not guess. Weekly % is BH only.",
+    "status_reason": "RingCentral Zapier connection token expired (OAU-210 invalid_grant). Reconnect RingCentral at Zapier MCP, then re-pull Sales EMC BH team-answer %.",
+    "business_hours_note": "Confirm Sales EMC staffed hours in RingCentral; do not guess. Weekly % is BH only. RC API not reachable this run (expired Zapier OAuth).",
     "shared_queue": false,
     "pct_answered_by_team_bh": {
       "last_7d": null,
@@ -533,7 +537,7 @@
       "status": "Unknown",
       "note": null
     },
-    "cos_note": null
+    "cos_note": "RC Zapier auth expired \u2014 Vin needs to reconnect RingCentral connector before answer % can light up."
   },
   "context": {
     "status": "Unknown",
@@ -542,15 +546,15 @@
       "geo": "US",
       "url": "https://trends.google.com/trends/explore?geo=US&q=massage%20chair",
       "direction": null,
-      "note": null,
+      "note": "Attempted Trends API/page via curl \u2014 HTTP 429 Too Many Requests. No reliable US direction for Last 7d vs prior/YoY. Do not invent.",
       "checked": false
     },
     "tuan_messages": {
       "checked": false,
-      "note": null,
+      "note": "Not checked \u2014 Google Messages / Tuan thread not opened this run (no Messages access on this executor).",
       "industry_vs_emc": null
     },
-    "cos_note": null
+    "cos_note": "Context Unknown: Trends rate-limited; Tuan not checked."
   },
   "notable_changes": [
     {
@@ -562,7 +566,14 @@
         "leads",
         "money"
       ],
-      "source": "legacy 10-day audit; still in chart hangover"
+      "source": "legacy 10-day audit; still in Last 7d + chart hangover \u2014 recheck Brands pace"
+    },
+    {
+      "date_et": "2026-09-15",
+      "event": "First weekly funnel board data pull (partial) \u2014 money from Checklist; traffic/leads/answer/context still blocked",
+      "owner": "CoS agent",
+      "could_affect": [],
+      "source": "this run"
     }
   ],
   "legacy_10d_audit": {
@@ -589,7 +600,7 @@
       "bof": "Yellow",
       "margin": "Unknown"
     },
-    "leak_callout": "Spend +55% vs prior 10d; Ads conv 5 vs 11; CallRail calls flat 17 vs 16; checklist sales ~$58.3k → ads 6.96% of sales (over 5%). Bid cuts applied Sep 8 — recheck Sep 9–12 on Sep 13. Dig Mid→BOF tagging/close + spend pace.",
+    "leak_callout": "Spend +55% vs prior 10d; Ads conv 5 vs 11; CallRail calls flat 17 vs 16; checklist sales ~$58.3k \u2192 ads 6.96% of sales (over 5%). Bid cuts applied Sep 8 \u2014 recheck Sep 9\u201312 on Sep 13. Dig Mid\u2192BOF tagging/close + spend pace.",
     "concurrent_changes": [],
     "tof": {
       "ads_spend": 4061.22,
@@ -609,7 +620,7 @@
         "ads_cpc_delta": 0.03
       },
       "deltas_vs_yoy_10d": {},
-      "cos_note": "Spend +55% vs prior 10d; conversions 5 vs 11; CPC flat. Visible campaigns Search. GA4 ~64k active users last 10d (sessions/prior incomplete). Mix Aug28–Sep7: Brands $2226 / PMax $31 / Static $282; account $4403.",
+      "cos_note": "Spend +55% vs prior 10d; conversions 5 vs 11; CPC flat. Visible campaigns Search. GA4 ~64k active users last 10d (sessions/prior incomplete). Mix Aug28\u2013Sep7: Brands $2226 / PMax $31 / Static $282; account $4403.",
       "sources_pulled": [
         "google_ads",
         "ga4_partial"
@@ -695,7 +706,7 @@
       "close_rate_vs_qualified": null,
       "close_rate_vs_answered": 0.588,
       "closer_capacity_note": null,
-      "cos_note": "Business Checklist CSV (local export ~1:10pm ET Sep 8): 10 non-cancelled Sale>0 rows Aug 29–Sep 7 = $58,305.96. Ads Cost $4,061 / sales = 6.96% (over 5% ceiling; target 3–4%). CallRail Sale Closed empty — using checklist not Ads conv.",
+      "cos_note": "Business Checklist CSV (local export ~1:10pm ET Sep 8): 10 non-cancelled Sale>0 rows Aug 29\u2013Sep 7 = $58,305.96. Ads Cost $4,061 / sales = 6.96% (over 5% ceiling; target 3\u20134%). CallRail Sale Closed empty \u2014 using checklist not Ads conv.",
       "sources_pulled": [
         "business_checklist_csv"
       ],
