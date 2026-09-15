@@ -2,7 +2,7 @@ lead_id,name,org,stage,marketing_channel,revenue_php,fo_notes,lost_reason,last_u
 1a0849a6df35c2f0,Jes Pacis,,new_inquiry,Website form (unknown),,,,2026-09-09,seed
 1a05fa60f43657bd,Eden Bagunu,Cagayan State University (CSU),new_inquiry,Website form (unknown),,,,2026-09-02,seed
 1a05cc8dfecb94e6,Dwight Gabriel Sevilleja,,contacted,Website form (unknown),,,,2026-09-01,seed
-1a0584ae2dc4b164,Samuel Chiu,,new_inquiry,Website form (unknown),,,,2026-08-31,seed
+1a0584ae2dc4b164,Samuel Chiu,,deleted,Website form (unknown),,Removed as Vin test (Sam Chu).,,2026-09-15,cos-sync
 1a06a4cf767aa8bc,Girlie Anne Linao,Fixerink,won,Walk-in / other,,FO: enter confirmed total PHP revenue when known (do not invent from nightly rate).,,2026-09-09,seed
 1a0849038ec8f5d3,DepEd SDO Cagayan (BAC),DepEd SDO Cagayan (BAC) — Goods2026-119 / QBEDP,new_inquiry,Gov RFQ / email,,,,2026-09-09,seed
 19dcc722dafd1d2f,Marie Luz Bravo,Kalinga State University (KSU) — Planning/Infra,quoted,Website form (unknown),,,,2026-04-27,seed
@@ -17,3 +17,5 @@ lead_id,name,org,stage,marketing_channel,revenue_php,fo_notes,lost_reason,last_u
 19ce2a5b47269344,MAJ Pat A. Maloney,US military (Aide-de-Camp),contacted,Walk-in / other,,,,2026-03-12,seed
 1a08df8d0d2a247a,Jonalyn Raguindin,,new_inquiry,Website form (unknown),,stay@ already sent details ask (dates / # guests / type / agency / rooms+meals); awaiting guest reply. Optional FO phone follow-up if silent 24h.,,2026-09-11,
 1a0979f7e1458963,Krystel Alap,,new_inquiry,Website form (unknown),,stay@ already sent details ask; awaiting guest reply. Optional FO phone follow-up if silent 24h.,,2026-09-12,events-agent
+1a0a59b7beb91eeb,CoS Ads Attribution Test,,won,Google Ads,50000,TEST IGNORE — delete after Vin reviews attribution. Demo revenue only.,,2026-09-15,cos-sync
+1a0a5840c785bff0,UTM Email Test,,new_inquiry,Google Ads,,TEST IGNORE — delete after Vin reviews.,,2026-09-15,cos-sync
