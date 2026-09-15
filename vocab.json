@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-11",
+  "updated": "2026-09-15",
   "lessons": [
     {
       "id": "little-fox-school-supplies",
@@ -2284,6 +2284,73 @@
           "emoji": "🔢"
         }
       ]
+    },
+    {
+      "id": "birthday-date",
+      "title": "When's Your Birthday?",
+      "subtitle": "几月几号？— asking for a date",
+      "words": [
+        {
+          "hanzi": "几月几号",
+          "pinyin": "jǐ yuè jǐ hào",
+          "en": "what date? (which month, which day)",
+          "emoji": "📅",
+          "phrases": [
+            {
+              "en": "What date is your birthday?",
+              "pinyin": "nǐ de shēngrì shì jǐ yuè jǐ hào?",
+              "hanzi": "你的生日是几月几号？"
+            },
+            {
+              "en": "What's the date today?",
+              "pinyin": "jīntiān jǐ yuè jǐ hào?",
+              "hanzi": "今天几月几号？"
+            }
+          ]
+        },
+        {
+          "hanzi": "明天",
+          "pinyin": "míngtiān",
+          "en": "tomorrow",
+          "emoji": "🌅",
+          "phrases": [
+            {
+              "en": "tomorrow is my birthday",
+              "pinyin": "míngtiān shì wǒ de shēngrì",
+              "hanzi": "明天是我的生日"
+            },
+            {
+              "en": "see you tomorrow",
+              "pinyin": "míngtiān jiàn",
+              "hanzi": "明天见"
+            }
+          ]
+        },
+        {
+          "hanzi": "的",
+          "pinyin": "de",
+          "en": "'s (shows it belongs to someone)",
+          "emoji": "🔗",
+          "phrases": [
+            {
+              "en": "my backpack",
+              "pinyin": "wǒ de shūbāo",
+              "hanzi": "我的书包"
+            },
+            {
+              "en": "mom's birthday",
+              "pinyin": "māma de shēngrì",
+              "hanzi": "妈妈的生日"
+            }
+          ]
+        },
+        {
+          "hanzi": "小天",
+          "pinyin": "Xiǎotiān",
+          "en": "Xiaotian (a name)",
+          "emoji": "👦"
+        }
+      ]
     }
   ],
   "tagMap": {
@@ -2425,6 +2492,9 @@
     ],
     "datenums": [
       "date-numbers"
+    ],
+    "bday": [
+      "birthday-date"
     ]
   },
   "sentences": [
@@ -4263,6 +4333,48 @@
       "pinyin": "Wǒ yǒu èrshí zhī bǐ.",
       "hanzi": "我有二十支笔。",
       "tag": "datenums"
+    },
+    {
+      "en": "What date is Xiaotian's birthday?",
+      "pinyin": "Xiǎotiān de shēngrì shì jǐ yuè jǐ hào?",
+      "hanzi": "小天的生日是几月几号？",
+      "tag": "bday"
+    },
+    {
+      "en": "August 8th.",
+      "pinyin": "Bā yuè bā hào.",
+      "hanzi": "八月八号。",
+      "tag": "bday"
+    },
+    {
+      "en": "Tomorrow is Xiaotian's birthday.",
+      "pinyin": "Míngtiān shì Xiǎotiān de shēngrì.",
+      "hanzi": "明天是小天的生日。",
+      "tag": "bday"
+    },
+    {
+      "en": "What date is your birthday?",
+      "pinyin": "Nǐ de shēngrì shì jǐ yuè jǐ hào?",
+      "hanzi": "你的生日是几月几号？",
+      "tag": "bday"
+    },
+    {
+      "en": "My birthday is March 15th.",
+      "pinyin": "Wǒ de shēngrì shì sān yuè shíwǔ hào.",
+      "hanzi": "我的生日是三月十五号。",
+      "tag": "bday"
+    },
+    {
+      "en": "Tomorrow is my mom's birthday.",
+      "pinyin": "Míngtiān shì wǒ māma de shēngrì.",
+      "hanzi": "明天是我妈妈的生日。",
+      "tag": "bday"
+    },
+    {
+      "en": "What's the date today?",
+      "pinyin": "Jīntiān jǐ yuè jǐ hào?",
+      "hanzi": "今天几月几号？",
+      "tag": "bday"
     }
   ]
 }
