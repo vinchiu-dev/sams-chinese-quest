@@ -107,6 +107,16 @@
       white-space: nowrap;
     }
     .banner-btn:hover { background: #eef6fb; }
+    .banner-chip {
+      display: inline-block;
+      margin-left: 0.35rem;
+      padding: 0.12rem 0.45rem;
+      border-radius: 999px;
+      background: #e8f6ee;
+      color: #1a6b3c;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
 
     .rev-link {
       appearance: none;
@@ -1269,7 +1279,7 @@
         <h2 id="add-title">Add event</h2>
         <button type="button" class="add-close" id="btn-add-x" aria-label="Close">×</button>
       </div>
-      <p class="add-sub">Creates a card on the board. Also copies a Sheet row so every device stays in sync.</p>
+      <p class="add-sub">Creates a card on the board and syncs to GitHub so every device stays in sync.</p>
       <div class="field">
         <label for="add-name">Guest / contact name *</label>
         <input id="add-name" autocomplete="name" required />
@@ -1374,6 +1384,6 @@
   })();
   </script>
 
-  <script src="app.js?v=20260915-gads-ui"></script>
+  <script src="app.js?v=20260915-ghsync"></script>
 </body>
 </html>

@@ -1,97 +1,56 @@
-# Blue Coast Events CRM — CoS sync
+# Blue Coast Events CRM — multi-device sync
 
 **Live:** https://vinchiu-dev.github.io/sams-chinese-quest/bc-events-crm/  
-**FO Shared Sheet:** https://docs.google.com/spreadsheets/d/1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y/edit  
-**Repo folder:** `bc-events-crm/`
+**Repo folder:** `bc-events-crm/`  
+**Canonical board file:** `bc-events-crm/leads.json`
 
-**Canonical Sheet (2026-09-09):** https://docs.google.com/spreadsheets/d/1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y/edit — full 16 leads. Sheet is source of truth; drawer Save POSTs to Apps Script when `fo_sheet_write_url` is set; Refresh loads Sheet CSV; localStorage drafts are fallback only.
-## Architecture (static GitHub Pages)
+## Architecture (GitHub Contents API — same as Sam’s Chinese Quest)
 
-1. **FO Shared Sheet** — **source of truth** for the ledger + FO overlays: `stage`, `marketing_channel`, `revenue_php`, `fo_notes`, `lost_reason`, `last_updated`, `editor` keyed by `lead_id`.
-2. **Drawer Save → Apps Script write-back** — when `config.json` → `fo_sheet_write_url` is set, Save POSTs FO fields to `scripts/SheetWriteback.gs` (deployed web app). Script upserts by `lead_id` and **only overwrites fields present in the POST** (never blanks omitted columns). On success the page toasts sync + **Refresh from Sheet** so Sheet CSV wins for all viewers.
-3. **Refresh / CSV load** — page prefers `fo_sheet_csv_url` (Sheet export), then `synced-ledger.csv` / `fo-overlay.csv` mirrors, then `leads.json`.
-4. **Local drafts** (`localStorage` `bc-events-crm-draft-v2`) — fallback for instant UI when write URL is empty or POST fails. Cleared by **Refresh from Sheet** / Clear local drafts. Not multi-device.
-5. **`leads.json`** — seeded pipeline (Gmail EVENT INQUIRY, email RFQs, etc.). CoS republishes after inbox ingest.
+No Apps Script. No per-device setup. The CRM page uses the **GitHub Contents API** to read/write `bc-events-crm/leads.json`, reusing the same obfuscated `_GH_DEFAULTS` token pattern as `/index.html` (Sam progress.json sync).
 
-Merge order in `app.js`: Sheet CSV / mirror / `leads.json` base ← optional this-session drafts (only when Save applied them).
+1. **On load** — `GET /repos/{owner}/{repo}/contents/bc-events-crm/leads.json` with the token → use that JSON as `baseLeads`, store `sha`.
+2. **Fallback chain** if the API fails — static `leads.json` (Pages CDN) → `synced-ledger.csv` → Sheet CSV (only if `config.fo_sheet_csv_url` is set). Prefer GitHub live data over Sheet; Sheet is optional backup only.
+3. **On Save / Remove / Add event / drag stage change** — update in-memory leads, rebuild full `leads.json` payload (`title`, `stages`, `leads`, `marketing_channels`, etc.), `PUT` with `sha` and message `Update BC Events CRM board`.
+4. **409 conflict** — pull remote, merge by lead `id` (prefer newer `last_updated`), retry once.
+5. **Soft-delete** — `stage=deleted` is written into `leads.json` so every device hides the card after refresh.
+6. **Auto-refresh** — every ~60s and on `visibilitychange`; **skipped while the drawer is open** so in-progress edits are not wiped.
+7. **Toasts** — `Synced` / `Sync failed`. Never `window.open` the Sheet.
+8. **Banner** — optional chip **Synced via GitHub** when the last pull/push succeeded.
 
-### Deploy write-back (CoS / Vin)
+`config.json`:
+- `fo_sheet_write_url` = `""` (Apps Script path abandoned)
+- `fo_sheet_csv_url` = `""` (Sheet not used for the live board)
 
-Paste the Apps Script web app URL into `config.json` → `fo_sheet_write_url` after deploy. Leave `""` until then. Steps: **[scripts/DEPLOY-WRITEBACK.md](./scripts/DEPLOY-WRITEBACK.md)**.
+## How FO works the board
 
-### One-time Sheet share (for live CSV fetch)
+1. Open the CRM → click a lead (or **+ Add event**).
+2. Edit stage / channel / FO notes / revenue / lost reason → **Save**.
+3. Or drag the ⋮⋮ handle to change stage.
+4. Toast **Synced** means `leads.json` was written on GitHub; other devices pick it up on refresh / ~60s poll.
+5. **Remove from board** (password) soft-deletes (`stage=deleted`) and syncs so all devices hide the card.
 
-In Google Sheets: **Share → Anyone with the link → Viewer** (or Editor for FO).  
-Then the page can hit `config.json` → `fo_sheet_csv_url` (export CSV). Until shared, Refresh still loads `synced-ledger.csv` / `fo-overlay.csv`.
+## CoS ingest (still useful)
 
-Optional: **File → Share → Publish to web** (CSV) and paste that URL into `config.json` `fo_sheet_csv_url`.
+Gmail EVENT INQUIRY / RFQ ingest can still upsert into `bc-events-crm/leads.json` via CoS commit, or FO can add from the UI (GitHub sync). Prefer not inventing `revenue_php`.
 
-## How FO enters revenue
+| Source | How |
+|--------|-----|
+| **Gmail EVENT INQUIRY** | Upsert into `leads.json` (stable `id`) or FO Add event |
+| **Gov / agency RFQ** | `marketing_channel=Gov RFQ / email` |
+| **Messenger** | FO pastes notes; channel **Messenger** |
+| **Cloudbeds** | Only confirmed group totals; never invent revenue |
 
-1. Open the CRM → click a lead → set **Stage = Won**.
-2. Enter **Won revenue (₱)** = confirmed total event/group revenue (never invent; nightly rate alone is not enough).
-3. Set **Marketing channel** (Google Ads, Messenger, etc.).
-4. Click **Save** → local draft updates the chart immediately; if write-back is deployed, POST upserts the Shared Sheet and Refresh reloads Sheet CSV for all devices.
-5. If write URL is empty or sync fails: toast says **Saved on this board** (sync pending) — UI does **not** open the Sheet. CoS / write-back handles durable sync.
+## Google Ads attribution
 
-Preferred durable path: Drawer Save → Apps Script → Shared Sheet (or edit Sheet directly). CoS morning sync still republishes Sheet → `fo-overlay.csv` / `synced-ledger.csv` (+ optional `leads.json` merge) → push `main` as a CDN fallback.
-
-## CoS ingest sources
-
-| Source | How to pull | Map into CRM |
-|--------|-------------|--------------|
-| **Gmail EVENT INQUIRY** | Gmail connector: subject/body contains `EVENT INQUIRY` / contact form; Blue Coast label / stay@ | New lead or update by email; `source_badge=Form` or Email; channel from UTMs else `Website form (unknown)` |
-| **Gov / agency RFQ email** | Gmail search RFQ / BAC / DepEd / IOM / DSWD / DOJ | `marketing_channel=Gov RFQ / email`; stage new/quoted |
-| **Messenger** | No Meta API in CoS today — FO pastes thread summary into drawer **FO notes** or Sheet `fo_notes`; set channel **Messenger** | Until Page inbox API: manual FO / Vin paste |
-| **Cloudbeds** | Inbox rarely has *group/event* booking mail (mostly individual reservations + invoices). Check Cloudbeds dashboard **Groups / Blocks** if FO has login; do not invent revenue from marketing mail | If group booking confirmed: lead `stage=won`, channel as known, `revenue_php` only when FO/ops confirm total ₱ |
-
-**Rule:** Never invent `revenue_php`. Prefer FO-entered values. Fixerink Sep stay is **Won** with revenue blank until FO confirms total (nightly ₱8,500 is a rate hint only).
-
-## Weekday morning sync routine (ready prompt for CoS)
-
-> **BC Events CRM — weekday morning sync (Mon–Fri ~08:30 America/New_York)**  
-> 1. Gmail (`vin.chiu@gmail.com`): search last 24–48h for EVENT INQUIRY, contact form, RFQ/BAC event bids, Fixerink/group stay threads. Upsert into `bc-events-crm/leads.json` (stable `id` when possible).  
-> 2. Download **BC Events CRM — synced ledger** Sheet (Drive connector `read_file_content` or export CSV) → write `bc-events-crm/fo-overlay.csv` with headers: `lead_id,name,org,stage,marketing_channel,revenue_php,fo_notes,lost_reason,last_updated,editor`.  
-> 3. Optionally merge FO Sheet fields into matching `leads.json` rows (do not overwrite FO blanks over known seed notes; never invent revenue).  
-> 4. Scan for Cloudbeds **group** confirmations only; note gaps in SEED-SUMMARY if none.  
-> 5. Messenger: if Vin/FO left notes in Sheet or chat, apply channel=Messenger + notes.  
-> 6. Commit + push `main` so GitHub Pages updates. Report: new leads, revenue chart totals, Sheet URL, remaining Cloudbeds/Messenger gaps.  
-> 7. Run `python3 bc-events-crm/scripts/merge_fo_overlay.py` if present.
-
-Cadence: **weekday mornings**. Skip inventing revenue. Prefer FO Sheet values for stage/channel/revenue.
-
-## Local merge helper
-
-```bash
-# After saving Sheet export as /tmp/fo-ledger.csv:
-python3 bc-events-crm/scripts/merge_fo_overlay.py /tmp/fo-ledger.csv
-```
-
-Writes `fo-overlay.csv` and optionally patches `leads.json` FO fields.
-
-## Remaining gaps
-
-- **Cloudbeds:** no reliable event-booking email feed; needs dashboard access or webhook.
-- **Messenger:** no automated Page inbox connector; FO/Vin paste required.
-- **Apps Script POST from drawer:** source ready at `scripts/SheetWriteback.gs` — deploy web app + set `fo_sheet_write_url` (see `scripts/DEPLOY-WRITEBACK.md`). Until then Sheet edit + CoS republish remains the durable path.
-
-## Google Ads attribution (required for ad ROI)
-
-1. Ads final URL / suffix must include: `utm_source=google&utm_medium=cpc&utm_campaign=bc-events`
-2. Formidable notification email for EVENT INQUIRY must include UTM fields (and gclid if present) as rows — not only Name/Phone/Email.
-3. CRM sync maps `utm_source=google` + `utm_medium=cpc|paid` (or gclid) → `marketing_channel=Google Ads`.
-4. Insights pie still counts **Won** ₱ where channel is Google Ads (FO enters amount on each card). The top-of-page Google Ads revenue **strip was removed** (Vin UI pref).
-5. Cards with `marketing_channel=Google Ads` show a compact yellow ★ Google Ads badge.
-6. **CoS alerts Vin** on new Google Ads leads and Won Google Ads revenue (Sheet is invisible backend only — CRM UI must **not** open or link FO/Vin to the Shared Sheet).
-
-Without (1)+(2), form leads stay `Website form (unknown)` and cannot prove ad ROI.
-
-### Vin UI prefs (2026-09-15)
-
-- Google Ads highlight strip removed from header.
-- Shared Sheet is backend-only: no `window.open` to Sheet on delete / save failure / copy-row; banner has no Sheet link.
-- Google Ads cards use yellow ★ badge; CoS (not the strip) surfaces Ads ROI to Vin.
+1. Ads final URL / suffix: `utm_source=google&utm_medium=cpc&utm_campaign=bc-events`
+2. Formidable EVENT INQUIRY mail must include UTM fields (and gclid if present).
+3. Map `utm_source=google` + `utm_medium=cpc|paid` (or gclid) → `marketing_channel=Google Ads`.
+4. Cards with Google Ads show a yellow ★ badge. Shared Sheet is backend-only if used — CRM UI must **not** open or link to the Sheet.
 
 ## Password-gated remove (Vin only)
 
-Drawer **Remove from board** asks for a password (SHA-256 stored in `config.json` as `delete_password_sha256` — never plaintext in repo). On success the lead is soft-deleted (`stage=deleted` in local draft overlay; optional Sheet write-back POSTs the same stage when `fo_sheet_write_url` is set). Deleted leads are hidden from the board, Insights pie, and filters — not shown as a column. FO cannot remove freely without the password.
+Drawer **Remove from board** asks for a password (SHA-256 in `config.json` → `delete_password_sha256`). Soft-delete persists via GitHub so all devices hide the card.
+
+## Abandoned path
+
+Apps Script write-back (`scripts/SheetWriteback.gs`, `fo_sheet_write_url`) is **not** required and should stay empty. Optional Sheet CSV is last-resort fallback only.

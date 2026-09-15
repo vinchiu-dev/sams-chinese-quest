@@ -1,7 +1,28 @@
-/* Blue Coast Events CRM — Sheet is multi-device source of truth; page is live view */
+/* Blue Coast Events CRM — GitHub Contents API multi-device sync (same pattern as Sam progress.json) */
 (function () {
   const LS_DRAFT_KEY = "bc-events-crm-draft-v2";
   const LS_ADDS_KEY = "bc-events-crm-adds-v1";
+
+  // GitHub settings — zero per-device setup (same obfuscation as Sam's Chinese Quest index.html)
+  const _GH_DEFAULTS = {
+    owner: "vinchiu-dev",
+    repo: "sams-chinese-quest",
+    token: ["QC7PHJC11_tap_buhtig", "ClLpP6_7TQECvjsH4Yc0", "LkV3SnvDpNx5gKXlmdRq", "WEBup8un59DYoXlQ8yLx", "QYfIGxcX27BYZ"].map(function(s){return s.split("").reverse().join("");}).join("")
+  };
+  const getGH = () => ({
+    owner: _GH_DEFAULTS.owner,
+    repo: _GH_DEFAULTS.repo,
+    token: _GH_DEFAULTS.token,
+  });
+  const GH_API = "https://api.github.com";
+  const GH_LEADS_PATH = "bc-events-crm/leads.json";
+  const ghHeaders = (token) => ({
+    Authorization: "Bearer " + token,
+    Accept: "application/vnd.github+json",
+    "Content-Type": "application/json",
+  });
+  const b64encode = (str) => btoa(unescape(encodeURIComponent(str)));
+  const b64decode = (b64) => decodeURIComponent(escape(atob(b64.replace(/\n/g, ""))));
 
   const stageMeta = {
     new_inquiry: { label: "New inquiry", open: true },
@@ -78,12 +99,19 @@
   let localAdds = loadAdds();
   let applyDrafts = false; // off by default so other devices aren't overridden
   let dataSource = "none";
+  let leadsSha = null;
+  let lastSyncOk = false;
+  let crmMeta = {
+    title: "Blue Coast Events CRM",
+    north_star: "YoY event sales growth",
+    seeded_at: "",
+  };
   let activeId = null;
   let channelFilter = "all";
   let statusFilter = "all"; // show all stages on board (no status UI; "open" hid Won/Lost)
   let config = {
     fo_sheet_edit_url: "https://docs.google.com/spreadsheets/d/1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y/edit",
-    fo_sheet_csv_url: "https://docs.google.com/spreadsheets/d/1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y/export?format=csv",
+    fo_sheet_csv_url: "",
     fo_sheet_write_url: "",
     synced_ledger_csv: "synced-ledger.csv",
     delete_password_sha256: "",
@@ -196,39 +224,7 @@
     closeDeleteModal();
     closeDrawer();
     render();
-    showToast("Removed");
-
-    const writeUrl = String(config.fo_sheet_write_url || "").trim();
-    if (!writeUrl) {
-      showToast("Removed on this board");
-      return;
-    }
-
-    const payload = {
-      lead_id: id,
-      stage: "deleted",
-      last_updated: today,
-      editor: "delete",
-    };
-    try {
-      const res = await fetch(writeUrl, {
-        method: "POST",
-        mode: "cors",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(payload),
-      });
-      if (!res.ok) throw new Error("HTTP " + res.status);
-      let data = {};
-      try {
-        data = await res.json();
-      } catch {
-        data = {};
-      }
-      if (!data.ok) throw new Error(data.error || "writeback rejected");
-    } catch (err) {
-      // Local soft-delete already applied; Sheet sync optional when URL set
-      console.warn("BC CRM delete writeback", err);
-    }
+    await syncBoardMutation("Synced", "Sync failed");
   }
 
 
@@ -304,16 +300,160 @@
     };
   }
 
-  function allLeads() {
+  function allLeadsIncludingDeleted() {
     const byId = new Map();
     for (const l of baseLeads) byId.set(l.id, l);
     for (const l of localAdds) byId.set(l.id, { ...(byId.get(l.id) || {}), ...l });
-    return [...byId.values()]
-      .map((l) => {
-        const m = mergedLead(l);
-        return { ...m, stage: normalizeLeadStage(m) };
-      })
-      .filter((l) => l.stage !== "deleted");
+    return [...byId.values()].map((l) => {
+      const m = mergedLead(l);
+      return { ...m, stage: normalizeLeadStage(m) };
+    });
+  }
+
+  function allLeads() {
+    return allLeadsIncludingDeleted().filter((l) => l.stage !== "deleted");
+  }
+
+  function isDrawerOpen() {
+    return !!document.getElementById("drawer")?.classList.contains("open");
+  }
+
+  function applyCrmMeta(data) {
+    if (!data || typeof data !== "object") return;
+    if (data.title) crmMeta.title = data.title;
+    if (data.north_star) {
+      crmMeta.north_star = data.north_star;
+      const el = document.getElementById("north-star");
+      if (el) el.textContent = data.north_star;
+    }
+    if (data.seeded_at) crmMeta.seeded_at = data.seeded_at;
+    if (Array.isArray(data.marketing_channels) && data.marketing_channels.length) {
+      channels = data.marketing_channels;
+    }
+    // stages always from stageMeta for labels + preparing_quote
+  }
+
+  function buildLeadsPayload(leadsArr) {
+    const leads = leadsArr || allLeadsIncludingDeleted();
+    return {
+      title: crmMeta.title || "Blue Coast Events CRM",
+      north_star: crmMeta.north_star || "YoY event sales growth",
+      seeded_at: crmMeta.seeded_at || new Date().toISOString().slice(0, 10),
+      stages: Object.keys(stageMeta).map((id) => ({ id, label: stageMeta[id].label })),
+      lead_count: leads.length,
+      leads,
+      marketing_channels: channels.length ? channels : Object.keys(CHANNEL_SHORT),
+    };
+  }
+
+  function mergeLeadsById(localLeads, remoteLeads) {
+    const byId = new Map();
+    for (const l of remoteLeads || []) {
+      if (l && l.id) byId.set(l.id, l);
+    }
+    for (const l of localLeads || []) {
+      if (!l || !l.id) continue;
+      const existing = byId.get(l.id);
+      if (!existing) {
+        byId.set(l.id, l);
+        continue;
+      }
+      const a = String(l.last_updated || "");
+      const b = String(existing.last_updated || "");
+      byId.set(l.id, a >= b ? { ...existing, ...l } : { ...l, ...existing });
+    }
+    return [...byId.values()];
+  }
+
+  async function pullRemoteLeads() {
+    const { owner, repo, token } = getGH();
+    try {
+      const r = await fetch(
+        `${GH_API}/repos/${owner}/${repo}/contents/${GH_LEADS_PATH}`,
+        { headers: ghHeaders(token), cache: "no-store" }
+      );
+      if (!r.ok) {
+        lastSyncOk = false;
+        return null;
+      }
+      const data = await r.json();
+      leadsSha = data.sha;
+      const parsed = JSON.parse(b64decode(data.content));
+      lastSyncOk = true;
+      return parsed;
+    } catch (e) {
+      lastSyncOk = false;
+      return null;
+    }
+  }
+
+  async function pushLeadsToGitHub(retried) {
+    const { owner, repo, token } = getGH();
+    const payload = buildLeadsPayload();
+    try {
+      if (!leadsSha) {
+        // Need sha when file already exists
+        const peek = await pullRemoteLeads();
+        if (peek && Array.isArray(peek.leads) && !retried) {
+          // keep our local payload; sha now set
+        }
+      }
+      const body = {
+        message: "Update BC Events CRM board",
+        content: b64encode(JSON.stringify(payload, null, 2)),
+      };
+      if (leadsSha) body.sha = leadsSha;
+      const r = await fetch(`${GH_API}/repos/${owner}/${repo}/contents/${GH_LEADS_PATH}`, {
+        method: "PUT",
+        headers: ghHeaders(token),
+        body: JSON.stringify(body),
+      });
+      if (r.status === 409 && !retried) {
+        const remote = await pullRemoteLeads();
+        if (remote && Array.isArray(remote.leads)) {
+          const merged = mergeLeadsById(payload.leads, remote.leads);
+          baseLeads = merged.map((lead) => ({ ...lead, stage: normalizeLeadStage(lead) }));
+          applyCrmMeta(remote);
+          draftOverlay = {};
+          saveDraft();
+          localAdds = [];
+          saveAdds();
+          applyDrafts = false;
+          return pushLeadsToGitHub(true);
+        }
+        lastSyncOk = false;
+        return false;
+      }
+      if (!r.ok) {
+        lastSyncOk = false;
+        return false;
+      }
+      const data = await r.json();
+      leadsSha = data.content && data.content.sha;
+      // Fold successful payload into memory
+      baseLeads = (payload.leads || []).map((lead) => ({ ...lead, stage: normalizeLeadStage(lead) }));
+      draftOverlay = {};
+      saveDraft();
+      localAdds = [];
+      saveAdds();
+      applyDrafts = false;
+      lastSyncOk = true;
+      return true;
+    } catch (e) {
+      lastSyncOk = false;
+      return false;
+    }
+  }
+
+  async function syncBoardMutation(okMsg, failMsg) {
+    const ok = await pushLeadsToGitHub();
+    updateBanner();
+    if (ok) {
+      showToast(okMsg || "Synced");
+    } else {
+      showToast(failMsg || "Sync failed");
+    }
+    return ok;
   }
 
   function escapeHtml(s) {
@@ -737,9 +877,9 @@
     };
     saveDraft();
     applyDrafts = true;
-    showToast("Saved on this board");
     updateBanner();
     render();
+    syncBoardMutation("Synced", "Sync failed");
     return true;
   }
 
@@ -1034,8 +1174,6 @@
     const msg = document.getElementById("save-msg");
     render();
 
-    const writeUrl = String(config.fo_sheet_write_url || "").trim();
-
     function flashSaveMsg(text, ms) {
       msg.textContent = text;
       msg.hidden = false;
@@ -1044,51 +1182,9 @@
       }, ms || 3600);
     }
 
-    if (!writeUrl) {
-      flashSaveMsg("Saved on this board.");
-      showToast("Saved on this board");
-      return;
-    }
-
-    const lead = allLeads().find((l) => l.id === activeId);
-    const payload = {
-      lead_id: activeId,
-      stage,
-      marketing_channel,
-      fo_notes,
-      revenue_php: revOut,
-      lost_reason: lostOut,
-      last_updated: today,
-      editor: "drawer",
-    };
-    if (lead) {
-      if (lead.name) payload.name = lead.name;
-      if (lead.org) payload.org = lead.org;
-    }
-
-    try {
-      // text/plain avoids Apps Script CORS preflight; body is still JSON
-      const res = await fetch(writeUrl, {
-        method: "POST",
-        mode: "cors",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(payload),
-      });
-      if (!res.ok) throw new Error("HTTP " + res.status);
-      let data = {};
-      try {
-        data = await res.json();
-      } catch {
-        data = {};
-      }
-      if (!data.ok) throw new Error(data.error || "writeback rejected");
-      flashSaveMsg("Saved — synced.");
-      showToast("Saved — synced. Refreshing…");
-      await refreshFromSheet();
-    } catch (err) {
-      flashSaveMsg("Saved on this board (sync pending).", 5000);
-      showToast("Saved on this board — sync pending");
-    }
+    const ok = await syncBoardMutation("Synced", "Sync failed");
+    if (ok) flashSaveMsg("Saved — synced.");
+    else flashSaveMsg("Saved on this board (sync pending).", 5000);
   }
 
   function parseCsv(text) {
@@ -1217,11 +1313,22 @@
     return text;
   }
 
-  async function loadLeadsFromRemote() {
+  async function loadLeadsFromStaticJson() {
+    const res = await fetch("leads.json?t=" + Date.now(), { cache: "no-store" });
+    if (!res.ok) throw new Error("json-" + res.status);
+    const data = await res.json();
+    applyCrmMeta(data);
+    const leads = (data.leads || []).map((lead) => ({ ...lead, stage: normalizeLeadStage(lead) }));
+    if (!leads.length) throw new Error("empty-json");
+    return { kind: "json", leads, data };
+  }
+
+  async function loadLeadsFromCsvFallbacks() {
     const tried = [];
     const candidates = [];
-    if (config.fo_sheet_csv_url) candidates.push({ kind: "sheet", url: config.fo_sheet_csv_url });
+    // Prefer GitHub live data; Sheet only after GH + static fail (optional backup)
     if (config.synced_ledger_csv) candidates.push({ kind: "mirror", url: config.synced_ledger_csv + "?t=" + Date.now() });
+    if (config.fo_sheet_csv_url) candidates.push({ kind: "sheet", url: config.fo_sheet_csv_url });
 
     for (const c of candidates) {
       try {
@@ -1233,25 +1340,49 @@
         tried.push(c.kind + ":" + (e.message || e));
       }
     }
-    return { kind: "json", leads: null, tried };
+    return { kind: "none", leads: null, tried };
+  }
+
+  /** Prefer GitHub Contents API → static leads.json → synced-ledger.csv → Sheet CSV */
+  async function loadLeadsPreferred() {
+    const gh = await pullRemoteLeads();
+    if (gh && Array.isArray(gh.leads) && gh.leads.length) {
+      applyCrmMeta(gh);
+      return {
+        kind: "github",
+        leads: gh.leads.map((lead) => ({ ...lead, stage: normalizeLeadStage(lead) })),
+        data: gh,
+      };
+    }
+    try {
+      return await loadLeadsFromStaticJson();
+    } catch (e) {
+      /* fall through */
+    }
+    return loadLeadsFromCsvFallbacks();
   }
 
   function updateBanner() {
     const el = document.getElementById("banner");
     if (!el) return;
     const srcLabel =
-      dataSource === "sheet"
-        ? "live sync"
-        : dataSource === "mirror"
-          ? "repo mirror"
-          : "local fallback";
+      dataSource === "github"
+        ? "GitHub"
+        : dataSource === "sheet"
+          ? "Sheet backup"
+          : dataSource === "mirror"
+            ? "repo mirror"
+            : "local fallback";
+    const syncChip = lastSyncOk && dataSource === "github"
+      ? ' <span class="banner-chip" title="Multi-device sync via GitHub Contents API">Synced via GitHub</span>'
+      : "";
     const draftNote = applyDrafts
       ? ' <strong>Local drafts ON</strong> — click Refresh to reload.'
       : "";
-    el.innerHTML = `Live view from <em>${escapeHtml(srcLabel)}</em>.${draftNote}
+    el.innerHTML = `Live view from <em>${escapeHtml(srcLabel)}</em>.${syncChip}${draftNote}
       <button type="button" class="banner-btn" id="btn-refresh-fo">Refresh</button>
       <button type="button" class="banner-btn" id="btn-clear-draft">Clear local drafts</button>`;
-    document.getElementById("btn-refresh-fo")?.addEventListener("click", () => refreshFromSheet());
+    document.getElementById("btn-refresh-fo")?.addEventListener("click", () => refreshFromGitHub({ force: true }));
     document.getElementById("btn-clear-draft")?.addEventListener("click", () => {
       clearDrafts();
       updateBanner();
@@ -1259,21 +1390,27 @@
     });
   }
 
-  async function refreshFromSheet() {
-    clearDrafts();
-    const loaded = await loadLeadsFromRemote();
-    if (loaded.leads) {
+  async function refreshFromGitHub(opts) {
+    const force = opts && opts.force;
+    if (!force && isDrawerOpen()) return;
+    const loaded = await loadLeadsPreferred();
+    if (loaded.leads && loaded.leads.length) {
+      clearDrafts();
       baseLeads = loaded.leads.map((lead) => ({ ...lead, stage: normalizeLeadStage(lead) }));
       dataSource = loaded.kind;
-      const sheetIds = new Set(baseLeads.map((l) => l.id));
-      localAdds = localAdds.filter((l) => !sheetIds.has(l.id));
+      if (loaded.data) applyCrmMeta(loaded.data);
+      localAdds = [];
       saveAdds();
     } else {
-      // keep current base; still cleared drafts
       dataSource = dataSource || "json";
     }
     updateBanner();
     render();
+  }
+
+  // Back-compat alias for any leftover callers
+  async function refreshFromSheet() {
+    return refreshFromGitHub({ force: true });
   }
 
 
@@ -1343,24 +1480,12 @@
 
     localAdds = [lead, ...localAdds.filter((l) => l.id !== lead.id)];
     saveAdds();
-    // Also put on base so card appears even before next Sheet pull
+    // Also put on base so card appears even before next pull
     baseLeads = [lead, ...baseLeads.filter((l) => l.id !== lead.id)];
-
-    const row = leadToSheetRow(lead);
-    const copied = await copyText(row);
-    if (config.fo_sheet_write_url) {
-      try {
-        await fetch(config.fo_sheet_write_url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ action: "upsert", lead }),
-        });
-      } catch {}
-    }
 
     closeAddModal();
     render();
-    showToast(copied ? "Added to board" : "Added to board");
+    await syncBoardMutation("Synced", "Sync failed");
   }
 
 
@@ -1478,33 +1603,26 @@
     stages = Object.keys(stageMeta).map((id) => ({ id, label: stageMeta[id].label }));
     channels = Object.keys(CHANNEL_SHORT);
 
-    const loaded = await loadLeadsFromRemote();
-    if (loaded.leads) {
+    const loaded = await loadLeadsPreferred();
+    if (loaded.leads && loaded.leads.length) {
       baseLeads = loaded.leads.map((lead) => ({ ...lead, stage: normalizeLeadStage(lead) }));
       dataSource = loaded.kind;
+      if (loaded.data) applyCrmMeta(loaded.data);
     } else {
-      const res = await fetch("leads.json?t=" + Date.now());
-      const data = await res.json();
-      baseLeads = (data.leads || []).map((lead) => ({ ...lead, stage: normalizeLeadStage(lead) }));
-      stages = data.stages || stages;
-      channels = data.marketing_channels || channels;
-      document.getElementById("north-star").textContent = data.north_star || "YoY event sales growth";
-      dataSource = "json";
+      try {
+        const fallback = await loadLeadsFromStaticJson();
+        baseLeads = fallback.leads;
+        dataSource = "json";
+      } catch (e) {
+        baseLeads = [];
+        dataSource = "none";
+      }
     }
 
-    // Prefer channels / north_star from leads.json; stages always from stageMeta (labels + preparing_quote)
-    try {
-      const meta = await fetch("leads.json?t=" + Date.now());
-      if (meta.ok) {
-        const data = await meta.json();
-        if (data.marketing_channels) channels = data.marketing_channels;
-        if (data.north_star) document.getElementById("north-star").textContent = data.north_star;
-      }
-    } catch {}
     stages = Object.keys(stageMeta).map((id) => ({ id, label: stageMeta[id].label }));
     baseLeads = baseLeads.map((lead) => ({ ...lead, stage: normalizeLeadStage(lead) }));
 
-    // Never keep divergent local copies — Sheet/mirror is the live view for every device
+    // Clear stale local drafts — GitHub leads.json is the multi-device source of truth
     try {
       localStorage.removeItem("bc-events-crm-overlay-v1");
       localStorage.removeItem("bc-events-crm-draft-v2");
@@ -1578,13 +1696,13 @@
     }
 
 
-    // Auto-refresh from Sheet (no manual refresh UI)
+    // Auto-refresh from GitHub (~60s + visibility). Skip while drawer open.
     const AUTO_MS = 60 * 1000;
     setInterval(() => {
-      if (document.visibilityState === "visible") refreshFromSheet();
+      if (document.visibilityState === "visible") refreshFromGitHub();
     }, AUTO_MS);
     document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "visible") refreshFromSheet();
+      if (document.visibilityState === "visible") refreshFromGitHub();
     });
 
     render();

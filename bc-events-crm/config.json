@@ -2,10 +2,10 @@
   "fo_sheet_title": "BC Events CRM \u2014 synced ledger",
   "fo_sheet_id": "1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y",
   "fo_sheet_edit_url": "https://docs.google.com/spreadsheets/d/1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y/edit",
-  "fo_sheet_csv_url": "https://docs.google.com/spreadsheets/d/1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y/export?format=csv",
+  "fo_sheet_csv_url": "",
   "fo_sheet_write_url": "",
   "synced_ledger_csv": "synced-ledger.csv",
   "fo_overlay_csv": "fo-overlay.csv",
   "delete_password_sha256": "0bba49ccff41515951fc34752f3f168768386162c89a5ff4e977ccbf542fed6a",
-  "notes": "Sheet is the multi-device source of truth. Drawer Save POSTs to fo_sheet_write_url (Apps Script) when set; Refresh loads Sheet CSV. Share Sheet as Anyone with the link \u2192 Editor so FO can edit and GH Pages can fetch CSV. Until public, page loads synced-ledger.csv mirror; CoS refresh republishes from Sheet. Leave fo_sheet_write_url empty until Apps Script is deployed \u2014 see SYNC.md / scripts/DEPLOY-WRITEBACK.md."
+  "notes": "Multi-device sync via GitHub Contents API on bc-events-crm/leads.json (same pattern as Sam progress.json). No Apps Script. fo_sheet_csv_url left empty so the board prefers GitHub; Sheet/CSV are optional fallback only after GH+static fail. fo_sheet_write_url stays empty."
 }

@@ -1,15 +1,12 @@
 # Blue Coast Events CRM
 
-**Live:** https://vinchiu-dev.github.io/sams-chinese-quest/bc-events-crm/  
-**Shared Sheet (source of truth):** https://docs.google.com/spreadsheets/d/1jDADtI5y_HMxnBS4j-scUjF9NXePoK9ybOQM7Ud0f1Y/edit
+**Live:** https://vinchiu-dev.github.io/sams-chinese-quest/bc-events-crm/
 
 ## How data syncs
 
-1. **Google Sheet** `BC Events CRM — synced ledger` is the multi-device source of truth (all leads + FO stage / channel / revenue_php / notes / lost_reason).
-2. The CRM page loads Sheet CSV first (`config.json` → `fo_sheet_csv_url`), then falls back to `synced-ledger.csv` (repo mirror), then `leads.json`.
-3. **Drawer Save** updates a local draft for instant UI, then — if `config.fo_sheet_write_url` is set — POSTs FO fields to the Apps Script web app, which upserts the Sheet by `lead_id`. On success the page refreshes from Sheet CSV so the canonical Sheet wins for all viewers. If the write URL is empty or POST fails, Save stays **local draft only** (clear with Refresh / Clear local drafts) and you should edit the Shared Sheet directly.
-4. Revenue chart recomputes from merged won + `revenue_php` by channel whenever data loads or drafts change.
+1. **`bc-events-crm/leads.json` on GitHub** is the multi-device source of truth (GitHub Contents API — same pattern as Sam’s Chinese Quest `progress.json`).
+2. On load the page pulls live `leads.json` via the API; fallback is static `leads.json` → `synced-ledger.csv` → optional Sheet CSV (only if configured).
+3. **Save / Remove / Add / drag stage** rebuilds the full CRM JSON and `PUT`s it to GitHub (with `sha`; 409 → merge by lead id + retry). Soft-deletes (`stage=deleted`) persist so all devices hide the card.
+4. Auto-refresh ~60s + on visibility (skipped while the drawer is open). Toast **Synced** / **Sync failed**. No Apps Script; no `window.open` to Sheet.
 
-Share the Sheet as **Anyone with the link → Editor** (or keep writers: `vin.chiu@gmail.com`, `stay@bluecoastbeachhotel.com`) so FO can edit and Pages can fetch CSV.
-
-Deploy write-back: **[scripts/DEPLOY-WRITEBACK.md](./scripts/DEPLOY-WRITEBACK.md)**. CoS weekday ingest: **[SYNC.md](./SYNC.md)**.
+Details: **[SYNC.md](./SYNC.md)**.
