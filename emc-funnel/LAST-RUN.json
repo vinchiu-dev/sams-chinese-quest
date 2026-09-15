@@ -1,169 +1,737 @@
 {
-  "version": "2026-09-08-notice-v2",
-  "last_run_at_et": "2026-09-08T17:01:00-04:00",
+  "version": "2026-09-15-weekly-v1",
+  "channel": "easy-massage-chair",
+  "channel_label": "Easy Massage Chair",
+  "cadence": "weekly",
+  "last_run_at_et": null,
+  "dashboard_published_url": "https://vinchiu-dev.github.io/sams-chinese-quest/emc-funnel/",
+  "dashboard_ux": "weekly-funnel-v1",
   "windows": {
-    "last_10d": {
-      "start_et": "2026-08-29",
-      "end_et": "2026-09-07"
-    },
-    "prior_10d": {
-      "start_et": "2026-08-19",
-      "end_et": "2026-08-28"
-    },
-    "yoy_10d": {
+    "last_7d": {
       "start_et": null,
       "end_et": null,
-      "pulled": false
+      "label": "Last 7d"
+    },
+    "prior_7d": {
+      "start_et": null,
+      "end_et": null,
+      "label": "Prior 7d"
+    },
+    "yoy_7d": {
+      "start_et": null,
+      "end_et": null,
+      "pulled": false,
+      "label": "YoY 7d"
+    },
+    "chart_30_50d": {
+      "start_et": null,
+      "end_et": null,
+      "days": 42,
+      "note": "Use 30–50 full ET days for line charts; default 42. Prefer YoY same-period overlay when pulled."
     }
   },
   "statuses": {
-    "tof": "Yellow",
-    "mid": "Yellow",
-    "bof": "Yellow",
-    "margin": "Unknown"
+    "traffic": "Unknown",
+    "leads": "Unknown",
+    "money": "Unknown",
+    "answer": "Unknown",
+    "context": "Unknown"
   },
-  "leak_callout": "Spend +55% vs prior 10d; Ads conv 5 vs 11; CallRail calls flat 17 vs 16; checklist sales ~$58.3k \u2192 ads 6.96% of sales (over 5%). Bid cuts applied Sep 8 \u2014 recheck Sep 9\u201312 on Sep 13. Dig Mid\u2192BOF tagging/close + spend pace.",
-  "concurrent_changes": [],
-  "tof": {
-    "ads_spend": 4061.22,
-    "ads_clicks": 5817,
-    "ads_impressions": 86054,
-    "ads_cpc": 0.7,
-    "ads_conversions": 5,
-    "ads_cost_per_conversion": 812.24,
-    "ga4_sessions": null,
-    "ga4_users": 64000,
-    "yt_watch_hours": null,
-    "yt_views": null,
-    "yt_shopping_clicks": null,
-    "deltas_vs_prior_10d": {
-      "ads_spend_pct": 54.6,
-      "ads_conversions_delta": -6,
-      "ads_cpc_delta": 0.03
-    },
-    "deltas_vs_yoy_10d": {},
-    "cos_note": "Spend +55% vs prior 10d; conversions 5 vs 11; CPC flat. Visible campaigns Search. GA4 ~64k active users last 10d (sessions/prior incomplete). Mix Aug28\u2013Sep7: Brands $2226 / PMax $31 / Static $282; account $4403.",
-    "sources_pulled": [
-      "google_ads",
-      "ga4_partial"
-    ],
-    "prior_10d": {
-      "ads_spend": 2626.47,
-      "ads_clicks": 4096,
-      "ads_impressions": 78269,
-      "ads_ctr": 5.23,
-      "ads_cpc": 0.67,
-      "ads_conversions": 11,
-      "ads_cost_per_conversion": 238.77
-    },
-    "campaign_mix_aug28_sep7": {
-      "Brands": {
-        "cost": 2226.24,
-        "clicks": 806,
-        "cpc": 2.76,
-        "conv": 0
-      },
-      "Sales-Performance Max-4-Remarketing": {
-        "cost": 31.24,
-        "clicks": 9,
-        "cpc": 3.47,
-        "conv": 5
-      },
-      "Remarketing Static": {
-        "cost": 282.43,
-        "clicks": 4489,
-        "cpc": 0.06,
-        "conv": 0
-      },
-      "account_total": {
-        "cost": 4403.09,
-        "clicks": 6280,
-        "cpc": 0.7,
-        "conv": 5
-      },
-      "note": "Clicks inferred for some rows; Brands ~half of account spend."
-    }
-  },
-  "mid": {
-    "callrail_calls": 17,
-    "callrail_qualified": null,
-    "callrail_by_source": {
-      "google_ads": 6,
-      "zendesk_chat_website": 4,
-      "google_organic": 3,
-      "safe_menlosecurity": 2,
-      "direct": 1,
-      "easymassagechairs_com": 1
-    },
-    "rc_inbound": null,
-    "rc_answered": null,
-    "rc_abandoned": null,
-    "rc_overflow_answered": null,
-    "chats": null,
-    "forms": null,
-    "ac_handled": null,
-    "ac_miss_rate_test": null,
-    "ruth_test_calls": null,
-    "ruth_test_ac_misses": null,
-    "callrail_tagging_pct": null,
-    "cos_note": "Calls flat 17 vs 16 prior while Ads spend +55%. Ads-attributed calls 6 vs 3. Tagging nearly empty (1 Existing Customer in prior; Sale Closed empty). Qualified not reliably distinct from Total.",
-    "sources_pulled": [
-      "callrail"
-    ],
-    "prior_10d": {
-      "callrail_calls": 16,
-      "callrail_by_source": {
-        "direct": 5,
-        "google_ads": 3,
-        "google_organic": 3,
-        "youtube_organic": 3,
-        "bing_organic": 1,
-        "zendesk_chat_website": 1
-      }
-    }
-  },
-  "bof": {
-    "closed_sales": 10,
-    "revenue": 58305.96,
-    "close_rate_vs_qualified": null,
-    "close_rate_vs_answered": 0.588,
-    "closer_capacity_note": null,
-    "cos_note": "Business Checklist CSV (local export ~1:10pm ET Sep 8): 10 non-cancelled Sale>0 rows Aug 29\u2013Sep 7 = $58,305.96. Ads Cost $4,061 / sales = 6.96% (over 5% ceiling; target 3\u20134%). CallRail Sale Closed empty \u2014 using checklist not Ads conv.",
-    "sources_pulled": [
-      "business_checklist_csv"
-    ],
-    "ads_pct_of_sales": 6.96
-  },
-  "margin": {
-    "preferred_pay_share": null,
-    "financing_share": null,
-    "payment_mix": {
-      "check": null,
-      "ach_bank": null,
-      "zelle": null,
-      "card": null,
-      "paypal": null,
-      "affirm_financing": null,
-      "other": null
-    },
-    "discount_exceptions": null,
-    "fee_drag_pct": null,
-    "warranty_for_check_offers_noted": null,
-    "cos_note": null,
-    "sources_pulled": []
-  },
+  "notices": [],
+  "steady_checks": [],
+  "leak_callout": null,
   "blockers": [
-    "YT Studio not pulled",
-    "RC/AC answer rates not pulled",
-    "Margin/payment mix not pulled",
-    "Checklist CSV may lag live sheet"
+    "Weekly cadence not yet run — first data pull still pending",
+    "GA4 not pulled for last 7d / prior 7d / YoY 7d",
+    "YouTube Studio views + watch hours not pulled",
+    "Google Ads not pulled for weekly windows",
+    "CallRail unique sales calls / YT phone # not pulled for weekly windows",
+    "Business Checklist sales + GP not pulled for weekly windows",
+    "RingCentral Sales EMC team-answer % during business hours not pulled",
+    "Zoho chat not pulled",
+    "Google Trends not checked this week",
+    "Tuan Google Messages not checked this week"
   ],
+  "sources_pulled": [],
   "planner_note_pasted": false,
-  "dashboard_published_url": "https://vinchiu-dev.github.io/sams-chinese-quest/emc-funnel/",
-  "dashboard_ux": "notice-first",
-  "notices": [
-    "Scale without payback: spend +55%, CallRail calls flat",
-    "Ads ~6-7% of sales over 5% ceiling; bid cuts Sep 8; recheck Sep 13",
-    "Brands ~half of spend; PMax trickle; Static cheap clicks"
-  ]
+  "traffic": {
+    "status": "Unknown",
+    "status_reason": "Not pulled — first weekly run pending.",
+    "pmax_retargeting_filtered": false,
+    "pmax_retargeting_note": "When quoting site traffic for conversion denominators, filter known low-quality PMax / remarketing Static if those streams are junk this week.",
+    "overall": {
+      "users": {
+        "last_7d": null,
+        "prior_7d": null,
+        "yoy_7d": null,
+        "wow_pct": null,
+        "yoy_pct": null,
+        "status": "Unknown",
+        "note": "GA4 active users / users. Prefer this as visitor denominator."
+      },
+      "sessions": {
+        "last_7d": null,
+        "prior_7d": null,
+        "yoy_7d": null,
+        "wow_pct": null,
+        "yoy_pct": null,
+        "status": "Unknown",
+        "note": "GA4 sessions."
+      },
+      "yt_views": {
+        "last_7d": null,
+        "prior_7d": null,
+        "yoy_7d": null,
+        "wow_pct": null,
+        "yoy_pct": null,
+        "status": "Unknown",
+        "note": "YouTube Studio views — highlight."
+      },
+      "yt_watch_hours": {
+        "last_7d": null,
+        "prior_7d": null,
+        "yoy_7d": null,
+        "wow_pct": null,
+        "yoy_pct": null,
+        "status": "Unknown",
+        "note": "YouTube Studio watch time (hours) — highlight."
+      }
+    },
+    "sources": [
+      {
+        "id": "youtube",
+        "label": "YouTube",
+        "highlight": true,
+        "sessions": {
+          "last_7d": null,
+          "prior_7d": null,
+          "yoy_7d": null,
+          "wow_pct": null,
+          "yoy_pct": null,
+          "status": "Unknown",
+          "note": null
+        },
+        "users": {
+          "last_7d": null,
+          "prior_7d": null,
+          "yoy_7d": null,
+          "wow_pct": null,
+          "yoy_pct": null,
+          "status": "Unknown",
+          "note": null
+        },
+        "views": {
+          "last_7d": null,
+          "prior_7d": null,
+          "yoy_7d": null,
+          "wow_pct": null,
+          "yoy_pct": null,
+          "status": "Unknown",
+          "note": "YT Studio views (channel), not GA4 session proxy."
+        },
+        "watch_hours": {
+          "last_7d": null,
+          "prior_7d": null,
+          "yoy_7d": null,
+          "wow_pct": null,
+          "yoy_pct": null,
+          "status": "Unknown",
+          "note": null
+        },
+        "note": null
+      },
+      {
+        "id": "google_ads",
+        "label": "Google Ads",
+        "highlight": false,
+        "sessions": {
+          "last_7d": null,
+          "prior_7d": null,
+          "yoy_7d": null,
+          "wow_pct": null,
+          "yoy_pct": null,
+          "status": "Unknown",
+          "note": "GA4 paid / Ads-attributed sessions."
+        },
+        "users": {
+          "last_7d": null,
+          "prior_7d": null,
+          "yoy_7d": null,
+          "wow_pct": null,
+          "yoy_pct": null,
+          "status": "Unknown",
+          "note": null
+        },
+        "spend": {
+          "last_7d": null,
+          "prior_7d": null,
+          "yoy_7d": null,
+          "wow_pct": null,
+          "yoy_pct": null,
+          "status": "Unknown",
+          "note": "Google Ads cost."
+        },
+        "clicks": {
+          "last_7d": null,
+          "prior_7d": null,
+          "yoy_7d": null,
+          "wow_pct": null,
+          "yoy_pct": null,
+          "status": "Unknown",
+          "note": null
+        },
+        "impressions": {
+          "last_7d": null,
+          "prior_7d": null,
+          "yoy_7d": null,
+          "wow_pct": null,
+          "yoy_pct": null,
+          "status": "Unknown",
+          "note": null
+        },
+        "cpc": {
+          "last_7d": null,
+          "prior_7d": null,
+          "yoy_7d": null,
+          "wow_pct": null,
+          "yoy_pct": null,
+          "status": "Unknown",
+          "note": null
+        },
+        "conversions": {
+          "last_7d": null,
+          "prior_7d": null,
+          "yoy_7d": null,
+          "wow_pct": null,
+          "yoy_pct": null,
+          "status": "Unknown",
+          "note": "Weak signal — do not steer on Ads conversions."
+        },
+        "note": null
+      },
+      {
+        "id": "google_organic",
+        "label": "Google Organic",
+        "highlight": false,
+        "sessions": {
+          "last_7d": null,
+          "prior_7d": null,
+          "yoy_7d": null,
+          "wow_pct": null,
+          "yoy_pct": null,
+          "status": "Unknown",
+          "note": null
+        },
+        "users": {
+          "last_7d": null,
+          "prior_7d": null,
+          "yoy_7d": null,
+          "wow_pct": null,
+          "yoy_pct": null,
+          "status": "Unknown",
+          "note": null
+        },
+        "note": null
+      },
+      {
+        "id": "direct",
+        "label": "Direct",
+        "highlight": false,
+        "sessions": {
+          "last_7d": null,
+          "prior_7d": null,
+          "yoy_7d": null,
+          "wow_pct": null,
+          "yoy_pct": null,
+          "status": "Unknown",
+          "note": null
+        },
+        "users": {
+          "last_7d": null,
+          "prior_7d": null,
+          "yoy_7d": null,
+          "wow_pct": null,
+          "yoy_pct": null,
+          "status": "Unknown",
+          "note": null
+        },
+        "note": null
+      },
+      {
+        "id": "referral_other",
+        "label": "Referral / other",
+        "highlight": false,
+        "sessions": {
+          "last_7d": null,
+          "prior_7d": null,
+          "yoy_7d": null,
+          "wow_pct": null,
+          "yoy_pct": null,
+          "status": "Unknown",
+          "note": null
+        },
+        "users": {
+          "last_7d": null,
+          "prior_7d": null,
+          "yoy_7d": null,
+          "wow_pct": null,
+          "yoy_pct": null,
+          "status": "Unknown",
+          "note": null
+        },
+        "note": "Collapse small channels here."
+      }
+    ],
+    "ads_mix": {
+      "note": "Fill when Ads is pulled. Do not copy 10-day mix into weekly slots.",
+      "brands_spend": null,
+      "pmax_spend": null,
+      "static_remarketing_spend": null,
+      "search_other_spend": null,
+      "account_spend": null
+    },
+    "series": {
+      "days": [],
+      "fields": [
+        "date",
+        "users",
+        "sessions",
+        "yt_views",
+        "yt_watch_hours",
+        "ads_clicks",
+        "organic_sessions"
+      ],
+      "day_schema_example": {
+        "date": "2026-09-01",
+        "users": null,
+        "sessions": null,
+        "yt_views": null,
+        "yt_watch_hours": null,
+        "ads_clicks": null,
+        "organic_sessions": null
+      }
+    },
+    "cos_note": null
+  },
+  "leads": {
+    "status": "Unknown",
+    "status_reason": "Not pulled — first weekly run pending.",
+    "pmax_retargeting_filtered": false,
+    "unique_sales_calls": {
+      "last_7d": null,
+      "prior_7d": null,
+      "yoy_7d": null,
+      "wow_pct": null,
+      "yoy_pct": null,
+      "status": "Unknown",
+      "note": "CallRail unique / thumbs-up sales calls. Null if tagging too thin to trust uniqueness."
+    },
+    "callrail_calls_raw": {
+      "last_7d": null,
+      "prior_7d": null,
+      "yoy_7d": null,
+      "wow_pct": null,
+      "yoy_pct": null,
+      "status": "Unknown",
+      "note": "Total CallRail inbound in window, if unique is distinct."
+    },
+    "calls_per_visitor": {
+      "last_7d": null,
+      "prior_7d": null,
+      "yoy_7d": null,
+      "wow_pct": null,
+      "yoy_pct": null,
+      "status": "Unknown",
+      "note": "unique_sales_calls / ga4_users. Compute only if both non-null."
+    },
+    "calls_per_yt_view": {
+      "last_7d": null,
+      "prior_7d": null,
+      "yoy_7d": null,
+      "wow_pct": null,
+      "yoy_pct": null,
+      "status": "Unknown",
+      "note": "unique_sales_calls / yt_views. Compute only if both non-null."
+    },
+    "yt_phone_calls": {
+      "last_7d": null,
+      "prior_7d": null,
+      "yoy_7d": null,
+      "wow_pct": null,
+      "yoy_pct": null,
+      "status": "Unknown",
+      "note": "CallRail calls to the YouTube tracking number."
+    },
+    "yt_phone_calls_per_watch_hour": {
+      "last_7d": null,
+      "prior_7d": null,
+      "yoy_7d": null,
+      "wow_pct": null,
+      "yoy_pct": null,
+      "status": "Unknown",
+      "note": "yt_phone_calls / yt_watch_hours. Compute only if both non-null."
+    },
+    "avg_engagement_time_sec": {
+      "last_7d": null,
+      "prior_7d": null,
+      "yoy_7d": null,
+      "wow_pct": null,
+      "yoy_pct": null,
+      "status": "Unknown",
+      "note": "GA4 average engagement time (seconds). Name the metric in note if you use session duration instead."
+    },
+    "bounce_rate": {
+      "last_7d": null,
+      "prior_7d": null,
+      "yoy_7d": null,
+      "wow_pct": null,
+      "yoy_pct": null,
+      "status": "Unknown",
+      "note": "GA4 bounce rate 0–1 (or 0–100 with note). Filter PMax/retargeting when noted."
+    },
+    "chats": {
+      "last_7d": null,
+      "prior_7d": null,
+      "yoy_7d": null,
+      "wow_pct": null,
+      "yoy_pct": null,
+      "status": "Unknown",
+      "note": "Zoho chat starts if available."
+    },
+    "callrail_by_source": {
+      "last_7d": {},
+      "prior_7d": {},
+      "yoy_7d": {}
+    },
+    "ux_review_prompts": [],
+    "cos_note": null
+  },
+  "money": {
+    "status": "Unknown",
+    "status_reason": "Not pulled — first weekly run pending.",
+    "closed_sales": {
+      "last_7d": null,
+      "prior_7d": null,
+      "yoy_7d": null,
+      "wow_pct": null,
+      "yoy_pct": null,
+      "status": "Unknown",
+      "note": "Business Checklist non-cancelled Sale>0 rows in window."
+    },
+    "revenue": {
+      "last_7d": null,
+      "prior_7d": null,
+      "yoy_7d": null,
+      "wow_pct": null,
+      "yoy_pct": null,
+      "status": "Unknown",
+      "note": "Checklist revenue for those rows."
+    },
+    "gross_profit": {
+      "last_7d": null,
+      "prior_7d": null,
+      "yoy_7d": null,
+      "wow_pct": null,
+      "yoy_pct": null,
+      "status": "Unknown",
+      "note": "Checklist GP for those rows. Do not apply a guessed margin %."
+    },
+    "avg_revenue_per_sales_call": {
+      "last_7d": null,
+      "prior_7d": null,
+      "yoy_7d": null,
+      "wow_pct": null,
+      "yoy_pct": null,
+      "status": "Unknown",
+      "note": "revenue / unique_sales_calls."
+    },
+    "avg_gp_per_sales_call": {
+      "last_7d": null,
+      "prior_7d": null,
+      "yoy_7d": null,
+      "wow_pct": null,
+      "yoy_pct": null,
+      "status": "Unknown",
+      "note": "KEY. gross_profit / unique_sales_calls."
+    },
+    "revenue_per_visitor": {
+      "last_7d": null,
+      "prior_7d": null,
+      "yoy_7d": null,
+      "wow_pct": null,
+      "yoy_pct": null,
+      "status": "Unknown",
+      "note": "revenue / ga4_users."
+    },
+    "revenue_per_yt_view": {
+      "last_7d": null,
+      "prior_7d": null,
+      "yoy_7d": null,
+      "wow_pct": null,
+      "yoy_pct": null,
+      "status": "Unknown",
+      "note": "revenue / yt_views."
+    },
+    "ads_pct_of_sales": {
+      "last_7d": null,
+      "prior_7d": null,
+      "yoy_7d": null,
+      "wow_pct": null,
+      "yoy_pct": null,
+      "status": "Unknown",
+      "note": "Optional. Ads spend / revenue. EMC ceiling 5%, target 3–4%."
+    },
+    "cos_note": null
+  },
+  "answer": {
+    "status": "Unknown",
+    "status_reason": "Not pulled — first weekly run pending.",
+    "business_hours_note": "Confirm Sales EMC staffed hours in RingCentral; do not guess. Weekly % is BH only.",
+    "shared_queue": false,
+    "pct_answered_by_team_bh": {
+      "last_7d": null,
+      "prior_7d": null,
+      "yoy_7d": null,
+      "wow_pct": null,
+      "yoy_pct": null,
+      "status": "Unknown",
+      "note": "KEY answer light. Team extension answered / inbound sales-queue calls during business hours. Exclude AC and VM from the numerator."
+    },
+    "team_answered_bh": {
+      "last_7d": null,
+      "prior_7d": null,
+      "yoy_7d": null,
+      "wow_pct": null,
+      "yoy_pct": null,
+      "status": "Unknown",
+      "note": null
+    },
+    "answer_connect_bh": {
+      "last_7d": null,
+      "prior_7d": null,
+      "yoy_7d": null,
+      "wow_pct": null,
+      "yoy_pct": null,
+      "status": "Unknown",
+      "note": null
+    },
+    "voicemail_bh": {
+      "last_7d": null,
+      "prior_7d": null,
+      "yoy_7d": null,
+      "wow_pct": null,
+      "yoy_pct": null,
+      "status": "Unknown",
+      "note": null
+    },
+    "abandoned_bh": {
+      "last_7d": null,
+      "prior_7d": null,
+      "yoy_7d": null,
+      "wow_pct": null,
+      "yoy_pct": null,
+      "status": "Unknown",
+      "note": null
+    },
+    "cos_note": null
+  },
+  "context": {
+    "status": "Unknown",
+    "google_trends": {
+      "query": "massage chair",
+      "geo": "US",
+      "url": "https://trends.google.com/trends/explore?geo=US&q=massage%20chair",
+      "direction": null,
+      "note": null,
+      "checked": false
+    },
+    "tuan_messages": {
+      "checked": false,
+      "note": null,
+      "industry_vs_emc": null
+    },
+    "cos_note": null
+  },
+  "notable_changes": [
+    {
+      "date_et": "2026-09-08",
+      "event": "Vin lowered many Google Ads bids",
+      "owner": "Vin",
+      "could_affect": [
+        "traffic",
+        "leads",
+        "money"
+      ],
+      "source": "legacy 10-day audit; still in chart hangover"
+    }
+  ],
+  "legacy_10d_audit": {
+    "version": "2026-09-08-notice-v2",
+    "last_run_at_et": "2026-09-08T17:01:00-04:00",
+    "windows": {
+      "last_10d": {
+        "start_et": "2026-08-29",
+        "end_et": "2026-09-07"
+      },
+      "prior_10d": {
+        "start_et": "2026-08-19",
+        "end_et": "2026-08-28"
+      },
+      "yoy_10d": {
+        "start_et": null,
+        "end_et": null,
+        "pulled": false
+      }
+    },
+    "statuses": {
+      "tof": "Yellow",
+      "mid": "Yellow",
+      "bof": "Yellow",
+      "margin": "Unknown"
+    },
+    "leak_callout": "Spend +55% vs prior 10d; Ads conv 5 vs 11; CallRail calls flat 17 vs 16; checklist sales ~$58.3k → ads 6.96% of sales (over 5%). Bid cuts applied Sep 8 — recheck Sep 9–12 on Sep 13. Dig Mid→BOF tagging/close + spend pace.",
+    "concurrent_changes": [],
+    "tof": {
+      "ads_spend": 4061.22,
+      "ads_clicks": 5817,
+      "ads_impressions": 86054,
+      "ads_cpc": 0.7,
+      "ads_conversions": 5,
+      "ads_cost_per_conversion": 812.24,
+      "ga4_sessions": null,
+      "ga4_users": 64000,
+      "yt_watch_hours": null,
+      "yt_views": null,
+      "yt_shopping_clicks": null,
+      "deltas_vs_prior_10d": {
+        "ads_spend_pct": 54.6,
+        "ads_conversions_delta": -6,
+        "ads_cpc_delta": 0.03
+      },
+      "deltas_vs_yoy_10d": {},
+      "cos_note": "Spend +55% vs prior 10d; conversions 5 vs 11; CPC flat. Visible campaigns Search. GA4 ~64k active users last 10d (sessions/prior incomplete). Mix Aug28–Sep7: Brands $2226 / PMax $31 / Static $282; account $4403.",
+      "sources_pulled": [
+        "google_ads",
+        "ga4_partial"
+      ],
+      "prior_10d": {
+        "ads_spend": 2626.47,
+        "ads_clicks": 4096,
+        "ads_impressions": 78269,
+        "ads_ctr": 5.23,
+        "ads_cpc": 0.67,
+        "ads_conversions": 11,
+        "ads_cost_per_conversion": 238.77
+      },
+      "campaign_mix_aug28_sep7": {
+        "Brands": {
+          "cost": 2226.24,
+          "clicks": 806,
+          "cpc": 2.76,
+          "conv": 0
+        },
+        "Sales-Performance Max-4-Remarketing": {
+          "cost": 31.24,
+          "clicks": 9,
+          "cpc": 3.47,
+          "conv": 5
+        },
+        "Remarketing Static": {
+          "cost": 282.43,
+          "clicks": 4489,
+          "cpc": 0.06,
+          "conv": 0
+        },
+        "account_total": {
+          "cost": 4403.09,
+          "clicks": 6280,
+          "cpc": 0.7,
+          "conv": 5
+        },
+        "note": "Clicks inferred for some rows; Brands ~half of account spend."
+      }
+    },
+    "mid": {
+      "callrail_calls": 17,
+      "callrail_qualified": null,
+      "callrail_by_source": {
+        "google_ads": 6,
+        "zendesk_chat_website": 4,
+        "google_organic": 3,
+        "safe_menlosecurity": 2,
+        "direct": 1,
+        "easymassagechairs_com": 1
+      },
+      "rc_inbound": null,
+      "rc_answered": null,
+      "rc_abandoned": null,
+      "rc_overflow_answered": null,
+      "chats": null,
+      "forms": null,
+      "ac_handled": null,
+      "ac_miss_rate_test": null,
+      "ruth_test_calls": null,
+      "ruth_test_ac_misses": null,
+      "callrail_tagging_pct": null,
+      "cos_note": "Calls flat 17 vs 16 prior while Ads spend +55%. Ads-attributed calls 6 vs 3. Tagging nearly empty (1 Existing Customer in prior; Sale Closed empty). Qualified not reliably distinct from Total.",
+      "sources_pulled": [
+        "callrail"
+      ],
+      "prior_10d": {
+        "callrail_calls": 16,
+        "callrail_by_source": {
+          "direct": 5,
+          "google_ads": 3,
+          "google_organic": 3,
+          "youtube_organic": 3,
+          "bing_organic": 1,
+          "zendesk_chat_website": 1
+        }
+      }
+    },
+    "bof": {
+      "closed_sales": 10,
+      "revenue": 58305.96,
+      "close_rate_vs_qualified": null,
+      "close_rate_vs_answered": 0.588,
+      "closer_capacity_note": null,
+      "cos_note": "Business Checklist CSV (local export ~1:10pm ET Sep 8): 10 non-cancelled Sale>0 rows Aug 29–Sep 7 = $58,305.96. Ads Cost $4,061 / sales = 6.96% (over 5% ceiling; target 3–4%). CallRail Sale Closed empty — using checklist not Ads conv.",
+      "sources_pulled": [
+        "business_checklist_csv"
+      ],
+      "ads_pct_of_sales": 6.96
+    },
+    "margin": {
+      "preferred_pay_share": null,
+      "financing_share": null,
+      "payment_mix": {
+        "check": null,
+        "ach_bank": null,
+        "zelle": null,
+        "card": null,
+        "paypal": null,
+        "affirm_financing": null,
+        "other": null
+      },
+      "discount_exceptions": null,
+      "fee_drag_pct": null,
+      "warranty_for_check_offers_noted": null,
+      "cos_note": null,
+      "sources_pulled": []
+    },
+    "blockers": [
+      "YT Studio not pulled",
+      "RC/AC answer rates not pulled",
+      "Margin/payment mix not pulled",
+      "Checklist CSV may lag live sheet"
+    ],
+    "planner_note_pasted": false,
+    "dashboard_published_url": "https://vinchiu-dev.github.io/sams-chinese-quest/emc-funnel/",
+    "dashboard_ux": "notice-first",
+    "notices": [
+      "Scale without payback: spend +55%, CallRail calls flat",
+      "Ads ~6-7% of sales over 5% ceiling; bid cuts Sep 8; recheck Sep 13",
+      "Brands ~half of spend; PMax trickle; Static cheap clicks"
+    ]
+  }
 }

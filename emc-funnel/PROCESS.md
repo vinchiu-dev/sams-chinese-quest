@@ -1,5 +1,8 @@
 # EMC Funnel — 10-day audit playbook
 
+> **Weekly cadence lives in [WEEKLY-PLAYBOOK.md](WEEKLY-PLAYBOOK.md)** (last 7d vs prior 7d vs YoY 7d + 30–50d charts). This file is the complementary **10-day audit** (TOF / Mid / BOF / Margin, Ruth AC tests, payment mix). Do both; **never mix 7-day and 10-day totals in the same cell**. The live glance board (`index.html`) is now the weekly funnel check.
+
+
 **Owner:** Chief of Staff (CoS)  
 **Cadence:** Every ~10 days (compare last 10d vs prior 10d; add YoY same window when easy)  
 **Version:** 2026-09-08-v1  
