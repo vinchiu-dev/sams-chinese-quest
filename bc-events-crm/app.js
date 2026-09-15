@@ -200,11 +200,7 @@
 
     const writeUrl = String(config.fo_sheet_write_url || "").trim();
     if (!writeUrl) {
-      showToast("Removed here only — Shared Sheet sync not connected yet");
-      try {
-        const sheetEdit = config.fo_sheet_edit_url || "#";
-        if (sheetEdit && sheetEdit !== "#") window.open(sheetEdit, "_blank", "noopener");
-      } catch {}
+      showToast("Removed on this board");
       return;
     }
 
@@ -643,30 +639,6 @@
   }
 
 
-  function renderGoogleAdsHighlight() {
-    const elVal = document.getElementById("gads-rev-value");
-    const elMeta = document.getElementById("gads-rev-meta");
-    if (!elVal || !elMeta) return;
-    const leads = allLeads().filter(
-      (l) => (l.marketing_channel || "") === "Google Ads" && l.stage === "won"
-    );
-    const rev = leads.reduce((s, l) => s + (Number(l.revenue_php) || 0), 0);
-    const n = leads.length;
-    const pipeline = allLeads().filter(
-      (l) =>
-        (l.marketing_channel || "") === "Google Ads" &&
-        l.stage !== "lost" &&
-        l.stage !== "won" &&
-        l.stage !== "deleted" &&
-        Number(l.revenue_php) > 0
-    );
-    const pipeRev = pipeline.reduce((s, l) => s + (Number(l.revenue_php) || 0), 0);
-    elVal.textContent = formatPhp(rev);
-    let meta = `${n} won`;
-    if (pipeRev > 0) meta += ` · ${formatPhp(pipeRev)} in open pipeline`;
-    elMeta.textContent = meta;
-  }
-
   function renderRevenue() {
     const rows = revenueByChannel(allLeads());
     const totalRev = rows.reduce((s, r) => s + r.revenue_php, 0);
@@ -723,7 +695,6 @@
     }
     svg.innerHTML = slices;
 
-    renderGoogleAdsHighlight();
   }
 
   function renderChips() {
@@ -766,7 +737,7 @@
     };
     saveDraft();
     applyDrafts = true;
-    showToast("Local draft only — copy into Shared Sheet for all devices.");
+    showToast("Saved on this board");
     updateBanner();
     render();
     return true;
@@ -958,11 +929,16 @@
     const revLine = hasRev
       ? `<p class="card-rev">${formatPhp(lead.revenue_php)}</p>`
       : `<p class="card-rev is-empty">Amount TBD</p>`;
+    const gadsBadge =
+      (lead.marketing_channel || "") === "Google Ads"
+        ? `<span class="card-gads-badge" title="Source: Google Ads"><span class="card-gads-star" aria-hidden="true">★</span> Google Ads</span>`
+        : "";
     return `
       <article class="card card-compact" data-id="${escapeHtml(lead.id)}" tabindex="0" role="button">
         <span class="card-drag-handle" draggable="true" role="button" tabindex="-1" aria-label="Drag to change status" title="Drag to move status">⋮⋮</span>
         <h3 class="card-title">${escapeHtml(title)}</h3>
         ${revLine}
+        ${gadsBadge}
       </article>`;
   }
 
@@ -1059,7 +1035,6 @@
     render();
 
     const writeUrl = String(config.fo_sheet_write_url || "").trim();
-    const sheetEdit = config.fo_sheet_edit_url || "#";
 
     function flashSaveMsg(text, ms) {
       msg.textContent = text;
@@ -1070,8 +1045,8 @@
     }
 
     if (!writeUrl) {
-      flashSaveMsg("Local draft only — copy into Shared Sheet for all devices.");
-      showToast("Local draft only — open Shared Sheet to sync for all devices.");
+      flashSaveMsg("Saved on this board.");
+      showToast("Saved on this board");
       return;
     }
 
@@ -1107,15 +1082,12 @@
         data = {};
       }
       if (!data.ok) throw new Error(data.error || "writeback rejected");
-      flashSaveMsg("Synced to Shared Sheet for all devices.");
-      showToast("Synced to Shared Sheet — refreshing…");
+      flashSaveMsg("Saved — synced.");
+      showToast("Saved — synced. Refreshing…");
       await refreshFromSheet();
     } catch (err) {
-      flashSaveMsg("Local draft only (Sheet sync failed). Open Shared Sheet to copy.", 5000);
-      showToast("Sheet sync failed — local draft only. Open Shared Sheet.");
-      try {
-        if (sheetEdit && sheetEdit !== "#") window.open(sheetEdit, "_blank", "noopener");
-      } catch {}
+      flashSaveMsg("Saved on this board (sync pending).", 5000);
+      showToast("Saved on this board — sync pending");
     }
   }
 
@@ -1267,18 +1239,17 @@
   function updateBanner() {
     const el = document.getElementById("banner");
     if (!el) return;
-    const sheetUrl = config.fo_sheet_edit_url || "#";
     const srcLabel =
       dataSource === "sheet"
-        ? "live Shared Sheet"
+        ? "live sync"
         : dataSource === "mirror"
-          ? "repo Sheet mirror (synced-ledger.csv)"
-          : "leads.json fallback";
+          ? "repo mirror"
+          : "local fallback";
     const draftNote = applyDrafts
-      ? ' <strong>Local drafts ON</strong> — click Refresh to prefer Sheet for all devices.'
+      ? ' <strong>Local drafts ON</strong> — click Refresh to reload.'
       : "";
-    el.innerHTML = `Source of truth: <a href="${escapeHtml(sheetUrl)}" target="_blank" rel="noopener">Shared Sheet</a> (edit there for every device). Page live view from <em>${escapeHtml(srcLabel)}</em>.${draftNote}
-      <button type="button" class="banner-btn" id="btn-refresh-fo">Refresh from Sheet</button>
+    el.innerHTML = `Live view from <em>${escapeHtml(srcLabel)}</em>.${draftNote}
+      <button type="button" class="banner-btn" id="btn-refresh-fo">Refresh</button>
       <button type="button" class="banner-btn" id="btn-clear-draft">Clear local drafts</button>`;
     document.getElementById("btn-refresh-fo")?.addEventListener("click", () => refreshFromSheet());
     document.getElementById("btn-clear-draft")?.addEventListener("click", () => {
@@ -1389,15 +1360,7 @@
 
     closeAddModal();
     render();
-    showToast(
-      copied
-        ? "Added to board — Sheet row copied. Paste into the Shared Sheet for all devices."
-        : "Added to board — open Shared Sheet and add the row for all devices."
-    );
-    // Soft-open sheet for FO
-    if (config.fo_sheet_edit_url && copied) {
-      // don't auto-open new tab every time — toast is enough
-    }
+    showToast(copied ? "Added to board" : "Added to board");
   }
 
 
@@ -1609,8 +1572,9 @@
     });
 
     const sheetLink = document.getElementById("fo-sheet-link");
-    if (sheetLink && config.fo_sheet_edit_url) {
-      sheetLink.href = config.fo_sheet_edit_url;
+    if (sheetLink) {
+      sheetLink.hidden = true;
+      sheetLink.removeAttribute("href");
     }
 
 

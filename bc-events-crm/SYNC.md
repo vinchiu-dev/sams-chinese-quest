@@ -32,7 +32,7 @@ Optional: **File → Share → Publish to web** (CSV) and paste that URL into `c
 2. Enter **Won revenue (₱)** = confirmed total event/group revenue (never invent; nightly rate alone is not enough).
 3. Set **Marketing channel** (Google Ads, Messenger, etc.).
 4. Click **Save** → local draft updates the chart immediately; if write-back is deployed, POST upserts the Shared Sheet and Refresh reloads Sheet CSV for all devices.
-5. If write URL is empty or sync fails: toast says **local draft only** and opens the Shared Sheet link — copy the row there (or edit in Sheet) so other devices see it.
+5. If write URL is empty or sync fails: toast says **Saved on this board** (sync pending) — UI does **not** open the Sheet. CoS / write-back handles durable sync.
 
 Preferred durable path: Drawer Save → Apps Script → Shared Sheet (or edit Sheet directly). CoS morning sync still republishes Sheet → `fo-overlay.csv` / `synced-ledger.csv` (+ optional `leads.json` merge) → push `main` as a CDN fallback.
 
@@ -80,10 +80,18 @@ Writes `fo-overlay.csv` and optionally patches `leads.json` FO fields.
 1. Ads final URL / suffix must include: `utm_source=google&utm_medium=cpc&utm_campaign=bc-events`
 2. Formidable notification email for EVENT INQUIRY must include UTM fields (and gclid if present) as rows — not only Name/Phone/Email.
 3. CRM sync maps `utm_source=google` + `utm_medium=cpc|paid` (or gclid) → `marketing_channel=Google Ads`.
-4. Revenue strip + Insights pie count **Won** ₱ where channel is Google Ads (FO enters amount).
+4. Insights pie still counts **Won** ₱ where channel is Google Ads (FO enters amount on each card). The top-of-page Google Ads revenue **strip was removed** (Vin UI pref).
+5. Cards with `marketing_channel=Google Ads` show a compact yellow ★ Google Ads badge.
+6. **CoS alerts Vin** on new Google Ads leads and Won Google Ads revenue (Sheet is invisible backend only — CRM UI must **not** open or link FO/Vin to the Shared Sheet).
 
 Without (1)+(2), form leads stay `Website form (unknown)` and cannot prove ad ROI.
 
+### Vin UI prefs (2026-09-15)
+
+- Google Ads highlight strip removed from header.
+- Shared Sheet is backend-only: no `window.open` to Sheet on delete / save failure / copy-row; banner has no Sheet link.
+- Google Ads cards use yellow ★ badge; CoS (not the strip) surfaces Ads ROI to Vin.
+
 ## Password-gated remove (Vin only)
 
-Drawer **Remove from board** asks for a password (SHA-256 stored in `config.json` as `delete_password_sha256` — never plaintext in repo). On success the lead is soft-deleted (`stage=deleted` in local draft overlay; optional Sheet write-back POSTs the same stage when `fo_sheet_write_url` is set). Deleted leads are hidden from the board, Insights pie, Google Ads strip, and filters — not shown as a column. FO cannot remove freely without the password.
+Drawer **Remove from board** asks for a password (SHA-256 stored in `config.json` as `delete_password_sha256` — never plaintext in repo). On success the lead is soft-deleted (`stage=deleted` in local draft overlay; optional Sheet write-back POSTs the same stage when `fo_sheet_write_url` is set). Deleted leads are hidden from the board, Insights pie, and filters — not shown as a column. FO cannot remove freely without the password.

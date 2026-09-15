@@ -638,6 +638,26 @@
       color: #94a3b8;
       font-weight: 400;
     }
+    .card-gads-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      margin-top: 6px;
+      padding: 2px 7px 2px 5px;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: #8a6a12;
+      background: #fff8e1;
+      border: 1px solid #f0d78c;
+      letter-spacing: 0.01em;
+      line-height: 1.2;
+    }
+    .card-gads-star {
+      color: #e6a800;
+      font-size: 0.78rem;
+      line-height: 1;
+    }
     .card:hover, .card:focus {
       border-color: var(--accent);
       box-shadow: 0 2px 8px rgba(30, 113, 167, 0.18);
@@ -1111,42 +1131,7 @@
       .revenue-panel { margin-top: 5px; }
     }
 
-    .gads-strip {
-      margin-top: 6px;
-      padding: 8px 10px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #fff8e1 0%, #e8f3f9 55%, #dceef8 100%);
-      border: 1px solid #f0d78c;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 4px 14px;
-    }
-    .gads-strip-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      color: #8a6a12;
-    }
-    .gads-strip-value {
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: #1E71A7;
-      letter-spacing: -0.02em;
-    }
-    .gads-strip-meta {
-      font-size: 0.72rem;
-      color: #5c6b7a;
-    }
-    .gads-strip-hint {
-      flex: 1 1 100%;
-      margin: 0;
-      font-size: 0.68rem;
-      color: #64748b;
-    }
   </style>
-  <!-- build gads-revenue-highlight-20260915 -->
 </head>
 <body>
   <header class="topbar">
@@ -1161,13 +1146,6 @@
         <button type="button" class="btn-add" id="btn-add-event">+ Add event</button>
         <button type="button" class="rev-link" id="rev-toggle" aria-expanded="false" aria-controls="insights-panel" title="Win rate, YoY revenue, sources, lost reasons">Insights</button>
       </div>
-    </div>
-
-    <div class="gads-strip" id="gads-strip" title="Won events marked Source = Google Ads; FO enters amount on each card">
-      <span class="gads-strip-label">Google Ads events revenue</span>
-      <span class="gads-strip-value" id="gads-rev-value">₱0</span>
-      <span class="gads-strip-meta" id="gads-rev-meta">0 won</span>
-      <p class="gads-strip-hint">Totals won amount when Source is Google Ads. FO enters ₱ on each card.</p>
     </div>
 
   </header>
@@ -1396,6 +1374,6 @@
   })();
   </script>
 
-  <script src="app.js?v=20260915-wonfix"></script>
+  <script src="app.js?v=20260915-gads-ui"></script>
 </body>
 </html>
