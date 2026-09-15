@@ -334,7 +334,15 @@
   }
 
   function buildLeadsPayload(leadsArr) {
-    const leads = leadsArr || allLeadsIncludingDeleted();
+    // Always fold in-memory FO drafts into the GitHub payload (do not depend on applyDrafts flag).
+    const prevApply = applyDrafts;
+    applyDrafts = true;
+    let leads;
+    try {
+      leads = leadsArr || allLeadsIncludingDeleted();
+    } finally {
+      applyDrafts = prevApply;
+    }
     return {
       title: crmMeta.title || "Blue Coast Events CRM",
       north_star: crmMeta.north_star || "YoY event sales growth",
@@ -387,22 +395,27 @@
     }
   }
 
+  let lastSyncError = "";
+
   async function pushLeadsToGitHub(retried) {
     const { owner, repo, token } = getGH();
     const payload = buildLeadsPayload();
+    lastSyncError = "";
     try {
       if (!leadsSha) {
         // Need sha when file already exists
-        const peek = await pullRemoteLeads();
-        if (peek && Array.isArray(peek.leads) && !retried) {
-          // keep our local payload; sha now set
-        }
+        await pullRemoteLeads();
+      }
+      if (!leadsSha) {
+        lastSyncError = "Missing GitHub file sha (pull failed)";
+        lastSyncOk = false;
+        return false;
       }
       const body = {
         message: "Update BC Events CRM board",
         content: b64encode(JSON.stringify(payload, null, 2)),
+        sha: leadsSha,
       };
-      if (leadsSha) body.sha = leadsSha;
       const r = await fetch(`${GH_API}/repos/${owner}/${repo}/contents/${GH_LEADS_PATH}`, {
         method: "PUT",
         headers: ghHeaders(token),
@@ -414,22 +427,26 @@
           const merged = mergeLeadsById(payload.leads, remote.leads);
           baseLeads = merged.map((lead) => ({ ...lead, stage: normalizeLeadStage(lead) }));
           applyCrmMeta(remote);
-          draftOverlay = {};
-          saveDraft();
-          localAdds = [];
-          saveAdds();
-          applyDrafts = false;
+          // Keep FO edits from this save in overlay until retry succeeds
+          applyDrafts = true;
           return pushLeadsToGitHub(true);
         }
+        lastSyncError = "Conflict 409 — could not merge";
         lastSyncOk = false;
         return false;
       }
       if (!r.ok) {
+        let detail = "";
+        try {
+          const errBody = await r.json();
+          detail = errBody && errBody.message ? ": " + errBody.message : "";
+        } catch (_) {}
+        lastSyncError = "GitHub " + r.status + detail;
         lastSyncOk = false;
         return false;
       }
       const data = await r.json();
-      leadsSha = data.content && data.content.sha;
+      leadsSha = (data.content && data.content.sha) || leadsSha;
       // Fold successful payload into memory
       baseLeads = (payload.leads || []).map((lead) => ({ ...lead, stage: normalizeLeadStage(lead) }));
       draftOverlay = {};
@@ -438,8 +455,10 @@
       saveAdds();
       applyDrafts = false;
       lastSyncOk = true;
+      dataSource = "github";
       return true;
     } catch (e) {
+      lastSyncError = (e && e.message) || "Network error";
       lastSyncOk = false;
       return false;
     }
@@ -451,7 +470,7 @@
     if (ok) {
       showToast(okMsg || "Synced");
     } else {
-      showToast(failMsg || "Sync failed");
+      showToast((failMsg || "Sync failed") + (lastSyncError ? " — " + lastSyncError : ""));
     }
     return ok;
   }
@@ -1375,7 +1394,9 @@
             : "local fallback";
     const syncChip = lastSyncOk && dataSource === "github"
       ? ' <span class="banner-chip" title="Multi-device sync via GitHub Contents API">Synced via GitHub</span>'
-      : "";
+      : dataSource !== "github"
+        ? ' <span class="banner-chip" style="background:#fdecea;color:#8a1f11" title="Falling back — edits may not reach other devices">Not live-synced</span>'
+        : "";
     const draftNote = applyDrafts
       ? ' <strong>Local drafts ON</strong> — click Refresh to reload.'
       : "";
