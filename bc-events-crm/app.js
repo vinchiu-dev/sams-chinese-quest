@@ -199,7 +199,14 @@
     showToast("Removed");
 
     const writeUrl = String(config.fo_sheet_write_url || "").trim();
-    if (!writeUrl) return;
+    if (!writeUrl) {
+      showToast("Removed here only — Shared Sheet sync not connected yet");
+      try {
+        const sheetEdit = config.fo_sheet_edit_url || "#";
+        if (sheetEdit && sheetEdit !== "#") window.open(sheetEdit, "_blank", "noopener");
+      } catch {}
+      return;
+    }
 
     const payload = {
       lead_id: id,
@@ -1175,6 +1182,11 @@
     const headers = rows[0].map((h) => String(h || "").trim().toLowerCase());
     const idx = (name) => headers.indexOf(name);
     let idI = idx("lead_id") >= 0 ? idx("lead_id") : idx("id");
+    // Mangled A1 like "lead_idlead_id" (paste/merge glitch)
+    if (idI < 0 && headers.length && /^lead_id/i.test(headers[0]) && headers[0] !== "lead_id") {
+      headers[0] = "lead_id";
+      idI = 0;
+    }
     // Sheet A1 sometimes overwritten with share URL — treat col0 as lead_id if needed
     if (idI < 0 && headers.length && headers[0].includes("docs.google.com")) {
       headers[0] = "lead_id";
@@ -1529,10 +1541,14 @@
     stages = Object.keys(stageMeta).map((id) => ({ id, label: stageMeta[id].label }));
     baseLeads = baseLeads.map((lead) => ({ ...lead, stage: normalizeLeadStage(lead) }));
 
-    // Do not auto-apply legacy localStorage overlays
+    // Never keep divergent local copies — Sheet/mirror is the live view for every device
     try {
       localStorage.removeItem("bc-events-crm-overlay-v1");
+      localStorage.removeItem("bc-events-crm-draft-v2");
+      localStorage.removeItem("bc-events-crm-adds-v1");
     } catch {}
+    draftOverlay = {};
+    localAdds = [];
     applyDrafts = false;
 
     updateBanner();
