@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-09-14",
+  "updated": "2026-09-15",
   "lists": [
     {
       "id": "en-starter-1",
@@ -758,6 +758,12 @@
           "definition": "feeling excited and filled with new ideas, often because of something you saw or heard",
           "example": "After the art show, she felt inspired to paint her own picture.",
           "emoji": "💡"
+        },
+        {
+          "word": "Stumble",
+          "definition": "to trip or almost fall while walking; also, to come across something by accident",
+          "example": "He tried not to stumble on the loose rocks along the path.",
+          "emoji": "🪨"
         }
       ]
     }
