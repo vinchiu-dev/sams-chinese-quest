@@ -521,6 +521,30 @@
     }
   }
 
+
+  function renderGoogleAdsHighlight() {
+    const elVal = document.getElementById("gads-rev-value");
+    const elMeta = document.getElementById("gads-rev-meta");
+    if (!elVal || !elMeta) return;
+    const leads = allLeads().filter(
+      (l) => (l.marketing_channel || "") === "Google Ads" && l.stage === "won"
+    );
+    const rev = leads.reduce((s, l) => s + (Number(l.revenue_php) || 0), 0);
+    const n = leads.length;
+    const pipeline = allLeads().filter(
+      (l) =>
+        (l.marketing_channel || "") === "Google Ads" &&
+        l.stage !== "lost" &&
+        l.stage !== "won" &&
+        Number(l.revenue_php) > 0
+    );
+    const pipeRev = pipeline.reduce((s, l) => s + (Number(l.revenue_php) || 0), 0);
+    elVal.textContent = formatPhp(rev);
+    let meta = `${n} won`;
+    if (pipeRev > 0) meta += ` · ${formatPhp(pipeRev)} in open pipeline`;
+    elMeta.textContent = meta;
+  }
+
   function renderRevenue() {
     const rows = revenueByChannel(allLeads());
     const totalRev = rows.reduce((s, r) => s + r.revenue_php, 0);
@@ -535,12 +559,17 @@
     const legend = document.getElementById("rev-legend");
     const legendRows = rows.filter((r) => r.revenue_php > 0 || r.won_count > 0);
     const showRows = legendRows.length ? legendRows : rows.slice(0, 4);
+    function channelColor(ch, i) {
+      if (ch === "Google Ads") return "#e6a800";
+      return CHART_COLORS[i % CHART_COLORS.length];
+    }
     legend.innerHTML = showRows
       .map((r) => {
         const i = rows.indexOf(r);
         const short = CHANNEL_SHORT[r.channel] || r.channel;
-        const color = CHART_COLORS[i % CHART_COLORS.length];
-        return `<div class="rev-leg-item" title="${escapeHtml(r.channel)}">
+        const color = channelColor(r.channel, i);
+        const bold = r.channel === "Google Ads" ? " font-weight:700" : "";
+        return `<div class="rev-leg-item" title="${escapeHtml(r.channel)}" style="${bold}">
           <span class="rev-swatch" style="background:${color}"></span>
           <span class="rev-leg-name">${escapeHtml(short)}</span>
           <span class="rev-leg-meta">${formatPhp(r.revenue_php)} · ${r.won_count}</span>
@@ -558,7 +587,7 @@
         const sweep = (r.revenue_php / totalRev) * 360;
         const end = angle + sweep;
         const d = donutSlice(cx, cy, rOuter, rInner, angle, end);
-        slices += `<path d="${d}" fill="${CHART_COLORS[i % CHART_COLORS.length]}"></path>`;
+        slices += `<path d="${d}" fill="${channelColor(r.channel, i)}"></path>`;
         angle = end;
       });
     } else {
@@ -572,6 +601,7 @@
     }
     svg.innerHTML = slices;
 
+    renderGoogleAdsHighlight();
   }
 
   function renderChips() {

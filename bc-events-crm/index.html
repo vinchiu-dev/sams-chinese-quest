@@ -1032,8 +1032,43 @@
       .filters-row { margin-top: 5px; }
       .revenue-panel { margin-top: 5px; }
     }
+
+    .gads-strip {
+      margin-top: 6px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #fff8e1 0%, #e8f3f9 55%, #dceef8 100%);
+      border: 1px solid #f0d78c;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 4px 14px;
+    }
+    .gads-strip-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: #8a6a12;
+    }
+    .gads-strip-value {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #1E71A7;
+      letter-spacing: -0.02em;
+    }
+    .gads-strip-meta {
+      font-size: 0.72rem;
+      color: #5c6b7a;
+    }
+    .gads-strip-hint {
+      flex: 1 1 100%;
+      margin: 0;
+      font-size: 0.68rem;
+      color: #64748b;
+    }
   </style>
-  <!-- build insights-double-toggle-fix-20260914 -->
+  <!-- build gads-revenue-highlight-20260915 -->
 </head>
 <body>
   <header class="topbar">
@@ -1048,6 +1083,13 @@
         <button type="button" class="btn-add" id="btn-add-event">+ Add event</button>
         <button type="button" class="rev-link" id="rev-toggle" aria-expanded="false" aria-controls="insights-panel" title="Win rate, YoY revenue, sources, lost reasons">Insights</button>
       </div>
+    </div>
+
+    <div class="gads-strip" id="gads-strip" title="Won events marked Source = Google Ads; FO enters amount on each card">
+      <span class="gads-strip-label">Google Ads events revenue</span>
+      <span class="gads-strip-value" id="gads-rev-value">₱0</span>
+      <span class="gads-strip-meta" id="gads-rev-meta">0 won</span>
+      <p class="gads-strip-hint">Totals won amount when Source is Google Ads. FO enters ₱ on each card.</p>
     </div>
 
   </header>
@@ -1219,7 +1261,7 @@
   <script>
   (function () {
     // Bind immediately: this script sits after #rev-toggle / #insights-panel in the DOM.
-    // Do NOT defer to DOMContentLoaded — app.js also calls initRevCollapse() while
+    // Do NOT defer to DOMContentLoaded — app.js?v=20260915-gads also calls initRevCollapse() while
     // readyState is still "loading", and a deferred bind would race and double-toggle
     // (open then close on the same click).
     function bindInsights() {
@@ -1260,6 +1302,6 @@
   })();
   </script>
 
-  <script src="app.js?v=20260914-1012"></script>
+  <script src="app.js?v=20260915-gads"></script>
 </body>
 </html>
