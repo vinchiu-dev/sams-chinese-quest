@@ -224,7 +224,7 @@
     closeDeleteModal();
     closeDrawer();
     render();
-    await syncBoardMutation("Synced", "Sync failed");
+    await syncBoardMutation("Saved", "Save failed");
   }
 
 
@@ -468,7 +468,7 @@
     const ok = await pushLeadsToGitHub();
     updateBanner();
     if (ok) {
-      showToast(okMsg || "Synced");
+      showToast(okMsg || "Saved");
     } else {
       showToast((failMsg || "Sync failed") + (lastSyncError ? " — " + lastSyncError : ""));
     }
@@ -898,7 +898,7 @@
     applyDrafts = true;
     updateBanner();
     render();
-    syncBoardMutation("Synced", "Sync failed");
+    syncBoardMutation("Saved", "Save failed");
     return true;
   }
 
@@ -1206,7 +1206,7 @@
       }, ms || 3600);
     }
 
-    const ok = await syncBoardMutation("Synced", "Sync failed");
+    const ok = await syncBoardMutation("Saved", "Save failed");
     if (ok) flashSaveMsg("Saved — synced.");
     else flashSaveMsg("Saved on this board (sync pending).", 5000);
   }
@@ -1387,34 +1387,9 @@
   }
 
   function updateBanner() {
-    const el = document.getElementById("banner");
-    if (!el) return;
-    const srcLabel =
-      dataSource === "github"
-        ? "GitHub"
-        : dataSource === "sheet"
-          ? "Sheet backup"
-          : dataSource === "mirror"
-            ? "repo mirror"
-            : "local fallback";
-    const syncChip = lastSyncOk && dataSource === "github"
-      ? ' <span class="banner-chip" title="Multi-device sync via GitHub Contents API">Synced via GitHub</span>'
-      : dataSource !== "github"
-        ? ' <span class="banner-chip" style="background:#fdecea;color:#8a1f11" title="Falling back — edits may not reach other devices">Not live-synced</span>'
-        : "";
-    const draftNote = applyDrafts
-      ? ' <strong>Local drafts ON</strong> — click Refresh to reload.'
-      : "";
-    el.innerHTML = `Live view from <em>${escapeHtml(srcLabel)}</em>.${syncChip}${draftNote}
-      <button type="button" class="banner-btn" id="btn-refresh-fo">Refresh</button>
-      <button type="button" class="banner-btn" id="btn-clear-draft">Clear local drafts</button>`;
-    document.getElementById("btn-refresh-fo")?.addEventListener("click", () => refreshFromGitHub({ force: true }));
-    document.getElementById("btn-clear-draft")?.addEventListener("click", () => {
-      clearDrafts();
-      updateBanner();
-      render();
-    });
+    // Sync status banner removed (Vin 2026-09-16) — GitHub sync still runs silently.
   }
+
 
   async function refreshFromGitHub(opts) {
     const force = opts && opts.force;
@@ -1511,7 +1486,7 @@
 
     closeAddModal();
     render();
-    await syncBoardMutation("Synced", "Sync failed");
+    await syncBoardMutation("Saved", "Save failed");
   }
 
 
