@@ -198,8 +198,8 @@
       "event_dates": null,
       "pax": null,
       "event_type": "TEST IGNORE — earlier UTM email proof",
-      "stage": "new_inquiry",
-      "last_updated": "2026-09-15",
+      "stage": "deleted",
+      "last_updated": "2026-09-16",
       "seed_notes": "TEST: earlier same-day UTM email verification. Channel Google Ads from utm_source=google + utm_medium=cpc. No demo revenue. Delete after review.",
       "fo_notes": "VERIFY 2026-09-15 Cos sync ok — ignore",
       "lost_reason": "",
@@ -211,7 +211,8 @@
       "utm_medium": "cpc",
       "utm_campaign": "bc-events",
       "utm_content": "roi-test",
-      "gclid": "test-gclid-20260915"
+      "gclid": "test-gclid-20260915",
+      "editor": "delete"
     },
     {
       "id": "1a0849a6df35c2f0",
