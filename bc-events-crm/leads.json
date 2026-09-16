@@ -24,8 +24,30 @@
       "label": "Lost"
     }
   ],
-  "lead_count": 21,
+  "lead_count": 22,
   "leads": [
+    {
+      "id": "1a8785a912c0c6e6",
+      "name": "Zandra Abel",
+      "org": "Provincial Government of Cagayan",
+      "email": null,
+      "phone": "09653112661",
+      "source": "manual add (FO)",
+      "source_badge": "Other",
+      "inquiry_date": "2026-09-16",
+      "event_dates": "October 6-9 2026",
+      "pax": "70",
+      "event_type": "event inquiry",
+      "stage": "quoted",
+      "marketing_channel": "Walk-in / other",
+      "revenue_php": null,
+      "fo_notes": "",
+      "lost_reason": "",
+      "seed_notes": "Manual add 2026-09-16",
+      "last_updated": "2026-09-16",
+      "subject": "EVENT — Zandra Abel",
+      "editor": "fo-add"
+    },
     {
       "id": "1ae52aab703a55fe",
       "name": "Dianna Joyce Guzman",
