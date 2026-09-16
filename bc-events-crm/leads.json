@@ -24,8 +24,30 @@
       "label": "Lost"
     }
   ],
-  "lead_count": 23,
+  "lead_count": 24,
   "leads": [
+    {
+      "id": "1a2676eea308ca52",
+      "name": "Wendy Alvarez",
+      "org": "ISU Roxas Campus",
+      "email": null,
+      "phone": "09068691565",
+      "source": "manual add (FO)",
+      "source_badge": "Other",
+      "inquiry_date": "2026-09-16",
+      "event_dates": "September 30 2026",
+      "pax": "110",
+      "event_type": "event inquiry",
+      "stage": "new_inquiry",
+      "marketing_channel": "Walk-in / other",
+      "revenue_php": null,
+      "fo_notes": "",
+      "lost_reason": "",
+      "seed_notes": "Manual add 2026-09-16",
+      "last_updated": "2026-09-16",
+      "subject": "EVENT — Wendy Alvarez",
+      "editor": "fo-add"
+    },
     {
       "id": "1a88016d07ab3b86",
       "name": "Rosalina Bayaona",
