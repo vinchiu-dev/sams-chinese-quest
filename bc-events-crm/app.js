@@ -934,6 +934,11 @@
           delete card.dataset.suppressClick;
           return;
         }
+        // Board pan endPan already opens on clean taps (pointerup). Skip duplicate.
+        if (card.dataset.openedByPanTap === "1") {
+          delete card.dataset.openedByPanTap;
+          return;
+        }
         openDrawer(card.dataset.id);
       });
       card.addEventListener("keydown", (e) => {
@@ -1557,13 +1562,11 @@
         colTop: 0,
         axis: null,
         moved: false,
+        captured: false,
         card: e.target.closest(".card"),
       };
       if (pan.colBody) pan.colTop = pan.colBody.scrollTop;
-      wrap.classList.add("is-panning");
-      try {
-        wrap.setPointerCapture(e.pointerId);
-      } catch (_) {}
+      // Do NOT capture yet — capturing on card taps eats the click so FO never gets the drawer.
     });
 
     wrap.addEventListener(
@@ -1573,7 +1576,8 @@
         const dx = e.clientX - pan.originX;
         const dy = e.clientY - pan.originY;
         if (!pan.axis) {
-          if (dx * dx + dy * dy < 64) return; // 8px
+          // 18px dead-zone so a normal tap (with phone jitter) still opens the drawer
+          if (dx * dx + dy * dy < 324) return;
           // Prefer horizontal whenever the gesture is mostly sideways —
           // this is what makes the whole board (cards included) scroll statuses.
           pan.axis = Math.abs(dx) >= Math.abs(dy) * 0.85 ? "x" : "y";
@@ -1583,6 +1587,13 @@
           pan.left = wrap.scrollLeft;
           if (pan.colBody) pan.colTop = pan.colBody.scrollTop;
           if (pan.card) pan.card.dataset.suppressClick = "1";
+          wrap.classList.add("is-panning");
+          if (!pan.captured) {
+            pan.captured = true;
+            try {
+              wrap.setPointerCapture(e.pointerId);
+            } catch (_) {}
+          }
         }
         if (pan.axis === "x") {
           e.preventDefault();
@@ -1603,12 +1614,22 @@
       if (!pan || pan.id !== e.pointerId) return;
       const card = pan.card;
       const moved = pan.moved;
+      const cardId = card && card.dataset ? card.dataset.id : null;
       pan = null;
       wrap.classList.remove("is-panning");
       if (card && moved) {
         setTimeout(() => {
           delete card.dataset.suppressClick;
-        }, 80);
+        }, 120);
+        return;
+      }
+      // Tap on a card with no real pan: open drawer even if click was swallowed
+      if (cardId && !moved) {
+        if (card) card.dataset.openedByPanTap = "1";
+        openDrawer(cardId);
+        setTimeout(() => {
+          if (card) delete card.dataset.openedByPanTap;
+        }, 120);
       }
     }
     wrap.addEventListener("pointerup", endPan);
