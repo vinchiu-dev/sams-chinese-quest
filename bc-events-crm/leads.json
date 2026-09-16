@@ -24,8 +24,30 @@
       "label": "Lost"
     }
   ],
-  "lead_count": 24,
+  "lead_count": 25,
   "leads": [
+    {
+      "id": "1a110490a365e3a4",
+      "name": "Reintegration Cagayan",
+      "org": "OWWA",
+      "email": null,
+      "phone": null,
+      "source": "manual add (FO)",
+      "source_badge": "Other",
+      "inquiry_date": "2026-09-16",
+      "event_dates": "September 8-11 2026",
+      "pax": "110",
+      "event_type": "event inquiry",
+      "stage": "won",
+      "marketing_channel": "Messenger",
+      "revenue_php": null,
+      "fo_notes": "",
+      "lost_reason": "",
+      "seed_notes": "Manual add 2026-09-16",
+      "last_updated": "2026-09-16",
+      "subject": "EVENT — Reintegration Cagayan",
+      "editor": "fo-add"
+    },
     {
       "id": "1a2676eea308ca52",
       "name": "Wendy Alvarez",
