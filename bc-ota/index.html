@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#1E71A7"/>
+  <meta name="bc-ota-version" content="2026-09-16-ota1"/>
+  <title>Blue Coast OTA growth · Agoda + Booking.com</title>
+  <style>
+    :root {
+      --accent: #1E71A7;
+      --accent-deep: #0f3d5c;
+      --accent-soft: #e8f3f9;
+      --sky: #0ea5e9;
+      --bg: #f4f6f8;
+      --card: #ffffff;
+      --ink: #1a2332;
+      --muted: #5c6b7a;
+      --border: #dde3ea;
+      --green: #1a7f4b; --green-soft: #d8f5e5;
+      --yellow-ink: #7a6200; --yellow-soft: #fff4a8;
+      --red: #9b3b3b; --red-soft: #ffe4e8;
+      --unknown: #64748b; --unknown-soft: #e2e8f0;
+      --shadow: 0 1px 3px rgba(16, 40, 60, 0.08);
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.4;
+      min-height: 100vh;
+    }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 16px 14px 64px; }
+    .hero {
+      background: linear-gradient(135deg, var(--accent-deep) 0%, var(--accent) 55%, #2a8fc4 100%);
+      color: #fff; border-radius: 16px; padding: 16px 16px 14px;
+      box-shadow: 0 10px 28px rgba(30, 113, 167, 0.28); margin-bottom: 12px;
+    }
+    .brand-row { display: flex; gap: 12px; align-items: center; }
+    .logo {
+      width: 48px; height: 48px; border-radius: 10px; background: #fff;
+      object-fit: contain; flex-shrink: 0;
+    }
+    .hero h1 { margin: 0; font-size: 1.25rem; letter-spacing: -0.02em; }
+    .hero .sub { margin: 4px 0 0; font-size: 0.82rem; opacity: 0.92; }
+    .meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+    .chip {
+      font-size: 11px; font-weight: 650; padding: 4px 9px; border-radius: 999px;
+      background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.28);
+    }
+    .chip strong { color: #ffe08a; }
+    .banner {
+      background: #fff; border: 1.5px dashed rgba(30,113,167,.45);
+      border-radius: 12px; padding: 10px 12px; margin-bottom: 12px;
+      font-size: 13px; font-weight: 600; color: var(--muted);
+    }
+    .banner strong { color: var(--accent-deep); }
+    .banner code { font-size: 12px; background: var(--accent-soft); padding: 1px 5px; border-radius: 4px; color: var(--accent-deep); }
+    .section-label {
+      margin: 18px 0 8px; font-size: 11px; font-weight: 800;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--accent);
+    }
+    .section-label.in-card { margin-top: 0; }
+    .card {
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 12px 14px; margin-bottom: 10px; box-shadow: var(--shadow);
+    }
+    .card.warn { border-color: #fde047; background: linear-gradient(180deg, #fff, #fffbeb); }
+    .kpi-stack { display: grid; gap: 8px; }
+    .kpi {
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 12px 14px; box-shadow: var(--shadow);
+    }
+    .kpi-head {
+      display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center;
+      margin-bottom: 8px;
+    }
+    .kpi-ch { font-weight: 800; font-size: 14px; color: var(--accent-deep); }
+    .kpi-kind { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+    .kpi-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+    }
+    .kpi-cell {
+      background: var(--accent-soft); border-radius: 10px; padding: 8px 10px;
+      border: 1px solid #cfe3ef;
+    }
+    .lab { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+    .val { display: block; font-size: 1.15rem; font-weight: 800; margin-top: 2px; letter-spacing: -.02em; color: var(--ink); }
+    .val.unk { color: var(--unknown); font-size: 1rem; font-weight: 700; }
+    .delta { font-size: 11px; color: var(--muted); margin-top: 6px; }
+    .pill {
+      font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 999px;
+      border: 1px solid transparent; display: inline-block; margin-left: auto;
+    }
+    .pill.steady { background: var(--green-soft); color: var(--green); border-color: #86efac; }
+    .pill.yellow { background: var(--yellow-soft); color: var(--yellow-ink); border-color: #fde047; }
+    .pill.red { background: var(--red-soft); color: var(--red); border-color: #fda4af; }
+    .pill.unknown { background: var(--unknown-soft); color: var(--unknown); border-color: #cbd5e1; }
+    .charts { display: grid; grid-template-columns: 1fr; gap: 10px; }
+    @media (min-width: 720px) { .charts { grid-template-columns: 1fr 1fr; } }
+    .chart {
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 10px 12px 8px; box-shadow: var(--shadow);
+    }
+    .chart-title { font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+    .chart-cap { font-size: 11px; color: var(--muted); margin: 2px 0 6px; }
+    .leg { font-weight: 700; }
+    .leg.agoda { color: var(--sky); }
+    .leg.booking { color: var(--accent); }
+    .leg.total { color: var(--accent-deep); }
+    svg.spark { width: 100%; height: 140px; display: block; }
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th {
+      text-align: left; font-size: 10px; text-transform: uppercase; letter-spacing: .06em;
+      color: var(--muted); padding: 6px 8px; border-bottom: 1px solid var(--border); white-space: nowrap;
+    }
+    td { padding: 8px; border-bottom: 1px solid #eef2f6; vertical-align: top; }
+    tr:last-child td { border-bottom: 0; }
+    .ch {
+      font-size: 11px; font-weight: 800; padding: 2px 7px; border-radius: 999px;
+      display: inline-block; white-space: nowrap;
+    }
+    .ch-agoda { background: #e0f2fe; color: #0369a1; }
+    .ch-booking { background: var(--accent-soft); color: var(--accent-deep); }
+    .ch-unk { background: var(--unknown-soft); color: var(--unknown); }
+    .st {
+      font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 999px;
+      display: inline-block; text-transform: lowercase;
+    }
+    .st-ok { background: var(--green-soft); color: var(--green); }
+    .st-bad { background: var(--red-soft); color: var(--red); }
+    .st-warn { background: var(--yellow-soft); color: var(--yellow-ink); }
+    .st-unk { background: var(--unknown-soft); color: var(--unknown); }
+    .empty { margin: 4px 0 0; font-size: 13px; color: var(--muted); font-weight: 600; }
+    ul.blockers { margin: 6px 0 0; padding-left: 1.15rem; font-size: 13px; color: var(--muted); }
+    .footer { margin-top: 16px; font-size: 11px; color: var(--muted); }
+    .footer a { color: var(--accent); }
+    .boot { color: var(--muted); font-weight: 700; padding: 24px 8px; }
+    @media (max-width: 560px) {
+      .kpi-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 1.1rem; }
+      .val { font-size: 1.05rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap" id="app"><p class="boot">Loading LAST-RUN.json…</p></div>
+  <script src="app.js?v=20260916-ota1"></script>
+</body>
+</html>
