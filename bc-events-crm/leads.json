@@ -24,8 +24,30 @@
       "label": "Lost"
     }
   ],
-  "lead_count": 25,
+  "lead_count": 26,
   "leads": [
+    {
+      "id": "1a0193f1aa99ea6c",
+      "name": "Rose Ann Auza",
+      "org": "ILAGAN WEST NATIONAL HIGH SCHOOL",
+      "email": null,
+      "phone": null,
+      "source": "manual add (FO)",
+      "source_badge": "Other",
+      "inquiry_date": "2026-09-16",
+      "event_dates": "September 12 2026",
+      "pax": "31",
+      "event_type": "event inquiry",
+      "stage": "won",
+      "marketing_channel": "Messenger",
+      "revenue_php": null,
+      "fo_notes": "",
+      "lost_reason": "",
+      "seed_notes": "Manual add 2026-09-16",
+      "last_updated": "2026-09-16",
+      "subject": "EVENT — Rose Ann Auza",
+      "editor": "fo-add"
+    },
     {
       "id": "1a110490a365e3a4",
       "name": "Reintegration Cagayan",
