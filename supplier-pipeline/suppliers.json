@@ -57,7 +57,7 @@
       "contact": "",
       "notes": "",
       "stage": "in_contact",
-      "order": 1,
+      "order": 2,
       "quality_web": false,
       "quality_yt": false,
       "quality_ads": false,
@@ -95,7 +95,7 @@
       "contact": "",
       "notes": "",
       "stage": "identified",
-      "order": 1,
+      "order": 0,
       "quality_web": false,
       "quality_yt": false,
       "quality_ads": false,
@@ -113,8 +113,8 @@
       "website": "",
       "contact": "",
       "notes": "",
-      "stage": "identified",
-      "order": 0,
+      "stage": "in_contact",
+      "order": 1,
       "quality_web": false,
       "quality_yt": false,
       "quality_ads": false,
@@ -123,7 +123,7 @@
         "EasyHBOT"
       ],
       "last_updated": "2026-09-17",
-      "editor": "seed"
+      "editor": "ui"
     },
     {
       "id": "sp06dynamic",
