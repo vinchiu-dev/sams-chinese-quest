@@ -350,46 +350,11 @@
     return !!document.getElementById("drawer")?.classList.contains("open");
   }
 
-  function checkHtml(s) {
-    if (s.stage !== "onboarding") return "";
-    const items = [
-      { key: "quality_web", label: "web" },
-      { key: "quality_yt", label: "YT" },
-      { key: "quality_ads", label: "ads" },
-    ];
-    return `<div class="card-checks" data-stop="1">${items
-      .map((it) => {
-        const on = !!s[it.key];
-        return `<label class="card-check${on ? " is-on" : ""}" data-stop="1">
-            <input type="checkbox" data-qid="${escapeHtml(s.id)}" data-qkey="${it.key}" ${on ? "checked" : ""} />
-            ${escapeHtml(it.label)}
-          </label>`;
-      })
-      .join("")}</div>`;
-  }
-
-  function sitesBadgesHtml(s) {
-    const sites = normalizeSites(s.sites, s.category);
-    if (!sites.length) return "";
-    const badges = sites
-      .map((id) => {
-        const opt = SITE_OPTIONS.find((o) => o.id === id);
-        if (!opt) return "";
-        return `<span class="site-badge ${opt.cls}" title="${escapeHtml(opt.id)}">${escapeHtml(opt.short)}</span>`;
-      })
-      .join("");
-    return `<div class="card-sites">${badges}</div>`;
-  }
-
   function cardHtml(s) {
-    const cat = s.category ? `<p class="card-cat">${escapeHtml(s.category)}</p>` : "";
     return `
       <article class="card" data-id="${escapeHtml(s.id)}" data-stage="${escapeHtml(s.stage)}" tabindex="0" role="button">
         <span class="card-drag-handle" draggable="true" role="button" tabindex="-1" aria-label="Drag to reorder or change status" title="Drag to reorder / move status">⋮⋮</span>
         <h3 class="card-title">${escapeHtml(s.name || "Untitled")}</h3>
-        ${cat}
-        ${sitesBadgesHtml(s)}
-        ${checkHtml(s)}
       </article>`;
   }
 
@@ -407,7 +372,6 @@
           <header class="stage-header">
             <div class="stage-title-wrap">
               <h2 class="stage-title" data-stage-id="${escapeHtml(st.id)}" title="Click to rename">${escapeHtml(st.label)}</h2>
-              <span class="stage-hint">← higher priority</span>
             </div>
             <span class="col-count">${row.length}</span>
           </header>
@@ -420,25 +384,6 @@
 
     bindStageRename(board);
     bindBoardDnD(board);
-    bindCardChecks(board);
-  }
-
-  function bindCardChecks(board) {
-    board.querySelectorAll('input[type="checkbox"][data-qkey]').forEach((inp) => {
-      inp.addEventListener("click", (e) => e.stopPropagation());
-      inp.addEventListener("change", async (e) => {
-        e.stopPropagation();
-        const id = inp.dataset.qid;
-        const key = inp.dataset.qkey;
-        const s = findSupplier(id);
-        if (!s || !key) return;
-        s[key] = !!inp.checked;
-        s.last_updated = today();
-        s.editor = "ui";
-        render();
-        await syncMutation("Saved", "Save failed");
-      });
-    });
   }
 
   function bindStageRename(board) {
