@@ -33,6 +33,13 @@
     { id: "defunct", label: "Defunct" },
   ];
 
+  const SITE_OPTIONS = [
+    { id: "EasyHomeWellness", short: "EHW", cls: "ehw" },
+    { id: "EasySaunas", short: "ES", cls: "es" },
+    { id: "EasyHBOT", short: "HBOT", cls: "hbot" },
+  ];
+  const SITE_IDS = SITE_OPTIONS.map((s) => s.id);
+
   const STAGE_MIGRATE = {
     identified: "identified",
     outreach: "in_contact",
@@ -91,6 +98,36 @@
     return STAGE_MIGRATE[raw] || "identified";
   }
 
+  function normalizeSites(sites, category) {
+    let arr = Array.isArray(sites) ? sites.map(String) : [];
+    arr = arr.filter((x) => SITE_IDS.includes(x));
+    const seen = new Set();
+    arr = arr.filter((x) => (seen.has(x) ? false : (seen.add(x), true)));
+    if (arr.length) return arr;
+    const cat = String(category || "").toLowerCase();
+    if (cat.includes("hbot")) return ["EasyHomeWellness", "EasyHBOT"];
+    if (cat.includes("sauna")) return ["EasyHomeWellness", "EasySaunas"];
+    return [];
+  }
+
+  function readSitesFromDrawer() {
+    const sites = [];
+    if (document.getElementById("f-site-ehw")?.checked) sites.push("EasyHomeWellness");
+    if (document.getElementById("f-site-es")?.checked) sites.push("EasySaunas");
+    if (document.getElementById("f-site-hbot")?.checked) sites.push("EasyHBOT");
+    return sites;
+  }
+
+  function writeSitesToDrawer(sites) {
+    const set = new Set(sites || []);
+    const ehw = document.getElementById("f-site-ehw");
+    const es = document.getElementById("f-site-es");
+    const hbot = document.getElementById("f-site-hbot");
+    if (ehw) ehw.checked = set.has("EasyHomeWellness");
+    if (es) es.checked = set.has("EasySaunas");
+    if (hbot) hbot.checked = set.has("EasyHBOT");
+  }
+
   function normalizeSupplier(raw) {
     const s = raw && typeof raw === "object" ? { ...raw } : {};
     s.id = s.id || newId();
@@ -104,6 +141,7 @@
     s.quality_web = !!s.quality_web;
     s.quality_yt = !!s.quality_yt;
     s.quality_ads = !!s.quality_ads;
+    s.sites = normalizeSites(s.sites, s.category);
     s.last_updated = s.last_updated || today();
     s.editor = s.editor || "ui";
     return s;
@@ -156,8 +194,6 @@
     if (data.title) crmMeta.title = data.title;
     if (data.north_star) crmMeta.north_star = data.north_star;
     if (data.seeded_at) crmMeta.seeded_at = data.seeded_at;
-
-    // Prefer canonical stage list; keep custom labels if ids match
     const known = knownStageIds();
     const labelMap = {};
     if (Array.isArray(data.stages)) {
@@ -184,6 +220,7 @@
       quality_web: !!s.quality_web,
       quality_yt: !!s.quality_yt,
       quality_ads: !!s.quality_ads,
+      sites: normalizeSites(s.sites, s.category),
       last_updated: s.last_updated || today(),
       editor: s.editor || "ui",
     }));
@@ -277,7 +314,6 @@
         const remote = await pullRemote();
         if (remote && Array.isArray(remote.suppliers)) {
           baseSuppliers = mergeById(payload.suppliers, remote.suppliers);
-          applyMeta({ ...remote, stages: DEFAULT_STAGES });
           applyMeta(remote);
           return pushToGitHub(true);
         }
@@ -314,25 +350,35 @@
     return !!document.getElementById("drawer")?.classList.contains("open");
   }
 
-  function checkHtml(s, compact) {
+  function checkHtml(s) {
     if (s.stage !== "onboarding") return "";
     const items = [
-      { key: "quality_web", label: compact ? "web" : "quality web pages" },
-      { key: "quality_yt", label: compact ? "YT" : "quality YT videos" },
-      { key: "quality_ads", label: compact ? "ads" : "quality ads" },
+      { key: "quality_web", label: "web" },
+      { key: "quality_yt", label: "YT" },
+      { key: "quality_ads", label: "ads" },
     ];
-    if (compact) {
-      return `<div class="card-checks" data-stop="1">${items
-        .map((it) => {
-          const on = !!s[it.key];
-          return `<label class="card-check${on ? " is-on" : ""}" data-stop="1">
+    return `<div class="card-checks" data-stop="1">${items
+      .map((it) => {
+        const on = !!s[it.key];
+        return `<label class="card-check${on ? " is-on" : ""}" data-stop="1">
             <input type="checkbox" data-qid="${escapeHtml(s.id)}" data-qkey="${it.key}" ${on ? "checked" : ""} />
             ${escapeHtml(it.label)}
           </label>`;
-        })
-        .join("")}</div>`;
-    }
-    return "";
+      })
+      .join("")}</div>`;
+  }
+
+  function sitesBadgesHtml(s) {
+    const sites = normalizeSites(s.sites, s.category);
+    if (!sites.length) return "";
+    const badges = sites
+      .map((id) => {
+        const opt = SITE_OPTIONS.find((o) => o.id === id);
+        if (!opt) return "";
+        return `<span class="site-badge ${opt.cls}" title="${escapeHtml(opt.id)}">${escapeHtml(opt.short)}</span>`;
+      })
+      .join("");
+    return `<div class="card-sites">${badges}</div>`;
   }
 
   function cardHtml(s) {
@@ -342,7 +388,8 @@
         <span class="card-drag-handle" draggable="true" role="button" tabindex="-1" aria-label="Drag to reorder or change status" title="Drag to reorder / move status">⋮⋮</span>
         <h3 class="card-title">${escapeHtml(s.name || "Untitled")}</h3>
         ${cat}
-        ${checkHtml(s, true)}
+        ${sitesBadgesHtml(s)}
+        ${checkHtml(s)}
       </article>`;
   }
 
@@ -440,6 +487,10 @@
     input.addEventListener("blur", () => finish(true));
   }
 
+  /**
+   * Move / reorder. Cross-stage always succeeds (append unless insertBeforeId set).
+   * Same-stage with insertBeforeId reorders; append-to-end if already last is no-op.
+   */
   function placeSupplier(id, targetStage, insertBeforeId) {
     const s = findSupplier(id);
     if (!s || s.stage === "deleted") return false;
@@ -454,39 +505,48 @@
     if (insertBeforeId) {
       const idx = peers.findIndex((x) => x.id === insertBeforeId);
       if (idx >= 0) {
+        if (sameStage) {
+          const cur = sortInStage(baseSuppliers.filter((x) => x.stage === targetStage));
+          const myIdx = cur.findIndex((x) => x.id === id);
+          if (myIdx >= 0 && myIdx < cur.length - 1 && cur[myIdx + 1].id === insertBeforeId) {
+            return false;
+          }
+        }
+        s.stage = targetStage;
+        s.last_updated = today();
+        s.editor = "ui";
         peers.splice(idx, 0, s);
         peers.forEach((p, i) => {
           p.order = i;
-          if (p.id === id) {
-            p.stage = targetStage;
-            p.last_updated = today();
-            p.editor = "ui";
-          }
         });
-        s.stage = targetStage;
-        s.order = idx;
-        s.last_updated = today();
-        s.editor = "ui";
         if (!sameStage) renumberStage(fromStage);
         return true;
       }
     }
 
-    if (sameStage && !insertBeforeId) {
+    if (sameStage) {
       const sorted = sortInStage(baseSuppliers.filter((x) => x.stage === targetStage));
       if (sorted.length && sorted[sorted.length - 1].id === id) return false;
+      s.order = peers.length ? Math.max(...peers.map((p) => Number(p.order) || 0)) + 1 : 0;
+      s.last_updated = today();
+      s.editor = "ui";
+      renumberStage(targetStage);
+      return true;
     }
+
+    // Cross-row stage change — append rightmost
     s.stage = targetStage;
     s.order = peers.length ? Math.max(...peers.map((p) => Number(p.order) || 0)) + 1 : 0;
     s.last_updated = today();
     s.editor = "ui";
-    if (!sameStage) renumberStage(fromStage);
+    renumberStage(fromStage);
     renumberStage(targetStage);
     return true;
   }
 
   function bindBoardDnD(board) {
     let pointerDrag = null;
+    let lastHover = null; // { stage, insertBeforeId }
 
     function clearHighlights() {
       board.querySelectorAll(".stage-row.drag-over").forEach((c) => c.classList.remove("drag-over"));
@@ -501,14 +561,42 @@
       return n ? n.dataset.id : null;
     }
 
-    function dropTargetAt(x, y) {
-      const el = document.elementFromPoint(x, y);
-      if (!el) return null;
-      const card = el.closest(".card");
-      const row = el.closest(".stage-row");
+    /** Hit-test under point, skipping the dragged card (fixes cross-row). */
+    function dropTargetAt(x, y, dragId) {
+      const stack = document.elementsFromPoint(x, y) || [];
+      let row = null;
+      let card = null;
+      for (const el of stack) {
+        if (!el || !el.closest) continue;
+        if (el.classList && el.classList.contains("dragging")) continue;
+        const c = el.classList && el.classList.contains("card") ? el : el.closest(".card");
+        if (c && c.dataset && c.dataset.id === dragId) continue;
+        if (!row) {
+          const r = el.closest(".stage-row");
+          if (r) row = r;
+        }
+        if (!card && c && c.dataset && c.dataset.id !== dragId) {
+          // only count cards that belong to the row we settle on
+          card = c;
+        }
+        if (row) break;
+      }
+      // Re-scan for a card inside the chosen row
+      if (row) {
+        card = null;
+        for (const el of stack) {
+          if (!el || !el.closest) continue;
+          const c = el.classList && el.classList.contains("card") ? el : el.closest(".card");
+          if (!c || !c.dataset || c.dataset.id === dragId) continue;
+          if (c.closest(".stage-row") === row) {
+            card = c;
+            break;
+          }
+        }
+      }
       if (!row) return null;
       const stage = row.dataset.stage;
-      if (card && card.dataset.id) {
+      if (card) {
         const rect = card.getBoundingClientRect();
         const before = x < rect.left + rect.width / 2;
         return {
@@ -521,29 +609,22 @@
       return { stage, insertBeforeId: null, overCard: null, before: false };
     }
 
-    function applyDrop(id, x, y) {
-      const t = dropTargetAt(x, y);
+    function commitMove(id, stage, insertBeforeId) {
+      if (!id || !stage) return;
+      let insertBefore = insertBeforeId === id ? null : insertBeforeId;
+      const changed = placeSupplier(id, stage, insertBefore);
       clearHighlights();
-      if (!t || !t.stage) return;
-      let insertBefore = t.insertBeforeId;
-      if (insertBefore === id) {
-        const self = board.querySelector(`.card[data-id="${CSS.escape(id)}"]`);
-        insertBefore = self ? nextSiblingId(self) : null;
-      }
-      const changed = placeSupplier(id, t.stage, insertBefore);
+      lastHover = null;
       if (changed) {
         render();
         syncMutation("Saved", "Save failed");
       }
     }
 
-    function highlightAt(x, y, dragId) {
+    function paintHover(row, t, dragId) {
       clearHighlights();
-      const t = dropTargetAt(x, y);
-      if (!t) return;
-      const row = board.querySelector(`.stage-row[data-stage="${CSS.escape(t.stage)}"]`);
       if (row) row.classList.add("drag-over");
-      if (t.overCard && t.overCard.dataset.id !== dragId) {
+      if (t && t.overCard && t.overCard.dataset.id !== dragId) {
         t.overCard.classList.add(t.before ? "drop-before" : "drop-after");
       }
     }
@@ -576,19 +657,27 @@
         const card = handle.closest(".card");
         if (!card) return;
         const id = card.dataset.id;
+        board.dataset.dragId = id;
         e.dataTransfer.setData("text/plain", id);
         e.dataTransfer.setData("application/x-sp-id", id);
         e.dataTransfer.effectAllowed = "move";
         card.classList.add("dragging");
+        // So elementsFromPoint sees the row underneath (not the source card)
+        card.style.pointerEvents = "none";
       });
       handle.addEventListener("dragend", () => {
-        board.querySelectorAll(".card.dragging").forEach((c) => c.classList.remove("dragging"));
+        board.querySelectorAll(".card.dragging").forEach((c) => {
+          c.classList.remove("dragging");
+          c.style.pointerEvents = "";
+        });
         clearHighlights();
+        delete board.dataset.dragId;
+        lastHover = null;
       });
 
       handle.addEventListener("pointerdown", (e) => {
         if (e.pointerType === "mouse" && e.button !== 0) return;
-        if (e.pointerType === "mouse") return;
+        if (e.pointerType === "mouse") return; // HTML5 DnD for mouse
         const card = handle.closest(".card");
         if (!card) return;
         e.preventDefault();
@@ -602,8 +691,10 @@
           startY: e.clientY,
           moved: false,
         };
+        board.dataset.dragId = card.dataset.id;
         handle.setPointerCapture(e.pointerId);
         card.classList.add("dragging");
+        card.style.pointerEvents = "none";
       });
       handle.addEventListener("pointermove", (e) => {
         if (!pointerDrag || pointerDrag.pointerId !== e.pointerId) return;
@@ -613,25 +704,38 @@
           pointerDrag.moved = true;
           pointerDrag.card.dataset.suppressClick = "1";
         }
-        highlightAt(e.clientX, e.clientY, pointerDrag.id);
+        const t = dropTargetAt(e.clientX, e.clientY, pointerDrag.id);
+        lastHover = t ? { stage: t.stage, insertBeforeId: t.insertBeforeId } : null;
+        const row = t
+          ? board.querySelector(`.stage-row[data-stage="${CSS.escape(t.stage)}"]`)
+          : null;
+        paintHover(row, t, pointerDrag.id);
       });
       handle.addEventListener("pointerup", (e) => {
         if (!pointerDrag || pointerDrag.pointerId !== e.pointerId) return;
-        const { id, card, handle: h } = pointerDrag;
+        const { id, card, handle: h, moved } = pointerDrag;
         try {
           h.releasePointerCapture(pointerDrag.pointerId);
         } catch (_) {}
         card.classList.remove("dragging");
-        const moved = pointerDrag.moved;
+        card.style.pointerEvents = "";
         pointerDrag = null;
-        if (moved) applyDrop(id, e.clientX, e.clientY);
-        else clearHighlights();
+        delete board.dataset.dragId;
+        if (moved) {
+          const t = lastHover || dropTargetAt(e.clientX, e.clientY, id);
+          if (t) commitMove(id, t.stage, t.insertBeforeId);
+          else clearHighlights();
+        } else clearHighlights();
+        lastHover = null;
       });
       handle.addEventListener("pointercancel", () => {
         if (!pointerDrag) return;
         pointerDrag.card.classList.remove("dragging");
+        pointerDrag.card.style.pointerEvents = "";
         clearHighlights();
         pointerDrag = null;
+        delete board.dataset.dragId;
+        lastHover = null;
       });
     });
 
@@ -639,17 +743,40 @@
       row.addEventListener("dragover", (e) => {
         e.preventDefault();
         e.dataTransfer.dropEffect = "move";
-        highlightAt(e.clientX, e.clientY, "dragging");
+        const id = board.dataset.dragId || "";
+        const stage = row.dataset.stage;
+        const t = dropTargetAt(e.clientX, e.clientY, id);
+        // Always trust the row receiving dragover for stage (cross-row fix)
+        lastHover = {
+          stage,
+          insertBeforeId: t && t.stage === stage ? t.insertBeforeId : null,
+        };
+        paintHover(row, t && t.stage === stage ? t : null, id);
       });
       row.addEventListener("dragleave", (e) => {
         if (!row.contains(e.relatedTarget)) row.classList.remove("drag-over");
       });
       row.addEventListener("drop", (e) => {
         e.preventDefault();
+        e.stopPropagation();
         const id =
-          e.dataTransfer.getData("application/x-sp-id") || e.dataTransfer.getData("text/plain");
-        if (id) applyDrop(id, e.clientX, e.clientY);
-        else clearHighlights();
+          e.dataTransfer.getData("application/x-sp-id") ||
+          e.dataTransfer.getData("text/plain") ||
+          board.dataset.dragId;
+        const stage = row.dataset.stage; // authoritative target stage
+        const t = dropTargetAt(e.clientX, e.clientY, id);
+        const insertBefore =
+          t && t.stage === stage
+            ? t.insertBeforeId
+            : lastHover && lastHover.stage === stage
+              ? lastHover.insertBeforeId
+              : null;
+        board.querySelectorAll(".card.dragging").forEach((c) => {
+          c.classList.remove("dragging");
+          c.style.pointerEvents = "";
+        });
+        commitMove(id, stage, insertBefore);
+        delete board.dataset.dragId;
       });
     });
   }
@@ -672,6 +799,7 @@
     document.getElementById("f-quality-web").checked = !!s.quality_web;
     document.getElementById("f-quality-yt").checked = !!s.quality_yt;
     document.getElementById("f-quality-ads").checked = !!s.quality_ads;
+    writeSitesToDrawer(normalizeSites(s.sites, s.category));
     const stageSel = document.getElementById("f-stage");
     stageSel.innerHTML = stages
       .map(
@@ -711,6 +839,7 @@
     s.quality_web = !!document.getElementById("f-quality-web").checked;
     s.quality_yt = !!document.getElementById("f-quality-yt").checked;
     s.quality_ads = !!document.getElementById("f-quality-ads").checked;
+    s.sites = readSitesFromDrawer();
     s.last_updated = today();
     s.editor = "ui";
     if (newStage !== oldStage) {
@@ -766,15 +895,17 @@
       return;
     }
     const firstStage = stages[0]?.id || "identified";
+    const category = document.getElementById("add-category").value.trim();
     const s = normalizeSupplier({
       id: newId(),
       name,
-      category: document.getElementById("add-category").value.trim(),
+      category,
       website: document.getElementById("add-website").value.trim(),
       contact: document.getElementById("add-contact").value.trim(),
       notes: document.getElementById("add-notes").value,
       stage: firstStage,
       order: nextOrderInStage(firstStage),
+      sites: normalizeSites([], category),
       last_updated: today(),
       editor: "ui-add",
     });
@@ -797,7 +928,6 @@
 
   function ingestData(data) {
     applyMeta(data);
-    // Always enforce canonical stage ids in meta payload write path
     crmMeta.title = "Continuous Growth Engine";
     crmMeta.north_star = "EasySaunas / EasyHomeWellness / EasyHBOT";
     baseSuppliers = (data.suppliers || []).map(normalizeSupplier);
@@ -808,7 +938,6 @@
     let data = await pullRemote();
     if (data && Array.isArray(data.suppliers)) {
       ingestData(data);
-      // Persist migration (stage remap + quality fields + branding) once
       const needsPush =
         JSON.stringify((data.stages || []).map((s) => s.id)) !==
           JSON.stringify(DEFAULT_STAGES.map((s) => s.id)) ||
@@ -816,7 +945,7 @@
         String(data.north_star || "").indexOf("EasySaunas") === -1 ||
         (data.suppliers || []).some((s) => {
           const m = migrateStage(s.stage);
-          return m !== s.stage || s.quality_web === undefined;
+          return m !== s.stage || s.quality_web === undefined || !Array.isArray(s.sites);
         });
       render();
       if (needsPush) await syncMutation("Board updated", "Sync failed");
@@ -854,7 +983,6 @@
     document.getElementById("f-stage")?.addEventListener("change", (e) => {
       toggleOnboardWrap(e.target.value);
     });
-    // Live-toggle checklist in drawer also syncs when already onboarding
     ["f-quality-web", "f-quality-yt", "f-quality-ads"].forEach((fid) => {
       document.getElementById(fid)?.addEventListener("change", async () => {
         if (!activeId || !isDrawerOpen()) return;
@@ -866,7 +994,18 @@
         s.last_updated = today();
         s.editor = "ui";
         render();
-        // Keep drawer open and fields in sync after re-render of board only
+        await syncMutation("Saved", "Save failed");
+      });
+    });
+    ["f-site-ehw", "f-site-es", "f-site-hbot"].forEach((fid) => {
+      document.getElementById(fid)?.addEventListener("change", async () => {
+        if (!activeId || !isDrawerOpen()) return;
+        const s = findSupplier(activeId);
+        if (!s) return;
+        s.sites = readSitesFromDrawer();
+        s.last_updated = today();
+        s.editor = "ui";
+        render();
         await syncMutation("Saved", "Save failed");
       });
     });

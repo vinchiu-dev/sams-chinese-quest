@@ -29,7 +29,7 @@
     html, body { margin: 0; padding: 0; height: 100%; }
     body {
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      background: linear-gradient(165deg, #1e4bb8 0%, #122a6e 28%, #0a1628 62%, #000 100%);
+      background: linear-gradient(165deg, #1e4bb8 0%, #163f9e 45%, #0c1f4a 100%);
       background-attachment: fixed;
       color: var(--text);
       line-height: 1.35;
@@ -147,7 +147,7 @@
       opacity: 0.85;
     }
     .stage-row[data-stage="onboarding"] {
-      border-left-color: #38bdf8;
+      border-left-color: #5b8def;
     }
     .stage-row.drag-over {
       outline: 2px solid var(--yellow);
@@ -438,8 +438,8 @@
       flex-direction: column;
       gap: 8px;
       padding: 10px 12px;
-      background: rgba(56, 189, 248, 0.08);
-      border: 1px solid rgba(56, 189, 248, 0.35);
+      background: rgba(91, 141, 239, 0.12);
+      border: 1px solid rgba(91, 141, 239, 0.4);
       border-radius: 8px;
     }
     .onboard-checks label {
@@ -593,6 +593,54 @@
       .card { width: 118px; min-width: 118px; max-width: 118px; flex-basis: 118px; }
       .brand h1 { font-size: 1rem; }
     }
+
+    .card-sites {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3px;
+      margin-top: 5px;
+    }
+    .site-badge {
+      font-size: 0.52rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      padding: 1px 4px;
+      border-radius: 3px;
+      background: rgba(245, 197, 24, 0.2);
+      color: var(--yellow);
+      border: 1px solid rgba(245, 197, 24, 0.4);
+      line-height: 1.3;
+    }
+    .site-badge.ehw { background: rgba(255,255,255,0.1); color: #dbe4ff; border-color: rgba(255,255,255,0.2); }
+    .site-badge.es { background: rgba(245,197,24,0.22); color: var(--yellow); }
+    .site-badge.hbot { background: var(--red-soft); color: #ff8a8a; border-color: rgba(225,29,46,0.45); }
+    .sites-checks {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 10px 12px;
+      background: rgba(245, 197, 24, 0.08);
+      border: 1px solid rgba(245, 197, 24, 0.35);
+      border-radius: 8px;
+    }
+    .sites-checks label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #fff;
+      cursor: pointer;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .sites-checks input {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--yellow);
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -651,6 +699,15 @@
         <label for="f-stage">Status</label>
         <select id="f-stage" aria-label="Change status"></select>
       </div>
+
+      <div class="field">
+        <span>Storefronts</span>
+        <div class="sites-checks">
+          <label><input type="checkbox" id="f-site-ehw" value="EasyHomeWellness" /> EasyHomeWellness</label>
+          <label><input type="checkbox" id="f-site-es" value="EasySaunas" /> EasySaunas</label>
+          <label><input type="checkbox" id="f-site-hbot" value="EasyHBOT" /> EasyHBOT</label>
+        </div>
+      </div>
       <div class="field" id="onboard-wrap" hidden>
         <span>Onboarding checklist</span>
         <div class="onboard-checks">
@@ -701,6 +758,6 @@
   </div>
 
   <div id="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=20260917-cge2"></script>
+  <script src="app.js?v=20260917-sites-dnd"></script>
 </body>
 </html>

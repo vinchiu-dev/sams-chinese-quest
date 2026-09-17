@@ -14,5 +14,6 @@ Cards flow left → right in each row (leftmost = highest priority); horizontal 
 3. Drag **⋮⋮** to reorder within a row or move between stages.
 4. Click a status title to rename (persists in `suppliers.json`).
 5. In **Onboarding**, toggle quality web / YT / ads on the card or in the drawer (GitHub sync).
+6. **Storefronts** — EasyHomeWellness / EasySaunas / EasyHBOT (`sites[]`); badges on cards, checkboxes in drawer.
 
 Canonical file: `supplier-pipeline/suppliers.json` (GitHub Contents API). No sync banner.

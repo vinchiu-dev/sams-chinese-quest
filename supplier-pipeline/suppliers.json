@@ -43,7 +43,11 @@
       "quality_yt": false,
       "quality_ads": false,
       "last_updated": "2026-09-17",
-      "editor": "ui"
+      "editor": "ui",
+      "sites": [
+        "EasyHomeWellness",
+        "EasyHBOT"
+      ]
     },
     {
       "id": "sp02saunalife",
@@ -58,7 +62,11 @@
       "quality_yt": false,
       "quality_ads": false,
       "last_updated": "2026-09-17",
-      "editor": "seed"
+      "editor": "seed",
+      "sites": [
+        "EasyHomeWellness",
+        "EasySaunas"
+      ]
     },
     {
       "id": "sp03dundalk",
@@ -73,7 +81,11 @@
       "quality_yt": false,
       "quality_ads": false,
       "last_updated": "2026-09-17",
-      "editor": "seed"
+      "editor": "seed",
+      "sites": [
+        "EasyHomeWellness",
+        "EasySaunas"
+      ]
     },
     {
       "id": "sp04clearlight",
@@ -88,7 +100,11 @@
       "quality_yt": false,
       "quality_ads": false,
       "last_updated": "2026-09-17",
-      "editor": "ui"
+      "editor": "ui",
+      "sites": [
+        "EasyHomeWellness",
+        "EasySaunas"
+      ]
     },
     {
       "id": "sp05oxynova",
@@ -103,7 +119,11 @@
       "quality_yt": false,
       "quality_ads": false,
       "last_updated": "2026-09-17",
-      "editor": "seed"
+      "editor": "seed",
+      "sites": [
+        "EasyHomeWellness",
+        "EasyHBOT"
+      ]
     },
     {
       "id": "sp06dynamic",
@@ -118,7 +138,11 @@
       "quality_yt": false,
       "quality_ads": false,
       "last_updated": "2026-09-17",
-      "editor": "ui"
+      "editor": "ui",
+      "sites": [
+        "EasyHomeWellness",
+        "EasySaunas"
+      ]
     }
   ]
 }
