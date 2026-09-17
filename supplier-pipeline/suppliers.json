@@ -3,12 +3,30 @@
   "north_star": "EasySaunas / EasyHomeWellness / EasyHBOT",
   "seeded_at": "2026-09-17",
   "stages": [
-    { "id": "identified", "label": "Identified" },
-    { "id": "in_contact", "label": "In Contact" },
-    { "id": "onboarding", "label": "Onboarding" },
-    { "id": "live", "label": "Live" },
-    { "id": "live_profitable", "label": "Live - Profitable" },
-    { "id": "defunct", "label": "Defunct" }
+    {
+      "id": "identified",
+      "label": "Identified"
+    },
+    {
+      "id": "in_contact",
+      "label": "In Contact"
+    },
+    {
+      "id": "onboarding",
+      "label": "Onboarding"
+    },
+    {
+      "id": "live",
+      "label": "Live"
+    },
+    {
+      "id": "live_profitable",
+      "label": "Live - Profitable"
+    },
+    {
+      "id": "defunct",
+      "label": "Defunct"
+    }
   ],
   "supplier_count": 6,
   "suppliers": [
@@ -64,13 +82,13 @@
       "website": "",
       "contact": "",
       "notes": "",
-      "stage": "in_contact",
-      "order": 1,
+      "stage": "identified",
+      "order": 3,
       "quality_web": false,
       "quality_yt": false,
       "quality_ads": false,
       "last_updated": "2026-09-17",
-      "editor": "seed"
+      "editor": "ui"
     },
     {
       "id": "sp05oxynova",
