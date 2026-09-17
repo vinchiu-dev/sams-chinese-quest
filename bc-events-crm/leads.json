@@ -24,8 +24,30 @@
       "label": "Lost"
     }
   ],
-  "lead_count": 26,
+  "lead_count": 27,
   "leads": [
+    {
+      "id": "1ab1f2f7bcd2ea41",
+      "name": "Ronald Villa",
+      "org": "OCD (Office of Civil Defence)",
+      "email": "noralliv@gmail.com",
+      "phone": null,
+      "source": "manual add (FO)",
+      "source_badge": "Other",
+      "inquiry_date": "2026-09-16",
+      "event_dates": "2026-11-04 to 2026-11-06",
+      "pax": "250 pax",
+      "event_type": "event inquiry",
+      "stage": "new_inquiry",
+      "marketing_channel": "Walk-in / other",
+      "revenue_php": null,
+      "fo_notes": "They only provided the market research for now, which they will use as a basis for their budget. Once it has been reviewed by their management, the canvassing may proceed as early as next week.",
+      "lost_reason": "",
+      "seed_notes": "Manual add 2026-09-16: They only provided the market research for now, which they will use as a basis for their budget. Once it has been reviewed by their management, the canvassing may proceed as early as next week.",
+      "last_updated": "2026-09-16",
+      "subject": "EVENT — Ronald Villa",
+      "editor": "fo-add"
+    },
     {
       "id": "1a0193f1aa99ea6c",
       "name": "Rose Ann Auza",
