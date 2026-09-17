@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1E71A7" />
+  <title>Supplier Pipeline</title>
+  <style>
+    :root {
+      --accent: #1E71A7;
+      --accent-soft: #e8f3f9;
+      --bg: #f4f6f8;
+      --card: #ffffff;
+      --text: #1a2332;
+      --muted: #5c6b7a;
+      --border: #dde3ea;
+      --live: #1a7f4b;
+      --passed: #9b3b3b;
+      --shadow: 0 1px 3px rgba(16, 40, 60, 0.08);
+      --radius: 10px;
+      --drawer-w: min(420px, 100vw);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; height: 100%; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.35;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    body.drawer-open { overflow: hidden; }
+
+    .topbar {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 14px;
+      position: relative;
+      z-index: 20;
+      box-shadow: var(--shadow);
+      flex-shrink: 0;
+    }
+    .topbar-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 14px;
+      justify-content: space-between;
+    }
+    .brand h1 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+    }
+    .brand p {
+      margin: 2px 0 0;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .count {
+      font-size: 0.78rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .btn-add {
+      appearance: none;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      font: inherit;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-add:hover { filter: brightness(1.05); }
+
+    .board-wrap {
+      flex: 1;
+      min-height: 0;
+      overflow: auto;
+      padding: 12px 14px 24px;
+      -webkit-overflow-scrolling: touch;
+    }
+    #board {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Vertical stage ROWS */
+    .stage-row {
+      background: #eef1f4;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      min-height: 88px;
+      transition: outline 0.12s, background 0.12s;
+    }
+    .stage-row.drag-over {
+      outline: 2px solid var(--accent);
+      outline-offset: -2px;
+      background: #e4eef5;
+    }
+    .stage-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      background: #f8fafb;
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+    .stage-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 0;
+      flex: 1;
+    }
+    .stage-title {
+      margin: 0;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: 4px;
+      padding: 2px 4px;
+      margin-left: -4px;
+      border: 1px solid transparent;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .stage-title:hover {
+      background: var(--accent-soft);
+      border-color: #c5dceb;
+      color: var(--accent);
+    }
+    .stage-title-input {
+      font: inherit;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      outline: none;
+      min-width: 100px;
+      max-width: 220px;
+      background: #fff;
+    }
+    .stage-hint {
+      font-size: 0.65rem;
+      color: #94a3b8;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .col-count {
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      min-width: 22px;
+      height: 22px;
+      border-radius: 11px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 6px;
+      flex-shrink: 0;
+    }
+    .stage-body {
+      padding: 10px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: stretch;
+      min-height: 56px;
+    }
+    .empty {
+      margin: 8px 4px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px 10px;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      outline: none;
+      position: relative;
+      user-select: none;
+      width: min(200px, calc(50% - 4px));
+      flex: 0 0 auto;
+      min-height: 52px;
+    }
+    @media (min-width: 640px) {
+      .card { width: 180px; }
+    }
+    .card:hover, .card:focus-visible {
+      border-color: var(--accent);
+      box-shadow: 0 2px 8px rgba(30, 113, 167, 0.18);
+    }
+    .card.dragging { opacity: 0.45; }
+    .card.drop-before {
+      box-shadow: inset 3px 0 0 var(--accent);
+    }
+    .card.drop-after {
+      box-shadow: inset -3px 0 0 var(--accent);
+    }
+    .card-drag-handle {
+      position: absolute;
+      top: 4px;
+      right: 2px;
+      width: 28px;
+      height: 28px;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      font-size: 0.95rem;
+      line-height: 1;
+      letter-spacing: -0.12em;
+      cursor: grab;
+      touch-action: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      z-index: 2;
+    }
+    .card-drag-handle:hover,
+    .card-drag-handle:focus-visible {
+      background: var(--accent-soft);
+      border-color: #c5dceb;
+      color: var(--accent);
+      outline: none;
+    }
+    .card-drag-handle:active { cursor: grabbing; }
+    .card-title {
+      margin: 0;
+      padding-right: 26px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .card-cat {
+      margin: 4px 0 0;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    #backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 35, 50, 0.45);
+      z-index: 40;
+    }
+    #backdrop.open { display: block; }
+
+    #drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: var(--drawer-w);
+      height: 100%;
+      background: var(--card);
+      z-index: 50;
+      transform: translateX(105%);
+      transition: transform 0.22s ease;
+      box-shadow: -4px 0 24px rgba(0,0,0,0.12);
+      display: flex;
+      flex-direction: column;
+    }
+    #drawer.open { transform: translateX(0); }
+    .drawer-header {
+      padding: 14px 16px 10px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .drawer-header h2 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: var(--accent);
+    }
+    .icon-btn {
+      border: none;
+      background: #eef1f4;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--text);
+      flex-shrink: 0;
+    }
+    .drawer-body {
+      padding: 14px 16px 24px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .field { margin-bottom: 14px; }
+    .field > span, .field > label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .field input, .field textarea, .field select {
+      width: 100%;
+      font: inherit;
+      font-size: 0.95rem;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fff;
+    }
+    .field textarea { min-height: 100px; resize: vertical; }
+    .field input:focus, .field textarea:focus, .field select:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+    }
+    .drawer-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      font: inherit;
+      font-weight: 600;
+      padding: 11px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    .btn-danger {
+      appearance: none;
+      border: 1px solid #f1b4b4;
+      background: #fff5f5;
+      color: #b42318;
+      font: inherit;
+      font-weight: 600;
+      padding: 11px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      margin-left: auto;
+    }
+    .btn-danger:hover { background: #ffe8e8; }
+
+    #toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #1a2332;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      z-index: 100;
+      opacity: 0;
+      transition: transform 0.2s, opacity 0.2s;
+      pointer-events: none;
+      max-width: calc(100vw - 32px);
+      text-align: center;
+    }
+    #toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    #add-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      background: rgba(20, 35, 50, 0.45);
+      padding: 12px;
+    }
+    #add-modal.open { display: flex; }
+    .add-card {
+      background: #fff;
+      border-radius: 14px 14px 0 0;
+      width: min(440px, 100%);
+      max-height: min(90vh, 640px);
+      overflow-y: auto;
+      padding: 16px 16px 20px;
+      box-shadow: 0 -4px 24px rgba(0,0,0,0.12);
+    }
+    .add-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .add-card-head h2 { margin: 0; font-size: 1.1rem; color: var(--accent); }
+    .add-close {
+      border: none;
+      background: #eef1f4;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+    .add-sub {
+      margin: 0 0 12px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .add-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .add-actions .btn-primary { flex: 1; }
+    .btn-ghost {
+      appearance: none;
+      border: 1px solid #cbd5e1;
+      background: #fff;
+      color: #334155;
+      font: inherit;
+      font-weight: 600;
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    @media (min-width: 721px) {
+      #add-modal { align-items: center; }
+      .add-card { border-radius: 14px; }
+    }
+    @media (max-width: 720px) {
+      #drawer { width: 100%; }
+      .stage-hint { display: none; }
+      .card { width: calc(50% - 4px); min-width: 140px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-row">
+      <div class="brand">
+        <h1>Supplier Pipeline</h1>
+        <p>Peace Den / Easy Home Wellness</p>
+      </div>
+      <div class="topbar-actions">
+        <span class="count" id="supplier-count">0 suppliers</span>
+        <button type="button" class="btn-add" id="btn-add">+ Add</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="board-wrap" id="board-wrap">
+    <div id="board" aria-label="Supplier pipeline board"></div>
+  </div>
+
+  <div id="backdrop" aria-hidden="true"></div>
+  <aside id="drawer" aria-label="Supplier detail" role="dialog" aria-modal="true">
+    <div class="drawer-header">
+      <div>
+        <h2 id="drawer-title">Supplier</h2>
+      </div>
+      <button type="button" class="icon-btn" id="btn-close" aria-label="Close">×</button>
+    </div>
+    <div class="drawer-body">
+      <div class="field">
+        <label for="f-name">Name</label>
+        <input id="f-name" autocomplete="organization" />
+      </div>
+      <div class="field">
+        <label for="f-category">Category</label>
+        <input id="f-category" placeholder="e.g. sauna, HBOT" />
+      </div>
+      <div class="field">
+        <label for="f-website">Website</label>
+        <input id="f-website" type="url" inputmode="url" placeholder="https://" />
+      </div>
+      <div class="field">
+        <label for="f-contact">Contact</label>
+        <input id="f-contact" placeholder="email, phone, or person" />
+      </div>
+      <div class="field">
+        <label for="f-notes">Notes</label>
+        <textarea id="f-notes" placeholder="Outreach notes, next steps…"></textarea>
+      </div>
+      <div class="field">
+        <label for="f-stage">Status</label>
+        <select id="f-stage" aria-label="Change status"></select>
+      </div>
+      <div class="drawer-actions">
+        <button type="button" class="btn-primary" id="btn-save">Save</button>
+        <button type="button" class="btn-danger" id="btn-remove">Remove</button>
+      </div>
+    </div>
+  </aside>
+
+  <div id="add-modal" aria-hidden="true">
+    <div class="add-card" role="dialog" aria-modal="true" aria-labelledby="add-title">
+      <div class="add-card-head">
+        <h2 id="add-title">Add supplier</h2>
+        <button type="button" class="add-close" id="btn-add-x" aria-label="Close">×</button>
+      </div>
+      <p class="add-sub">Starts in <strong>Identified</strong> and syncs to GitHub.</p>
+      <div class="field">
+        <label for="add-name">Name *</label>
+        <input id="add-name" required autocomplete="organization" />
+      </div>
+      <div class="field">
+        <label for="add-category">Category</label>
+        <input id="add-category" placeholder="e.g. sauna, HBOT" />
+      </div>
+      <div class="field">
+        <label for="add-website">Website</label>
+        <input id="add-website" type="url" inputmode="url" placeholder="https://" />
+      </div>
+      <div class="field">
+        <label for="add-contact">Contact</label>
+        <input id="add-contact" />
+      </div>
+      <div class="field">
+        <label for="add-notes">Notes</label>
+        <textarea id="add-notes" rows="3"></textarea>
+      </div>
+      <div class="add-actions">
+        <button type="button" class="btn-primary" id="btn-add-save">Add</button>
+        <button type="button" class="btn-ghost" id="btn-add-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js?v=20260917"></script>
+</body>
+</html>

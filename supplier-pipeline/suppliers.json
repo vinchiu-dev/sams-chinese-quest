@@ -1,0 +1,106 @@
+{
+  "title": "Supplier Pipeline",
+  "north_star": "Peace Den / Easy Home Wellness brand partners",
+  "seeded_at": "2026-09-17",
+  "stages": [
+    {
+      "id": "identified",
+      "label": "Identified"
+    },
+    {
+      "id": "outreach",
+      "label": "Outreach"
+    },
+    {
+      "id": "negotiating",
+      "label": "Negotiating"
+    },
+    {
+      "id": "onboarding",
+      "label": "Onboarding"
+    },
+    {
+      "id": "live",
+      "label": "Live"
+    },
+    {
+      "id": "passed",
+      "label": "Passed"
+    }
+  ],
+  "supplier_count": 6,
+  "suppliers": [
+    {
+      "id": "sp01summit2sea",
+      "name": "Summit to Sea",
+      "category": "HBOT",
+      "website": "",
+      "contact": "",
+      "notes": "",
+      "stage": "identified",
+      "last_updated": "2026-09-17",
+      "editor": "seed",
+      "order": 0
+    },
+    {
+      "id": "sp02saunalife",
+      "name": "SaunaLife",
+      "category": "sauna",
+      "website": "",
+      "contact": "",
+      "notes": "",
+      "stage": "identified",
+      "last_updated": "2026-09-17",
+      "editor": "seed",
+      "order": 1
+    },
+    {
+      "id": "sp03dundalk",
+      "name": "Dundalk / LeisureCraft",
+      "category": "sauna",
+      "website": "",
+      "contact": "",
+      "notes": "",
+      "stage": "outreach",
+      "last_updated": "2026-09-17",
+      "editor": "seed",
+      "order": 0
+    },
+    {
+      "id": "sp04clearlight",
+      "name": "Clearlight",
+      "category": "sauna",
+      "website": "",
+      "contact": "",
+      "notes": "",
+      "stage": "outreach",
+      "last_updated": "2026-09-17",
+      "editor": "seed",
+      "order": 1
+    },
+    {
+      "id": "sp05oxynova",
+      "name": "OxyNova",
+      "category": "HBOT",
+      "website": "",
+      "contact": "",
+      "notes": "",
+      "stage": "identified",
+      "last_updated": "2026-09-17",
+      "editor": "seed",
+      "order": 2
+    },
+    {
+      "id": "sp06dynamic",
+      "name": "Dynamic / Golden Designs",
+      "category": "sauna",
+      "website": "",
+      "contact": "",
+      "notes": "Already on selling path",
+      "stage": "live",
+      "last_updated": "2026-09-17",
+      "editor": "seed",
+      "order": 0
+    }
+  ]
+}
