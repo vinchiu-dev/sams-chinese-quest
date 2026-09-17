@@ -107,7 +107,7 @@
     },
     {
       "id": "sp06dynamic",
-      "name": "Dynamic / Golden Designs",
+      "name": "Dynamic Sauna",
       "category": "sauna",
       "website": "",
       "contact": "",
@@ -118,7 +118,7 @@
       "quality_yt": false,
       "quality_ads": false,
       "last_updated": "2026-09-17",
-      "editor": "seed"
+      "editor": "ui"
     }
   ]
 }
