@@ -42,12 +42,12 @@
       "quality_web": false,
       "quality_yt": false,
       "quality_ads": false,
-      "last_updated": "2026-09-17",
-      "editor": "ui",
       "sites": [
         "EasyHomeWellness",
         "EasyHBOT"
-      ]
+      ],
+      "last_updated": "2026-09-17",
+      "editor": "ui"
     },
     {
       "id": "sp02saunalife",
@@ -61,12 +61,12 @@
       "quality_web": false,
       "quality_yt": false,
       "quality_ads": false,
-      "last_updated": "2026-09-17",
-      "editor": "seed",
       "sites": [
         "EasyHomeWellness",
         "EasySaunas"
-      ]
+      ],
+      "last_updated": "2026-09-17",
+      "editor": "seed"
     },
     {
       "id": "sp03dundalk",
@@ -80,12 +80,12 @@
       "quality_web": false,
       "quality_yt": false,
       "quality_ads": false,
-      "last_updated": "2026-09-17",
-      "editor": "seed",
       "sites": [
         "EasyHomeWellness",
         "EasySaunas"
-      ]
+      ],
+      "last_updated": "2026-09-17",
+      "editor": "seed"
     },
     {
       "id": "sp04clearlight",
@@ -99,12 +99,12 @@
       "quality_web": false,
       "quality_yt": false,
       "quality_ads": false,
-      "last_updated": "2026-09-17",
-      "editor": "ui",
       "sites": [
         "EasyHomeWellness",
         "EasySaunas"
-      ]
+      ],
+      "last_updated": "2026-09-17",
+      "editor": "ui"
     },
     {
       "id": "sp05oxynova",
@@ -118,12 +118,12 @@
       "quality_web": false,
       "quality_yt": false,
       "quality_ads": false,
-      "last_updated": "2026-09-17",
-      "editor": "seed",
       "sites": [
         "EasyHomeWellness",
         "EasyHBOT"
-      ]
+      ],
+      "last_updated": "2026-09-17",
+      "editor": "seed"
     },
     {
       "id": "sp06dynamic",
@@ -132,17 +132,17 @@
       "website": "",
       "contact": "",
       "notes": "Already on selling path",
-      "stage": "live",
-      "order": 0,
+      "stage": "onboarding",
+      "order": 1,
       "quality_web": false,
       "quality_yt": false,
       "quality_ads": false,
-      "last_updated": "2026-09-17",
-      "editor": "ui",
       "sites": [
         "EasyHomeWellness",
         "EasySaunas"
-      ]
+      ],
+      "last_updated": "2026-09-17",
+      "editor": "ui"
     }
   ]
 }
