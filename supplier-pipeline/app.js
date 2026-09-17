@@ -62,7 +62,13 @@
     title: "Continuous Growth Engine",
     north_star: "EasySaunas / EasyHomeWellness / EasyHBOT",
     seeded_at: "",
+    osaki_branded_search_volume: 5400,
+    osaki_query: "osaki massage chair",
+    osaki_volume_source:
+      "Best-effort US monthly estimate (Keyword Planner-style bucket midpoint) for baseline query; refresh with live Google Ads Keyword Planner / Semrush when available.",
   };
+
+  const DEFAULT_OSAKI_VOL = 5400;
 
   function showToast(msg) {
     const el = document.getElementById("toast");
@@ -128,6 +134,59 @@
     if (hbot) hbot.checked = set.has("EasyHBOT");
   }
 
+
+  function parseNumOrNull(v) {
+    if (v === null || v === undefined || v === "") return null;
+    const n = Number(v);
+    return Number.isFinite(n) ? n : null;
+  }
+
+  function getOsakiVol() {
+    const n = Number(crmMeta.osaki_branded_search_volume);
+    return Number.isFinite(n) && n > 0 ? n : DEFAULT_OSAKI_VOL;
+  }
+
+  function computeScoreFields(brandedVol, aovEst) {
+    const vol = parseNumOrNull(brandedVol);
+    const aov = parseNumOrNull(aovEst);
+    const osaki = getOsakiVol();
+    if (vol === null || aov === null || vol < 0 || aov < 0) {
+      return { branded_vol: vol, aov_est: aov, osaki_rel: null, score: null };
+    }
+    const rel = vol / osaki;
+    const score = rel * aov;
+    return {
+      branded_vol: vol,
+      aov_est: aov,
+      osaki_rel: Math.round(rel * 10000) / 10000,
+      score: Math.round(score * 10) / 10,
+    };
+  }
+
+  function formatScoreDisplay(score) {
+    if (score === null || score === undefined || !Number.isFinite(Number(score))) return "—";
+    const n = Number(score);
+    if (Math.abs(n - Math.round(n)) < 0.05) return String(Math.round(n));
+    return (Math.round(n * 10) / 10).toFixed(1);
+  }
+
+  function updateScoreBreakdownUI() {
+    const el = document.getElementById("score-breakdown");
+    if (!el) return;
+    const vol = parseNumOrNull(document.getElementById("f-branded-vol")?.value);
+    const aov = parseNumOrNull(document.getElementById("f-aov-est")?.value);
+    const osaki = getOsakiVol();
+    const computed = computeScoreFields(vol, aov);
+    const relTxt =
+      computed.osaki_rel === null ? "—" : computed.osaki_rel.toFixed(3);
+    const scoreTxt = formatScoreDisplay(computed.score);
+    const volTxt = vol === null ? "—" : String(vol);
+    const aovTxt = aov === null ? "—" : String(aov);
+    el.innerHTML =
+      `score = (${volTxt} / ${osaki}) × ${aovTxt} = <strong>${scoreTxt}</strong>` +
+      ` <span style="opacity:0.85">(osaki_rel ${relTxt})</span>`;
+  }
+
   function normalizeSupplier(raw) {
     const s = raw && typeof raw === "object" ? { ...raw } : {};
     s.id = s.id || newId();
@@ -142,6 +201,18 @@
     s.quality_yt = !!s.quality_yt;
     s.quality_ads = !!s.quality_ads;
     s.sites = normalizeSites(s.sites, s.category);
+    s.branded_vol = parseNumOrNull(s.branded_vol);
+    s.aov_est = parseNumOrNull(s.aov_est);
+    const computed = computeScoreFields(s.branded_vol, s.aov_est);
+    // Prefer freshly computed rel/score when inputs present; else keep stored nulls
+    if (computed.score !== null) {
+      s.osaki_rel = computed.osaki_rel;
+      s.score = computed.score;
+    } else {
+      s.osaki_rel = parseNumOrNull(s.osaki_rel);
+      s.score = parseNumOrNull(s.score);
+    }
+    s.score_notes = s.score_notes == null ? "" : String(s.score_notes);
     s.last_updated = s.last_updated || today();
     s.editor = s.editor || "ui";
     return s;
@@ -194,6 +265,12 @@
     if (data.title) crmMeta.title = data.title;
     if (data.north_star) crmMeta.north_star = data.north_star;
     if (data.seeded_at) crmMeta.seeded_at = data.seeded_at;
+    if (data.osaki_branded_search_volume != null) {
+      const ov = Number(data.osaki_branded_search_volume);
+      if (Number.isFinite(ov) && ov > 0) crmMeta.osaki_branded_search_volume = ov;
+    }
+    if (data.osaki_query) crmMeta.osaki_query = String(data.osaki_query);
+    if (data.osaki_volume_source) crmMeta.osaki_volume_source = String(data.osaki_volume_source);
     const known = knownStageIds();
     const labelMap = {};
     if (Array.isArray(data.stages)) {
@@ -221,6 +298,11 @@
       quality_yt: !!s.quality_yt,
       quality_ads: !!s.quality_ads,
       sites: normalizeSites(s.sites, s.category),
+      branded_vol: parseNumOrNull(s.branded_vol),
+      osaki_rel: parseNumOrNull(s.osaki_rel),
+      aov_est: parseNumOrNull(s.aov_est),
+      score: parseNumOrNull(s.score),
+      score_notes: s.score_notes || "",
       last_updated: s.last_updated || today(),
       editor: s.editor || "ui",
     }));
@@ -228,6 +310,11 @@
       title: crmMeta.title || "Continuous Growth Engine",
       north_star: crmMeta.north_star || "EasySaunas / EasyHomeWellness / EasyHBOT",
       seeded_at: crmMeta.seeded_at || today(),
+      osaki_query: crmMeta.osaki_query || "osaki massage chair",
+      osaki_branded_search_volume: getOsakiVol(),
+      osaki_volume_source:
+        crmMeta.osaki_volume_source ||
+        "Best-effort US monthly estimate; refresh with Keyword Planner / Semrush.",
       stages: stages.map((s) => ({ id: s.id, label: s.label })),
       supplier_count: suppliers.filter((s) => s.stage !== "deleted").length,
       suppliers,
@@ -351,10 +438,13 @@
   }
 
   function cardHtml(s) {
+    const scoreTxt = formatScoreDisplay(s.score);
+    const emptyCls = scoreTxt === "—" ? " is-empty" : "";
     return `
       <article class="card" data-id="${escapeHtml(s.id)}" data-stage="${escapeHtml(s.stage)}" tabindex="0" role="button">
         <span class="card-drag-handle" role="button" tabindex="-1" aria-label="Drag to reorder or change status" title="Drag to reorder / move status">⋮⋮</span>
         <h3 class="card-title">${escapeHtml(s.name || "Untitled")}</h3>
+        <p class="card-score${emptyCls}" title="Vin score">${escapeHtml(scoreTxt)}</p>
       </article>`;
   }
 
@@ -369,7 +459,6 @@
             <div class="stage-title-wrap">
               <h2 class="stage-title" data-stage-id="${escapeHtml(st.id)}" title="Click to rename">${escapeHtml(st.label)}</h2>
             </div>
-            <span class="col-count">${row.length}</span>
           </header>
           <div class="stage-body" data-stage="${escapeHtml(st.id)}">
             ${row.map(cardHtml).join("") || `<p class="empty">No suppliers</p>`}
@@ -680,6 +769,13 @@
     document.getElementById("f-quality-yt").checked = !!s.quality_yt;
     document.getElementById("f-quality-ads").checked = !!s.quality_ads;
     writeSitesToDrawer(normalizeSites(s.sites, s.category));
+    const bv = document.getElementById("f-branded-vol");
+    const ae = document.getElementById("f-aov-est");
+    const sn = document.getElementById("f-score-notes");
+    if (bv) bv.value = s.branded_vol == null ? "" : String(s.branded_vol);
+    if (ae) ae.value = s.aov_est == null ? "" : String(s.aov_est);
+    if (sn) sn.value = s.score_notes || "";
+    updateScoreBreakdownUI();
     const stageSel = document.getElementById("f-stage");
     stageSel.innerHTML = stages
       .map(
@@ -720,6 +816,16 @@
     s.quality_yt = !!document.getElementById("f-quality-yt").checked;
     s.quality_ads = !!document.getElementById("f-quality-ads").checked;
     s.sites = readSitesFromDrawer();
+    const scored = computeScoreFields(
+      document.getElementById("f-branded-vol")?.value,
+      document.getElementById("f-aov-est")?.value
+    );
+    s.branded_vol = scored.branded_vol;
+    s.aov_est = scored.aov_est;
+    s.osaki_rel = scored.osaki_rel;
+    s.score = scored.score;
+    s.score_notes = document.getElementById("f-score-notes")?.value || "";
+    updateScoreBreakdownUI();
     s.last_updated = today();
     s.editor = "ui";
     if (newStage !== oldStage) {
@@ -855,6 +961,9 @@
     document.getElementById("btn-close")?.addEventListener("click", closeDrawer);
     document.getElementById("backdrop")?.addEventListener("click", closeDrawer);
     document.getElementById("btn-save")?.addEventListener("click", saveDrawer);
+    ["f-branded-vol", "f-aov-est"].forEach((fid) => {
+      document.getElementById(fid)?.addEventListener("input", updateScoreBreakdownUI);
+    });
     document.getElementById("btn-remove")?.addEventListener("click", softDelete);
     document.getElementById("btn-add")?.addEventListener("click", openAddModal);
     document.getElementById("btn-add-x")?.addEventListener("click", closeAddModal);

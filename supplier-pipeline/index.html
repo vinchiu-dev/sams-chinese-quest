@@ -148,16 +148,22 @@
       transition: border-color 0.12s, box-shadow 0.12s;
       overflow: hidden;
     }
+    .stage-row[data-stage="identified"] {
+      border-left-color: var(--yellow);
+    }
+    .stage-row[data-stage="in_contact"] {
+      border-left-color: #f97316;
+    }
+    .stage-row[data-stage="onboarding"] {
+      border-left-color: #5b8def;
+    }
     .stage-row[data-stage="live"],
     .stage-row[data-stage="live_profitable"] {
       border-left-color: #22c55e;
     }
     .stage-row[data-stage="defunct"] {
-      border-left-color: var(--red);
-      opacity: 0.85;
-    }
-    .stage-row[data-stage="onboarding"] {
-      border-left-color: #5b8def;
+      border-left-color: #9ca3af;
+      opacity: 0.78;
     }
     .stage-row.drag-over {
       outline: 2px solid var(--yellow);
@@ -219,20 +225,7 @@
       font-weight: 500;
       white-space: nowrap;
     }
-    .col-count {
-      background: var(--red);
-      color: #fff;
-      font-size: 0.72rem;
-      font-weight: 800;
-      min-width: 22px;
-      height: 22px;
-      border-radius: 11px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 6px;
-      flex-shrink: 0;
-    }
+    .col-count { display: none; }
 
     /* Single horizontal row — no wrap; scroll if needed */
     .stage-body {
@@ -325,6 +318,28 @@
       color: #fff;
       word-break: break-word;
     }
+    .card-score {
+      margin: 4px 0 0;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--yellow);
+      letter-spacing: 0.01em;
+      font-variant-numeric: tabular-nums;
+    }
+    .card-score.is-empty { color: var(--muted); font-weight: 600; }
+    .score-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .score-grid .field { margin-bottom: 0; }
+    .score-hint {
+      margin: 6px 0 0;
+      font-size: 0.68rem;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+    .score-hint strong { color: var(--yellow); font-weight: 700; }
     .card-cat {
       margin: 3px 0 0;
       font-size: 0.65rem;
@@ -716,6 +731,24 @@
           <label><input type="checkbox" id="f-site-hbot" value="EasyHBOT" /> EasyHBOT</label>
         </div>
       </div>
+      <div class="field">
+        <span>Vin score</span>
+        <div class="score-grid">
+          <div class="field">
+            <label for="f-branded-vol">Branded vol /mo</label>
+            <input id="f-branded-vol" type="number" min="0" step="1" inputmode="numeric" placeholder="e.g. 2400" />
+          </div>
+          <div class="field">
+            <label for="f-aov-est">AOV est ($)</label>
+            <input id="f-aov-est" type="number" min="0" step="1" inputmode="decimal" placeholder="e.g. 7500" />
+          </div>
+        </div>
+        <p class="score-hint" id="score-breakdown">score = (vol / Osaki) × AOV → —</p>
+        <div class="field" style="margin-top:10px;margin-bottom:0">
+          <label for="f-score-notes">Score notes</label>
+          <textarea id="f-score-notes" rows="3" placeholder="Query, AOV products, sources…"></textarea>
+        </div>
+      </div>
       <div class="field" id="onboard-wrap" hidden>
         <span>Onboarding checklist</span>
         <div class="onboard-checks">
@@ -766,6 +799,6 @@
   </div>
 
   <div id="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=20260917-header-compact"></script>
+  <script src="app.js?v=20260917-scores"></script>
 </body>
 </html>
