@@ -353,7 +353,7 @@
   function cardHtml(s) {
     return `
       <article class="card" data-id="${escapeHtml(s.id)}" data-stage="${escapeHtml(s.stage)}" tabindex="0" role="button">
-        <span class="card-drag-handle" draggable="true" role="button" tabindex="-1" aria-label="Drag to reorder or change status" title="Drag to reorder / move status">⋮⋮</span>
+        <span class="card-drag-handle" role="button" tabindex="-1" aria-label="Drag to reorder or change status" title="Drag to reorder / move status">⋮⋮</span>
         <h3 class="card-title">${escapeHtml(s.name || "Untitled")}</h3>
       </article>`;
   }
@@ -506,41 +506,36 @@
       return n ? n.dataset.id : null;
     }
 
-    /** Hit-test under point, skipping the dragged card (fixes cross-row). */
+    /**
+     * Hit-test under point. Dragged card uses pointer-events:none so the
+     * stage-row underneath (including cross-row) is visible to the stack.
+     */
     function dropTargetAt(x, y, dragId) {
       const stack = document.elementsFromPoint(x, y) || [];
       let row = null;
-      let card = null;
       for (const el of stack) {
         if (!el || !el.closest) continue;
         if (el.classList && el.classList.contains("dragging")) continue;
+        const r = el.closest(".stage-row");
+        if (!r) continue;
+        // Skip hit-tests that only resolve through the dragged card itself
         const c = el.classList && el.classList.contains("card") ? el : el.closest(".card");
         if (c && c.dataset && c.dataset.id === dragId) continue;
-        if (!row) {
-          const r = el.closest(".stage-row");
-          if (r) row = r;
-        }
-        if (!card && c && c.dataset && c.dataset.id !== dragId) {
-          // only count cards that belong to the row we settle on
-          card = c;
-        }
-        if (row) break;
-      }
-      // Re-scan for a card inside the chosen row
-      if (row) {
-        card = null;
-        for (const el of stack) {
-          if (!el || !el.closest) continue;
-          const c = el.classList && el.classList.contains("card") ? el : el.closest(".card");
-          if (!c || !c.dataset || c.dataset.id === dragId) continue;
-          if (c.closest(".stage-row") === row) {
-            card = c;
-            break;
-          }
-        }
+        row = r;
+        break;
       }
       if (!row) return null;
       const stage = row.dataset.stage;
+      let card = null;
+      for (const el of stack) {
+        if (!el || !el.closest) continue;
+        const c = el.classList && el.classList.contains("card") ? el : el.closest(".card");
+        if (!c || !c.dataset || c.dataset.id === dragId) continue;
+        if (c.closest(".stage-row") === row) {
+          card = c;
+          break;
+        }
+      }
       if (card) {
         const rect = card.getBoundingClientRect();
         const before = x < rect.left + rect.width / 2;
@@ -556,7 +551,7 @@
 
     function commitMove(id, stage, insertBeforeId) {
       if (!id || !stage) return;
-      let insertBefore = insertBeforeId === id ? null : insertBeforeId;
+      const insertBefore = insertBeforeId === id ? null : insertBeforeId;
       const changed = placeSupplier(id, stage, insertBefore);
       clearHighlights();
       lastHover = null;
@@ -592,37 +587,16 @@
       });
     });
 
+    // Pointer DnD for mouse + touch (HTML5 drag is unreliable cross-row once
+    // the source card sets pointer-events:none during dragstart).
     board.querySelectorAll(".card-drag-handle").forEach((handle) => {
       handle.addEventListener("click", (e) => {
         e.preventDefault();
         e.stopPropagation();
       });
 
-      handle.addEventListener("dragstart", (e) => {
-        const card = handle.closest(".card");
-        if (!card) return;
-        const id = card.dataset.id;
-        board.dataset.dragId = id;
-        e.dataTransfer.setData("text/plain", id);
-        e.dataTransfer.setData("application/x-sp-id", id);
-        e.dataTransfer.effectAllowed = "move";
-        card.classList.add("dragging");
-        // So elementsFromPoint sees the row underneath (not the source card)
-        card.style.pointerEvents = "none";
-      });
-      handle.addEventListener("dragend", () => {
-        board.querySelectorAll(".card.dragging").forEach((c) => {
-          c.classList.remove("dragging");
-          c.style.pointerEvents = "";
-        });
-        clearHighlights();
-        delete board.dataset.dragId;
-        lastHover = null;
-      });
-
       handle.addEventListener("pointerdown", (e) => {
         if (e.pointerType === "mouse" && e.button !== 0) return;
-        if (e.pointerType === "mouse") return; // HTML5 DnD for mouse
         const card = handle.closest(".card");
         if (!card) return;
         e.preventDefault();
@@ -637,10 +611,13 @@
           moved: false,
         };
         board.dataset.dragId = card.dataset.id;
-        handle.setPointerCapture(e.pointerId);
+        try {
+          handle.setPointerCapture(e.pointerId);
+        } catch (_) {}
         card.classList.add("dragging");
         card.style.pointerEvents = "none";
       });
+
       handle.addEventListener("pointermove", (e) => {
         if (!pointerDrag || pointerDrag.pointerId !== e.pointerId) return;
         const dx = e.clientX - pointerDrag.startX;
@@ -649,6 +626,7 @@
           pointerDrag.moved = true;
           pointerDrag.card.dataset.suppressClick = "1";
         }
+        if (!pointerDrag.moved) return;
         const t = dropTargetAt(e.clientX, e.clientY, pointerDrag.id);
         lastHover = t ? { stage: t.stage, insertBeforeId: t.insertBeforeId } : null;
         const row = t
@@ -656,6 +634,7 @@
           : null;
         paintHover(row, t, pointerDrag.id);
       });
+
       handle.addEventListener("pointerup", (e) => {
         if (!pointerDrag || pointerDrag.pointerId !== e.pointerId) return;
         const { id, card, handle: h, moved } = pointerDrag;
@@ -668,11 +647,12 @@
         delete board.dataset.dragId;
         if (moved) {
           const t = lastHover || dropTargetAt(e.clientX, e.clientY, id);
-          if (t) commitMove(id, t.stage, t.insertBeforeId);
+          if (t && t.stage) commitMove(id, t.stage, t.insertBeforeId);
           else clearHighlights();
         } else clearHighlights();
         lastHover = null;
       });
+
       handle.addEventListener("pointercancel", () => {
         if (!pointerDrag) return;
         pointerDrag.card.classList.remove("dragging");
@@ -681,47 +661,6 @@
         pointerDrag = null;
         delete board.dataset.dragId;
         lastHover = null;
-      });
-    });
-
-    board.querySelectorAll(".stage-row").forEach((row) => {
-      row.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        e.dataTransfer.dropEffect = "move";
-        const id = board.dataset.dragId || "";
-        const stage = row.dataset.stage;
-        const t = dropTargetAt(e.clientX, e.clientY, id);
-        // Always trust the row receiving dragover for stage (cross-row fix)
-        lastHover = {
-          stage,
-          insertBeforeId: t && t.stage === stage ? t.insertBeforeId : null,
-        };
-        paintHover(row, t && t.stage === stage ? t : null, id);
-      });
-      row.addEventListener("dragleave", (e) => {
-        if (!row.contains(e.relatedTarget)) row.classList.remove("drag-over");
-      });
-      row.addEventListener("drop", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const id =
-          e.dataTransfer.getData("application/x-sp-id") ||
-          e.dataTransfer.getData("text/plain") ||
-          board.dataset.dragId;
-        const stage = row.dataset.stage; // authoritative target stage
-        const t = dropTargetAt(e.clientX, e.clientY, id);
-        const insertBefore =
-          t && t.stage === stage
-            ? t.insertBeforeId
-            : lastHover && lastHover.stage === stage
-              ? lastHover.insertBeforeId
-              : null;
-        board.querySelectorAll(".card.dragging").forEach((c) => {
-          c.classList.remove("dragging");
-          c.style.pointerEvents = "";
-        });
-        commitMove(id, stage, insertBefore);
-        delete board.dataset.dragId;
       });
     });
   }
@@ -925,8 +864,23 @@
     document.getElementById("btn-add-x")?.addEventListener("click", closeAddModal);
     document.getElementById("btn-add-cancel")?.addEventListener("click", closeAddModal);
     document.getElementById("btn-add-save")?.addEventListener("click", addSupplier);
-    document.getElementById("f-stage")?.addEventListener("change", (e) => {
-      toggleOnboardWrap(e.target.value);
+    document.getElementById("f-stage")?.addEventListener("change", async (e) => {
+      const newStage = e.target.value;
+      toggleOnboardWrap(newStage);
+      if (!activeId || !isDrawerOpen()) return;
+      const s = findSupplier(activeId);
+      if (!s) return;
+      const oldStage = s.stage;
+      if (newStage === oldStage) return;
+      if (!stages.some((st) => st.id === newStage)) return;
+      s.stage = newStage;
+      s.order = nextOrderInStage(newStage);
+      s.last_updated = today();
+      s.editor = "ui";
+      renumberStage(oldStage);
+      renumberStage(newStage);
+      render();
+      await syncMutation("Status updated", "Status sync failed");
     });
     ["f-quality-web", "f-quality-yt", "f-quality-ads"].forEach((fid) => {
       document.getElementById(fid)?.addEventListener("change", async () => {
