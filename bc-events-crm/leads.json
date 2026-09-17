@@ -40,7 +40,7 @@
       "event_type": "event inquiry",
       "stage": "new_inquiry",
       "marketing_channel": "Walk-in / other",
-      "revenue_php": null,
+      "revenue_php": 1250000,
       "fo_notes": "They only provided the market research for now, which they will use as a basis for their budget. Once it has been reviewed by their management, the canvassing may proceed as early as next week.",
       "lost_reason": "",
       "seed_notes": "Manual add 2026-09-16: They only provided the market research for now, which they will use as a basis for their budget. Once it has been reviewed by their management, the canvassing may proceed as early as next week.",
