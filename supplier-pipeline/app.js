@@ -1,4 +1,4 @@
-/* Supplier Pipeline CRM — GitHub Contents API sync (same pattern as BC Events CRM / Sam progress) */
+/* Continuous Growth Engine — Supplier Pipeline (GitHub Contents API sync) */
 (function () {
   const _GH_DEFAULTS = {
     owner: "vinchiu-dev",
@@ -26,12 +26,25 @@
 
   const DEFAULT_STAGES = [
     { id: "identified", label: "Identified" },
-    { id: "outreach", label: "Outreach" },
-    { id: "negotiating", label: "Negotiating" },
+    { id: "in_contact", label: "In Contact" },
     { id: "onboarding", label: "Onboarding" },
     { id: "live", label: "Live" },
-    { id: "passed", label: "Passed" },
+    { id: "live_profitable", label: "Live - Profitable" },
+    { id: "defunct", label: "Defunct" },
   ];
+
+  const STAGE_MIGRATE = {
+    identified: "identified",
+    outreach: "in_contact",
+    in_contact: "in_contact",
+    negotiating: "onboarding",
+    onboarding: "onboarding",
+    live: "live",
+    live_profitable: "live_profitable",
+    passed: "defunct",
+    defunct: "defunct",
+    deleted: "deleted",
+  };
 
   let stages = DEFAULT_STAGES.map((s) => ({ ...s }));
   let baseSuppliers = [];
@@ -39,8 +52,8 @@
   let lastSyncError = "";
   let activeId = null;
   let crmMeta = {
-    title: "Supplier Pipeline",
-    north_star: "Peace Den / Easy Home Wellness brand partners",
+    title: "Continuous Growth Engine",
+    north_star: "EasySaunas / EasyHomeWellness / EasyHBOT",
     seeded_at: "",
   };
 
@@ -72,6 +85,30 @@
     return "sp" + hex.slice(0, 14);
   }
 
+  function migrateStage(stage) {
+    const raw = String(stage || "identified").trim() || "identified";
+    if (raw === "deleted") return "deleted";
+    return STAGE_MIGRATE[raw] || "identified";
+  }
+
+  function normalizeSupplier(raw) {
+    const s = raw && typeof raw === "object" ? { ...raw } : {};
+    s.id = s.id || newId();
+    s.name = s.name || "";
+    s.category = s.category || "";
+    s.website = s.website || "";
+    s.contact = s.contact || "";
+    s.notes = s.notes || "";
+    s.stage = migrateStage(s.stage);
+    s.order = Number.isFinite(Number(s.order)) ? Number(s.order) : 0;
+    s.quality_web = !!s.quality_web;
+    s.quality_yt = !!s.quality_yt;
+    s.quality_ads = !!s.quality_ads;
+    s.last_updated = s.last_updated || today();
+    s.editor = s.editor || "ui";
+    return s;
+  }
+
   function allIncludingDeleted() {
     return baseSuppliers.slice();
   }
@@ -99,9 +136,8 @@
     return Math.max(...list.map((s) => Number(s.order) || 0)) + 1;
   }
 
-  /** Re-number order 0..n-1 within a stage (left = highest priority). */
   function renumberStage(stageId) {
-    const list = sortInStage(baseSuppliers.filter((s) => s.stage === stageId && s.stage !== "deleted"));
+    const list = sortInStage(baseSuppliers.filter((s) => s.stage === stageId));
     list.forEach((s, i) => {
       s.order = i;
     });
@@ -111,16 +147,28 @@
     return baseSuppliers.find((s) => s.id === id);
   }
 
+  function knownStageIds() {
+    return new Set(DEFAULT_STAGES.map((s) => s.id));
+  }
+
   function applyMeta(data) {
     if (!data || typeof data !== "object") return;
     if (data.title) crmMeta.title = data.title;
     if (data.north_star) crmMeta.north_star = data.north_star;
     if (data.seeded_at) crmMeta.seeded_at = data.seeded_at;
-    if (Array.isArray(data.stages) && data.stages.length) {
-      stages = data.stages
-        .filter((s) => s && s.id && s.id !== "deleted")
-        .map((s) => ({ id: String(s.id), label: String(s.label || s.id) }));
+
+    // Prefer canonical stage list; keep custom labels if ids match
+    const known = knownStageIds();
+    const labelMap = {};
+    if (Array.isArray(data.stages)) {
+      data.stages.forEach((s) => {
+        if (s && s.id && known.has(s.id)) labelMap[s.id] = String(s.label || s.id);
+      });
     }
+    stages = DEFAULT_STAGES.map((s) => ({
+      id: s.id,
+      label: labelMap[s.id] || s.label,
+    }));
   }
 
   function buildPayload() {
@@ -133,12 +181,15 @@
       notes: s.notes || "",
       stage: s.stage || "identified",
       order: Number.isFinite(Number(s.order)) ? Number(s.order) : 0,
+      quality_web: !!s.quality_web,
+      quality_yt: !!s.quality_yt,
+      quality_ads: !!s.quality_ads,
       last_updated: s.last_updated || today(),
       editor: s.editor || "ui",
     }));
     return {
-      title: crmMeta.title || "Supplier Pipeline",
-      north_star: crmMeta.north_star || "Peace Den / Easy Home Wellness brand partners",
+      title: crmMeta.title || "Continuous Growth Engine",
+      north_star: crmMeta.north_star || "EasySaunas / EasyHomeWellness / EasyHBOT",
       seeded_at: crmMeta.seeded_at || today(),
       stages: stages.map((s) => ({ id: s.id, label: s.label })),
       supplier_count: suppliers.filter((s) => s.stage !== "deleted").length,
@@ -149,18 +200,19 @@
   function mergeById(localArr, remoteArr) {
     const byId = new Map();
     for (const s of remoteArr || []) {
-      if (s && s.id) byId.set(s.id, s);
+      if (s && s.id) byId.set(s.id, normalizeSupplier(s));
     }
     for (const s of localArr || []) {
       if (!s || !s.id) continue;
-      const existing = byId.get(s.id);
+      const n = normalizeSupplier(s);
+      const existing = byId.get(n.id);
       if (!existing) {
-        byId.set(s.id, s);
+        byId.set(n.id, n);
         continue;
       }
-      const a = String(s.last_updated || "");
+      const a = String(n.last_updated || "");
       const b = String(existing.last_updated || "");
-      byId.set(s.id, a >= b ? { ...existing, ...s } : { ...s, ...existing });
+      byId.set(n.id, a >= b ? { ...existing, ...n } : { ...n, ...existing });
     }
     return [...byId.values()];
   }
@@ -188,9 +240,8 @@
     try {
       if (!suppliersSha) await pullRemote();
       if (!suppliersSha) {
-        // File may not exist yet — try create without sha
         const createBody = {
-          message: "Add Supplier Pipeline board",
+          message: "Add Continuous Growth Engine board",
           content: b64encode(JSON.stringify(payload, null, 2)),
         };
         const cr = await fetch(`${GH_API}/repos/${owner}/${repo}/contents/${GH_PATH}`, {
@@ -209,11 +260,11 @@
         }
         const data = await cr.json();
         suppliersSha = (data.content && data.content.sha) || suppliersSha;
-        baseSuppliers = payload.suppliers.slice();
+        baseSuppliers = payload.suppliers.map(normalizeSupplier);
         return true;
       }
       const body = {
-        message: "Update Supplier Pipeline board",
+        message: "Update Continuous Growth Engine board",
         content: b64encode(JSON.stringify(payload, null, 2)),
         sha: suppliersSha,
       };
@@ -226,6 +277,7 @@
         const remote = await pullRemote();
         if (remote && Array.isArray(remote.suppliers)) {
           baseSuppliers = mergeById(payload.suppliers, remote.suppliers);
+          applyMeta({ ...remote, stages: DEFAULT_STAGES });
           applyMeta(remote);
           return pushToGitHub(true);
         }
@@ -243,7 +295,7 @@
       }
       const data = await r.json();
       suppliersSha = (data.content && data.content.sha) || suppliersSha;
-      baseSuppliers = payload.suppliers.slice();
+      baseSuppliers = payload.suppliers.map(normalizeSupplier);
       return true;
     } catch (e) {
       lastSyncError = (e && e.message) || "Network error";
@@ -262,15 +314,35 @@
     return !!document.getElementById("drawer")?.classList.contains("open");
   }
 
+  function checkHtml(s, compact) {
+    if (s.stage !== "onboarding") return "";
+    const items = [
+      { key: "quality_web", label: compact ? "web" : "quality web pages" },
+      { key: "quality_yt", label: compact ? "YT" : "quality YT videos" },
+      { key: "quality_ads", label: compact ? "ads" : "quality ads" },
+    ];
+    if (compact) {
+      return `<div class="card-checks" data-stop="1">${items
+        .map((it) => {
+          const on = !!s[it.key];
+          return `<label class="card-check${on ? " is-on" : ""}" data-stop="1">
+            <input type="checkbox" data-qid="${escapeHtml(s.id)}" data-qkey="${it.key}" ${on ? "checked" : ""} />
+            ${escapeHtml(it.label)}
+          </label>`;
+        })
+        .join("")}</div>`;
+    }
+    return "";
+  }
+
   function cardHtml(s) {
-    const cat = s.category
-      ? `<p class="card-cat">${escapeHtml(s.category)}</p>`
-      : "";
+    const cat = s.category ? `<p class="card-cat">${escapeHtml(s.category)}</p>` : "";
     return `
       <article class="card" data-id="${escapeHtml(s.id)}" data-stage="${escapeHtml(s.stage)}" tabindex="0" role="button">
         <span class="card-drag-handle" draggable="true" role="button" tabindex="-1" aria-label="Drag to reorder or change status" title="Drag to reorder / move status">⋮⋮</span>
         <h3 class="card-title">${escapeHtml(s.name || "Untitled")}</h3>
         ${cat}
+        ${checkHtml(s, true)}
       </article>`;
   }
 
@@ -301,6 +373,25 @@
 
     bindStageRename(board);
     bindBoardDnD(board);
+    bindCardChecks(board);
+  }
+
+  function bindCardChecks(board) {
+    board.querySelectorAll('input[type="checkbox"][data-qkey]').forEach((inp) => {
+      inp.addEventListener("click", (e) => e.stopPropagation());
+      inp.addEventListener("change", async (e) => {
+        e.stopPropagation();
+        const id = inp.dataset.qid;
+        const key = inp.dataset.qkey;
+        const s = findSupplier(id);
+        if (!s || !key) return;
+        s[key] = !!inp.checked;
+        s.last_updated = today();
+        s.editor = "ui";
+        render();
+        await syncMutation("Saved", "Save failed");
+      });
+    });
   }
 
   function bindStageRename(board) {
@@ -349,11 +440,6 @@
     input.addEventListener("blur", () => finish(true));
   }
 
-  /**
-   * Move supplier to a stage. If insertBeforeId is set, place before that card;
-   * otherwise append as rightmost (lowest priority) when changing stage.
-   * Same-stage with insertBeforeId = reorder.
-   */
   function placeSupplier(id, targetStage, insertBeforeId) {
     const s = findSupplier(id);
     if (!s || s.stage === "deleted") return false;
@@ -361,17 +447,13 @@
 
     const fromStage = s.stage;
     const sameStage = fromStage === targetStage;
-
-    // Pull out of current list conceptually by assigning new order among target stage peers
     const peers = sortInStage(
-      baseSuppliers.filter((x) => x.stage === targetStage && x.id !== id && x.stage !== "deleted")
+      baseSuppliers.filter((x) => x.stage === targetStage && x.id !== id)
     );
 
-    let newOrder;
     if (insertBeforeId) {
       const idx = peers.findIndex((x) => x.id === insertBeforeId);
       if (idx >= 0) {
-        // Insert at idx: assign orders around it
         peers.splice(idx, 0, s);
         peers.forEach((p, i) => {
           p.order = i;
@@ -390,12 +472,9 @@
       }
     }
 
-    // Append rightmost (lowest priority). Same-stage with null insertBefore = move to end.
     if (sameStage && !insertBeforeId) {
-      const sorted = sortInStage(
-        baseSuppliers.filter((x) => x.stage === targetStage && x.stage !== "deleted")
-      );
-      if (sorted.length && sorted[sorted.length - 1].id === id) return false; // already last
+      const sorted = sortInStage(baseSuppliers.filter((x) => x.stage === targetStage));
+      if (sorted.length && sorted[sorted.length - 1].id === id) return false;
     }
     s.stage = targetStage;
     s.order = peers.length ? Math.max(...peers.map((p) => Number(p.order) || 0)) + 1 : 0;
@@ -416,6 +495,12 @@
       });
     }
 
+    function nextSiblingId(card) {
+      let n = card.nextElementSibling;
+      while (n && !n.classList.contains("card")) n = n.nextElementSibling;
+      return n ? n.dataset.id : null;
+    }
+
     function dropTargetAt(x, y) {
       const el = document.elementFromPoint(x, y);
       if (!el) return null;
@@ -426,26 +511,24 @@
       if (card && card.dataset.id) {
         const rect = card.getBoundingClientRect();
         const before = x < rect.left + rect.width / 2;
-        return { stage, insertBeforeId: before ? card.dataset.id : nextSiblingId(card), overCard: card, before };
+        return {
+          stage,
+          insertBeforeId: before ? card.dataset.id : nextSiblingId(card),
+          overCard: card,
+          before,
+        };
       }
       return { stage, insertBeforeId: null, overCard: null, before: false };
-    }
-
-    function nextSiblingId(card) {
-      let n = card.nextElementSibling;
-      while (n && !n.classList.contains("card")) n = n.nextElementSibling;
-      return n ? n.dataset.id : null; // null = append after last
     }
 
     function applyDrop(id, x, y) {
       const t = dropTargetAt(x, y);
       clearHighlights();
       if (!t || !t.stage) return;
-      // Don't insert before self
       let insertBefore = t.insertBeforeId;
       if (insertBefore === id) {
-        // Dropping on self — if in left half stay, treat as no-op; use after-self as append relative
-        insertBefore = nextSiblingId(document.querySelector(`.card[data-id="${CSS.escape(id)}"]`));
+        const self = board.querySelector(`.card[data-id="${CSS.escape(id)}"]`);
+        insertBefore = self ? nextSiblingId(self) : null;
       }
       const changed = placeSupplier(id, t.stage, insertBefore);
       if (changed) {
@@ -468,6 +551,7 @@
     board.querySelectorAll(".card").forEach((card) => {
       card.addEventListener("click", (e) => {
         if (e.target.closest(".card-drag-handle")) return;
+        if (e.target.closest("[data-stop]")) return;
         if (card.dataset.suppressClick === "1") {
           delete card.dataset.suppressClick;
           return;
@@ -504,7 +588,7 @@
 
       handle.addEventListener("pointerdown", (e) => {
         if (e.pointerType === "mouse" && e.button !== 0) return;
-        if (e.pointerType === "mouse") return; // prefer HTML5 DnD for mouse
+        if (e.pointerType === "mouse") return;
         const card = handle.closest(".card");
         if (!card) return;
         e.preventDefault();
@@ -555,16 +639,10 @@
       row.addEventListener("dragover", (e) => {
         e.preventDefault();
         e.dataTransfer.dropEffect = "move";
-        const id =
-          e.dataTransfer.types.includes("application/x-sp-id") || e.dataTransfer.types.includes("text/plain")
-            ? "dragging"
-            : "";
-        highlightAt(e.clientX, e.clientY, id);
+        highlightAt(e.clientX, e.clientY, "dragging");
       });
       row.addEventListener("dragleave", (e) => {
-        if (!row.contains(e.relatedTarget)) {
-          row.classList.remove("drag-over");
-        }
+        if (!row.contains(e.relatedTarget)) row.classList.remove("drag-over");
       });
       row.addEventListener("drop", (e) => {
         e.preventDefault();
@@ -574,6 +652,11 @@
         else clearHighlights();
       });
     });
+  }
+
+  function toggleOnboardWrap(stage) {
+    const wrap = document.getElementById("onboard-wrap");
+    if (wrap) wrap.hidden = stage !== "onboarding";
   }
 
   function openDrawer(id) {
@@ -586,6 +669,9 @@
     document.getElementById("f-website").value = s.website || "";
     document.getElementById("f-contact").value = s.contact || "";
     document.getElementById("f-notes").value = s.notes || "";
+    document.getElementById("f-quality-web").checked = !!s.quality_web;
+    document.getElementById("f-quality-yt").checked = !!s.quality_yt;
+    document.getElementById("f-quality-ads").checked = !!s.quality_ads;
     const stageSel = document.getElementById("f-stage");
     stageSel.innerHTML = stages
       .map(
@@ -593,6 +679,7 @@
           `<option value="${escapeHtml(st.id)}" ${st.id === s.stage ? "selected" : ""}>${escapeHtml(st.label)}</option>`
       )
       .join("");
+    toggleOnboardWrap(s.stage);
     document.getElementById("drawer").classList.add("open");
     document.getElementById("backdrop").classList.add("open");
     document.body.classList.add("drawer-open");
@@ -621,6 +708,9 @@
     s.website = document.getElementById("f-website").value.trim();
     s.contact = document.getElementById("f-contact").value.trim();
     s.notes = document.getElementById("f-notes").value;
+    s.quality_web = !!document.getElementById("f-quality-web").checked;
+    s.quality_yt = !!document.getElementById("f-quality-yt").checked;
+    s.quality_ads = !!document.getElementById("f-quality-ads").checked;
     s.last_updated = today();
     s.editor = "ui";
     if (newStage !== oldStage) {
@@ -630,6 +720,7 @@
       renumberStage(newStage);
     }
     document.getElementById("drawer-title").textContent = s.name;
+    toggleOnboardWrap(s.stage);
     render();
     await syncMutation("Saved", "Save failed");
   }
@@ -675,7 +766,7 @@
       return;
     }
     const firstStage = stages[0]?.id || "identified";
-    const s = {
+    const s = normalizeSupplier({
       id: newId(),
       name,
       category: document.getElementById("add-category").value.trim(),
@@ -686,7 +777,7 @@
       order: nextOrderInStage(firstStage),
       last_updated: today(),
       editor: "ui-add",
-    };
+    });
     baseSuppliers.push(s);
     renumberStage(firstStage);
     closeAddModal();
@@ -704,34 +795,50 @@
     }
   }
 
+  function ingestData(data) {
+    applyMeta(data);
+    // Always enforce canonical stage ids in meta payload write path
+    crmMeta.title = "Continuous Growth Engine";
+    crmMeta.north_star = "EasySaunas / EasyHomeWellness / EasyHBOT";
+    baseSuppliers = (data.suppliers || []).map(normalizeSupplier);
+    stages.forEach((st) => renumberStage(st.id));
+  }
+
   async function bootstrap() {
     let data = await pullRemote();
     if (data && Array.isArray(data.suppliers)) {
-      applyMeta(data);
-      baseSuppliers = data.suppliers.slice();
+      ingestData(data);
+      // Persist migration (stage remap + quality fields + branding) once
+      const needsPush =
+        JSON.stringify((data.stages || []).map((s) => s.id)) !==
+          JSON.stringify(DEFAULT_STAGES.map((s) => s.id)) ||
+        data.title !== "Continuous Growth Engine" ||
+        String(data.north_star || "").indexOf("EasySaunas") === -1 ||
+        (data.suppliers || []).some((s) => {
+          const m = migrateStage(s.stage);
+          return m !== s.stage || s.quality_web === undefined;
+        });
+      render();
+      if (needsPush) await syncMutation("Board updated", "Sync failed");
     } else {
       data = await loadStaticFallback();
       if (data && Array.isArray(data.suppliers)) {
-        applyMeta(data);
-        baseSuppliers = data.suppliers.slice();
+        ingestData(data);
+        render();
       } else {
         stages = DEFAULT_STAGES.map((s) => ({ ...s }));
         baseSuppliers = [];
+        render();
         showToast("Could not load suppliers");
       }
     }
-    // Ensure order fields exist
-    stages.forEach((st) => renumberStage(st.id));
-    render();
   }
 
   async function quietRefresh() {
     if (isDrawerOpen()) return;
     const remote = await pullRemote();
     if (!remote || !Array.isArray(remote.suppliers)) return;
-    applyMeta(remote);
-    baseSuppliers = remote.suppliers.slice();
-    stages.forEach((st) => renumberStage(st.id));
+    ingestData(remote);
     render();
   }
 
@@ -744,6 +851,25 @@
     document.getElementById("btn-add-x")?.addEventListener("click", closeAddModal);
     document.getElementById("btn-add-cancel")?.addEventListener("click", closeAddModal);
     document.getElementById("btn-add-save")?.addEventListener("click", addSupplier);
+    document.getElementById("f-stage")?.addEventListener("change", (e) => {
+      toggleOnboardWrap(e.target.value);
+    });
+    // Live-toggle checklist in drawer also syncs when already onboarding
+    ["f-quality-web", "f-quality-yt", "f-quality-ads"].forEach((fid) => {
+      document.getElementById(fid)?.addEventListener("change", async () => {
+        if (!activeId || !isDrawerOpen()) return;
+        const s = findSupplier(activeId);
+        if (!s || s.stage !== "onboarding") return;
+        s.quality_web = !!document.getElementById("f-quality-web").checked;
+        s.quality_yt = !!document.getElementById("f-quality-yt").checked;
+        s.quality_ads = !!document.getElementById("f-quality-ads").checked;
+        s.last_updated = today();
+        s.editor = "ui";
+        render();
+        // Keep drawer open and fields in sync after re-render of board only
+        await syncMutation("Saved", "Save failed");
+      });
+    });
     document.getElementById("add-modal")?.addEventListener("click", (e) => {
       if (e.target.id === "add-modal") closeAddModal();
     });

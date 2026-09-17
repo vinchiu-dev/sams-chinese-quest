@@ -1,32 +1,14 @@
 {
-  "title": "Supplier Pipeline",
-  "north_star": "Peace Den / Easy Home Wellness brand partners",
+  "title": "Continuous Growth Engine",
+  "north_star": "EasySaunas / EasyHomeWellness / EasyHBOT",
   "seeded_at": "2026-09-17",
   "stages": [
-    {
-      "id": "identified",
-      "label": "Identified"
-    },
-    {
-      "id": "outreach",
-      "label": "Outreach"
-    },
-    {
-      "id": "negotiating",
-      "label": "Negotiating"
-    },
-    {
-      "id": "onboarding",
-      "label": "Onboarding"
-    },
-    {
-      "id": "live",
-      "label": "Live"
-    },
-    {
-      "id": "passed",
-      "label": "Passed"
-    }
+    { "id": "identified", "label": "Identified" },
+    { "id": "in_contact", "label": "In Contact" },
+    { "id": "onboarding", "label": "Onboarding" },
+    { "id": "live", "label": "Live" },
+    { "id": "live_profitable", "label": "Live - Profitable" },
+    { "id": "defunct", "label": "Defunct" }
   ],
   "supplier_count": 6,
   "suppliers": [
@@ -38,9 +20,12 @@
       "contact": "",
       "notes": "",
       "stage": "identified",
+      "order": 0,
+      "quality_web": false,
+      "quality_yt": false,
+      "quality_ads": false,
       "last_updated": "2026-09-17",
-      "editor": "seed",
-      "order": 0
+      "editor": "seed"
     },
     {
       "id": "sp02saunalife",
@@ -50,9 +35,12 @@
       "contact": "",
       "notes": "",
       "stage": "identified",
+      "order": 1,
+      "quality_web": false,
+      "quality_yt": false,
+      "quality_ads": false,
       "last_updated": "2026-09-17",
-      "editor": "seed",
-      "order": 1
+      "editor": "seed"
     },
     {
       "id": "sp03dundalk",
@@ -61,10 +49,13 @@
       "website": "",
       "contact": "",
       "notes": "",
-      "stage": "outreach",
+      "stage": "in_contact",
+      "order": 0,
+      "quality_web": false,
+      "quality_yt": false,
+      "quality_ads": false,
       "last_updated": "2026-09-17",
-      "editor": "seed",
-      "order": 0
+      "editor": "seed"
     },
     {
       "id": "sp04clearlight",
@@ -73,10 +64,13 @@
       "website": "",
       "contact": "",
       "notes": "",
-      "stage": "outreach",
+      "stage": "in_contact",
+      "order": 1,
+      "quality_web": false,
+      "quality_yt": false,
+      "quality_ads": false,
       "last_updated": "2026-09-17",
-      "editor": "seed",
-      "order": 1
+      "editor": "seed"
     },
     {
       "id": "sp05oxynova",
@@ -86,9 +80,12 @@
       "contact": "",
       "notes": "",
       "stage": "identified",
+      "order": 2,
+      "quality_web": false,
+      "quality_yt": false,
+      "quality_ads": false,
       "last_updated": "2026-09-17",
-      "editor": "seed",
-      "order": 2
+      "editor": "seed"
     },
     {
       "id": "sp06dynamic",
@@ -98,9 +95,12 @@
       "contact": "",
       "notes": "Already on selling path",
       "stage": "live",
+      "order": 0,
+      "quality_web": false,
+      "quality_yt": false,
+      "quality_ads": false,
       "last_updated": "2026-09-17",
-      "editor": "seed",
-      "order": 0
+      "editor": "seed"
     }
   ]
 }

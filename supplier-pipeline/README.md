@@ -1,21 +1,18 @@
-# Supplier Pipeline CRM
+# Continuous Growth Engine
 
 **Live:** https://vinchiu-dev.github.io/sams-chinese-quest/supplier-pipeline/
 
-Kanban for Peace Den / Easy Home Wellness brand partners. Stages stack **top → bottom**; cards flow **left → right** within each row (leftmost = highest priority).
+Supplier / brand pipeline for **EasySaunas / EasyHomeWellness / EasyHBOT**.
+
+Stages (top → bottom): Identified → In Contact → Onboarding → Live → Live - Profitable → Defunct.  
+Cards flow left → right in each row (leftmost = highest priority); horizontal scroll, no vertical stacking.
 
 ## How to use
 
-1. Open the live URL (or this folder on GitHub Pages).
-2. **+ Add** — new supplier starts in **Identified**.
-3. Click a card → drawer (name, category, website, contact, notes, status) → **Save**.
-4. Drag the **⋮⋮** handle:
-   - **Within a row** — reorder priority (left = higher).
-   - **To another row** — change status (drops at the highlighted slot, or appends rightmost).
-5. Click a **status title** to rename it (persists in `suppliers.json` `stages`).
+1. Title opens the Growth Engine Google Doc in a new tab.
+2. **+ Add** — starts in **Identified**.
+3. Drag **⋮⋮** to reorder within a row or move between stages.
+4. Click a status title to rename (persists in `suppliers.json`).
+5. In **Onboarding**, toggle quality web / YT / ads on the card or in the drawer (GitHub sync).
 
-## Sync
-
-`supplier-pipeline/suppliers.json` is the source of truth via the GitHub Contents API (same obfuscated `_GH_DEFAULTS` pattern as BC Events CRM / Sam progress). Save / move / reorder / rename / soft-delete all `PUT` the full JSON. Soft-delete sets `stage=deleted`. No sync status banner.
-
-Each supplier has an `order` number within its stage (0 = leftmost / highest priority).
+Canonical file: `supplier-pipeline/suppliers.json` (GitHub Contents API). No sync banner.
