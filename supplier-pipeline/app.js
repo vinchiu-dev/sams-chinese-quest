@@ -359,10 +359,6 @@
   }
 
   function render() {
-    const list = allSuppliers();
-    const countEl = document.getElementById("supplier-count");
-    if (countEl) countEl.textContent = `${list.length} supplier${list.length === 1 ? "" : "s"}`;
-
     const board = document.getElementById("board");
     board.innerHTML = stages
       .map((st) => {
