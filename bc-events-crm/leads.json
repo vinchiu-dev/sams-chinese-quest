@@ -24,8 +24,31 @@
       "label": "Lost"
     }
   ],
-  "lead_count": 27,
+  "lead_count": 28,
   "leads": [
+    {
+      "id": "1a0ac104a1d47557",
+      "name": "Jemaiama Manuel",
+      "org": null,
+      "email": "jemaiama.manuel@icloud.com",
+      "phone": null,
+      "source": "email (direct to stay@)",
+      "source_badge": "Email",
+      "inquiry_date": "2026-09-16",
+      "event_dates": null,
+      "pax": "150 pax (hall capacity ask)",
+      "event_type": "hall rental inquiry (hall only rent; 150 pax)",
+      "stage": "new_inquiry",
+      "last_updated": "2026-09-17",
+      "seed_notes": "Direct email to stay@ 2026-09-16 ~5:12pm ET: asks if hall can hold 150 pax and hall-only rent. No UTMs. No PHP quoted. FO owns quote send.",
+      "fo_notes": "",
+      "lost_reason": "",
+      "subject": "Event Hall Inquiry",
+      "related_contacts": [],
+      "marketing_channel": "Walk-in / other",
+      "revenue_php": null,
+      "editor": "cos-sync"
+    },
     {
       "id": "1ab1f2f7bcd2ea41",
       "name": "Ronald Villa",
@@ -649,5 +672,6 @@
     "Gov RFQ / email",
     "Messenger",
     "Walk-in / other"
-  ]
+  ],
+  "last_cos_sync": "2026-09-17T09:30-04"
 }
