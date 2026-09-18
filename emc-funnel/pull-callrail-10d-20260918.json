@@ -1,0 +1,16 @@
+{
+  "pulled_at_et": "2026-09-18T10:22:00-04:00",
+  "needs_login": true,
+  "account_context": {"name": "Vincent / Easy Massage Chair", "account_id": "856868352", "company_id": "825804319", "timezone": "America/New_York", "preferred_google_login": "vincent@easymassagechair.com"},
+  "windows": {
+    "last_10d": {"start_et": "2026-09-08", "end_et": "2026-09-17", "total_calls": null, "by_source": null, "qualified_thumbs_up": null, "sale_closed_tags": null, "youtube_tracking_number_calls": null},
+    "prior_10d": {"start_et": "2026-08-29", "end_et": "2026-09-07", "total_calls": null, "by_source": null, "qualified_thumbs_up": null, "sale_closed_tags": null, "youtube_tracking_number_calls": null},
+    "yoy_10d": {"start_et": "2025-09-08", "end_et": "2025-09-17", "pulled": false}
+  },
+  "status": "Unknown",
+  "blocker": {
+    "type": "google_oauth_phone_scope_and_browser_not_completed",
+    "detail": "CallRail not pulled. Prior Sep 16 STOP at Google chooser — OAuth includes user.phonenumbers.read. Do not select account or grant. Prefer vincent@easymassagechair.com.",
+    "evidence_prior": "/workspace/emc-funnel/callrail-sep8-14-2026.json"
+  }
+}

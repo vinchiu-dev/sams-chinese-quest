@@ -1,0 +1,12 @@
+{
+  "pulled_at_et": "2026-09-18T10:22:00-04:00",
+  "channel": "Easy Massage Chair",
+  "channel_id_hint": "UCKArPFx8rGx3U6RqeANXRCg",
+  "windows": {
+    "last_10d": {"start_et": "2026-09-08", "end_et": "2026-09-17", "views": null, "watch_hours": null},
+    "prior_10d": {"start_et": "2026-08-29", "end_et": "2026-09-07", "views": null, "watch_hours": null},
+    "yoy_10d": {"start_et": "2025-09-08", "end_et": "2025-09-17", "views": null, "watch_hours": null, "pulled": false}
+  },
+  "status": "Unknown",
+  "blocker": {"type": "browser_pull_not_completed", "detail": "YouTube Studio not opened — box Chrome egress proxy down / Shell unresponsive.", "prior_weekly_note_not_10d": "Sep 8-14: 12006 views / 321.8h vs prior7 12373 / 343.7h vs yoy7 4825 / 181.8h — different window."}
+}

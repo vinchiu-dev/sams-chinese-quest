@@ -1,0 +1,16 @@
+{
+  "pulled_at_et": "2026-09-18T10:22:00-04:00",
+  "property_hint": "GA4 EMC a62290816p344355154",
+  "windows": {
+    "last_10d": {"start_et": "2026-09-08", "end_et": "2026-09-17", "sessions": null, "users": null, "by_channel": null, "non_direct_sessions": null},
+    "prior_10d": {"start_et": "2026-08-29", "end_et": "2026-09-07", "sessions": null, "users": null, "by_channel": null, "non_direct_sessions": null},
+    "yoy_10d": {"start_et": "2025-09-08", "end_et": "2025-09-17", "pulled": false}
+  },
+  "direct_junk_flag": {
+    "active": true,
+    "source": "prior_weekly_pull_2026-09-16",
+    "note": "Prior weekly Sep 8-14: Direct ~109542 sessions vs YoY Direct ~3095; overall ~148k sessions. Organic ~385, Paid+Cross-network ~812. Flag bot/junk. 7d figures — 10d not re-pulled."
+  },
+  "status": "Unknown",
+  "blocker": {"type": "browser_pull_not_completed", "detail": "Box egress/proxy + Shell outage blocked GA4 Explore for 10d windows."}
+}
