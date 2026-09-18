@@ -283,17 +283,43 @@
     return allIncludingDeleted().filter((s) => s.stage !== "deleted");
   }
 
+  function orderValue(s) {
+    return Number.isFinite(Number(s && s.order)) ? Number(s.order) : 9999;
+  }
+
+  function scoreValue(s) {
+    if (!s || s.score === null || s.score === undefined || s.score === "") return null;
+    const n = Number(s.score);
+    return Number.isFinite(n) ? n : null;
+  }
+
+  // Order remains the source of truth for drag-and-drop mutations.
   function sortInStage(arr) {
     return [...arr].sort((a, b) => {
-      const oa = Number.isFinite(Number(a.order)) ? Number(a.order) : 9999;
-      const ob = Number.isFinite(Number(b.order)) ? Number(b.order) : 9999;
+      const oa = orderValue(a);
+      const ob = orderValue(b);
+      if (oa !== ob) return oa - ob;
+      return String(a.name || "").localeCompare(String(b.name || ""));
+    });
+  }
+
+  // The board is score-first, with missing scores always at the right.
+  function sortByScore(arr) {
+    return [...arr].sort((a, b) => {
+      const sa = scoreValue(a);
+      const sb = scoreValue(b);
+      if (sa === null && sb !== null) return 1;
+      if (sa !== null && sb === null) return -1;
+      if (sa !== null && sb !== null && sa !== sb) return sb - sa;
+      const oa = orderValue(a);
+      const ob = orderValue(b);
       if (oa !== ob) return oa - ob;
       return String(a.name || "").localeCompare(String(b.name || ""));
     });
   }
 
   function suppliersInStage(stageId) {
-    return sortInStage(allSuppliers().filter((s) => s.stage === stageId));
+    return sortByScore(allSuppliers().filter((s) => s.stage === stageId));
   }
 
   function nextOrderInStage(stageId) {
@@ -304,6 +330,13 @@
 
   function renumberStage(stageId) {
     const list = sortInStage(baseSuppliers.filter((s) => s.stage === stageId));
+    list.forEach((s, i) => {
+      s.order = i;
+    });
+  }
+
+  function renumberStageByScore(stageId) {
+    const list = sortByScore(baseSuppliers.filter((s) => s.stage === stageId));
     list.forEach((s, i) => {
       s.order = i;
     });
@@ -924,6 +957,7 @@
     }
     const newStage = document.getElementById("f-stage").value;
     const oldStage = s.stage;
+    const oldScore = scoreValue(s);
     s.name = name;
     s.category = document.getElementById("f-category").value.trim();
     s.website = document.getElementById("f-website").value.trim();
@@ -952,6 +986,10 @@
       s.order = nextOrderInStage(newStage);
       renumberStage(oldStage);
       renumberStage(newStage);
+    }
+    if (oldScore !== scoreValue(s) || newStage !== oldStage) {
+      renumberStageByScore(oldStage);
+      renumberStageByScore(s.stage);
     }
     document.getElementById("drawer-title").textContent = s.name;
     toggleOnboardWrap(s.stage);
@@ -1062,7 +1100,7 @@
       editor: "ui-add",
     });
     baseSuppliers.push(s);
-    renumberStage(firstStage);
+    renumberStageByScore(firstStage);
     closeAddModal();
     render();
     await syncMutation("Added", "Add sync failed");
