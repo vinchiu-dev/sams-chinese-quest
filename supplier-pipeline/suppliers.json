@@ -50,10 +50,10 @@
         "EasyHBOT"
       ],
       "branded_vol": 480,
-      "aov_est": 12800,
-      "score_notes": "Query: \"summit to sea\" (+ hyperbaric variants). Vol: best-effort US estimate (niche HBOT brand; lower than major sauna brands). AOV ~avg of bestsellers: Shallow Dive $7,995; Dive 33\" $9,995; Grand Dive 40\" $13,995; Vertical Dive $13,995; Grand Dive Vertical ~$17,995 (summit-to-sea.com / Peak Primal reviews, 2026). Osaki baseline: 5400 for \"osaki massage chair\".",
       "osaki_rel": 0.0889,
-      "score": 1137.9,
+      "aov_est": 12800,
+      "score": 1137.8,
+      "score_notes": "Query: \"summit to sea\" (+ hyperbaric variants). Vol: best-effort US estimate (niche HBOT brand; lower than major sauna brands). AOV ~avg of bestsellers: Shallow Dive $7,995; Dive 33\" $9,995; Grand Dive 40\" $13,995; Vertical Dive $13,995; Grand Dive Vertical ~$17,995 (summit-to-sea.com / Peak Primal reviews, 2026). Osaki baseline: 5400 for \"osaki massage chair\".",
       "last_updated": "2026-09-17",
       "editor": "score-seed"
     },
@@ -65,7 +65,7 @@
       "contact": "",
       "notes": "",
       "stage": "in_contact",
-      "order": 2,
+      "order": 1,
       "quality_web": false,
       "quality_yt": false,
       "quality_ads": false,
@@ -74,10 +74,10 @@
         "EasySaunas"
       ],
       "branded_vol": 590,
-      "aov_est": 7200,
-      "score_notes": "Query: \"saunalife\" / \"sauna life\". Vol: best-effort US estimate (specialty outdoor barrels). AOV ~avg of barrel/cube bestsellers ~$5,340\u2013$11,270 heater-extra range; mid ~$7,200 (sauna.guide barrel roundup 2026). Osaki baseline: 5400 for \"osaki massage chair\".",
       "osaki_rel": 0.1093,
-      "score": 787.0,
+      "aov_est": 7200,
+      "score": 786.7,
+      "score_notes": "Query: \"saunalife\" / \"sauna life\". Vol: best-effort US estimate (specialty outdoor barrels). AOV ~avg of barrel/cube bestsellers ~$5,340–$11,270 heater-extra range; mid ~$7,200 (sauna.guide barrel roundup 2026). Osaki baseline: 5400 for \"osaki massage chair\".",
       "last_updated": "2026-09-17",
       "editor": "score-seed"
     },
@@ -98,10 +98,10 @@
         "EasySaunas"
       ],
       "branded_vol": 720,
-      "aov_est": 6300,
-      "score_notes": "Query: \"leisurecraft\" / \"dundalk sauna\" / \"dundalk leisurecraft\". Vol: best-effort US estimate. AOV ~avg of dealer bestsellers (heater often extra): Harmony ~$5,378; Serenity ~$6,140; Elation ~$6,613; Tranquility ~$6,514; Luna ~$6,840 (Sauna Company USA / Well Vetted 2026). Osaki baseline: 5400 for \"osaki massage chair\".",
       "osaki_rel": 0.1333,
-      "score": 839.8,
+      "aov_est": 6300,
+      "score": 840,
+      "score_notes": "Query: \"leisurecraft\" / \"dundalk sauna\" / \"dundalk leisurecraft\". Vol: best-effort US estimate. AOV ~avg of dealer bestsellers (heater often extra): Harmony ~$5,378; Serenity ~$6,140; Elation ~$6,613; Tranquility ~$6,514; Luna ~$6,840 (Sauna Company USA / Well Vetted 2026). Osaki baseline: 5400 for \"osaki massage chair\".",
       "last_updated": "2026-09-17",
       "editor": "score-seed"
     },
@@ -122,10 +122,10 @@
         "EasySaunas"
       ],
       "branded_vol": 2400,
-      "aov_est": 7500,
-      "score_notes": "Query: \"clearlight sauna\" / \"clearlight saunas\". Vol: best-effort US estimate; Maire 2024 brand-search share ~21.8% among top sauna brands (strong #2 after Sunlighten). AOV ~avg Sanctuary bestsellers: S1 $6,899; S2 $7,299; S3 $7,699; S5 $8,499; mid ~$7,500 (infraredsaunalab / Clearlight MSRP 2026). Osaki baseline: 5400 for \"osaki massage chair\".",
       "osaki_rel": 0.4444,
-      "score": 3333.0,
+      "aov_est": 7500,
+      "score": 3333.3,
+      "score_notes": "Query: \"clearlight sauna\" / \"clearlight saunas\". Vol: best-effort US estimate; Maire 2024 brand-search share ~21.8% among top sauna brands (strong #2 after Sunlighten). AOV ~avg Sanctuary bestsellers: S1 $6,899; S2 $7,299; S3 $7,699; S5 $8,499; mid ~$7,500 (infraredsaunalab / Clearlight MSRP 2026). Osaki baseline: 5400 for \"osaki massage chair\".",
       "last_updated": "2026-09-17",
       "editor": "score-seed"
     },
@@ -136,7 +136,7 @@
       "website": "",
       "contact": "",
       "notes": "",
-      "stage": "in_contact",
+      "stage": "identified",
       "order": 1,
       "quality_web": false,
       "quality_yt": false,
@@ -146,12 +146,12 @@
         "EasyHBOT"
       ],
       "branded_vol": 260,
-      "aov_est": 28000,
-      "score_notes": "Query: \"oxynova\" / \"oxynova hyperbaric\". Vol: best-effort US estimate (premium niche). AOV ~avg of chamber line: OxyNova 9 ~$34,500\u2013$35,950 list; other series often ~$18.5k\u2013$34.5k; est. avg bestsellers ~$28,000 (oxynova.com / Mediriser 2026). Osaki baseline: 5400 for \"osaki massage chair\".",
       "osaki_rel": 0.0481,
-      "score": 1346.8,
-      "last_updated": "2026-09-17",
-      "editor": "score-seed"
+      "aov_est": 28000,
+      "score": 1348.1,
+      "score_notes": "Query: \"oxynova\" / \"oxynova hyperbaric\". Vol: best-effort US estimate (premium niche). AOV ~avg of chamber line: OxyNova 9 ~$34,500–$35,950 list; other series often ~$18.5k–$34.5k; est. avg bestsellers ~$28,000 (oxynova.com / Mediriser 2026). Osaki baseline: 5400 for \"osaki massage chair\".",
+      "last_updated": "2026-09-18",
+      "editor": "ui"
     },
     {
       "id": "sp06dynamic",
@@ -170,10 +170,10 @@
         "EasySaunas"
       ],
       "branded_vol": 1300,
-      "aov_est": 2200,
-      "score_notes": "Query: \"dynamic sauna\" / \"dynamic saunas\" (Golden Designs). Vol: best-effort US estimate (Costco/Amazon distribution lifts product searches). AOV ~avg Costco bestsellers: Gracia ~$1,800; San Marino Elite ~$1,900; Toscana Elite ~$2,000; Santiago ~$2,700; mid ~$2,200 (Costco sauna guide 2026). Osaki baseline: 5400 for \"osaki massage chair\".",
       "osaki_rel": 0.2407,
-      "score": 529.5,
+      "aov_est": 2200,
+      "score": 529.6,
+      "score_notes": "Query: \"dynamic sauna\" / \"dynamic saunas\" (Golden Designs). Vol: best-effort US estimate (Costco/Amazon distribution lifts product searches). AOV ~avg Costco bestsellers: Gracia ~$1,800; San Marino Elite ~$1,900; Toscana Elite ~$2,000; Santiago ~$2,700; mid ~$2,200 (Costco sauna guide 2026). Osaki baseline: 5400 for \"osaki massage chair\".",
       "last_updated": "2026-09-17",
       "editor": "score-seed"
     }
