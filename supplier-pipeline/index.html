@@ -665,6 +665,72 @@
       accent-color: var(--yellow);
       cursor: pointer;
     }
+
+    .stage-help-link {
+      appearance: none;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      cursor: pointer;
+      padding: 2px 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .stage-help-link:hover {
+      color: var(--yellow);
+    }
+    #contact-help-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 85;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 12px;
+    }
+    #contact-help-modal.open { display: flex; }
+    .contact-help-card {
+      background: linear-gradient(180deg, #122a6e, #070d18);
+      border: 1px solid rgba(245,197,24,0.35);
+      border-radius: 14px 14px 0 0;
+      width: min(560px, 100%);
+      max-height: min(90vh, 720px);
+      overflow-y: auto;
+      padding: 16px 16px 20px;
+      box-shadow: 0 -8px 32px rgba(0,0,0,0.5);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .contact-help-card textarea {
+      width: 100%;
+      min-height: 320px;
+      resize: vertical;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: #0a1628;
+      color: #fff;
+      box-sizing: border-box;
+    }
+    .contact-help-card textarea:focus {
+      outline: none;
+      border-color: var(--yellow);
+    }
+    @media (min-width: 721px) {
+      #contact-help-modal { align-items: center; }
+      .contact-help-card { border-radius: 14px; }
+    }
   </style>
 </head>
 <body>
@@ -798,7 +864,23 @@
     </div>
   </div>
 
+
+  <div id="contact-help-modal" aria-hidden="true">
+    <div class="contact-help-card" role="dialog" aria-modal="true" aria-labelledby="contact-help-title">
+      <div class="add-card-head">
+        <h2 id="contact-help-title">How to contact — Identified</h2>
+        <button type="button" class="add-close" id="btn-contact-help-x" aria-label="Close">×</button>
+      </div>
+      <p class="add-sub">Editable talk-track for Identified outreach. Saves to board meta via GitHub sync.</p>
+      <textarea id="contact-help-text" aria-label="Identified contact help script" spellcheck="true"></textarea>
+      <div class="add-actions">
+        <button type="button" class="btn-primary" id="btn-contact-help-save">Save</button>
+        <button type="button" class="btn-ghost" id="btn-contact-help-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
   <div id="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=20260917-scores"></script>
+  <script src="app.js?v=20260918-contact-help"></script>
 </body>
 </html>

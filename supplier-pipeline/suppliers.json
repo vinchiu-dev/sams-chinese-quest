@@ -31,8 +31,71 @@
       "label": "Defunct"
     }
   ],
-  "supplier_count": 6,
+  "supplier_count": 9,
   "suppliers": [
+    {
+      "id": "sp07ecoflow",
+      "name": "EcoFlow",
+      "category": "backup power",
+      "website": "https://www.ecoflow.com/us/cooperation",
+      "contact": "sales@ecoflow.com · 1-800-368-8604 (Mon–Fri 9am–7pm ET) · installer/energy: 833-703-2785 · solutionservice.na@ecoflow.com",
+      "notes": "Dealer/wholesale NA: sales@ecoflow.com. Partner apply: https://www.ecoflow.com/us/cooperation. Support: 1-800-368-8604 (Mon–Fri 9am–7pm ET). Installer/energy: 833-703-2785 · solutionservice.na@ecoflow.com. Target storefront: EasyHomeBackup.com (coming soon specialty).",
+      "stage": "identified",
+      "order": 0,
+      "quality_web": false,
+      "quality_yt": false,
+      "quality_ads": false,
+      "sites": [],
+      "branded_vol": null,
+      "osaki_rel": null,
+      "aov_est": null,
+      "score": null,
+      "score_notes": "",
+      "last_updated": "2026-09-18",
+      "editor": "seed-backup-power"
+    },
+    {
+      "id": "sp08bluetti",
+      "name": "BLUETTI",
+      "category": "backup power",
+      "website": "https://forms.zohopublic.com/bluetti1/form/Dealer/formperma/ruiel0ucGbM-cb7Rvuw4aJmBMT21Gkrh-LRX-oMDSuE",
+      "contact": "distributor@bluettipower.com · sale@bluettipower.com · +1 909-570-0909 (Mon–Sat 6am–5pm PDT)",
+      "notes": "Dealer form: https://forms.zohopublic.com/bluetti1/form/Dealer/formperma/ruiel0ucGbM-cb7Rvuw4aJmBMT21Gkrh-LRX-oMDSuE. Target storefront: EasyHomeBackup.com (coming soon specialty).",
+      "stage": "identified",
+      "order": 1,
+      "quality_web": false,
+      "quality_yt": false,
+      "quality_ads": false,
+      "sites": [],
+      "branded_vol": null,
+      "osaki_rel": null,
+      "aov_est": null,
+      "score": null,
+      "score_notes": "",
+      "last_updated": "2026-09-18",
+      "editor": "seed-backup-power"
+    },
+    {
+      "id": "sp09ankersolix",
+      "name": "Anker SOLIX",
+      "category": "backup power",
+      "website": "https://www.ankersolix.com/be-a-powerhouse-dealer",
+      "contact": "vip.support@ankersolix.com · +1 800-988-7973 (Mon–Fri 6am–5pm PT)",
+      "notes": "Dealer: https://www.ankersolix.com/be-a-powerhouse-dealer. Distributor: https://www.ankersolix.com/be-a-powerhouse-distributor. Target storefront: EasyHomeBackup.com (coming soon specialty).",
+      "stage": "identified",
+      "order": 2,
+      "quality_web": false,
+      "quality_yt": false,
+      "quality_ads": false,
+      "sites": [],
+      "branded_vol": null,
+      "osaki_rel": null,
+      "aov_est": null,
+      "score": null,
+      "score_notes": "",
+      "last_updated": "2026-09-18",
+      "editor": "seed-backup-power"
+    },
     {
       "id": "sp01summit2sea",
       "name": "Summit to Sea",
@@ -65,7 +128,7 @@
       "contact": "",
       "notes": "",
       "stage": "identified",
-      "order": 2,
+      "order": 5,
       "quality_web": false,
       "quality_yt": false,
       "quality_ads": false,
@@ -113,7 +176,7 @@
       "contact": "",
       "notes": "",
       "stage": "identified",
-      "order": 0,
+      "order": 3,
       "quality_web": false,
       "quality_yt": false,
       "quality_ads": false,
@@ -137,7 +200,7 @@
       "contact": "",
       "notes": "",
       "stage": "identified",
-      "order": 1,
+      "order": 4,
       "quality_web": false,
       "quality_yt": false,
       "quality_ads": false,
@@ -177,5 +240,11 @@
       "last_updated": "2026-09-17",
       "editor": "score-seed"
     }
-  ]
+  ],
+  "contact_scripts": {
+    "identified": "**Call confidence (say this to yourself first)**\n- Newbie to *backup power* ≠ newbie to selling. You’ve closed high-ticket home products since 2005.\n- Lead with transferable muscle: phone close, MAP discipline, manufacturer freight, no Amazon/eBay.\n- Be honest you’re new to the *category* — that’s a feature (dedicated specialty site), not an apology.\n- Ask for authorized-dealer path + MAP + freight/dropship terms. Don’t claim you’re already authorized.\n\n**Talk-track bullets**\n1. Who: Furniture Fancy LLC / Easy Massage Chair — EasyHomeBackup.com is our dedicated home-backup specialty storefront.\n2. Why you: high-ticket online since 2005 — phone close, MAP, manufacturer ship, no marketplace dilution.\n3. Ask: looking for a serious authorized-dealer partner for [EcoFlow / BLUETTI / Anker SOLIX] — dealer pricing, MAP, freight/dropship, what you need from us to apply.\n4. Site: EasyHomeBackup.com (coming-soon specialty positioning; expert niche, not a mega energy mall).\n5. Close: “Who’s the right person for dealer applications — can you route me or send the portal?”\n6. Leave: name, company, EasyHomeBackup.com, vincent@ / best callback #, “happy to fill your dealer form today.”"
+  },
+  "stage_help": {
+    "identified": "**Call confidence (say this to yourself first)**\n- Newbie to *backup power* ≠ newbie to selling. You’ve closed high-ticket home products since 2005.\n- Lead with transferable muscle: phone close, MAP discipline, manufacturer freight, no Amazon/eBay.\n- Be honest you’re new to the *category* — that’s a feature (dedicated specialty site), not an apology.\n- Ask for authorized-dealer path + MAP + freight/dropship terms. Don’t claim you’re already authorized.\n\n**Talk-track bullets**\n1. Who: Furniture Fancy LLC / Easy Massage Chair — EasyHomeBackup.com is our dedicated home-backup specialty storefront.\n2. Why you: high-ticket online since 2005 — phone close, MAP, manufacturer ship, no marketplace dilution.\n3. Ask: looking for a serious authorized-dealer partner for [EcoFlow / BLUETTI / Anker SOLIX] — dealer pricing, MAP, freight/dropship, what you need from us to apply.\n4. Site: EasyHomeBackup.com (coming-soon specialty positioning; expert niche, not a mega energy mall).\n5. Close: “Who’s the right person for dealer applications — can you route me or send the portal?”\n6. Leave: name, company, EasyHomeBackup.com, vincent@ / best callback #, “happy to fill your dealer form today.”"
+  }
 }

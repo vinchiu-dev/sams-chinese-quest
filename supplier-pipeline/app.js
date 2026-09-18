@@ -66,9 +66,27 @@
     osaki_query: "osaki massage chair",
     osaki_volume_source:
       "Best-effort US monthly estimate (Keyword Planner-style bucket midpoint) for baseline query; refresh with live Google Ads Keyword Planner / Semrush when available.",
+    contact_scripts: { identified: "" },
+    stage_help: { identified: "" },
   };
 
   const DEFAULT_OSAKI_VOL = 5400;
+
+  const DEFAULT_CONTACT_SCRIPT_IDENTIFIED =
+    "**Call confidence (say this to yourself first)**\n" +
+    "- Newbie to *backup power* ≠ newbie to selling. You’ve closed high-ticket home products since 2005.\n" +
+    "- Lead with transferable muscle: phone close, MAP discipline, manufacturer freight, no Amazon/eBay.\n" +
+    "- Be honest you’re new to the *category* — that’s a feature (dedicated specialty site), not an apology.\n" +
+    "- Ask for authorized-dealer path + MAP + freight/dropship terms. Don’t claim you’re already authorized.\n" +
+    "\n" +
+    "**Talk-track bullets**\n" +
+    "1. Who: Furniture Fancy LLC / Easy Massage Chair — EasyHomeBackup.com is our dedicated home-backup specialty storefront.\n" +
+    "2. Why you: high-ticket online since 2005 — phone close, MAP, manufacturer ship, no marketplace dilution.\n" +
+    "3. Ask: looking for a serious authorized-dealer partner for [EcoFlow / BLUETTI / Anker SOLIX] — dealer pricing, MAP, freight/dropship, what you need from us to apply.\n" +
+    "4. Site: EasyHomeBackup.com (coming-soon specialty positioning; expert niche, not a mega energy mall).\n" +
+    '5. Close: “Who’s the right person for dealer applications — can you route me or send the portal?”\n' +
+    '6. Leave: name, company, EasyHomeBackup.com, vincent@ / best callback #, “happy to fill your dealer form today.”';
+
 
   function showToast(msg) {
     const el = document.getElementById("toast");
@@ -278,6 +296,25 @@
         if (s && s.id && known.has(s.id)) labelMap[s.id] = String(s.label || s.id);
       });
     }
+
+    // Contact help / stage help (board meta)
+    const scripts = {};
+    if (data.contact_scripts && typeof data.contact_scripts === "object") {
+      Object.keys(data.contact_scripts).forEach((k) => {
+        scripts[k] = String(data.contact_scripts[k] == null ? "" : data.contact_scripts[k]);
+      });
+    }
+    if (data.stage_help && typeof data.stage_help === "object") {
+      Object.keys(data.stage_help).forEach((k) => {
+        if (scripts[k] == null || scripts[k] === "") {
+          scripts[k] = String(data.stage_help[k] == null ? "" : data.stage_help[k]);
+        }
+      });
+    }
+    if (!scripts.identified) scripts.identified = DEFAULT_CONTACT_SCRIPT_IDENTIFIED;
+    crmMeta.contact_scripts = { identified: scripts.identified, ...scripts };
+    crmMeta.stage_help = { identified: scripts.identified, ...scripts };
+
     stages = DEFAULT_STAGES.map((s) => ({
       id: s.id,
       label: labelMap[s.id] || s.label,
@@ -306,6 +343,10 @@
       last_updated: s.last_updated || today(),
       editor: s.editor || "ui",
     }));
+    const identifiedHelp =
+      (crmMeta.contact_scripts && crmMeta.contact_scripts.identified) ||
+      (crmMeta.stage_help && crmMeta.stage_help.identified) ||
+      DEFAULT_CONTACT_SCRIPT_IDENTIFIED;
     return {
       title: crmMeta.title || "Continuous Growth Engine",
       north_star: crmMeta.north_star || "EasySaunas / EasyHomeWellness / EasyHBOT",
@@ -315,6 +356,16 @@
       osaki_volume_source:
         crmMeta.osaki_volume_source ||
         "Best-effort US monthly estimate; refresh with Keyword Planner / Semrush.",
+      contact_scripts: {
+        identified: identifiedHelp,
+        ...(crmMeta.contact_scripts || {}),
+        identified: identifiedHelp,
+      },
+      stage_help: {
+        identified: identifiedHelp,
+        ...(crmMeta.stage_help || {}),
+        identified: identifiedHelp,
+      },
       stages: stages.map((s) => ({ id: s.id, label: s.label })),
       supplier_count: suppliers.filter((s) => s.stage !== "deleted").length,
       suppliers,
@@ -458,6 +509,11 @@
           <header class="stage-header">
             <div class="stage-title-wrap">
               <h2 class="stage-title" data-stage-id="${escapeHtml(st.id)}" title="Click to rename">${escapeHtml(st.label)}</h2>
+              ${
+                st.id === "identified"
+                  ? `<button type="button" class="stage-help-link" data-stage-help="identified" title="How to contact Identified suppliers">how to contact</button>`
+                  : ""
+              }
             </div>
           </header>
           <div class="stage-body" data-stage="${escapeHtml(st.id)}">
@@ -469,6 +525,7 @@
 
     bindStageRename(board);
     bindBoardDnD(board);
+    bindStageHelp(board);
   }
 
   function bindStageRename(board) {
@@ -855,6 +912,52 @@
     await syncMutation("Removed", "Remove sync failed");
   }
 
+
+  function getIdentifiedContactScript() {
+    const fromScripts = crmMeta.contact_scripts && crmMeta.contact_scripts.identified;
+    const fromHelp = crmMeta.stage_help && crmMeta.stage_help.identified;
+    const v = fromScripts || fromHelp || DEFAULT_CONTACT_SCRIPT_IDENTIFIED;
+    return String(v == null ? "" : v);
+  }
+
+  function bindStageHelp(board) {
+    board.querySelectorAll("[data-stage-help]").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        openContactHelpModal(el.getAttribute("data-stage-help") || "identified");
+      });
+    });
+  }
+
+  function openContactHelpModal(stageId) {
+    const modal = document.getElementById("contact-help-modal");
+    const ta = document.getElementById("contact-help-text");
+    if (!modal || !ta) return;
+    ta.value = getIdentifiedContactScript();
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+    setTimeout(() => ta.focus(), 50);
+  }
+
+  function closeContactHelpModal() {
+    const modal = document.getElementById("contact-help-modal");
+    if (!modal) return;
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+  }
+
+  async function saveContactHelp() {
+    const ta = document.getElementById("contact-help-text");
+    const text = ta ? String(ta.value) : getIdentifiedContactScript();
+    if (!crmMeta.contact_scripts) crmMeta.contact_scripts = {};
+    if (!crmMeta.stage_help) crmMeta.stage_help = {};
+    crmMeta.contact_scripts.identified = text;
+    crmMeta.stage_help.identified = text;
+    closeContactHelpModal();
+    await syncMutation("Contact help saved", "Contact help sync failed");
+  }
+
   function openAddModal() {
     document.getElementById("add-name").value = "";
     document.getElementById("add-category").value = "";
@@ -969,6 +1072,12 @@
     document.getElementById("btn-add-x")?.addEventListener("click", closeAddModal);
     document.getElementById("btn-add-cancel")?.addEventListener("click", closeAddModal);
     document.getElementById("btn-add-save")?.addEventListener("click", addSupplier);
+    document.getElementById("btn-contact-help-x")?.addEventListener("click", closeContactHelpModal);
+    document.getElementById("btn-contact-help-cancel")?.addEventListener("click", closeContactHelpModal);
+    document.getElementById("btn-contact-help-save")?.addEventListener("click", saveContactHelp);
+    document.getElementById("contact-help-modal")?.addEventListener("click", (e) => {
+      if (e.target.id === "contact-help-modal") closeContactHelpModal();
+    });
     document.getElementById("f-stage")?.addEventListener("change", async (e) => {
       const newStage = e.target.value;
       toggleOnboardWrap(newStage);
@@ -1018,7 +1127,8 @@
     });
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
-        if (document.getElementById("add-modal")?.classList.contains("open")) closeAddModal();
+        if (document.getElementById("contact-help-modal")?.classList.contains("open")) closeContactHelpModal();
+        else if (document.getElementById("add-modal")?.classList.contains("open")) closeAddModal();
         else if (isDrawerOpen()) closeDrawer();
       }
     });
