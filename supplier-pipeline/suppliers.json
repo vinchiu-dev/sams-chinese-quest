@@ -4,7 +4,7 @@
   "seeded_at": "2026-09-17",
   "osaki_query": "osaki massage chair",
   "osaki_branded_search_volume": 5400,
-  "osaki_volume_source": "Best-effort US monthly search volume for branded query \"osaki massage chair\" (~Keyword Planner bucket midpoint). Live Google Ads Keyword Planner / Semrush not available in this environment (Trends 429). Refresh with Planner for production accuracy.",
+  "osaki_volume_source": "Best-effort US monthly search volume for branded query \"osaki massage chair\" (~Keyword Planner bucket midpoint). Score uses EMC ~5-bestseller AOV avg (Maestro/Maestro LE/Emperor/DuoMax/Honor sale prices) × 40% margin; volumes still prior estimate pending live KP. Live Google Ads Keyword Planner / Semrush not available in this environment (Trends 429). Refresh with Planner for production accuracy.",
   "stages": [
     {
       "id": "identified",
@@ -52,7 +52,8 @@
       "score": null,
       "score_notes": "",
       "last_updated": "2026-09-18",
-      "editor": "seed-backup-power"
+      "editor": "seed-backup-power",
+      "margin": 0.35
     },
     {
       "id": "sp08bluetti",
@@ -73,7 +74,8 @@
       "score": null,
       "score_notes": "",
       "last_updated": "2026-09-18",
-      "editor": "seed-backup-power"
+      "editor": "seed-backup-power",
+      "margin": 0.35
     },
     {
       "id": "sp09ankersolix",
@@ -94,7 +96,8 @@
       "score": null,
       "score_notes": "",
       "last_updated": "2026-09-18",
-      "editor": "seed-backup-power"
+      "editor": "seed-backup-power",
+      "margin": 0.35
     },
     {
       "id": "sp01summit2sea",
@@ -115,10 +118,11 @@
       "branded_vol": 480,
       "osaki_rel": 0.0889,
       "aov_est": 12800,
-      "score": 1137.8,
-      "score_notes": "Query: \"summit to sea\" (+ hyperbaric variants). Vol: best-effort US estimate (niche HBOT brand; lower than major sauna brands). AOV ~avg of bestsellers: Shallow Dive $7,995; Dive 33\" $9,995; Grand Dive 40\" $13,995; Vertical Dive $13,995; Grand Dive Vertical ~$17,995 (summit-to-sea.com / Peak Primal reviews, 2026). Osaki baseline: 5400 for \"osaki massage chair\".",
-      "last_updated": "2026-09-17",
-      "editor": "score-seed"
+      "score": 398.2,
+      "score_notes": "Query: \"summit to sea\" (+ hyperbaric variants). Vol: best-effort US estimate (niche HBOT brand; lower than major sauna brands). AOV ~avg of bestsellers: Shallow Dive $7,995; Dive 33\" $9,995; Grand Dive 40\" $13,995; Vertical Dive $13,995; Grand Dive Vertical ~$17,995 (summit-to-sea.com / Peak Primal reviews, 2026). Osaki baseline: 5400 for \"osaki massage chair\". ×35% margin applied 2026-09-18.",
+      "last_updated": "2026-09-18",
+      "editor": "margin-score",
+      "margin": 0.35
     },
     {
       "id": "sp02saunalife",
@@ -139,10 +143,11 @@
       "branded_vol": 590,
       "osaki_rel": 0.1093,
       "aov_est": 7200,
-      "score": 786.7,
-      "score_notes": "Query: \"saunalife\" / \"sauna life\". Vol: best-effort US estimate (specialty outdoor barrels). AOV ~avg of barrel/cube bestsellers ~$5,340–$11,270 heater-extra range; mid ~$7,200 (sauna.guide barrel roundup 2026). Osaki baseline: 5400 for \"osaki massage chair\".",
+      "score": 275.3,
+      "score_notes": "Query: \"saunalife\" / \"sauna life\". Vol: best-effort US estimate (specialty outdoor barrels). AOV ~avg of barrel/cube bestsellers ~$5,340–$11,270 heater-extra range; mid ~$7,200 (sauna.guide barrel roundup 2026). Osaki baseline: 5400 for \"osaki massage chair\". ×35% margin applied 2026-09-18.",
       "last_updated": "2026-09-18",
-      "editor": "ui"
+      "editor": "margin-score",
+      "margin": 0.35
     },
     {
       "id": "sp03dundalk",
@@ -163,10 +168,11 @@
       "branded_vol": 720,
       "osaki_rel": 0.1333,
       "aov_est": 6300,
-      "score": 840,
-      "score_notes": "Query: \"leisurecraft\" / \"dundalk sauna\" / \"dundalk leisurecraft\". Vol: best-effort US estimate. AOV ~avg of dealer bestsellers (heater often extra): Harmony ~$5,378; Serenity ~$6,140; Elation ~$6,613; Tranquility ~$6,514; Luna ~$6,840 (Sauna Company USA / Well Vetted 2026). Osaki baseline: 5400 for \"osaki massage chair\".",
-      "last_updated": "2026-09-17",
-      "editor": "score-seed"
+      "score": 294.0,
+      "score_notes": "Query: \"leisurecraft\" / \"dundalk sauna\" / \"dundalk leisurecraft\". Vol: best-effort US estimate. AOV ~avg of dealer bestsellers (heater often extra): Harmony ~$5,378; Serenity ~$6,140; Elation ~$6,613; Tranquility ~$6,514; Luna ~$6,840 (Sauna Company USA / Well Vetted 2026). Osaki baseline: 5400 for \"osaki massage chair\". ×35% margin applied 2026-09-18.",
+      "last_updated": "2026-09-18",
+      "editor": "margin-score",
+      "margin": 0.35
     },
     {
       "id": "sp04clearlight",
@@ -187,10 +193,11 @@
       "branded_vol": 2400,
       "osaki_rel": 0.4444,
       "aov_est": 7500,
-      "score": 3333.3,
-      "score_notes": "Query: \"clearlight sauna\" / \"clearlight saunas\". Vol: best-effort US estimate; Maire 2024 brand-search share ~21.8% among top sauna brands (strong #2 after Sunlighten). AOV ~avg Sanctuary bestsellers: S1 $6,899; S2 $7,299; S3 $7,699; S5 $8,499; mid ~$7,500 (infraredsaunalab / Clearlight MSRP 2026). Osaki baseline: 5400 for \"osaki massage chair\".",
-      "last_updated": "2026-09-17",
-      "editor": "score-seed"
+      "score": 1166.7,
+      "score_notes": "Query: \"clearlight sauna\" / \"clearlight saunas\". Vol: best-effort US estimate; Maire 2024 brand-search share ~21.8% among top sauna brands (strong #2 after Sunlighten). AOV ~avg Sanctuary bestsellers: S1 $6,899; S2 $7,299; S3 $7,699; S5 $8,499; mid ~$7,500 (infraredsaunalab / Clearlight MSRP 2026). Osaki baseline: 5400 for \"osaki massage chair\". ×35% margin applied 2026-09-18; volumes still prior estimate.",
+      "last_updated": "2026-09-18",
+      "editor": "margin-score",
+      "margin": 0.35
     },
     {
       "id": "sp05oxynova",
@@ -211,10 +218,11 @@
       "branded_vol": 260,
       "osaki_rel": 0.0481,
       "aov_est": 28000,
-      "score": 1348.1,
-      "score_notes": "Query: \"oxynova\" / \"oxynova hyperbaric\". Vol: best-effort US estimate (premium niche). AOV ~avg of chamber line: OxyNova 9 ~$34,500–$35,950 list; other series often ~$18.5k–$34.5k; est. avg bestsellers ~$28,000 (oxynova.com / Mediriser 2026). Osaki baseline: 5400 for \"osaki massage chair\".",
+      "score": 471.8,
+      "score_notes": "Query: \"oxynova\" / \"oxynova hyperbaric\". Vol: best-effort US estimate (premium niche). AOV ~avg of chamber line: OxyNova 9 ~$34,500–$35,950 list; other series often ~$18.5k–$34.5k; est. avg bestsellers ~$28,000 (oxynova.com / Mediriser 2026). Osaki baseline: 5400 for \"osaki massage chair\". ×35% margin applied 2026-09-18.",
       "last_updated": "2026-09-18",
-      "editor": "ui"
+      "editor": "margin-score",
+      "margin": 0.35
     },
     {
       "id": "sp06dynamic",
@@ -235,10 +243,11 @@
       "branded_vol": 1300,
       "osaki_rel": 0.2407,
       "aov_est": 2200,
-      "score": 529.6,
-      "score_notes": "Query: \"dynamic sauna\" / \"dynamic saunas\" (Golden Designs). Vol: best-effort US estimate (Costco/Amazon distribution lifts product searches). AOV ~avg Costco bestsellers: Gracia ~$1,800; San Marino Elite ~$1,900; Toscana Elite ~$2,000; Santiago ~$2,700; mid ~$2,200 (Costco sauna guide 2026). Osaki baseline: 5400 for \"osaki massage chair\".",
-      "last_updated": "2026-09-17",
-      "editor": "score-seed"
+      "score": 185.4,
+      "score_notes": "Query: \"dynamic sauna\" / \"dynamic saunas\" (Golden Designs). Vol: best-effort US estimate (Costco/Amazon distribution lifts product searches). AOV ~avg Costco bestsellers: Gracia ~$1,800; San Marino Elite ~$1,900; Toscana Elite ~$2,000; Santiago ~$2,700; mid ~$2,200 (Costco sauna guide 2026). Osaki baseline: 5400 for \"osaki massage chair\". ×35% margin applied 2026-09-18.",
+      "last_updated": "2026-09-18",
+      "editor": "margin-score",
+      "margin": 0.35
     }
   ],
   "contact_scripts": {
@@ -246,5 +255,8 @@
   },
   "stage_help": {
     "identified": "**Call confidence (say this to yourself first)**\n- Newbie to *backup power* ≠ newbie to selling. You’ve closed high-ticket home products since 2005.\n- Lead with transferable muscle: phone close, MAP discipline, manufacturer freight, no Amazon/eBay.\n- Be honest you’re new to the *category* — that’s a feature (dedicated specialty site), not an apology.\n- Ask for authorized-dealer path + MAP + freight/dropship terms. Don’t claim you’re already authorized.\n\n**Talk-track bullets**\n1. Who: Furniture Fancy LLC / Easy Massage Chair — EasyHomeBackup.com is our dedicated home-backup specialty storefront.\n2. Why you: high-ticket online since 2005 — phone close, MAP, manufacturer ship, no marketplace dilution.\n3. Ask: looking for a serious authorized-dealer partner for [EcoFlow / BLUETTI / Anker SOLIX] — dealer pricing, MAP, freight/dropship, what you need from us to apply.\n4. Site: EasyHomeBackup.com (coming-soon specialty positioning; expert niche, not a mega energy mall).\n5. Close: “Who’s the right person for dealer applications — can you route me or send the portal?”\n6. Leave: name, company, EasyHomeBackup.com, vincent@ / best callback #, “happy to fill your dealer form today.”"
-  }
+  },
+  "osaki_aov_est": 8599,
+  "osaki_margin": 0.4,
+  "osaki_score": 3439.6
 }

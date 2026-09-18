@@ -808,8 +808,12 @@
             <label for="f-aov-est">AOV est ($)</label>
             <input id="f-aov-est" type="number" min="0" step="1" inputmode="decimal" placeholder="e.g. 7500" />
           </div>
+          <div class="field">
+            <label for="f-margin">Margin %</label>
+            <input id="f-margin" type="number" min="0" max="100" step="0.1" inputmode="decimal" placeholder="e.g. 35" />
+          </div>
         </div>
-        <p class="score-hint" id="score-breakdown">score = (vol / Osaki) × AOV → —</p>
+        <p class="score-hint" id="score-breakdown">score = (vol / Osaki) × AOV × margin → —</p>
         <div class="field" style="margin-top:10px;margin-bottom:0">
           <label for="f-score-notes">Score notes</label>
           <textarea id="f-score-notes" rows="3" placeholder="Query, AOV products, sources…"></textarea>
@@ -881,6 +885,6 @@
   </div>
 
   <div id="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=20260918-contact-help"></script>
+  <script src="app.js?v=20260918-margin"></script>
 </body>
 </html>

@@ -63,6 +63,9 @@
     north_star: "EasySaunas / EasyHomeWellness / EasyHBOT",
     seeded_at: "",
     osaki_branded_search_volume: 5400,
+    osaki_aov_est: 8599,
+    osaki_margin: 0.4,
+    osaki_score: 3439.6,
     osaki_query: "osaki massage chair",
     osaki_volume_source:
       "Best-effort US monthly estimate (Keyword Planner-style bucket midpoint) for baseline query; refresh with live Google Ads Keyword Planner / Semrush when available.",
@@ -71,6 +74,7 @@
   };
 
   const DEFAULT_OSAKI_VOL = 5400;
+  const DEFAULT_MARGIN = 0.35;
 
   const DEFAULT_CONTACT_SCRIPT_IDENTIFIED =
     "**Call confidence (say this to yourself first)**\n" +
@@ -164,18 +168,49 @@
     return Number.isFinite(n) && n > 0 ? n : DEFAULT_OSAKI_VOL;
   }
 
-  function computeScoreFields(brandedVol, aovEst) {
+  function normalizeMargin(m) {
+    let n = parseNumOrNull(m);
+    if (n === null) return DEFAULT_MARGIN;
+    // Accept percent (>1) or decimal (0–1)
+    if (n > 1) n = n / 100;
+    if (n < 0) n = 0;
+    if (n > 1) n = 1;
+    return Math.round(n * 10000) / 10000;
+  }
+
+  function marginToPercentDisplay(m) {
+    const n = parseNumOrNull(m);
+    if (n === null) return "";
+    const pct = n > 1 ? n : n * 100;
+    const rounded = Math.round(pct * 10) / 10;
+    return Math.abs(rounded - Math.round(rounded)) < 0.05
+      ? String(Math.round(rounded))
+      : String(rounded);
+  }
+
+  function readMarginFromDrawer() {
+    const raw = document.getElementById("f-margin")?.value;
+    if (raw === null || raw === undefined || raw === "") return DEFAULT_MARGIN;
+    // Drawer shows percent (e.g. 35); store as decimal 0–1
+    const pct = parseNumOrNull(raw);
+    if (pct === null) return DEFAULT_MARGIN;
+    return normalizeMargin(pct / 100);
+  }
+
+  function computeScoreFields(brandedVol, aovEst, margin) {
     const vol = parseNumOrNull(brandedVol);
     const aov = parseNumOrNull(aovEst);
+    const m = normalizeMargin(margin);
     const osaki = getOsakiVol();
     if (vol === null || aov === null || vol < 0 || aov < 0) {
-      return { branded_vol: vol, aov_est: aov, osaki_rel: null, score: null };
+      return { branded_vol: vol, aov_est: aov, margin: m, osaki_rel: null, score: null };
     }
     const rel = vol / osaki;
-    const score = rel * aov;
+    const score = rel * aov * m;
     return {
       branded_vol: vol,
       aov_est: aov,
+      margin: m,
       osaki_rel: Math.round(rel * 10000) / 10000,
       score: Math.round(score * 10) / 10,
     };
@@ -193,15 +228,17 @@
     if (!el) return;
     const vol = parseNumOrNull(document.getElementById("f-branded-vol")?.value);
     const aov = parseNumOrNull(document.getElementById("f-aov-est")?.value);
+    const margin = readMarginFromDrawer();
     const osaki = getOsakiVol();
-    const computed = computeScoreFields(vol, aov);
+    const computed = computeScoreFields(vol, aov, margin);
     const relTxt =
       computed.osaki_rel === null ? "—" : computed.osaki_rel.toFixed(3);
     const scoreTxt = formatScoreDisplay(computed.score);
     const volTxt = vol === null ? "—" : String(vol);
     const aovTxt = aov === null ? "—" : String(aov);
+    const marginPct = marginToPercentDisplay(margin) || "—";
     el.innerHTML =
-      `score = (${volTxt} / ${osaki}) × ${aovTxt} = <strong>${scoreTxt}</strong>` +
+      `score = (${volTxt} / ${osaki}) × ${aovTxt} × ${marginPct}% = <strong>${scoreTxt}</strong>` +
       ` <span style="opacity:0.85">(osaki_rel ${relTxt})</span>`;
   }
 
@@ -221,11 +258,13 @@
     s.sites = normalizeSites(s.sites, s.category);
     s.branded_vol = parseNumOrNull(s.branded_vol);
     s.aov_est = parseNumOrNull(s.aov_est);
-    const computed = computeScoreFields(s.branded_vol, s.aov_est);
+    s.margin = s.margin == null || s.margin === "" ? DEFAULT_MARGIN : normalizeMargin(s.margin);
+    const computed = computeScoreFields(s.branded_vol, s.aov_est, s.margin);
     // Prefer freshly computed rel/score when inputs present; else keep stored nulls
     if (computed.score !== null) {
       s.osaki_rel = computed.osaki_rel;
       s.score = computed.score;
+      s.margin = computed.margin;
     } else {
       s.osaki_rel = parseNumOrNull(s.osaki_rel);
       s.score = parseNumOrNull(s.score);
@@ -289,6 +328,17 @@
     }
     if (data.osaki_query) crmMeta.osaki_query = String(data.osaki_query);
     if (data.osaki_volume_source) crmMeta.osaki_volume_source = String(data.osaki_volume_source);
+    if (data.osaki_aov_est != null) {
+      const oa = Number(data.osaki_aov_est);
+      if (Number.isFinite(oa) && oa >= 0) crmMeta.osaki_aov_est = oa;
+    }
+    if (data.osaki_margin != null) {
+      crmMeta.osaki_margin = normalizeMargin(data.osaki_margin);
+    }
+    if (data.osaki_score != null) {
+      const os = Number(data.osaki_score);
+      if (Number.isFinite(os)) crmMeta.osaki_score = os;
+    }
     const known = knownStageIds();
     const labelMap = {};
     if (Array.isArray(data.stages)) {
@@ -338,6 +388,7 @@
       branded_vol: parseNumOrNull(s.branded_vol),
       osaki_rel: parseNumOrNull(s.osaki_rel),
       aov_est: parseNumOrNull(s.aov_est),
+      margin: s.margin == null ? DEFAULT_MARGIN : normalizeMargin(s.margin),
       score: parseNumOrNull(s.score),
       score_notes: s.score_notes || "",
       last_updated: s.last_updated || today(),
@@ -353,6 +404,13 @@
       seeded_at: crmMeta.seeded_at || today(),
       osaki_query: crmMeta.osaki_query || "osaki massage chair",
       osaki_branded_search_volume: getOsakiVol(),
+      osaki_aov_est: Number.isFinite(Number(crmMeta.osaki_aov_est))
+        ? Number(crmMeta.osaki_aov_est)
+        : 8599,
+      osaki_margin: normalizeMargin(crmMeta.osaki_margin != null ? crmMeta.osaki_margin : 0.4),
+      osaki_score: Number.isFinite(Number(crmMeta.osaki_score))
+        ? Number(crmMeta.osaki_score)
+        : 3439.6,
       osaki_volume_source:
         crmMeta.osaki_volume_source ||
         "Best-effort US monthly estimate; refresh with Keyword Planner / Semrush.",
@@ -828,9 +886,11 @@
     writeSitesToDrawer(normalizeSites(s.sites, s.category));
     const bv = document.getElementById("f-branded-vol");
     const ae = document.getElementById("f-aov-est");
+    const mg = document.getElementById("f-margin");
     const sn = document.getElementById("f-score-notes");
     if (bv) bv.value = s.branded_vol == null ? "" : String(s.branded_vol);
     if (ae) ae.value = s.aov_est == null ? "" : String(s.aov_est);
+    if (mg) mg.value = marginToPercentDisplay(s.margin == null ? DEFAULT_MARGIN : s.margin);
     if (sn) sn.value = s.score_notes || "";
     updateScoreBreakdownUI();
     const stageSel = document.getElementById("f-stage");
@@ -875,10 +935,12 @@
     s.sites = readSitesFromDrawer();
     const scored = computeScoreFields(
       document.getElementById("f-branded-vol")?.value,
-      document.getElementById("f-aov-est")?.value
+      document.getElementById("f-aov-est")?.value,
+      readMarginFromDrawer()
     );
     s.branded_vol = scored.branded_vol;
     s.aov_est = scored.aov_est;
+    s.margin = scored.margin;
     s.osaki_rel = scored.osaki_rel;
     s.score = scored.score;
     s.score_notes = document.getElementById("f-score-notes")?.value || "";
@@ -995,6 +1057,7 @@
       stage: firstStage,
       order: nextOrderInStage(firstStage),
       sites: normalizeSites([], category),
+      margin: DEFAULT_MARGIN,
       last_updated: today(),
       editor: "ui-add",
     });
@@ -1064,7 +1127,7 @@
     document.getElementById("btn-close")?.addEventListener("click", closeDrawer);
     document.getElementById("backdrop")?.addEventListener("click", closeDrawer);
     document.getElementById("btn-save")?.addEventListener("click", saveDrawer);
-    ["f-branded-vol", "f-aov-est"].forEach((fid) => {
+    ["f-branded-vol", "f-aov-est", "f-margin"].forEach((fid) => {
       document.getElementById(fid)?.addEventListener("input", updateScoreBreakdownUI);
     });
     document.getElementById("btn-remove")?.addEventListener("click", softDelete);
