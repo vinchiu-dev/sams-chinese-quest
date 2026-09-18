@@ -1,0 +1,112 @@
+{
+  "version": "2026-09-08-notice-v2",
+  "cadence": "10d",
+  "last_run_at_et": "2026-09-18T10:28:00-04:00",
+  "windows": {
+    "last_10d": {"start_et": "2026-09-08", "end_et": "2026-09-17", "note": "Checklist sales logged through 2026-09-15 only (sheet max date); Sep 16–17 may still be blank."},
+    "prior_10d": {"start_et": "2026-08-29", "end_et": "2026-09-07"},
+    "yoy_10d": {"start_et": "2025-09-08", "end_et": "2025-09-17", "pulled": false}
+  },
+  "statuses": {
+    "tof": "Unknown",
+    "mid": "Unknown",
+    "bof": "Yellow",
+    "margin": "Yellow"
+  },
+  "leak_callout": "No clear funnel leak proven this run — TOF/Mid Unknown (box egress + CallRail phone-scope + RC Zapier stale). BOF roughly flat vs prior 10d (12 closes / $56.97k vs 10 / $58.31k through Sep 15). Margin: 0% check/ACH/Zelle; 11/12 card + 1 PayPal; fee drag ~2.84%.",
+  "concurrent_changes": [
+    {"date_et": "2026-09-08", "change": "Google Ads bid cuts (Vin)", "owner": "Vin", "stage": ["TOF", "Mid"]},
+    {"date_et": "2026-09-08", "change": "Ads % of Checklist sales on weekly Sep 8–14 ~3.66% (inside 3–4% band; prior 10d Aug 29–Sep 7 was ~6.96%)", "owner": "observed", "stage": ["TOF", "BOF"]}
+  ],
+  "tof": {
+    "ads_spend": null,
+    "ads_clicks": null,
+    "ads_impressions": null,
+    "ads_cpc": null,
+    "ads_conversions": null,
+    "ga4_sessions": null,
+    "ga4_users": null,
+    "yt_watch_hours": null,
+    "yt_views": null,
+    "deltas_vs_prior_10d": {},
+    "deltas_vs_yoy_10d": {},
+    "cos_note": "10d Ads/GA4/YT not pulled this run (box Chrome egress proxy 127.0.0.1:8791 dead; Shell OOM mid Ads UI). Weekly Sep 8–14 context only (different window): Ads spend $1,773 vs prior7 $2,887; YT ~12.0k views / 322h steady; GA4 Direct junk ~110k sessions — do not use raw users. Zapier Google Ads: 0 connections.",
+    "sources_pulled": [],
+    "prior_10d_from_sep8_audit": {
+      "ads_spend": 4061.22,
+      "ads_clicks": 5817,
+      "ads_conversions": 5,
+      "note": "From Sep 8 10d LAST-RUN (that run's last_10d = this run's prior_10d)."
+    }
+  },
+  "mid": {
+    "callrail_calls": null,
+    "callrail_qualified": null,
+    "callrail_by_source": {},
+    "rc_inbound": null,
+    "rc_answered": null,
+    "rc_abandoned": null,
+    "chats": null,
+    "ac_handled": null,
+    "callrail_tagging_pct": null,
+    "cos_note": "CallRail not opened — same phone-scope OAuth stop (user.phonenumbers.read); prefer vincent@easymassagechair.com and do not grant phone scopes via agent. RC Zapier stale OAU-210.",
+    "sources_pulled": []
+  },
+  "bof": {
+    "closed_sales": 12,
+    "revenue": 56974.93,
+    "gross_profit": 13048.15,
+    "close_rate_vs_qualified": null,
+    "close_rate_vs_answered": null,
+    "ads_pct_of_sales": null,
+    "ads_pct_of_sales_weekly_sep8_14": 3.66,
+    "cos_note": "Business Checklist export 2026-09-18 (Drive id 19cWkmcUCmANzLIa1RsAPxATVQ_T0sgCTrKh9CRdKcSk): non-cancelled Sale>0 rows dated Sep 8–15 = 12 closes, $56,974.93 revenue, $13,048.15 GP. Prior 10d Aug 29–Sep 7: 10 closes, $58,305.96, GP $16,842.31. Sheet max sale date 2026-09-15 — Sep 16–17 may lag. Full 10d Ads% Unknown (Ads spend null); weekly Sep 8–14 Ads% was ~3.66%.",
+    "sources_pulled": ["business_checklist_drive_xlsx"],
+    "prior_10d": {
+      "closed_sales": 10,
+      "revenue": 58305.96,
+      "gross_profit": 16842.31,
+      "ads_pct_of_sales": 6.96
+    }
+  },
+  "margin": {
+    "preferred_pay_share": 0.0,
+    "financing_share": 0.0,
+    "payment_mix": {"check": 0, "ach_bank": 0, "zelle": 0, "card": 11, "paypal": 1, "affirm_financing": 0, "other": 0},
+    "pay_raw": {"Stripe/Apple/Google Pay": 11, "Paypal": 1},
+    "discount_exceptions": null,
+    "fee_drag_pct": 2.84,
+    "fees_sum": 1619.28,
+    "warranty_for_check_offers_noted": null,
+    "cos_note": "Last window (through Sep 15): 0 preferred (check/ACH/Zelle); card-dominant + 1 PayPal; no Affirm/financing rows. Fee drag fees÷sale ~2.84% (prior 10d ~3.36%). Dig closer offer of check/ACH/Zelle + warranty incentive.",
+    "sources_pulled": ["business_checklist_drive_xlsx"],
+    "prior_10d": {
+      "preferred_pay_share": 0.0,
+      "financing_share": 0.0,
+      "payment_mix": {"card": 10},
+      "fee_drag_pct": 3.36
+    }
+  },
+  "blockers": [
+    "Box: Chrome egress proxy 127.0.0.1:8791 dead + Shell/FS flaky after OOM — Ads/GA4/YT browser pulls failed. Recover via Update Grok Bot's Computer / IP routing.",
+    "Zapier Google Ads: 0 connections — https://mcp.zapier.com/api/v1/connect-auth/GoogleAdsCLIAPI?accountId=15082377",
+    "CallRail: stop if user.phonenumbers.read; Vin sign-in as vincent@easymassagechair.com (same blocker as Sep 16).",
+    "RingCentral Zapier stale OAU-210 — https://mcp.zapier.com/api/v1/connect-auth/RingCentralCLIAPI?accountId=15082377&connectionId=39074755",
+    "Checklist may lag live sheet for Sep 16–17"
+  ],
+  "notices": [
+    "TOF/Mid Unknown this 10d run — no Ads/GA4/YT/CallRail/RC numbers invented",
+    "BOF roughly flat vs prior 10d; Ads% was healthy (~3.66%) on Sep 8–14 weekly after bid cuts",
+    "Margin: zero check/ACH/Zelle on 12 closes — card/PayPal only"
+  ],
+  "artifacts": {
+    "github_pulls": "vinchiu-dev/sams-chinese-quest/emc-funnel/pull-*-10d-20260918.json",
+    "desktop": "C:\\Users\\vinch\\Desktop\\emc-funnel-pulls-20260918\\",
+    "checklist_export": "Drive Business Checklist downloaded 2026-09-18 (box path may be missing while FS down)",
+    "live_weekly_board": "https://vinchiu-dev.github.io/sams-chinese-quest/emc-funnel/ (weekly LAST-RUN.json left intact)"
+  },
+  "planner_note_pasted": false,
+  "dashboard_published_url": "https://vinchiu-dev.github.io/sams-chinese-quest/emc-funnel/",
+  "dashboard_ux": "notice-first",
+  "box_write_status": "failed_shell_down — published via GitHub API instead"
+}
