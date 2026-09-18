@@ -64,8 +64,8 @@
       "website": "",
       "contact": "",
       "notes": "",
-      "stage": "in_contact",
-      "order": 1,
+      "stage": "identified",
+      "order": 2,
       "quality_web": false,
       "quality_yt": false,
       "quality_ads": false,
@@ -78,8 +78,8 @@
       "aov_est": 7200,
       "score": 786.7,
       "score_notes": "Query: \"saunalife\" / \"sauna life\". Vol: best-effort US estimate (specialty outdoor barrels). AOV ~avg of barrel/cube bestsellers ~$5,340–$11,270 heater-extra range; mid ~$7,200 (sauna.guide barrel roundup 2026). Osaki baseline: 5400 for \"osaki massage chair\".",
-      "last_updated": "2026-09-17",
-      "editor": "score-seed"
+      "last_updated": "2026-09-18",
+      "editor": "ui"
     },
     {
       "id": "sp03dundalk",
