@@ -1,0 +1,17 @@
+{
+  "pulled_at_et": "2026-09-18T10:22:00-04:00",
+  "queue": "Sales EMC",
+  "windows": {
+    "last_10d": {"start_et": "2026-09-08", "end_et": "2026-09-17", "inbound": null, "answered": null, "abandoned": null, "overflow_answered": null, "answer_rate": null},
+    "prior_10d": {"start_et": "2026-08-29", "end_et": "2026-09-07", "inbound": null, "answered": null, "abandoned": null, "overflow_answered": null, "answer_rate": null}
+  },
+  "status": "Unknown",
+  "blocker": {
+    "type": "zapier_ringcentral_oauth_stale",
+    "code": "OAU-210",
+    "is_stale": true,
+    "connection_title": "RingCentral vincent@easymassagechair.com",
+    "reconnect_url": "https://mcp.zapier.com/api/v1/connect-auth/RingCentralCLIAPI?accountId=15082377&connectionId=39074755",
+    "vin_action": "Open reconnect_url, re-auth as vincent@easymassagechair.com, tell CoS when done."
+  }
+}

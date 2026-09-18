@@ -1,0 +1,20 @@
+{
+  "pulled_at_et": "2026-09-18T10:22:00-04:00",
+  "cid": "233-345-8216",
+  "account_name": "Easy Massage Chair",
+  "auth_account": "vincent@easymassagechair.com",
+  "windows": {
+    "last_10d": {"start_et": "2026-09-08", "end_et": "2026-09-17", "spend": null, "clicks": null, "impressions": null, "ctr": null, "cpc": null, "conversions": null, "cost_per_conversion": null},
+    "prior_10d": {"start_et": "2026-08-29", "end_et": "2026-09-07", "spend": null, "clicks": null, "impressions": null, "ctr": null, "cpc": null, "conversions": null, "cost_per_conversion": null},
+    "yoy_10d": {"start_et": "2025-09-08", "end_et": "2025-09-17", "spend": null, "clicks": null, "impressions": null, "ctr": null, "cpc": null, "conversions": null, "cost_per_conversion": null, "pulled": false}
+  },
+  "campaign_mix": null,
+  "status": "Unknown",
+  "blocker": {
+    "type": "box_egress_proxy_down_then_box_shell_oom",
+    "detail": "Box Chrome forced through egress proxy 127.0.0.1:8791 timed out to Google while direct box egress worked. No-proxy Playwright reached Ads UI for CID 233-345-8216 but metrics not captured before box Shell died. Zapier Google Ads has 0 connections.",
+    "vin_action": "Reconnect Zapier Google Ads and/or fix IP routing; retry browser pull after box recovers.",
+    "zapier_ads_auth_url": "https://mcp.zapier.com/api/v1/connect-auth/GoogleAdsCLIAPI?accountId=15082377"
+  },
+  "note": "Do not invent numbers. Weekly Sep 8-14 is a different window than last_10d Sep 8-17."
+}

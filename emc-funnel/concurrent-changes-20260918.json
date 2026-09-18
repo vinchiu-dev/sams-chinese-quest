@@ -1,0 +1,24 @@
+{
+  "pulled_at_et": "2026-09-18T10:22:00-04:00",
+  "windows_context": {
+    "last_10d": {"start_et": "2026-09-08", "end_et": "2026-09-17"},
+    "prior_10d": {"start_et": "2026-08-29", "end_et": "2026-09-07"}
+  },
+  "confirmed_changes": [
+    {
+      "date_et": "2026-09-08",
+      "change": "Google Ads bid cuts across many keywords/campaigns (Vin)",
+      "owner": "Vin",
+      "stage_contamination": ["TOF", "Mid"],
+      "evidence": ["LAST-RUN-weekly.json", "emc-funnel-planner-note.txt"]
+    },
+    {
+      "date_et": "2026-09-08",
+      "change": "Ads % of Business Checklist sales improved — weekly Sep 8-14 ~3.66% (target 3-4%; prior 10d Aug 29-Sep 7 was ~6.96%)",
+      "owner": "observed",
+      "stage_contamination": ["TOF", "BOF"],
+      "evidence": ["LAST-RUN-weekly.json steady_checks", "LAST-RUN.json bof.ads_pct_of_sales"]
+    }
+  ],
+  "not_confirmed_do_not_invent": ["YT upload/promo changes", "RC hours / AC routing", "Closer headcount", "CallRail number / UTM changes"]
+}
