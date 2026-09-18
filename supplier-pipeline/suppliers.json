@@ -4,7 +4,16 @@
   "seeded_at": "2026-09-17",
   "osaki_query": "osaki massage chair",
   "osaki_branded_search_volume": 18100,
+  "osaki_aov_est": 8599,
+  "osaki_margin": 0.4,
+  "osaki_score": 3439.6,
   "osaki_volume_source": "Google Ads Keyword Planner US avg monthly Sep 2025–Aug 2026 for \"osaki massage chair\" (plural grouped as close variant)",
+  "contact_scripts": {
+    "identified": "**Call confidence (say this to yourself first)**\n- Newbie to *backup power* ≠ newbie to selling. You’ve closed high-ticket home products since 2005.\n- Lead with transferable muscle: phone close, MAP discipline, manufacturer freight, no Amazon/eBay.\n- Be honest you’re new to the *category* — that’s a feature (dedicated specialty site), not an apology.\n- Ask for authorized-dealer path + MAP + freight/dropship terms. Don’t claim you’re already authorized.\n\n**Talk-track bullets**\n1. Who: Furniture Fancy LLC / Easy Massage Chair — EasyHomeBackup.com is our dedicated home-backup specialty storefront.\n2. Why you: high-ticket online since 2005 — phone close, MAP, manufacturer ship, no marketplace dilution.\n3. Ask: looking for a serious authorized-dealer partner for [EcoFlow / BLUETTI / Anker SOLIX] — dealer pricing, MAP, freight/dropship, what you need from us to apply.\n4. Site: EasyHomeBackup.com (coming-soon specialty positioning; expert niche, not a mega energy mall).\n5. Close: “Who’s the right person for dealer applications — can you route me or send the portal?”\n6. Leave: name, company, EasyHomeBackup.com, vincent@ / best callback #, “happy to fill your dealer form today.”"
+  },
+  "stage_help": {
+    "identified": "**Call confidence (say this to yourself first)**\n- Newbie to *backup power* ≠ newbie to selling. You’ve closed high-ticket home products since 2005.\n- Lead with transferable muscle: phone close, MAP discipline, manufacturer freight, no Amazon/eBay.\n- Be honest you’re new to the *category* — that’s a feature (dedicated specialty site), not an apology.\n- Ask for authorized-dealer path + MAP + freight/dropship terms. Don’t claim you’re already authorized.\n\n**Talk-track bullets**\n1. Who: Furniture Fancy LLC / Easy Massage Chair — EasyHomeBackup.com is our dedicated home-backup specialty storefront.\n2. Why you: high-ticket online since 2005 — phone close, MAP, manufacturer ship, no marketplace dilution.\n3. Ask: looking for a serious authorized-dealer partner for [EcoFlow / BLUETTI / Anker SOLIX] — dealer pricing, MAP, freight/dropship, what you need from us to apply.\n4. Site: EasyHomeBackup.com (coming-soon specialty positioning; expert niche, not a mega energy mall).\n5. Close: “Who’s the right person for dealer applications — can you route me or send the portal?”\n6. Leave: name, company, EasyHomeBackup.com, vincent@ / best callback #, “happy to fill your dealer form today.”"
+  },
   "stages": [
     {
       "id": "identified",
@@ -49,11 +58,11 @@
       "branded_vol": 6600,
       "osaki_rel": 0.3646,
       "aov_est": 1939,
+      "margin": 0.35,
       "score": 247.5,
       "score_notes": "KP \"ecoflow power station\" (not bare ecoflow 110000). AOV ~DELTA Pro $2399, DELTA Pro sale $1899, DELTA 2 Max $1549/$1049, DELTA Pro Ultra/gen ~$2799.",
       "last_updated": "2026-09-18",
-      "editor": "seed-backup-power",
-      "margin": 0.35
+      "editor": "seed-backup-power"
     },
     {
       "id": "sp08bluetti",
@@ -71,11 +80,11 @@
       "branded_vol": 14800,
       "osaki_rel": 0.8177,
       "aov_est": 1459,
-      "score": 417.6,
+      "margin": 0.35,
+      "score": 417.5,
       "score_notes": "KP \"bluetti power station\" (not bare bluetti 49500). AOV ~AC200L $799, Apex 300 $1599, Elite 200 V2 $899, AC300+B300K ~$1699, AC300+2×B300K ~$2299.",
       "last_updated": "2026-09-18",
-      "editor": "seed-backup-power",
-      "margin": 0.35
+      "editor": "seed-backup-power"
     },
     {
       "id": "sp09ankersolix",
@@ -93,11 +102,11 @@
       "branded_vol": 60500,
       "osaki_rel": 3.3425,
       "aov_est": 1539,
-      "score": 1800.4,
+      "margin": 0.35,
+      "score": 1800.5,
       "score_notes": "KP US Sep25–Aug26 \"anker solix\" (product line brand). AOV ~avg F3800 $2999, F2000 $999, C1000 $649, C800 $649, F3800 sale ~$2400. Exclude tiny C300.",
       "last_updated": "2026-09-18",
-      "editor": "seed-backup-power",
-      "margin": 0.35
+      "editor": "seed-backup-power"
     },
     {
       "id": "sp01summit2sea",
@@ -118,11 +127,11 @@
       "branded_vol": 480,
       "osaki_rel": 0.0265,
       "aov_est": 12800,
+      "margin": 0.35,
       "score": 118.8,
       "score_notes": "Volumes/ratios recomputed vs Osaki KP 18100 (2026-09-18).",
       "last_updated": "2026-09-18",
-      "editor": "margin-score",
-      "margin": 0.35
+      "editor": "margin-score"
     },
     {
       "id": "sp02saunalife",
@@ -131,8 +140,8 @@
       "website": "",
       "contact": "",
       "notes": "",
-      "stage": "identified",
-      "order": 5,
+      "stage": "in_contact",
+      "order": 1,
       "quality_web": false,
       "quality_yt": false,
       "quality_ads": false,
@@ -143,11 +152,11 @@
       "branded_vol": 590,
       "osaki_rel": 0.0326,
       "aov_est": 7200,
+      "margin": 0.35,
       "score": 82.1,
       "score_notes": "Volumes/ratios recomputed vs Osaki KP 18100 (2026-09-18).",
       "last_updated": "2026-09-18",
-      "editor": "margin-score",
-      "margin": 0.35
+      "editor": "ui"
     },
     {
       "id": "sp03dundalk",
@@ -168,11 +177,11 @@
       "branded_vol": 720,
       "osaki_rel": 0.0398,
       "aov_est": 6300,
+      "margin": 0.35,
       "score": 87.7,
       "score_notes": "Volumes/ratios recomputed vs Osaki KP 18100 (2026-09-18).",
       "last_updated": "2026-09-18",
-      "editor": "margin-score",
-      "margin": 0.35
+      "editor": "margin-score"
     },
     {
       "id": "sp04clearlight",
@@ -193,11 +202,11 @@
       "branded_vol": 12100,
       "osaki_rel": 0.6685,
       "aov_est": 7500,
+      "margin": 0.35,
       "score": 1754.8,
       "score_notes": "KP US Sep25–Aug26 \"clearlight sauna\" (plural variant); Trends US P12M interest ~18 vs Osaki ~36 (direction check)",
       "last_updated": "2026-09-18",
-      "editor": "margin-score",
-      "margin": 0.35
+      "editor": "margin-score"
     },
     {
       "id": "sp05oxynova",
@@ -218,11 +227,11 @@
       "branded_vol": 260,
       "osaki_rel": 0.0144,
       "aov_est": 28000,
+      "margin": 0.35,
       "score": 140.8,
       "score_notes": "Volumes/ratios recomputed vs Osaki KP 18100 (2026-09-18).",
       "last_updated": "2026-09-18",
-      "editor": "margin-score",
-      "margin": 0.35
+      "editor": "margin-score"
     },
     {
       "id": "sp06dynamic",
@@ -243,20 +252,11 @@
       "branded_vol": 1300,
       "osaki_rel": 0.0718,
       "aov_est": 2200,
+      "margin": 0.35,
       "score": 55.3,
       "score_notes": "Volumes/ratios recomputed vs Osaki KP 18100 (2026-09-18).",
       "last_updated": "2026-09-18",
-      "editor": "margin-score",
-      "margin": 0.35
+      "editor": "margin-score"
     }
-  ],
-  "contact_scripts": {
-    "identified": "**Call confidence (say this to yourself first)**\n- Newbie to *backup power* ≠ newbie to selling. You’ve closed high-ticket home products since 2005.\n- Lead with transferable muscle: phone close, MAP discipline, manufacturer freight, no Amazon/eBay.\n- Be honest you’re new to the *category* — that’s a feature (dedicated specialty site), not an apology.\n- Ask for authorized-dealer path + MAP + freight/dropship terms. Don’t claim you’re already authorized.\n\n**Talk-track bullets**\n1. Who: Furniture Fancy LLC / Easy Massage Chair — EasyHomeBackup.com is our dedicated home-backup specialty storefront.\n2. Why you: high-ticket online since 2005 — phone close, MAP, manufacturer ship, no marketplace dilution.\n3. Ask: looking for a serious authorized-dealer partner for [EcoFlow / BLUETTI / Anker SOLIX] — dealer pricing, MAP, freight/dropship, what you need from us to apply.\n4. Site: EasyHomeBackup.com (coming-soon specialty positioning; expert niche, not a mega energy mall).\n5. Close: “Who’s the right person for dealer applications — can you route me or send the portal?”\n6. Leave: name, company, EasyHomeBackup.com, vincent@ / best callback #, “happy to fill your dealer form today.”"
-  },
-  "stage_help": {
-    "identified": "**Call confidence (say this to yourself first)**\n- Newbie to *backup power* ≠ newbie to selling. You’ve closed high-ticket home products since 2005.\n- Lead with transferable muscle: phone close, MAP discipline, manufacturer freight, no Amazon/eBay.\n- Be honest you’re new to the *category* — that’s a feature (dedicated specialty site), not an apology.\n- Ask for authorized-dealer path + MAP + freight/dropship terms. Don’t claim you’re already authorized.\n\n**Talk-track bullets**\n1. Who: Furniture Fancy LLC / Easy Massage Chair — EasyHomeBackup.com is our dedicated home-backup specialty storefront.\n2. Why you: high-ticket online since 2005 — phone close, MAP, manufacturer ship, no marketplace dilution.\n3. Ask: looking for a serious authorized-dealer partner for [EcoFlow / BLUETTI / Anker SOLIX] — dealer pricing, MAP, freight/dropship, what you need from us to apply.\n4. Site: EasyHomeBackup.com (coming-soon specialty positioning; expert niche, not a mega energy mall).\n5. Close: “Who’s the right person for dealer applications — can you route me or send the portal?”\n6. Leave: name, company, EasyHomeBackup.com, vincent@ / best callback #, “happy to fill your dealer form today.”"
-  },
-  "osaki_aov_est": 8599,
-  "osaki_margin": 0.4,
-  "osaki_score": 3439.6
+  ]
 }
