@@ -1,7 +1,14 @@
 {
   "title": "CoS Today",
-  "updated_at": "2026-09-20T06:35:00-04:00",
-  "blockers": [],
+  "updated_at": "2026-09-20T11:09:17.191Z",
+  "blockers": [
+    {
+      "id": "sug-ehb-dealer",
+      "text": "EasyHomeBackup dealer outreach (EcoFlow/BLUETTI/Anker)",
+      "added_at": "2026-09-20T11:09:17.190Z",
+      "source": "suggestion"
+    }
+  ],
   "suggestions": [
     {
       "id": "sug-callrail",
@@ -34,12 +41,8 @@
     {
       "id": "sug-checklist-sales",
       "text": "Checklist: catch sales after Sep 15"
-    },
-    {
-      "id": "sug-ehb-dealer",
-      "text": "EasyHomeBackup dealer outreach (EcoFlow/BLUETTI/Anker)"
     }
   ],
   "dismissed_ids": [],
-  "note": "suggestions stay off the main Needs-you list until Vin taps + Add. CoS never overwrites Vin [data-edit] card wording in index.html / localStorage."
+  "note": "suggestions stay off Needs-you until Vin taps + Add. Never overwrite Vin [data-edit] card wording."
 }
