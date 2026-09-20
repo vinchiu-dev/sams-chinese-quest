@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="cos-content-version" content="2026-09-13-7pm-v1"/>
+<meta name="cos-content-version" content="2026-09-20-suggest-v1"/>
 <title>CoS · Today</title>
 <style>
   :root {
@@ -173,6 +173,76 @@
     }
     .cos-note code { font-size: 11.5px; }
 
+
+  .section.quiet { color: rgba(255,244,168,.72); font-weight: 700; letter-spacing: .12em; }
+  .board-panel {
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 18px;
+    padding: 10px 12px;
+    box-shadow: 0 8px 22px rgba(0,26,158,.12);
+    backdrop-filter: blur(6px);
+  }
+  .board-panel.needs {
+    background: rgba(255,255,255,.88);
+    border-color: rgba(230,194,0,.45);
+  }
+  .board-panel.suggest {
+    background: rgba(255,255,255,.38);
+    border-color: rgba(255,255,255,.22);
+  }
+  .board-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .board-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px; border-radius: 12px;
+    background: rgba(255,255,255,.72);
+    border: 1px solid rgba(255,255,255,.4);
+    font-size: 13.5px; line-height: 1.35; color: var(--ink);
+  }
+  .board-panel.suggest .board-item {
+    background: rgba(255,255,255,.42);
+    border-color: rgba(255,255,255,.25);
+    color: rgba(11,18,32,.78);
+    font-size: 13px;
+  }
+  .board-item .item-text { flex: 1; min-width: 0; }
+  .board-item .item-actions { flex: 0 0 auto; display: inline-flex; gap: 6px; align-items: center; }
+  .btn-add, .btn-x {
+    border: 0; border-radius: 999px; cursor: pointer; user-select: none;
+    font-size: 12px; font-weight: 800; padding: 5px 10px; line-height: 1;
+  }
+  .btn-add {
+    background: var(--yellow-soft); color: var(--yellow-ink);
+    border: 1px solid #f0d84a;
+  }
+  .btn-add:hover { filter: brightness(1.05); }
+  .btn-x {
+    background: transparent; color: #64748b;
+    border: 1px solid rgba(100,116,139,.35);
+    padding: 4px 8px; font-weight: 700;
+  }
+  .btn-x:hover { background: rgba(100,116,139,.12); }
+  .board-empty {
+    margin: 4px 2px; font-size: 12.5px; color: rgba(255,255,255,.78);
+    font-style: italic;
+  }
+  .board-panel.needs .board-empty { color: #64748b; }
+  .sync-chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 8px; font-size: 11px; font-weight: 700;
+    color: rgba(255,255,255,.85);
+  }
+  .sync-chip[data-state="ok"] { color: #d8ffd6; }
+  .sync-chip[data-state="err"] { color: #ffe4e6; }
+  .toast {
+    position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%);
+    background: rgba(11,18,32,.92); color: #fff; padding: 10px 14px;
+    border-radius: 999px; font-size: 13px; font-weight: 600;
+    box-shadow: 0 10px 28px rgba(0,0,0,.35); opacity: 0; pointer-events: none;
+    transition: opacity .2s ease; z-index: 50;
+  }
+  .toast.show { opacity: 1; }
+
   </style>
 </head>
 <body>
@@ -202,6 +272,20 @@
         <p class="blocker" data-edit="body">Squat snacks on · something real for you, the kids, Ma, or Bob</p>
       </article>
     </div>
+
+
+    <div class="section">Needs you</div>
+    <div class="board-panel needs" id="needs-panel">
+      <ul class="board-list" id="blockers-list" aria-label="Committed blockers"></ul>
+      <p class="board-empty" id="blockers-empty">Nothing committed yet — pick from CoS suggests below.</p>
+    </div>
+
+    <div class="section quiet">CoS suggests</div>
+    <div class="board-panel suggest" id="suggest-panel">
+      <ul class="board-list" id="suggestions-list" aria-label="Suggested blockers"></ul>
+      <p class="board-empty" id="suggestions-empty" hidden>No suggestions right now.</p>
+    </div>
+    <div class="sync-chip" id="sync-chip" data-state="idle" hidden></div>
 
     <div class="section">Work</div>
     <div class="stack" id="work-stack">
@@ -285,195 +369,9 @@
       <div class="mini" data-mini="acq"><strong data-edit="title">Acquisitions</strong><span data-edit="body">Background digs</span></div>
     </div>
 
-    <div class="hint">Tap a status for <strong>Done</strong> / <strong>Open</strong>. Tap any title or line to edit — <strong>your wording stays</strong>; CoS never overwrites it. Press-and-hold the ⋮⋮ handle on a Work row to reorder. CoS notes stay under your lines. Syncs at 9am / 11am / 3pm / 7pm ET.</div>
+    <div class="hint">Tap <strong>+ Add</strong> on a CoS suggest to commit it to Needs you (dismiss with ×). Tap a status for <strong>Done</strong> / <strong>Open</strong>. Tap any title or line to edit — <strong>your wording stays</strong>; CoS never overwrites it. Press-and-hold the ⋮⋮ handle on a Work row to reorder. CoS notes stay under your lines. Board JSON syncs live; card text syncs at 9am / 11am / 3pm / 7pm ET.</div>
   </div>
-<script>
-(function () {
-  const tz = 'America/New_York';
-  const pageVer = (document.querySelector('meta[name="cos-content-version"]') || {}).content || '';
-  const WORK_ORDER_KEY = 'cosTodayWorkOrder';
-  function dayKey() {
-    try {
-      return new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
-    } catch (e) {
-      return new Date().toISOString().slice(0, 10);
-    }
-  }
-  function statusKey(id) { return 'cosToday:' + dayKey() + ':' + id; }
-  function textKey(scope, field) { return 'cosTodayText:' + scope + ':' + field; }
-
-  // Vin's edits win. Never wipe phone text when CoS ships a new version —
-  // localStorage overrides stay; shipped HTML only fills fields with no local save.
-  if (pageVer) localStorage.setItem('cosTodayText:version', pageVer);
-
-  function applyStatus(card, status) {
-    const pill = card.querySelector('[data-pill]');
-    const done = status === 'done';
-    card.classList.toggle('done', done);
-    pill.classList.toggle('done', done);
-    pill.classList.toggle('open', !done);
-    pill.textContent = done ? 'Done' : 'Open';
-    pill.setAttribute('aria-pressed', done ? 'true' : 'false');
-  }
-  function loadStatus(card) {
-    applyStatus(card, localStorage.getItem(statusKey(card.id)) === 'done' ? 'done' : 'open');
-  }
-  function toggleStatus(card) {
-    const next = card.classList.contains('done') ? 'open' : 'done';
-    localStorage.setItem(statusKey(card.id), next);
-    applyStatus(card, next);
-  }
-  function wireEditable(el, scope, field) {
-    const saved = localStorage.getItem(textKey(scope, field));
-    if (saved != null && saved !== '') el.textContent = saved;
-    el.setAttribute('contenteditable', 'true');
-    el.setAttribute('spellcheck', 'true');
-    el.addEventListener('click', function (e) { e.stopPropagation(); });
-    el.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' && field === 'title') { e.preventDefault(); el.blur(); }
-    });
-    function save() {
-      localStorage.setItem(textKey(scope, field), el.textContent.trim());
-    }
-    el.addEventListener('blur', save);
-    el.addEventListener('input', save);
-  }
-
-  document.querySelectorAll('[data-card]').forEach(function (card) {
-    loadStatus(card);
-    card.querySelector('[data-pill]').addEventListener('click', function (e) {
-      e.preventDefault(); e.stopPropagation(); toggleStatus(card);
-    });
-    card.querySelectorAll('[data-edit]').forEach(function (el) {
-      wireEditable(el, card.id, el.getAttribute('data-edit'));
-    });
-  });
-  document.querySelectorAll('[data-mini]').forEach(function (mini) {
-    const id = mini.getAttribute('data-mini');
-    mini.querySelectorAll('[data-edit]').forEach(function (el) {
-      wireEditable(el, 'mini-' + id, el.getAttribute('data-edit'));
-    });
-  });
-
-  // Press-and-hold / drag-handle reorder for Work cards only. CoS notes are never in localStorage.
-  (function wireWorkReorder() {
-    const stack = document.getElementById('work-stack');
-    if (!stack) return;
-    const HOLD_MS = 250;
-
-    function currentIds() {
-      return Array.from(stack.querySelectorAll('[data-work]')).map(function (el) { return el.id; });
-    }
-    function applyOrder(ids) {
-      const map = {};
-      Array.from(stack.querySelectorAll('[data-work]')).forEach(function (el) { map[el.id] = el; });
-      const allPresent = ids.every(function (id) { return map[id]; }) && ids.length === Object.keys(map).length;
-      if (!allPresent) return false;
-      ids.forEach(function (id) { stack.appendChild(map[id]); });
-      return true;
-    }
-    function persistOrder() {
-      try { localStorage.setItem(WORK_ORDER_KEY, JSON.stringify(currentIds())); } catch (e) {}
-    }
-    try {
-      const raw = localStorage.getItem(WORK_ORDER_KEY);
-      if (raw) {
-        const ids = JSON.parse(raw);
-        if (Array.isArray(ids)) applyOrder(ids);
-      }
-    } catch (e) {}
-
-    let holdTimer = null;
-    let dragging = null;
-    let startY = 0;
-    let pointerId = null;
-
-    function clearHold() {
-      if (holdTimer) { clearTimeout(holdTimer); holdTimer = null; }
-    }
-    function canStartHold(t) {
-      if (!t || !t.closest) return false;
-      if (t.closest('[data-drag-handle]')) return true;
-      if (t.closest('[data-edit]')) return false;
-      if (t.closest('[data-pill]')) return false;
-      if (t.closest('a, button, input, textarea, select, label')) return false;
-      return true;
-    }
-    function beginDrag(row) {
-      clearHold();
-      dragging = row;
-      dragging.classList.add('dragging');
-      dragging.style.touchAction = 'none';
-      try { row.setPointerCapture(pointerId); } catch (err) {}
-    }
-    function endDrag() {
-      clearHold();
-      if (dragging) {
-        dragging.classList.remove('dragging');
-        dragging.style.touchAction = '';
-        stack.querySelectorAll('.drag-over').forEach(function (el) { el.classList.remove('drag-over'); });
-        persistOrder();
-        dragging = null;
-      }
-      pointerId = null;
-    }
-    function rowFromPoint(clientX, clientY) {
-      const el = document.elementFromPoint(clientX, clientY);
-      return el && el.closest ? el.closest('#work-stack [data-work]') : null;
-    }
-    function maybeReorder(clientY) {
-      if (!dragging) return;
-      const over = rowFromPoint(
-        dragging.getBoundingClientRect().left + dragging.offsetWidth / 2,
-        clientY
-      );
-      stack.querySelectorAll('.drag-over').forEach(function (el) { el.classList.remove('drag-over'); });
-      if (!over || over === dragging) return;
-      over.classList.add('drag-over');
-      const siblings = currentIds();
-      const from = siblings.indexOf(dragging.id);
-      const to = siblings.indexOf(over.id);
-      if (from < 0 || to < 0 || from === to) return;
-      if (from < to) stack.insertBefore(dragging, over.nextSibling);
-      else stack.insertBefore(dragging, over);
-    }
-
-    stack.addEventListener('pointerdown', function (e) {
-      const row = e.target && e.target.closest ? e.target.closest('[data-work]') : null;
-      if (!row || !stack.contains(row)) return;
-      if (e.button != null && e.button !== 0) return;
-      const onHandle = !!(e.target.closest && e.target.closest('[data-drag-handle]'));
-      if (!onHandle && !canStartHold(e.target)) return;
-      startY = e.clientY;
-      pointerId = e.pointerId;
-      clearHold();
-      if (onHandle) {
-        beginDrag(row);
-        e.preventDefault();
-        return;
-      }
-      holdTimer = setTimeout(function () {
-        holdTimer = null;
-        beginDrag(row);
-      }, HOLD_MS);
-    });
-
-    stack.addEventListener('pointermove', function (e) {
-      if (pointerId != null && e.pointerId !== pointerId) return;
-      if (!dragging) {
-        if (holdTimer && Math.abs(e.clientY - startY) > 10) clearHold();
-        return;
-      }
-      e.preventDefault();
-      maybeReorder(e.clientY);
-    }, { passive: false });
-
-    stack.addEventListener('pointerup', endDrag);
-    stack.addEventListener('pointercancel', endDrag);
-    stack.addEventListener('lostpointercapture', endDrag);
-  })();
-
-})();
-</script>
+<div class="toast" id="cos-toast" role="status" aria-live="polite"></div>
+<script src="app.js?v=2026-09-20-suggest-v1"></script>
 </body>
 </html>

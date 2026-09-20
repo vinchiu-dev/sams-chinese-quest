@@ -1,0 +1,45 @@
+{
+  "title": "CoS Today",
+  "updated_at": "2026-09-20T06:35:00-04:00",
+  "blockers": [],
+  "suggestions": [
+    {
+      "id": "sug-callrail",
+      "text": "CallRail Google login (deny phone scopes)"
+    },
+    {
+      "id": "sug-ringcentral",
+      "text": "RingCentral Zapier reconnect"
+    },
+    {
+      "id": "sug-grokbot-computer",
+      "text": "Update Grok Bot computer (Ads/GA4/YT)"
+    },
+    {
+      "id": "sug-landbank-ceza",
+      "text": "LandBank CEZA: confirm transfer processed"
+    },
+    {
+      "id": "sug-alice-bell",
+      "text": "Alice Bell receipt — FO still open"
+    },
+    {
+      "id": "sug-iowa-form-e",
+      "text": "Iowa Form E Level 6 — Vin student + agreement"
+    },
+    {
+      "id": "sug-nj-abn",
+      "text": "NJ ABN Easy Massage Chair renew by 9/30"
+    },
+    {
+      "id": "sug-checklist-sales",
+      "text": "Checklist: catch sales after Sep 15"
+    },
+    {
+      "id": "sug-ehb-dealer",
+      "text": "EasyHomeBackup dealer outreach (EcoFlow/BLUETTI/Anker)"
+    }
+  ],
+  "dismissed_ids": [],
+  "note": "suggestions stay off the main Needs-you list until Vin taps + Add. CoS never overwrites Vin [data-edit] card wording in index.html / localStorage."
+}
