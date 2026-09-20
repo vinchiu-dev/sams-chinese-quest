@@ -1,6 +1,6 @@
 {
   "title": "CoS Today",
-  "updated_at": "2026-09-20T11:09:17.191Z",
+  "updated_at": "2026-09-20T11:17:23.121Z",
   "blockers": [
     {
       "id": "sug-ehb-dealer",
@@ -44,5 +44,271 @@
     }
   ],
   "dismissed_ids": [],
-  "note": "suggestions stay off Needs-you until Vin taps + Add. Never overwrite Vin [data-edit] card wording."
+  "work_cards": {
+    "emc": {
+      "title": null,
+      "body": null,
+      "details": {
+        "status": [
+          {
+            "id": "emc-s1",
+            "text": "For the week of Sep 5–11, EMC sales were back on track around $51,150 (month-to-date near $86k)."
+          },
+          {
+            "id": "emc-s2",
+            "text": "After the Sep 9–12 bid cuts, ads cost was about $1,037 with ads at 2.76% of sales — inside the 3–4% target band (ceiling 5%; the prior window sat nearer 7%)."
+          },
+          {
+            "id": "emc-s3",
+            "text": "The funnel board is still waiting for a short once-over from you; Dynamic retargeting is live but still light compared with Static."
+          }
+        ],
+        "needs": [
+          {
+            "id": "emc-n1",
+            "text": "When you have 10–15 quiet minutes, skim the funnel board and say whether Brands/PMax need a pass after the Dynamic tag/feed fix."
+          }
+        ],
+        "next": [
+          {
+            "id": "emc-x1",
+            "text": "Keep spend discipline; chase the Dynamic tag plus ecomm_prodid match against the feed so Dynamic can scale versus Static."
+          },
+          {
+            "id": "emc-x2",
+            "text": "Keep funnel-tracker refinement on deck for when you reopen it."
+          }
+        ]
+      }
+    },
+    "ads": {
+      "title": null,
+      "body": null,
+      "details": {
+        "status": [
+          {
+            "id": "ads-s1",
+            "text": "The Sep 9–12 bid-cut window is closed; this morning’s check showed cost $1,037.42, 1,114 clicks, $0.93 CPC, and ads at 2.76% of sales (on track)."
+          },
+          {
+            "id": "ads-s2",
+            "text": "Daily cost is about $259 versus about $406 before the Sep 8 cuts."
+          },
+          {
+            "id": "ads-s3",
+            "text": "Dynamic Retargeting (2019 Nov) is live at $40/day; Static still carries most of the volume."
+          },
+          {
+            "id": "ads-s4",
+            "text": "Product and cart audience lists still show Not eligible / size 0 — next step is verifying the tag and ecomm_prodid against feed 104813019."
+          }
+        ],
+        "needs": [
+          {
+            "id": "ads-n1",
+            "text": "Nothing needed in Ads login — QA is done. Green-light the tag/feed fix when you want it, or say if Meta dynamic should run in parallel."
+          }
+        ],
+        "next": [
+          {
+            "id": "ads-x1",
+            "text": "Verify tag/feed pairing; only bring Meta in if you want Sunny on it or the Google path stalls."
+          },
+          {
+            "id": "ads-x2",
+            "text": "Keep the ≤5% ads guardrails in place."
+          }
+        ]
+      }
+    },
+    "dynamic": {
+      "title": null,
+      "body": null,
+      "details": {
+        "status": [
+          {
+            "id": "dyn-s1",
+            "text": "ESS CRO is greenlit; the theme pick is still held (Craft/Sense free options; Prestige/Impact paid)."
+          },
+          {
+            "id": "dyn-s2",
+            "text": "Loviisa/Kaskinen YouTube work is still ASAP when you reopen that lane."
+          },
+          {
+            "id": "dyn-s3",
+            "text": "The Cherry AI product-description paste is ready (high-AOV Dynamic first)."
+          },
+          {
+            "id": "dyn-s4",
+            "text": "Shopify Admin is still Cloudflare-blocked on my computer."
+          }
+        ],
+        "needs": [
+          {
+            "id": "dyn-n1",
+            "text": "Nothing on theme until you reopen it."
+          },
+          {
+            "id": "dyn-n2",
+            "text": "Say go when you want the Cherry AI-desc paste sent."
+          },
+          {
+            "id": "dyn-n3",
+            "text": "Optional: update Grok Bot’s Computer so ESS Admin works from here."
+          }
+        ],
+        "next": [
+          {
+            "id": "dyn-x1",
+            "text": "Hold theme install; keep Jay/Cherry YouTube and AI-desc pastes ready until you say send."
+          }
+        ]
+      }
+    },
+    "suppliers": {
+      "title": null,
+      "body": null,
+      "details": {
+        "status": [
+          {
+            "id": "sup-s1",
+            "text": "EasyHomeBackup.com is live; the dealer talk-track and EcoFlow/BLUETTI/Anker call windows are locked in Eastern time."
+          },
+          {
+            "id": "sup-s2",
+            "text": "The STS listing still waits on the reseller packet."
+          },
+          {
+            "id": "sup-s3",
+            "text": "Show stack: CES 2027 (Jan 6–9, Las Vegas); nearer is RE+ Nov 16–19 2026 in Las Vegas."
+          }
+        ],
+        "needs": [
+          {
+            "id": "sup-n1",
+            "text": "Green-light sending the three vincent@ supplier drafts when you want them out."
+          },
+          {
+            "id": "sup-n2",
+            "text": "STS packet when Judy/Welcome materials arrive."
+          }
+        ],
+        "next": [
+          {
+            "id": "sup-x1",
+            "text": "Polish the coming-soon page; hold outbound send until you say go."
+          }
+        ]
+      }
+    },
+    "bc": {
+      "title": null,
+      "body": null,
+      "details": {
+        "status": [
+          {
+            "id": "bc-s1",
+            "text": "The Events CRM board is live; Jonalyn is still a New inquiry — FO owns the details."
+          },
+          {
+            "id": "bc-s2",
+            "text": "New overnight form from Krystel Alap (09606805441) — stay@ asked for details; FO owns the quote."
+          },
+          {
+            "id": "bc-s3",
+            "text": "stay@ Ads CID 375-273-2942 has Visa •••• 7154 OK."
+          },
+          {
+            "id": "bc-s4",
+            "text": "Events Search (~$100/mo, ~$3.50/day; function hall, wedding venue, team building, conference hall — not PMax) is still unpublished; you chose to finish and publish on the handed Ads screen."
+          },
+          {
+            "id": "bc-s5",
+            "text": "FO Messenger is unlocked; OTA drafts are ready."
+          },
+          {
+            "id": "bc-s6",
+            "text": "IOM Mini RFQ 30000032681 had a Mon Sep 14 5pm Manila deadline — confirm whether Rose submitted."
+          },
+          {
+            "id": "bc-s7",
+            "text": "The Fixerink/BBC Sep 12–13 tour window closed; outcome is still unconfirmed."
+          }
+        ],
+        "needs": [
+          {
+            "id": "bc-n1",
+            "text": "Confirm Rose’s IOM go/no-go if it is still open (submit only to iomphtenders@iom.int)."
+          },
+          {
+            "id": "bc-n2",
+            "text": "Finish and publish Events Search on the handed Ads screen when you have a calm window."
+          },
+          {
+            "id": "bc-n3",
+            "text": "Optional: note the Fixerink outcome and paste the OTA Messenger drafts."
+          }
+        ],
+        "next": [
+          {
+            "id": "bc-x1",
+            "text": "Hold box Ads until handoff works; keep CRM mornings and a light FO skim."
+          },
+          {
+            "id": "bc-x2",
+            "text": "Meta via Angelica after Google is live."
+          }
+        ]
+      }
+    },
+    "daddy": {
+      "title": null,
+      "body": null,
+      "details": {
+        "status": [
+          {
+            "id": "dad-s1",
+            "text": "Saturday-morning weekly presentation cadence (three bullet note cards, then talk with family/Grandpa’s) — still no confirm that the Sat Sep 12 talk happened."
+          },
+          {
+            "id": "dad-s2",
+            "text": "Activity Log last updated Fri Sep 11; the evening schoolwork scan found no Sat/Sun Plan and no new Scanned_*.pdf (latest still Sep 10)."
+          },
+          {
+            "id": "dad-s3",
+            "text": "The Sep 11 Plan still had Chinese homework and Khanmigo Fractions open."
+          },
+          {
+            "id": "dad-s4",
+            "text": "New can-dos showing up: Chinese month/day, stars, and a Scratch/programming spark."
+          },
+          {
+            "id": "dad-s5",
+            "text": "Iowa Form E Level 6 is still unbought at Seton (about $45) — midyear Level 7 around January stays armed."
+          }
+        ],
+        "needs": [
+          {
+            "id": "dad-n1",
+            "text": "Confirm whether Saturday’s presentation happened, or catch it up when energy allows — family rhythm matters more than the paperwork."
+          },
+          {
+            "id": "dad-n2",
+            "text": "Buy Iowa Form E Online Complete (Grade 1 / Level 6) when you are ready."
+          },
+          {
+            "id": "dad-n3",
+            "text": "Reply to the Sunday check-in or leave Plan strikethroughs for the nightly log."
+          }
+        ],
+        "next": [
+          {
+            "id": "dad-x1",
+            "text": "Hold the Saturday presentation cadence; track Iowa once ordered; keep nightly Plan/scan reads; midyear cue after baseline."
+          }
+        ]
+      }
+    }
+  },
+  "note": "suggestions stay off Needs-you until Vin taps + Add. Never overwrite Vin title/body. work_cards.details order is Vin-reorderable."
 }

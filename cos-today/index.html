@@ -3,33 +3,31 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="cos-content-version" content="2026-09-20-suggest-v1"/>
+<meta name="cos-content-version" content="2026-09-20-overhaul"/>
 <title>CoS · Today</title>
 <style>
   :root {
-    --blue-deep: #001a9e;
-    --blue-rich: #0126de;
-    --pink: #e018cf;
-    --pink-hot: #ff2ec8;
-    --green: #1fc41a;
-    --green-soft: #d8ffd6;
-    --green-border: #4ae045;
-    --yellow: #e6c200;
-    --yellow-soft: #fff4a8;
-    --yellow-ink: #7a6200;
-    --card: rgba(255,255,255,.94);
-    --ink: #0b1220;
-    --muted: #334155;
+    --bg: #ffffff;
+    --ink: #0a0a0a;
+    --muted: #475569;
+    --line: #e2e8f0;
+    --card: #ffffff;
+    --red: #e11d48;
+    --red-soft: #ffe4e6;
+    --blue: #2563eb;
+    --blue-soft: #dbeafe;
+    --yellow: #eab308;
+    --yellow-soft: #fef9c3;
+    --yellow-ink: #854d0e;
+    --green: #16a34a;
+    --green-soft: #dcfce7;
+    --green-border: #4ade80;
   }
   * { box-sizing: border-box; }
   body {
     margin: 0;
     font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-    background:
-      radial-gradient(900px 520px at 0% 0%, rgba(1,38,222,.55) 0%, transparent 55%),
-      radial-gradient(860px 480px at 100% 15%, rgba(224,24,207,.45) 0%, transparent 52%),
-      radial-gradient(700px 420px at 50% 110%, rgba(255,46,200,.28) 0%, transparent 48%),
-      linear-gradient(165deg, #001a9e 0%, #0a2ad8 38%, #9b18d4 72%, #e018cf 100%);
+    background: var(--bg);
     color: var(--ink);
     min-height: 100vh;
   }
@@ -37,36 +35,42 @@
   .top { margin-bottom: 22px; }
   a.hero-link {
     text-decoration: none; display: block;
-    border-radius: 22px; padding: 18px 18px 16px;
-    background: linear-gradient(135deg, #001a9e 0%, #0126de 42%, #c218d8 78%, #e018cf 100%);
-    color: #fff; box-shadow: 0 16px 40px rgba(0,26,158,.35);
-    border: 1px solid rgba(230,194,0,.35);
+    border-radius: 18px; padding: 18px 18px 16px;
+    background: #fff;
+    color: var(--ink);
+    border: 2px solid var(--blue);
+    box-shadow: 0 4px 0 rgba(37,99,235,.12);
   }
-  a.hero-link h1 { margin: 0; font-size: 28px; letter-spacing: -.04em; line-height: 1.15; color: #fff; }
+  a.hero-link h1 {
+    margin: 0; font-size: 28px; letter-spacing: -.04em; line-height: 1.15; color: var(--ink);
+  }
   a.hero-link h1::after {
     content: ""; display: inline-block; width: 10px; height: 10px; margin-left: 10px;
-    border-radius: 999px; background: var(--green); box-shadow: 0 0 0 3px rgba(31,196,26,.35);
+    border-radius: 999px; background: var(--green); box-shadow: 0 0 0 3px rgba(22,163,74,.25);
     vertical-align: middle;
   }
-  a.hero-link .sub { margin: 10px 0 0; color: rgba(255,255,255,.92); font-size: 15px; line-height: 1.45; }
-  a.hero-link .keep-cue { opacity: .95; }
+  a.hero-link .sub { margin: 10px 0 0; color: var(--muted); font-size: 15px; line-height: 1.45; }
+  a.hero-link .keep-cue { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
   .section {
     margin: 26px 0 10px; font-size: 11px; font-weight: 800;
-    letter-spacing: .14em; text-transform: uppercase; color: var(--yellow);
-    text-shadow: 0 1px 2px rgba(0,0,0,.25);
+    letter-spacing: .14em; text-transform: uppercase;
   }
+  .section.life-lab { color: var(--blue); }
+  .section.needs-lab { color: var(--red); }
+  .section.suggest-lab { color: var(--muted); }
+  .section.work-lab { color: var(--yellow-ink); }
+  .section.below-lab { color: var(--blue); }
   .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   @media (max-width: 720px) {
     .hero { grid-template-columns: 1fr; }
     a.hero-link h1 { font-size: 24px; }
   }
   .card {
-    background: var(--card); border: 1px solid rgba(255,255,255,.55); border-radius: 20px;
-    padding: 18px 18px 16px; box-shadow: 0 10px 28px rgba(0,26,158,.18);
-    backdrop-filter: blur(8px);
+    background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+    padding: 16px 16px 14px; box-shadow: 0 1px 2px rgba(15,23,42,.04);
   }
-  .card.life { background: linear-gradient(160deg, rgba(255,255,255,.96) 0%, rgba(232,240,255,.92) 100%); }
-  .card.done {
+  .card.life { border-top: 3px solid var(--blue); }
+  .card.done, .row.done {
     background: linear-gradient(160deg, #ffffff 0%, var(--green-soft) 100%);
     border-color: var(--green-border);
   }
@@ -82,35 +86,34 @@
   .pill {
     flex: 0 0 auto;
     font-size: 11px; font-weight: 800; padding: 4px 9px; border-radius: 999px;
-    background: var(--yellow-soft); color: var(--yellow-ink); border: 1px solid #f0d84a;
+    background: var(--yellow-soft); color: var(--yellow-ink); border: 1px solid #facc15;
     cursor: pointer; user-select: none;
   }
-  .pill.done { background: var(--green-soft); color: #0f8a0c; border-color: var(--green-border); }
-  .pill.open { background: var(--yellow-soft); color: var(--yellow-ink); border-color: #f0d84a; }
-  .blocker, .row p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.45; outline: none; border-radius: 8px; }
-  .row p { font-size: 13px; line-height: 1.4; }
-  .row p.cos-note {
-    margin-top: 6px;
-    font-size: 11px;
-    line-height: 1.35;
-    color: #64748b;
-    font-weight: 500;
-    letter-spacing: .01em;
-    user-select: none;
+  .pill.done { background: var(--green-soft); color: #166534; border-color: var(--green-border); }
+  .pill.open { background: var(--yellow-soft); color: var(--yellow-ink); border-color: #facc15; }
+  .blocker, .row .work-body {
+    margin: 0; color: var(--muted); font-size: 14px; line-height: 1.45;
+    outline: none; border-radius: 8px;
+  }
+  .row .work-body { font-size: 13px; line-height: 1.4; }
+  .open-cue {
+    margin: 8px 0 0; font-size: 11px; font-weight: 700; color: var(--blue);
+    letter-spacing: .02em;
   }
   [data-edit]:focus, .mini [contenteditable]:focus {
-    box-shadow: 0 0 0 2px rgba(230,194,0,.55);
-    background: rgba(255,255,255,.85);
+    box-shadow: 0 0 0 2px rgba(37,99,235,.35);
+    background: var(--blue-soft);
   }
   .stack { display: grid; gap: 10px; }
   .row {
-    background: var(--card); border: 1px solid rgba(255,255,255,.5); border-radius: 16px;
-    padding: 14px 16px; box-shadow: 0 8px 22px rgba(0,26,158,.14);
-    backdrop-filter: blur(8px);
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 14px 16px; box-shadow: 0 1px 2px rgba(15,23,42,.04);
     touch-action: manipulation;
     transition: transform .12s ease, opacity .12s ease, box-shadow .12s ease;
     display: flex; align-items: flex-start; gap: 10px;
+    cursor: pointer;
   }
+  .row:hover { border-color: #cbd5e1; box-shadow: 0 4px 12px rgba(15,23,42,.06); }
   .row .work-main { flex: 1; min-width: 0; }
   .drag-handle {
     flex: 0 0 auto;
@@ -123,86 +126,61 @@
     line-height: 1; cursor: grab; user-select: none;
     touch-action: none; -webkit-user-select: none;
   }
-  .drag-handle:active { cursor: grabbing; color: var(--yellow-ink); background: rgba(230,194,0,.18); }
+  .drag-handle:active { cursor: grabbing; color: var(--yellow-ink); background: var(--yellow-soft); }
   .row.dragging {
     opacity: .72;
-    transform: scale(1.03);
-    box-shadow: 0 14px 32px rgba(0,26,158,.28);
+    transform: scale(1.02);
+    box-shadow: 0 10px 24px rgba(15,23,42,.12);
     z-index: 5;
     position: relative;
     touch-action: none;
   }
   .row.drag-over {
-    outline: 2px dashed rgba(230,194,0,.7);
+    outline: 2px dashed var(--blue);
     outline-offset: 2px;
   }
-  .row#emc { border-left: 4px solid var(--blue-rich); }
-  .row#ads { border-left: 4px solid #ff7a18; }
-  .row#dynamic { border-left: 4px solid #7c3aed; }
-  .row#suppliers { border-left: 4px solid var(--pink); }
-  .row#bc { border-left: 4px solid #3dd0ff; }
-  .row#daddy { border-left: 4px solid var(--yellow); }
-  .row.done { border-color: var(--green-border); background: linear-gradient(90deg, #fff, var(--green-soft)); }
+  .row#emc { border-left: 4px solid var(--blue); }
+  .row#ads { border-left: 4px solid var(--red); }
+  .row#dynamic { border-left: 4px solid var(--blue); }
+  .row#suppliers { border-left: 4px solid var(--yellow); }
+  .row#bc { border-left: 4px solid var(--blue); }
+  .row#daddy { border-left: 4px solid var(--red); }
   .below { display: grid; gap: 8px; }
   .mini {
     display: flex; justify-content: space-between; gap: 12px; align-items: baseline;
-    background: linear-gradient(90deg, rgba(255,255,255,.9), rgba(255,244,168,.35));
-    border-radius: 14px; padding: 12px 14px;
-    font-size: 13px; color: var(--muted); border: 1px solid rgba(230,194,0,.35);
+    background: #fff;
+    border-radius: 12px; padding: 12px 14px;
+    font-size: 13px; color: var(--muted); border: 1px solid var(--line);
   }
   .mini strong { color: var(--ink); font-weight: 700; outline: none; border-radius: 6px; }
   .mini span { outline: none; border-radius: 6px; text-align: right; }
   .hint {
     margin-top: 28px; padding: 14px 16px; border-radius: 14px;
-    background: linear-gradient(90deg, rgba(1,38,222,.18), rgba(224,24,207,.18));
-    color: #fff; font-size: 13px; line-height: 1.45;
-    border: 1px solid rgba(230,194,0,.4);
-    text-shadow: 0 1px 2px rgba(0,0,0,.25);
+    background: var(--blue-soft);
+    color: var(--ink); font-size: 13px; line-height: 1.45;
+    border: 1px solid #bfdbfe;
   }
-  .hint strong { color: var(--yellow-soft); }
+  .hint strong { color: var(--blue); }
 
-    .cos-note {
-      margin-top: 8px;
-      padding: 8px 10px;
-      background: #f0f4f8;
-      border-left: 3px solid #1E71A7;
-      border-radius: 8px;
-      font-size: 12.5px;
-      line-height: 1.5;
-      color: #3a4a5a;
-    }
-    .cos-note code { font-size: 11.5px; }
-
-
-  .section.quiet { color: rgba(255,244,168,.72); font-weight: 700; letter-spacing: .12em; }
   .board-panel {
-    background: rgba(255,255,255,.12);
-    border: 1px solid rgba(255,255,255,.28);
-    border-radius: 18px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
     padding: 10px 12px;
-    box-shadow: 0 8px 22px rgba(0,26,158,.12);
-    backdrop-filter: blur(6px);
   }
-  .board-panel.needs {
-    background: rgba(255,255,255,.88);
-    border-color: rgba(230,194,0,.45);
-  }
-  .board-panel.suggest {
-    background: rgba(255,255,255,.38);
-    border-color: rgba(255,255,255,.22);
-  }
+  .board-panel.needs { border-color: #fecdd3; background: #fffafa; }
+  .board-panel.suggest { border-color: var(--line); background: #f8fafc; }
   .board-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
   .board-item {
     display: flex; align-items: center; gap: 10px;
     padding: 10px 12px; border-radius: 12px;
-    background: rgba(255,255,255,.72);
-    border: 1px solid rgba(255,255,255,.4);
+    background: #fff;
+    border: 1px solid var(--line);
     font-size: 13.5px; line-height: 1.35; color: var(--ink);
   }
   .board-panel.suggest .board-item {
-    background: rgba(255,255,255,.42);
-    border-color: rgba(255,255,255,.25);
-    color: rgba(11,18,32,.78);
+    background: #f8fafc;
+    color: var(--muted);
     font-size: 13px;
   }
   .board-item .item-text { flex: 1; min-width: 0; }
@@ -213,37 +191,109 @@
   }
   .btn-add {
     background: var(--yellow-soft); color: var(--yellow-ink);
-    border: 1px solid #f0d84a;
+    border: 1px solid #facc15;
   }
-  .btn-add:hover { filter: brightness(1.05); }
+  .btn-add:hover { filter: brightness(1.03); }
   .btn-x {
     background: transparent; color: #64748b;
-    border: 1px solid rgba(100,116,139,.35);
+    border: 1px solid #cbd5e1;
     padding: 4px 8px; font-weight: 700;
   }
-  .btn-x:hover { background: rgba(100,116,139,.12); }
+  .btn-x:hover { background: #f1f5f9; }
   .board-empty {
-    margin: 4px 2px; font-size: 12.5px; color: rgba(255,255,255,.78);
+    margin: 4px 2px; font-size: 12.5px; color: var(--muted);
     font-style: italic;
   }
-  .board-panel.needs .board-empty { color: #64748b; }
   .sync-chip {
     display: inline-flex; align-items: center; gap: 6px;
     margin-top: 8px; font-size: 11px; font-weight: 700;
-    color: rgba(255,255,255,.85);
+    color: var(--muted);
   }
-  .sync-chip[data-state="ok"] { color: #d8ffd6; }
-  .sync-chip[data-state="err"] { color: #ffe4e6; }
+  .sync-chip[data-state="ok"] { color: var(--green); }
+  .sync-chip[data-state="err"] { color: var(--red); }
   .toast {
     position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%);
-    background: rgba(11,18,32,.92); color: #fff; padding: 10px 14px;
+    background: var(--ink); color: #fff; padding: 10px 14px;
     border-radius: 999px; font-size: 13px; font-weight: 600;
-    box-shadow: 0 10px 28px rgba(0,0,0,.35); opacity: 0; pointer-events: none;
-    transition: opacity .2s ease; z-index: 50;
+    box-shadow: 0 10px 28px rgba(0,0,0,.25); opacity: 0; pointer-events: none;
+    transition: opacity .2s ease; z-index: 80;
   }
   .toast.show { opacity: 1; }
 
-  </style>
+  /* Detail drawer */
+  .drawer-backdrop {
+    position: fixed; inset: 0; background: rgba(15,23,42,.42);
+    z-index: 60; opacity: 0; pointer-events: none;
+    transition: opacity .18s ease;
+  }
+  .drawer-backdrop.open { opacity: 1; pointer-events: auto; }
+  .drawer {
+    position: fixed; top: 0; right: 0; height: 100%; width: min(440px, 100%);
+    background: #fff; color: var(--ink); z-index: 70;
+    box-shadow: -12px 0 40px rgba(15,23,42,.18);
+    transform: translateX(100%);
+    transition: transform .2s ease;
+    display: flex; flex-direction: column;
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-head {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 18px 18px 12px; border-bottom: 1px solid var(--line);
+  }
+  .drawer-head h2 {
+    margin: 0; flex: 1; font-size: 20px; letter-spacing: -.03em; line-height: 1.25;
+  }
+  .drawer-close {
+    flex: 0 0 auto; width: 36px; height: 36px; border-radius: 999px;
+    border: 1px solid var(--line); background: #fff; color: var(--ink);
+    font-size: 22px; line-height: 1; cursor: pointer;
+  }
+  .drawer-close:hover { background: #f1f5f9; }
+  .drawer-body { flex: 1; overflow: auto; padding: 14px 18px 28px; }
+  .drawer-sub {
+    margin: 0 0 14px; color: var(--muted); font-size: 14px; line-height: 1.45;
+  }
+  .detail-block { margin: 0 0 18px; }
+  .detail-label {
+    margin: 0 0 8px; font-size: 11px; font-weight: 800;
+    letter-spacing: .12em; text-transform: uppercase;
+  }
+  .detail-label.status { color: var(--blue); }
+  .detail-label.needs { color: var(--red); }
+  .detail-label.next { color: var(--yellow-ink); }
+  .detail-list {
+    list-style: none; margin: 0; padding: 0; counter-reset: detail;
+    display: grid; gap: 8px;
+  }
+  .detail-item {
+    counter-increment: detail;
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 12px; border-radius: 12px;
+    background: #f8fafc; border: 1px solid var(--line);
+    font-size: 14px; line-height: 1.5; color: var(--ink);
+    touch-action: manipulation;
+    transition: opacity .12s ease, box-shadow .12s ease;
+  }
+  .detail-item::before {
+    content: counter(detail) ".";
+    flex: 0 0 auto; min-width: 1.4em;
+    font-weight: 800; color: var(--blue); font-variant-numeric: tabular-nums;
+  }
+  .detail-item .detail-text { flex: 1; min-width: 0; }
+  .detail-item .detail-handle {
+    flex: 0 0 auto; width: 28px; min-height: 28px; margin: -2px -4px -2px 0;
+    border: 0; border-radius: 8px; background: transparent; color: #94a3b8;
+    font-size: 14px; font-weight: 800; cursor: grab; user-select: none;
+    touch-action: none; -webkit-user-select: none;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .detail-item .detail-handle:active { cursor: grabbing; color: var(--yellow-ink); background: var(--yellow-soft); }
+  .detail-item.dragging {
+    opacity: .7; box-shadow: 0 8px 20px rgba(15,23,42,.12); z-index: 3; position: relative;
+  }
+  .detail-item.drag-over { outline: 2px dashed var(--blue); outline-offset: 1px; }
+  .detail-empty { margin: 0; font-size: 13px; color: var(--muted); font-style: italic; }
+</style>
 </head>
 <body>
   <div class="wrap">
@@ -251,11 +301,11 @@
       <a class="hero-link" href="https://keep.google.com/u/0/#NOTE/1DdhedeT6aNhuuy-siCnBftgCswW-HedGaxkqgqRQPcDMKxECKtcwjol-Ea3fww" target="_blank" rel="noopener" aria-label="Open Celebrate Keep note">
         <h1>Celebrate! We won!</h1>
         <p class="sub">We don't need anything else.</p>
-        <p class="sub keep-cue" style="margin-top:8px;font-size:13px;opacity:.9;text-decoration:underline;text-underline-offset:3px;">Open Keep note</p>
+        <p class="sub keep-cue" style="margin-top:8px;font-size:13px;">Open Keep note</p>
       </a>
     </div>
 
-    <div class="section">Life</div>
+    <div class="section life-lab">Life</div>
     <div class="hero">
       <article class="card life" id="gratitude" data-card>
         <div class="head-row">
@@ -273,105 +323,122 @@
       </article>
     </div>
 
-
-    <div class="section">Needs you</div>
+    <div class="section needs-lab">Needs you</div>
     <div class="board-panel needs" id="needs-panel">
       <ul class="board-list" id="blockers-list" aria-label="Committed blockers"></ul>
       <p class="board-empty" id="blockers-empty">Nothing committed yet — pick from CoS suggests below.</p>
     </div>
 
-    <div class="section quiet">CoS suggests</div>
+    <div class="section suggest-lab">CoS suggests</div>
     <div class="board-panel suggest" id="suggest-panel">
       <ul class="board-list" id="suggestions-list" aria-label="Suggested blockers"></ul>
       <p class="board-empty" id="suggestions-empty" hidden>No suggestions right now.</p>
     </div>
     <div class="sync-chip" id="sync-chip" data-state="idle" hidden></div>
 
-    <div class="section">Work</div>
+    <div class="section work-lab">Work</div>
     <div class="stack" id="work-stack">
-      <article class="row" id="emc" data-card data-work>
+      <article class="row" id="emc" data-card data-work tabindex="0" role="button" aria-label="Open EMC growth details">
         <button type="button" class="drag-handle" data-drag-handle aria-label="Drag to reorder" title="Drag to reorder">⋮⋮</button>
         <div class="work-main">
           <div class="head-row">
             <h3 data-edit="title">EMC growth</h3>
             <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
           </div>
-          <p data-edit="body">Tomorrow (Sep 8): funnel teach, then dashboard</p>
-          <!-- CoS standing rule: keep these .cos-note lines as the live blocker under Vin’s text; never overwrite [data-edit]. -->
-          <p class="cos-note" data-cos-note>Status: Week Sep 5–11 sales back on track at $51,150 (all EMC; MTD ~$86k). Post-bid-cut Sep 9–12: Ads Cost $1,037 / ads% of sales 2.76% — on track (target 3–4%, ceiling 5%; prior window ~7%). Funnel board still waiting your once-over; Dynamic retarget live but light vs Static.<br>Needs you: 10–15 min on the funnel board when free; say if Brands/PMax mix needs a pass after the Dynamic tag/feed fix.<br>CoS next: Hold spend discipline; chase Dynamic tag + <code>ecomm_prodid</code> vs feed so it can scale vs Static; keep funnel-tracker refinement on deck.</p>
+          <p class="work-body" data-edit="body">Tomorrow (Sep 8): funnel teach, then dashboard</p>
+          <p class="open-cue">Tap for CoS details →</p>
         </div>
       </article>
-      <article class="row" id="ads" data-card data-work>
+      <article class="row" id="ads" data-card data-work tabindex="0" role="button" aria-label="Open Ads MCC details">
         <button type="button" class="drag-handle" data-drag-handle aria-label="Drag to reorder" title="Drag to reorder">⋮⋮</button>
         <div class="work-main">
           <div class="head-row">
             <h3 data-edit="title">Ads MCC</h3>
             <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
           </div>
-          <p data-edit="body">New products + holiday promos with Asim</p>
-          <!-- CoS standing rule: keep these .cos-note lines as the live blocker under Vin’s text; never overwrite [data-edit]. -->
-          <p class="cos-note" data-cos-note>Status: Sep 9–12 bid-cut window closed — check done this morning: Cost $1,037.42 · 1,114 clicks · $0.93 CPC · ads% 2.76% (on track). Daily Cost ~$259 vs ~$406 before Sep 8 cuts. Dynamic Retargeting 2019 Nov live ($40/day; Static still dominates). Audience dig: product/cart lists Not eligible size 0 — next is tag + <code>ecomm_prodid</code> vs feed <code>104813019</code>.<br>Needs you: Nothing for Ads login — QA done. Green-light CoS on the tag/feed fix, or say if Meta dynamic should run in parallel.<br>CoS next: Tag/feed verify; Meta only if you want Sunny / Google path stalls; keep ≤5% guardrails.</p>
+          <p class="work-body" data-edit="body">New products + holiday promos with Asim</p>
+          <p class="open-cue">Tap for CoS details →</p>
         </div>
       </article>
-      <article class="row" id="dynamic" data-card data-work>
+      <article class="row" id="dynamic" data-card data-work tabindex="0" role="button" aria-label="Open Dynamic / ESS details">
         <button type="button" class="drag-handle" data-drag-handle aria-label="Drag to reorder" title="Drag to reorder">⋮⋮</button>
         <div class="work-main">
           <div class="head-row">
             <h3 data-edit="title">Dynamic / ESS</h3>
             <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
           </div>
-          <p data-edit="body">YouTube + CRO · branded search near Osaki</p>
-          <!-- CoS standing rule: keep these .cos-note lines as the live blocker under Vin’s text; never overwrite [data-edit]. -->
-          <p class="cos-note" data-cos-note>Status: ESS CRO greenlit; theme pick still held (Craft/Sense free options; Prestige/Impact paid). Loviisa/Kaskinen YT still ASAP. Cherry AI product-desc paste ready (high-AOV Dynamic first). Shopify Admin still Cloudflare-blocked on my computer.<br>Needs you: Nothing on theme until you reopen it; say go to send Cherry AI-desc paste; optional <a href="grokbot://app/v1/settings?id=update-computer">Update Grok Bot's Computer</a> for ESS Admin.<br>CoS next: Hold theme install; keep Jay/Cherry YT + AI-desc pastes ready until you say send.</p>
+          <p class="work-body" data-edit="body">YouTube + CRO · branded search near Osaki</p>
+          <p class="open-cue">Tap for CoS details →</p>
         </div>
       </article>
-      <article class="row" id="suppliers" data-card data-work>
+      <article class="row" id="suppliers" data-card data-work tabindex="0" role="button" aria-label="Open suppliers details">
         <button type="button" class="drag-handle" data-drag-handle aria-label="Drag to reorder" title="Drag to reorder">⋮⋮</button>
         <div class="work-main">
           <div class="head-row">
             <h3 data-edit="title">New high-value suppliers</h3>
             <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
           </div>
-          <p data-edit="body">Tomorrow: STS Judy Welcome + Dropbox · list → BOFU Ads → 3–4 YT</p>
-          <!-- CoS standing rule: keep these .cos-note lines as the live blocker under Vin’s text; never overwrite [data-edit]. -->
-          <p class="cos-note" data-cos-note>Status: EasyHomeBackup.com live; dealer talk-track + EcoFlow/BLUETTI/Anker call windows locked (ET). STS listing still waits reseller packet. Show stack: CES 2027 (Jan 6–9 LV); nearer RE+ Nov 16–19 2026 LV.<br>Needs you: Green-light sending the three vincent@ supplier drafts when you want them out; STS packet when Judy/Welcome arrives.<br>CoS next: Coming-soon page polish; hold send until you say go.</p>
+          <p class="work-body" data-edit="body">Tomorrow: STS Judy Welcome + Dropbox · list → BOFU Ads → 3–4 YT</p>
+          <p class="open-cue">Tap for CoS details →</p>
         </div>
       </article>
-      <article class="row" id="bc" data-card data-work>
+      <article class="row" id="bc" data-card data-work tabindex="0" role="button" aria-label="Open Blue Coast details">
         <button type="button" class="drag-handle" data-drag-handle aria-label="Drag to reorder" title="Drag to reorder">⋮⋮</button>
         <div class="work-main">
           <div class="head-row">
             <h3 data-edit="title">Blue Coast</h3>
             <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
           </div>
-          <p data-edit="body">Events growth first, then OTA · form/confirm live</p>
-          <!-- CoS standing rule: keep these .cos-note lines as the live blocker under Vin’s text; never overwrite [data-edit]. -->
-          <p class="cos-note" data-cos-note>Status: Events CRM board live. Jonalyn still New inquiry — FO owns details. New overnight form: <strong>Krystel Alap</strong> (09606805441) — stay@ sent details ask; FO owns quote. stay@ Ads CID <code>375-273-2942</code>: Visa •••• 7154 OK. Events Search (~$100/mo / ~$3.50/day; function hall, wedding venue, team building, conference hall — not PMax) still unpublished — you chose <strong>hand Ads screen</strong> to finish/publish. FO Messenger unlocked. OTA drafts ready. IOM Mini RFQ 30000032681 deadline <strong>TOMORROW Mon Sep 14 5pm Manila</strong> (overnight clock). Fixerink/BBC Sep 12–13 tour window closed — outcome still unconfirmed.<br>Needs you: Rose IOM go/no-go tonight or early Mon PH (submit only <code>iomphtenders@iom.int</code>); finish/publish Events Search on the handed Ads screen; optional Fixerink outcome + OTA Messenger paste.<br>CoS next: Hold box Ads until handoff works; CRM mornings + FO skim; Meta via Angelica after Google is live (Sep 16 cue).</p>
+          <p class="work-body" data-edit="body">Events growth first, then OTA · form/confirm live</p>
+          <p class="open-cue">Tap for CoS details →</p>
         </div>
       </article>
-      <article class="row" id="daddy" data-card data-work>
+      <article class="row" id="daddy" data-card data-work tabindex="0" role="button" aria-label="Open Daddy School details">
         <button type="button" class="drag-handle" data-drag-handle aria-label="Drag to reorder" title="Drag to reorder">⋮⋮</button>
         <div class="work-main">
           <div class="head-row">
             <h3 data-edit="title">Daddy School</h3>
             <button type="button" class="pill open" data-pill aria-label="Toggle status">Open</button>
           </div>
-          <p data-edit="body">Earth/orbit week · daily activity log + scan of written work</p>
-          <!-- CoS standing rule: keep these .cos-note lines as the live blocker under Vin’s text; never overwrite [data-edit]. -->
-          <p class="cos-note" data-cos-note>Status: Sun Sep 13 7pm — weekly presentation is Saturday mornings (3 bullet note cards, then talk to family/Grandpa’s); still no confirm Sat Sep 12 talk happened. Activity Log last Fri Sep 11; 7pm schoolwork scan found no Sat/Sun Plan and no new <code>Scanned_*.pdf</code> (latest still Sep 10). Sep 11 Plan: Chinese HW + Khanmigo Fractions still open. NEW CAN-DO: Chinese month/day; stars; Scratch/programming spark. Iowa Form E Level 6 still unbought at Seton (~$45).<br>Needs you: Confirm if Sat’s presentation happened (or catch it up); buy Iowa Form E Online Complete (Grade 1 / Level 6) when ready — midyear Level 7 ~Jan stays armed; reply to tonight’s Sun check-in / leave Plan strikethroughs for nightly log.<br>CoS next: Hold Saturday presentation cadence; track Iowa once ordered; nightly Plan/scan read; midyear cue after baseline.</p>
+          <p class="work-body" data-edit="body">Earth/orbit week · daily activity log + scan of written work</p>
+          <p class="open-cue">Tap for CoS details →</p>
         </div>
       </article>
     </div>
 
-    <div class="section">Below the line</div>
+    <div class="section below-lab">Below the line</div>
     <div class="below" id="below">
       <div class="mini" data-mini="storage"><strong data-edit="title">BC Workspace storage</strong><span data-edit="body">~2.8 GB free · archives on personal BC archive</span></div>
       <div class="mini" data-mini="acq"><strong data-edit="title">Acquisitions</strong><span data-edit="body">Background digs</span></div>
     </div>
 
-    <div class="hint">Tap <strong>+ Add</strong> on a CoS suggest to commit it to Needs you (dismiss with ×). Tap a status for <strong>Done</strong> / <strong>Open</strong>. Tap any title or line to edit — <strong>your wording stays</strong>; CoS never overwrites it. Press-and-hold the ⋮⋮ handle on a Work row to reorder. CoS notes stay under your lines. Board JSON syncs live; card text syncs at 9am / 11am / 3pm / 7pm ET.</div>
+    <div class="hint">Tap a <strong>Work</strong> card for CoS details (numbered lists you can drag-reorder). Tap <strong>+ Add</strong> on a CoS suggest to commit it to Needs you (dismiss with ×). Edit any title or body — <strong>your wording stays</strong>; CoS never overwrites it. Status pills and Work order stay on this device; details order syncs with the board.</div>
   </div>
-<div class="toast" id="cos-toast" role="status" aria-live="polite"></div>
-<script src="app.js?v=2026-09-20-suggest-v1"></script>
+
+  <div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
+  <aside class="drawer" id="work-drawer" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+    <div class="drawer-head">
+      <h2 id="drawer-title">Work details</h2>
+      <button type="button" class="drawer-close" id="drawer-close" aria-label="Close details">×</button>
+    </div>
+    <div class="drawer-body">
+      <p class="drawer-sub" id="drawer-body-line"></p>
+      <div class="detail-block">
+        <div class="detail-label status">Status</div>
+        <ol class="detail-list" id="detail-status" data-detail-section="status"></ol>
+      </div>
+      <div class="detail-block">
+        <div class="detail-label needs">Needs you</div>
+        <ol class="detail-list" id="detail-needs" data-detail-section="needs"></ol>
+      </div>
+      <div class="detail-block">
+        <div class="detail-label next">CoS next</div>
+        <ol class="detail-list" id="detail-next" data-detail-section="next"></ol>
+      </div>
+    </div>
+  </aside>
+
+  <div class="toast" id="cos-toast" role="status" aria-live="polite"></div>
+  <script src="app.js?v=20260920-overhaul"></script>
 </body>
 </html>
