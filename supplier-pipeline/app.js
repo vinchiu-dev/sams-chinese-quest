@@ -223,6 +223,42 @@
     return (Math.round(n * 10) / 10).toFixed(1);
   }
 
+  function formatMoneyShort(n) {
+    const v = Number(n);
+    if (!Number.isFinite(v)) return "—";
+    if (v >= 1000) {
+      const k = v / 1000;
+      return "$" + (Math.abs(k - Math.round(k)) < 0.05 ? String(Math.round(k)) : k.toFixed(1)) + "k";
+    }
+    return "$" + String(Math.round(v));
+  }
+
+  function formatVolShort(n) {
+    const v = Number(n);
+    if (!Number.isFinite(v)) return "—";
+    return String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  /** Update sticky Osaki reference card from crmMeta (not a pipeline supplier). */
+  function renderOsakiBenchmark() {
+    const scoreEl = document.getElementById("osaki-benchmark-score");
+    const metaEl = document.getElementById("osaki-benchmark-meta");
+    if (!scoreEl && !metaEl) return;
+    const score = Number.isFinite(Number(crmMeta.osaki_score))
+      ? Number(crmMeta.osaki_score)
+      : 3439.6;
+    const vol = getOsakiVol();
+    const aov = Number(crmMeta.osaki_aov_est);
+    const margin = normalizeMargin(crmMeta.osaki_margin != null ? crmMeta.osaki_margin : 0.4);
+    if (scoreEl) scoreEl.textContent = formatScoreDisplay(score);
+    if (metaEl) {
+      metaEl.innerHTML =
+        `<strong>Vol</strong>${escapeHtml(formatVolShort(vol))}` +
+        ` · <strong>AOV</strong>${escapeHtml(formatMoneyShort(aov))}` +
+        ` · <strong>Margin</strong>${escapeHtml(marginToPercentDisplay(margin) || "—")}%`;
+    }
+  }
+
   function updateScoreBreakdownUI() {
     const el = document.getElementById("score-breakdown");
     if (!el) return;
@@ -617,6 +653,7 @@
     bindStageRename(board);
     bindBoardDnD(board);
     bindStageHelp(board);
+    renderOsakiBenchmark();
   }
 
   function bindStageRename(board) {
