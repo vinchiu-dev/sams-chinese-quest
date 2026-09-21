@@ -1046,6 +1046,30 @@
       background: #eef6fb;
       color: var(--accent);
     }
+    .btn-undo {
+      appearance: none;
+      border: 1px solid #cbd5e1;
+      background: #fff;
+      color: #334155;
+      font: inherit;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 6px 10px;
+      min-height: 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-undo:hover:not(:disabled) {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+      color: #0f172a;
+    }
+    .btn-undo:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      color: #94a3b8;
+    }
     .btn-add {
       appearance: none;
       border: none;
@@ -1193,14 +1217,16 @@
         <h1 class="visually-hidden">Blue Coast Events</h1>
       </div>
       <div class="topbar-actions">
+        <button type="button" class="btn-undo" id="btn-undo" disabled aria-disabled="true" title="Nothing to undo">Undo</button>
         <button type="button" class="btn-add" id="btn-add-event">+ Add event</button>
         <button type="button" class="rev-link" id="rev-toggle" aria-expanded="false" aria-controls="insights-panel" title="Win rate, YoY revenue, sources, lost reasons">Insights</button>
       </div>
     </div>
-    <div class="topbar-metrics" id="topbar-metrics" aria-label="YTD win rate and revenue growth">
-      <div class="topbar-metric" title="Won ÷ (Won + Lost) among closed deals attributed to this calendar year YTD">
+    <div class="topbar-metrics" id="topbar-metrics" aria-label="Win rate and revenue growth">
+      <div class="topbar-metric" title="Won ÷ (Won + Lost) · open excluded">
         <span class="tm-label" id="tm-won-label">2026 Won</span>
         <span class="tm-value" id="tm-won-value">—</span>
+        <span class="tm-detail" id="tm-won-detail"></span>
       </div>
       <span class="tm-sep" aria-hidden="true">·</span>
       <div class="topbar-metric" title="This calendar YTD won revenue vs prior calendar YTD">
@@ -1435,6 +1461,6 @@
   })();
   </script>
 
-  <script src="app.js?v=20260921-won-row"></script>
+  <script src="app.js?v=20260921-undo-winfix"></script>
 </body>
 </html>

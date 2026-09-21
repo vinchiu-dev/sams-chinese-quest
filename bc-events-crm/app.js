@@ -158,6 +158,62 @@
     showToast._t = setTimeout(() => el.classList.remove("show"), 3200);
   }
 
+  /** Stage-move undo stack (drag-drop + drawer stage change). Max ~10. */
+  const UNDO_MAX = 10;
+  let stageUndoStack = [];
+
+  function captureStageSnapshot(lead) {
+    return {
+      id: lead.id,
+      stage: lead.stage,
+      lost_reason: lead.lost_reason != null ? String(lead.lost_reason) : "",
+      last_updated: lead.last_updated || "",
+    };
+  }
+
+  function updateUndoButton() {
+    const btn = document.getElementById("btn-undo");
+    if (!btn) return;
+    const empty = stageUndoStack.length === 0;
+    btn.disabled = empty;
+    btn.setAttribute("aria-disabled", empty ? "true" : "false");
+    btn.title = empty
+      ? "Nothing to undo"
+      : `Undo last stage move (${stageUndoStack.length} available)`;
+  }
+
+  function pushStageUndo(snapshot) {
+    if (!snapshot || !snapshot.id) return;
+    stageUndoStack.push(snapshot);
+    if (stageUndoStack.length > UNDO_MAX) stageUndoStack.shift();
+    updateUndoButton();
+  }
+
+  async function undoLastStageMove() {
+    const snap = stageUndoStack.pop();
+    updateUndoButton();
+    if (!snap) return;
+    const lead = allLeadsIncludingDeleted().find((l) => l.id === snap.id);
+    if (!lead) {
+      showToast("Undo failed — lead not found");
+      return;
+    }
+    draftOverlay[snap.id] = {
+      ...(draftOverlay[snap.id] || {}),
+      stage: snap.stage,
+      lost_reason: snap.lost_reason,
+      last_updated: snap.last_updated || new Date().toISOString().slice(0, 10),
+    };
+    saveDraft();
+    applyDrafts = true;
+    updateBanner();
+    if (activeId === snap.id) {
+      try { openDrawer(snap.id); } catch {}
+    }
+    render();
+    await syncBoardMutation("Undone", "Undo sync failed");
+  }
+
   async function sha256Hex(text) {
     const data = new TextEncoder().encode(String(text));
     const digest = await crypto.subtle.digest("SHA-256", data);
@@ -675,7 +731,10 @@
       return {
         display: "N/A",
         isNa: true,
+        won: 0,
+        lost: 0,
         detail: "No closed deals yet · open pipeline excluded",
+        shortDetail: "",
       };
     }
     const pct = (won / closed) * 100;
@@ -683,34 +742,11 @@
     return {
       display: `${rounded}%`,
       isNa: false,
+      won,
+      lost,
       detail: `${won} won · ${lost} lost · ${closed} closed (open excluded)`,
+      shortDetail: `${won} won · ${lost} lost`,
     };
-  }
-
-  /**
-   * Calendar-year YTD win rate for a given year (default: current year).
-   * Filter: attribution date (last_updated else inquiry_date) in that year on or before today.
-   * Then Won ÷ (Won + Lost); open pipeline excluded. N/A if no closed deals in window.
-   */
-  function computeYtdWinRate(leads, year) {
-    const now = new Date();
-    const y = year != null ? year : now.getFullYear();
-    const month = now.getMonth() + 1;
-    const day = now.getDate();
-    const inWindow = leads.filter((l) => {
-      const ymd = parseLeadYmd(l);
-      return ymd && isOnOrBeforeYtd(ymd, y, month, day);
-    });
-    const result = computeWinRate(inWindow);
-    if (result.isNa) {
-      return {
-        display: "N/A",
-        isNa: true,
-        year: y,
-        detail: `No closed ${y} YTD deals · open pipeline excluded`,
-      };
-    }
-    return { ...result, year: y };
   }
 
   /**
@@ -779,18 +815,28 @@
     const year = new Date().getFullYear();
     const wonLabel = document.getElementById("tm-won-label");
     const wonEl = document.getElementById("tm-won-value");
+    const wonDetail = document.getElementById("tm-won-detail");
+    const wonMetric = wonEl ? wonEl.closest(".topbar-metric") : null;
     const yoyEl = document.getElementById("tm-yoy-value");
     const yoyDetail = document.getElementById("tm-yoy-detail");
     if (!wonEl && !yoyEl) return;
 
     if (wonLabel) wonLabel.textContent = `${year} Won`;
 
-    const ytdWin = computeYtdWinRate(leads, year);
+    // Board closed win rate (all-time Won÷(Won+Lost)); not date-filtered.
+    // Label stays "YYYY Won" as the operating win % for the year.
+    const win = computeWinRate(leads);
     if (wonEl) {
-      wonEl.textContent = ytdWin.display;
-      wonEl.classList.toggle("is-na", !!ytdWin.isNa);
-      wonEl.classList.toggle("is-positive", !ytdWin.isNa);
-      wonEl.title = ytdWin.detail || "";
+      wonEl.textContent = win.display;
+      wonEl.classList.toggle("is-na", !!win.isNa);
+      wonEl.classList.toggle("is-positive", !win.isNa);
+      wonEl.title = "Won ÷ (Won + Lost) · open excluded";
+    }
+    if (wonMetric) {
+      wonMetric.title = "Won ÷ (Won + Lost) · open excluded";
+    }
+    if (wonDetail) {
+      wonDetail.textContent = win.isNa ? "" : (win.shortDetail || "");
     }
 
     const yoy = computeYoyEventsRevenueGrowth(leads);
@@ -948,6 +994,7 @@
     if (stage === "contacted") stage = "preparing_quote";
     if (stage === "site_visit_negotiation" || stage === "site_visit" || stage === "negotiation") stage = "preparing_quote";
     if (!lead || !stage || lead.stage === stage) return false;
+    pushStageUndo(captureStageSnapshot(lead));
     const today = new Date().toISOString().slice(0, 10);
     draftOverlay[id] = {
       ...(draftOverlay[id] || {}),
@@ -958,7 +1005,7 @@
     applyDrafts = true;
     updateBanner();
     render();
-    syncBoardMutation("Saved", "Save failed");
+    syncBoardMutation("Moved — Undo available", "Save failed");
     return true;
   }
 
@@ -1240,6 +1287,10 @@
     if (revRaw !== "") {
       const n = Number(String(revRaw).replace(/,/g, ""));
       revenue_php = Number.isFinite(n) ? n : null;
+    }
+    const prevLead = allLeads().find((l) => l.id === activeId);
+    if (prevLead && prevLead.stage !== stage) {
+      pushStageUndo(captureStageSnapshot(prevLead));
     }
     const today = new Date().toISOString().slice(0, 10);
     const lostOut = stage === "lost" ? lost_reason : draftOverlay[activeId]?.lost_reason || "";
@@ -1742,12 +1793,28 @@
     document.getElementById("add-modal")?.addEventListener("click", (e) => {
       if (e.target && e.target.id === "add-modal") closeAddModal();
     });
+    document.getElementById("btn-undo")?.addEventListener("click", () => {
+      if (stageUndoStack.length) undoLastStageMove();
+    });
+    updateUndoButton();
 
     document.getElementById("stage-select").addEventListener("change", (e) => {
       toggleLostReason(e.target.value);
       toggleRevenue(e.target.value);
     });
     document.addEventListener("keydown", (e) => {
+      if ((e.metaKey || e.ctrlKey) && String(e.key).toLowerCase() === "z" && !e.shiftKey) {
+        const t = e.target;
+        const tag = (t && t.tagName) || "";
+        if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || (t && t.isContentEditable)) {
+          return;
+        }
+        if (stageUndoStack.length) {
+          e.preventDefault();
+          undoLastStageMove();
+        }
+        return;
+      }
       if (e.key !== "Escape") return;
       const delModal = document.getElementById("delete-modal");
       if (delModal && delModal.classList.contains("open")) {
