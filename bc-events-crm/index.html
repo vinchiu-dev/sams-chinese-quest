@@ -46,10 +46,11 @@
     }
     .topbar-row {
       display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
+      flex-wrap: nowrap;
+      align-items: center;
       gap: 4px 12px;
       justify-content: space-between;
+      min-width: 0;
     }
 
     .topbar-metrics {
@@ -57,8 +58,8 @@
       flex-wrap: wrap;
       align-items: baseline;
       gap: 4px 14px;
-      margin-top: 4px;
-      padding-top: 4px;
+      margin-top: 2px;
+      padding-top: 2px;
       border-top: 1px solid var(--border);
       font-size: 0.72rem;
       line-height: 1.25;
@@ -93,10 +94,12 @@
     }
     .brand {
       display: flex;
-      flex-wrap: wrap;
+      flex: 1 1 auto;
+      flex-wrap: nowrap;
       align-items: baseline;
       gap: 6px 10px;
       min-width: 0;
+      overflow: hidden;
     }
     .brand h1 {
       margin: 0;
@@ -192,6 +195,10 @@
     }
     .brand-events {
       margin: 0;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
       font-size: 1.15rem;
       font-weight: 700;
       color: #2C7CB9;
@@ -1022,51 +1029,42 @@
 
     .topbar-actions {
       display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      justify-content: flex-start;
-      gap: 2px;
+      flex: 0 1 auto;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
       margin-left: auto;
-      margin-top: -2px;
-      align-self: flex-start;
+      margin-top: 0;
+      align-self: center;
+      min-width: 0;
     }
-    .topbar-actions .rev-link {
-      font-size: 0.78rem;
-      line-height: 1.2;
-      padding: 6px 10px;
-      min-height: 32px;
-      text-decoration: none;
-      border: 1px solid #9bc0d8;
-      border-radius: 8px;
-      background: #fff;
+    .topbar-actions .rev-link,
+    .topbar-actions .btn-undo {
+      appearance: none;
+      border: 0;
+      background: transparent;
       color: #0d4f7a;
+      font: inherit;
+      font-size: 0.72rem;
+      font-weight: 600;
+      line-height: 1.2;
+      padding: 0;
+      min-height: 0;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     .topbar-actions .rev-link:hover,
-    .topbar-actions .rev-link[aria-expanded="true"] {
-      background: #eef6fb;
+    .topbar-actions .rev-link[aria-expanded="true"],
+    .topbar-actions .btn-undo:hover:not(:disabled) {
+      background: transparent;
       color: var(--accent);
     }
-    .btn-undo {
-      appearance: none;
-      border: 1px solid #cbd5e1;
-      background: #fff;
-      color: #334155;
-      font: inherit;
-      font-size: 0.78rem;
-      font-weight: 600;
-      padding: 6px 10px;
-      min-height: 32px;
-      border-radius: 8px;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-    .btn-undo:hover:not(:disabled) {
-      background: #f1f5f9;
-      border-color: #94a3b8;
-      color: #0f172a;
-    }
-    .btn-undo:disabled {
-      opacity: 0.4;
+    .topbar-actions .btn-undo:disabled {
+      opacity: 0.45;
       cursor: not-allowed;
       color: #94a3b8;
     }
@@ -1217,8 +1215,8 @@
         <h1 class="visually-hidden">Blue Coast Events</h1>
       </div>
       <div class="topbar-actions">
-        <button type="button" class="btn-undo" id="btn-undo" disabled aria-disabled="true" title="Nothing to undo">Undo</button>
         <button type="button" class="btn-add" id="btn-add-event">+ Add event</button>
+        <button type="button" class="btn-undo" id="btn-undo" disabled aria-disabled="true" title="Nothing to undo">Undo</button>
         <button type="button" class="rev-link" id="rev-toggle" aria-expanded="false" aria-controls="insights-panel" title="Win rate, YoY revenue, sources, lost reasons">Insights</button>
       </div>
     </div>
@@ -1461,6 +1459,6 @@
   })();
   </script>
 
-  <script src="app.js?v=20260921-undo-winfix"></script>
+  <script src="app.js?v=20260921-undo-pos"></script>
 </body>
 </html>
