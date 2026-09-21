@@ -215,7 +215,7 @@
       "event_dates": "September 26 2026",
       "pax": "60",
       "event_type": "event inquiry",
-      "stage": "new_inquiry",
+      "stage": "preparing_quote",
       "marketing_channel": "Messenger",
       "revenue_php": null,
       "fo_notes": "Blue Coast Beach Hotel - Messenger",
