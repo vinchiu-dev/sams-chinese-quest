@@ -293,8 +293,8 @@
       "event_dates": "2026-09-24 to 2026-09-26",
       "pax": "45-50",
       "event_type": "group/event (CSU agency)",
-      "stage": "new_inquiry",
-      "last_updated": "2026-09-02",
+      "stage": "preparing_quote",
+      "last_updated": "2026-09-21",
       "seed_notes": "Unread in Vin inbox as of seed. Dates ~2 weeks out from inquiry.",
       "fo_notes": "",
       "lost_reason": "",
@@ -672,6 +672,5 @@
     "Gov RFQ / email",
     "Messenger",
     "Walk-in / other"
-  ],
-  "last_cos_sync": "2026-09-17T09:30-04"
+  ]
 }
