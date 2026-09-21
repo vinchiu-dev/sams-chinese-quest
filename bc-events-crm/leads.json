@@ -195,11 +195,11 @@
       "event_type": "event inquiry",
       "stage": "quoted",
       "marketing_channel": "Walk-in / other",
-      "revenue_php": null,
+      "revenue_php": 473850,
       "fo_notes": "",
       "lost_reason": "",
       "seed_notes": "Manual add 2026-09-16",
-      "last_updated": "2026-09-16",
+      "last_updated": "2026-09-21",
       "subject": "EVENT — Zandra Abel",
       "editor": "fo-add"
     },
