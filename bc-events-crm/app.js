@@ -158,6 +158,9 @@
     showToast._t = setTimeout(() => el.classList.remove("show"), 3200);
   }
 
+  /** Ignore backdrop clicks briefly after touch pan-tap opens drawer (ghost click). */
+  let suppressBackdropCloseUntil = 0;
+
   /** Stage-move undo stack (drag-drop + drawer stage change). Max ~10. */
   const UNDO_MAX = 10;
   let stageUndoStack = [];
@@ -1621,8 +1624,11 @@
 
   function initBoardScroll() {
     const wrap = document.getElementById("board-wrap");
-    if (!wrap || wrap.dataset.scrollBound === "1") return;
+    // Once-guard (dataset + window): called at file bottom AND inside init().
+    // Double pan listeners race suppressClick/openedByPanTap on touch.
+    if (!wrap || wrap.dataset.scrollBound === "1" || window.__bcBoardScrollBound) return;
     wrap.dataset.scrollBound = "1";
+    window.__bcBoardScrollBound = true;
 
     let pan = null;
 
@@ -1730,6 +1736,9 @@
       // Tap on a card with no real pan: open drawer even if click was swallowed
       if (cardId && !moved) {
         if (card) card.dataset.openedByPanTap = "1";
+        // Touch synthesizes a click after pointerup; by then #backdrop is on top
+        // and would immediately close the drawer. Ignore that ghost close.
+        suppressBackdropCloseUntil = Date.now() + 500;
         openDrawer(cardId);
         setTimeout(() => {
           if (card) delete card.dataset.openedByPanTap;
@@ -1785,7 +1794,10 @@
       render();
     });
     document.getElementById("btn-close").addEventListener("click", closeDrawer);
-    document.getElementById("backdrop").addEventListener("click", closeDrawer);
+    document.getElementById("backdrop").addEventListener("click", () => {
+      if (Date.now() < suppressBackdropCloseUntil) return;
+      closeDrawer();
+    });
     document.getElementById("btn-save").addEventListener("click", saveDrawer);
     document.getElementById("btn-remove")?.addEventListener("click", openDeleteModal);
     document.getElementById("btn-delete-cancel")?.addEventListener("click", closeDeleteModal);
