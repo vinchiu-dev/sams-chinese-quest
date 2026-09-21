@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-15",
+  "updated": "2026-09-20",
   "lessons": [
     {
       "id": "little-fox-school-supplies",
@@ -2351,6 +2351,49 @@
           "emoji": "👦"
         }
       ]
+    },
+    {
+      "id": "birthday-party",
+      "title": "Xiaotian's Birthday Party",
+      "subtitle": "今天是小天的生日 — a birthday party scene",
+      "words": [
+        {
+          "hanzi": "喜欢",
+          "pinyin": "xǐhuan",
+          "en": "to like",
+          "emoji": "❤️",
+          "phrases": [
+            {
+              "en": "I like it",
+              "pinyin": "wǒ xǐhuan",
+              "hanzi": "我喜欢"
+            },
+            {
+              "en": "the robot you like",
+              "pinyin": "nǐ xǐhuan de jīqìrén",
+              "hanzi": "你喜欢的机器人"
+            },
+            {
+              "en": "I like watermelon",
+              "pinyin": "wǒ xǐhuan xīguā",
+              "hanzi": "我喜欢西瓜"
+            }
+          ]
+        },
+        {
+          "hanzi": "机器人",
+          "pinyin": "jīqìrén",
+          "en": "robot",
+          "emoji": "🤖",
+          "phrases": [
+            {
+              "en": "a robot toy",
+              "pinyin": "jīqìrén wánjù",
+              "hanzi": "机器人玩具"
+            }
+          ]
+        }
+      ]
     }
   ],
   "tagMap": {
@@ -2495,6 +2538,9 @@
     ],
     "bday": [
       "birthday-date"
+    ],
+    "bdayparty": [
+      "birthday-party"
     ]
   },
   "sentences": [
@@ -4375,6 +4421,48 @@
       "pinyin": "Jīntiān jǐ yuè jǐ hào?",
       "hanzi": "今天几月几号？",
       "tag": "bday"
+    },
+    {
+      "en": "Today is Xiaotian's birthday.",
+      "pinyin": "Jīntiān shì Xiǎotiān de shēngrì.",
+      "hanzi": "今天是小天的生日。",
+      "tag": "bdayparty"
+    },
+    {
+      "en": "Happy birthday, Xiaotian!",
+      "pinyin": "Shēngrì kuàilè, Xiǎotiān!",
+      "hanzi": "生日快乐，小天！",
+      "tag": "bdayparty"
+    },
+    {
+      "en": "The robot you like.",
+      "pinyin": "Nǐ xǐhuan de jīqìrén.",
+      "hanzi": "你喜欢的机器人。",
+      "tag": "bdayparty"
+    },
+    {
+      "en": "Xiaotian, happy birthday!",
+      "pinyin": "Xiǎotiān, shēngrì kuàilè!",
+      "hanzi": "小天，生日快乐！",
+      "tag": "bdayparty"
+    },
+    {
+      "en": "I like my blue backpack.",
+      "pinyin": "Wǒ xǐhuan wǒ de lánsè shūbāo.",
+      "hanzi": "我喜欢我的蓝色书包。",
+      "tag": "bdayparty"
+    },
+    {
+      "en": "Today is my birthday!",
+      "pinyin": "Jīntiān shì wǒ de shēngrì!",
+      "hanzi": "今天是我的生日！",
+      "tag": "bdayparty"
+    },
+    {
+      "en": "I like the pink dress.",
+      "pinyin": "Wǒ xǐhuan fěnsè de qúnzi.",
+      "hanzi": "我喜欢粉色的裙子。",
+      "tag": "bdayparty"
     }
   ]
 }
