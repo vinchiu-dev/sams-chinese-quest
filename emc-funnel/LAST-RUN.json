@@ -1,48 +1,60 @@
 {
-  "version": "2026-09-16-weekly-v1",
+  "version": "2026-09-21-weekly-v1",
   "channel": "easy-massage-chair",
   "channel_label": "Easy Massage Chair",
   "cadence": "weekly",
-  "last_run_at_et": "2026-09-16T15:10:00-04:00",
+  "last_run_at_et": "2026-09-21T10:31:38-04:00",
   "dashboard_published_url": "https://vinchiu-dev.github.io/sams-chinese-quest/emc-funnel/",
   "dashboard_ux": "weekly-funnel-v1",
   "windows": {
     "last_7d": {
-      "start_et": "2026-09-08",
-      "end_et": "2026-09-14",
+      "start_et": "2026-09-14",
+      "end_et": "2026-09-20",
       "label": "Last 7d"
     },
     "prior_7d": {
-      "start_et": "2026-09-01",
-      "end_et": "2026-09-07",
+      "start_et": "2026-09-07",
+      "end_et": "2026-09-13",
       "label": "Prior 7d"
     },
     "yoy_7d": {
-      "start_et": "2025-09-08",
-      "end_et": "2025-09-14",
+      "start_et": "2025-09-14",
+      "end_et": "2025-09-20",
       "pulled": true,
       "label": "YoY 7d"
     },
     "chart_30_50d": {
-      "start_et": "2026-08-04",
-      "end_et": "2026-09-14",
+      "start_et": "2026-08-10",
+      "end_et": "2026-09-20",
       "days": 42,
-      "note": "Use 30–50 full ET days for line charts; default 42. Prefer YoY same-period overlay when pulled."
+      "note": "Use 30\u201350 full ET days for line charts; default 42. Prefer YoY same-period overlay when pulled."
     }
   },
   "statuses": {
     "traffic": "Yellow",
     "leads": "Unknown",
-    "money": "Unknown",
+    "money": "Yellow",
     "answer": "Unknown",
-    "context": "Unknown"
+    "context": "Steady"
   },
   "notices": [
     {
       "severity": "yellow",
-      "title": "GA4 Direct traffic looks like junk inflation",
-      "body": "Sep 8–14: ~152k active users / ~148k sessions, but Direct alone ~110k sessions (YoY Direct ~3k). Organic Search 385 and Google Ads–mapped paid ~812 — real demand channels did not explode. Avg engagement ~21s/user. Do not use raw GA4 users for calls-per-visitor until Direct is filtered; dig bot/spam referrers and measurement.",
-      "where_to_dig": "GA4 Explore → Session default channel group + Session source/medium for Direct; exclude known spam hosts; recompute users without Direct."
+      "title": "GA4 Direct/Unassigned still junk-inflated (Singapore scrapers)",
+      "body": "Last7 sessions ~90.6k (Direct 55.9k + Unassigned 31.8k). GA4 Insight: Singapore Direct sessions surged ~45,000% Sep 3\u201317 (peak ~29k on Sep 15). Paid Search 651 + Organic 383 are the usable demand channels \u2014 do not use raw users/sessions as call denominators.",
+      "where_to_dig": "GA4 Explore \u2192 filter country\u2260Singapore / exclude Direct+Unassigned; recompute users on Paid+Organic+Referral+Organic Video only."
+    },
+    {
+      "severity": "yellow",
+      "title": "Business Checklist lags \u2014 Last 7d money incomplete",
+      "body": "Sheet coverage ends 2026-09-15; Last7 window is Sep 14\u201320 so Sep 16\u201320 sales not posted yet (only 4 closes / $14.9k / $3.8k GP on 14\u201315). Prior7 Sep 7\u201313 is complete (12 / $60.5k / $15.9k). Do not treat WoW money drop as real until Checklist catches up. Ads% of sales for Last7 left null for that reason.",
+      "where_to_dig": "Re-pull Checklist after Sep 16\u201320 rows land; then recompute ads% and WoW money."
+    },
+    {
+      "severity": "yellow",
+      "title": "Ads spend soft WoW after Sep 8 bid cuts (not an alert)",
+      "body": "Last7 Ads $1,484.60 vs prior $2,060.43 (-27.9% WoW); YoY $1,282.73 (15.7%). Brands ~$763.42 of Last7. Spend fell, not jumped \u2014 no scale-without-payback ping.",
+      "where_to_dig": "Brands pace vs first-page bids; ignore Ads conversions (weak)."
     }
   ],
   "steady_checks": [
@@ -50,73 +62,81 @@
       "id": "yt_views_watch_hours",
       "label": "YouTube views + watch hours",
       "status": "Steady",
-      "note": "Last7 ~12.0k views / 322h vs prior ~12.4k / 344h; YoY ~4.8k / 182h."
+      "note": "Last7 11,705 views / 287.9h vs prior ~12,307 / 326.5h (prior derived Sep7\u201320\u2212Last7); YoY 4,465 / 169.4h \u2014 strong YoY, soft WoW watch (\u221211.8%)."
     },
     {
-      "id": "ads_pct_of_sales",
-      "label": "Ads % of Checklist sales",
+      "id": "ads_pct_of_sales_prior",
+      "label": "Ads % of Checklist sales (Prior 7d complete)",
       "status": "Steady",
-      "note": "Last7 ~3.66% (target 3–4%)."
+      "note": "Prior7 Ads $2,060.43 \u00f7 Checklist $60,450.92 = 3.41% (target 3\u20134%). Last7 ads% null until Checklist posts Sep 16\u201320."
+    },
+    {
+      "id": "google_trends_massage_chair",
+      "label": "Google Trends massage chair US",
+      "status": "Steady",
+      "note": "Weekly index Past 12mo: week ending Sep 20 = 21, Sep 13 = 21, Sep 6 = 25; Sep 21 2025 \u2248 20. Direction flat vs prior week / flat-slightly-up YoY."
     }
   ],
   "leak_callout": null,
   "blockers": [
-    "CallRail unique sales calls / YT phone # — STOPPED at Google account chooser for CallRail (all accounts Signed out). OAuth request includes scope user.phonenumbers.read (\"See and download your personal phone numbers\"). Do not grant phone-number scopes via agent; parent should request_box_help for Vin to sign in as vincent@easymassagechair.com and approve/deny consent. Screen: accounts.google.com Choose an account → continue to CallRail; accounts listed Signed out: vincent@easymassagechair.com, vin.chiu@gmail.com, vincent@easyspasauna.com, stay@bluecoastbeachhotel.com. Alt: Zapier CallRailCLIAPI has 0 connections — connect at https://mcp.zapier.com/api/v1/connect-auth/CallRailCLIAPI?accountId=15082377",
-    "RingCentral Sales EMC team-answer % — Zapier RC connection stale (is_stale:true / OAU-210). Reconnect: https://mcp.zapier.com/api/v1/connect-auth/RingCentralCLIAPI?accountId=15082377&connectionId=39074755 (title: RingCentral vincent@easymassagechair.com)",
-    "Zoho chat not pulled (deferred — CallRail not cleared)",
-    "Google Trends — not rechecked this run (deferred — CallRail not cleared); prior run HTTP 429",
-    "Tuan Google Messages not checked (deferred — CallRail not cleared)",
-    "YoY 7d money — Business Checklist export has no 2025 rows (coverage 2026-01-01→2026-09-14)",
-    "Chart 42d daily series empty — GA4 daily Explore export not pulled this run (totals only; deferred after CallRail)"
+    "CallRail unique sales calls / YT phone # \u2014 REPEAT auth failure (Sep 16\u201318+). Zapier CallRailCLIAPI has 0 connections (connect: https://mcp.zapier.com/api/v1/connect-auth/CallRailCLIAPI?accountId=15082377). Browser previously stopped at Google account chooser with user.phonenumbers.read \u2014 do not grant phone scopes via agent.",
+    "RingCentral Sales EMC team-answer % \u2014 REPEAT auth failure. Zapier RC still stale (is_stale:true). Reconnect: https://mcp.zapier.com/api/v1/connect-auth/RingCentralCLIAPI?accountId=15082377&connectionId=39074755",
+    "Zoho chat not pulled (optional; CallRail still blocked)",
+    "Tuan Google Messages not checked (no Messages access this executor)",
+    "Business Checklist incomplete for Last 7d \u2014 coverage 2026-01-01\u21922026-09-15 only; Sep 16\u201320 missing",
+    "YoY 7d money \u2014 Checklist export has no 2025 rows",
+    "Chart 42d daily series empty \u2014 daily Explore/export not pulled this run (window totals only)",
+    "Google Ads Zapier still 0 connections \u2014 pulled via box Chrome CID 233-345-8216 this run"
   ],
   "sources_pulled": [
     "business_checklist_drive_csv",
     "ga4_browser",
     "youtube_studio_browser",
-    "google_ads_browser"
+    "google_ads_browser",
+    "google_trends_browser"
   ],
   "planner_note_pasted": false,
   "traffic": {
     "status": "Yellow",
-    "status_reason": "YT views/watch hours Steady (soft WoW, strong YoY). Overall GA4 still Yellow from Direct junk spike — do not use raw users as demand.",
+    "status_reason": "YT views/watch hours Steady (soft WoW watch, strong YoY). Overall GA4 Yellow from Direct+Unassigned junk / Singapore scrapers \u2014 do not use raw users as demand.",
     "pmax_retargeting_filtered": false,
-    "pmax_retargeting_note": "Direct spike dominates overall users this week; filter Direct (and known junk PMax/remarketing) before using GA4 users as a conversion denominator. Engagement ~21s/active user.",
+    "pmax_retargeting_note": "Direct + Unassigned dominate; Display (remarketing-like) sessions low-engagement (~9s Last7). Filter Direct/Unassigned/Display before conversion denominators. GA4 Insight named Singapore Direct scrapers Sep 3\u201317.",
     "overall": {
       "users": {
-        "last_7d": 152428,
-        "prior_7d": 62506,
-        "yoy_7d": 3887,
-        "wow_pct": 143.9,
-        "yoy_pct": 3821.5,
+        "last_7d": 88000,
+        "prior_7d": null,
+        "yoy_7d": null,
+        "wow_pct": null,
+        "yoy_pct": null,
         "status": "Yellow",
-        "note": "GA4 active users — inflated by Direct spike; do not use as clean visitor denominator."
+        "note": "GA4 active users Last7 ~88K from Reports snapshot \u2014 inflated by Direct/Unassigned; Prior/YoY users not pulled this run."
       },
       "sessions": {
-        "last_7d": 148495,
-        "prior_7d": 62603,
-        "yoy_7d": 4316,
-        "wow_pct": 137.2,
-        "yoy_pct": 3340.6,
+        "last_7d": 90644,
+        "prior_7d": 138760,
+        "yoy_7d": 13888,
+        "wow_pct": -34.7,
+        "yoy_pct": 552.7,
         "status": "Yellow",
-        "note": "GA4 sessions — same Direct inflation warning."
+        "note": "GA4 sessions \u2014 Direct+Unassigned junk; usable channels are Paid/Organic/Referral/Organic Video."
       },
       "yt_views": {
-        "last_7d": 12006,
-        "prior_7d": 12373,
-        "yoy_7d": 4825,
-        "wow_pct": -3.0,
-        "yoy_pct": 148.8,
+        "last_7d": 11705,
+        "prior_7d": 12307,
+        "yoy_7d": 4465,
+        "wow_pct": -4.9,
+        "yoy_pct": 162.2,
         "status": "Steady",
-        "note": "YouTube Studio views — Easy Massage Chair channel."
+        "note": "YouTube Studio views \u2014 Easy Massage Chair channel. Prior7 derived: Custom Sep 7\u201320 (24,012) minus Last7 (11,705)."
       },
       "yt_watch_hours": {
-        "last_7d": 321.8,
-        "prior_7d": 343.7,
-        "yoy_7d": 181.8,
-        "wow_pct": -6.4,
-        "yoy_pct": 77.0,
+        "last_7d": 287.9,
+        "prior_7d": 326.5,
+        "yoy_7d": 169.4,
+        "wow_pct": -11.8,
+        "yoy_pct": 70.0,
         "status": "Steady",
-        "note": "YouTube Studio watch time (hours) — channel reported hours directly."
+        "note": "YouTube Studio watch time (hours). Prior7 derived: Custom Sep 7\u201320 (614.4h) minus Last7 (287.9h). Matches Studio \u201c12% less than previous 7 days.\u201d"
       }
     },
     "sources": [
@@ -125,13 +145,13 @@
         "label": "YouTube",
         "highlight": true,
         "sessions": {
-          "last_7d": null,
-          "prior_7d": null,
-          "yoy_7d": null,
-          "wow_pct": null,
-          "yoy_pct": null,
-          "status": "Unknown",
-          "note": null
+          "last_7d": 82,
+          "prior_7d": 114,
+          "yoy_7d": 50,
+          "wow_pct": -28.1,
+          "yoy_pct": 64.0,
+          "status": "Steady",
+          "note": "GA4 Organic Video sessions (site traffic from YT) \u2014 not Studio views."
         },
         "users": {
           "last_7d": null,
@@ -143,37 +163,37 @@
           "note": null
         },
         "views": {
-          "last_7d": 12006,
-          "prior_7d": 12373,
-          "yoy_7d": 4825,
-          "wow_pct": -3.0,
-          "yoy_pct": 148.8,
+          "last_7d": 11705,
+          "prior_7d": 12307,
+          "yoy_7d": 4465,
+          "wow_pct": -4.9,
+          "yoy_pct": 162.2,
           "status": "Steady",
-          "note": "YT Studio views (channel)."
+          "note": "YT Studio channel views."
         },
         "watch_hours": {
-          "last_7d": 321.8,
-          "prior_7d": 343.7,
-          "yoy_7d": 181.8,
-          "wow_pct": -6.4,
-          "yoy_pct": 77.0,
+          "last_7d": 287.9,
+          "prior_7d": 326.5,
+          "yoy_7d": 169.4,
+          "wow_pct": -11.8,
+          "yoy_pct": 70.0,
           "status": "Steady",
           "note": null
         },
-        "note": "Easy Massage Chair channel — Studio pull 2026-09-15."
+        "note": "Easy Massage Chair channel UCKArPFx8rGx3U6RqeANXRCg \u2014 Studio pull 2026-09-21."
       },
       {
         "id": "google_ads",
         "label": "Google Ads",
         "highlight": false,
         "sessions": {
-          "last_7d": 812,
-          "prior_7d": 1103,
-          "yoy_7d": 357,
-          "wow_pct": -26.4,
-          "yoy_pct": 127.5,
+          "last_7d": 883,
+          "prior_7d": 1865,
+          "yoy_7d": 406,
+          "wow_pct": -52.7,
+          "yoy_pct": 117.5,
           "status": "Yellow",
-          "note": "GA4 Paid Search + Cross-network sessions (mapped to Google Ads). Soft WoW after Sep 8 bid cuts."
+          "note": "GA4 Paid Search + Display sessions (mapped to Google Ads). Soft WoW."
         },
         "users": {
           "last_7d": null,
@@ -185,62 +205,62 @@
           "note": null
         },
         "spend": {
-          "last_7d": 1773.01,
-          "prior_7d": 2887.26,
-          "yoy_7d": 1037.63,
-          "wow_pct": -38.6,
-          "yoy_pct": 70.9,
+          "last_7d": 1484.6,
+          "prior_7d": 2060.43,
+          "yoy_7d": 1282.73,
+          "wow_pct": -27.9,
+          "yoy_pct": 15.7,
           "status": "Yellow",
-          "note": "Google Ads cost — soft WoW after Sep 8 bid cuts; up YoY."
+          "note": "Google Ads cost CID 233-345-8216 \u2014 soft WoW after Sep 8 bid cuts; up YoY."
         },
         "clicks": {
-          "last_7d": 1876,
-          "prior_7d": 4235,
-          "yoy_7d": 420,
-          "wow_pct": -55.7,
-          "yoy_pct": 346.7,
+          "last_7d": 1007,
+          "prior_7d": 2385,
+          "yoy_7d": 451,
+          "wow_pct": -57.8,
+          "yoy_pct": 123.3,
           "status": "Yellow",
           "note": null
         },
         "impressions": {
-          "last_7d": 22050,
-          "prior_7d": 55467,
-          "yoy_7d": 4880,
-          "wow_pct": -60.2,
-          "yoy_pct": 351.8,
+          "last_7d": 13391,
+          "prior_7d": 33830,
+          "yoy_7d": 5369,
+          "wow_pct": -60.4,
+          "yoy_pct": 149.4,
           "status": "Yellow",
-          "note": null
+          "note": "Impressions inferred from Ads UI CTR \u00d7 clicks (CTR shown; Impr column not in current view)."
         },
         "cpc": {
-          "last_7d": 0.95,
-          "prior_7d": 0.68,
-          "yoy_7d": 2.47,
-          "wow_pct": 39.7,
-          "yoy_pct": -61.5,
+          "last_7d": 1.47,
+          "prior_7d": 0.86,
+          "yoy_7d": 2.84,
+          "wow_pct": 70.9,
+          "yoy_pct": -48.2,
           "status": "Steady",
           "note": "Avg CPC rose WoW as volume fell."
         },
         "conversions": {
-          "last_7d": 1.0,
-          "prior_7d": 4.0,
-          "yoy_7d": 0.0,
-          "wow_pct": -75.0,
+          "last_7d": null,
+          "prior_7d": null,
+          "yoy_7d": null,
+          "wow_pct": null,
           "yoy_pct": null,
           "status": "Unknown",
-          "note": "Weak signal — do not steer on Ads conversions."
+          "note": "Not scraped this run \u2014 weak signal; do not steer on Ads conversions."
         },
-        "note": "CID 233-345-8216. Rough mix: Search / Display (incl. Remarketing Static) / PMax; Shopping+Smart $0. Demand Gen not separate."
+        "note": "CID 233-345-8216 via box Chrome. Brands Last7 cost $763.42 / 273 clicks / $2.80 CPC; Prior Brands $1,037.02. Remarketing Static / PMax not isolated in search this run."
       },
       {
         "id": "google_organic",
         "label": "Google Organic",
         "highlight": false,
         "sessions": {
-          "last_7d": 385,
-          "prior_7d": 444,
-          "yoy_7d": 534,
-          "wow_pct": -13.3,
-          "yoy_pct": -27.9,
+          "last_7d": 383,
+          "prior_7d": 398,
+          "yoy_7d": 592,
+          "wow_pct": -3.8,
+          "yoy_pct": -35.3,
           "status": "Steady",
           "note": "GA4 Organic Search sessions."
         },
@@ -251,7 +271,7 @@
           "wow_pct": null,
           "yoy_pct": null,
           "status": "Unknown",
-          "note": "Channel table was sessions; users not broken out."
+          "note": null
         },
         "note": null
       },
@@ -260,13 +280,13 @@
         "label": "Direct",
         "highlight": false,
         "sessions": {
-          "last_7d": 109542,
-          "prior_7d": 39566,
-          "yoy_7d": 3095,
-          "wow_pct": 176.9,
-          "yoy_pct": 3439.3,
+          "last_7d": 55886,
+          "prior_7d": 98753,
+          "yoy_7d": 12491,
+          "wow_pct": -43.4,
+          "yoy_pct": 347.4,
           "status": "Red",
-          "note": "Direct explode vs YoY — likely bots/junk; exclude from conversion denominators."
+          "note": "Direct junk \u2014 Singapore scraper surge per GA4 Insight Sep 3\u201317; exclude from conversion denominators."
         },
         "users": {
           "last_7d": null,
@@ -284,13 +304,13 @@
         "label": "Referral / other",
         "highlight": false,
         "sessions": {
-          "last_7d": 127,
-          "prior_7d": 110,
-          "yoy_7d": 125,
-          "wow_pct": 15.5,
-          "yoy_pct": 1.6,
+          "last_7d": 88,
+          "prior_7d": 136,
+          "yoy_7d": 139,
+          "wow_pct": -35.3,
+          "yoy_pct": -36.7,
           "status": "Steady",
-          "note": "GA4 Referral sessions."
+          "note": "GA4 Referral sessions only (Unassigned/Display kept separate in notes)."
         },
         "users": {
           "last_7d": null,
@@ -301,16 +321,16 @@
           "status": "Unknown",
           "note": null
         },
-        "note": "Collapse small channels here."
+        "note": "Collapse small channels here. Unassigned Last7 sessions 31,844 also junk-adjacent \u2014 not included in this Referral row."
       }
     ],
     "ads_mix": {
-      "note": "Fill when Ads is pulled. Do not copy 10-day mix into weekly slots.",
-      "brands_spend": null,
+      "note": "Partial Brands only from Campaigns table; Remarketing Static / PMax not isolated this run.",
+      "brands_spend": 763.42,
       "pmax_spend": null,
       "static_remarketing_spend": null,
       "search_other_spend": null,
-      "account_spend": null
+      "account_spend": 1484.6
     },
     "series": {
       "days": [],
@@ -333,11 +353,11 @@
         "organic_sessions": null
       }
     },
-    "cos_note": "Traffic block: need box browser login to GA4 (EMC), YT Studio, Ads CID 233-345-8216."
+    "cos_note": "Traffic: YT Steady YoY; GA4 Yellow junk; Ads spend $1,484.60 Last7 (\u221227.9% WoW)."
   },
   "leads": {
     "status": "Unknown",
-    "status_reason": "CallRail login blocked at Google account chooser (all Signed out) with phonenumbers.read scope in OAuth URL. No CallRail numbers invented. Zoho not pulled.",
+    "status_reason": "CallRail REPEAT auth block (0 Zapier connections; phone-scope consent stop). No call numbers invented.",
     "pmax_retargeting_filtered": false,
     "unique_sales_calls": {
       "last_7d": null,
@@ -346,7 +366,7 @@
       "wow_pct": null,
       "yoy_pct": null,
       "status": "Unknown",
-      "note": "CallRail unique / thumbs-up sales calls. Null if tagging too thin to trust uniqueness."
+      "note": "CallRail unique / thumbs-up sales calls \u2014 not pulled."
     },
     "callrail_calls_raw": {
       "last_7d": null,
@@ -355,7 +375,7 @@
       "wow_pct": null,
       "yoy_pct": null,
       "status": "Unknown",
-      "note": "Total CallRail inbound in window, if unique is distinct."
+      "note": null
     },
     "calls_per_visitor": {
       "last_7d": null,
@@ -364,7 +384,7 @@
       "wow_pct": null,
       "yoy_pct": null,
       "status": "Unknown",
-      "note": "unique_sales_calls / ga4_users. Compute only if both non-null."
+      "note": "Blocked \u2014 CallRail + clean GA4 users both unavailable as trustworthy pair."
     },
     "calls_per_yt_view": {
       "last_7d": null,
@@ -373,7 +393,7 @@
       "wow_pct": null,
       "yoy_pct": null,
       "status": "Unknown",
-      "note": "unique_sales_calls / yt_views. Compute only if both non-null."
+      "note": "Blocked \u2014 CallRail not pulled."
     },
     "yt_phone_calls": {
       "last_7d": null,
@@ -382,7 +402,7 @@
       "wow_pct": null,
       "yoy_pct": null,
       "status": "Unknown",
-      "note": "CallRail calls to the YouTube tracking number."
+      "note": null
     },
     "yt_phone_calls_per_watch_hour": {
       "last_7d": null,
@@ -391,16 +411,16 @@
       "wow_pct": null,
       "yoy_pct": null,
       "status": "Unknown",
-      "note": "yt_phone_calls / yt_watch_hours. Compute only if both non-null."
+      "note": null
     },
     "avg_engagement_time_sec": {
-      "last_7d": null,
+      "last_7d": 22,
       "prior_7d": null,
       "yoy_7d": null,
       "wow_pct": null,
       "yoy_pct": null,
-      "status": "Unknown",
-      "note": "GA4 average engagement time (seconds). Name the metric in note if you use session duration instead."
+      "status": "Yellow",
+      "note": "GA4 average engagement time per active user ~22s (Last7 snapshot) \u2014 suspiciously low with Direct junk."
     },
     "bounce_rate": {
       "last_7d": null,
@@ -409,7 +429,7 @@
       "wow_pct": null,
       "yoy_pct": null,
       "status": "Unknown",
-      "note": "GA4 bounce rate 0–1 (or 0–100 with note). Filter PMax/retargeting when noted."
+      "note": null
     },
     "chats": {
       "last_7d": null,
@@ -418,7 +438,7 @@
       "wow_pct": null,
       "yoy_pct": null,
       "status": "Unknown",
-      "note": "Zoho chat starts if available."
+      "note": "Zoho not pulled."
     },
     "callrail_by_source": {
       "last_7d": {},
@@ -426,40 +446,40 @@
       "yoy_7d": {}
     },
     "ux_review_prompts": [
-      "Not triggered — leads metrics Unknown (CallRail not pulled); no WoW/YoY move to evaluate."
+      "Not triggered \u2014 leads metrics Unknown (CallRail not pulled); no WoW/YoY move to evaluate."
     ],
-    "cos_note": "Need Vin box-help: Google Sign-In to CallRail as vincent@easymassagechair.com; do not have agent grant phone-number scopes. Then pull unique sales calls + YT phone # for Last/Prior/YoY 7d (Sep 8–14 / Sep 1–7 / 2025-09-08–14).",
-    "engagement_note": "GA4 average engagement time ~21s per active user (Last 7d) — suspiciously low with Direct spike."
+    "cos_note": "Need Vin reconnect CallRail Zapier and/or box-help Google Sign-In to CallRail as vincent@easymassagechair.com without agent granting phonenumbers.read.",
+    "engagement_note": "GA4 avg engagement ~22s/active user Last7 with Direct spike \u2014 not a clean UX signal."
   },
   "money": {
-    "status": "Unknown",
-    "status_reason": "Checklist revenue/GP/closes present for Last vs Prior 7d; KEY avg GP/call still Unknown — CallRail unique calls not pulled (OAuth stop). YoY 7d money unavailable (no 2025 rows).",
+    "status": "Yellow",
+    "status_reason": "Checklist Last7 incomplete (ends 2026-09-15). Prior7 complete. KEY avg GP/call Unknown (CallRail). YoY money unavailable (no 2025 rows).",
     "closed_sales": {
-      "last_7d": 11,
-      "prior_7d": 9,
+      "last_7d": 4,
+      "prior_7d": 12,
       "yoy_7d": null,
-      "wow_pct": 22.2,
+      "wow_pct": -66.7,
       "yoy_pct": null,
-      "status": "Unknown",
-      "note": "Business Checklist non-cancelled Sale>0 rows by sale Date. YoY unavailable — sheet coverage starts 2026-01-01."
+      "status": "Yellow",
+      "note": "Business Checklist non-cancelled Sale>0 by sale Date. Last7 only has Sep 14\u201315 rows (Checklist lag)."
     },
     "revenue": {
-      "last_7d": 48474.93,
-      "prior_7d": 53306.96,
+      "last_7d": 14878.97,
+      "prior_7d": 60450.92,
       "yoy_7d": null,
-      "wow_pct": -9.1,
+      "wow_pct": -75.4,
       "yoy_pct": null,
-      "status": "Unknown",
-      "note": "Checklist Sale sum for those rows. WoW −9.1% while closes 11 vs 9 — smaller ticket/mix."
+      "status": "Yellow",
+      "note": "Checklist Sale sum. Last7 incomplete through Sep 15 only."
     },
     "gross_profit": {
-      "last_7d": 14130.93,
-      "prior_7d": 15367.28,
+      "last_7d": 3815.1,
+      "prior_7d": 15865.67,
       "yoy_7d": null,
-      "wow_pct": -8.0,
+      "wow_pct": -76.0,
       "yoy_pct": null,
-      "status": "Unknown",
-      "note": "Checklist Gross column sum. All last/prior rows had GP present."
+      "status": "Yellow",
+      "note": "Checklist Gross sum. All counted rows had GP."
     },
     "avg_revenue_per_sales_call": {
       "last_7d": null,
@@ -468,7 +488,7 @@
       "wow_pct": null,
       "yoy_pct": null,
       "status": "Unknown",
-      "note": "revenue / unique_sales_calls — blocked; CallRail OAuth stop this run."
+      "note": "revenue / unique_sales_calls \u2014 CallRail blocked."
     },
     "avg_gp_per_sales_call": {
       "last_7d": null,
@@ -477,7 +497,7 @@
       "wow_pct": null,
       "yoy_pct": null,
       "status": "Unknown",
-      "note": "KEY. gross_profit / unique_sales_calls — blocked; CallRail OAuth stop this run."
+      "note": "KEY. gross_profit / unique_sales_calls \u2014 CallRail blocked."
     },
     "revenue_per_visitor": {
       "last_7d": null,
@@ -486,7 +506,7 @@
       "wow_pct": null,
       "yoy_pct": null,
       "status": "Unknown",
-      "note": "revenue / ga4_users — GA4 not pulled."
+      "note": "raw GA4 users are junk \u2014 not used as denominator."
     },
     "revenue_per_yt_view": {
       "last_7d": null,
@@ -495,23 +515,23 @@
       "wow_pct": null,
       "yoy_pct": null,
       "status": "Unknown",
-      "note": "revenue / yt_views — YT Studio not pulled."
+      "note": "Left null \u2014 Last7 Checklist incomplete; would understate vs full-week YT views."
     },
     "ads_pct_of_sales": {
-      "last_7d": 3.66,
-      "prior_7d": 5.42,
+      "last_7d": null,
+      "prior_7d": 3.41,
       "yoy_7d": null,
-      "wow_pct": -32.5,
+      "wow_pct": null,
       "yoy_pct": null,
       "status": "Steady",
-      "note": "Ads $1,773.01 ÷ Checklist sales $48,474.93 = 3.66%. Inside 3–4% band / under 5% ceiling."
+      "note": "Prior7 only: Ads $2,060.43 \u00f7 Checklist $60,450.92 = 3.41%. Last7 null \u2014 incomplete sales vs full-week Ads."
     },
-    "cos_note": "Last 7d (Sep 8–14): 11 closes, $48,474.93 revenue, $14,130.93 GP. Prior 7d (Sep 1–7): 9 closes, $53,306.96 revenue, $15,367.28 GP. WoW: closes +22%, revenue −9.1%, GP −8.0%. Avg GP/call Unknown until CallRail."
+    "cos_note": "Last7 partial (Sep 14\u201315 only): 4 closes, $14,878.97 revenue, $3,815.10 GP. Prior7 complete: 12 closes, $60,450.92, $15,865.67 GP. Sheet max date 2026-09-15."
   },
   "answer": {
     "status": "Unknown",
-    "status_reason": "RingCentral Zapier connection stale. Reconnect URL: https://mcp.zapier.com/api/v1/connect-auth/RingCentralCLIAPI?accountId=15082377&connectionId=39074755 then re-pull Sales EMC BH team-answer %.",
-    "business_hours_note": "Confirm Sales EMC staffed hours in RingCentral; do not guess. Weekly % is BH only. RC API not reachable this run (expired Zapier OAuth).",
+    "status_reason": "RingCentral Zapier REPEAT stale. Reconnect https://mcp.zapier.com/api/v1/connect-auth/RingCentralCLIAPI?accountId=15082377&connectionId=39074755",
+    "business_hours_note": "Confirm Sales EMC staffed hours in RingCentral; do not guess. RC API not reachable (stale Zapier OAuth).",
     "shared_queue": false,
     "pct_answered_by_team_bh": {
       "last_7d": null,
@@ -520,7 +540,7 @@
       "wow_pct": null,
       "yoy_pct": null,
       "status": "Unknown",
-      "note": "KEY answer light. Team extension answered / inbound sales-queue calls during business hours. Exclude AC and VM from the numerator."
+      "note": "KEY answer light \u2014 not pulled."
     },
     "team_answered_bh": {
       "last_7d": null,
@@ -558,24 +578,24 @@
       "status": "Unknown",
       "note": null
     },
-    "cos_note": "RC Zapier auth stale — Vin needs reconnect RingCentralCLIAPI before answer % can light up. URL in blockers."
+    "cos_note": "RC Zapier auth still stale since Sep 15\u201316 \u2014 Vin reconnect needed."
   },
   "context": {
-    "status": "Unknown",
+    "status": "Steady",
     "google_trends": {
       "query": "massage chair",
       "geo": "US",
       "url": "https://trends.google.com/trends/explore?geo=US&q=massage%20chair",
-      "direction": null,
-      "note": "Attempted Trends API/page via curl — HTTP 429 Too Many Requests. No reliable US direction for Last 7d vs prior/YoY. Do not invent.",
-      "checked": false
+      "direction": "flat",
+      "note": "Past 12 months weekly index: week of Sep 20 2026 = 21, Sep 13 = 21, Sep 6 = 25; week of Sep 21 2025 \u2248 20. Flat vs prior week; flat/slightly up vs YoY. Not a category crash.",
+      "checked": true
     },
     "tuan_messages": {
       "checked": false,
-      "note": "Not checked — Google Messages / Tuan thread not opened this run (no Messages access on this executor).",
+      "note": "Not checked \u2014 Google Messages / Tuan thread not opened this run.",
       "industry_vs_emc": null
     },
-    "cos_note": "Context Unknown: Trends/Tuan deferred until CallRail cleared; prior Trends 429."
+    "cos_note": "Trends flat \u2014 category not obviously crashing. Tuan unchecked."
   },
   "notable_changes": [
     {
@@ -587,24 +607,23 @@
         "leads",
         "money"
       ],
-      "source": "legacy 10-day audit; still in Last 7d + chart hangover — recheck Brands pace"
+      "source": "seeded; still inside chart window 2026-08-10\u21922026-09-20 \u2014 recheck Brands pace"
     },
     {
-      "date_et": "2026-09-15",
-      "event": "First weekly funnel board data pull (partial) — money from Checklist; traffic/leads/answer/context still blocked",
+      "date_et": "2026-09-03",
+      "event": "GA4 Insight: Singapore Direct sessions scrapers surge (~45,000% Sep 3\u201317; peak ~29k Sep 15)",
+      "owner": "measurement / bots",
+      "could_affect": [
+        "traffic",
+        "leads"
+      ],
+      "source": "GA4 Intelligence Insight on traffic-acquisition report 2026-09-21"
+    },
+    {
+      "date_et": "2026-09-21",
+      "event": "Weekly funnel refresh \u2014 Ads/YT/GA4/Trends/Checklist pulled; CallRail+RC still auth-blocked (repeat)",
       "owner": "CoS agent",
       "could_affect": [],
-      "source": "this run"
-    },
-    {
-      "date_et": "2026-09-16",
-      "event": "CallRail weekly pull stopped at Google account chooser (phonenumbers.read scope); numbers left Unknown. RC Zapier reconnect URL refreshed.",
-      "owner": "CoS agent",
-      "could_affect": [
-        "leads",
-        "money",
-        "answer"
-      ],
       "source": "this run"
     }
   ],
@@ -632,7 +651,7 @@
       "bof": "Yellow",
       "margin": "Unknown"
     },
-    "leak_callout": "Spend +55% vs prior 10d; Ads conv 5 vs 11; CallRail calls flat 17 vs 16; checklist sales ~$58.3k → ads 6.96% of sales (over 5%). Bid cuts applied Sep 8 — recheck Sep 9–12 on Sep 13. Dig Mid→BOF tagging/close + spend pace.",
+    "leak_callout": "Spend +55% vs prior 10d; Ads conv 5 vs 11; CallRail calls flat 17 vs 16; checklist sales ~$58.3k \u2192 ads 6.96% of sales (over 5%). Bid cuts applied Sep 8 \u2014 recheck Sep 9\u201312 on Sep 13. Dig Mid\u2192BOF tagging/close + spend pace.",
     "concurrent_changes": [],
     "tof": {
       "ads_spend": 4061.22,
@@ -652,7 +671,7 @@
         "ads_cpc_delta": 0.03
       },
       "deltas_vs_yoy_10d": {},
-      "cos_note": "Spend +55% vs prior 10d; conversions 5 vs 11; CPC flat. Visible campaigns Search. GA4 ~64k active users last 10d (sessions/prior incomplete). Mix Aug28–Sep7: Brands $2226 / PMax $31 / Static $282; account $4403.",
+      "cos_note": "Spend +55% vs prior 10d; conversions 5 vs 11; CPC flat. Visible campaigns Search. GA4 ~64k active users last 10d (sessions/prior incomplete). Mix Aug28\u2013Sep7: Brands $2226 / PMax $31 / Static $282; account $4403.",
       "sources_pulled": [
         "google_ads",
         "ga4_partial"
@@ -738,7 +757,7 @@
       "close_rate_vs_qualified": null,
       "close_rate_vs_answered": 0.588,
       "closer_capacity_note": null,
-      "cos_note": "Business Checklist CSV (local export ~1:10pm ET Sep 8): 10 non-cancelled Sale>0 rows Aug 29–Sep 7 = $58,305.96. Ads Cost $4,061 / sales = 6.96% (over 5% ceiling; target 3–4%). CallRail Sale Closed empty — using checklist not Ads conv.",
+      "cos_note": "Business Checklist CSV (local export ~1:10pm ET Sep 8): 10 non-cancelled Sale>0 rows Aug 29\u2013Sep 7 = $58,305.96. Ads Cost $4,061 / sales = 6.96% (over 5% ceiling; target 3\u20134%). CallRail Sale Closed empty \u2014 using checklist not Ads conv.",
       "sources_pulled": [
         "business_checklist_csv"
       ],
