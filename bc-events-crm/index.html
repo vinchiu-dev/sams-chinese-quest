@@ -193,19 +193,6 @@
       width: auto;
       object-fit: contain;
     }
-    .brand-events {
-      margin: 0;
-      min-width: 0;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #2C7CB9;
-      letter-spacing: -0.02em;
-      line-height: 1;
-      align-self: center;
-    }
     .insights-panel-inner {
       padding: 10px 12px 12px;
       display: grid;
@@ -1029,15 +1016,18 @@
 
     .topbar-actions {
       display: flex;
-      flex: 0 1 auto;
+      flex: 1 1 auto;
       flex-direction: row;
       align-items: center;
-      justify-content: flex-end;
+      justify-content: flex-start;
       gap: 10px;
-      margin-left: auto;
+      margin-left: 12px;
       margin-top: 0;
       align-self: center;
       min-width: 0;
+    }
+    .topbar-actions .btn-add {
+      margin-left: auto;
     }
     .topbar-actions .rev-link,
     .topbar-actions .btn-undo {
@@ -1210,14 +1200,13 @@
     <div class="topbar-row">
       <div class="brand">
         <img class="brand-logo" src="blue-coast-logo.png" width="150" height="52" alt="Blue Coast Beach Hotel" />
-        <span class="brand-events">Events</span>
         <p class="north-star" hidden>North star: <strong id="north-star">YoY event sales growth</strong></p>
-        <h1 class="visually-hidden">Blue Coast Events</h1>
+        <h1 class="visually-hidden">Blue Coast Beach Hotel</h1>
       </div>
       <div class="topbar-actions">
-        <button type="button" class="btn-add" id="btn-add-event">+ Add event</button>
         <button type="button" class="btn-undo" id="btn-undo" disabled aria-disabled="true" title="Nothing to undo">Undo</button>
         <button type="button" class="rev-link" id="rev-toggle" aria-expanded="false" aria-controls="insights-panel" title="Win rate, YoY revenue, sources, lost reasons">Insights</button>
+        <button type="button" class="btn-add" id="btn-add-event">+ Add event</button>
       </div>
     </div>
     <div class="topbar-metrics" id="topbar-metrics" aria-label="Win rate and revenue growth">
@@ -1227,8 +1216,8 @@
         <span class="tm-detail" id="tm-won-detail"></span>
       </div>
       <span class="tm-sep" aria-hidden="true">·</span>
-      <div class="topbar-metric" title="This calendar YTD won revenue vs prior calendar YTD">
-        <span class="tm-label">YTD rev growth</span>
+      <div class="topbar-metric" title="Oct–to-date won revenue vs prior year Oct–to-date (from Oct 1)">
+        <span class="tm-label">YoY since Oct 1</span>
         <span class="tm-value" id="tm-yoy-value">—</span>
         <span class="tm-detail" id="tm-yoy-detail"></span>
       </div>
@@ -1261,8 +1250,8 @@
             </div>
             <div class="insight-metric">
               <span class="metric-value" id="yoy-rev-value">—</span>
-              <span class="metric-formula" id="yoy-rev-formula">YoY events revenue growth (YTD)</span>
-              <span class="metric-detail" id="yoy-rev-detail">Won revenue this YTD vs prior YTD</span>
+              <span class="metric-formula" id="yoy-rev-formula">YoY since Oct 1</span>
+              <span class="metric-detail" id="yoy-rev-detail">Oct–to-date won revenue vs prior year Oct–to-date</span>
             </div>
           </div>
         </div>
@@ -1459,6 +1448,6 @@
   })();
   </script>
 
-  <script src="app.js?v=20260921-undo-pos"></script>
+  <script src="app.js?v=20260921-yoy-oct1"></script>
 </body>
 </html>

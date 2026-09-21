@@ -715,11 +715,14 @@
     return { y: Number(m[1]), m: Number(m[2]), d: Number(m[3]), iso: m[0] };
   }
 
-  function isOnOrBeforeYtd(ymd, year, month, day) {
+  /** Inclusive [Oct 1 .. endMonth/endDay] within `year` (season window). */
+  function isInSeasonWindow(ymd, year, endMonth, endDay) {
     if (!ymd || ymd.y !== year) return false;
-    if (ymd.m < month) return true;
-    if (ymd.m > month) return false;
-    return ymd.d <= day;
+    const startM = 10;
+    const startD = 1;
+    if (ymd.m < startM || (ymd.m === startM && ymd.d < startD)) return false;
+    if (ymd.m > endMonth || (ymd.m === endMonth && ymd.d > endDay)) return false;
+    return true;
   }
 
   /** Win rate = Won ÷ (Won + Lost). Open pipeline is not in the denominator. */
@@ -750,8 +753,10 @@
   }
 
   /**
-   * YoY events revenue growth = this calendar YTD won revenue vs prior calendar YTD.
-   * Attribution date: last_updated, else inquiry_date. Never invents numbers.
+   * YoY public-host / events revenue growth = same calendar window from Oct 1
+   * (Oct 1–to-date this year vs Oct 1–to-date prior year). Not calendar YTD.
+   * Attribution: parseLeadYmd = last_updated else inquiry_date (won + revenue_php).
+   * Before Oct 1 of the current year: N/A (season window not open yet).
    */
   function computeYoyEventsRevenueGrowth(leads) {
     const now = new Date();
@@ -759,6 +764,18 @@
     const py = cy - 1;
     const month = now.getMonth() + 1;
     const day = now.getDate();
+    const seasonStartM = 10;
+    const seasonStartD = 1;
+
+    // Before Oct 1: this year's Oct window is not open — do not fall back to Jan–Sep.
+    if (month < seasonStartM || (month === seasonStartM && day < seasonStartD)) {
+      return {
+        display: "N/A",
+        isNa: true,
+        detail:
+          "Season window starts Oct 1 · compares Oct–to-date vs prior year Oct–to-date",
+      };
+    }
 
     let thisRev = 0;
     let priorRev = 0;
@@ -773,14 +790,14 @@
       if (!ymd) return;
       const revNum = Number(l.revenue_php);
       const hasRev = Number.isFinite(revNum) && revNum > 0;
-      if (isOnOrBeforeYtd(ymd, cy, month, day)) {
+      if (isInSeasonWindow(ymd, cy, month, day)) {
         thisWon += 1;
         if (hasRev) {
           thisRev += revNum;
           thisWithRev += 1;
         }
       }
-      if (isOnOrBeforeYtd(ymd, py, month, day)) {
+      if (isInSeasonWindow(ymd, py, month, day)) {
         priorWon += 1;
         if (hasRev) {
           priorRev += revNum;
@@ -796,7 +813,7 @@
       return {
         display: "N/A",
         isNa: true,
-        detail: `Insufficient prior-year data · ${cy} YTD ${fmt(thisRev)} (${thisWon} won)`,
+        detail: `Insufficient prior-year data · ${cy} Oct–to-date ${fmt(thisRev)} (${thisWon} won)`,
       };
     }
 
@@ -806,7 +823,7 @@
     return {
       display: `${sign}${rounded}%`,
       isNa: false,
-      detail: `${cy} YTD ${fmt(thisRev)} vs ${py} YTD ${fmt(priorRev)}`,
+      detail: `${cy} Oct–to-date ${fmt(thisRev)} vs ${py} Oct–to-date ${fmt(priorRev)}`,
     };
   }
 
