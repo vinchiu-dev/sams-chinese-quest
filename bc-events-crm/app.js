@@ -688,6 +688,32 @@
   }
 
   /**
+   * Calendar-year YTD win rate for a given year (default: current year).
+   * Filter: attribution date (last_updated else inquiry_date) in that year on or before today.
+   * Then Won ÷ (Won + Lost); open pipeline excluded. N/A if no closed deals in window.
+   */
+  function computeYtdWinRate(leads, year) {
+    const now = new Date();
+    const y = year != null ? year : now.getFullYear();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+    const inWindow = leads.filter((l) => {
+      const ymd = parseLeadYmd(l);
+      return ymd && isOnOrBeforeYtd(ymd, y, month, day);
+    });
+    const result = computeWinRate(inWindow);
+    if (result.isNa) {
+      return {
+        display: "N/A",
+        isNa: true,
+        year: y,
+        detail: `No closed ${y} YTD deals · open pipeline excluded`,
+      };
+    }
+    return { ...result, year: y };
+  }
+
+  /**
    * YoY events revenue growth = this calendar YTD won revenue vs prior calendar YTD.
    * Attribution date: last_updated, else inquiry_date. Never invents numbers.
    */
@@ -748,8 +774,42 @@
     };
   }
 
+  function renderTopMetrics() {
+    const leads = allLeads();
+    const year = new Date().getFullYear();
+    const wonLabel = document.getElementById("tm-won-label");
+    const wonEl = document.getElementById("tm-won-value");
+    const yoyEl = document.getElementById("tm-yoy-value");
+    const yoyDetail = document.getElementById("tm-yoy-detail");
+    if (!wonEl && !yoyEl) return;
+
+    if (wonLabel) wonLabel.textContent = `${year} Won`;
+
+    const ytdWin = computeYtdWinRate(leads, year);
+    if (wonEl) {
+      wonEl.textContent = ytdWin.display;
+      wonEl.classList.toggle("is-na", !!ytdWin.isNa);
+      wonEl.classList.toggle("is-positive", !ytdWin.isNa);
+      wonEl.title = ytdWin.detail || "";
+    }
+
+    const yoy = computeYoyEventsRevenueGrowth(leads);
+    if (yoyEl) {
+      yoyEl.textContent = yoy.display;
+      yoyEl.classList.toggle("is-na", !!yoy.isNa);
+      const positive = !yoy.isNa && String(yoy.display).startsWith("+");
+      yoyEl.classList.toggle("is-positive", positive);
+      yoyEl.title = yoy.detail || "";
+    }
+    if (yoyDetail) {
+      // Tiny secondary detail only when we have a comparable prior year
+      yoyDetail.textContent = yoy.isNa ? "" : (yoy.detail || "");
+    }
+  }
+
   function renderInsights() {
     const leads = allLeads();
+    try { renderTopMetrics(); } catch (err) { console.warn("BC CRM top metrics", err); }
     const srcEl = document.getElementById("source-insight");
     const lostEl = document.getElementById("lost-insight");
     const winEl = document.getElementById("win-rate-value");
@@ -1041,6 +1101,7 @@
     const leadCountEl = document.getElementById("lead-count");
     if (leadCountEl) leadCountEl.textContent = `${filtered.length} of ${leads.length} leads`;
     renderRevenue();
+    try { renderTopMetrics(); } catch (err) { console.warn("BC CRM top metrics", err); }
     renderChips();
 
     const board = document.getElementById("board");

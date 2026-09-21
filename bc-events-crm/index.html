@@ -51,6 +51,46 @@
       gap: 4px 12px;
       justify-content: space-between;
     }
+
+    .topbar-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 4px 14px;
+      margin-top: 4px;
+      padding-top: 4px;
+      border-top: 1px solid var(--border);
+      font-size: 0.72rem;
+      line-height: 1.25;
+      color: var(--muted);
+    }
+    .topbar-metric {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 6px;
+      white-space: nowrap;
+    }
+    .topbar-metric .tm-label {
+      font-weight: 500;
+      color: var(--muted);
+    }
+    .topbar-metric .tm-value {
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--text);
+    }
+    .topbar-metric .tm-value.is-positive { color: var(--won); }
+    .topbar-metric .tm-value.is-na { color: var(--muted); font-weight: 600; }
+    .topbar-metric .tm-detail {
+      font-size: 0.64rem;
+      color: #94a3b8;
+      font-weight: 400;
+    }
+    .topbar-metrics .tm-sep {
+      color: #cbd5e1;
+      font-weight: 400;
+      user-select: none;
+    }
     .brand {
       display: flex;
       flex-wrap: wrap;
@@ -1157,6 +1197,18 @@
         <button type="button" class="rev-link" id="rev-toggle" aria-expanded="false" aria-controls="insights-panel" title="Win rate, YoY revenue, sources, lost reasons">Insights</button>
       </div>
     </div>
+    <div class="topbar-metrics" id="topbar-metrics" aria-label="YTD win rate and revenue growth">
+      <div class="topbar-metric" title="Won ÷ (Won + Lost) among closed deals attributed to this calendar year YTD">
+        <span class="tm-label" id="tm-won-label">2026 Won</span>
+        <span class="tm-value" id="tm-won-value">—</span>
+      </div>
+      <span class="tm-sep" aria-hidden="true">·</span>
+      <div class="topbar-metric" title="This calendar YTD won revenue vs prior calendar YTD">
+        <span class="tm-label">YTD rev growth</span>
+        <span class="tm-value" id="tm-yoy-value">—</span>
+        <span class="tm-detail" id="tm-yoy-detail"></span>
+      </div>
+    </div>
   </header>
 
   <div class="insights-overlay" id="insights-panel" aria-hidden="true">
@@ -1383,6 +1435,6 @@
   })();
   </script>
 
-  <script src="app.js?v=20260916-nobanner"></script>
+  <script src="app.js?v=20260921-won-row"></script>
 </body>
 </html>
