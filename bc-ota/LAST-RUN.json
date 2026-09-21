@@ -1,27 +1,27 @@
 {
-  "version": "2026-09-16-ota1",
+  "version": "2026-09-21-ota1",
   "property": "blue-coast-beach-hotel",
   "property_label": "Blue Coast Beach Hotel",
   "currency": "PHP",
-  "currency_symbol": "\u20b1",
+  "currency_symbol": "₱",
   "cadence": "weekly",
-  "last_run_at_et": "2026-09-16T11:45:00-04:00",
+  "last_run_at_et": "2026-09-21T10:45:00-04:00",
   "dashboard_published_url": "https://vinchiu-dev.github.io/sams-chinese-quest/bc-ota/",
   "dashboard_ux": "ota-growth-v1",
   "windows": {
     "last_7d": {
-      "start_et": "2026-09-09",
-      "end_et": "2026-09-15",
+      "start_et": "2026-09-14",
+      "end_et": "2026-09-20",
       "label": "Last 7d"
     },
     "prior_7d": {
-      "start_et": "2026-09-02",
-      "end_et": "2026-09-08",
+      "start_et": "2026-09-07",
+      "end_et": "2026-09-13",
       "label": "Prior 7d"
     },
     "yoy_7d": {
-      "start_et": "2025-09-09",
-      "end_et": "2025-09-15",
+      "start_et": "2025-09-14",
+      "end_et": "2025-09-20",
       "pulled": true,
       "label": "YoY 7d"
     }
@@ -44,7 +44,7 @@
         "wow_pct": null,
         "yoy_pct": null,
         "status": "Unknown",
-        "note": "Amounts often missing from email snippets; leave null unless Grand Total parsed (PHP 16.083,00 \u2192 16083.00)"
+        "note": "Amounts often missing from email snippets; leave null unless Grand Total parsed (PHP 16.083,00 → 16083.00)"
       }
     },
     "booking": {
@@ -64,7 +64,7 @@
         "wow_pct": null,
         "yoy_pct": null,
         "status": "Unknown",
-        "note": "Amounts often missing from email snippets; leave null unless Grand Total parsed (PHP 16.083,00 \u2192 16083.00)"
+        "note": "Amounts often missing from email snippets; leave null unless Grand Total parsed (PHP 16.083,00 → 16083.00)"
       }
     },
     "total": {
@@ -84,14 +84,14 @@
         "wow_pct": null,
         "yoy_pct": null,
         "status": "Unknown",
-        "note": "Amounts often missing from email snippets; leave null unless Grand Total parsed (PHP 16.083,00 \u2192 16083.00)"
+        "note": "Amounts often missing from email snippets; leave null unless Grand Total parsed (PHP 16.083,00 → 16083.00)"
       }
     }
   },
   "weekly_series": [
     {
-      "week_start_et": "2026-06-23",
-      "week_end_et": "2026-06-29",
+      "week_start_et": "2026-06-29",
+      "week_end_et": "2026-07-05",
       "agoda_bookings": 0,
       "booking_bookings": 0,
       "total_bookings": 0,
@@ -100,8 +100,8 @@
       "total_revenue_php": null
     },
     {
-      "week_start_et": "2026-06-30",
-      "week_end_et": "2026-07-06",
+      "week_start_et": "2026-07-06",
+      "week_end_et": "2026-07-12",
       "agoda_bookings": 0,
       "booking_bookings": 0,
       "total_bookings": 0,
@@ -110,8 +110,8 @@
       "total_revenue_php": null
     },
     {
-      "week_start_et": "2026-07-07",
-      "week_end_et": "2026-07-13",
+      "week_start_et": "2026-07-13",
+      "week_end_et": "2026-07-19",
       "agoda_bookings": 0,
       "booking_bookings": 0,
       "total_bookings": 0,
@@ -120,8 +120,8 @@
       "total_revenue_php": null
     },
     {
-      "week_start_et": "2026-07-14",
-      "week_end_et": "2026-07-20",
+      "week_start_et": "2026-07-20",
+      "week_end_et": "2026-07-26",
       "agoda_bookings": 0,
       "booking_bookings": 0,
       "total_bookings": 0,
@@ -130,8 +130,8 @@
       "total_revenue_php": null
     },
     {
-      "week_start_et": "2026-07-21",
-      "week_end_et": "2026-07-27",
+      "week_start_et": "2026-07-27",
+      "week_end_et": "2026-08-02",
       "agoda_bookings": 0,
       "booking_bookings": 0,
       "total_bookings": 0,
@@ -140,8 +140,8 @@
       "total_revenue_php": null
     },
     {
-      "week_start_et": "2026-07-28",
-      "week_end_et": "2026-08-03",
+      "week_start_et": "2026-08-03",
+      "week_end_et": "2026-08-09",
       "agoda_bookings": 0,
       "booking_bookings": 0,
       "total_bookings": 0,
@@ -150,8 +150,8 @@
       "total_revenue_php": null
     },
     {
-      "week_start_et": "2026-08-04",
-      "week_end_et": "2026-08-10",
+      "week_start_et": "2026-08-10",
+      "week_end_et": "2026-08-16",
       "agoda_bookings": 0,
       "booking_bookings": 0,
       "total_bookings": 0,
@@ -160,8 +160,8 @@
       "total_revenue_php": null
     },
     {
-      "week_start_et": "2026-08-11",
-      "week_end_et": "2026-08-17",
+      "week_start_et": "2026-08-17",
+      "week_end_et": "2026-08-23",
       "agoda_bookings": 0,
       "booking_bookings": 0,
       "total_bookings": 0,
@@ -170,8 +170,8 @@
       "total_revenue_php": null
     },
     {
-      "week_start_et": "2026-08-18",
-      "week_end_et": "2026-08-24",
+      "week_start_et": "2026-08-24",
+      "week_end_et": "2026-08-30",
       "agoda_bookings": 0,
       "booking_bookings": 0,
       "total_bookings": 0,
@@ -180,8 +180,8 @@
       "total_revenue_php": null
     },
     {
-      "week_start_et": "2026-08-25",
-      "week_end_et": "2026-08-31",
+      "week_start_et": "2026-08-31",
+      "week_end_et": "2026-09-06",
       "agoda_bookings": 0,
       "booking_bookings": 0,
       "total_bookings": 0,
@@ -190,8 +190,8 @@
       "total_revenue_php": null
     },
     {
-      "week_start_et": "2026-09-01",
-      "week_end_et": "2026-09-07",
+      "week_start_et": "2026-09-07",
+      "week_end_et": "2026-09-13",
       "agoda_bookings": 0,
       "booking_bookings": 0,
       "total_bookings": 0,
@@ -200,8 +200,8 @@
       "total_revenue_php": null
     },
     {
-      "week_start_et": "2026-09-08",
-      "week_end_et": "2026-09-14",
+      "week_start_et": "2026-09-14",
+      "week_end_et": "2026-09-20",
       "agoda_bookings": 0,
       "booking_bookings": 0,
       "total_bookings": 0,
@@ -211,6 +211,20 @@
     }
   ],
   "bookings": [
+    {
+      "id": "9300968685052",
+      "date_et": "2026-09-18",
+      "channel": "agoda",
+      "guest": "Zach D",
+      "ref": "9300968685052",
+      "nights": 1,
+      "amount_php": 12629.76,
+      "status": "cancelled",
+      "cancelled_et": "2026-09-18",
+      "check_in": "2026-09-23",
+      "check_out": "2026-09-24",
+      "source_note": "Cloudbeds → Gmail; Agoda ID 1775981554; Grand Total PHP 12.629,76; cancelled same day (fraud cancel)"
+    },
     {
       "id": "3909326132361",
       "date_et": "2025-12-11",
@@ -222,7 +236,7 @@
       "status": "confirmed",
       "check_in": null,
       "check_out": null,
-      "source_note": "Cloudbeds \u2192 Gmail; Grand Total PHP 16.083,00"
+      "source_note": "Cloudbeds → Gmail; Grand Total PHP 16.083,00"
     },
     {
       "id": "5696887561461",
@@ -286,7 +300,7 @@
       "status": "confirmed",
       "check_in": null,
       "check_out": null,
-      "source_note": "Cloudbeds \u2192 Gmail; Grand Total PHP 14.617,33"
+      "source_note": "Cloudbeds → Gmail; Grand Total PHP 14.617,33"
     },
     {
       "id": "9167458829154",
@@ -360,29 +374,47 @@
       "cancelled_et": "2025-10-14",
       "check_in": null,
       "check_out": null
+    },
+    {
+      "id": "9275973717185",
+      "date_et": "2025-09-10",
+      "channel": "agoda",
+      "guest": "Bernadette Lleno",
+      "ref": "9275973717185",
+      "nights": null,
+      "amount_php": null,
+      "status": "confirmed",
+      "check_in": null,
+      "check_out": null
     }
   ],
   "statuses": {
     "overall": "Steady",
     "agoda": "Steady",
     "booking": "Steady",
-    "note": "Count KPIs are honest zeros for Sep 2026 windows (no OTA Cloudbeds mail in Last/Prior 7d). YoY 7d (2025-09-09\u219215) also 0 confirmed in sample. Prefer counts over \u20b1 until more Grand Totals are parsed."
+    "note": "Gmail Cloudbeds scan Mon 2026-09-21: Last 7d (9/14–20) had 1 Agoda confirm (Zach D #9300968685052, ₱12629.76) cancelled same day — KPI counts exclude cancelled → 0. Prior 7d and YoY 7d also 0 confirmed Agoda/Booking.com. Honest zeros = Steady."
   },
   "notices": [
     {
       "severity": "yellow",
-      "title": "Sep 2026 OTA windows are 0",
-      "body": "Last 7d / Prior 7d show 0 Agoda + Booking.com Cloudbeds confirmations in seed. Not Unknown \u2014 honest zero until a weekly Gmail scan finds new OTA mail. Historical confirmed rows (Oct\u2013Dec 2025) are listed below for reference."
+      "title": "Agoda Zach D same-day cancel (Last 7d)",
+      "body": "Agoda/Priceline Zach D confirmed 2026-09-18 (check-in 9/23, 1 night, Grand Total ₱12,629.76 / Agoda ID 1775981554) then cancelled ~12 min later (fraud-prevention cancel). Excluded from confirmed KPIs."
     },
     {
       "severity": "unknown",
-      "title": "Gross \u20b1 mostly Unknown",
-      "body": "Parse Cloudbeds Grand Total as EU-style PHP (dot=thousands, comma=decimals), e.g. PHP 16.083,00 \u2192 16083.00. Seeded amounts only where body was parsed (Maria Agnes Santos \u20b116083; Heli Wilhelm Pascua \u20b114617.33). Prefer count-based KPIs for v1."
+      "title": "Agoda availability nudges (FO optional)",
+      "body": "Agoda sent recurring 'Update Your Availability' emails (e.g. 9/15, 9/18, 9/20). Not a login blocker; FO can glance Agoda Partner Portal (property 5824694) if inventory looks thin. No extranet deep pull this run."
+    },
+    {
+      "severity": "unknown",
+      "title": "Gross ₱ mostly Unknown",
+      "body": "Parse Cloudbeds Grand Total as EU-style PHP (dot=thousands, comma=decimals). Confirmed amounts only where body parsed. Prefer count-based KPIs."
     }
   ],
   "blockers": [],
   "sources_pulled": [
-    "gmail_cloudbeds_seed_sample"
+    "gmail_cloudbeds_ota_vin.chiu+bluecoastbeachhotel",
+    "gmail_agoda_partner_notices"
   ],
-  "notes": "OTA via Cloudbeds emails to vin.chiu@gmail.com / bluecoastbeachhotel@gmail.com. Source=Booking.com or Agoda/Priceline; detect guest.booking.com or agoda-messaging.com. Counts use CONFIRMED only (exclude cancelled). Dedupe by confirmation #. Amounts: PHP 16.083,00 \u2192 16083.00."
+  "notes": "OTA via Cloudbeds emails to vin.chiu@gmail.com / bluecoastbeachhotel@gmail.com. Source=Booking.com or Agoda/Priceline; detect guest.booking.com or agoda-messaging.com. Counts use CONFIRMED only (exclude cancelled). Dedupe by confirmation #. Amounts: PHP 12.629,76 → 12629.76. IDs: Agoda 5824694, Booking.com 10197746. No extranet session this run."
 }
