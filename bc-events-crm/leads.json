@@ -38,7 +38,7 @@
       "event_dates": null,
       "pax": null,
       "event_type": "Government price quotation / market survey RFQ (details in DOCX attachment; FO to quote)",
-      "stage": "new_inquiry",
+      "stage": "quoted",
       "last_updated": "2026-09-21",
       "seed_notes": "Gmail msg 1a0c1de67d8a36e6. From CVMC Bids and Awards Committee <bac@cvmc.doh.gov.ph> To stay@bluecoastbeachhotel.com. Date header: Mon, 21 Sep 2026 10:49:13 +0800 (= Sun Sep 20 ~10:49pm ET). Subject: Price Quotation - Market Survey. Body: 'Please quote your lowest price on the item/s listed'. Attachment: Price Quotation - Canvass BAC (1).docx (~7.4MB). No event dates/pax/amount in email body — do not invent. FO owns quote send. Vin notified of new inquiry. Auto-ingest missed: weekday sync filters for EVENT INQUIRY subject; this is RFQ/quotation language.",
       "fo_notes": "",
@@ -46,7 +46,7 @@
       "subject": "Price Quotation - Market Survey",
       "related_contacts": [],
       "marketing_channel": "Gov RFQ / email",
-      "revenue_php": null
+      "revenue_php": 491000
     },
     {
       "id": "1a0ac104a1d47557",
