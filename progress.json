@@ -46,7 +46,8 @@
     "yě",
     "nǐmen hǎo",
     "ge",
-    "nián"
+    "nián",
+    "chūshēng"
   ],
   "archived": [
     "měiguó"
@@ -2235,6 +2236,13 @@
       "right": 1,
       "wrong": 0,
       "last": 1789406876477
+    },
+    "chūshēng": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1790088674113
     }
   },
   "chipLog": [
@@ -2370,11 +2378,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1790088659057,
-  "pool_at": 1790088612207,
-  "starredSentences_at": 1790088612208,
-  "hiddenWords_at": 1790088612208,
-  "archived_at": 1790088612208,
+  "trouble_at": 1790088674115,
+  "pool_at": 1790088672214,
+  "starredSentences_at": 1790088672215,
+  "hiddenWords_at": 1790088672215,
+  "archived_at": 1790088672215,
   "en_starred_at": 1789406325598,
   "math_missed_at": 1790088490119,
   "chips": 13
