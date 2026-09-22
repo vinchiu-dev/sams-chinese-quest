@@ -86,9 +86,9 @@
   "hiddenWords": [],
   "practiceDays": [
     "2026-08-08",
-    "2026-08-12",
     "2026-08-10",
     "2026-08-11",
+    "2026-08-12",
     "2026-08-15",
     "2026-08-16",
     "2026-08-17",
@@ -98,8 +98,8 @@
     "2026-08-22",
     "2026-08-23",
     "2026-08-26",
-    "2026-08-27",
     "2026-08-18",
+    "2026-08-27",
     "2026-08-29",
     "2026-08-31",
     "2026-09-01",
@@ -151,12 +151,40 @@
     },
     {
       "en": "Wrestling",
+      "pinyin": "",
+      "hanzi": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "en": "Wrestling",
       "pinyin": "shuāijiāo",
       "hanzi": "摔跤",
       "emoji": "📝"
+    },
+    {
+      "en": "Sinister",
+      "pinyin": "",
+      "hanzi": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
+    {
+      "en": "Inspired",
+      "pinyin": "",
+      "hanzi": "",
+      "emoji": "📝",
+      "needsDef": true
     }
   ],
   "en_myWords": [
+    {
+      "word": "I will add those to the list",
+      "definition": "(definition coming — ask Claude to fill this in)",
+      "example": "",
+      "emoji": "📝",
+      "needsDef": true
+    },
     {
       "word": "vegetable",
       "definition": "(definition coming — ask Claude to fill this in)",
@@ -194,13 +222,6 @@
     },
     {
       "word": "Violate",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "I will add those to the list",
       "definition": "(definition coming — ask Claude to fill this in)",
       "example": "",
       "emoji": "📝",
@@ -293,31 +314,6 @@
   ],
   "wodHistory": [
     {
-      "hanzi": "有",
-      "pinyin": "yǒu",
-      "en": "to have / there is",
-      "emoji": "🙌",
-      "phrases": [
-        {
-          "en": "I have a backpack",
-          "pinyin": "wǒ yǒu shūbāo",
-          "hanzi": "我有书包"
-        },
-        {
-          "en": "there are three people",
-          "pinyin": "yǒu sān ge rén",
-          "hanzi": "有三个人"
-        },
-        {
-          "en": "do you have a cat?",
-          "pinyin": "nǐ yǒu māo ma?",
-          "hanzi": "你有猫吗？"
-        }
-      ],
-      "lesson": "How Many People?",
-      "wodDate": "2026-08-20"
-    },
-    {
       "en": "有",
       "pinyin": "",
       "hanzi": "有",
@@ -345,6 +341,31 @@
       ],
       "lesson": "How Many People?",
       "wodDate": "2026-08-21"
+    },
+    {
+      "hanzi": "有",
+      "pinyin": "yǒu",
+      "en": "to have / there is",
+      "emoji": "🙌",
+      "phrases": [
+        {
+          "en": "I have a backpack",
+          "pinyin": "wǒ yǒu shūbāo",
+          "hanzi": "我有书包"
+        },
+        {
+          "en": "there are three people",
+          "pinyin": "yǒu sān ge rén",
+          "hanzi": "有三个人"
+        },
+        {
+          "en": "do you have a cat?",
+          "pinyin": "nǐ yǒu māo ma?",
+          "hanzi": "你有猫吗？"
+        }
+      ],
+      "lesson": "How Many People?",
+      "wodDate": "2026-08-20"
     }
   ],
   "srs": {
@@ -467,118 +488,6 @@
       "wrong": 0,
       "last": 1787237300195
     },
-    "láizì": {
-      "lvl": 0,
-      "seen": 15,
-      "right": 6,
-      "wrong": 9,
-      "last": 1788706249449
-    },
-    "suì": {
-      "lvl": 0,
-      "seen": 10,
-      "right": 4,
-      "wrong": 6,
-      "last": 1788182534398
-    },
-    "yīngguórén": {
-      "lvl": 4,
-      "seen": 4,
-      "right": 4,
-      "wrong": 0,
-      "last": 1787835631153
-    },
-    "nǎ guó rén": {
-      "lvl": 1,
-      "seen": 7,
-      "right": 3,
-      "wrong": 4,
-      "last": 1787407224992
-    },
-    "měiguó": {
-      "lvl": 2,
-      "seen": 5,
-      "right": 3,
-      "wrong": 2,
-      "last": 1788706227948
-    },
-    "jiào": {
-      "lvl": 0,
-      "seen": 8,
-      "right": 3,
-      "wrong": 5,
-      "last": 1788182534402
-    },
-    "wàixīngrén": {
-      "lvl": 2,
-      "seen": 2,
-      "right": 2,
-      "wrong": 0,
-      "last": 1787146543652
-    },
-    "zhōngguórén": {
-      "lvl": 5,
-      "seen": 5,
-      "right": 5,
-      "wrong": 0,
-      "last": 1788196197153
-    },
-    "xīngqiú": {
-      "lvl": 3,
-      "seen": 3,
-      "right": 3,
-      "wrong": 0,
-      "last": 1787439800662
-    },
-    "měiguórén": {
-      "lvl": 3,
-      "seen": 3,
-      "right": 3,
-      "wrong": 0,
-      "last": 1788196203146
-    },
-    "The alien is too cool!": {
-      "lvl": 2,
-      "seen": 2,
-      "right": 2,
-      "wrong": 0,
-      "last": 1788285264636
-    },
-    "My little brother also likes to play.": {
-      "lvl": 2,
-      "seen": 8,
-      "right": 6,
-      "wrong": 2,
-      "last": 1787837372565
-    },
-    "Goodbye, Mika!": {
-      "lvl": 1,
-      "seen": 5,
-      "right": 4,
-      "wrong": 1,
-      "last": 1787836515516
-    },
-    "I am also American.": {
-      "lvl": 5,
-      "seen": 9,
-      "right": 9,
-      "wrong": 0,
-      "last": 1786552782734
-    },
-    "I also want to eat watermelon.": {
-      "lvl": 0,
-      "seen": 4,
-      "right": 3,
-      "wrong": 1,
-      "last": 1788196560197
-    },
-    "Mika, you're too cool!": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
-      "wrong": 0,
-      "last": 1786887385844
-    },
     "I am six years old.": {
       "lvl": 2,
       "seen": 2,
@@ -642,6 +551,20 @@
       "wrong": 0,
       "last": 1787237300197
     },
+    "měiguó": {
+      "lvl": 2,
+      "seen": 5,
+      "right": 3,
+      "wrong": 2,
+      "last": 1788706227948
+    },
+    "suì": {
+      "lvl": 0,
+      "seen": 10,
+      "right": 4,
+      "wrong": 6,
+      "last": 1788182534398
+    },
     "shì": {
       "lvl": 1,
       "seen": 14,
@@ -662,6 +585,55 @@
       "right": 4,
       "wrong": 0,
       "last": 1787835627819
+    },
+    "xīngqiú": {
+      "lvl": 3,
+      "seen": 3,
+      "right": 3,
+      "wrong": 0,
+      "last": 1787439800662
+    },
+    "yīngguórén": {
+      "lvl": 4,
+      "seen": 4,
+      "right": 4,
+      "wrong": 0,
+      "last": 1787835631153
+    },
+    "zhōngguórén": {
+      "lvl": 5,
+      "seen": 5,
+      "right": 5,
+      "wrong": 0,
+      "last": 1788196197153
+    },
+    "nǎ guó rén": {
+      "lvl": 1,
+      "seen": 7,
+      "right": 3,
+      "wrong": 4,
+      "last": 1787407224992
+    },
+    "wàixīngrén": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1787146543652
+    },
+    "láizì": {
+      "lvl": 0,
+      "seen": 15,
+      "right": 6,
+      "wrong": 9,
+      "last": 1788706249449
+    },
+    "měiguórén": {
+      "lvl": 3,
+      "seen": 3,
+      "right": 3,
+      "wrong": 0,
+      "last": 1788196203146
     },
     "The little monkey's head hurts a bit.": {
       "lvl": 1,
@@ -726,6 +698,13 @@
       "wrong": 0,
       "last": 1786399229386
     },
+    "jiào": {
+      "lvl": 0,
+      "seen": 8,
+      "right": 3,
+      "wrong": 5,
+      "last": 1788182534402
+    },
     "My big sister is six years old too.": {
       "lvl": 1,
       "seen": 1,
@@ -746,6 +725,20 @@
       "right": 1,
       "wrong": 2,
       "last": 1787837130775
+    },
+    "The alien is too cool!": {
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
+      "wrong": 0,
+      "last": 1788285264636
+    },
+    "My little brother also likes to play.": {
+      "lvl": 2,
+      "seen": 8,
+      "right": 6,
+      "wrong": 2,
+      "last": 1787837372565
     },
     "math:+:4:1": {
       "lvl": 2,
@@ -893,6 +886,13 @@
       "right": 2,
       "wrong": 0,
       "last": 1786887433408
+    },
+    "Mika, you're too cool!": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1786887385844
     },
     "How old are you?": {
       "lvl": 2,
@@ -1054,6 +1054,27 @@
       "right": 4,
       "wrong": 3,
       "last": 1788706227946
+    },
+    "Goodbye, Mika!": {
+      "lvl": 1,
+      "seen": 5,
+      "right": 4,
+      "wrong": 1,
+      "last": 1787836515516
+    },
+    "I am also American.": {
+      "lvl": 5,
+      "seen": 9,
+      "right": 9,
+      "wrong": 0,
+      "last": 1786552782734
+    },
+    "I also want to eat watermelon.": {
+      "lvl": 0,
+      "seen": 4,
+      "right": 3,
+      "wrong": 1,
+      "last": 1788196560197
     },
     "math:+:4:4": {
       "lvl": 2,
@@ -2216,57 +2237,112 @@
       "type": "daily",
       "amount": 1,
       "note": "Daily goal",
-      "at": 1787836561631
+      "at": 1787406323250
+    },
+    {
+      "type": "wod",
+      "amount": 1,
+      "note": "Word of the day ⭐",
+      "at": 1787355843612
     },
     {
       "type": "daily",
       "amount": 1,
       "note": "Daily goal",
-      "at": 1786552225162
+      "at": 1787146549580
+    },
+    {
+      "type": "wod",
+      "amount": 1,
+      "note": "Word of the day ⭐",
+      "at": 1786980036246
+    },
+    {
+      "type": "spoken",
+      "amount": 1,
+      "note": "Spoke 10 sentences 🗣️",
+      "at": 1786910827153
+    },
+    {
+      "type": "wod",
+      "amount": 1,
+      "note": "Word of the day ⭐",
+      "at": 1786901307500
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786840319065
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786453221690
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786409020277
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786237233480
     }
   ],
   "dayCount": {
-    "date": "2026-08-27",
-    "n": 31
+    "date": "2026-09-14",
+    "n": 3
   },
   "spokenCount": {
-    "date": "2026-08-20",
-    "n": 8
+    "date": "2026-08-21",
+    "n": 7
   },
   "wordOfDay": {
-    "date": "2026-08-20",
+    "date": "2026-08-21",
     "word": {
-      "hanzi": "有",
-      "pinyin": "yǒu",
-      "en": "to have / there is",
-      "emoji": "🙌",
+      "hanzi": "家",
+      "pinyin": "jiā",
+      "en": "home / family",
+      "emoji": "🏠",
       "phrases": [
         {
-          "en": "I have a backpack",
-          "pinyin": "wǒ yǒu shūbāo",
-          "hanzi": "我有书包"
+          "en": "my family",
+          "pinyin": "wǒ jiā",
+          "hanzi": "我家"
         },
         {
-          "en": "there are three people",
-          "pinyin": "yǒu sān ge rén",
-          "hanzi": "有三个人"
-        },
-        {
-          "en": "do you have a cat?",
-          "pinyin": "nǐ yǒu māo ma?",
-          "hanzi": "你有猫吗？"
+          "en": "at home",
+          "pinyin": "zài jiā",
+          "hanzi": "在家"
         }
       ],
       "lesson": "How Many People?"
     }
   },
-  "goalClaimed": "2026-08-27",
-  "wodDone": "",
-  "spokenClaimed": "",
-  "math_sets": [
-    "add10"
+  "goalClaimed": "2026-08-31",
+  "wodDone": "2026-08-21",
+  "spokenClaimed": "2026-08-16",
+  "math_missed": [
+    "math:bond:9:3",
+    "math:bond:9:6",
+    "math:bond:8:2",
+    "math:bond:8:6",
+    "math:bond:8:1",
+    "math:bond:8:7"
   ],
-  "car_deck": "words",
+  "math_sets": [
+    "sub20",
+    "add20",
+    "plus10",
+    "neardbl",
+    "bonds20"
+  ],
+  "car_deck": "math",
   "car_gap": 10,
   "car_len": 12,
   "pool": [
@@ -2282,11 +2358,12 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1789940582158,
-  "pool_at": 1789940582158,
-  "starredSentences_at": 1789940582158,
-  "hiddenWords_at": 1789940581517,
-  "archived_at": 1789940582158,
+  "trouble_at": 1790088491926,
+  "pool_at": 1790088491916,
+  "starredSentences_at": 1790088491926,
+  "hiddenWords_at": 1790088491916,
+  "archived_at": 1790088491926,
   "en_starred_at": 1789406325598,
+  "math_missed_at": 1790088490119,
   "chips": 13
 }
