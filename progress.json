@@ -44,7 +44,8 @@
     "míngtiān jiàn",
     "kù",
     "yě",
-    "nǐmen hǎo"
+    "nǐmen hǎo",
+    "ge"
   ],
   "archived": [
     "měiguó"
@@ -1038,11 +1039,11 @@
       "last": 1787835648723
     },
     "ge": {
-      "lvl": 2,
-      "seen": 6,
+      "lvl": 0,
+      "seen": 7,
       "right": 4,
-      "wrong": 2,
-      "last": 1788182534395
+      "wrong": 3,
+      "last": 1790088634899
     },
     "rén": {
       "lvl": 0,
@@ -2368,7 +2369,7 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1790088620425,
+  "trouble_at": 1790088634900,
   "pool_at": 1790088612207,
   "starredSentences_at": 1790088612208,
   "hiddenWords_at": 1790088612208,
