@@ -51,7 +51,8 @@
     "duì",
     "zhèr",
     "tài kù le",
-    "chóngzi"
+    "chóngzi",
+    "sì yuè"
   ],
   "archived": [
     "měiguó"
@@ -2262,6 +2263,13 @@
       "right": 0,
       "wrong": 1,
       "last": 1790088714129
+    },
+    "sì yuè": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1790088778772
     }
   },
   "chipLog": [
@@ -2397,7 +2405,7 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1790088746563,
+  "trouble_at": 1790088778773,
   "pool_at": 1790088732297,
   "starredSentences_at": 1790088732298,
   "hiddenWords_at": 1790088732299,
