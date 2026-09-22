@@ -520,14 +520,14 @@
       "pax": null,
       "event_type": "RFQ 26-08-0618 (menu attachment suggests meals/catering; details in PDF)",
       "stage": "new_inquiry",
-      "last_updated": "2026-08-11",
+      "last_updated": "2026-09-22",
       "seed_notes": "Attachments: 26-08-0618.pdf; MENU - CY 2026 QUARTERLY RMDCs.pdf",
       "fo_notes": "",
       "lost_reason": "",
       "subject": "Request for Quotation (RFQ 26-08-0618)",
       "related_contacts": [],
       "marketing_channel": "Gov RFQ / email",
-      "revenue_php": null
+      "revenue_php": 350700
     },
     {
       "id": "1a0774e185c315dd",
