@@ -2342,7 +2342,7 @@
     "neardbl",
     "bonds20"
   ],
-  "car_deck": "math",
+  "car_deck": "words",
   "car_gap": 10,
   "car_len": 12,
   "pool": [
@@ -2353,16 +2353,23 @@
     "asking-about-people",
     "too-cool",
     "about-me",
-    "nationalities"
+    "nationalities",
+    "birthday-party",
+    "birthday-date",
+    "date-numbers",
+    "months-dates",
+    "clothes",
+    "where-are-we",
+    "colors"
   ],
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1790088491926,
-  "pool_at": 1790088491916,
-  "starredSentences_at": 1790088491926,
-  "hiddenWords_at": 1790088491916,
-  "archived_at": 1790088491926,
+  "trouble_at": 1790088552425,
+  "pool_at": 1790088552424,
+  "starredSentences_at": 1790088552425,
+  "hiddenWords_at": 1790088491926,
+  "archived_at": 1790088552425,
   "en_starred_at": 1789406325598,
   "math_missed_at": 1790088490119,
   "chips": 13
