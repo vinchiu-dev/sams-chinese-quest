@@ -41,7 +41,8 @@
     "nǎ",
     "jiào",
     "wán yóuxì",
-    "míngtiān jiàn"
+    "míngtiān jiàn",
+    "kù"
   ],
   "archived": [
     "měiguó"
@@ -951,11 +952,11 @@
       "last": 1788182534394
     },
     "kù": {
-      "lvl": 1,
-      "seen": 4,
+      "lvl": 0,
+      "seen": 5,
       "right": 3,
-      "wrong": 1,
-      "last": 1788182534401
+      "wrong": 2,
+      "last": 1790088557698
     },
     "Mǐkǎ": {
       "lvl": 3,
@@ -2365,10 +2366,10 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1790088552425,
+  "trouble_at": 1790088557700,
   "pool_at": 1790088552424,
   "starredSentences_at": 1790088552425,
-  "hiddenWords_at": 1790088491926,
+  "hiddenWords_at": 1790088552425,
   "archived_at": 1790088552425,
   "en_starred_at": 1789406325598,
   "math_missed_at": 1790088490119,
