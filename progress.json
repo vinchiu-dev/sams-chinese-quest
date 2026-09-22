@@ -45,7 +45,8 @@
     "kù",
     "yě",
     "nǐmen hǎo",
-    "ge"
+    "ge",
+    "nián"
   ],
   "archived": [
     "měiguó"
@@ -1802,11 +1803,11 @@
       "last": 1788020209262
     },
     "nián": {
-      "lvl": 1,
-      "seen": 1,
+      "lvl": 0,
+      "seen": 2,
       "right": 1,
-      "wrong": 0,
-      "last": 1788182534398
+      "wrong": 1,
+      "last": 1790088659055
     },
     "nǐmen hǎo": {
       "lvl": 0,
@@ -2369,7 +2370,7 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1790088634900,
+  "trouble_at": 1790088659057,
   "pool_at": 1790088612207,
   "starredSentences_at": 1790088612208,
   "hiddenWords_at": 1790088612208,
