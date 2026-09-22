@@ -585,15 +585,15 @@
       "event_dates": "2026-08-10 to 2026-08-24",
       "pax": "2 adults",
       "event_type": "long-stay room booking (14 nights) + airport transfer — not a banquet but group/travel lead",
-      "stage": "new_inquiry",
-      "last_updated": "2026-07-21",
+      "stage": "quoted",
+      "last_updated": "2026-09-22",
       "seed_notes": "CC karen.ayo@bluehorizons.travel. Misnamed subject (Coron 180) but body is Blue Coast Beach Hotel Sta. Ana.",
       "fo_notes": "",
       "lost_reason": "",
       "subject": "Request for Quotation || Coron 180 Hotel",
       "related_contacts": [],
       "marketing_channel": "Walk-in / other",
-      "revenue_php": null
+      "revenue_php": 3550
     },
     {
       "id": "19abe1b5587513ac",
