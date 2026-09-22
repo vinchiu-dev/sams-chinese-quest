@@ -47,7 +47,8 @@
     "nǐmen hǎo",
     "ge",
     "nián",
-    "chūshēng"
+    "chūshēng",
+    "duì"
   ],
   "archived": [
     "měiguó"
@@ -2243,6 +2244,13 @@
       "right": 0,
       "wrong": 1,
       "last": 1790088674113
+    },
+    "duì": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1790088702562
     }
   },
   "chipLog": [
@@ -2378,7 +2386,7 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1790088674115,
+  "trouble_at": 1790088702564,
   "pool_at": 1790088672214,
   "starredSentences_at": 1790088672215,
   "hiddenWords_at": 1790088672215,
