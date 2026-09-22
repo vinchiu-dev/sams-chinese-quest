@@ -24,8 +24,30 @@
       "label": "Lost"
     }
   ],
-  "lead_count": 29,
+  "lead_count": 30,
   "leads": [
+    {
+      "id": "1abb3f8eb2f936e6",
+      "name": "Margarita P. Mendoza",
+      "org": "DAR RO2",
+      "email": null,
+      "phone": "09057205505",
+      "source": "manual add (FO)",
+      "source_badge": "Other",
+      "inquiry_date": "2026-09-22",
+      "event_dates": "October 26-29 2026",
+      "pax": "50",
+      "event_type": "event inquiry",
+      "stage": "quoted",
+      "marketing_channel": "Walk-in / other",
+      "revenue_php": null,
+      "fo_notes": "",
+      "lost_reason": "",
+      "seed_notes": "Manual add 2026-09-22",
+      "last_updated": "2026-09-22",
+      "subject": "EVENT — Margarita P. Mendoza",
+      "editor": "fo-add"
+    },
     {
       "id": "1a0c1de67d8a36e6",
       "name": "CVMC Bids and Awards Committee",
