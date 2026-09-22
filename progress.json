@@ -48,7 +48,8 @@
     "ge",
     "nián",
     "chūshēng",
-    "duì"
+    "duì",
+    "zhèr"
   ],
   "archived": [
     "měiguó"
@@ -2251,6 +2252,13 @@
       "right": 0,
       "wrong": 1,
       "last": 1790088702562
+    },
+    "zhèr": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1790088714129
     }
   },
   "chipLog": [
@@ -2386,7 +2394,7 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1790088702564,
+  "trouble_at": 1790088714130,
   "pool_at": 1790088672214,
   "starredSentences_at": 1790088672215,
   "hiddenWords_at": 1790088672215,
