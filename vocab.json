@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-20",
+  "updated": "2026-09-24",
   "lessons": [
     {
       "id": "little-fox-school-supplies",
@@ -2394,6 +2394,93 @@
           ]
         }
       ]
+    },
+    {
+      "id": "telling-time",
+      "title": "What Time Is It?",
+      "subtitle": "现在几点？— saying the exact time",
+      "words": [
+        {
+          "hanzi": "现在",
+          "pinyin": "xiànzài",
+          "en": "now",
+          "emoji": "⏰",
+          "phrases": [
+            {
+              "en": "What time is it now?",
+              "pinyin": "xiànzài jǐ diǎn?",
+              "hanzi": "现在几点？"
+            },
+            {
+              "en": "I'm hungry now",
+              "pinyin": "wǒ xiànzài è le",
+              "hanzi": "我现在饿了"
+            }
+          ]
+        },
+        {
+          "hanzi": "几点",
+          "pinyin": "jǐ diǎn",
+          "en": "what time",
+          "emoji": "🕐",
+          "phrases": [
+            {
+              "en": "Mika, what time is it?",
+              "pinyin": "Mǐkǎ, xiànzài jǐ diǎn?",
+              "hanzi": "米卡，现在几点？"
+            }
+          ]
+        },
+        {
+          "hanzi": "点",
+          "pinyin": "diǎn",
+          "en": "o'clock",
+          "emoji": "🕐",
+          "phrases": [
+            {
+              "en": "three o'clock",
+              "pinyin": "sān diǎn",
+              "hanzi": "三点"
+            },
+            {
+              "en": "seven o'clock",
+              "pinyin": "qī diǎn",
+              "hanzi": "七点"
+            }
+          ]
+        },
+        {
+          "hanzi": "分",
+          "pinyin": "fēn",
+          "en": "minute",
+          "emoji": "⏱️",
+          "phrases": [
+            {
+              "en": "five minutes",
+              "pinyin": "wǔ fēn",
+              "hanzi": "五分"
+            },
+            {
+              "en": "three-oh-five",
+              "pinyin": "sān diǎn líng wǔ fēn",
+              "hanzi": "三点零五分"
+            }
+          ]
+        },
+        {
+          "hanzi": "零",
+          "pinyin": "líng",
+          "en": "zero",
+          "emoji": "0️⃣",
+          "phrases": [
+            {
+              "en": "three-oh-five",
+              "pinyin": "sān diǎn líng wǔ fēn",
+              "hanzi": "三点零五分"
+            }
+          ]
+        }
+      ]
     }
   ],
   "tagMap": {
@@ -2541,6 +2628,9 @@
     ],
     "bdayparty": [
       "birthday-party"
+    ],
+    "time": [
+      "telling-time"
     ]
   },
   "sentences": [
@@ -4463,6 +4553,48 @@
       "pinyin": "Wǒ xǐhuan fěnsè de qúnzi.",
       "hanzi": "我喜欢粉色的裙子。",
       "tag": "bdayparty"
+    },
+    {
+      "en": "Mika, what time is it now?",
+      "pinyin": "Mǐkǎ, xiànzài jǐ diǎn?",
+      "hanzi": "米卡，现在几点？",
+      "tag": "time"
+    },
+    {
+      "en": "It's three-oh-five.",
+      "pinyin": "Xiànzài sān diǎn líng wǔ fēn.",
+      "hanzi": "现在三点零五分。",
+      "tag": "time"
+    },
+    {
+      "en": "It's seven-ten.",
+      "pinyin": "Xiànzài qī diǎn shí fēn.",
+      "hanzi": "现在七点十分。",
+      "tag": "time"
+    },
+    {
+      "en": "What time is it?",
+      "pinyin": "Xiànzài jǐ diǎn?",
+      "hanzi": "现在几点？",
+      "tag": "time"
+    },
+    {
+      "en": "It's ten past ten.",
+      "pinyin": "Xiànzài shí diǎn shí fēn.",
+      "hanzi": "现在十点十分。",
+      "tag": "time"
+    },
+    {
+      "en": "What time is dinner?",
+      "pinyin": "Wǎnfàn shì jǐ diǎn?",
+      "hanzi": "晚饭是几点？",
+      "tag": "time"
+    },
+    {
+      "en": "Mom, what time is it now?",
+      "pinyin": "Māma, xiànzài jǐ diǎn?",
+      "hanzi": "妈妈，现在几点？",
+      "tag": "time"
     }
   ]
 }
