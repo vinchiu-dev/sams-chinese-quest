@@ -761,13 +761,13 @@
       "event_dates": "",
       "pax": "",
       "event_type": "RFQ 26-09-0726 (PREW CUM RMDC)",
-      "stage": "new_inquiry",
+      "stage": "quoted",
       "marketing_channel": "Gov RFQ / email",
-      "revenue_php": null,
+      "revenue_php": 632120,
       "fo_notes": "Attachment: 26-09-0726 (1).pdf. Prior RFQ 26-08-0618 tracked separately (id 19fefe982f0baf34).",
       "lost_reason": "",
       "seed_notes": "",
-      "last_updated": "2026-09-25",
+      "last_updated": "2026-09-26",
       "subject": "RFQ 26-09-0726 (DSWD FO2) (PREW CUM RMDC)",
       "editor": "bc-events-crm-sync"
     }
