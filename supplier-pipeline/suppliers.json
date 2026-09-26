@@ -116,7 +116,7 @@
       "contact": "",
       "notes": "",
       "stage": "onboarding",
-      "order": 0,
+      "order": 1,
       "quality_web": false,
       "quality_yt": false,
       "quality_ads": false,
@@ -241,7 +241,7 @@
       "contact": "",
       "notes": "Already on selling path; Golden Designs / Dynamic Saunas",
       "stage": "onboarding",
-      "order": 1,
+      "order": 0,
       "quality_web": false,
       "quality_yt": false,
       "quality_ads": false,
@@ -255,8 +255,8 @@
       "margin": 0.35,
       "score": 55.3,
       "score_notes": "Volumes/ratios recomputed vs Osaki KP 18100 (2026-09-18).",
-      "last_updated": "2026-09-18",
-      "editor": "margin-score"
+      "last_updated": "2026-09-26",
+      "editor": "ui"
     }
   ]
 }
