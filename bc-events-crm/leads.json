@@ -24,8 +24,30 @@
       "label": "Lost"
     }
   ],
-  "lead_count": 33,
+  "lead_count": 34,
   "leads": [
+    {
+      "id": "1a05b2459513d162",
+      "name": "Sir Dheejay",
+      "org": "DA PRDP",
+      "email": null,
+      "phone": "09157788806",
+      "source": "manual add (FO)",
+      "source_badge": "Other",
+      "inquiry_date": "2026-09-26",
+      "event_dates": "October 14-16  2026",
+      "pax": "75",
+      "event_type": "event inquiry",
+      "stage": "won",
+      "marketing_channel": "Walk-in / other",
+      "revenue_php": null,
+      "fo_notes": "",
+      "lost_reason": "",
+      "seed_notes": "Manual add 2026-09-26",
+      "last_updated": "2026-09-26",
+      "subject": "EVENT — Sir Dheejay",
+      "editor": "fo-add"
+    },
     {
       "id": "1abb3f8eb2f936e6",
       "name": "Margarita P. Mendoza",
