@@ -872,6 +872,26 @@
           "definition": "To go downward carefully toward a landing or the ground.",
           "example": "The helicopter began to descend toward the field.",
           "emoji": "⬇️"
+        },
+        {
+          "word": "hypothesis",
+          "def": "A careful guess you can check with a test."
+        },
+        {
+          "word": "experiment",
+          "def": "A planned test where you change one thing on purpose."
+        },
+        {
+          "word": "observation",
+          "def": "Carefully watching and recording what really happens."
+        },
+        {
+          "word": "conclusion",
+          "def": "What you decide the evidence says after the test."
+        },
+        {
+          "word": "variable",
+          "def": "The one thing you change on purpose in a test."
         }
       ]
     }
