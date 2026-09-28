@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-09-27",
+  "updated": "2026-09-28",
   "lists": [
     {
       "id": "en-starter-1",
@@ -824,6 +824,54 @@
           "definition": "the long thin part that holds up a plant, leaf, or flower; also the upright part of a note",
           "example": "The flower had a green stem, and the music note had a stem sticking up from its head.",
           "emoji": "🌱"
+        },
+        {
+          "word": "pressure",
+          "definition": "An invisible push that air or water puts on a surface.",
+          "example": "The air pressure under the wing was higher than the pressure on top.",
+          "emoji": "🌬️"
+        },
+        {
+          "word": "force",
+          "definition": "A push or a pull that can start, stop, or change a motion.",
+          "example": "Gravity is a force that pulls you toward the ground.",
+          "emoji": "💪"
+        },
+        {
+          "word": "lift",
+          "definition": "An upward force that helps a wing stay in the air.",
+          "example": "The airplane's wings made enough lift to leave the runway.",
+          "emoji": "✈️"
+        },
+        {
+          "word": "attach",
+          "definition": "To stick to something and stay with it.",
+          "example": "The magnet will attach to the fridge door.",
+          "emoji": "🧲"
+        },
+        {
+          "word": "atmosphere",
+          "definition": "The blanket of air around Earth.",
+          "example": "Stars look sharper from space because there is no atmosphere in the way.",
+          "emoji": "🌍"
+        },
+        {
+          "word": "reentry",
+          "definition": "Coming back from space into the air, where heating and slowing begin.",
+          "example": "The capsule glowed during reentry as it slammed into thicker air.",
+          "emoji": "🔥"
+        },
+        {
+          "word": "thrust",
+          "definition": "The strong push a rocket engine makes.",
+          "example": "The rocket's thrust shoved it off the launch pad.",
+          "emoji": "🚀"
+        },
+        {
+          "word": "descend",
+          "definition": "To go downward carefully toward a landing or the ground.",
+          "example": "The helicopter began to descend toward the field.",
+          "emoji": "⬇️"
         }
       ]
     }
