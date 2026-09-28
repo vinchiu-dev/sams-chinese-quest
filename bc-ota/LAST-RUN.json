@@ -1,420 +1,462 @@
 {
-  "version": "2026-09-21-ota1",
-  "property": "blue-coast-beach-hotel",
-  "property_label": "Blue Coast Beach Hotel",
-  "currency": "PHP",
-  "currency_symbol": "₱",
-  "cadence": "weekly",
-  "last_run_at_et": "2026-09-21T10:45:00-04:00",
-  "dashboard_published_url": "https://vinchiu-dev.github.io/sams-chinese-quest/bc-ota/",
-  "dashboard_ux": "ota-growth-v1",
-  "windows": {
-    "last_7d": {
-      "start_et": "2026-09-14",
-      "end_et": "2026-09-20",
-      "label": "Last 7d"
+ "job": "bc-ota-weekly",
+ "run_date_et": "2026-09-28",
+ "generated_at_et": "2026-09-28T09:12:00-04:00",
+ "property": "Blue Coast Beach Hotel",
+ "ids": {
+  "agoda_hotel": 5824694,
+  "booking_com": 10197746,
+  "cloudbeds_property": 285575
+ },
+ "source_mailbox": "vin.chiu@gmail.com",
+ "notes": [
+  "Windows are by reservation-creation email date (ET). Counts = CONFIRMED final status only; cancelled/pending excluded; deduped by confirmation number.",
+  "bluecoastbeachhotel@gmail.com is not a linked Gmail account; scan covers vin.chiu@gmail.com only. vincent@easymassagechair.com had no Cloudbeds mail in range.",
+  "Channel from Cloudbeds email \"Source\" field (direct = Website/Booking Engine). Amounts parsed from \"Grand Total PHP\"; amount_php null when not parsed.",
+  "Latest status pulled through 2026-09-28 emails to catch same-window cancellations."
+ ],
+ "windows": {
+  "last_7d": {
+   "window": [
+    "2026-09-21",
+    "2026-09-27"
+   ],
+   "reservations_confirmed": 11,
+   "amount_php_sum": 60325.33,
+   "amount_php_count_parsed": 11,
+   "by_channel": {
+    "direct": {
+     "count": 3,
+     "amount_php_sum": 22450.0
     },
-    "prior_7d": {
-      "start_et": "2026-09-07",
-      "end_et": "2026-09-13",
-      "label": "Prior 7d"
+    "other": {
+     "count": 7,
+     "amount_php_sum": 26800.0
     },
-    "yoy_7d": {
-      "start_et": "2025-09-14",
-      "end_et": "2025-09-20",
-      "pulled": true,
-      "label": "YoY 7d"
-    }
-  },
-  "channels": {
     "agoda": {
-      "label": "Agoda",
-      "bookings": {
-        "last_7d": 0,
-        "prior_7d": 0,
-        "yoy_7d": 0,
-        "wow_pct": null,
-        "yoy_pct": null,
-        "status": "Steady"
-      },
-      "gross_revenue_php": {
-        "last_7d": null,
-        "prior_7d": null,
-        "yoy_7d": null,
-        "wow_pct": null,
-        "yoy_pct": null,
-        "status": "Unknown",
-        "note": "Amounts often missing from email snippets; leave null unless Grand Total parsed (PHP 16.083,00 → 16083.00)"
-      }
-    },
-    "booking": {
-      "label": "Booking.com",
-      "bookings": {
-        "last_7d": 0,
-        "prior_7d": 0,
-        "yoy_7d": 0,
-        "wow_pct": null,
-        "yoy_pct": null,
-        "status": "Steady"
-      },
-      "gross_revenue_php": {
-        "last_7d": null,
-        "prior_7d": null,
-        "yoy_7d": null,
-        "wow_pct": null,
-        "yoy_pct": null,
-        "status": "Unknown",
-        "note": "Amounts often missing from email snippets; leave null unless Grand Total parsed (PHP 16.083,00 → 16083.00)"
-      }
-    },
-    "total": {
-      "label": "Total (Agoda + Booking.com)",
-      "bookings": {
-        "last_7d": 0,
-        "prior_7d": 0,
-        "yoy_7d": 0,
-        "wow_pct": null,
-        "yoy_pct": null,
-        "status": "Steady"
-      },
-      "gross_revenue_php": {
-        "last_7d": null,
-        "prior_7d": null,
-        "yoy_7d": null,
-        "wow_pct": null,
-        "yoy_pct": null,
-        "status": "Unknown",
-        "note": "Amounts often missing from email snippets; leave null unless Grand Total parsed (PHP 16.083,00 → 16083.00)"
-      }
+     "count": 1,
+     "amount_php_sum": 11075.33
     }
+   },
+   "reservations": [
+    {
+     "num": "5721449879736",
+     "name": "Rex Lebeco",
+     "first_date": "2026-09-21",
+     "channel_raw": "Website/Booking Engine",
+     "channel": "direct",
+     "amount_php": 11000.0,
+     "amount_raw": "11.000,00",
+     "status_email_date": "2026-09-21"
+    },
+    {
+     "num": "1912954053378",
+     "name": "NICOLE COSTALES",
+     "first_date": "2026-09-21",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 3550.0,
+     "amount_raw": "3,550.00",
+     "status_email_date": "2026-09-21"
+    },
+    {
+     "num": "4401595318457",
+     "name": "Reymark Torres",
+     "first_date": "2026-09-23",
+     "channel_raw": "Agoda / Priceline Source Reservation ID 1777880980",
+     "channel": "agoda",
+     "amount_php": 11075.33,
+     "amount_raw": "11.075,33",
+     "status_email_date": "2026-09-23"
+    },
+    {
+     "num": "7052355556618",
+     "name": "Richard Joseph Somera",
+     "first_date": "2026-09-23",
+     "channel_raw": "Website/Booking Engine",
+     "channel": "direct",
+     "amount_php": 3950.0,
+     "amount_raw": "3.950,00",
+     "status_email_date": "2026-09-23"
+    },
+    {
+     "num": "8625437726529",
+     "name": "Chris Tamayao",
+     "first_date": "2026-09-25",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 3550.0,
+     "amount_raw": "3,550.00",
+     "status_email_date": "2026-09-25"
+    },
+    {
+     "num": "7840841361897",
+     "name": "DANAS PATERNO JR",
+     "first_date": "2026-09-25",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 5500.0,
+     "amount_raw": "5,500.00",
+     "status_email_date": "2026-09-25"
+    },
+    {
+     "num": "7640120024564",
+     "name": "SIA LIM AARON",
+     "first_date": "2026-09-25",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 3550.0,
+     "amount_raw": "3,550.00",
+     "status_email_date": "2026-09-25"
+    },
+    {
+     "num": "4604179873996",
+     "name": "TASI JOEL JR",
+     "first_date": "2026-09-25",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 3550.0,
+     "amount_raw": "3,550.00",
+     "status_email_date": "2026-09-25"
+    },
+    {
+     "num": "6739684465190",
+     "name": "DELAYUN ANGELBERT TAGACAY",
+     "first_date": "2026-09-25",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 3550.0,
+     "amount_raw": "3,550.00",
+     "status_email_date": "2026-09-25"
+    },
+    {
+     "num": "4054068863429",
+     "name": "Luigi Siringan",
+     "first_date": "2026-09-25",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 3550.0,
+     "amount_raw": "3,550.00",
+     "status_email_date": "2026-09-25"
+    },
+    {
+     "num": "1239351364637",
+     "name": "Nichole Airylle Agpalo",
+     "first_date": "2026-09-26",
+     "channel_raw": "Website/Booking Engine",
+     "channel": "direct",
+     "amount_php": 7500.0,
+     "amount_raw": "7.500,00",
+     "status_email_date": "2026-09-26"
+    }
+   ]
   },
-  "weekly_series": [
-    {
-      "week_start_et": "2026-06-29",
-      "week_end_et": "2026-07-05",
-      "agoda_bookings": 0,
-      "booking_bookings": 0,
-      "total_bookings": 0,
-      "agoda_revenue_php": null,
-      "booking_revenue_php": null,
-      "total_revenue_php": null
+  "prior_7d": {
+   "window": [
+    "2026-09-14",
+    "2026-09-20"
+   ],
+   "reservations_confirmed": 7,
+   "amount_php_sum": 45750.0,
+   "amount_php_count_parsed": 7,
+   "by_channel": {
+    "other": {
+     "count": 6,
+     "amount_php_sum": 42200.0
     },
-    {
-      "week_start_et": "2026-07-06",
-      "week_end_et": "2026-07-12",
-      "agoda_bookings": 0,
-      "booking_bookings": 0,
-      "total_bookings": 0,
-      "agoda_revenue_php": null,
-      "booking_revenue_php": null,
-      "total_revenue_php": null
-    },
-    {
-      "week_start_et": "2026-07-13",
-      "week_end_et": "2026-07-19",
-      "agoda_bookings": 0,
-      "booking_bookings": 0,
-      "total_bookings": 0,
-      "agoda_revenue_php": null,
-      "booking_revenue_php": null,
-      "total_revenue_php": null
-    },
-    {
-      "week_start_et": "2026-07-20",
-      "week_end_et": "2026-07-26",
-      "agoda_bookings": 0,
-      "booking_bookings": 0,
-      "total_bookings": 0,
-      "agoda_revenue_php": null,
-      "booking_revenue_php": null,
-      "total_revenue_php": null
-    },
-    {
-      "week_start_et": "2026-07-27",
-      "week_end_et": "2026-08-02",
-      "agoda_bookings": 0,
-      "booking_bookings": 0,
-      "total_bookings": 0,
-      "agoda_revenue_php": null,
-      "booking_revenue_php": null,
-      "total_revenue_php": null
-    },
-    {
-      "week_start_et": "2026-08-03",
-      "week_end_et": "2026-08-09",
-      "agoda_bookings": 0,
-      "booking_bookings": 0,
-      "total_bookings": 0,
-      "agoda_revenue_php": null,
-      "booking_revenue_php": null,
-      "total_revenue_php": null
-    },
-    {
-      "week_start_et": "2026-08-10",
-      "week_end_et": "2026-08-16",
-      "agoda_bookings": 0,
-      "booking_bookings": 0,
-      "total_bookings": 0,
-      "agoda_revenue_php": null,
-      "booking_revenue_php": null,
-      "total_revenue_php": null
-    },
-    {
-      "week_start_et": "2026-08-17",
-      "week_end_et": "2026-08-23",
-      "agoda_bookings": 0,
-      "booking_bookings": 0,
-      "total_bookings": 0,
-      "agoda_revenue_php": null,
-      "booking_revenue_php": null,
-      "total_revenue_php": null
-    },
-    {
-      "week_start_et": "2026-08-24",
-      "week_end_et": "2026-08-30",
-      "agoda_bookings": 0,
-      "booking_bookings": 0,
-      "total_bookings": 0,
-      "agoda_revenue_php": null,
-      "booking_revenue_php": null,
-      "total_revenue_php": null
-    },
-    {
-      "week_start_et": "2026-08-31",
-      "week_end_et": "2026-09-06",
-      "agoda_bookings": 0,
-      "booking_bookings": 0,
-      "total_bookings": 0,
-      "agoda_revenue_php": null,
-      "booking_revenue_php": null,
-      "total_revenue_php": null
-    },
-    {
-      "week_start_et": "2026-09-07",
-      "week_end_et": "2026-09-13",
-      "agoda_bookings": 0,
-      "booking_bookings": 0,
-      "total_bookings": 0,
-      "agoda_revenue_php": null,
-      "booking_revenue_php": null,
-      "total_revenue_php": null
-    },
-    {
-      "week_start_et": "2026-09-14",
-      "week_end_et": "2026-09-20",
-      "agoda_bookings": 0,
-      "booking_bookings": 0,
-      "total_bookings": 0,
-      "agoda_revenue_php": null,
-      "booking_revenue_php": null,
-      "total_revenue_php": null
+    "direct": {
+     "count": 1,
+     "amount_php_sum": 3550.0
     }
-  ],
-  "bookings": [
+   },
+   "reservations": [
     {
-      "id": "9300968685052",
-      "date_et": "2026-09-18",
-      "channel": "agoda",
-      "guest": "Zach D",
-      "ref": "9300968685052",
-      "nights": 1,
-      "amount_php": 12629.76,
-      "status": "cancelled",
-      "cancelled_et": "2026-09-18",
-      "check_in": "2026-09-23",
-      "check_out": "2026-09-24",
-      "source_note": "Cloudbeds → Gmail; Agoda ID 1775981554; Grand Total PHP 12.629,76; cancelled same day (fraud cancel)"
+     "num": "1995340640805",
+     "name": "Ronalyn Torre",
+     "first_date": "2026-09-14",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 5500.0,
+     "amount_raw": "5,500.00",
+     "status_email_date": "2026-09-14"
     },
     {
-      "id": "3909326132361",
-      "date_et": "2025-12-11",
-      "channel": "booking",
-      "guest": "Maria Agnes Santos",
-      "ref": "3909326132361",
-      "nights": 1,
-      "amount_php": 16083.0,
-      "status": "confirmed",
-      "check_in": null,
-      "check_out": null,
-      "source_note": "Cloudbeds → Gmail; Grand Total PHP 16.083,00"
+     "num": "5505289034254",
+     "name": "RAMIL P CABUSLAY",
+     "first_date": "2026-09-14",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 7100.0,
+     "amount_raw": "7,100.00",
+     "status_email_date": "2026-09-14"
     },
     {
-      "id": "5696887561461",
-      "date_et": "2025-12-01",
-      "channel": "agoda",
-      "guest": "John Donato",
-      "ref": "5696887561461",
-      "nights": null,
-      "amount_php": null,
-      "status": "cancelled",
-      "cancelled_et": "2025-12-15",
-      "check_in": null,
-      "check_out": null
+     "num": "9355972651545",
+     "name": "Francis Ambray",
+     "first_date": "2026-09-14",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 17000.0,
+     "amount_raw": "17,000.00",
+     "status_email_date": "2026-09-14"
     },
     {
-      "id": "1423948312333",
-      "date_et": "2025-11-10",
-      "channel": "agoda",
-      "guest": "jerome francisco",
-      "ref": "1423948312333",
-      "nights": null,
-      "amount_php": null,
-      "status": "cancelled",
-      "cancelled_et": "2025-11-11",
-      "check_in": null,
-      "check_out": null
+     "num": "1736786578632",
+     "name": "Florito Canceran",
+     "first_date": "2026-09-15",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 3550.0,
+     "amount_raw": "3,550.00",
+     "status_email_date": "2026-09-15"
     },
     {
-      "id": "8805450417288",
-      "date_et": "2025-11-05",
-      "channel": "booking",
-      "guest": "Alex Basada",
-      "ref": "8805450417288",
-      "nights": null,
-      "amount_php": null,
-      "status": "cancelled",
-      "cancelled_et": "2025-11-10",
-      "check_in": null,
-      "check_out": null
+     "num": "5982918106061",
+     "name": "Rhyan Michael Galera",
+     "first_date": "2026-09-16",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 3550.0,
+     "amount_raw": "3,550.00",
+     "status_email_date": "2026-09-16"
     },
     {
-      "id": "1140254666150",
-      "date_et": "2025-11-04",
-      "channel": "booking",
-      "guest": "QING YANG",
-      "ref": "1140254666150",
-      "nights": null,
-      "amount_php": null,
-      "status": "confirmed",
-      "check_in": null,
-      "check_out": null
+     "num": "3256131558486",
+     "name": "Angelika Domingo",
+     "first_date": "2026-09-17",
+     "channel_raw": "Website/Booking Engine",
+     "channel": "direct",
+     "amount_php": 3550.0,
+     "amount_raw": "3.550,00",
+     "status_email_date": "2026-09-17"
     },
     {
-      "id": "2034775105440",
-      "date_et": "2025-10-29",
-      "channel": "agoda",
-      "guest": "Heli Wilhelm Pascua",
-      "ref": "2034775105440",
-      "nights": 1,
-      "amount_php": 14617.33,
-      "status": "confirmed",
-      "check_in": null,
-      "check_out": null,
-      "source_note": "Cloudbeds → Gmail; Grand Total PHP 14.617,33"
-    },
-    {
-      "id": "9167458829154",
-      "date_et": "2025-10-28",
-      "channel": "agoda",
-      "guest": "joseph hernando",
-      "ref": "9167458829154",
-      "nights": null,
-      "amount_php": null,
-      "status": "confirmed",
-      "check_in": null,
-      "check_out": null
-    },
-    {
-      "id": "8821524227326",
-      "date_et": "2025-10-19",
-      "channel": "agoda",
-      "guest": "Yap Kean Nee",
-      "ref": "8821524227326",
-      "nights": null,
-      "amount_php": null,
-      "status": "confirmed",
-      "check_in": null,
-      "check_out": null
-    },
-    {
-      "id": "5760633216962",
-      "date_et": "2025-10-16",
-      "channel": "agoda",
-      "guest": "Yu hsin Lo",
-      "ref": "5760633216962",
-      "nights": null,
-      "amount_php": null,
-      "status": "confirmed",
-      "check_in": null,
-      "check_out": null
-    },
-    {
-      "id": "4830790889952",
-      "date_et": "2025-10-10",
-      "channel": "agoda",
-      "guest": "rory o'sullivan",
-      "ref": "4830790889952",
-      "nights": null,
-      "amount_php": null,
-      "status": "confirmed",
-      "check_in": null,
-      "check_out": null
-    },
-    {
-      "id": "3683753053061",
-      "date_et": "2025-09-29",
-      "channel": "booking",
-      "guest": "DAN DU",
-      "ref": "3683753053061",
-      "nights": null,
-      "amount_php": null,
-      "status": "confirmed",
-      "check_in": null,
-      "check_out": null
-    },
-    {
-      "id": "6436324533629",
-      "date_et": "2025-09-21",
-      "channel": "agoda",
-      "guest": "Davd Brewer",
-      "ref": "6436324533629",
-      "nights": null,
-      "amount_php": null,
-      "status": "cancelled",
-      "cancelled_et": "2025-10-14",
-      "check_in": null,
-      "check_out": null
-    },
-    {
-      "id": "9275973717185",
-      "date_et": "2025-09-10",
-      "channel": "agoda",
-      "guest": "Bernadette Lleno",
-      "ref": "9275973717185",
-      "nights": null,
-      "amount_php": null,
-      "status": "confirmed",
-      "check_in": null,
-      "check_out": null
+     "num": "2337692127496",
+     "name": "Olivia Sison Gammad",
+     "first_date": "2026-09-19",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 5500.0,
+     "amount_raw": "5,500.00",
+     "status_email_date": "2026-09-19"
     }
-  ],
-  "statuses": {
-    "overall": "Steady",
-    "agoda": "Steady",
-    "booking": "Steady",
-    "note": "Gmail Cloudbeds scan Mon 2026-09-21: Last 7d (9/14–20) had 1 Agoda confirm (Zach D #9300968685052, ₱12629.76) cancelled same day — KPI counts exclude cancelled → 0. Prior 7d and YoY 7d also 0 confirmed Agoda/Booking.com. Honest zeros = Steady."
+   ]
   },
-  "notices": [
-    {
-      "severity": "yellow",
-      "title": "Agoda Zach D same-day cancel (Last 7d)",
-      "body": "Agoda/Priceline Zach D confirmed 2026-09-18 (check-in 9/23, 1 night, Grand Total ₱12,629.76 / Agoda ID 1775981554) then cancelled ~12 min later (fraud-prevention cancel). Excluded from confirmed KPIs."
+  "yoy_7d": {
+   "window": [
+    "2025-09-21",
+    "2025-09-27"
+   ],
+   "reservations_confirmed": 19,
+   "amount_php_sum": 123233.4,
+   "amount_php_count_parsed": 19,
+   "by_channel": {
+    "agoda": {
+     "count": 1,
+     "amount_php_sum": 11334.4
     },
-    {
-      "severity": "unknown",
-      "title": "Agoda availability nudges (FO optional)",
-      "body": "Agoda sent recurring 'Update Your Availability' emails (e.g. 9/15, 9/18, 9/20). Not a login blocker; FO can glance Agoda Partner Portal (property 5824694) if inventory looks thin. No extranet deep pull this run."
+    "other": {
+     "count": 15,
+     "amount_php_sum": 92849.0
     },
-    {
-      "severity": "unknown",
-      "title": "Gross ₱ mostly Unknown",
-      "body": "Parse Cloudbeds Grand Total as EU-style PHP (dot=thousands, comma=decimals). Confirmed amounts only where body parsed. Prefer count-based KPIs."
+    "direct": {
+     "count": 3,
+     "amount_php_sum": 19050.0
     }
-  ],
-  "blockers": [],
-  "sources_pulled": [
-    "gmail_cloudbeds_ota_vin.chiu+bluecoastbeachhotel",
-    "gmail_agoda_partner_notices"
-  ],
-  "notes": "OTA via Cloudbeds emails to vin.chiu@gmail.com / bluecoastbeachhotel@gmail.com. Source=Booking.com or Agoda/Priceline; detect guest.booking.com or agoda-messaging.com. Counts use CONFIRMED only (exclude cancelled). Dedupe by confirmation #. Amounts: PHP 12.629,76 → 12629.76. IDs: Agoda 5824694, Booking.com 10197746. No extranet session this run."
+   },
+   "reservations": [
+    {
+     "num": "6436324533629",
+     "name": "Davd Brewer",
+     "first_date": "2025-09-21",
+     "channel_raw": "Agoda / Priceline Source Reservation ID 1652212508",
+     "channel": "agoda",
+     "amount_php": 11334.4,
+     "amount_raw": "11.334,40",
+     "status_email_date": "2025-09-21"
+    },
+    {
+     "num": "9145594111347",
+     "name": "Cherry  Mae Guerrero",
+     "first_date": "2025-09-21",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 3550.0,
+     "amount_raw": "3,550.00",
+     "status_email_date": "2025-09-21"
+    },
+    {
+     "num": "8494683753290",
+     "name": "Jurt Kervinel Olivas",
+     "first_date": "2025-09-23",
+     "channel_raw": "Website/Booking Engine",
+     "channel": "direct",
+     "amount_php": 3550.0,
+     "amount_raw": "3,550.00",
+     "status_email_date": "2025-09-26"
+    },
+    {
+     "num": "3140065376234",
+     "name": "Marliz Brewer",
+     "first_date": "2025-09-23",
+     "channel_raw": "Website/Booking Engine",
+     "channel": "direct",
+     "amount_php": 7500.0,
+     "amount_raw": "7,500.00",
+     "status_email_date": "2025-09-24"
+    },
+    {
+     "num": "5637386587497",
+     "name": "Gladys Mae Dian",
+     "first_date": "2025-09-23",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 5500.0,
+     "amount_raw": "5,500.00",
+     "status_email_date": "2025-09-23"
+    },
+    {
+     "num": "7064550104654",
+     "name": "Nica Mae T. Aloe",
+     "first_date": "2025-09-24",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 3950.0,
+     "amount_raw": "3,950.00",
+     "status_email_date": "2025-09-24"
+    },
+    {
+     "num": "9813915947997",
+     "name": "Anna Rose P. Lumabas",
+     "first_date": "2025-09-24",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 3550.0,
+     "amount_raw": "3,550.00",
+     "status_email_date": "2025-09-24"
+    },
+    {
+     "num": "5941552597726",
+     "name": "Ravneet Pawar",
+     "first_date": "2025-09-24",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 9800.0,
+     "amount_raw": "9,800.00",
+     "status_email_date": "2025-09-24"
+    },
+    {
+     "num": "1622222819308",
+     "name": "Joanne E. Becker",
+     "first_date": "2025-09-24",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 2000.0,
+     "amount_raw": "2,000.00",
+     "status_email_date": "2025-09-24"
+    },
+    {
+     "num": "5291014084447",
+     "name": "Nancy Ebuenga",
+     "first_date": "2025-09-24",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 10650.0,
+     "amount_raw": "10,650.00",
+     "status_email_date": "2025-09-24"
+    },
+    {
+     "num": "8722384531031",
+     "name": "Aura Leah Zhang",
+     "first_date": "2025-09-24",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 10650.0,
+     "amount_raw": "10,650.00",
+     "status_email_date": "2025-09-24"
+    },
+    {
+     "num": "8490680253624",
+     "name": "Jerome Mercado",
+     "first_date": "2025-09-25",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 7100.0,
+     "amount_raw": "7,100.00",
+     "status_email_date": "2025-09-25"
+    },
+    {
+     "num": "9070423742776",
+     "name": "Romie Santos",
+     "first_date": "2025-09-26",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 10650.0,
+     "amount_raw": "10,650.00",
+     "status_email_date": "2025-09-26"
+    },
+    {
+     "num": "6597101086574",
+     "name": "Nikolais Edwin L. David",
+     "first_date": "2025-09-26",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 3550.0,
+     "amount_raw": "3,550.00",
+     "status_email_date": "2025-09-26"
+    },
+    {
+     "num": "8862978007040",
+     "name": "Hannah Hinderager",
+     "first_date": "2025-09-26",
+     "channel_raw": "Website/Booking Engine",
+     "channel": "direct",
+     "amount_php": 8000.0,
+     "amount_raw": "8,000.00",
+     "status_email_date": "2025-09-26"
+    },
+    {
+     "num": "2280703643250",
+     "name": "Joanne Calimag",
+     "first_date": "2025-09-26",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 10849.0,
+     "amount_raw": "10,849.00",
+     "status_email_date": "2025-09-26"
+    },
+    {
+     "num": "9564016098353",
+     "name": "Jennifer Mallillin",
+     "first_date": "2025-09-27",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 3550.0,
+     "amount_raw": "3,550.00",
+     "status_email_date": "2025-09-27"
+    },
+    {
+     "num": "5444197140550",
+     "name": "Nikolais Edwin L. David",
+     "first_date": "2025-09-27",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 3550.0,
+     "amount_raw": "3,550.00",
+     "status_email_date": "2025-09-27"
+    },
+    {
+     "num": "7605296852765",
+     "name": "John Paul Catli",
+     "first_date": "2025-09-27",
+     "channel_raw": "Walk-In",
+     "channel": "other",
+     "amount_php": 3950.0,
+     "amount_raw": "3,950.00",
+     "status_email_date": "2025-09-27"
+    }
+   ]
+  }
+ },
+ "one_line": "2026-09-28: last7d=11 confirmed (prior7d=7, yoy7d=19)"
 }
