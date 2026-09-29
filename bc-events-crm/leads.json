@@ -651,15 +651,15 @@
       "event_dates": null,
       "pax": null,
       "event_type": "Ongoing DepEd catering-with-hall-and-accommodation bids (Goods2025-176, 113, 110A, 060, 016, etc.)",
-      "stage": "quoted",
-      "last_updated": "2025-11-26",
+      "stage": "won",
+      "last_updated": "2026-09-29",
       "seed_notes": "Seed representative of recurring DepEd SDO Cagayan event venue pipeline. Related: GOODS2025-113 (Aug 2025 training of school leaders), Goods2025-110A (Sep 4-5 SGOD meeting), 2025-134 DRRM workshop PDF, Goods2025-060, Goods2025-016. Hotel often confirms receipt from stay@.",
       "fo_notes": "",
       "lost_reason": "",
       "subject": "INVITATION TO BID - GOODS2025-176",
       "related_contacts": [],
       "marketing_channel": "Gov RFQ / email",
-      "revenue_php": null
+      "revenue_php": 1663200
     },
     {
       "id": "19ce2a5b47269344",
