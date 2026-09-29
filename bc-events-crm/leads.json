@@ -720,5 +720,5 @@
     "Messenger",
     "Walk-in / other"
   ],
-  "board_policy": "From 2026-09-29: keep a lead unless it has a clear event date that has already passed. No event date means it may still be upcoming, so keep it. Do not backfill events whose date already passed."
+  "board_policy": "From 2026-09-29 (Vin): do not drop leads. Staff move events to won or lost so win rate and loss reasons stay analyzable. The earlier purge of events dated before September 2026 stays as-is; do not backfill those. Going forward, keep every new inquiry on the board."
 }
