@@ -24,7 +24,7 @@
    "label": "Lost"
   }
  ],
- "lead_count": 34,
+ "lead_count": 39,
  "leads": [
   {
    "id": "1a05b2459513d162",
@@ -883,6 +883,29 @@
    "subject": "Request for Market Research",
    "related_contacts": [],
    "last_updated": "2026-09-30",
+   "editor": "bc-events-crm-sync"
+  },
+  {
+   "id": "1a0f5813593f89b3",
+   "name": "KSU Planning Office",
+   "org": "Kalinga State University (KSU) — Planning and Strategy Office",
+   "email": "planning_infra@ksu.edu.ph",
+   "phone": null,
+   "source": "email RFQ (direct to stay@)",
+   "source_badge": "RFQ",
+   "inquiry_date": "2026-09-30",
+   "event_dates": "October 2026 (exact dates TBD)",
+   "pax": "100",
+   "event_type": "RFQ: planning session — full board meals (breakfast/lunch/dinner/snacks), function hall package (LCD, free coffee), accommodation (~30 pax, 25 per room). Asks if hall + accommodation only (no food package) is possible, incl. corkage fees / kitchen-use terms.",
+   "stage": "new_inquiry",
+   "marketing_channel": "Gov RFQ / email",
+   "revenue_php": null,
+   "fo_notes": "",
+   "lost_reason": "",
+   "seed_notes": "Gmail msg 1a0f5813593f89b3, direct to stay@ 2026-09-30 23:27 ET (= Thu Oct 1 11:27 PH). New standalone thread from the same office as prior lead 'Marie Luz Bravo' (id 19dcc722dafd1d2f, 2026-04-27) — this is a new October 2026 engagement cycle. No FO reply visible in thread as of 2026-10-01 09:00 ET.",
+   "subject": "QUOTATION",
+   "related_contacts": [],
+   "last_updated": "2026-10-01",
    "editor": "bc-events-crm-sync"
   }
  ],
