@@ -897,15 +897,15 @@
    "event_dates": "October 2026 (exact dates TBD)",
    "pax": "100",
    "event_type": "RFQ: planning session — full board meals (breakfast/lunch/dinner/snacks), function hall package (LCD, free coffee), accommodation (~30 pax, 25 per room). Asks if hall + accommodation only (no food package) is possible, incl. corkage fees / kitchen-use terms.",
-   "stage": "new_inquiry",
+   "stage": "quoted",
    "marketing_channel": "Gov RFQ / email",
    "revenue_php": null,
-   "fo_notes": "",
+   "fo_notes": "2026-10-01/02: FO Angge (stay@) replied asking nights + noting corkage fees apply. KSU Planning Office replied Oct 1 9:19pm ET: planning 3-night, 2-day stay; duration and final dates still subject to proposal approval and participant count; keeping corkage policy in mind for catering plans; will update once details confirmed.",
    "lost_reason": "",
    "seed_notes": "Gmail msg 1a0f5813593f89b3, direct to stay@ 2026-09-30 23:27 ET (= Thu Oct 1 11:27 PH). New standalone thread from the same office as prior lead 'Marie Luz Bravo' (id 19dcc722dafd1d2f, 2026-04-27) — this is a new October 2026 engagement cycle. No FO reply visible in thread as of 2026-10-01 09:00 ET.",
    "subject": "QUOTATION",
    "related_contacts": [],
-   "last_updated": "2026-10-01",
+   "last_updated": "2026-10-02",
    "editor": "bc-events-crm-sync"
   }
  ],
