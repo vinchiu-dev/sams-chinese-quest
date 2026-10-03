@@ -150,14 +150,14 @@
       "emoji": "📝"
     },
     {
-      "en": "Sinister",
+      "en": "Inspired",
       "pinyin": "",
       "hanzi": "",
       "emoji": "📝",
       "needsDef": true
     },
     {
-      "en": "Inspired",
+      "en": "Sinister",
       "pinyin": "",
       "hanzi": "",
       "emoji": "📝",
@@ -2262,11 +2262,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1791070466132,
-  "pool_at": 1791070466118,
-  "starredSentences_at": 1791070466132,
-  "hiddenWords_at": 1791070466119,
-  "archived_at": 1791070466132,
+  "trouble_at": 1791070495384,
+  "pool_at": 1791070495384,
+  "starredSentences_at": 1791070495384,
+  "hiddenWords_at": 1791070466132,
+  "archived_at": 1791070495384,
   "en_starred_at": 1791070463903,
   "math_missed_at": 1791070464741,
   "chips": 13
