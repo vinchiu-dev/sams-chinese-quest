@@ -1,7 +1,7 @@
 {
  "job": "bc-ota-weekly",
- "run_date_et": "2026-09-28",
- "generated_at_et": "2026-09-28T09:12:00-04:00",
+ "run_date_et": "2026-10-05",
+ "generated_at_et": "2026-10-05T09:12:00-04:00",
  "property": "Blue Coast Beach Hotel",
  "ids": {
   "agoda_hotel": 5824694,
@@ -13,17 +13,92 @@
   "Windows are by reservation-creation email date (ET). Counts = CONFIRMED final status only; cancelled/pending excluded; deduped by confirmation number.",
   "bluecoastbeachhotel@gmail.com is not a linked Gmail account; scan covers vin.chiu@gmail.com only. vincent@easymassagechair.com had no Cloudbeds mail in range.",
   "Channel from Cloudbeds email \"Source\" field (direct = Website/Booking Engine). Amounts parsed from \"Grand Total PHP\"; amount_php null when not parsed.",
-  "Latest status pulled through 2026-09-28 emails to catch same-window cancellations."
+  "Latest status pulled through 2026-10-05 emails to catch same-window cancellations.",
+  "Reymark Torres Agoda reservation 4401595318457 (PHP 11,075.33) was counted confirmed in the 2026-09-28 run but was canceled 2026-09-28; it is now excluded, so this run’s prior_7d = 10 (vs 11 in last week’s last_7d).",
+  "YoY: Aimee Sandoval 3733247629621 CONFIRMED-email body was unfetchable (Gmail \"entity not found\"); Source/Grand Total taken from its same-day-range PENDING email (no amount change assumed).",
+  "YoY late-cancellation check: searched Cloudbeds mail 2025-10-05 through 2026-05-31 for the 10 YoY reservation numbers; no cancellations found.",
+  "No Booking.com or Agoda reservations in the two 2026 windows this week; all confirmed bookings are direct or walk-in."
  ],
  "windows": {
   "last_7d": {
    "window": [
+    "2026-09-28",
+    "2026-10-04"
+   ],
+   "reservations_confirmed": 5,
+   "amount_php_sum": 32045.0,
+   "amount_php_count_parsed": 5,
+   "by_channel": {
+    "direct": {
+     "count": 1,
+     "amount_php_sum": 3550.0
+    },
+    "other": {
+     "count": 4,
+     "amount_php_sum": 28495.0
+    }
+   },
+   "reservations": [
+    {
+     "num": "9652682152444",
+     "name": "Kolyne Daracan",
+     "first_date": "2026-10-03",
+     "channel_raw": "Website/Booking Engine",
+     "amount_php": 3550.0,
+     "amount_raw": "3.550,00",
+     "status_email_date": "2026-10-03",
+     "channel": "direct"
+    },
+    {
+     "num": "2185284398361",
+     "name": "BLANZA JORDAN",
+     "first_date": "2026-10-03",
+     "channel_raw": "Walk-In",
+     "amount_php": 3550.0,
+     "amount_raw": "3,550.00",
+     "status_email_date": "2026-10-03",
+     "channel": "other"
+    },
+    {
+     "num": "1850668011736",
+     "name": "Joei Tobera Arquero",
+     "first_date": "2026-10-03",
+     "channel_raw": "Walk-In",
+     "amount_php": 3550.0,
+     "amount_raw": "3,550.00",
+     "status_email_date": "2026-10-03",
+     "channel": "other"
+    },
+    {
+     "num": "5139306107895",
+     "name": "LUGA KYLA BEATRIZ",
+     "first_date": "2026-10-02",
+     "channel_raw": "Walk-In",
+     "amount_php": 6745.0,
+     "amount_raw": "6,745.00",
+     "status_email_date": "2026-10-02",
+     "channel": "other"
+    },
+    {
+     "num": "8131522536419",
+     "name": "Morena DelaCruz",
+     "first_date": "2026-09-28",
+     "channel_raw": "Walk-In",
+     "amount_php": 14650.0,
+     "amount_raw": "14,650.00",
+     "status_email_date": "2026-09-28",
+     "channel": "other"
+    }
+   ]
+  },
+  "prior_7d": {
+   "window": [
     "2026-09-21",
     "2026-09-27"
    ],
-   "reservations_confirmed": 11,
-   "amount_php_sum": 60325.33,
-   "amount_php_count_parsed": 11,
+   "reservations_confirmed": 10,
+   "amount_php_sum": 49250.0,
+   "amount_php_count_parsed": 10,
    "by_channel": {
     "direct": {
      "count": 3,
@@ -32,431 +107,236 @@
     "other": {
      "count": 7,
      "amount_php_sum": 26800.0
-    },
-    "agoda": {
-     "count": 1,
-     "amount_php_sum": 11075.33
     }
    },
    "reservations": [
     {
-     "num": "5721449879736",
-     "name": "Rex Lebeco",
-     "first_date": "2026-09-21",
+     "num": "1239351364637",
+     "name": "Nichole Airylle Agpalo",
+     "first_date": "2026-09-26",
      "channel_raw": "Website/Booking Engine",
-     "channel": "direct",
-     "amount_php": 11000.0,
-     "amount_raw": "11.000,00",
-     "status_email_date": "2026-09-21"
-    },
-    {
-     "num": "1912954053378",
-     "name": "NICOLE COSTALES",
-     "first_date": "2026-09-21",
-     "channel_raw": "Walk-In",
-     "channel": "other",
-     "amount_php": 3550.0,
-     "amount_raw": "3,550.00",
-     "status_email_date": "2026-09-21"
-    },
-    {
-     "num": "4401595318457",
-     "name": "Reymark Torres",
-     "first_date": "2026-09-23",
-     "channel_raw": "Agoda / Priceline Source Reservation ID 1777880980",
-     "channel": "agoda",
-     "amount_php": 11075.33,
-     "amount_raw": "11.075,33",
-     "status_email_date": "2026-09-23"
-    },
-    {
-     "num": "7052355556618",
-     "name": "Richard Joseph Somera",
-     "first_date": "2026-09-23",
-     "channel_raw": "Website/Booking Engine",
-     "channel": "direct",
-     "amount_php": 3950.0,
-     "amount_raw": "3.950,00",
-     "status_email_date": "2026-09-23"
+     "amount_php": 7500.0,
+     "amount_raw": "7.500,00",
+     "status_email_date": "2026-09-26",
+     "channel": "direct"
     },
     {
      "num": "8625437726529",
      "name": "Chris Tamayao",
      "first_date": "2026-09-25",
      "channel_raw": "Walk-In",
-     "channel": "other",
      "amount_php": 3550.0,
      "amount_raw": "3,550.00",
-     "status_email_date": "2026-09-25"
+     "status_email_date": "2026-09-25",
+     "channel": "other"
     },
     {
      "num": "7840841361897",
      "name": "DANAS PATERNO JR",
      "first_date": "2026-09-25",
      "channel_raw": "Walk-In",
-     "channel": "other",
      "amount_php": 5500.0,
      "amount_raw": "5,500.00",
-     "status_email_date": "2026-09-25"
+     "status_email_date": "2026-09-25",
+     "channel": "other"
     },
     {
      "num": "7640120024564",
      "name": "SIA LIM AARON",
      "first_date": "2026-09-25",
      "channel_raw": "Walk-In",
-     "channel": "other",
      "amount_php": 3550.0,
      "amount_raw": "3,550.00",
-     "status_email_date": "2026-09-25"
+     "status_email_date": "2026-09-25",
+     "channel": "other"
     },
     {
      "num": "4604179873996",
      "name": "TASI JOEL JR",
      "first_date": "2026-09-25",
      "channel_raw": "Walk-In",
-     "channel": "other",
      "amount_php": 3550.0,
      "amount_raw": "3,550.00",
-     "status_email_date": "2026-09-25"
+     "status_email_date": "2026-09-25",
+     "channel": "other"
     },
     {
      "num": "6739684465190",
      "name": "DELAYUN ANGELBERT TAGACAY",
      "first_date": "2026-09-25",
      "channel_raw": "Walk-In",
-     "channel": "other",
      "amount_php": 3550.0,
      "amount_raw": "3,550.00",
-     "status_email_date": "2026-09-25"
+     "status_email_date": "2026-09-25",
+     "channel": "other"
     },
     {
      "num": "4054068863429",
      "name": "Luigi Siringan",
      "first_date": "2026-09-25",
      "channel_raw": "Walk-In",
-     "channel": "other",
      "amount_php": 3550.0,
      "amount_raw": "3,550.00",
-     "status_email_date": "2026-09-25"
+     "status_email_date": "2026-09-25",
+     "channel": "other"
     },
     {
-     "num": "1239351364637",
-     "name": "Nichole Airylle Agpalo",
-     "first_date": "2026-09-26",
+     "num": "7052355556618",
+     "name": "Richard Joseph Somera",
+     "first_date": "2026-09-23",
      "channel_raw": "Website/Booking Engine",
-     "channel": "direct",
-     "amount_php": 7500.0,
-     "amount_raw": "7.500,00",
-     "status_email_date": "2026-09-26"
-    }
-   ]
-  },
-  "prior_7d": {
-   "window": [
-    "2026-09-14",
-    "2026-09-20"
-   ],
-   "reservations_confirmed": 7,
-   "amount_php_sum": 45750.0,
-   "amount_php_count_parsed": 7,
-   "by_channel": {
-    "other": {
-     "count": 6,
-     "amount_php_sum": 42200.0
-    },
-    "direct": {
-     "count": 1,
-     "amount_php_sum": 3550.0
-    }
-   },
-   "reservations": [
-    {
-     "num": "1995340640805",
-     "name": "Ronalyn Torre",
-     "first_date": "2026-09-14",
-     "channel_raw": "Walk-In",
-     "channel": "other",
-     "amount_php": 5500.0,
-     "amount_raw": "5,500.00",
-     "status_email_date": "2026-09-14"
+     "amount_php": 3950.0,
+     "amount_raw": "3.950,00",
+     "status_email_date": "2026-09-23",
+     "channel": "direct"
     },
     {
-     "num": "5505289034254",
-     "name": "RAMIL P CABUSLAY",
-     "first_date": "2026-09-14",
-     "channel_raw": "Walk-In",
-     "channel": "other",
-     "amount_php": 7100.0,
-     "amount_raw": "7,100.00",
-     "status_email_date": "2026-09-14"
-    },
-    {
-     "num": "9355972651545",
-     "name": "Francis Ambray",
-     "first_date": "2026-09-14",
-     "channel_raw": "Walk-In",
-     "channel": "other",
-     "amount_php": 17000.0,
-     "amount_raw": "17,000.00",
-     "status_email_date": "2026-09-14"
-    },
-    {
-     "num": "1736786578632",
-     "name": "Florito Canceran",
-     "first_date": "2026-09-15",
-     "channel_raw": "Walk-In",
-     "channel": "other",
-     "amount_php": 3550.0,
-     "amount_raw": "3,550.00",
-     "status_email_date": "2026-09-15"
-    },
-    {
-     "num": "5982918106061",
-     "name": "Rhyan Michael Galera",
-     "first_date": "2026-09-16",
-     "channel_raw": "Walk-In",
-     "channel": "other",
-     "amount_php": 3550.0,
-     "amount_raw": "3,550.00",
-     "status_email_date": "2026-09-16"
-    },
-    {
-     "num": "3256131558486",
-     "name": "Angelika Domingo",
-     "first_date": "2026-09-17",
+     "num": "5721449879736",
+     "name": "Rex Lebeco",
+     "first_date": "2026-09-21",
      "channel_raw": "Website/Booking Engine",
-     "channel": "direct",
-     "amount_php": 3550.0,
-     "amount_raw": "3.550,00",
-     "status_email_date": "2026-09-17"
+     "amount_php": 11000.0,
+     "amount_raw": "11.000,00",
+     "status_email_date": "2026-09-21",
+     "channel": "direct"
     },
     {
-     "num": "2337692127496",
-     "name": "Olivia Sison Gammad",
-     "first_date": "2026-09-19",
+     "num": "1912954053378",
+     "name": "NICOLE COSTALES",
+     "first_date": "2026-09-21",
      "channel_raw": "Walk-In",
-     "channel": "other",
-     "amount_php": 5500.0,
-     "amount_raw": "5,500.00",
-     "status_email_date": "2026-09-19"
+     "amount_php": 3550.0,
+     "amount_raw": "3,550.00",
+     "status_email_date": "2026-09-21",
+     "channel": "other"
     }
    ]
   },
   "yoy_7d": {
    "window": [
-    "2025-09-21",
-    "2025-09-27"
+    "2025-09-28",
+    "2025-10-04"
    ],
-   "reservations_confirmed": 19,
-   "amount_php_sum": 123233.4,
-   "amount_php_count_parsed": 19,
+   "reservations_confirmed": 10,
+   "amount_php_sum": 60230.0,
+   "amount_php_count_parsed": 10,
    "by_channel": {
-    "agoda": {
-     "count": 1,
-     "amount_php_sum": 11334.4
-    },
     "other": {
-     "count": 15,
-     "amount_php_sum": 92849.0
+     "count": 6,
+     "amount_php_sum": 27550.0
     },
     "direct": {
      "count": 3,
-     "amount_php_sum": 19050.0
+     "amount_php_sum": 18550.0
+    },
+    "booking_com": {
+     "count": 1,
+     "amount_php_sum": 14130.0
     }
    },
    "reservations": [
     {
-     "num": "6436324533629",
-     "name": "Davd Brewer",
-     "first_date": "2025-09-21",
-     "channel_raw": "Agoda / Priceline Source Reservation ID 1652212508",
-     "channel": "agoda",
-     "amount_php": 11334.4,
-     "amount_raw": "11.334,40",
-     "status_email_date": "2025-09-21"
-    },
-    {
-     "num": "9145594111347",
-     "name": "Cherry  Mae Guerrero",
-     "first_date": "2025-09-21",
+     "num": "8240688198493",
+     "name": "Ami Shirota Ami Shirota",
+     "first_date": "2025-10-04",
      "channel_raw": "Walk-In",
-     "channel": "other",
      "amount_php": 3550.0,
      "amount_raw": "3,550.00",
-     "status_email_date": "2025-09-21"
+     "status_email_date": "2025-10-04",
+     "channel": "other"
     },
     {
-     "num": "8494683753290",
-     "name": "Jurt Kervinel Olivas",
-     "first_date": "2025-09-23",
-     "channel_raw": "Website/Booking Engine",
-     "channel": "direct",
-     "amount_php": 3550.0,
-     "amount_raw": "3,550.00",
-     "status_email_date": "2025-09-26"
-    },
-    {
-     "num": "3140065376234",
-     "name": "Marliz Brewer",
-     "first_date": "2025-09-23",
-     "channel_raw": "Website/Booking Engine",
-     "channel": "direct",
-     "amount_php": 7500.0,
-     "amount_raw": "7,500.00",
-     "status_email_date": "2025-09-24"
-    },
-    {
-     "num": "5637386587497",
-     "name": "Gladys Mae Dian",
-     "first_date": "2025-09-23",
+     "num": "8366538294551",
+     "name": "Charisse Zylma Hurtado Cullado",
+     "first_date": "2025-10-04",
      "channel_raw": "Walk-In",
-     "channel": "other",
-     "amount_php": 5500.0,
-     "amount_raw": "5,500.00",
-     "status_email_date": "2025-09-23"
-    },
-    {
-     "num": "7064550104654",
-     "name": "Nica Mae T. Aloe",
-     "first_date": "2025-09-24",
-     "channel_raw": "Walk-In",
-     "channel": "other",
-     "amount_php": 3950.0,
-     "amount_raw": "3,950.00",
-     "status_email_date": "2025-09-24"
-    },
-    {
-     "num": "9813915947997",
-     "name": "Anna Rose P. Lumabas",
-     "first_date": "2025-09-24",
-     "channel_raw": "Walk-In",
-     "channel": "other",
-     "amount_php": 3550.0,
-     "amount_raw": "3,550.00",
-     "status_email_date": "2025-09-24"
-    },
-    {
-     "num": "5941552597726",
-     "name": "Ravneet Pawar",
-     "first_date": "2025-09-24",
-     "channel_raw": "Walk-In",
-     "channel": "other",
      "amount_php": 9800.0,
      "amount_raw": "9,800.00",
-     "status_email_date": "2025-09-24"
+     "status_email_date": "2025-10-04",
+     "channel": "other"
     },
     {
-     "num": "1622222819308",
-     "name": "Joanne E. Becker",
-     "first_date": "2025-09-24",
+     "num": "4978216439099",
+     "name": "Melody narag Garo",
+     "first_date": "2025-10-04",
      "channel_raw": "Walk-In",
-     "channel": "other",
-     "amount_php": 2000.0,
-     "amount_raw": "2,000.00",
-     "status_email_date": "2025-09-24"
-    },
-    {
-     "num": "5291014084447",
-     "name": "Nancy Ebuenga",
-     "first_date": "2025-09-24",
-     "channel_raw": "Walk-In",
-     "channel": "other",
-     "amount_php": 10650.0,
-     "amount_raw": "10,650.00",
-     "status_email_date": "2025-09-24"
-    },
-    {
-     "num": "8722384531031",
-     "name": "Aura Leah Zhang",
-     "first_date": "2025-09-24",
-     "channel_raw": "Walk-In",
-     "channel": "other",
-     "amount_php": 10650.0,
-     "amount_raw": "10,650.00",
-     "status_email_date": "2025-09-24"
-    },
-    {
-     "num": "8490680253624",
-     "name": "Jerome Mercado",
-     "first_date": "2025-09-25",
-     "channel_raw": "Walk-In",
-     "channel": "other",
-     "amount_php": 7100.0,
-     "amount_raw": "7,100.00",
-     "status_email_date": "2025-09-25"
-    },
-    {
-     "num": "9070423742776",
-     "name": "Romie Santos",
-     "first_date": "2025-09-26",
-     "channel_raw": "Walk-In",
-     "channel": "other",
-     "amount_php": 10650.0,
-     "amount_raw": "10,650.00",
-     "status_email_date": "2025-09-26"
-    },
-    {
-     "num": "6597101086574",
-     "name": "Nikolais Edwin L. David",
-     "first_date": "2025-09-26",
-     "channel_raw": "Walk-In",
-     "channel": "other",
      "amount_php": 3550.0,
      "amount_raw": "3,550.00",
-     "status_email_date": "2025-09-26"
+     "status_email_date": "2025-10-04",
+     "channel": "other"
     },
     {
-     "num": "8862978007040",
-     "name": "Hannah Hinderager",
-     "first_date": "2025-09-26",
+     "num": "2515994436241",
+     "name": "John Bryan D. Miguel",
+     "first_date": "2025-10-04",
+     "channel_raw": "Walk-In",
+     "amount_php": 3550.0,
+     "amount_raw": "3,550.00",
+     "status_email_date": "2025-10-04",
+     "channel": "other"
+    },
+    {
+     "num": "8782489019231",
+     "name": "Princess Abe",
+     "first_date": "2025-10-03",
+     "channel_raw": "Walk-In",
+     "amount_php": 3550.0,
+     "amount_raw": "3,550.00",
+     "status_email_date": "2025-10-03",
+     "channel": "other"
+    },
+    {
+     "num": "8239337791638",
+     "name": "Princess Abes",
+     "first_date": "2025-10-03",
+     "channel_raw": "Walk-In",
+     "amount_php": 3550.0,
+     "amount_raw": "3,550.00",
+     "status_email_date": "2025-10-03",
+     "channel": "other"
+    },
+    {
+     "num": "6849359869464",
+     "name": "Valerie Bernardo",
+     "first_date": "2025-09-30",
      "channel_raw": "Website/Booking Engine",
-     "channel": "direct",
-     "amount_php": 8000.0,
-     "amount_raw": "8,000.00",
-     "status_email_date": "2025-09-26"
+     "amount_php": 7900.0,
+     "amount_raw": "7,900.00",
+     "status_email_date": "2025-09-30",
+     "channel": "direct"
     },
     {
-     "num": "2280703643250",
-     "name": "Joanne Calimag",
-     "first_date": "2025-09-26",
-     "channel_raw": "Walk-In",
-     "channel": "other",
-     "amount_php": 10849.0,
-     "amount_raw": "10,849.00",
-     "status_email_date": "2025-09-26"
+     "num": "3733247629621",
+     "name": "Aimee Sandoval",
+     "first_date": "2025-09-28",
+     "channel_raw": "Website/Booking Engine",
+     "amount_php": 7100.0,
+     "amount_raw": "7.100,00",
+     "status_email_date": "2025-09-30",
+     "channel": "direct"
     },
     {
-     "num": "9564016098353",
-     "name": "Jennifer Mallillin",
-     "first_date": "2025-09-27",
-     "channel_raw": "Walk-In",
-     "channel": "other",
+     "num": "1639360251639",
+     "name": "Luisa Turaray",
+     "first_date": "2025-09-28",
+     "channel_raw": "Website/Booking Engine",
      "amount_php": 3550.0,
      "amount_raw": "3,550.00",
-     "status_email_date": "2025-09-27"
+     "status_email_date": "2025-09-29",
+     "channel": "direct"
     },
     {
-     "num": "5444197140550",
-     "name": "Nikolais Edwin L. David",
-     "first_date": "2025-09-27",
-     "channel_raw": "Walk-In",
-     "channel": "other",
-     "amount_php": 3550.0,
-     "amount_raw": "3,550.00",
-     "status_email_date": "2025-09-27"
-    },
-    {
-     "num": "7605296852765",
-     "name": "John Paul Catli",
-     "first_date": "2025-09-27",
-     "channel_raw": "Walk-In",
-     "channel": "other",
-     "amount_php": 3950.0,
-     "amount_raw": "3,950.00",
-     "status_email_date": "2025-09-27"
+     "num": "3683753053061",
+     "name": "DAN DU",
+     "first_date": "2025-09-29",
+     "channel_raw": "Booking.com Source Reservation ID 5896770431",
+     "amount_php": 14130.0,
+     "amount_raw": "14.130,00",
+     "status_email_date": "2025-09-29",
+     "channel": "booking_com"
     }
    ]
   }
  },
- "one_line": "2026-09-28: last7d=11 confirmed (prior7d=7, yoy7d=19)"
+ "one_line": "2026-10-05: last7d=5 confirmed (prior7d=10, yoy7d=10)"
 }
