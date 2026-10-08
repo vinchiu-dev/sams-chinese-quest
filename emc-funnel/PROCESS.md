@@ -13,6 +13,22 @@
 - Glance board: `dashboard.html` (publish under `vinchiu-dev/sams-chinese-quest/emc-funnel/`)  
 - Run template: `LAST-RUN.json`
 
+### Dashboard UX
+
+The glance board is a **clear, answer-first page** (version `2026-10-08-clear-v1`). It's built by `build_dashboard.py` from `LAST-RUN.json`, which writes identical `dashboard.html` and `index.html`. All numbers come from LAST-RUN. The plain-English sentences, the 3 actions, "What changed" and "Data gaps" are written each run in the script's `COPY` / `CHANGES` / `GAPS` blocks, using customer-name-safe wording.
+
+Layout, top to bottom:
+1. **Top line:** "EMC Funnel · 10-day check", plus the Last 10d vs Prior window dates.
+2. **Hero:** "Is there a leak?" with a one-line answer in large type (e.g. "No clear leak.") and a one-sentence story with the 2–3 headline numbers.
+3. **"Do these 3 things":** at most 3 numbered actions. Each is a bold action plus one short why line.
+4. **"By stage":** exactly four cards in a 2×2 grid on desktop and one column on phone, in the order Traffic (TOF), Calls & leads (Mid), Sales (BOF), Margin. Each card has its tag and name, a status pill (Green / Yellow / Red / Unknown), a plain question, a one-sentence answer, and a small table of **2–4 key numbers** (Last 10d | Prior | Change). Everything else sits behind a collapsed **Details** disclosure: YoY, channel notes, caveats, and source splits.
+5. **Below the fold:** "What changed this window" (the concurrent-change log) and "Data gaps" (blockers), in plain English.
+6. **Footer:** all three windows, data sources, the pill legend, the EMC Planner link and the version.
+
+Visual rules: calm off-white background (#f7f7f5), white cards with a 1px hairline border, near-black text, **one accent color** (blue #2a5bd7, used only for action numbers and links), and Inter or the system sans font. No gradients, no extra highlight colors, and no chip clutter. Status color appears only in the soft pills. Change arrows (▲ ▼) are neutral gray; the pill carries the judgment. On phones (≤520px) the Change column is hidden and type stays ≥14px. The previous notice-first board is archived as `dashboard-notice-v2.html`.
+
+Screenshots: `screenshots/clear-desktop.png` (1440×900 fold), `clear-full.png`, and `clear-mobile.png` (390 wide). Re-shoot them with `python3 shoot.py`. Version meta: `emc-funnel-version` / `LAST-RUN.json` `version`.
+
 Do **not** invent numbers. Leave Unknown / null until pulled from the systems below. Log concurrent changes so you do not blame the wrong stage.
 
 ---
@@ -146,7 +162,7 @@ Copy the filled table into the EMC Planner run note (or link this run’s `LAST-
 
 ## Decision rules
 
-Run top-down; stop when the leak stage is clear. Update the dashboard “Where’s the leak?” callout with one sentence.
+Run top-down; stop when the leak stage is clear. Update the dashboard hero ("Is there a leak?") with one sentence.
 
 1. **If TOF and Mid are steady (Green/Yellow) but BOF/sales soft → dig process**  
    Closer capacity, talk tracks, discounting, follow-up speed, fit-check / remorse handling — not Ads spend.
@@ -199,6 +215,6 @@ Scale reminder (Planner): constraint is qualified leads; scale Ads/YT only when 
 ## After each run
 
 1. Update `/workspace/emc-funnel/LAST-RUN.json` (or the published copy’s companion if used)  
-2. Refresh `dashboard.html` pills, key metric placeholders, last-run date, leak callout, and `data-cos-note` fields  
+2. Update `COPY` / `CHANGES` / `GAPS` in `build_dashboard.py`, run `python3 build_dashboard.py` (writes dashboard.html + index.html), then `python3 shoot.py` and check the screenshots  
 3. Publish dashboard if changed (`vinchiu-dev/sams-chinese-quest/emc-funnel/`)  
 4. Append a dated note to EMC Planner (windows, pills, leak sentence, blockers) — no fabricated metrics

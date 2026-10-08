@@ -3,216 +3,189 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="emc-funnel-version" content="2026-09-08-notice-v2"/>
-<title>EMC Funnel · What to notice</title>
+<meta name="emc-funnel-version" content="2026-10-08-clear-v1"/>
+<title>EMC Funnel · Sep 28 – Oct 7</title>
 <style>
   :root {
-    --blue-deep: #001a9e; --blue-rich: #0126de; --pink: #e018cf;
-    --green: #1fc41a; --green-soft: #d8ffd6; --green-ink: #0f8a0c;
-    --yellow: #e6c200; --yellow-soft: #fff4a8; --yellow-ink: #7a6200;
-    --red: #e11d48; --red-soft: #ffe4e8; --red-ink: #9f1239;
-    --unknown: #94a3b8; --unknown-soft: #e2e8f0; --unknown-ink: #475569;
-    --ink: #0b1220; --muted: #334155; --card: rgba(255,255,255,.95);
+    --bg:#f7f7f5; --card:#fff; --ink:#111; --muted:#6b6b6b; --line:#e7e7e4;
+    --accent:#2a5bd7;
   }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-    background:
-      radial-gradient(900px 520px at 0% 0%, rgba(1,38,222,.55) 0%, transparent 55%),
-      radial-gradient(860px 480px at 100% 15%, rgba(224,24,207,.45) 0%, transparent 52%),
-      linear-gradient(165deg, #001a9e 0%, #0a2ad8 38%, #9b18d4 72%, #e018cf 100%);
-    color: var(--ink); min-height: 100vh;
+  * { box-sizing:border-box; }
+  html { -webkit-text-size-adjust:100%; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+    font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size:16px; line-height:1.5; }
+  .wrap { max-width:1080px; margin:0 auto; padding:40px 24px 72px; }
+  .top { display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap;
+    color:var(--muted); font-size:14px; }
+  .top b { color:var(--ink); font-weight:600; }
+  .hero { margin:28px 0 36px; }
+  .eyebrow { margin:0 0 8px; font-size:13px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
+  h1 { margin:0; font-size:52px; line-height:1.05; letter-spacing:-.03em; font-weight:700; }
+  .story { margin:16px 0 0; font-size:22px; line-height:1.45; max-width:760px; color:#2b2b2b; }
+  .story b { color:var(--ink); }
+  h2 { margin:0 0 14px; font-size:13px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
+  ol.actions { list-style:none; margin:0 0 44px; padding:0; display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  ol.actions li { display:flex; gap:14px; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px; }
+  ol.actions .n { flex:none; width:28px; height:28px; border-radius:50%; background:var(--accent); color:#fff;
+    font-size:14px; font-weight:700; display:grid; place-items:center; }
+  ol.actions b { display:block; font-size:16px; line-height:1.35; margin-bottom:4px; }
+  ol.actions span { color:var(--muted); font-size:14px; line-height:1.45; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px 22px 14px; }
+  .card header { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
+  .tag { margin:0; font-size:12px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
+  h3 { margin:2px 0 0; font-size:22px; letter-spacing:-.02em; }
+  .q { margin:4px 0 0; color:var(--muted); font-size:14px; }
+  .ans { margin:12px 0 16px; font-size:16px; line-height:1.45; }
+  .pill { font-size:13px; font-weight:600; padding:4px 12px; border-radius:999px; white-space:nowrap; }
+  .pill::before { content:""; display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:6px; vertical-align:1px; background:currentColor; }
+  .pill.green { background:#e8f5ec; color:#1d7a3e; }
+  .pill.yellow { background:#fdf3d8; color:#8a6100; }
+  .pill.red { background:#fde8e8; color:#b42318; }
+  .pill.unknown { background:#efefed; color:#5c5c5c; }
+  table { width:100%; table-layout:fixed; border-collapse:collapse; font-variant-numeric:tabular-nums; font-size:15px; }
+  col.c1 { width:44%; } col.c2 { width:20%; } col.c3 { width:16%; } col.c4 { width:20%; }
+  thead th { font-size:12px; font-weight:500; color:var(--muted); text-align:right; padding:0 0 6px; }
+  tbody th { text-align:left; font-weight:400; color:#333; padding:9px 8px 9px 0; border-top:1px solid var(--line); }
+  td { text-align:right; padding:9px 0 9px 10px; border-top:1px solid var(--line); white-space:nowrap; }
+  td.v { font-weight:600; }
+  td.p, td.c { color:var(--muted); }
+  .na { font-style:italic; }
+  details { margin-top:10px; border-top:1px solid var(--line); }
+  summary { cursor:pointer; padding:10px 0 4px; font-size:14px; font-weight:600; color:var(--accent); list-style:none; }
+  summary::-webkit-details-marker { display:none; }
+  summary::after { content:" +"; }
+  details[open] summary::after { content:" –"; }
+  details ul { margin:6px 0 8px; padding-left:18px; color:#3a3a3a; font-size:14px; line-height:1.5; }
+  details li { margin-bottom:6px; }
+  .more { margin-top:44px; display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .more section { background:transparent; border-top:1px solid var(--line); padding-top:16px; }
+  .more ul { margin:0; padding-left:18px; color:#3a3a3a; font-size:14px; line-height:1.55; }
+  .more li { margin-bottom:6px; }
+  footer { margin-top:40px; color:var(--muted); font-size:13px; line-height:1.6; }
+  footer a { color:var(--accent); }
+  @media (max-width:860px) {
+    ol.actions, .grid, .more { grid-template-columns:1fr; }
   }
-  .wrap { max-width: 920px; margin: 0 auto; padding: 24px 16px 64px; }
-  .hero {
-    border-radius: 22px; padding: 18px 18px 14px;
-    background: linear-gradient(135deg, #001a9e 0%, #0126de 42%, #c218d8 78%, #e018cf 100%);
-    color: #fff; box-shadow: 0 16px 40px rgba(0,26,158,.35);
-    border: 1px solid rgba(230,194,0,.35); margin-bottom: 14px;
+  @media (max-width:520px) {
+    .wrap { padding:24px 16px 56px; }
+    h1 { font-size:38px; }
+    .story { font-size:18px; }
+    .hero { margin:20px 0 28px; }
+    .card { padding:18px 16px 10px; }
+    table { font-size:14px; }
+    col.c1 { width:52%; } col.c2 { width:26%; } col.c3 { width:22%; } col.c4 { width:0; }
+    thead th:nth-child(4), td.c { display:none; }
+    ol.actions { margin-bottom:36px; }
   }
-  .hero h1 { margin: 0; font-size: 24px; letter-spacing: -.03em; }
-  .hero .sub { margin: 8px 0 0; color: rgba(255,255,255,.92); font-size: 13px; line-height: 1.4; }
-  .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-  .chip {
-    font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 999px;
-    background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.28); color: #fff;
-  }
-  .chip strong { color: var(--yellow-soft); }
-  .notice {
-    background: linear-gradient(160deg, #fff 0%, var(--yellow-soft) 100%);
-    border: 2px solid rgba(230,194,0,.7); border-radius: 20px;
-    padding: 16px 18px; margin-bottom: 16px;
-    box-shadow: 0 12px 32px rgba(0,26,158,.22);
-  }
-  .notice .label {
-    font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
-    color: var(--yellow-ink); margin: 0 0 8px;
-  }
-  .notice ol { margin: 0; padding-left: 1.15rem; }
-  .notice li { margin: 0 0 8px; font-size: 15px; line-height: 1.4; font-weight: 650; }
-  .notice li:last-child { margin-bottom: 0; }
-  .notice .dig {
-    margin-top: 12px; padding-top: 10px; border-top: 1px dashed rgba(122,98,0,.35);
-    font-size: 13px; color: var(--muted); line-height: 1.4;
-  }
-  .section {
-    margin: 18px 0 8px; font-size: 11px; font-weight: 800;
-    letter-spacing: .14em; text-transform: uppercase; color: var(--yellow);
-    text-shadow: 0 1px 2px rgba(0,0,0,.25);
-  }
-  .stage {
-    background: var(--card); border-radius: 18px; padding: 14px 16px 12px;
-    margin-bottom: 10px; border: 1px solid rgba(255,255,255,.5);
-    box-shadow: 0 8px 24px rgba(0,26,158,.16);
-  }
-  .stage .top { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; }
-  .stage h2 { margin: 0; font-size: 17px; letter-spacing: -.02em; }
-  .q { margin: 4px 0 0; font-size: 13px; color: var(--muted); font-weight: 600; }
-  .ans { margin: 10px 0 0; font-size: 14px; line-height: 1.45; font-weight: 650; }
-  .dig-if {
-    margin: 8px 0 0; font-size: 12.5px; line-height: 1.4; color: var(--muted);
-    background: #f8fafc; border-radius: 10px; padding: 8px 10px;
-  }
-  .metrics {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 8px; margin-top: 10px;
-  }
-  .metric {
-    background: #f8fafc; border-radius: 12px; padding: 8px 10px;
-    border: 1px solid #e2e8f0;
-  }
-  .metric .lab { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #64748b; }
-  .metric .val { font-size: 15px; font-weight: 800; margin-top: 2px; }
-  .metric .delta { font-size: 11px; color: var(--muted); margin-top: 2px; }
-  .pill {
-    font-size: 11px; font-weight: 800; padding: 4px 9px; border-radius: 999px;
-    white-space: nowrap; border: 1px solid transparent;
-  }
-  .pill.green { background: var(--green-soft); color: var(--green-ink); border-color: #86efac; }
-  .pill.yellow { background: var(--yellow-soft); color: var(--yellow-ink); border-color: #fde047; }
-  .pill.red { background: var(--red-soft); color: var(--red-ink); border-color: #fda4af; }
-  .pill.unknown { background: var(--unknown-soft); color: var(--unknown-ink); border-color: #cbd5e1; }
-  .legend {
-    background: rgba(255,255,255,.9); border-radius: 16px; padding: 12px 14px;
-    font-size: 12.5px; line-height: 1.45; color: var(--muted); margin-top: 14px;
-  }
-  .legend strong { color: var(--ink); }
-  .footer { margin-top: 14px; font-size: 11px; color: rgba(255,255,255,.85); }
-  a { color: #1d4ed8; }
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="hero">
-      <h1>EMC Funnel · What to notice</h1>
-      <p class="sub">Planner-style glance: diagnosis first, metrics as evidence. Ads conversions are secondary — CallRail leads/closed sales + checklist sales are the truth.</p>
-      <div class="meta">
-        <span class="chip">Last run <strong>Oct 8, 2026</strong></span>
-        <span class="chip">Last 10d <strong>Sep 28–Oct 7</strong></span>
-        <span class="chip">Prior <strong>Sep 18–27</strong></span>
-        <span class="chip">YoY <strong>Sep 28–Oct 7 2025</strong></span>
-      </div>
-    </div>
+<main class="wrap">
+  <div class="top">
+    <span><b>EMC Funnel</b> · 10-day check</span>
+    <span>Last 10 days <b>Sep 28 – Oct 7</b> vs prior Sep 18 – Sep 27</span>
+  </div>
 
-    <div class="notice">
-      <p class="label">Notice this</p>
-      <ol>
-        <li><strong>Sales strong, ads efficient:</strong> Checklist <strong>16 closes / $89.7k</strong> vs prior 9 / $46.8k (+91%). Ads <strong>2.99%</strong> of sales (prior 5.53%; target 3–4%, ceiling 5%).</li>
-        <li><strong>Margin is the soft spot:</strong> only <strong>1 of 16</strong> paid by check/ACH/Zelle (one $11k check). Pay fees <strong>$2,360</strong> = 2.63% of sales (aim ~2%).</li>
-        <li><strong>Still flying partly blind:</strong> Google Ads records ~<strong>1 conversion per 10 days</strong>; CallRail signed out and RingCentral Zapier stale, so Mid answer rates are unmeasured.</li>
-      </ol>
-      <p class="dig"><strong>Dig here:</strong> push the check/ACH/Zelle + warranty offer on every close. Then fix Ads conversion tracking (calls/cart) before any scaling. Ignore GA4 Direct/Unassigned/Display (Singapore junk flag).</p>
-    </div>
+  <section class="hero">
+    <p class="eyebrow">Is there a leak?</p>
+    <h1>No clear leak.</h1>
+    <p class="story">Sales nearly doubled to <b>$89,651</b> on <b>16</b> closes (prior $46,840 on 9). Ads cost just <b>2.99%</b> of sales, down from 5.53%.</p>
+  </section>
 
-    <div class="section">Stages</div>
+  <h2>Do these 3 things</h2>
+  <ol class="actions"><li><span class="n">1</span><div><b>Push check / ACH / Zelle on every close.</b><span>Only 1 of 16 paid that way. Daryl and Symon should lead with it plus the extra parts warranty.</span></div></li><li><span class="n">2</span><div><b>Ask Asim to fix Ads conversion tracking.</b><span>Ads counts about 1 conversion per 10 days because calls and carts aren't counted. Also clear the disapproved ads in Brands and Brands CA.</span></div></li><li><span class="n">3</span><div><b>Sign in to CallRail; reconnect or drop RingCentral.</b><span>Until then we can't see how many calls come in or get answered.</span></div></li></ol>
 
-    <article class="stage">
-      <div class="top">
+  <h2>By stage</h2>
+  <div class="grid">
+    <article class="card">
+      <header>
         <div>
-          <h2>TOF · Paid / traffic demand</h2>
-          <p class="q">Is paid demand healthy — and scaling with real leads?</p>
+          <p class="tag">TOF</p>
+          <h3>Traffic</h3>
         </div>
         <span class="pill yellow">Yellow</span>
-      </div>
-      <p class="ans">Search is steady: 1,140 clicks vs 1,113 at CPC $2.29 vs $2.32, spend +3%. Headline clicks jumped only because Remarketing Static (Display) went 152 → 1,310 clicks for $66. GA4 Paid Search +9%, Organic flat. YouTube Unknown this run. Ads tracks ~1 conversion per window.</p>
-      <p class="dig-if"><strong>Dig here if…</strong> Brands hits “limited by budget” · disapproved ads in Brands / Brands CA stay unfixed · Display clicks don’t turn into sessions/leads · YT watch hours pace slips.</p>
-      <div class="metrics">
-        <div class="metric"><div class="lab">Ads spend</div><div class="val">$2,677</div><div class="delta">prior $2,592 (+3%) · YoY $3,412</div></div>
-        <div class="metric"><div class="lab">Search clicks / CPC</div><div class="val">1,140 · $2.29</div><div class="delta">prior 1,113 · $2.32 · YoY 928 · $3.67</div></div>
-        <div class="metric"><div class="lab">GA4 Paid / Organic</div><div class="val">1,107 / 459</div><div class="delta">prior 1,019 / 469 · use these not Direct</div></div>
-        <div class="metric"><div class="lab">YouTube</div><div class="val">—</div><div class="delta">Studio analytics didn’t load</div></div>
-      </div>
+      </header>
+      <p class="q">Are enough people finding us?</p>
+      <p class="ans">Search demand is steady and cheaper per click. The extra clicks are low-cost Display, not new buyers.</p>
+      <table>
+        <colgroup><col class="c1"/><col class="c2"/><col class="c3"/><col class="c4"/></colgroup>
+        <thead><tr><th></th><th>Last 10d</th><th>Prior</th><th>Change</th></tr></thead>
+        <tbody><tr><th scope="row">Search clicks</th><td class="v">1,140</td><td class="p">1,113</td><td class="c">▲ 2%</td></tr><tr><th scope="row">Cost per search click</th><td class="v">$2.29</td><td class="p">$2.32</td><td class="c">▼ 1%</td></tr><tr><th scope="row">Ads spend</th><td class="v">$2,677</td><td class="p">$2,592</td><td class="c">▲ 3%</td></tr><tr><th scope="row">Paid search visits (GA4)</th><td class="v">1,107</td><td class="p">1,019</td><td class="c">▲ 9%</td></tr></tbody>
+      </table>
+      <details><summary>Details</summary><ul><li>Total Ads clicks 2,537 vs 1,390: the jump is Display at 1,395 clicks for $68.46 (mostly Remarketing Static), vs 276 prior.</li><li>Ads conversions recorded: 1 in 10 days (calls and carts not counted).</li><li>Organic search visits (GA4): 459 vs 469 (▼ 2%).</li><li>GA4 Direct / Unassigned / Display are flagged as junk traffic (Singapore). Ignore them; use Paid and Organic Search.</li><li>Brands campaign: $1,564 / 561 clicks, close to 'limited by budget'; some ads disapproved in Brands and Brands CA.</li><li>Last year, same dates: spend $3,412, search clicks 928 at $3.67.</li><li>YouTube Studio didn't load this run, so watch hours are unknown.</li></ul></details>
     </article>
-
-    <article class="stage">
-      <div class="top">
+    <article class="card">
+      <header>
         <div>
-          <h2>Mid · Capture &amp; answer</h2>
-          <p class="q">Are we capturing and answering the demand we create?</p>
+          <p class="tag">Mid</p>
+          <h3>Calls & leads</h3>
         </div>
         <span class="pill unknown">Unknown</span>
-      </div>
-      <p class="ans">CallRail and RingCentral not reachable this run. AnswerConnect message emails doubled (8 vs 4), and 3 were sales-intent (Osaka Duo Max price, Yoga Flex “ready to purchase”). Monthly Calls Report: Sep 79 EMC sales calls vs Aug 98.</p>
-      <p class="dig-if"><strong>Dig here if…</strong> AC keeps catching buyers (are closers free when it rolls?) · abandoned rising · qualified calls fall with TOF steady.</p>
-      <div class="metrics">
-        <div class="metric"><div class="lab">CallRail calls</div><div class="val">—</div><div class="delta">signed out — Vin login</div></div>
-        <div class="metric"><div class="lab">RC answer / abandon</div><div class="val">—</div><div class="delta">Zapier OAuth stale</div></div>
-        <div class="metric"><div class="lab">AC messages</div><div class="val">8 vs 4</div><div class="delta">3 sales-intent · not SOR</div></div>
-        <div class="metric"><div class="lab">Sales calls (month)</div><div class="val">79</div><div class="delta">Sep · Aug 98 · Oct ’25 128</div></div>
-      </div>
+      </header>
+      <p class="q">Are we catching and answering them?</p>
+      <p class="ans">Partly blind: CallRail is signed out and RingCentral is stale. AnswerConnect messages doubled, and 3 were buyers.</p>
+      <table>
+        <colgroup><col class="c1"/><col class="c2"/><col class="c3"/><col class="c4"/></colgroup>
+        <thead><tr><th></th><th>Last 10d</th><th>Prior</th><th>Change</th></tr></thead>
+        <tbody><tr><th scope="row">AnswerConnect messages</th><td class="v">8</td><td class="p">4</td><td class="c">▲ 100%</td></tr><tr><th scope="row">Sales calls (Sep vs Aug)</th><td class="v">79</td><td class="p">98</td><td class="c">▼ 19%</td></tr><tr><th scope="row">CallRail calls</th><td class="v">—</td><td class="p">—</td><td class="c"><span class="na">signed out</span></td></tr></tbody>
+      </table>
+      <details><summary>Details</summary><ul><li>3 of the 8 AnswerConnect messages were buyers, including a price question on an Osaka Duo Max and a Yoga Flex customer who said they were ready to purchase. Are closers free when calls roll to AnswerConnect?</li><li>Calls Report is monthly only: Sep 79, Aug 98, Oct 2025 128.</li><li>RingCentral answered / abandoned: unknown (Zapier connection stale since Sep 15).</li></ul></details>
     </article>
-
-    <article class="stage">
-      <div class="top">
+    <article class="card">
+      <header>
         <div>
-          <h2>BOF · Conversion to sales</h2>
-          <p class="q">Are qualified conversations becoming closed sales — efficiently?</p>
+          <p class="tag">BOF</p>
+          <h3>Sales</h3>
         </div>
         <span class="pill green">Green</span>
-      </div>
-      <p class="ans">16 closes / $89,651 vs prior 9 / $46,840 (+91%). YoY window was $207k only because of one $160k Flagship Duo order; without it YoY was 8 / $47.0k, so this window is about 1.9x. 11 of 16 closes credited to YouTube, 5 to Google.</p>
-      <p class="dig-if"><strong>Dig here if…</strong> Mid leads hold but sales fall · ads % of sales climbs back over 5% · closer capacity strain.</p>
-      <div class="metrics">
-        <div class="metric"><div class="lab">Closed sales</div><div class="val">16</div><div class="delta">prior 9 · YoY 9 (8 ex-outlier)</div></div>
-        <div class="metric"><div class="lab">Revenue</div><div class="val">$89,651</div><div class="delta">prior $46,840 · YoY ex-outlier $46,986</div></div>
-        <div class="metric"><div class="lab">Ads % of sales</div><div class="val">2.99%</div><div class="delta">prior 5.53% · ceiling 5%</div></div>
-        <div class="metric"><div class="lab">NMAP</div><div class="val">38.0%</div><div class="delta">prior 35.7% (COGS now filled)</div></div>
-      </div>
+      </header>
+      <p class="q">Are conversations turning into sales?</p>
+      <p class="ans">Strong. Sales nearly doubled while ads fell to under 3% of sales (target 3–4%, ceiling 5%).</p>
+      <table>
+        <colgroup><col class="c1"/><col class="c2"/><col class="c3"/><col class="c4"/></colgroup>
+        <thead><tr><th></th><th>Last 10d</th><th>Prior</th><th>Change</th></tr></thead>
+        <tbody><tr><th scope="row">Revenue</th><td class="v">$89,651</td><td class="p">$46,840</td><td class="c">▲ 91%</td></tr><tr><th scope="row">Closed sales</th><td class="v">16</td><td class="p">9</td><td class="c">▲ 78%</td></tr><tr><th scope="row">Ads as % of sales</th><td class="v">2.99%</td><td class="p">5.53%</td><td class="c">▼ 2.5 pts</td></tr><tr><th scope="row">Margin (NMAP)</th><td class="v">38.0%</td><td class="p">35.6%</td><td class="c">▲ 2.4 pts</td></tr></tbody>
+      </table>
+      <details><summary>Details</summary><ul><li>Gross profit $34,069 vs $16,699 (▲ 104%).</li><li>Last year, same dates: $206,966 on 9, but one $159,980 Flagship Duo order was most of it. Without it: $46,986 on 8.</li><li>Credited source: YouTube 11, Google 5.</li><li>Close rate vs qualified leads: unknown until CallRail is back.</li></ul></details>
     </article>
-
-    <article class="stage">
-      <div class="top">
+    <article class="card">
+      <header>
         <div>
-          <h2>Margin · Bucket before pour</h2>
-          <p class="q">Is margin leaking after the sale?</p>
+          <p class="tag">Margin</p>
+          <h3>Margin</h3>
         </div>
         <span class="pill yellow">Yellow</span>
-      </div>
-      <p class="ans">Preferred pay 1 of 16 (one $11,000 check). Financing 0 (good). Card 13, PayPal 2. Fee drag 2.63% of sales, about $2,360 in 10 days.</p>
-      <p class="dig-if"><strong>Dig here if…</strong> check/ACH/Zelle stays near zero · Affirm/financing share rises · warranty-for-check offer isn’t noted on POs.</p>
-      <div class="metrics">
-        <div class="metric"><div class="lab">Check/ACH/Zelle</div><div class="val">1 / 16</div><div class="delta">prior 1 / 9</div></div>
-        <div class="metric"><div class="lab">Card / PayPal</div><div class="val">13 / 2</div><div class="delta">prior 6 / 2</div></div>
-        <div class="metric"><div class="lab">Affirm / financing</div><div class="val">0</div><div class="delta">none this window</div></div>
-        <div class="metric"><div class="lab">Fee drag</div><div class="val">2.63%</div><div class="delta">prior 2.66% · aim ~2%</div></div>
-      </div>
-    </article>
-    <div class="legend">
-      <strong>How to read this board (Planner rules):</strong>
-      (1) Scale without payback — spend/YT up but CallRail qualified leads &amp; closed sales don’t.
-      (2) Localize the drop — sales → clicks → which campaign.
-      (3) Answer leaks — abandoned / AC / Ruth tests / RC routing.
-      (4) Bucket before pour — refunds + payment mix.
-      (5) Guardrails — ads ≤5% of sales (target 3–4%); MER~10 only if NI grows; cost/closed sale by campaign.
-      (6) Log concurrent changes (bid cuts, new campaigns, routing) so you don’t blame the wrong stage.
-      <br/><br/>
-      Playbook + live log:
-      <a href="https://docs.google.com/document/d/1rYekaYPpaQG6u83GS2DtrXguzEG2BXEvil_9eXlUc4Q/edit" target="_blank" rel="noopener">EMC Planner</a>
-      · Checklist <code>19cWkmcUCmANzLIa1RsAPxATVQ_T0sgCTrKh9CRdKcSk</code>
-      · Board <a href="https://vinchiu-dev.github.io/sams-chinese-quest/emc-funnel/" target="_blank" rel="noopener">GitHub Pages</a>
-    </div>
-    <p class="footer">EMC Funnel notice-v2 · filled Oct 8, 2026 ET · concurrent: Stripe decline/Affirm alerts live Oct 7; YT editing ramp underway; Brands “limited by budget soon” + some disapproved ads</p>
+      </header>
+      <p class="q">Are we keeping the money after the sale?</p>
+      <p class="ans">The soft spot. 15 of 16 paid by card or PayPal, so fees ran 2.63% of sales (aim ~2%).</p>
+      <table>
+        <colgroup><col class="c1"/><col class="c2"/><col class="c3"/><col class="c4"/></colgroup>
+        <thead><tr><th></th><th>Last 10d</th><th>Prior</th><th>Change</th></tr></thead>
+        <tbody><tr><th scope="row">Paid by check / ACH / Zelle</th><td class="v">1 of 16</td><td class="p">1 of 9</td><td class="c">6% vs 11%</td></tr><tr><th scope="row">Payment fees, % of sales</th><td class="v">2.63%</td><td class="p">2.66%</td><td class="c">▼ 0.03 pts</td></tr><tr><th scope="row">Payment fees, $</th><td class="v">$2,360</td><td class="p">—</td><td class="c"></td></tr></tbody>
+      </table>
+      <details><summary>Details</summary><ul><li>Payment mix: card 13, PayPal 2, check 1 (one $11,000 Apex Duo), ACH 0, Zelle 0, Affirm/financing 0.</li><li>Prior 10 days: card 6, PayPal 2, ACH 1.</li><li>Last year, same dates: fees 0.96% of sales.</li><li>No financing this window, which is good. Discount exceptions weren't logged.</li></ul></details>
+    </article></div>
+
+  <div class="more">
+    <section>
+      <h2>What changed this window</h2>
+      <ul><li><b>Oct 7</b> · Stripe decline and Affirm-fail alerts went live.</li><li><b>Oct 6</b> · YouTube editing ramp started (Ashutosh + two backup editors). Too early to show in traffic.</li><li><b>Ongoing</b> · Google Ads: Brands is close to 'limited by budget', some ads disapproved, and Display remarketing clicks jumped.</li></ul>
+    </section>
+    <section>
+      <h2>Data gaps</h2>
+      <ul><li>CallRail is signed out, so call counts by source are missing.</li><li>RingCentral's Zapier link is stale, so answer and abandon rates are missing.</li><li>YouTube Studio didn't load, so watch hours are missing.</li><li>Google Ads only records about 1 conversion per 10 days.</li><li>GA4 Direct, Unassigned and Display traffic is junk-flagged. Only Paid and Organic Search are used.</li></ul>
+    </section>
   </div>
+
+  <footer>
+    Updated Oct 8, 2026 · Last 10d Sep 28 – Oct 7 · Prior Sep 18 – Sep 27 · Last year Sep 28 – Oct 7, 2025 (Ads and sales only).
+    Sales and payments come from the Business Checklist, traffic from Google Ads and GA4. Ads "conversions" are not the source of truth.
+    Pills: Green = healthy · Yellow = watch · Red = leak · Unknown = couldn't measure.
+    · <a href="https://docs.google.com/document/d/1rYekaYPpaQG6u83GS2DtrXguzEG2BXEvil_9eXlUc4Q/edit" target="_blank" rel="noopener">EMC Planner</a>
+    · version 2026-10-08-clear-v1
+  </footer>
+</main>
 </body>
 </html>

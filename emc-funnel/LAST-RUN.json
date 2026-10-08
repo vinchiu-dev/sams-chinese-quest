@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-08-notice-v2",
+  "version": "2026-10-08-clear-v1",
   "last_run_at_et": "2026-10-08T09:30:00-04:00",
   "windows": {
     "last_10d": {
@@ -252,7 +252,7 @@
   ],
   "planner_note_pasted": false,
   "dashboard_published_url": "https://vinchiu-dev.github.io/sams-chinese-quest/emc-funnel/",
-  "dashboard_ux": "notice-first",
+  "dashboard_ux": "clear-glance",
   "notices": [
     "Sales strong: 16 closes / $89.7k vs 9 / $46.8k (+91%); Ads 2.99% of sales (was 5.53%)",
     "Margin is the soft spot: only 1 of 16 paid by check/ACH/Zelle; $2,360 in pay fees (2.63%)",
