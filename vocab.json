@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-24",
+  "updated": "2026-10-10",
   "lessons": [
     {
       "id": "little-fox-school-supplies",
@@ -2481,6 +2481,78 @@
           ]
         }
       ]
+    },
+    {
+      "id": "going-to-school",
+      "title": "Going to School",
+      "subtitle": "你想去学校吗？— want to go / don't want to go",
+      "words": [
+        {
+          "hanzi": "学校",
+          "pinyin": "xuéxiào",
+          "en": "school",
+          "emoji": "🏫",
+          "phrases": [
+            {
+              "en": "I'm going to school.",
+              "pinyin": "Wǒ qù xuéxiào.",
+              "hanzi": "我去学校。"
+            }
+          ]
+        },
+        {
+          "hanzi": "去哪儿",
+          "pinyin": "qù nǎr",
+          "en": "go where?",
+          "emoji": "🧭",
+          "phrases": [
+            {
+              "en": "Xiaotian, where are you going?",
+              "pinyin": "Xiǎotiān, nǐ qù nǎr?",
+              "hanzi": "小天，你去哪儿？"
+            }
+          ]
+        },
+        {
+          "hanzi": "想",
+          "pinyin": "xiǎng",
+          "en": "want to",
+          "emoji": "💭",
+          "phrases": [
+            {
+              "en": "I want to eat dumplings.",
+              "pinyin": "Wǒ xiǎng chī jiǎozi.",
+              "hanzi": "我想吃饺子。"
+            }
+          ]
+        },
+        {
+          "hanzi": "想去",
+          "pinyin": "xiǎng qù",
+          "en": "want to go",
+          "emoji": "🙋",
+          "phrases": [
+            {
+              "en": "Do you want to go to school?",
+              "pinyin": "Nǐ xiǎng qù xuéxiào ma?",
+              "hanzi": "你想去学校吗？"
+            }
+          ]
+        },
+        {
+          "hanzi": "不想去",
+          "pinyin": "bù xiǎng qù",
+          "en": "don't want to go",
+          "emoji": "🙅",
+          "phrases": [
+            {
+              "en": "I don't want to go to school.",
+              "pinyin": "Wǒ bù xiǎng qù xuéxiào.",
+              "hanzi": "我不想去学校。"
+            }
+          ]
+        }
+      ]
     }
   ],
   "tagMap": {
@@ -2631,6 +2703,9 @@
     ],
     "time": [
       "telling-time"
+    ],
+    "goschool": [
+      "going-to-school"
     ]
   },
   "sentences": [
@@ -4595,6 +4670,36 @@
       "pinyin": "Māma, xiànzài jǐ diǎn?",
       "hanzi": "妈妈，现在几点？",
       "tag": "time"
+    },
+    {
+      "en": "Xiaotian, where are you going?",
+      "pinyin": "Xiǎotiān, nǐ qù nǎr?",
+      "hanzi": "小天，你去哪儿？",
+      "tag": "goschool"
+    },
+    {
+      "en": "Do you want to go to school?",
+      "pinyin": "Nǐ xiǎng qù xuéxiào ma?",
+      "hanzi": "你想去学校吗？",
+      "tag": "goschool"
+    },
+    {
+      "en": "I don't want to go to school — I want to play games!",
+      "pinyin": "Wǒ bù xiǎng qù xuéxiào, wǒ xiǎng wán yóuxì!",
+      "hanzi": "我不想去学校，我想玩游戏！",
+      "tag": "goschool"
+    },
+    {
+      "en": "I want to go to China.",
+      "pinyin": "Wǒ xiǎng qù Zhōngguó.",
+      "hanzi": "我想去中国。",
+      "tag": "goschool"
+    },
+    {
+      "en": "Dad, I want to go to the stationery shop!",
+      "pinyin": "Bàba, wǒ xiǎng qù wénjùdiàn!",
+      "hanzi": "爸爸，我想去文具店！",
+      "tag": "goschool"
     }
   ]
 }
