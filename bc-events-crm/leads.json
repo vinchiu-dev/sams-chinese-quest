@@ -24,8 +24,35 @@
       "label": "Lost"
     }
   ],
-  "lead_count": 51,
+  "lead_count": 52,
   "leads": [
+    {
+      "id": "1a1317b4d60d3719",
+      "name": "RYAN BAUTISTA",
+      "org": null,
+      "email": null,
+      "phone": "09129320683",
+      "source": "functions-events form via Meta ad (EVENT INQUIRY)",
+      "source_badge": "Form",
+      "inquiry_date": "2026-10-12",
+      "event_dates": "2026-02-01 as entered (presumed Feb 1 2027; FO to confirm)",
+      "pax": "100",
+      "event_type": "Party / other (budget ₱50,000)",
+      "stage": "new_inquiry",
+      "revenue_php": null,
+      "seed_notes": "First lead from Meta function-hall ad. utm facebook / cap_pd / svfunctionhall / 52552470014304. Budget ₱50k for 100 pax suggests hall + meals, not overnight.",
+      "fo_notes": "",
+      "lost_reason": "",
+      "related_contacts": [],
+      "marketing_channel": "Meta ads",
+      "utm_source": "facebook",
+      "utm_medium": "cap_pd",
+      "utm_campaign": "svfunctionhall",
+      "utm_content": "52552470014304",
+      "last_updated": "2026-10-12",
+      "editor": "bc-events",
+      "subject": "EVENT INQUIRY — RYAN BAUTISTA"
+    },
     {
       "email": "bacsec.fo2@dswd.gov.ph",
       "phone": "(078) 304-1004 / 09663791031",
