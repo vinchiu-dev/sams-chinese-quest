@@ -1,6 +1,6 @@
 {
-  "version": 2,
-  "updated": "2026-09-28",
+  "version": 3,
+  "updated": "2026-10-12",
   "lists": [
     {
       "id": "en-starter-1",
@@ -892,6 +892,139 @@
         {
           "word": "variable",
           "def": "The one thing you change on purpose in a test."
+        }
+      ]
+    },
+    {
+      "id": "en-reading-words",
+      "title": "Reading Words",
+      "subtitle": "words from Daddy School readings",
+      "words": [
+        {
+          "word": "vibrate",
+          "definition": "to shake back and forth very fast",
+          "example": "A guitar string vibrates when you pluck it.",
+          "emoji": "🎸"
+        },
+        {
+          "word": "faint",
+          "definition": "weak and hard to see, hear, or notice",
+          "example": "We heard a faint chirp from the tree.",
+          "emoji": "🤫"
+        },
+        {
+          "word": "similar",
+          "definition": "almost the same, but not exactly",
+          "example": "A katydid's ear is similar to my ear.",
+          "emoji": "👯"
+        },
+        {
+          "word": "eavesdrop",
+          "definition": "to secretly listen to someone else",
+          "example": "The bat eavesdropped on the singing katydid.",
+          "emoji": "👂"
+        },
+        {
+          "word": "ancient",
+          "definition": "very, very old",
+          "example": "Scientists found an ancient wing in the rock.",
+          "emoji": "🦴"
+        },
+        {
+          "word": "signal",
+          "definition": "a sound, sign, or message that tells something",
+          "example": "A green light is a signal to go.",
+          "emoji": "🚦"
+        },
+        {
+          "word": "survive",
+          "definition": "to stay alive through something hard",
+          "example": "Katydid eggs survive the cold winter.",
+          "emoji": "❄️"
+        },
+        {
+          "word": "intelligence",
+          "definition": "being able to learn and figure things out",
+          "example": "It takes intelligence to solve a tricky puzzle.",
+          "emoji": "🧠"
+        },
+        {
+          "word": "example",
+          "definition": "one thing that shows what a whole group is like",
+          "example": "A tarantula is one example of a spider.",
+          "emoji": "🕷️"
+        },
+        {
+          "word": "pattern",
+          "definition": "something that happens again and again",
+          "example": "Red, blue, red, blue is a pattern.",
+          "emoji": "🔁"
+        },
+        {
+          "word": "predict",
+          "definition": "to make a smart guess about what comes next",
+          "example": "I predict it will rain tomorrow.",
+          "emoji": "🔮"
+        },
+        {
+          "word": "confident",
+          "definition": "feeling or sounding very sure",
+          "example": "She gave a confident answer.",
+          "emoji": "💪"
+        },
+        {
+          "word": "hallucination",
+          "definition": "when AI makes something up that isn't true",
+          "example": "The chatbot's made-up bug was a hallucination.",
+          "emoji": "🤖"
+        },
+        {
+          "word": "evidence",
+          "definition": "facts that show whether something is true",
+          "example": "Muddy paw prints were evidence the dog came in.",
+          "emoji": "🔍"
+        },
+        {
+          "word": "private",
+          "definition": "just for you and your family, not for sharing",
+          "example": "Your password is private.",
+          "emoji": "🔒"
+        },
+        {
+          "word": "tool",
+          "definition": "something that helps you do a job",
+          "example": "A hammer is a tool for building.",
+          "emoji": "🔨"
+        },
+        {
+          "word": "future",
+          "definition": "the time that hasn't happened yet",
+          "example": "In the future I want to visit China.",
+          "emoji": "🚀"
+        },
+        {
+          "word": "expert",
+          "definition": "someone who knows a lot about one thing",
+          "example": "Ask a bug expert about katydids.",
+          "emoji": "🎓"
+        },
+        {
+          "word": "disagree",
+          "definition": "to think something different from someone else",
+          "example": "My sister and I disagree about the best color.",
+          "emoji": "🙅"
+        },
+        {
+          "word": "safe",
+          "definition": "not likely to hurt anyone",
+          "example": "Wear a helmet to stay safe on your bike.",
+          "emoji": "🦺"
+        },
+        {
+          "word": "fair",
+          "definition": "treating everyone the right way, not just a few",
+          "example": "Taking turns is fair.",
+          "emoji": "⚖️"
         }
       ]
     }
