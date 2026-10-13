@@ -2249,7 +2249,7 @@
   ],
   "dayCount": {
     "date": "2026-10-13",
-    "n": 2
+    "n": 3
   },
   "spokenCount": {
     "date": "2026-08-21",
@@ -2289,9 +2289,8 @@
     "math:bond:8:7"
   ],
   "math_sets": [
-    "sub20",
-    "add20",
-    "neardbl"
+    "neardbl",
+    "doubles"
   ],
   "car_deck": "math",
   "car_gap": 10,
