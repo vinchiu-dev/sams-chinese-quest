@@ -1087,10 +1087,10 @@
     },
     "math:+:11:11": {
       "lvl": 0,
-      "seen": 2,
+      "seen": 3,
       "right": 0,
-      "wrong": 2,
-      "last": 1789406519950
+      "wrong": 3,
+      "last": 1791901424301
     },
     "math:+:8:8": {
       "lvl": 2,
@@ -2322,6 +2322,6 @@
   "hiddenWords_at": 1791900221884,
   "archived_at": 1791900221884,
   "en_starred_at": 1791900224016,
-  "math_missed_at": 1791901364857,
+  "math_missed_at": 1791901424817,
   "chips": 13
 }
