@@ -937,6 +937,22 @@ function ChineseApp({ onSwitchLang }) {
     });
   }, []);
 
+  // Car Mode marks piles both ways: tapped in time = off the pile, timed out = on it.
+  const setSentenceStar = (en, on) =>
+    setStarredSentences((prev) => {
+      if (!en || prev.has(en) === on) return prev;
+      const n = new Set(prev);
+      on ? n.add(en) : n.delete(en);
+      return n;
+    });
+  const removeTrouble = (pinyin) =>
+    setTrouble((prev) => {
+      if (!prev.has(pinyin)) return prev;
+      const n = new Set(prev);
+      n.delete(pinyin);
+      return n;
+    });
+
   const toggleSentence = (en) =>
     setStarredSentences((prev) => {
       const n = new Set(prev);
@@ -1139,7 +1155,9 @@ function ChineseApp({ onSwitchLang }) {
         {screen === "car" && (
           <React.Fragment><GameTitle>Car Mode</GameTitle>
           <CarMode facts={[]} carWords={activeWords} carSentences={activeSentences}
-            starredWords={troubleWords} starredSentences={starredSentenceList} onHome={() => setScreen("home")} />
+            starredWords={troubleWords} starredSentences={starredSentenceList}
+            pileWord={(pin, on) => (on ? addTrouble(pin) : removeTrouble(pin))}
+            pileSentence={setSentenceStar} onHome={() => setScreen("home")} />
           </React.Fragment>
         )}
         {screen === "troubleflip" && (
@@ -4720,6 +4738,14 @@ function MathApp({ onSwitchLang }) {
       return n;
     });
 
+  const removeMissed = (key) =>
+    setMissed((prev) => {
+      if (!prev.has(key)) return prev;
+      const n = new Set(prev);
+      n.delete(key);
+      return n;
+    });
+
   const facts = MATH_SETS.filter((s) => sets.includes(s.id))
     .flatMap((s) => factsFor(s).map((f) => ({ ...f, set: s.title.replace(/\s+/g, " ") })));
   // Missed pile deliberately ignores which sets are selected — like Chinese starring.
@@ -4750,7 +4776,8 @@ function MathApp({ onSwitchLang }) {
         )}
         {screen === "car" && (
           <React.Fragment><GameTitle>Car Mode</GameTitle>
-          <CarMode facts={facts} starredFacts={missedFacts} onHome={home} />
+          <CarMode facts={facts} starredFacts={missedFacts}
+            pileFact={(key, on) => (on ? addMissed(key) : removeMissed(key))} onHome={home} />
           </React.Fragment>
         )}
         {screen === "quick" && (
@@ -5513,7 +5540,8 @@ const CAR_TIPS = [
    "Add the digits. Or “make the biggest number you can.” No app required."],
 ];
 
-function CarMode({ facts, onHome, carWords, carSentences, starredFacts = [], starredWords = [], starredSentences = [] }) {
+function CarMode({ facts, onHome, carWords, carSentences, starredFacts = [], starredWords = [], starredSentences = [],
+  pileFact, pileWord, pileSentence }) {
   const { lessons: LESSONS, sentences: SENTENCES } = getVocab();
   const [phase, setPhase] = useState("setup");     // setup | run | review
   const hasMath = (facts || []).length > 0;
@@ -5588,6 +5616,7 @@ function CarMode({ facts, onHome, carWords, carSentences, starredFacts = [], sta
           sayAnswer: String(f.ans),
           lang: "en-US",
           fact: f, topic: mathFactTopic(f),
+          pile: pileFact ? ((k) => (on) => pileFact(k, on))(f.key) : null,
         });
       }
       // finish strong: three easy doubles, never counted against him
@@ -5616,16 +5645,7 @@ function CarMode({ facts, onHome, carWords, carSentences, starredFacts = [], sta
           sayAnswer: w.hanzi || w.pinyin,
           lang: "en-US", answerLang: "zh-CN",
           topic: cnWordTopic(w),
-          // not answered in time -> add it to the starred pile for later
-          star: (function (pin) {
-            return function () {
-              const cur = loadLS("trouble", []) || [];
-              if (cur.indexOf(pin) === -1) {
-                saveTimed("trouble", cur.concat([pin]));
-                bumpProgress();
-              }
-            };
-          })(w.pinyin),
+          pile: pileWord ? ((pin) => (on) => pileWord(pin, on))(w.pinyin) : null,
         });
       }
     } else {
@@ -5642,6 +5662,7 @@ function CarMode({ facts, onHome, carWords, carSentences, starredFacts = [], sta
           sayAnswer: sn.en,
           lang: "zh-CN", answerLang: "en-US",
           listen: true, topic: cnSentenceTopic(sn),
+          pile: pileSentence ? ((en) => (on) => pileSentence(en, on))(sn.en) : null,
         });
       }
     }
@@ -5687,9 +5708,10 @@ function CarMode({ facts, onHome, carWords, carSentences, starredFacts = [], sta
       await holdPause(); if (cancelRef.current) return;
       setReveal(true);
       await carSpeak(it.sayAnswer, it.answerLang || it.lang);
-      if (!it.closer && String(it.key).indexOf("sen:") !== 0) {
-        srsRecord(it.key, knewIt);
-        if (!knewIt && it.star) it.star();
+      if (!it.closer) {
+        if (String(it.key).indexOf("sen:") !== 0) srsRecord(it.key, knewIt);
+        // tapped in time -> not tricky (off the ⭐ pile); timed out -> onto it
+        if (it.pile) it.pile(!knewIt);
       }
       await waitSkippable(900);
     }
@@ -5912,7 +5934,7 @@ function CarMode({ facts, onHome, carWords, carSentences, starredFacts = [], sta
           </button>
         </div>
         <div style={{ textAlign: "center", fontSize: 13, color: "#8b83a8", marginTop: 14, fontWeight: 700 }}>
-          Tap the big card the moment he answers. Anything he doesn't get in time comes back more often by itself.
+          Tap the big card the moment he answers. Tapped in time comes off the ⭐ pile; anything that runs out of time goes on it.
         </div>
       </div>
     );
