@@ -2192,11 +2192,11 @@
       "last": 1791901396334
     },
     "math:bond:8:6": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1791901702887
+      "last": 1791902430974
     },
     "math:bond:9:3": {
       "lvl": 0,
