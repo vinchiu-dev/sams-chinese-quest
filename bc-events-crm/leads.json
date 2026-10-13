@@ -24,8 +24,35 @@
       "label": "Lost"
     }
   ],
-  "lead_count": 52,
+  "lead_count": 53,
   "leads": [
+    {
+      "id": "1a135870471460a6",
+      "name": "Sheryl Dumalnog",
+      "org": null,
+      "email": "sheryldumalnog1322@gmail.com",
+      "phone": "9654135306",
+      "source": "functions-events form via Google Ads (EVENT INQUIRY)",
+      "source_badge": "Form",
+      "inquiry_date": "2026-10-13",
+      "event_dates": "2026-11-14",
+      "pax": "50",
+      "event_type": "Party / other (budget ₱5,000)",
+      "stage": "new_inquiry",
+      "revenue_php": null,
+      "seed_notes": "Google Ads lead: google / cpc / bc-events-search-cv / content corporate, gclid present. Budget ₱5k for 50 pax is very low.",
+      "fo_notes": "",
+      "lost_reason": "",
+      "related_contacts": [],
+      "marketing_channel": "Google Ads",
+      "utm_source": "google",
+      "utm_medium": "cpc",
+      "utm_campaign": "bc-events-search-cv",
+      "utm_content": "corporate",
+      "last_updated": "2026-10-13",
+      "editor": "bc-events",
+      "subject": "EVENT INQUIRY — sheryl dumalnog"
+    },
     {
       "id": "1a1317b4d60d3719",
       "name": "RYAN BAUTISTA",
