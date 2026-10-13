@@ -2242,7 +2242,6 @@
   "math_sets": [
     "sub20",
     "add20",
-    "plus10",
     "neardbl",
     "bonds20"
   ],
