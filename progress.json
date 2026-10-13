@@ -2141,6 +2141,13 @@
       "right": 0,
       "wrong": 1,
       "last": 1791901265450
+    },
+    "math:+:1:1": {
+      "lvl": 1,
+      "seen": 1,
+      "right": 1,
+      "wrong": 0,
+      "last": 1791901306043
     }
   },
   "chipLog": [
@@ -2274,6 +2281,6 @@
   "hiddenWords_at": 1791900221884,
   "archived_at": 1791900221884,
   "en_starred_at": 1791900224016,
-  "math_missed_at": 1791901244863,
+  "math_missed_at": 1791901304843,
   "chips": 13
 }
