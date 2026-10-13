@@ -1,6 +1,6 @@
 {
-  "version": 3,
-  "updated": "2026-10-12",
+  "version": 4,
+  "updated": "2026-10-13",
   "lists": [
     {
       "id": "en-starter-1",
@@ -1025,6 +1025,132 @@
           "definition": "treating everyone the right way, not just a few",
           "example": "Taking turns is fair.",
           "emoji": "⚖️"
+        },
+        {
+          "word": "momentum",
+          "definition": "how hard it is to stop something that is moving",
+          "example": "A rolling bowling ball has a lot of momentum.",
+          "emoji": "🎳"
+        },
+        {
+          "word": "enormous",
+          "definition": "very, very big",
+          "example": "A blue whale is enormous.",
+          "emoji": "🐋"
+        },
+        {
+          "word": "budge",
+          "definition": "to move even a tiny bit",
+          "example": "The heavy rock would not budge.",
+          "emoji": "🪨"
+        },
+        {
+          "word": "collide",
+          "definition": "to crash or bump into something",
+          "example": "Two bumper cars collide with a thump.",
+          "emoji": "💥"
+        },
+        {
+          "word": "sudden",
+          "definition": "happening very fast, all at once",
+          "example": "The sudden thunder made me jump.",
+          "emoji": "⚡"
+        },
+        {
+          "word": "impact",
+          "definition": "a hard hit when one thing crashes into another",
+          "example": "The impact of the ball knocked over the cups.",
+          "emoji": "🥊"
+        },
+        {
+          "word": "opposite",
+          "definition": "the other way, as different as can be",
+          "example": "Up is the opposite of down.",
+          "emoji": "↕️"
+        },
+        {
+          "word": "equal",
+          "definition": "exactly the same amount",
+          "example": "Two plus two is equal to four.",
+          "emoji": "🟰"
+        },
+        {
+          "word": "rigid",
+          "definition": "stiff; it won't bend",
+          "example": "A metal pole is rigid, but a rope is not.",
+          "emoji": "🧱"
+        },
+        {
+          "word": "flexible",
+          "definition": "able to bend without breaking",
+          "example": "A rubber band is flexible.",
+          "emoji": "🪢"
+        },
+        {
+          "word": "crumple",
+          "definition": "to crush and fold up into wrinkles",
+          "example": "I crumple the paper into a ball.",
+          "emoji": "📄"
+        },
+        {
+          "word": "surface",
+          "definition": "the outside or top layer of something",
+          "example": "A water strider walks on the surface of the pond.",
+          "emoji": "🌊"
+        },
+        {
+          "word": "area",
+          "definition": "how much space a flat surface covers",
+          "example": "The rug covers a big area of the floor.",
+          "emoji": "🟩"
+        },
+        {
+          "word": "protect",
+          "definition": "to keep something safe from harm",
+          "example": "A helmet helps protect your head.",
+          "emoji": "⛑️"
+        },
+        {
+          "word": "nerve",
+          "definition": "a thin wire-like thread in your body that carries messages",
+          "example": "Nerves carry messages from your toes to your brain.",
+          "emoji": "🧠"
+        },
+        {
+          "word": "ache",
+          "definition": "a dull pain that lasts a while",
+          "example": "My legs ache after the long hike.",
+          "emoji": "🦵"
+        },
+        {
+          "word": "reflex",
+          "definition": "something your body does by itself, before you think",
+          "example": "When the doctor taps your knee, your leg kicks by reflex.",
+          "emoji": "🦿"
+        },
+        {
+          "word": "warning",
+          "definition": "a sign that tells you danger is coming",
+          "example": "The yellow sign is a warning to slow down.",
+          "emoji": "⚠️"
+        },
+        {
+          "word": "bruise",
+          "definition": "a sore, purple mark when blood leaks under your skin",
+          "example": "I got a purple bruise when I bumped the table.",
+          "emoji": "🟣"
+        },
+        {
+          "word": "sensitive",
+          "definition": "quick to feel or notice something",
+          "example": "A cat's whiskers are very sensitive.",
+          "emoji": "🐱"
+        },
+        {
+          "word": "injury",
+          "definition": "harm or damage to your body",
+          "example": "Wear pads to help prevent an injury.",
+          "emoji": "🩹"
         }
       ]
     }
