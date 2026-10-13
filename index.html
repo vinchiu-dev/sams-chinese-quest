@@ -4870,14 +4870,51 @@ function MathHome({ sets, toggleSet, count, go, missedCount = 0 }) {
   );
 }
 
-const FactCard = ({ f, children, border, star }) => (
+// ---- Column (vertical) layout for a math fact, the way it's written on paper.
+// Any of a / b / answer can be a node (an input box or a "?") instead of a number.
+const numLen = (v) => (typeof v === "number" || typeof v === "string") ? String(v).length : 2;
+const AnswerBox = ({ value, onChange, onEnter, result, width, size }) => (
+  <input value={value} onChange={(e)=>onChange(e.target.value.replace(/[^0-9-]/g,""))}
+    onKeyDown={(e)=>{ if(e.key==="Enter") onEnter(); }}
+    inputMode="numeric" placeholder="?" autoFocus aria-label="answer"
+    style={{ ...inp, boxSizing:"content-box", width:`${Math.max(width,2) * 0.62}em`, padding:"0 0.15em",
+      fontSize:size, fontWeight:800, lineHeight:1.15, textAlign:"right", fontFamily:"inherit",
+      fontVariantNumeric:"tabular-nums", color:C.ink, background:"#FAF8FF",
+      borderColor: result==="right"?C.leaf:result==="wrong"?"#F0A5A5":"#ded7f0" }} />
+);
+function VerticalProblem({ a, op, b, answer, size = 44 }) {
+  const box = { fontSize:size, fontWeight:800, lineHeight:1.15, fontVariantNumeric:"tabular-nums" };
+  const q = (v) => v === "?" ? <span style={{ color:C.berry }}>?</span> : v;
+  if (op === "/") {
+    // long division: quotient on top, divisor ) dividend
+    return (
+      <div style={{ ...box, display:"inline-grid", gridTemplateColumns:"auto auto", textAlign:"right", margin:"6px auto 0" }}>
+        <div />
+        <div style={{ padding:"0 0.2em 0.08em" }}>{q(answer)}</div>
+        <div style={{ paddingRight:"0.12em" }}>{q(b)}</div>
+        <div style={{ borderTop:`4px solid ${C.ink}`, borderLeft:`4px solid ${C.ink}`, borderTopLeftRadius:"0 0", padding:"0.05em 0.2em 0 0.3em" }}>{q(a)}</div>
+      </div>
+    );
+  }
+  return (
+    <div style={{ ...box, display:"inline-grid", gridTemplateColumns:"auto auto", columnGap:"0.35em", textAlign:"right", margin:"6px auto 0" }}>
+      <div />
+      <div>{q(a)}</div>
+      <div style={{ textAlign:"left" }}>{opSymbol[op]}</div>
+      <div>{q(b)}</div>
+      <div style={{ gridColumn:"1 / span 2", borderTop:`4px solid ${C.ink}`, margin:"0.1em 0 0.15em" }} />
+      <div />
+      <div>{q(answer)}</div>
+    </div>
+  );
+}
+
+const FactCard = ({ f, children, border, star, answer }) => (
   <div style={{ position:"relative", background:"#fff", borderRadius:24, padding:"28px 20px", textAlign:"center",
     border:`4px solid ${border}`, boxShadow:`0 8px 0 rgba(124,92,224,0.25)` }}>
     {star}
     <TopicTag text={mathFactTopic(f)} />
-    <div style={{ fontSize:44, fontWeight:800, letterSpacing:1 }}>
-      {f.a} {opSymbol[f.op]} {f.b}
-    </div>
+    <VerticalProblem a={f.a} op={f.op} b={f.b} answer={answer} />
     {children}
   </div>
 );
@@ -4937,12 +4974,9 @@ function MathQuick({ facts, onHome, missed, toggleMissed, addMissed, onlyMissed 
       <Progress value={score} total={Math.max(done,1)} label={`✅ ${score} / ${done}${onlyMissed ? ` · ${facts.length} in pile` : ""}`} />
       <div style={{ marginTop:14 }}>
         <FactCard f={f} border={result==="right"?C.leaf:result==="wrong"?"#F0A5A5": flagged ? C.sun : "#7C5CE0"}
-          star={toggleMissed ? <StarButton flagged={flagged} onClick={() => toggleMissed(f.key)} /> : null}>
-          <input value={entry} onChange={(e)=>setEntry(e.target.value.replace(/[^0-9-]/g,""))}
-            onKeyDown={(e)=>{ if(e.key==="Enter") result?next():check(); }}
-            inputMode="numeric" placeholder="?" autoFocus
-            style={{ ...inp, marginTop:16, textAlign:"center", fontSize:30, fontWeight:800, maxWidth:180,
-              borderColor: result==="right"?C.leaf:result==="wrong"?"#F0A5A5":"#ded7f0" }} />
+          star={toggleMissed ? <StarButton flagged={flagged} onClick={() => toggleMissed(f.key)} /> : null}
+          answer={<AnswerBox key={f.key} value={entry} onChange={setEntry} onEnter={() => (result ? next() : check())}
+            result={result} size={44} width={Math.max(numLen(f.a), numLen(f.b), numLen(f.ans))} />}>
           {result==="right" && <div style={{ marginTop:10, color:C.leaf, fontWeight:800, fontSize:18 }}>✓ Yes!</div>}
           {result==="wrong" && (
             <div style={{ marginTop:10 }}>
@@ -5032,7 +5066,7 @@ function MathSpeed({ facts, onHome, missed, toggleMissed, addMissed }) {
         border:`4px solid ${(missed && missed.has(round.q.key)) ? C.sun : C.berry}`, transition:"background 0.15s" }}>
         {toggleMissed && <StarButton flagged={missed && missed.has(round.q.key)} onClick={() => toggleMissed(round.q.key)} />}
         <TopicTag text={mathFactTopic(round.q)} />
-        <div style={{ fontSize:44, fontWeight:800 }}>{round.q.a} {opSymbol[round.q.op]} {round.q.b}</div>
+        <VerticalProblem a={round.q.a} op={round.q.op} b={round.q.b} answer="?" />
       </div>
       <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10, marginTop:14 }}>
         {round.options.map((v,i)=>(
@@ -5394,14 +5428,9 @@ function MathMissing({ facts, onHome, missed, toggleMissed, addMissed }) {
         border:`4px solid ${result==="right"?C.leaf:result==="wrong"?"#F0A5A5": flagged ? C.sun : C.leaf}`, boxShadow:"0 8px 0 rgba(95,184,148,0.25)" }}>
         {toggleMissed && <StarButton flagged={flagged} onClick={() => toggleMissed(f.key)} />}
         <TopicTag text={mathFactTopic(f)} />
-        <div style={{ fontSize:40, fontWeight:800 }}>
-          {f.a} {opSymbol[f.op]} <span style={{ color:C.berry }}>?</span> = {f.ans}
-        </div>
-        <input value={entry} onChange={(e)=>setEntry(e.target.value.replace(/[^0-9-]/g,""))}
-          onKeyDown={(e)=>{ if(e.key==="Enter") result?next():check(); }}
-          inputMode="numeric" placeholder="?" autoFocus
-          style={{ ...inp, marginTop:16, textAlign:"center", fontSize:30, fontWeight:800, maxWidth:180,
-            borderColor: result==="right"?C.leaf:result==="wrong"?"#F0A5A5":"#cfe3d6" }} />
+        <VerticalProblem a={f.a} op={f.op} answer={f.ans}
+          b={<AnswerBox key={f.key} value={entry} onChange={setEntry} onEnter={() => (result ? next() : check())}
+            result={result} size={44} width={Math.max(numLen(f.a), numLen(f.b), numLen(f.ans))} />} />
         {result==="right" && <div style={{ marginTop:10, color:C.leaf, fontWeight:800, fontSize:18 }}>✓ Yes!</div>}
         {result==="wrong" && (
           <div style={{ marginTop:10 }}>
