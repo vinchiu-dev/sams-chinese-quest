@@ -2392,6 +2392,7 @@ function Flashcards({ words, trouble, toggleTrouble, onlyTrouble, onHome }) {
           onClick={() => toggleTrouble(card.pinyin)}
           style={{ top: 12, right: 12, fontSize: 26 }}
         />
+        <TopicTag text={cnWordTopic(card)} />
         {!flipped ? (
           <>
             <div style={{ fontSize: 22, marginBottom: 6 }}>{card.emoji}</div>
@@ -2584,6 +2585,7 @@ function BuildSentence({ sentences, starred, toggleSentence, onHome }) {
         }}
       >
         <StarButton flagged={flagged} onClick={() => toggleSentence(s.en)} />
+        <TopicTag text={cnSentenceTopic(s)} />
         <div style={{ fontSize: 13, color: "#9a94ad", marginBottom: 6, fontWeight: 700 }}>
           Put the words in order to say:
         </div>
@@ -2802,6 +2804,7 @@ function BeatTheClock({ words, addTrouble, trouble, toggleTrouble, onHome }) {
           flagged={trouble ? trouble.has(round.q.pinyin) : false}
           onClick={() => toggleTrouble(round.q.pinyin)}
         />
+        <TopicTag text={cnWordTopic(round.q)} />
         <div style={{ fontSize: 20, marginBottom: 4 }}>{round.q.emoji}</div>
         <div style={{ fontSize: 36, fontWeight: 800 }}>
           {round.q.en}
@@ -2985,6 +2988,7 @@ function SayTheSentence({ sentences, starred, toggleSentence, onHome, forceStarr
         }}
       >
         <StarButton flagged={flagged} onClick={() => toggleSentence(s.en)} />
+        <TopicTag text={cnSentenceTopic(s)} />
         <div style={{ fontSize: 13, color: "#9a94ad", marginBottom: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5 }}>
           Say this in Chinese
         </div>
@@ -3125,6 +3129,7 @@ function PickTheChinese({ sentences, starred, toggleSentence, onHome }) {
         }}
       >
         <StarButton flagged={flagged} onClick={() => toggleSentence(round.q.en)} />
+        <TopicTag text={cnSentenceTopic(round.q)} />
         <div style={{ fontSize: 20, fontWeight: 800, lineHeight: 1.35 }}>{round.q.en}</div>
       </div>
 
@@ -3247,6 +3252,7 @@ function SentenceMeaning({ sentences, starred, toggleSentence, onHome }) {
         }}
       >
         <StarButton flagged={flagged} onClick={() => toggleSentence(round.q.en)} />
+        <TopicTag text={cnSentenceTopic(round.q)} />
         <button onClick={() => speak(round.q)} style={{ ...bigBtn, background: C.sky, fontSize: 20, padding: "16px 30px" }}>
           🔊 Play sentence
         </button>
@@ -3335,6 +3341,7 @@ function ToneMatch({ words, addTrouble, trouble, toggleTrouble, onHome }) {
         }}
       >
         <StarButton flagged={flagged} onClick={() => toggleTrouble(round.q.pinyin)} />
+        <TopicTag text={cnWordTopic(round.q)} />
         <button onClick={() => speak(round.q)} style={{ ...bigBtn, background: C.sky, fontSize: 22, padding: "18px 34px" }}>
           🔊 Play sound
         </button>
@@ -3643,6 +3650,77 @@ const StarButton = ({ flagged, onClick, style }) => (
     ⭐
   </button>
 );
+
+// ---- Topic tag: tiny "which lesson / set is this from?" label on a question
+// card, for Dad — so a miss can be traced back to the lesson or set to drill.
+const TopicTag = ({ text }) => text ? (
+  <div title={text} style={{ position: "absolute", top: 8, left: 12, maxWidth: "calc(100% - 64px)",
+    fontSize: 11, fontWeight: 700, color: "#a9a2bb", letterSpacing: 0.2, textAlign: "left",
+    whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", pointerEvents: "none", lineHeight: 1.3 }}>
+    {text}
+  </div>
+) : null;
+
+let _topicCache = { vocab: null, cnWord: null, en: null, math: null };
+const _topicMaps = () => {
+  const v = getVocab();
+  if (_topicCache.vocab !== v) {
+    const cnWord = new Map();
+    const lessons = v.lessons || [];
+    // real lessons first (oldest → newest, so a word maps to where it was first taught), specials last
+    const ordered = lessons.filter((l) => !SPECIAL_LESSON_IDS.includes(l.id))
+      .concat(lessons.filter((l) => SPECIAL_LESSON_IDS.includes(l.id)));
+    ordered.forEach((l) => (l.words || []).forEach((w) => {
+      [w.pinyin, w.hanzi].forEach((k) => { if (k && !cnWord.has(k)) cnWord.set(k, l.title); });
+    }));
+    const en = new Map();
+    ((v.english && v.english.lists) || []).forEach((l) => (l.words || []).forEach((w) => {
+      const k = (w.word || "").trim().toLowerCase();
+      if (k && !en.has(k)) en.set(k, l.title);
+    }));
+    _topicCache = { vocab: v, cnWord, en, math: _topicCache.math, sent: new Map() };
+  }
+  return _topicCache;
+};
+const cnWordTopic = (w) => {
+  if (!w) return "";
+  const m = _topicMaps().cnWord;
+  return m.get(w.pinyin) || m.get(w.hanzi) || (w.lesson && !/^(⭐|🌞)/.test(w.lesson) ? w.lesson : "") || "";
+};
+// A sentence tag can map to several lessons — pick the one whose words
+// appear most in the sentence itself.
+const cnSentenceTopic = (s) => {
+  if (!s) return "";
+  const c = _topicMaps();
+  const key = s.en + "|" + s.tag;
+  if (c.sent.has(key)) return c.sent.get(key);
+  const v = getVocab();
+  const ids = (v.tagMap && v.tagMap[s.tag]) || [];
+  const cands = (v.lessons || []).filter((l) => ids.includes(l.id));
+  let best = null, bestScore = -1;
+  cands.forEach((l) => {
+    const score = (l.words || []).reduce((n, w) => n + (w.hanzi && s.hanzi && s.hanzi.includes(w.hanzi) ? w.hanzi.length : 0), 0);
+    if (score > bestScore) { best = l; bestScore = score; }
+  });
+  const out = best ? best.title : (s.tag && s.tag !== "added" ? `Topic: ${s.tag}` : "Words We Added");
+  c.sent.set(key, out);
+  return out;
+};
+const enWordTopic = (w) => {
+  if (!w) return "";
+  if (w.list) return w.list;
+  return _topicMaps().en.get((w.word || "").trim().toLowerCase()) || "My Words";
+};
+const mathFactTopic = (f) => {
+  if (!f) return "";
+  if (f.set) return f.set;
+  const c = _topicCache;
+  if (!c.math) {
+    c.math = new Map();
+    MATH_SETS.forEach((st) => factsFor(st).forEach((x) => { if (!c.math.has(x.key)) c.math.set(x.key, st.title.replace(/\s+/g, " ")); }));
+  }
+  return c.math.get(f.key) || "";
+};
 
 const Center = ({ children }) => (
   <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "30px 10px" }}>{children}</div>
@@ -4147,6 +4225,7 @@ function EnFlashcards({ words, starred, toggleStar, onlyStarred, onHome }) {
           display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center",
           border:`4px solid ${flagged ? C.sun : "#5B8DEF"}`, boxShadow:`0 10px 0 ${flagged ? "rgba(246,196,69,0.4)" : "rgba(91,141,239,0.3)"}`, cursor:"pointer" }}>
         <StarButton flagged={flagged} onClick={() => toggleStar(card.word)} />
+        <TopicTag text={enWordTopic(card)} />
         {!flipped ? (
           <>
             <div style={{ fontSize:22, marginBottom:6 }}>{card.emoji || "📘"}</div>
@@ -4204,6 +4283,7 @@ function EnQuiz({ words, starred, toggleStar, addStar, onHome }) {
       <div style={{ position:"relative", background:"#fff", borderRadius:24, padding:"30px 20px", textAlign:"center",
         border:`4px solid ${flagged ? C.sun : "#8B6FE8"}`, boxShadow:`0 8px 0 ${flagged?"rgba(246,196,69,0.4)":"rgba(139,111,232,0.3)"}` }}>
         <StarButton flagged={flagged} onClick={() => toggleStar(round.q.word)} />
+        <TopicTag text={enWordTopic(round.q)} />
         <div style={{ fontSize:15, color:"#9a94ad", marginBottom:6 }}>What does this word mean?</div>
         <div style={{ fontSize:34, fontWeight:800 }}>{round.q.word}</div>
         <button onClick={() => speakEn(round.q.word)} style={{ ...ghostBtn, marginTop:10 }}>🔊 Hear it</button>
@@ -4290,6 +4370,7 @@ function EnSpeed({ words, starred, toggleStar, addStar, onHome }) {
       <div style={{ position:"relative", background: flash==="right"?"#DFF5EA":flash==="wrong"?"#FBE0E0":"#fff",
         borderRadius:24, padding:"26px 20px", textAlign:"center", border:`4px solid ${C.berry}`, transition:"background 0.15s" }}>
         <StarButton flagged={starred.has(round.q.word)} onClick={() => toggleStar(round.q.word)} />
+        <TopicTag text={enWordTopic(round.q)} />
         <div style={{ fontSize:32, fontWeight:800 }}>{round.q.word}</div>
       </div>
       <div style={{ display:"flex", flexDirection:"column", gap:10, marginTop:14 }}>
@@ -4347,6 +4428,7 @@ function EnSpelling({ words, starred, toggleStar, addStar, onHome }) {
       <div style={{ position:"relative", background:"#fff", borderRadius:28, padding:"32px 20px", margin:"16px 0",
         border:`4px solid ${starred.has(card.word) ? C.sun : C.leaf}`, boxShadow:"0 10px 0 rgba(95,184,148,0.3)" }}>
         <StarButton flagged={starred.has(card.word)} onClick={() => toggleStar(card.word)} />
+        <TopicTag text={enWordTopic(card)} />
         <div style={{ fontSize:14, color:"#9a94ad", marginBottom:12, fontWeight:700, textTransform:"uppercase", letterSpacing:0.5 }}>
           Listen and spell it
         </div>
@@ -4633,7 +4715,8 @@ function MathApp({ onSwitchLang }) {
       return n;
     });
 
-  const facts = MATH_SETS.filter((s) => sets.includes(s.id)).flatMap(factsFor);
+  const facts = MATH_SETS.filter((s) => sets.includes(s.id))
+    .flatMap((s) => factsFor(s).map((f) => ({ ...f, set: s.title.replace(/\s+/g, " ") })));
   // Missed pile deliberately ignores which sets are selected — like Chinese starring.
   const missedFacts = factsFromMissed([...missed]);
   const home = () => setScreen("home");
@@ -4791,6 +4874,7 @@ const FactCard = ({ f, children, border, star }) => (
   <div style={{ position:"relative", background:"#fff", borderRadius:24, padding:"28px 20px", textAlign:"center",
     border:`4px solid ${border}`, boxShadow:`0 8px 0 rgba(124,92,224,0.25)` }}>
     {star}
+    <TopicTag text={mathFactTopic(f)} />
     <div style={{ fontSize:44, fontWeight:800, letterSpacing:1 }}>
       {f.a} {opSymbol[f.op]} {f.b}
     </div>
@@ -4947,6 +5031,7 @@ function MathSpeed({ facts, onHome, missed, toggleMissed, addMissed }) {
         borderRadius:24, padding:"26px 20px", textAlign:"center",
         border:`4px solid ${(missed && missed.has(round.q.key)) ? C.sun : C.berry}`, transition:"background 0.15s" }}>
         {toggleMissed && <StarButton flagged={missed && missed.has(round.q.key)} onClick={() => toggleMissed(round.q.key)} />}
+        <TopicTag text={mathFactTopic(round.q)} />
         <div style={{ fontSize:44, fontWeight:800 }}>{round.q.a} {opSymbol[round.q.op]} {round.q.b}</div>
       </div>
       <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10, marginTop:14 }}>
@@ -5308,6 +5393,7 @@ function MathMissing({ facts, onHome, missed, toggleMissed, addMissed }) {
       <div style={{ position:"relative", marginTop:14, background:"#fff", borderRadius:24, padding:"28px 20px", textAlign:"center",
         border:`4px solid ${result==="right"?C.leaf:result==="wrong"?"#F0A5A5": flagged ? C.sun : C.leaf}`, boxShadow:"0 8px 0 rgba(95,184,148,0.25)" }}>
         {toggleMissed && <StarButton flagged={flagged} onClick={() => toggleMissed(f.key)} />}
+        <TopicTag text={mathFactTopic(f)} />
         <div style={{ fontSize:40, fontWeight:800 }}>
           {f.a} {opSymbol[f.op]} <span style={{ color:C.berry }}>?</span> = {f.ans}
         </div>
