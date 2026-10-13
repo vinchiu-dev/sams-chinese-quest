@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "updated": "2026-10-13",
   "lists": [
     {
@@ -1151,6 +1151,36 @@
           "definition": "harm or damage to your body",
           "example": "Wear pads to help prevent an injury.",
           "emoji": "🩹"
+        },
+        {
+          "word": "reflect",
+          "definition": "To bounce light back.",
+          "example": "The Moon reflects sunlight down to us.",
+          "emoji": "🪞"
+        },
+        {
+          "word": "orbit",
+          "definition": "The path something takes as it travels around something else.",
+          "example": "The Moon's orbit around Earth takes about 29 and a half days.",
+          "emoji": "🛰️"
+        },
+        {
+          "word": "phase",
+          "definition": "One step or look in something that changes little by little.",
+          "example": "Tonight the Moon is in its full moon phase.",
+          "emoji": "🌓"
+        },
+        {
+          "word": "cycle",
+          "definition": "Something that happens over and over in the same order.",
+          "example": "The Moon's phases repeat in a cycle every month.",
+          "emoji": "🔄"
+        },
+        {
+          "word": "crescent",
+          "definition": "A curved shape, like a thin slice of a circle.",
+          "example": "A thin crescent Moon looks like a banana in the sky.",
+          "emoji": "🌙"
         }
       ]
     }
