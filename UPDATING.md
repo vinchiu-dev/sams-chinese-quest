@@ -6,7 +6,7 @@ pinyin + English only (no written characters shown).
 ## Files
 - `index.html` — the app. Rarely changes. Loads `vocab.json` fresh on every open.
 - `vocab.json` — all lessons + sentences. **This is what gets updated per lesson.**
-- `progress.json` — written by the app itself (stars/mastered sync). Never edit by hand.
+- `progress.json` — written by the app itself (stars/mastered sync) to the **`progress` branch**, not `main` (so its frequent commits never cancel the Pages deploy). The copy on `main` is a frozen snapshot from 2026-10-13. Read: `contents/progress.json?ref=progress`. Never edit by hand.
 
 ## Per-lesson update workflow (owner uploads a lesson video to Claude)
 1. Extract vocabulary from the video (caption cards; OCR the pinyin, reconstruct

@@ -69,6 +69,9 @@ const getGH = () => ({
 const ghConfigured = () => true;
 
 const GH_API = "https://api.github.com";
+// Progress lives on its own branch. Committing it to main restarted the GitHub
+// Pages build every few seconds while Sam played, so app updates never deployed.
+const PROGRESS_BRANCH = "progress";
 const ghHeaders = (token) => ({
   Authorization: "Bearer " + token,
   Accept: "application/vnd.github+json",
@@ -83,7 +86,7 @@ async function pullRemoteProgress() {
   if (!ghConfigured()) return null;
   const { owner, repo, token } = getGH();
   try {
-    const r = await fetch(`${GH_API}/repos/${owner}/${repo}/contents/progress.json`, { headers: ghHeaders(token) });
+    const r = await fetch(`${GH_API}/repos/${owner}/${repo}/contents/progress.json?ref=${PROGRESS_BRANCH}`, { headers: ghHeaders(token), cache: "no-store" });
     if (r.status === 404) return {}; // no progress file yet — fine
     if (!r.ok) return null;
     const data = await r.json();
@@ -119,6 +122,7 @@ async function pushProgress(progress, setStatus, retried) {
     const body = {
       message: "Update Sam progress",
       content: b64encode(JSON.stringify(progress, null, 2)),
+      branch: PROGRESS_BRANCH,
     };
     if (window.__PROGRESS_SHA__) body.sha = window.__PROGRESS_SHA__;
     const r = await fetch(`${GH_API}/repos/${owner}/${repo}/contents/progress.json`, {
@@ -1134,7 +1138,8 @@ function ChineseApp({ onSwitchLang }) {
         )}
         {screen === "car" && (
           <React.Fragment><GameTitle>Car Mode</GameTitle>
-          <CarMode facts={[]} carWords={activeWords} carSentences={activeSentences} onHome={() => setScreen("home")} />
+          <CarMode facts={[]} carWords={activeWords} carSentences={activeSentences}
+            starredWords={troubleWords} starredSentences={starredSentenceList} onHome={() => setScreen("home")} />
           </React.Fragment>
         )}
         {screen === "troubleflip" && (
@@ -4745,7 +4750,7 @@ function MathApp({ onSwitchLang }) {
         )}
         {screen === "car" && (
           <React.Fragment><GameTitle>Car Mode</GameTitle>
-          <CarMode facts={facts} onHome={home} />
+          <CarMode facts={facts} starredFacts={missedFacts} onHome={home} />
           </React.Fragment>
         )}
         {screen === "quick" && (
@@ -4882,9 +4887,9 @@ const AnswerBox = ({ value, onChange, onEnter, result, width, size }) => (
       fontVariantNumeric:"tabular-nums", color:C.ink, background:"#FAF8FF",
       borderColor: result==="right"?C.leaf:result==="wrong"?"#F0A5A5":"#ded7f0" }} />
 );
-function VerticalProblem({ a, op, b, answer, size = 44 }) {
-  const box = { fontSize:size, fontWeight:800, lineHeight:1.15, fontVariantNumeric:"tabular-nums" };
-  const q = (v) => v === "?" ? <span style={{ color:C.berry }}>?</span> : v;
+function VerticalProblem({ a, op, b, answer, size = 44, color = C.ink, qColor = C.berry }) {
+  const box = { fontSize:size, fontWeight:800, lineHeight:1.15, fontVariantNumeric:"tabular-nums", color };
+  const q = (v) => v === "?" ? <span style={{ color:qColor }}>?</span> : v;
   if (op === "/") {
     // long division: quotient on top, divisor ) dividend
     return (
@@ -4892,7 +4897,7 @@ function VerticalProblem({ a, op, b, answer, size = 44 }) {
         <div />
         <div style={{ padding:"0 0.2em 0.08em" }}>{q(answer)}</div>
         <div style={{ paddingRight:"0.12em" }}>{q(b)}</div>
-        <div style={{ borderTop:`4px solid ${C.ink}`, borderLeft:`4px solid ${C.ink}`, borderTopLeftRadius:"0 0", padding:"0.05em 0.2em 0 0.3em" }}>{q(a)}</div>
+        <div style={{ borderTop:"4px solid currentColor", borderLeft:"4px solid currentColor", borderTopLeftRadius:"0 0", padding:"0.05em 0.2em 0 0.3em" }}>{q(a)}</div>
       </div>
     );
   }
@@ -4902,7 +4907,7 @@ function VerticalProblem({ a, op, b, answer, size = 44 }) {
       <div>{q(a)}</div>
       <div style={{ textAlign:"left" }}>{opSymbol[op]}</div>
       <div>{q(b)}</div>
-      <div style={{ gridColumn:"1 / span 2", borderTop:`4px solid ${C.ink}`, margin:"0.1em 0 0.15em" }} />
+      <div style={{ gridColumn:"1 / span 2", borderTop:"4px solid currentColor", margin:"0.1em 0 0.15em" }} />
       <div />
       <div>{q(answer)}</div>
     </div>
@@ -5508,7 +5513,7 @@ const CAR_TIPS = [
    "Add the digits. Or “make the biggest number you can.” No app required."],
 ];
 
-function CarMode({ facts, onHome, carWords, carSentences }) {
+function CarMode({ facts, onHome, carWords, carSentences, starredFacts = [], starredWords = [], starredSentences = [] }) {
   const { lessons: LESSONS, sentences: SENTENCES } = getVocab();
   const [phase, setPhase] = useState("setup");     // setup | run | review
   const hasMath = (facts || []).length > 0;
@@ -5520,6 +5525,11 @@ function CarMode({ facts, onHome, carWords, carSentences }) {
   const [gap, setGap] = useState(() => loadLS("car_gap", 6));
   const [len, setLen] = useState(() => loadLS("car_len", 12));
   const [tips, setTips] = useState(false);
+  const [onlyStarred, setOnlyStarred] = useState(() => !!loadLS("car_only_starred", false));
+  useEffect(() => { saveLS("car_only_starred", onlyStarred); }, [onlyStarred]);
+  const starredFor = (d) => d === "math" ? (starredFacts || []).length
+    : d === "words" ? (starredWords || []).filter((w) => w && w.pinyin).length
+    : (starredSentences || []).length;
 
   const [queue, setQueue] = useState([]);
   const [idx, setIdx] = useState(0);
@@ -5563,7 +5573,8 @@ function CarMode({ facts, onHome, carWords, carSentences }) {
     const out = [];
     if (deck === "math") {
       // shakiest facts first — same weighting the rest of the app uses
-      const ordered = srsOrder(facts, (f) => f.key).slice(0, Math.max(len * 3, 30));
+      const src = onlyStarred ? (starredFacts || []) : facts;
+      const ordered = srsOrder(src, (f) => f.key).slice(0, Math.max(len * 3, 30));
       const seen = {};
       for (const f of shuffle(ordered)) {
         if (out.length >= len) break;
@@ -5576,6 +5587,7 @@ function CarMode({ facts, onHome, carWords, carSentences }) {
           answer: String(f.ans),
           sayAnswer: String(f.ans),
           lang: "en-US",
+          fact: f, topic: mathFactTopic(f),
         });
       }
       // finish strong: three easy doubles, never counted against him
@@ -5583,11 +5595,13 @@ function CarMode({ facts, onHome, carWords, carSentences }) {
         out.push({
           key: "math:+:" + n + ":" + n, show: n + " + " + n, say: n + " plus " + n,
           answer: String(n + n), sayAnswer: String(n + n), lang: "en-US", closer: true,
+          fact: { a: n, op: "+", b: n },
         });
       }
     } else if (deck === "words") {
-      const wod = wodActive();
-      const pool = shuffle(srsOrder(words, (w) => w.pinyin).slice(0, Math.max(len * 3, 24)));
+      const wod = onlyStarred ? null : wodActive();
+      const srcW = onlyStarred ? (starredWords || []).filter((w) => w && w.pinyin) : words;
+      const pool = shuffle(srsOrder(srcW, (w) => w.pinyin).slice(0, Math.max(len * 3, 24)));
       if (wod) pool.unshift(wod);
       const seen = {};
       for (const w of pool) {
@@ -5601,6 +5615,7 @@ function CarMode({ facts, onHome, carWords, carSentences }) {
           answer: w.pinyin,
           sayAnswer: w.hanzi || w.pinyin,
           lang: "en-US", answerLang: "zh-CN",
+          topic: cnWordTopic(w),
           // not answered in time -> add it to the starred pile for later
           star: (function (pin) {
             return function () {
@@ -5614,7 +5629,8 @@ function CarMode({ facts, onHome, carWords, carSentences }) {
         });
       }
     } else {
-      const src = (Array.isArray(carSentences) && carSentences.length) ? carSentences : (SENTENCES || []);
+      const src = onlyStarred ? (starredSentences || [])
+        : (Array.isArray(carSentences) && carSentences.length) ? carSentences : (SENTENCES || []);
       const pool = shuffle(src).slice(0, len);
       for (const sn of pool) {
         out.push({
@@ -5625,7 +5641,7 @@ function CarMode({ facts, onHome, carWords, carSentences }) {
           answer: sn.en,
           sayAnswer: sn.en,
           lang: "zh-CN", answerLang: "en-US",
-          listen: true,
+          listen: true, topic: cnSentenceTopic(sn),
         });
       }
     }
@@ -5717,7 +5733,8 @@ function CarMode({ facts, onHome, carWords, carSentences }) {
 
   // ---------------- setup ----------------
   if (phase === "setup") {
-    const empty = deck === "math" && !facts.length;
+    const nStar = starredFor(deck);
+    const empty = onlyStarred ? nStar === 0 : (deck === "math" && !facts.length);
     return (
       <div>
         <div style={{ background: "#fff", borderRadius: 22, border: "3px solid #cfe3f5", padding: "16px 16px 18px", marginBottom: 14 }}>
@@ -5747,6 +5764,17 @@ function CarMode({ facts, onHome, carWords, carSentences }) {
               </button>
             );
           })}
+        </div>
+
+        <div style={{ fontSize: 11, fontWeight: 800, color: "#8b83a8", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 7 }}>Which ones</div>
+        <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
+          {[[false, "All picked"], [true, `⭐ Starred only (${nStar})`]].map(([v, t]) => (
+            <button key={String(v)} onClick={() => setOnlyStarred(v)}
+              style={{ ...chip, flex: 1, padding: "12px 6px", fontSize: 14, fontWeight: 800,
+                background: onlyStarred === v ? (v ? C.sun : "#3BA0C8") : "#fff",
+                color: onlyStarred === v ? (v ? C.ink : "#fff") : C.ink,
+                borderColor: onlyStarred === v ? (v ? C.sun : "#3BA0C8") : "#e3ddcf" }}>{t}</button>
+          ))}
         </div>
 
         <div style={{ fontSize: 11, fontWeight: 800, color: "#8b83a8", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 7 }}>
@@ -5781,7 +5809,7 @@ function CarMode({ facts, onHome, carWords, carSentences }) {
         </button>
         {empty && (
           <div style={{ textAlign: "center", marginTop: 10, color: C.berry, fontWeight: 700, fontSize: 14 }}>
-            Pick at least one math set on the menu first.
+            {onlyStarred ? "Nothing starred here yet — tap ⭐ on a card to save it." : "Pick at least one math set on the menu first."}
           </div>
         )}
 
@@ -5844,13 +5872,20 @@ function CarMode({ facts, onHome, carWords, carSentences }) {
           WebkitTapHighlightColor: "transparent", touchAction: "manipulation",
           outline: skipHint ? "4px solid " + C.sun : "4px solid transparent",
           transform: skipHint ? "scale(0.985)" : "none",
-          transition: "outline-color .12s, transform .12s" }}>
+          transition: "outline-color .12s, transform .12s", position: "relative" }}>
+          {it.topic && (
+            <div style={{ position: "absolute", top: 12, left: 16, right: 16, textAlign: "left", fontSize: 12, fontWeight: 700,
+              color: "#8b83a8", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{it.topic}</div>
+          )}
           {it.closer && (
             <div style={{ background: C.leaf, color: "#fff", borderRadius: 20, padding: "4px 14px", fontSize: 12, fontWeight: 800, marginBottom: 12 }}>
               finish strong
             </div>
           )}
-          {it.listen && !reveal ? (
+          {it.fact ? (
+            <VerticalProblem a={it.fact.a} op={it.fact.op} b={it.fact.b} size={52}
+              color="#fff" qColor={C.sun} answer={reveal ? <span style={{ color: C.sun }}>{it.answer}</span> : "?"} />
+          ) : it.listen && !reveal ? (
             <div style={{ fontSize: 60 }}>🔊</div>
           ) : (
             <div style={{ fontSize: it.show && it.show.length > 18 ? 30 : 48, fontWeight: 800, color: "#fff", lineHeight: 1.2 }}>
@@ -5858,7 +5893,7 @@ function CarMode({ facts, onHome, carWords, carSentences }) {
             </div>
           )}
           {reveal ? (
-            <div style={{ marginTop: 16, fontSize: 34, fontWeight: 800, color: C.sun, lineHeight: 1.25 }}>{it.answer}</div>
+            it.fact ? null : <div style={{ marginTop: 16, fontSize: 34, fontWeight: 800, color: C.sun, lineHeight: 1.25 }}>{it.answer}</div>
           ) : (
             <div style={{ marginTop: 14, fontSize: 15, fontWeight: 700, color: "#b9b2cf" }}>
               {paused ? "paused" : "say it out loud, then tap"}
