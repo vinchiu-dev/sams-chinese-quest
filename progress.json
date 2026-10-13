@@ -163,6 +163,13 @@
       "hanzi": "",
       "emoji": "📝",
       "needsDef": true
+    },
+    {
+      "en": "店铺",
+      "pinyin": "",
+      "hanzi": "店铺",
+      "emoji": "📝",
+      "needsDef": true
     }
   ],
   "en_myWords": [
@@ -2358,11 +2365,11 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1791914156057,
+  "trouble_at": 1791914163000,
   "pool_at": 1791914156057,
-  "starredSentences_at": 1791914156057,
-  "hiddenWords_at": 1791914154405,
-  "archived_at": 1791914156057,
+  "starredSentences_at": 1791914163000,
+  "hiddenWords_at": 1791914156058,
+  "archived_at": 1791914163000,
   "en_starred_at": 1791900224016,
   "math_missed_at": 1791914088423,
   "chips": 13
