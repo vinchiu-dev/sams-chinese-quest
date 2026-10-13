@@ -1988,11 +1988,11 @@
       "last": 1789406519958
     },
     "math:bond:20:0": {
-      "lvl": 1,
-      "seen": 1,
-      "right": 1,
+      "lvl": 2,
+      "seen": 2,
+      "right": 2,
       "wrong": 0,
-      "last": 1789406700460
+      "last": 1791900285738
     },
     "math:+:2:3": {
       "lvl": 1,
@@ -2268,6 +2268,6 @@
   "hiddenWords_at": 1791900221884,
   "archived_at": 1791900221884,
   "en_starred_at": 1791900224016,
-  "math_missed_at": 1791900224765,
+  "math_missed_at": 1791900285140,
   "chips": 13
 }
