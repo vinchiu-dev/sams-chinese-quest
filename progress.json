@@ -2298,7 +2298,7 @@
   ],
   "dayCount": {
     "date": "2026-10-13",
-    "n": 5
+    "n": 6
   },
   "spokenCount": {
     "date": "2026-08-21",
@@ -2364,6 +2364,6 @@
   "hiddenWords_at": 1791900221884,
   "archived_at": 1791900221884,
   "en_starred_at": 1791900224016,
-  "math_missed_at": 1791902450357,
+  "math_missed_at": 1791902764081,
   "chips": 13
 }
