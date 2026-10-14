@@ -24,8 +24,31 @@
       "label": "Lost"
     }
   ],
-  "lead_count": 53,
+  "lead_count": 54,
   "leads": [
+    {
+      "id": "1a138170d10e4af0",
+      "name": "Christin",
+      "org": null,
+      "email": null,
+      "phone": "9552403565",
+      "source": "functions-events form (EVENT INQUIRY)",
+      "source_badge": "Form",
+      "inquiry_date": "2026-10-13",
+      "event_dates": "2026-10-28 (flexible)",
+      "pax": "10",
+      "event_type": "Party / other (budget ₱15,000)",
+      "stage": "new_inquiry",
+      "revenue_php": null,
+      "seed_notes": "No email on form; no UTMs/gclid. FO to call/text.",
+      "fo_notes": "",
+      "lost_reason": "",
+      "related_contacts": [],
+      "marketing_channel": "Website form (unknown)",
+      "last_updated": "2026-10-14",
+      "editor": "bc-events",
+      "subject": "EVENT INQUIRY — Christin"
+    },
     {
       "id": "1a135870471460a6",
       "name": "Sheryl Dumalnog",
