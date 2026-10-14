@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "updated": "2026-10-10",
+  "version": 2,
+  "updated": "2026-10-14",
   "lessons": [
     {
       "id": "little-fox-school-supplies",
@@ -2553,6 +2553,80 @@
           ]
         }
       ]
+    },
+    {
+      "id": "puppy-and-kitten",
+      "title": "A Puppy and a Kitten",
+      "subtitle": "这儿有一只小猫和一只小狗 — pets, 只, and \"let me see\"",
+      "words": [
+        {
+          "hanzi": "这儿有",
+          "pinyin": "zhèr yǒu",
+          "en": "here there is",
+          "emoji": "👉",
+          "phrases": [
+            {
+              "en": "Here there's a kitten and a puppy.",
+              "pinyin": "Zhèr yǒu yì zhī xiǎomāo hé yì zhī xiǎogǒu.",
+              "hanzi": "这儿有一只小猫和一只小狗。"
+            },
+            {
+              "en": "Here there are three puppies.",
+              "pinyin": "Zhèr yǒu sān zhī xiǎogǒu.",
+              "hanzi": "这儿有三只小狗。"
+            }
+          ]
+        },
+        {
+          "hanzi": "只",
+          "pinyin": "zhī",
+          "en": "(counting word for animals)",
+          "emoji": "🐾",
+          "phrases": [
+            {
+              "en": "one kitten",
+              "pinyin": "yì zhī xiǎomāo",
+              "hanzi": "一只小猫"
+            },
+            {
+              "en": "five kittens",
+              "pinyin": "wǔ zhī xiǎomāo",
+              "hanzi": "五只小猫"
+            }
+          ]
+        },
+        {
+          "hanzi": "小狗",
+          "pinyin": "xiǎogǒu",
+          "en": "puppy",
+          "emoji": "🐶",
+          "phrases": [
+            {
+              "en": "I like puppies.",
+              "pinyin": "Wǒ xǐhuan xiǎogǒu.",
+              "hanzi": "我喜欢小狗。"
+            },
+            {
+              "en": "What does the puppy want to eat?",
+              "pinyin": "Xiǎogǒu xiǎng chī shénme?",
+              "hanzi": "小狗想吃什么？"
+            }
+          ]
+        },
+        {
+          "hanzi": "我看一下",
+          "pinyin": "wǒ kàn yíxià",
+          "en": "let me take a look",
+          "emoji": "👀",
+          "phrases": [
+            {
+              "en": "Let me take a look.",
+              "pinyin": "Wǒ kàn yíxià.",
+              "hanzi": "我看一下。"
+            }
+          ]
+        }
+      ]
     }
   ],
   "tagMap": {
@@ -2671,7 +2745,8 @@
       "everyone-at-home",
       "little-fox-school-supplies",
       "silly-food",
-      "welcome-home-rooms"
+      "welcome-home-rooms",
+      "puppy-and-kitten"
     ],
     "howmany": [
       "how-many-people"
@@ -2706,6 +2781,9 @@
     ],
     "goschool": [
       "going-to-school"
+    ],
+    "pets": [
+      "puppy-and-kitten"
     ]
   },
   "sentences": [
@@ -4700,6 +4778,42 @@
       "pinyin": "Bàba, wǒ xiǎng qù wénjùdiàn!",
       "hanzi": "爸爸，我想去文具店！",
       "tag": "goschool"
+    },
+    {
+      "en": "Here there's a kitten and a puppy.",
+      "pinyin": "Zhèr yǒu yì zhī xiǎomāo hé yì zhī xiǎogǒu.",
+      "hanzi": "这儿有一只小猫和一只小狗。",
+      "tag": "pets"
+    },
+    {
+      "en": "I like puppies.",
+      "pinyin": "Wǒ xǐhuan xiǎogǒu.",
+      "hanzi": "我喜欢小狗。",
+      "tag": "pets"
+    },
+    {
+      "en": "What does the puppy want to eat?",
+      "pinyin": "Xiǎogǒu xiǎng chī shénme?",
+      "hanzi": "小狗想吃什么？",
+      "tag": "pets"
+    },
+    {
+      "en": "Let me take a look.",
+      "pinyin": "Wǒ kàn yíxià.",
+      "hanzi": "我看一下。",
+      "tag": "pets"
+    },
+    {
+      "en": "Here there are three puppies and five kittens.",
+      "pinyin": "Zhèr yǒu sān zhī xiǎogǒu hé wǔ zhī xiǎomāo.",
+      "hanzi": "这儿有三只小狗和五只小猫。",
+      "tag": "pets"
+    },
+    {
+      "en": "Here there's a tarantula!",
+      "pinyin": "Zhèr yǒu yì zhī zhīzhū!",
+      "hanzi": "这儿有一只蜘蛛！",
+      "tag": "pets"
     }
   ]
 }
