@@ -1,6 +1,6 @@
 {
-  "version": 5,
-  "updated": "2026-10-13",
+  "version": 6,
+  "updated": "2026-10-14",
   "lists": [
     {
       "id": "en-starter-1",
@@ -1181,6 +1181,30 @@
           "definition": "A curved shape, like a thin slice of a circle.",
           "example": "A thin crescent Moon looks like a banana in the sky.",
           "emoji": "🌙"
+        },
+        {
+          "word": "scent",
+          "definition": "A smell, usually a nice one.",
+          "example": "The meadow had a sweet, earthy scent on the foggy morning.",
+          "emoji": "👃"
+        },
+        {
+          "word": "release",
+          "definition": "To let something go or let it out.",
+          "example": "Squashed grass blades release a fresh green smell.",
+          "emoji": "🌱"
+        },
+        {
+          "word": "trapped",
+          "definition": "Stuck in one place and can't get away.",
+          "example": "The cold, still air kept the smells trapped near the ground.",
+          "emoji": "🫙"
+        },
+        {
+          "word": "decompose",
+          "definition": "To slowly break down and rot.",
+          "example": "Fallen leaves decompose as millipedes and microbes eat them.",
+          "emoji": "🍂"
         }
       ]
     }
