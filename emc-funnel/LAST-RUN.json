@@ -1,163 +1,177 @@
 {
   "version": "2026-10-08-clear-v1",
-  "last_run_at_et": "2026-10-12T09:27:00-04:00",
+  "last_run_at_et": "2026-10-15T09:15:00-04:00",
   "windows": {
     "last_10d": {
-      "start_et": "2026-10-02",
-      "end_et": "2026-10-11"
+      "start_et": "2026-10-05",
+      "end_et": "2026-10-14"
     },
     "prior_10d": {
-      "start_et": "2026-09-22",
-      "end_et": "2026-10-01"
+      "start_et": "2026-09-25",
+      "end_et": "2026-10-04"
     },
     "yoy_10d": {
-      "start_et": "2025-10-02",
-      "end_et": "2025-10-11",
+      "start_et": "2025-10-05",
+      "end_et": "2025-10-14",
       "pulled": true,
-      "note": "Ads + checklist; GA4 YoY not pulled. YT Studio not pulled this run (custom dates previously blocked by verify)."
+      "note": "Ads + checklist; GA4 YoY not pulled. YT Studio not pulled this run."
     }
   },
   "statuses": {
     "tof": "Yellow",
     "mid": "Unknown",
-    "bof": "Green",
+    "bof": "Yellow",
     "margin": "Yellow"
   },
-  "leak_callout": "No clear leak. Sales steady: 13 closes / $74,926 vs prior 13 / $70,518 (+6% revenue); Ads $3,068.68 = 4.10% of sales (prior 3.54%). Search clicks up (1,276 vs 1,049) at steady CPC ($2.35 vs $2.36). Soft spots: margin (only 1 of 13 closes paid by check/ACH/Zelle; fee drag 2.56%), Ads conversion tracking (2 conversions / 10d), Mid still blind (CallRail signed out, RingCentral Zapier stale). AC message emails 8 vs 5 (~2 sales-intent).",
+  "leak_callout": "No clear leak. Sales soft vs prior: 13 closes / $75,660 (corrected) vs prior 15 / $80,270; Ads $2,954 = 3.90% of sales (prior 3.56%). Search clicks 1,227 vs 1,186 at steady CPC ($2.39 vs $2.36). Soft spots: GA4 Paid Search 972 vs 1,106, margin (1 of 13 by check), blank COGS on Oct 12 exchange + Oct 13 Grand Duo, Checklist Grande XL typo still $89,404 vs real $2,678, Mid blind. AC emails 5 vs 6 (~1 sales-intent: Dave Oct 14).",
   "concurrent_changes": [
     {
-      "date_et": "2026-10-09",
-      "change": "Checklist latest sale row is 2026-10-09 \u2014 Oct 10\u201311 may still be blank in the sheet",
+      "date_et": "2026-10-14",
+      "change": "AnswerConnect sales-intent: Dave +1 954-263-3250 looking for a new massage chair (call back)",
+      "owner": "AC / closers",
+      "stage": "Mid, BOF",
+      "source": "AC email 2026-10-14"
+    },
+    {
+      "date_et": "2026-10-13",
+      "change": "Grand Duo $7,274 phone/YouTube sale logged with blank COGS (Daryl)",
+      "owner": "Daryl",
+      "stage": "BOF, Margin",
+      "source": "Business Checklist 2026-10-15"
+    },
+    {
+      "date_et": "2026-10-12",
+      "change": "Checklist row Oct 11 PO 882610-17 Grande XL entered as $89,403.98 sale / $53,497.88 COGS; order #1000006049 + Stripe = $2,678.00",
       "owner": "closers/ops",
-      "stage": "BOF",
-      "source": "Business Checklist 2026-10-12"
+      "stage": "BOF, Margin",
+      "source": "Business Checklist 2026-10-15 + work Gmail"
+    },
+    {
+      "date_et": "2026-10-12",
+      "change": "$5,000 exchange row (from PO 882609-29; $1,500 charged) logged with blank COGS",
+      "owner": "Symon",
+      "stage": "BOF, Margin",
+      "source": "Business Checklist 2026-10-15"
     },
     {
       "date_et": "2026-10-07",
-      "change": "Stripe decline / Affirm-fail alerting live (5-min poll + webhook)",
+      "change": "Stripe decline / Affirm-fail alerting live",
       "owner": "CoS/Vin",
       "stage": "Margin, BOF",
       "source": "CoS memory"
     },
     {
-      "date_et": "2026-10-06",
-      "change": "YouTube editing pipeline ramp (Ashutosh + backup editors); YT Studio exact 10d not pulled this run",
-      "owner": "Jay/Vin",
-      "stage": "TOF",
-      "source": "CoS memory"
-    },
-    {
       "date_et": "ongoing",
-      "change": "Google Ads: Brands 'Limited by budget soon' + some ads disapproved (Brands, Brands CA); Remarketing Static Display clicks 256 to 1,289",
+      "change": "Google Ads: Brands Eligible (Limited) + many Not eligible ads (CA/product campaigns)",
       "owner": "Asim",
       "stage": "TOF",
-      "source": "Ads UI 2026-10-12"
+      "source": "Ads UI 2026-10-15"
     }
   ],
   "tof": {
-    "ads_spend": 3068.68,
-    "ads_clicks": 2639,
-    "ads_impressions": 74538,
-    "ads_ctr": 3.54,
-    "ads_cpc": 1.16,
+    "ads_spend": 2954.35,
+    "ads_clicks": 1696,
+    "ads_impressions": 33945,
+    "ads_ctr": 5.0,
+    "ads_cpc": 1.74,
     "ads_conversions": 2.0,
-    "ads_cost_per_conversion": 1534.34,
+    "ads_cost_per_conversion": 1477.18,
     "ads_search": {
-      "cost": 3000.39,
-      "clicks": 1276,
-      "cpc": 2.35
+      "cost": 2931.23,
+      "clicks": 1227,
+      "cpc": 2.39
     },
     "ads_display": {
-      "cost": 67.81,
-      "clicks": 1359
+      "cost": 22.52,
+      "clicks": 466
     },
     "ads_pmax": {
-      "cost": 0.48,
-      "clicks": 4,
-      "conv": 2
+      "cost": 0.6,
+      "clicks": 3,
+      "conv": 2.0
     },
     "ads_brands": {
-      "cost": 1874.18,
-      "clicks": 658
+      "cost": 1815.85,
+      "clicks": 623
     },
     "ads_remarketing_static": {
-      "cost": 65.32,
-      "clicks": 1289
+      "cost": 19.41,
+      "clicks": 378
     },
-    "ga4_sessions": 7838,
+    "ga4_sessions": 5862,
     "ga4_channels": {
-      "Direct": 3496,
-      "Unassigned": 1360,
-      "Paid Search": 1235,
-      "Display": 752,
-      "Organic Search": 474,
-      "Referral": 232,
-      "Organic Video": 129,
-      "Paid Video": 79,
-      "Cross-network": 32,
-      "AI Assistant": 21,
-      "Organic Shopping": 17,
-      "Organic Social": 4
+      "Direct": 2798,
+      "Unassigned": 1079,
+      "Paid Search": 972,
+      "Organic Search": 425,
+      "Display": 248,
+      "Referral": 148,
+      "Organic Video": 113,
+      "Paid Video": 20,
+      "Cross-network": 19,
+      "Organic Shopping": 15,
+      "AI Assistant": 9,
+      "Organic Social": 2
     },
-    "ga4_paid_search": 1235,
-    "ga4_organic_search": 474,
-    "ga4_direct": 3496,
-    "ga4_direct_note": "GA4 flags bot traffic (Singapore/Brazil) overlapping prior window start; Direct/Unassigned/Display not clean demand",
+    "ga4_paid_search": 972,
+    "ga4_organic_search": 425,
+    "ga4_direct": 2798,
+    "ga4_direct_note": "GA4 flags automated bot surge Sep 3-17 (Singapore/Brazil); Direct/Unassigned/Display not clean demand",
     "yt_watch_hours": null,
     "yt_views": null,
-    "yt_note": "YouTube Studio not pulled this run (exact 10d custom previously blocked by Google verify prompt).",
+    "yt_note": "YouTube Studio not pulled this run.",
     "prior_10d": {
-      "ads_spend": 2496.54,
-      "ads_clicks": 1435,
-      "ads_impressions": 21458,
-      "ads_ctr": 6.69,
-      "ads_cpc": 1.74,
+      "ads_spend": 2860.05,
+      "ads_clicks": 2512,
+      "ads_impressions": 65304,
+      "ads_ctr": 3.85,
+      "ads_cpc": 1.14,
       "ads_search": {
-        "cost": 2479.71,
-        "clicks": 1049,
+        "cost": 2795.89,
+        "clicks": 1186,
         "cpc": 2.36
       },
       "ads_display": {
-        "cost": 16.82,
-        "clicks": 386
+        "cost": 64.09,
+        "clicks": 1324
       },
       "ads_remarketing_static": {
-        "cost": 12.59,
-        "clicks": 256
+        "cost": 60.01,
+        "clicks": 1199
       },
-      "ga4_sessions": 6947,
+      "ga4_sessions": 7702,
       "ga4_channels": {
-        "Direct": 3636,
-        "Unassigned": 1220,
-        "Paid Search": 961,
-        "Organic Search": 445,
-        "Display": 221,
-        "Referral": 149,
-        "Organic Video": 66,
-        "Organic Shopping": 28,
-        "Cross-network": 14,
-        "AI Assistant": 12,
-        "Paid Video": 12,
-        "Organic Social": 10
+        "Direct": 3614,
+        "Unassigned": 1201,
+        "Paid Search": 1106,
+        "Display": 739,
+        "Organic Search": 456,
+        "Referral": 239,
+        "Organic Video": 75,
+        "Paid Video": 70,
+        "Organic Shopping": 27,
+        "Cross-network": 23,
+        "AI Assistant": 21,
+        "Organic Social": 12
       }
     },
     "yoy_10d": {
-      "ads_spend": 3452.04,
-      "ads_clicks": 983,
-      "ads_impressions": 11179,
-      "ads_ctr": 8.79,
-      "ads_cpc": 3.51,
+      "ads_spend": 3671.95,
+      "ads_clicks": 1032,
+      "ads_impressions": 11338,
+      "ads_ctr": 9.1,
+      "ads_cpc": 3.56,
       "ads_search": {
-        "cost": 3449.89,
-        "clicks": 938,
-        "cpc": 3.68
+        "cost": 3670.12,
+        "clicks": 993,
+        "cpc": 3.7
       }
     },
     "deltas_vs_prior_10d": {
-      "ads_spend_pct": 22.9,
-      "ads_search_clicks_pct": 21.6,
-      "ga4_paid_search_pct": 28.5,
-      "ga4_organic_search_pct": 6.5
+      "ads_spend_pct": 3.3,
+      "ads_search_clicks_pct": 3.5,
+      "ga4_paid_search_pct": -12.1,
+      "ga4_organic_search_pct": -6.8
     },
     "sources_pulled": [
       "google_ads_csv_export",
@@ -169,9 +183,9 @@
     "rc_inbound": null,
     "rc_answered": null,
     "rc_abandoned": null,
-    "ac_digest_threads_last_10d": 8,
-    "ac_digest_threads_prior_10d": 5,
-    "ac_note": "Last 8 vs prior 5. Sales-intent ~2 last (Keith x2 Yoga Flex incl ready-to-buy; Brian/Amy unclear) vs ~2 prior (Julie Osaka price Q; David Martinson ads). Rest mostly service/existing (Moses x2, Gloria/Kim, Romaine, Alonzo x2) + Stephanie vendor. No AC emails Oct 9\u201311. Not answer-rate SoR.",
+    "ac_digest_threads_last_10d": 5,
+    "ac_digest_threads_prior_10d": 6,
+    "ac_note": "Last 5 vs prior 6. Sales-intent ~1 last (Dave Oct 14 looking for chair) vs ~3 prior (Keith x2, Julie). Not answer-rate SoR.",
     "calls_report_monthly": {
       "Sep 2026 EMC Sales": 79,
       "Aug 2026": 98,
@@ -186,37 +200,43 @@
   },
   "bof": {
     "closed_sales": 13,
-    "revenue": 74925.99,
-    "gross": 30258.21,
-    "nmap_pct": 40.38,
-    "ads_pct_of_sales": 4.1,
+    "revenue": 75659.99,
+    "gross": 24591.75,
+    "nmap_pct": 40.51,
+    "ads_pct_of_sales": 3.9,
     "close_rate_vs_qualified": null,
     "platform_split": {
-      "Youtube": 8,
-      "Google": 5
+      "Google": 4,
+      "Youtube": 6,
+      "Website Order": 1,
+      "Exchange": 1,
+      "Pricematch": 1
     },
     "prior_10d": {
-      "closed_sales": 13,
-      "revenue": 70517.96,
-      "gross": 24164.02,
-      "nmap_pct": 34.27,
-      "ads_pct_of_sales": 3.54
+      "closed_sales": 15,
+      "revenue": 80269.96,
+      "gross": 28669.98,
+      "nmap_pct": 35.72,
+      "ads_pct_of_sales": 3.56
     },
     "yoy_10d": {
-      "closed_sales": 10,
-      "revenue": 70761.96,
-      "gross": 21517.65,
-      "nmap_pct": 30.41,
+      "closed_sales": 12,
+      "revenue": 75860.95,
+      "gross": 22798.67,
+      "nmap_pct": 30.05,
       "ex_outlier": {
-        "closed_sales": 10,
-        "revenue": 70761.96,
+        "closed_sales": 12,
+        "revenue": 75860.95,
         "note": "no large single-order outlier in this YoY window"
       }
     },
-    "cos_note": "Business Checklist 2026/2025 tabs, Sale>0 non-cancelled. Latest sale row 2026-10-09. Blank COGS: 0. Oct 10\u201311 may still be unentered.",
+    "cos_note": "Business Checklist 2026/2025 tabs, Sale>0 non-cancelled. Latest sale row 2026-10-13. See data_issue.",
     "sources_pulled": [
       "business_checklist_xlsx"
-    ]
+    ],
+    "revenue_as_entered": 162385.97,
+    "ads_pct_of_sales_as_entered": 1.82,
+    "data_issue": "Checklist row Oct 11 PO 882610-17 (Grande XL website order #1000006049) entered as Sale $89,403.98 / COGS $53,497.88; order email + Stripe receipt show $2,678.00. Revenue uses $2,678; gross/NMAP/fees exclude that row, the Oct 12 $5,000 exchange row (blank COGS; $1,500 actually charged), and the Oct 13 $7,274 Grand Duo row (blank COGS). No Oct 14 sale logged yet."
   },
   "margin": {
     "preferred_pay_share": 0.0769,
@@ -225,41 +245,37 @@
       "check": 1,
       "ach_bank": 0,
       "zelle": 0,
-      "card": 10,
-      "paypal": 2,
+      "card": 11,
+      "paypal": 1,
       "affirm_financing": 0
     },
-    "fees": 1917.78,
-    "fee_drag_pct": 2.56,
+    "fees": 1491.24,
+    "fee_drag_pct": 2.46,
     "discount_exceptions": null,
     "warranty_for_check_offers_noted": null,
     "prior_10d": {
-      "preferred_pay_share": 0.0769,
-      "payment_mix": {
-        "check": 0,
-        "ach_bank": 1,
-        "zelle": 0,
-        "card": 11,
-        "paypal": 1,
-        "affirm_financing": 0
-      },
-      "fee_drag_pct": 2.78
-    },
-    "yoy_10d": {
       "preferred_pay_share": 0.0,
-      "financing_share": 0.2,
       "payment_mix": {
         "check": 0,
         "ach_bank": 0,
         "zelle": 0,
-        "card": 7,
-        "paypal": 0,
-        "affirm_financing": 2,
-        "other": 1
+        "card": 13,
+        "paypal": 2,
+        "affirm_financing": 0
       },
-      "fee_drag_pct": 5.29
+      "fee_drag_pct": 3.0
     },
-    "cos_note": "1 Check of 13; Stripe 10, PayPal 2. Fees $1,917.78 = 2.56% of sales (aim ~2%).",
+    "yoy_10d": {
+      "preferred_pay_share": 0.0,
+      "financing_share": 0.25,
+      "payment_mix": {
+        "card": 8,
+        "other": 1,
+        "affirm_financing": 3
+      },
+      "fee_drag_pct": 5.92
+    },
+    "cos_note": "1 Check of 13; Stripe 11, PayPal 1. Fees $1,491.24 = 2.46% of sales on 10 clean rows (ex typo + Oct 12 exchange + Oct 13 Grand Duo blank-COGS rows).",
     "sources_pulled": [
       "business_checklist_xlsx"
     ]
@@ -267,17 +283,19 @@
   "blockers": [
     "CallRail signed out at app.callrail.com/authenticate - Vin login as vincent@easymassagechair.com (do not grant phone-number OAuth scopes)",
     "RingCentral Zapier OAuth stale - reconnect needed",
-    "YouTube Studio exact 10d not pulled this run (custom dates previously blocked by Google verify prompt)",
+    "YouTube Studio exact 10d not pulled this run",
     "Google Ads records ~2 conversions per 10d window - calls/cart conversions not feeding Ads",
     "GA4 Direct/Unassigned/Display junk-inflated (bot flag Singapore/Brazil) - use Paid/Organic Search only",
-    "Checklist latest sale 2026-10-09 - Oct 10\u201311 may still be blank in the sheet"
+    "Checklist Grande XL typo still unfixed (Oct 11 PO 882610-17 $89,403.98 vs real $2,678)",
+    "No Oct 14 sale row in Checklist yet (latest sale 2026-10-13)"
   ],
   "planner_note_pasted": false,
   "dashboard_published_url": "https://vinchiu-dev.github.io/sams-chinese-quest/emc-funnel/",
   "dashboard_ux": "clear-glance",
   "notices": [
-    "Sales steady: 13 closes / $74.9k vs 13 / $70.5k; Ads 4.10% of sales (was 3.54%)",
-    "Margin soft: only 1 of 13 paid by check/ACH/Zelle; $1,918 in pay fees (2.56%)",
-    "Ads ~2 conversions per 10 days; Mid still blind (CallRail signed out, RingCentral stale)"
+    "Sales soft: 13 closes / $75,660 corrected vs 15 / $80,270; Ads 3.90% of sales (was 3.56%)",
+    "GA4 Paid Search soft 972 vs 1,106 while Ads Search clicks held 1,227 vs 1,186",
+    "Margin soft: only 1 of 13 paid by check/ACH/Zelle; $1,491 in pay fees (2.46% on clean rows)",
+    "Mid still blind (CallRail signed out, RingCentral stale); AC 5 vs 6 with 1 sales-intent (Dave Oct 14)"
   ]
 }

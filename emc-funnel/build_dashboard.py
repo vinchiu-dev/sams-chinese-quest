@@ -48,24 +48,24 @@ preferred_p = sum(mp["payment_mix"].get(k, 0) for k in ("check", "ach_bank", "ze
 card_pp = pm.get("card", 0) + pm.get("paypal", 0)
 yoy_ex = bof["yoy_10d"]["ex_outlier"]
 
-# ---- Plain-English copy for this run (from TLDR-20261012 / leak_callout) ----
+# ---- Plain-English copy for this run (TLDR-20261015) ----
 COPY = {
     "headline": "No clear leak.",
-    "story": (f"Sales held steady at <b>{money(bof['revenue'])}</b> on <b>{bof['closed_sales']}</b> closes "
-              f"(prior {money(bp['revenue'])} on {bp['closed_sales']}). Ads cost "
+    "story": (f"Sales softened to <b>{money(bof['revenue'])}</b> on <b>{bof['closed_sales']}</b> closes "
+              f"(prior {money(bp['revenue'])} on {bp['closed_sales']}) once one mistyped Checklist row is fixed. Ads cost "
               f"<b>{bof['ads_pct_of_sales']:.2f}%</b> of sales, up from {bp['ads_pct_of_sales']:.2f}%."),
     "actions": [
+        ("Fix the Oct 11 Grande XL Checklist row ($89,404 → $2,678).",
+         "It still says $89,404 sale and $53,498 cost, but the order and Stripe show $2,678. Left as is, it fakes a huge week."),
         ("Push check / ACH / Zelle on every close.",
          f"Only {preferred} of {bof['closed_sales']} paid that way. Daryl and Symon should lead with it plus the extra parts warranty."),
-        ("Ask Asim to fix Ads conversion tracking.",
-         "Ads counts about 2 conversions per 10 days because calls and carts aren't counted. Also clear the disapproved ads in Brands and Brands CA."),
-        ("Sign in to CallRail; reconnect or drop RingCentral.",
-         "Until then we can't see how many calls come in or get answered."),
+        ("Ask Asim to fix Ads conversion tracking + Not-eligible/Limited ads.",
+         "Ads counts 2 conversions in 10 days; Brands is Eligible (Limited); many CA/product campaigns are Not eligible."),
     ],
-    "tof": "Search demand is up and CPC is steady. Extra total clicks are still mostly cheap Display remarketing, not new search buyers alone.",
-    "mid": "Partly blind: CallRail is signed out and RingCentral is stale. AnswerConnect messages rose 5 to 8; about 2 were buyers.",
-    "bof": "Steady. Revenue up a bit while ads sit at about 4.1% of sales (target 3–4%, ceiling 5%).",
-    "margin": f"The soft spot. {card_pp} of {bof['closed_sales']} paid by card or PayPal, so fees ran {mar['fee_drag_pct']:.2f}% of sales (aim ~2%).",
+    "tof": "Search clicks held (+3.5%) at a steady cost per click. GA4 Paid Search visits fell about 12%, so watch landing/tracking. Brands still Limited.",
+    "mid": "Partly blind: CallRail is signed out and RingCentral is stale. AnswerConnect messages 5 vs 6; about 1 was a buyer (Dave, Oct 14).",
+    "bof": "Soft vs prior (13 closes vs 15). Ads sit at about 3.9% of sales (target 3–4%, ceiling 5%). No Oct 14 sale logged yet.",
+    "margin": f"Still the soft spot. {card_pp} of {bof['closed_sales']} paid by card or PayPal, so fees ran {mar['fee_drag_pct']:.2f}% of sales on clean rows (aim ~2%). Blank COGS on Oct 12 exchange and Oct 13 Grand Duo.",
 }
 
 def row(label, last, prior, change):
@@ -90,7 +90,7 @@ STAGES = [
              f"Organic search visits (GA4): {num(tof['ga4_organic_search'])} vs {num(tp['ga4_channels']['Organic Search'])} "
              f"({chg(tof['ga4_organic_search'], tp['ga4_channels']['Organic Search'])}).",
              "GA4 Direct / Unassigned / Display are flagged as junk traffic (bot insight: Singapore/Brazil). Ignore them; use Paid and Organic Search.",
-             f"Brands campaign: {money(tof['ads_brands']['cost'])} / {num(tof['ads_brands']['clicks'])} clicks, close to 'limited by budget'; some ads disapproved in Brands and Brands CA.",
+             f"Brands campaign: {money(tof['ads_brands']['cost'])} / {num(tof['ads_brands']['clicks'])} clicks, Eligible (Limited); many CA/product campaigns disapproved or not eligible.",
              f"Last year, same dates: spend {money(tof['yoy_10d']['ads_spend'])}, search clicks {num(tof['yoy_10d']['ads_search']['clicks'])} "
              f"at {money(tof['yoy_10d']['ads_search']['cpc'], 2)}.",
              "YouTube Studio exact Last/Prior 10d not pulled this run (custom dates previously blocked by a Google verify prompt).",
@@ -105,7 +105,7 @@ STAGES = [
              row("CallRail calls", "—", "—", '<span class="na">signed out</span>'),
          ],
          details=[
-             "About 2 of the 8 AnswerConnect messages were buyers (Yoga Flex questions, including a ready-to-purchase note). Are closers free when calls roll to AnswerConnect?",
+             "About 1 of the 5 AnswerConnect messages was a clear buyer (Dave on Oct 14 looking for a chair). Rest service/existing/vendor/unclear.",
              f"Calls Report is monthly only: Sep {mid['calls_report_monthly']['Sep 2026 EMC Sales']}, Aug {mid['calls_report_monthly']['Aug 2026']}, Oct 2025 {mid['calls_report_monthly']['Oct 2025']}.",
              "RingCentral answered / abandoned: unknown (Zapier connection stale since Sep 15).",
          ]),
@@ -118,11 +118,12 @@ STAGES = [
              row("Margin (NMAP)", f"{bof['nmap_pct']:.1f}%", f"{bp['nmap_pct']:.1f}%", pts(bof["nmap_pct"], bp["nmap_pct"])),
          ],
          details=[
-             f"Gross profit {money(bof['gross'])} vs {money(bp['gross'])} ({chg(bof['gross'], bp['gross'])}).",
+             f"Margin and gross profit ({money(bof['gross'])}) use 10 clean rows: the mistyped Oct 11 order, the Oct 12 $5,000 exchange (blank cost, $1,500 actually charged), and the Oct 13 $7,274 Grand Duo (blank cost) are left out.",
+             f"As entered in the Checklist, revenue would read {money(bof['revenue_as_entered'])} and ads {bof['ads_pct_of_sales_as_entered']:.2f}% of sales. That's the typo, not real growth.",
              f"Last year, same dates: {money(bof['yoy_10d']['revenue'])} on {bof['yoy_10d']['closed_sales']} closes (no large single-order outlier this YoY window).",
              f"Credited source: YouTube {bof['platform_split']['Youtube']}, Google {bof['platform_split']['Google']}.",
              "Close rate vs qualified leads: unknown until CallRail is back.",
-             "Checklist latest sale row is Oct 9 — Oct 10–11 may still be blank in the sheet.",
+             "Checklist is current through Oct 13 (no Oct 14 sale logged yet).",
          ]),
     dict(key="margin", name="Margin", tag="Margin", q="Are we keeping the money after the sale?", status=R["statuses"]["margin"],
          rows=[
@@ -133,7 +134,7 @@ STAGES = [
              row("Payment fees, $", money(mar["fees"]), "—", ""),
          ],
          details=[
-             f"Payment mix: card {pm.get('card',0)}, PayPal {pm.get('paypal',0)}, check {pm.get('check',0)}, ACH {pm.get('ach_bank',0)}, Zelle {pm.get('zelle',0)}, Affirm/financing {pm.get('affirm_financing',0)}. Blank COGS: none this window.",
+             f"Payment mix: card {pm.get('card',0)}, PayPal {pm.get('paypal',0)}, check {pm.get('check',0)}, ACH {pm.get('ach_bank',0)}, Zelle {pm.get('zelle',0)}, Affirm/financing {pm.get('affirm_financing',0)}. Blank cost: Oct 12 exchange + Oct 13 Grand Duo.",
              f"Prior 10 days: card {mp['payment_mix'].get('card',0)}, PayPal {mp['payment_mix'].get('paypal',0)}, ACH {mp['payment_mix'].get('ach_bank',0)}.",
              f"Last year, same dates: fees {R['margin']['yoy_10d']['fee_drag_pct']:.2f}% of sales (and 2 financing closes).",
              "No financing this window, which is good. Discount exceptions weren't logged.",
@@ -169,18 +170,20 @@ actions = "".join(
 
 # Plain-English versions of LAST-RUN concurrent_changes / blockers (no customer names)
 CHANGES = [
-    ("Oct 9", "Checklist latest sale is Oct 9 — Oct 10–11 may still be blank in the sheet."),
+    ("Oct 14", "AnswerConnect sales-intent call-back: shopper looking for a new massage chair."),
+    ("Oct 13", "Grand Duo $7,274 phone/YouTube sale logged with blank cost (Daryl)."),
+    ("Oct 11/12", "Checklist Grande XL website order still entered as $89,404 sale / $53,498 cost; the order email and Stripe show $2,678. Board uses $2,678. Oct 12 $5,000 exchange still has blank cost."),
     ("Oct 7", "Stripe decline and Affirm-fail alerts went live."),
-    ("Oct 6", "YouTube editing ramp started (Ashutosh + two backup editors). Exact Studio 10d not pulled this run."),
-    ("Ongoing", "Google Ads: Brands is close to 'limited by budget', some ads disapproved, and Display remarketing clicks jumped again."),
+    ("Ongoing", "Google Ads: Brands is Eligible (Limited); many Not-eligible ads across CA and product campaigns."),
 ]
 GAPS = [
     "CallRail is signed out, so call counts by source are missing.",
     "RingCentral's Zapier link is stale, so answer and abandon rates are missing.",
-    "YouTube Studio exact 10-day windows weren't pulled this run (verify prompt historically).",
-    "Google Ads only records about 2 conversions per 10 days.",
+    "YouTube Studio exact 10-day windows weren't pulled this run.",
+    "Google Ads only records 2 conversions per 10 days.",
     "GA4 Direct, Unassigned and Display traffic is junk-flagged. Only Paid and Organic Search are used.",
-    "Checklist may still be missing Oct 10–11 sales.",
+    "Checklist Grande XL typo still unfixed (Oct 11, $89,404 vs $2,678 actual).",
+    "No Oct 14 sale row in the Checklist yet (latest logged sale is Oct 13).",
 ]
 changes = "".join(f"<li><b>{a}</b> · {b}</li>" for a, b in CHANGES)
 gaps = "".join(f"<li>{g}</li>" for g in GAPS)
