@@ -1,0 +1,127 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>Blue Coast Function Hall – Expansion 3D</title>
+<style>body{margin:0;overflow:hidden;font-family:system-ui,sans-serif}#hud{position:fixed;top:8px;left:8px;background:rgba(0,40,60,.8);color:#fff;padding:8px 10px;border-radius:8px;font-size:13px;max-width:300px;z-index:5}
+#hud button{margin:4px 4px 0 0;padding:6px 8px;border:0;border-radius:6px;background:#2bb3c0;color:#fff;font-weight:600}
+#start{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45);color:#fff;font-size:18px;text-align:center;z-index:4;cursor:pointer}
+#joy{position:fixed;left:20px;bottom:20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.25);display:none;z-index:6;touch-action:none}
+#knob{position:absolute;left:40px;top:40px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.8)}
+#look{position:fixed;right:0;top:0;width:55%;height:100%;display:none;z-index:3;touch-action:none}
+.lbl{color:#fff;background:rgba(0,60,90,.85);padding:3px 7px;border-radius:5px;font-size:13px;white-space:nowrap}</style>
+<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script></head><body>
+<div id="hud"><b>Blue Coast Function Hall – expansion concept</b><br>
+<span id="info"></span><br>
+<button id="tLayout">Show current size</button><button id="tView">Top view</button></div>
+<div id="start">Click to walk<br><small>WASD / arrows to move · mouse to look · Esc to release</small></div>
+<div id="joy"><div id="knob"></div></div><div id="look"></div>
+<script type="module">
+import * as THREE from 'three';
+import {PointerLockControls} from 'three/addons/controls/PointerLockControls.js';
+import {CSS2DRenderer,CSS2DObject} from 'three/addons/renderers/CSS2DRenderer.js';
+// Units: meters. x along parking-side wall (grid 7→10), z depth. Sea-side wall z=0, old parking wall z=D0, new wall z=D1.
+const W=18.58,D0=12.5,D1=18.4,H=3.4;
+const touch=matchMedia('(pointer:coarse)').matches;
+const scene=new THREE.Scene();scene.background=new THREE.Color(0xf3c9a5);
+const cam=new THREE.PerspectiveCamera(70,innerWidth/innerHeight,.05,200);cam.position.set(W/2,1.6,D1-1.5);
+const ren=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});ren.setPixelRatio(Math.min(devicePixelRatio,2));ren.setSize(innerWidth,innerHeight);document.body.appendChild(ren.domElement);
+const lr=new CSS2DRenderer();lr.setSize(innerWidth,innerHeight);Object.assign(lr.domElement.style,{position:'fixed',top:0,pointerEvents:'none'});document.body.appendChild(lr.domElement);
+scene.add(new THREE.HemisphereLight(0xffffff,0xd8cbb0,1.6));
+const M=c=>new THREE.MeshStandardMaterial({color:c,roughness:.6});
+const box=(w,h,d,m,x,y,z,p=scene)=>{const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);o.position.set(x,y,z);p.add(o);return o};
+const label=(t,x,y,z,p=scene)=>{const d=document.createElement('div');d.className='lbl';d.innerHTML=t;const o=new CSS2DObject(d);o.position.set(x,y,z);p.add(o);return o};
+// floor: cream polished tile
+const tc=document.createElement('canvas');tc.width=tc.height=256;const g=tc.getContext('2d');g.fillStyle='#efe6d6';g.fillRect(0,0,256,256);g.strokeStyle='#d8ccb8';g.lineWidth=3;g.strokeRect(0,0,256,256);
+const tt=new THREE.CanvasTexture(tc);tt.wrapS=tt.wrapT=THREE.RepeatWrapping;tt.repeat.set(W/.6,D1/.6);tt.colorSpace=THREE.SRGBColorSpace;
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(W,D1),new THREE.MeshStandardMaterial({map:tt,roughness:.15,metalness:.1}));floor.rotation.x=-Math.PI/2;floor.position.set(W/2,0,D1/2);scene.add(floor);
+// original footprint tint + new area tint
+const tint=(z0,z1,c)=>{const p=new THREE.Mesh(new THREE.PlaneGeometry(W,z1-z0),new THREE.MeshBasicMaterial({color:c,transparent:true,opacity:.18,depthWrite:false}));p.rotation.x=-Math.PI/2;p.position.set(W/2,.005,(z0+z1)/2);scene.add(p);return p};
+tint(0,D0,0x2b8fc0);const newTint=tint(D0,D1,0xe8a33a);
+// dashed old wall line
+const pts=[new THREE.Vector3(0,.01,D0),new THREE.Vector3(W,.01,D0)];const dl=new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),new THREE.LineDashedMaterial({color:0xc0392b,dashSize:.4,gapSize:.25}));dl.computeLineDistances();scene.add(dl);
+for(let x=0;x<W;x+=.65)box(.4,.012,.08,new THREE.MeshBasicMaterial({color:0xc0392b}),x+.2,.008,D0);
+// ceiling with coffer + cove
+const white=M(0xf7f4ee),beam=M(0xece7dc);
+box(W,.1,D1,white,W/2,H+.05,D1/2);
+box(W,.45,.5,beam,W/2,H-.22,D0); // old wall beam stays
+for(const x of [6.2,12.4])box(.5,.35,D1,beam,x,H-.17,D1/2);
+// recessed lights
+const dlm=new THREE.MeshBasicMaterial({color:0xfff6d8});
+for(let x=1.55;x<W;x+=3.1)for(let z=1.5;z<D1;z+=3){const c=new THREE.Mesh(new THREE.CircleGeometry(.09,12),dlm);c.rotation.x=Math.PI/2;c.position.set(x,H-.001,z);scene.add(c)}
+for(const [x,z] of [[4.6,4],[14,4],[4.6,11],[14,11],[9.3,16]]){const l=new THREE.PointLight(0xfff0d0,14,14);l.position.set(x,H-.3,z);scene.add(l)}
+// walls with openings
+const wallM=M(0xfbf8f2),glass=new THREE.MeshStandardMaterial({color:0x9fd3e6,transparent:true,opacity:.35,roughness:.05}),frame=M(0x2d2a26),shade=M(0x3a3f45),doorM=M(0x7a5434);
+const walls=[];
+function wallX(z,openings){ // wall along x at depth z, openings [{x0,x1,y0,y1,type}]
+ let segs=[[0,W]];box(W,.25,.25,wallM,W/2,H-.125,z);
+ const xs=[0,...openings.flatMap(o=>[o.x0,o.x1]),W];
+ for(let i=0;i<xs.length;i+=2)if(xs[i+1]>xs[i])box(xs[i+1]-xs[i],H,.25,wallM,(xs[i]+xs[i+1])/2,H/2,z);
+ for(const o of openings){const w=o.x1-o.x0,cx=(o.x0+o.x1)/2;
+  if(o.y0>0)box(w,o.y0,.25,wallM,cx,o.y0/2,z);box(w,H-o.y1,.25,wallM,cx,(H+o.y1)/2,z);
+  const gm=o.type=='door'?glass:glass;box(w,o.y1-o.y0,.04,gm,cx,(o.y0+o.y1)/2,z);
+  box(w,.06,.08,frame,cx,o.y1,z);box(.06,o.y1-o.y0,.08,frame,cx,(o.y0+o.y1)/2,z);
+  if(o.type!='door')box(w,.35,.06,shade,cx,o.y1-.2,z+(z<1?.15:-.15));}
+ walls.push({axis:'z',v:z});}
+function wallZ(x,z0,z1,doors=[]){ const pts=[z0,...doors.flatMap(d=>[d[0],d[1]]),z1];
+ for(let i=0;i<pts.length;i+=2)box(.25,H,pts[i+1]-pts[i],wallM,x,H/2,(pts[i]+pts[i+1])/2);
+ for(const d of doors){box(.25,H-2.2,d[1]-d[0],wallM,x,(H+2.2)/2,(d[0]+d[1])/2);box(.06,2.2,d[1]-d[0]-.1,doorM,x+(x<1?.1:-.1),1.1,(d[0]+d[1])/2)}}
+// sea-side wall: glass bays between columns (per photos)
+const sea=[];for(const [a,b] of [[0,6.2],[6.2,12.4],[12.4,W]]){const m=(a+b)/2;sea.push({x0:a+.5,x1:m-.45,y0:.35,y1:2.4},{x0:m-.35,x1:m+.95,y0:0,y1:2.5,type:'door'},{x0:m+1.05,x1:b-.5,y0:.35,y1:2.4})}
+wallX(0,sea);
+// new parking-side wall: windows + main double door + service door
+wallX(D1,[{x0:1.2,x1:3.6,y0:.9,y1:2.3},{x0:8.1,x1:10.5,y0:0,y1:2.5,type:'door'},{x0:14.8,x1:17.2,y0:.9,y1:2.3}]);
+wallZ(0,0,D1,[[14.5,16]]);wallZ(W,0,D1,[[3,4.5]]);
+// old wall (current-size view only)
+const oldWall=new THREE.Group();box(W,H,.25,M(0xeee6da),W/2,H/2,D0,oldWall);box(1.6,2.2,.27,doorM,W/2,1.1,D0,oldWall);scene.add(oldWall);oldWall.visible=false;
+// columns: grid 7..10 at x=0,6.2,12.4,18.58 along old wall; 8 & 9 freestanding
+const colM=M(0xf1ece2);const cols=[[6.2,D0],[12.4,D0]];
+for(const [x,z] of cols){box(.5,H,.5,colM,x,H/2,z);label('Column (grid '+(x<7?8:9)+')',x,2.6,z)}
+for(const x of [0,6.2,12.4,W])box(.45,H,.45,colM,Math.min(Math.max(x,.2),W-.2),H/2,.2);
+for(const x of [0,W])box(.45,H,.45,colM,x?W-.2:.2,H/2,D0);
+// stage + backdrop at sea-wall? put stage on west side wall
+box(1.8,.45,6,M(0x6b4b35),1.0,.225,D0/2);label('Stage',1.0,1,D0/2);
+// AC units
+for(const z of [3,9,15]){box(.25,.3,1,M(0xffffff),W-.25,2.8,z);box(.25,.3,1,M(0xffffff),.25,2.8,z+1.5)}
+// string lights (from photo)
+const bulbM=new THREE.MeshBasicMaterial({color:0xffd27a});
+for(let z=2;z<D1-1;z+=2.2)for(let x=3;x<W-.5;x+=.6){const b=new THREE.Mesh(new THREE.SphereGeometry(.04,6,6),bulbM);b.position.set(x,H-.35-Math.sin((x-3)/(W-3.5)*Math.PI)*.4,z);scene.add(b)}
+// tables
+const tableGeo=new THREE.CylinderGeometry(.9,.95,.76,24),topGeo=new THREE.CylinderGeometry(.92,.92,.03,24);
+const clothT=M(0x2aa6b8),clothW=M(0xffffff),clothR=M(0xd9443a),chairM=M(0xbfbab0),seatM=M(0xf2e8d0);
+function table(x,z,i,g){const t=new THREE.Group();t.position.set(x,0,z);const s=new THREE.Mesh(tableGeo,clothW);s.position.y=.38;t.add(s);const tp=new THREE.Mesh(topGeo,i%7==3?clothR:clothT);tp.position.y=.77;t.add(tp);
+ for(let k=0;k<10;k++){const a=k/10*Math.PI*2,c=new THREE.Group();c.position.set(Math.cos(a)*1.25,0,Math.sin(a)*1.25);c.rotation.y=-a+Math.PI/2;
+  box(.42,.06,.42,seatM,0,.46,0,c);box(.42,.5,.04,chairM,0,.75,.2,c);for(const[a2,b2]of[[-.18,-.18],[.18,-.18],[-.18,.18],[.18,.18]])box(.03,.45,.03,chairM,a2,.22,b2,c);t.add(c)}
+ g.add(t)}
+function layout(depth,cap){const g=new THREE.Group();let pos=[];const sx=2.75,sz=2.75;
+ for(let z=1.6;z<depth-1.2;z+=sz)for(let x=2.9;x<W-1.2;x+=sx){if(cols.some(([cx,cz])=>Math.hypot(cx-x,cz-z)<1.85))continue;if(Math.abs(z-depth+1)<1.8&&Math.abs(x-9.3)<1.8)continue;pos.push([x,z])}
+ pos=pos.slice(0,cap);pos.forEach((p,i)=>table(p[0],p[1],i,g));scene.add(g);return{g,n:pos.length}}
+const big=layout(D1,30),small=layout(D0,20);small.g.visible=false;
+// labels
+const lW=label('18.58 m (grid 7 → 10)',W/2,.3,D1-.6),lN=label('New area +5.9 m × 18.58 m ≈ 110 m²',W/2,.3,(D0+D1)/2+1.2),lO=label('Original hall 18.58 × 12.5 m = 232 m²',W/2,.3,3.6),lT=label('',W/2,.3,D0+.35),lDO=label('12.5 m',W-.6,.3,D0/2),lDN=label('18.4 m total depth',W-.6,.6,D1/2+2);
+let expanded=true;
+function setMode(){big.g.visible=expanded;small.g.visible=!expanded;oldWall.visible=!expanded;newTint.visible=lN.visible=expanded;lDN.visible=expanded;
+ lT.element.innerHTML=expanded?'- - - old wall line - - -':'current wall';
+ document.getElementById('info').innerHTML=(expanded?`<b>Expanded:</b> 18.58 × 18.4 m ≈ 340 m² (+48%)<br>${big.n} tables × 10 = ${big.n*10} seats (tight banquet, est. max ~295)`:`<b>Current:</b> 18.58 × 12.5 m = 232 m²<br>${small.n} tables × 10 = ${small.n*10} seats (today's tight max ~200)`)+'<br><small>Blue = original footprint · orange = extension</small>';
+ document.getElementById('tLayout').textContent=expanded?'Show current size':'Show expanded';}
+setMode();document.getElementById('tLayout').onclick=e=>{e.stopPropagation();expanded=!expanded;setMode()};
+let top=false;document.getElementById('tView').onclick=e=>{e.stopPropagation();top=!top;e.target.textContent=top?'Walk view':'Top view';scene.children.forEach(o=>{if(o.position.y>H-.7&&!o.isLight)o.visible=!top});if(top){cam.position.set(W/2,26,D1/2+.01);cam.lookAt(W/2,0,D1/2)}else{cam.position.set(W/2,1.6,D1-1.5);cam.rotation.set(0,0,0)}};
+// controls
+const ctl=new PointerLockControls(cam,document.body);const st=document.getElementById('start');
+if(touch){st.style.display='none';document.getElementById('joy').style.display='block';document.getElementById('look').style.display='block'}
+else{st.onclick=()=>ctl.lock();ctl.addEventListener('lock',()=>st.style.display='none');ctl.addEventListener('unlock',()=>st.style.display='flex')}
+const keys={};addEventListener('keydown',e=>keys[e.code]=1);addEventListener('keyup',e=>keys[e.code]=0);
+let jx=0,jy=0;const joy=document.getElementById('joy'),knob=document.getElementById('knob');
+const jm=e=>{const r=joy.getBoundingClientRect(),t=e.targetTouches[0];let dx=t.clientX-r.left-60,dy=t.clientY-r.top-60;const d=Math.min(1,Math.hypot(dx,dy)/50),a=Math.atan2(dy,dx);jx=Math.cos(a)*d;jy=Math.sin(a)*d;knob.style.left=40+jx*40+'px';knob.style.top=40+jy*40+'px';e.preventDefault()};
+joy.addEventListener('touchstart',jm);joy.addEventListener('touchmove',jm);joy.addEventListener('touchend',()=>{jx=jy=0;knob.style.left=knob.style.top='40px'});
+let yaw=0,pitch=0,lt=null;const look=document.getElementById('look');
+look.addEventListener('touchstart',e=>{lt=e.targetTouches[0]});look.addEventListener('touchmove',e=>{const t=e.targetTouches[0];yaw-=(t.clientX-lt.clientX)*.005;pitch=Math.max(-1.4,Math.min(1.4,pitch-(t.clientY-lt.clientY)*.005));lt=t;cam.rotation.set(pitch,yaw,0,'YXZ');e.preventDefault()});
+const clock=new THREE.Clock(),fw=new THREE.Vector3(),rt=new THREE.Vector3();
+function step(){const dt=Math.min(clock.getDelta(),.05);if(!top){
+ let f=(keys.KeyW||keys.ArrowUp?1:0)-(keys.KeyS||keys.ArrowDown?1:0)-jy,s=(keys.KeyD||keys.ArrowRight?1:0)-(keys.KeyA||keys.ArrowLeft?1:0)+jx;
+ cam.getWorldDirection(fw);fw.y=0;fw.normalize();rt.crossVectors(fw,cam.up);const v=2.6*dt,p=cam.position;
+ const nx=p.x+(fw.x*f+rt.x*s)*v,nz=p.z+(fw.z*f+rt.z*s)*v,r=.3,maxZ=expanded?D1:D0;
+ const ok=(x,z)=>x>r&&x<W-r&&z>r&&z<maxZ-r&&!cols.some(([cx,cz])=>Math.abs(cx-x)<.25+r&&Math.abs(cz-z)<.25+r);
+ if(ok(nx,p.z))p.x=nx;if(ok(p.x,nz))p.z=nz;p.y=1.6;if(!expanded&&p.z>D0-r)p.z=D0-r-.01}
+ ren.render(scene,cam);lr.render(scene,cam);requestAnimationFrame(step)}
+step();
+addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();ren.setSize(innerWidth,innerHeight);lr.setSize(innerWidth,innerHeight)});
+window._ready=true;
+</script></body></html>
