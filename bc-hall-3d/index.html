@@ -67,8 +67,10 @@ function wallZ(x,z0,z1,doors=[]){ const pts=[z0,...doors.flatMap(d=>[d[0],d[1]])
 const sea=[];for(const [a,b] of [[0,6.2],[6.2,12.4],[12.4,W]]){const m=(a+b)/2;sea.push({x0:a+.5,x1:m-.45,y0:.35,y1:2.4},{x0:m-.35,x1:m+.95,y0:0,y1:2.5,type:'door'},{x0:m+1.05,x1:b-.5,y0:.35,y1:2.4})}
 wallX(0,sea);
 // new parking-side wall: windows + main double door + service door
-wallX(D1,[{x0:1.2,x1:3.6,y0:.9,y1:2.3},{x0:8.1,x1:10.5,y0:0,y1:2.5,type:'door'},{x0:14.8,x1:17.2,y0:.9,y1:2.3}]);
-wallZ(0,0,D1,[[14.5,16]]);wallZ(W,0,D1,[[3,4.5]]);
+wallX(D1,[{x0:1.2,x1:3.6,y0:.9,y1:2.3},{x0:8.1,x1:10.5,y0:.9,y1:2.3},{x0:14.8,x1:17.2,y0:.9,y1:2.3}]);
+wallZ(0,0,D1,[[9.6,11.1]]);wallZ(W,0,D1,[[3,4.5]]);
+const DOORS=[[3.4,1,1.6],[9.6,1,1.6],[15.8,1,1.6],[W-1,3.75,1.9],[1,10.35,1.9]];
+['Double door 1','Double door 2','Double door 3'].forEach((t,i)=>label(t,DOORS[i][0],2.2,.3));label('Kitchen door',W-.4,2.4,3.75);label('New stage-wall door',.4,2.4,10.35);
 // old wall (current-size view only)
 const oldWall=new THREE.Group();box(W,H,.25,M(0xeee6da),W/2,H/2,D0,oldWall);box(1.6,2.2,.27,doorM,W/2,1.1,D0,oldWall);scene.add(oldWall);oldWall.visible=false;
 // columns: grid 7..10 at x=0,6.2,12.4,18.58 along old wall; 8 & 9 freestanding
@@ -91,15 +93,15 @@ function table(x,z,i,g){const t=new THREE.Group();t.position.set(x,0,z);const s=
   box(.42,.06,.42,seatM,0,.46,0,c);box(.42,.5,.04,chairM,0,.75,.2,c);for(const[a2,b2]of[[-.18,-.18],[.18,-.18],[-.18,.18],[.18,.18]])box(.03,.45,.03,chairM,a2,.22,b2,c);t.add(c)}
  g.add(t)}
 function layout(depth,cap){const g=new THREE.Group();let pos=[];const sx=2.75,sz=2.75;
- for(let z=1.6;z<depth-1.2;z+=sz)for(let x=2.9;x<W-1.2;x+=sx){if(cols.some(([cx,cz])=>Math.hypot(cx-x,cz-z)<1.85))continue;if(Math.abs(z-depth+1)<1.8&&Math.abs(x-9.3)<1.8)continue;pos.push([x,z])}
+ for(let z=2.4;z<depth-1.4;z+=sz)for(let x=2.9;x<W-1.2;x+=sx){if(cols.some(([cx,cz])=>Math.hypot(cx-x,cz-z)<1.85))continue;if(DOORS.some(([dx,dz,r])=>Math.hypot(dx-x,dz-z)<r))continue;pos.push([x,z])}
  pos=pos.slice(0,cap);pos.forEach((p,i)=>table(p[0],p[1],i,g));scene.add(g);return{g,n:pos.length}}
-const big=layout(D1,30),small=layout(D0,20);small.g.visible=false;
+const big=layout(D1,99),small=layout(D0,20);small.g.visible=false;
 // labels
 const lW=label('18.58 m (grid 7 → 10)',W/2,.3,D1-.6),lN=label('New area +5.9 m × 18.58 m ≈ 110 m²',W/2,.3,(D0+D1)/2+1.2),lO=label('Original hall 18.58 × 12.5 m = 232 m²',W/2,.3,3.6),lT=label('',W/2,.3,D0+.35),lDO=label('12.5 m',W-.6,.3,D0/2),lDN=label('18.4 m total depth',W-.6,.6,D1/2+2);
 let expanded=true;
 function setMode(){big.g.visible=expanded;small.g.visible=!expanded;oldWall.visible=!expanded;newTint.visible=lN.visible=expanded;lDN.visible=expanded;
  lT.element.innerHTML=expanded?'- - - old wall line - - -':'current wall';
- document.getElementById('info').innerHTML=(expanded?`<b>Expanded:</b> 18.58 × 18.4 m ≈ 340 m² (+48%)<br>${big.n} tables × 10 = ${big.n*10} seats (tight banquet, est. max ~295)`:`<b>Current:</b> 18.58 × 12.5 m = 232 m²<br>${small.n} tables × 10 = ${small.n*10} seats (today's tight max ~200)`)+'<br><small>Blue = original footprint · orange = extension</small>';
+ document.getElementById('info').innerHTML=(expanded?`<b>Expanded:</b> 18.58 × 18.4 m ≈ 340 m² (+48%)<br>${big.n} tables × 10 = ${big.n*10} seats (tight banquet, corner filled; clear paths kept at 3 double doors, kitchen door, stage-wall door and columns)`:`<b>Current:</b> 18.58 × 12.5 m = 232 m²<br>${small.n} tables × 10 = ${small.n*10} seats (today's tight max ~200)`)+'<br><small>Blue = original footprint · orange = extension</small>';
  document.getElementById('tLayout').textContent=expanded?'Show current size':'Show expanded';}
 setMode();document.getElementById('tLayout').onclick=e=>{e.stopPropagation();expanded=!expanded;setMode()};
 let top=false;document.getElementById('tView').onclick=e=>{e.stopPropagation();top=!top;e.target.textContent=top?'Walk view':'Top view';scene.children.forEach(o=>{if(o.position.y>H-.7&&!o.isLight)o.visible=!top});if(top){cam.position.set(W/2,26,D1/2+.01);cam.lookAt(W/2,0,D1/2)}else{cam.position.set(W/2,1.6,D1-1.5);cam.rotation.set(0,0,0)}};
