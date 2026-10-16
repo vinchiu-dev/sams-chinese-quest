@@ -24,8 +24,31 @@
       "label": "Lost"
     }
   ],
-  "lead_count": 56,
+  "lead_count": 57,
   "leads": [
+    {
+      "id": "1a14393ebcb7343b",
+      "name": "OCD Region II — BAC",
+      "org": "Office of Civil Defense Region II (OCD-RO2)",
+      "email": "ocd2.bac@gmail.com",
+      "phone": "(078) 304-1630 / 1631; 0917-567-9859",
+      "source": "email RFQ (region2@ocd.gov.ph to stay@)",
+      "source_badge": "Gov RFQ",
+      "inquiry_date": "2026-10-16",
+      "event_dates": "2026-10-26 to 2026-10-29",
+      "pax": "~100",
+      "event_type": "RFQ OS-2026-10-001 NSED/MSEL Exercise Planning Team: meals + 8 twin & 28 triple rooms x 3 nights + hall, Sta. Ana",
+      "stage": "new_inquiry",
+      "revenue_php": 351000,
+      "seed_notes": "ABC ₱351,000 (budget, not quoted). Sealed quote due 12:00 noon 2026-10-20 PHT (physical BAC RGC Carig Sur or ocd2.bac@gmail.com). Send-bill ~30 working days. Likely follow-on to Sep 29 OCD market research 1a0ec6b18128fa6d.",
+      "fo_notes": "",
+      "lost_reason": "",
+      "related_contacts": [],
+      "marketing_channel": "Gov RFQ / email",
+      "last_updated": "2026-10-16",
+      "editor": "bc-events",
+      "subject": "RFQ NSED MSEL"
+    },
     {
       "org": "DepEd SDO Cagayan — Procurement",
       "source_badge": "Gov RFQ",
