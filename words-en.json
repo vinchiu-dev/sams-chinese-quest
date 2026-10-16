@@ -1,6 +1,6 @@
 {
-  "version": 6,
-  "updated": "2026-10-14",
+  "version": 7,
+  "updated": "2026-10-16",
   "lists": [
     {
       "id": "en-starter-1",
@@ -1205,6 +1205,36 @@
           "definition": "To slowly break down and rot.",
           "example": "Fallen leaves decompose as millipedes and microbes eat them.",
           "emoji": "🍂"
+        },
+        {
+          "word": "trade",
+          "definition": "To give one thing and get a different thing back.",
+          "example": "Sam made a trade: his cookie for an apple.",
+          "emoji": "🤝"
+        },
+        {
+          "word": "barter",
+          "definition": "To swap things without using money.",
+          "example": "Long ago, people would barter eggs for fish.",
+          "emoji": "🔄"
+        },
+        {
+          "word": "value",
+          "definition": "How much something is worth.",
+          "example": "Gold has a high value because people want it.",
+          "emoji": "💎"
+        },
+        {
+          "word": "currency",
+          "definition": "The kind of money a country uses.",
+          "example": "The dollar is the currency of America.",
+          "emoji": "💵"
+        },
+        {
+          "word": "record",
+          "definition": "Writing that keeps track of what happened.",
+          "example": "The bank keeps a record of every purchase.",
+          "emoji": "📒"
         }
       ]
     }
