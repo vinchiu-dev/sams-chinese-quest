@@ -1,0 +1,15 @@
+{
+  "tabs": [
+    {
+      "id": "bc",
+      "label": "Blue Coast",
+      "file": "bc.json",
+      "logo": "blue-coast-logo.png"
+    },
+    {
+      "id": "emc",
+      "label": "Easy Massage Chair",
+      "file": "emc.json"
+    }
+  ]
+}

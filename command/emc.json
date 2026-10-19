@@ -1,0 +1,181 @@
+{
+  "tab": "emc",
+  "name": "Easy Massage Chair",
+  "updated_at_et": "2026-10-19T15:10:00-04:00",
+  "layout": [
+    "financials",
+    "checklist",
+    "ads",
+    "youtube",
+    "links"
+  ],
+  "financials": {
+    "type": "financials",
+    "currency": "USD",
+    "period_label": "August 2026",
+    "ytd_label": "Jan–Aug 2026",
+    "as_of": "2026-09-26",
+    "source": "Randolph's EMC Financial Report, August 2026 (PDF: performance overview + YoY key accounts + P&L)",
+    "source_url": "https://drive.google.com/file/d/1oV_rtydODCUJbhdm0xIgEm5eOlLsiOlf/view",
+    "note": "Latest pack in the 'All Financial Reports' folder (no Sep 2026 pack yet; searched Oct 19). Sales = gross sales before returns. Net income* = before payroll, income tax and year-end charity/contractor expense, which is the pack's headline and its only YoY basis. After payroll and tax, Aug 2026 NI was $22,004 and YTD $444,165; the pack has no 2025 comparison at that level. Margins are a share of gross sales.",
+    "ni_label": "Net income*",
+    "month": {
+      "sales": 158524.11,
+      "sales_ly": 178172.87,
+      "ni": 29736.52,
+      "ni_ly": 48466.19,
+      "gp": 51557.34,
+      "gp_ly": 71145.85
+    },
+    "ytd": {
+      "sales": 2244720.19,
+      "sales_ly": 1957501.34,
+      "ni": 506083.53,
+      "ni_ly": 409762.17,
+      "gp": 726209.88,
+      "gp_ly": 613684.59
+    },
+    "rows": [
+      {
+        "label": "Paid ads % of sales (month)",
+        "value": 0.0629,
+        "value_ly": 0.0676,
+        "fmt": "pct_points",
+        "note": "$9,977 vs $12,043; all paid ads in the books",
+        "lower_is_better": true
+      },
+      {
+        "label": "Paid ads % of sales (YTD)",
+        "value": 0.0395,
+        "value_ly": 0.0444,
+        "fmt": "pct_points",
+        "note": "$88,717 vs $86,915",
+        "lower_is_better": true
+      },
+      {
+        "label": "Refund rate (YTD)",
+        "value": 0.08,
+        "value_ly": 0.11,
+        "fmt": "pct_points",
+        "lower_is_better": true
+      }
+    ]
+  },
+  "checklist": {
+    "type": "kpis",
+    "title": "More current (Business Checklist)",
+    "items": [
+      {
+        "label": "YTD sales · Jan 1–Oct 18",
+        "value": 2242875.94,
+        "value_ly": 2017464.96,
+        "fmt": "money",
+        "currency": "USD",
+        "as_of": "2026-10-19",
+        "sub": "401 orders vs 310 (Jan 1–Oct 18, 2025)",
+        "source": "Business Checklist, 2026 and 2025 tabs, Sale column. Sale > 0, cancelled rows excluded; returns are not netted out.",
+        "note": "The checklist runs lower than Randolph's books (Jan–Aug: $1.91M in the checklist vs $2.24M in the pack), so compare it with itself, not with the pack.",
+        "link": "https://docs.google.com/spreadsheets/d/19cWkmcUCmANzLIa1RsAPxATVQ_T0sgCTrKh9CRdKcSk/edit"
+      },
+      {
+        "label": "Sales, last 10 days · Oct 9–18",
+        "value": 78979.99,
+        "value_ly": null,
+        "fmt": "money",
+        "currency": "USD",
+        "as_of": "2026-10-19",
+        "sub": "16 orders · prior 10 days (Sep 29–Oct 8): $104,925",
+        "compare_value": 104924.97,
+        "compare_label": "vs prior 10 days",
+        "source": "Business Checklist, Sale column (same method)"
+      }
+    ]
+  },
+  "ads": {
+    "type": "ads_weekly",
+    "status": "pending",
+    "first_review": "2026-10-20",
+    "week_of": null,
+    "updated_at_et": null,
+    "account": "Easy Massage Chair · Google Ads 233-345-8216",
+    "osaki": {
+      "campaign": "Brands → Osaki",
+      "verdict": null,
+      "verdict_label": null,
+      "reason": null
+    },
+    "recommendations": [],
+    "ads_pct_of_sales": {
+      "window_label": "Last 30 days · Sep 19–Oct 18",
+      "start": "2026-09-19",
+      "end": "2026-10-18",
+      "ads_cost": 8782.4,
+      "sales": 227244.93,
+      "pct": 0.0386,
+      "as_of": "2026-10-19",
+      "source": "Google Ads cost from campaign exports: Sep 19–28 $2,628.89 (Oct 9 pull) + Sep 29–Oct 8 $2,661.93 + Oct 9–18 $3,491.58 (Oct 19 pull). Sales: Business Checklist Sale column for the same dates. Google Ads only."
+    },
+    "target": {
+      "low": 0.03,
+      "high": 0.04,
+      "ceiling": 0.05
+    },
+    "source": null
+  },
+  "youtube": {
+    "type": "youtube",
+    "as_of": "2026-10-19",
+    "channel_title": "Easy Massage Chair",
+    "handle": "@EasyMassageChair",
+    "channel_id": "UCKArPFx8rGx3U6RqeANXRCg",
+    "url": "https://www.youtube.com/@EasyMassageChair",
+    "subscribers": 8260,
+    "subscribers_display": "8.26K",
+    "total_views": 1904091,
+    "videos": 1270,
+    "views_28d": 47181,
+    "views_28d_label": "Aug 31–Sep 27, 2026",
+    "views_prior_28d": null,
+    "subs_change_28d": 32,
+    "views_28d_source": "YouTube Studio pull, Sep 28, 2026 (emc-funnel/yt-pull-20260928.json). No prior-28-day pull exists.",
+    "source": "Public channel page (read Oct 19, 2026). The Tubealfred connector is out of credits.",
+    "note": "YouTube is EMC's main channel. Growth will show automatically once a second public snapshot is in history.",
+    "history": [
+      {
+        "date": "2026-10-19",
+        "subscribers": 8260,
+        "total_views": 1904091
+      }
+    ]
+  },
+  "links": {
+    "type": "links",
+    "items": [
+      {
+        "label": "EMC funnel board",
+        "sub": "10-day funnel health (TOF → BOF)",
+        "url": "https://vinchiu-dev.github.io/sams-chinese-quest/emc-funnel/"
+      },
+      {
+        "label": "Business Checklist",
+        "sub": "Orders, sales, COGS (live sheet)",
+        "url": "https://docs.google.com/spreadsheets/d/19cWkmcUCmANzLIa1RsAPxATVQ_T0sgCTrKh9CRdKcSk/edit"
+      },
+      {
+        "label": "Latest statement",
+        "sub": "August 2026 report (PDF)",
+        "url": "https://drive.google.com/file/d/1oV_rtydODCUJbhdm0xIgEm5eOlLsiOlf/view"
+      },
+      {
+        "label": "All Financial Reports",
+        "sub": "Randolph's monthly folders",
+        "url": "https://drive.google.com/drive/folders/1lYXoMlqWs_iY3yOWiTeJxgh-iGmdYhWR"
+      },
+      {
+        "label": "YouTube channel",
+        "sub": "@EasyMassageChair",
+        "url": "https://www.youtube.com/@EasyMassageChair"
+      }
+    ]
+  }
+}
