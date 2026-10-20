@@ -2331,6 +2331,13 @@
       "right": 0,
       "wrong": 1,
       "last": 1792504580261
+    },
+    "math:-:17:8": {
+      "lvl": 0,
+      "seen": 1,
+      "right": 0,
+      "wrong": 1,
+      "last": 1792504593727
     }
   },
   "chipLog": [
@@ -2443,7 +2450,8 @@
     "math:-:13:7",
     "math:+:9:7",
     "math:-:9:6",
-    "math:-:6:5"
+    "math:-:6:5",
+    "math:-:17:8"
   ],
   "math_sets": [
     "big59"
@@ -2471,6 +2479,6 @@
   "hiddenWords_at": 1791919401939,
   "archived_at": 1791919401939,
   "en_starred_at": 1791919410807,
-  "math_missed_at": 1792504580263,
+  "math_missed_at": 1792504593730,
   "chips": 13
 }
