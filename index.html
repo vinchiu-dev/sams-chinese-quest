@@ -4568,7 +4568,12 @@ const playCelebrate = () => {
 // ============================================================
 // Grouped so the picker stays readable as the list grows.
 // "gen" marks sets that need special generation rather than a plain a×b sweep.
+const BIG59_ID = "big59";
+const BIG59_GROUP = "Big Number Facts (5–9)";
 const MATH_SETS = [
+  // --- Oct 20: Vin asked for an obvious 5–9 section: 6+7, 8+9, 9−6, plus a few 13−6 "undo" facts ---
+  { id: BIG59_ID, title: "5–9 Add & Subtract", emoji: "🚀", gen: "big59", group: BIG59_GROUP },
+
   // --- the foundations: these are what "automaticity" actually means ---
   { id: "bonds8",  title: "Make 8",           emoji: "8️⃣", op: "+", gen: "bond", total: 8,   group: "Foundations" },
   { id: "bonds9",  title: "Make 9",           emoji: "9️⃣", op: "+", gen: "bond", total: 9,   group: "Foundations" },
@@ -4612,6 +4617,18 @@ const factsFor = (set) => {
   if (set.gen === "double") {
     for (let x = 1; x <= set.max; x++)
       out.push({ key: `math:+:${x}:${x}`, a: x, b: x, op: "+", ans: x + x });
+    return out;
+  }
+  // big number facts: both numbers 5–9, random mix of + and −
+  if (set.gen === "big59") {
+    for (let x = 5; x <= 9; x++)
+      for (let y = 5; y <= 9; y++) {
+        out.push({ key: `math:+:${x}:${y}`, a: x, b: y, op: "+", ans: x + y });           // 6 + 7
+        if (x > y) out.push({ key: `math:-:${x}:${y}`, a: x, b: y, op: "-", ans: x - y }); // 9 − 6
+      }
+    // a few teen "undo" facts that reverse the sums above (13 − 6 = 7)
+    [[12,5],[13,6],[13,7],[14,6],[14,9],[15,7],[15,8],[16,7],[16,9],[17,8]].forEach(([m, n]) =>
+      out.push({ key: `math:-:${m}:${n}`, a: m, b: n, op: "-", ans: m - n }));
     return out;
   }
   // near doubles: 7 + 8
@@ -4780,7 +4797,8 @@ function MathApp({ onSwitchLang }) {
 
         {screen === "home" && (
           <MathHome sets={sets} toggleSet={toggleSet} count={facts.length}
-            missedCount={missedFacts.length} go={setScreen} />
+            missedCount={missedFacts.length} go={setScreen}
+            onlyBig59={(then) => { setSets([BIG59_ID]); if (then) setScreen(then); }} />
         )}
         {screen === "car" && (
           <React.Fragment><GameTitle>Car Mode</GameTitle>
@@ -4829,7 +4847,7 @@ function MathApp({ onSwitchLang }) {
   );
 }
 
-function MathHome({ sets, toggleSet, count, go, missedCount = 0 }) {
+function MathHome({ sets, toggleSet, count, go, missedCount = 0, onlyBig59 }) {
   const modes = [
     { id:"quick",   emoji:"⚡", name:"Quick Facts",   desc:"Type the answer",        color:"#7C5CE0" },
     { id:"speed",   emoji:"⏱️", name:"Speed Round",   desc:"How many in 60s?",       color:C.berry },
@@ -4846,6 +4864,35 @@ function MathHome({ sets, toggleSet, count, go, missedCount = 0 }) {
 
       <div style={{ background:"#fff", borderRadius:20, border:"3px solid #e5e0f5", padding:"14px 16px", marginBottom:16 }}>
         <div style={{ fontWeight:800, fontSize:15, marginBottom:8 }}>What to practice</div>
+        {(() => {
+          const on = sets.includes(BIG59_ID);
+          return (
+            <div style={{ background:"linear-gradient(135deg,#FFE7A3 0%,#FFC9A8 100%)", border:"3px solid #E8703A",
+              borderRadius:18, padding:"12px 14px", marginBottom:12 }}>
+              <div style={{ fontSize:12, fontWeight:800, color:"#B4501F", textTransform:"uppercase", letterSpacing:0.5 }}>⭐ {BIG59_GROUP}</div>
+              <div style={{ fontWeight:800, fontSize:20, margin:"2px 0" }}>🚀 5–9 Add &amp; Subtract</div>
+              <div style={{ fontSize:13, color:"#5a4a3a", marginBottom:10 }}>6 + 7 · 8 + 9 · 9 − 6 · 13 − 6 — all mixed up</div>
+              <div style={{ display:"flex", flexWrap:"wrap", gap:8 }}>
+                <button onClick={() => toggleSet(BIG59_ID)}
+                  style={{ ...chip, fontSize:14, background:on?"#E8703A":"#fff", color:on?"#fff":C.ink, borderColor:"#E8703A" }}>
+                  {on ? "✓ Added" : "+ Add to practice"}
+                </button>
+                {onlyBig59 && (
+                  <button onClick={() => onlyBig59("car")}
+                    style={{ ...chip, fontSize:14, background:"#2A2440", color:"#fff", borderColor:"#2A2440" }}>
+                    🚗 Car Mode: 5–9 only ▶
+                  </button>
+                )}
+                {onlyBig59 && (
+                  <button onClick={() => onlyBig59("quick")}
+                    style={{ ...chip, fontSize:14, background:"#7C5CE0", color:"#fff", borderColor:"#7C5CE0" }}>
+                    ⚡ Quick Facts: 5–9 only ▶
+                  </button>
+                )}
+              </div>
+            </div>
+          );
+        })()}
         <div style={{ marginBottom: 10 }}>
           <div style={{ fontSize: 11, fontWeight: 800, color: "#8b83a8", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 5 }}>Tricky ones</div>
           <div style={{ display:"flex", flexWrap:"wrap", gap:8 }}>
@@ -6001,7 +6048,17 @@ function useLiveSync(applyRemote, setStatus) {
 }
 
 function LanguageShell() {
-  const [lang, setLang] = useState(() => loadLS("lang", "zh"));
+  const [lang, setLang] = useState(() => {
+    // deep link: …/sams-chinese-quest/#math59 opens Math with only the 5–9 facts picked
+    try {
+      if (/^#math-?59$/i.test(window.location.hash || "")) {
+        saveLS("math_sets", [BIG59_ID]);
+        window.history.replaceState(null, "", window.location.pathname + window.location.search);
+        return "math";
+      }
+    } catch (e) {}
+    return loadLS("lang", "zh");
+  });
   useEffect(() => { saveLS("lang", lang); }, [lang]);
   // cycle: Chinese -> English -> Math -> Chinese
   if (lang === "en") return <EnglishApp onSwitchLang={() => setLang("math")} />;
