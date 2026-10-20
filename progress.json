@@ -2412,7 +2412,7 @@
     "big59"
   ],
   "car_deck": "math",
-  "car_gap": 6,
+  "car_gap": 10,
   "car_len": 12,
   "pool": [
     "too-cool",
