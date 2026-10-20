@@ -1,6 +1,6 @@
 {
-  "version": 7,
-  "updated": "2026-10-16",
+  "version": 8,
+  "updated": "2026-10-20",
   "lists": [
     {
       "id": "en-starter-1",
@@ -1235,6 +1235,36 @@
           "definition": "Writing that keeps track of what happened.",
           "example": "The bank keeps a record of every purchase.",
           "emoji": "📒"
+        },
+        {
+          "word": "invade",
+          "definition": "to push into a place where you're not wanted",
+          "example": "Cold germs invade your nose.",
+          "emoji": "🦠"
+        },
+        {
+          "word": "multiply",
+          "definition": "to grow in number, again and again",
+          "example": "Bacteria multiply by splitting in two.",
+          "emoji": "✖️"
+        },
+        {
+          "word": "defend",
+          "definition": "to keep something safe from an attack",
+          "example": "White blood cells defend your body from germs.",
+          "emoji": "🛡️"
+        },
+        {
+          "word": "recognize",
+          "definition": "to know something because you've seen it before",
+          "example": "I recognize my friend's voice on the phone.",
+          "emoji": "👀"
+        },
+        {
+          "word": "prevent",
+          "definition": "to stop something before it happens",
+          "example": "Washing your hands helps prevent colds.",
+          "emoji": "🧼"
         }
       ]
     }
