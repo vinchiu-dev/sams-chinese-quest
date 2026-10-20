@@ -2477,7 +2477,9 @@
     "math:-:7:5"
   ],
   "math_sets": [
-    "big59"
+    "big59",
+    "doubles",
+    "neardbl"
   ],
   "car_deck": "math",
   "car_gap": 10,
