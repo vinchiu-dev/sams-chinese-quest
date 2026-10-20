@@ -1024,10 +1024,10 @@
     },
     "math:+:9:9": {
       "lvl": 0,
-      "seen": 6,
+      "seen": 7,
       "right": 2,
-      "wrong": 4,
-      "last": 1791901414653
+      "wrong": 5,
+      "last": 1792504471960
     },
     "math:bond:10:6": {
       "lvl": 1,
@@ -2381,7 +2381,8 @@
     "math:+:7:9",
     "math:+:6:9",
     "math:+:8:7",
-    "math:-:13:6"
+    "math:-:13:6",
+    "math:+:9:9"
   ],
   "math_sets": [
     "big59"
@@ -2409,6 +2410,6 @@
   "hiddenWords_at": 1791919401939,
   "archived_at": 1791919401939,
   "en_starred_at": 1791919410807,
-  "math_missed_at": 1792504462787,
+  "math_missed_at": 1792504471963,
   "chips": 13
 }
