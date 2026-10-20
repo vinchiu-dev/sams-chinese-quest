@@ -2241,13 +2241,101 @@
       "last": 1791902439069
     }
   },
-  "chipLog": [],
-  "dayCount": {},
-  "spokenCount": {},
-  "wordOfDay": null,
-  "goalClaimed": "",
-  "wodDone": "",
-  "spokenClaimed": "",
+  "chipLog": [
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1787406323250
+    },
+    {
+      "type": "wod",
+      "amount": 1,
+      "note": "Word of the day ⭐",
+      "at": 1787355843612
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1787146549580
+    },
+    {
+      "type": "wod",
+      "amount": 1,
+      "note": "Word of the day ⭐",
+      "at": 1786980036246
+    },
+    {
+      "type": "spoken",
+      "amount": 1,
+      "note": "Spoke 10 sentences 🗣️",
+      "at": 1786910827153
+    },
+    {
+      "type": "wod",
+      "amount": 1,
+      "note": "Word of the day ⭐",
+      "at": 1786901307500
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786840319065
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786453221690
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786409020277
+    },
+    {
+      "type": "daily",
+      "amount": 1,
+      "note": "Daily goal",
+      "at": 1786237233480
+    }
+  ],
+  "dayCount": {
+    "date": "2026-10-13",
+    "n": 6
+  },
+  "spokenCount": {
+    "date": "2026-08-21",
+    "n": 7
+  },
+  "wordOfDay": {
+    "date": "2026-08-21",
+    "word": {
+      "hanzi": "家",
+      "pinyin": "jiā",
+      "en": "home / family",
+      "emoji": "🏠",
+      "phrases": [
+        {
+          "en": "my family",
+          "pinyin": "wǒ jiā",
+          "hanzi": "我家"
+        },
+        {
+          "en": "at home",
+          "pinyin": "zài jiā",
+          "hanzi": "在家"
+        }
+      ],
+      "lesson": "How Many People?"
+    }
+  },
+  "goalClaimed": "2026-08-31",
+  "wodDone": "2026-08-21",
+  "spokenClaimed": "2026-08-16",
   "math_missed": [
     "math:bond:9:3",
     "math:bond:9:6",
@@ -2279,9 +2367,9 @@
   "trouble_at": 1791919401939,
   "pool_at": 1791919401939,
   "starredSentences_at": 1791919401939,
-  "hiddenWords_at": 1791919401596,
+  "hiddenWords_at": 1791919401939,
   "archived_at": 1791919401939,
-  "en_starred_at": 1791900224016,
-  "math_missed_at": 1792504151193,
+  "en_starred_at": 1791919410807,
+  "math_missed_at": 1792504399396,
   "chips": 13
 }
