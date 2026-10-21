@@ -69,9 +69,9 @@ function wallX(z,openings,p=scene){ // wall along x at depth z, openings [{x0,x1
   box(w,.06,.08,frame,cx,o.y1,z,p);box(.06,o.y1-o.y0,.08,frame,cx,(o.y0+o.y1)/2,z,p);
   if(o.type!='door')box(w,.35,.06,shade,cx,o.y1-.2,z+(z<1?.15:-.15),p);}
  walls.push({axis:'z',v:z});}
-function wallZ(x,z0,z1,doors=[]){ const pts=[z0,...doors.flatMap(d=>[d[0],d[1]]),z1];
- for(let i=0;i<pts.length;i+=2)box(.25,H,pts[i+1]-pts[i],wallM,x,H/2,(pts[i]+pts[i+1])/2);
- for(const d of doors){box(.25,H-2.2,d[1]-d[0],wallM,x,(H+2.2)/2,(d[0]+d[1])/2);box(.06,2.2,d[1]-d[0]-.1,doorM,x+(x<1?.1:-.1),1.1,(d[0]+d[1])/2)}}
+function wallZ(x,z0,z1,doors=[],p=scene){ const pts=[z0,...doors.flatMap(d=>[d[0],d[1]]),z1];
+ for(let i=0;i<pts.length;i+=2)box(.25,H,pts[i+1]-pts[i],wallM,x,H/2,(pts[i]+pts[i+1])/2,p);
+ for(const d of doors){box(.25,H-2.2,d[1]-d[0],wallM,x,(H+2.2)/2,(d[0]+d[1])/2,p);box(.06,2.2,d[1]-d[0]-.1,doorM,x+(x<1?.1:-.1),1.1,(d[0]+d[1])/2,p)}}
 // sea-side wall: glass bays between columns (per photos)
 const sea=[];for(const [a,b] of [[0,6.2],[6.2,12.4],[12.4,W]]){const m=(a+b)/2;sea.push({x0:a+.5,x1:m-.45,y0:.35,y1:2.4},{x0:m-.35,x1:m+.95,y0:0,y1:2.5,type:'door'},{x0:m+1.05,x1:b-.5,y0:.35,y1:2.4})}
 const seaOld=new THREE.Group(),seaNew=new THREE.Group();scene.add(seaOld,seaNew);
@@ -79,9 +79,12 @@ wallX(0,sea,seaOld);wallX(-P,sea,seaNew); // 'Both sides': same glass bays rebui
 for(const x of [0,W])box(.25,H,P,wallM,x,H/2,-P/2,seaNew); // side walls closing the walkway ends
 // new parking-side wall: windows + main double door + service door
 wallX(D1,[{x0:1.2,x1:3.6,y0:.9,y1:2.3},{x0:8.1,x1:10.5,y0:.9,y1:2.3},{x0:14.8,x1:17.2,y0:.9,y1:2.3}]);
-wallZ(0,0,D1,[[9.6,11.1]]);wallZ(W,0,D1,[[3,4.5]]);
+// max-capacity seating data (computed by maxseat.py: stage centred on the grid-7 wall, column sightline shadows excluded)
+const LAY={"current":{"t":[[4.25,3.5,[],0.0],[7.0,3.5,[],0.3142],[9.75,3.5,[],0.0],[12.5,3.5,[],0.3142],[5.625,5.882,[],0.0],[8.375,5.882,[],0.3142],[11.125,5.882,[],0.0],[13.875,5.882,[],0.3142],[4.25,8.263,[],0.0],[7.0,8.263,[],0.3142],[9.75,8.263,[],0.0],[12.5,8.263,[],0.3142],[15.25,8.263,[],0.3142],[5.625,10.645,[],0.0],[8.375,10.645,[],0.3142],[11.125,10.645,[],0.0],[13.875,10.645,[],0.3142],[16.625,10.645,[],0.3142],[17.0,6.1,[],0.0]],"zc":6.25,"sd":[9.6,11.1],"seats":190,"th":271},"parking":{"t":[[2.1,4.85,[],0.0],[2.1,15.85,[],0.0],[4.482,3.475,[],0.0],[4.482,6.225,[],0.0],[4.482,8.975,[],0.3142],[4.482,11.725,[],0.0],[4.482,14.475,[],0.0],[6.863,2.1,[],0.0],[6.863,4.85,[],0.0],[6.863,7.6,[],0.0],[6.863,10.35,[],0.3142],[6.863,15.85,[],0.0],[9.245,3.475,[],0.0],[9.245,6.225,[],0.0],[9.245,8.975,[],0.0],[9.245,11.725,[],0.3142],[11.626,4.85,[],0.0],[11.626,7.6,[],0.0],[11.626,10.35,[],0.0],[14.008,3.475,[],0.0],[14.008,6.225,[],0.0],[14.008,8.975,[],0.0],[14.008,11.725,[2,3,4],0.0],[14.008,14.475,[2,3,7,8],0.3142],[16.389,7.6,[],0.0],[16.389,10.35,[],0.0],[16.389,15.85,[1,2,3,4],0.3142],[11.8,1.8,[],0.3142],[11.2,13.7,[1,2,3,4],0.3142],[9.7,16.1,[7,8,9],0.0]],"zc":9.2,"sd":[12.6,14.1],"seats":282,"th":391},"both":{"t":[[1.9,2.8,[],0.0],[1.9,16.55,[],0.0],[4.282,1.425,[],0.0],[4.282,4.175,[],0.0],[4.282,6.925,[],0.3142],[4.282,9.675,[],0.0],[4.282,12.425,[],0.3142],[4.282,15.175,[],0.0],[6.663,2.8,[],0.0],[6.663,5.55,[],0.0],[6.663,8.3,[],0.0],[6.663,16.55,[],0.0],[9.045,1.425,[],0.0],[9.045,4.175,[],0.0],[9.045,6.925,[],0.0],[9.045,9.675,[],0.0],[9.045,12.425,[3],0.3142],[11.426,2.8,[],0.0],[11.426,5.55,[],0.0],[11.426,8.3,[],0.0],[11.426,11.05,[],0.0],[13.808,1.425,[],0.0],[13.808,4.175,[],0.0],[13.808,6.925,[],0.0],[13.808,9.675,[],0.0],[13.808,15.175,[],0.0],[16.189,8.3,[],0.0],[16.189,11.05,[],0.0],[16.189,13.8,[0,1,5,6],0.0],[16.189,16.55,[],0.0],[16.6,1.35,[],0.3142],[11.2,14.15,[2,3,4],0.3142],[9.4,16.25,[0,7,8,9],0.0]],"zc":8.175,"sd":[11.575,13.075],"seats":318,"th":451}};
+const MK=['current','parking','both'];
+const stageWalls=MK.map(k=>{const g=new THREE.Group();wallZ(0,0,D1,[LAY[k].sd],g);scene.add(g);return g});wallZ(W,0,D1,[[3,4.5]]);
 const DOORS=[[3.4,1,1.6],[9.6,1,1.6],[15.8,1,1.6],[W-1,3.75,1.9],[1,10.35,1.9]],DOORS_B=DOORS.map((d,i)=>i<3?[d[0],d[1]-P,d[2]]:d);
-const ddL=['Double door 1','Double door 2','Double door 3'].map((t,i)=>label(t,DOORS[i][0],2.2,.3));label('Kitchen door',W-.4,2.4,3.75);label('New stage-wall door',.4,2.4,10.35);
+const ddL=['Double door 1','Double door 2','Double door 3'].map((t,i)=>label(t,DOORS[i][0],2.2,.3));label('Kitchen door',W-.4,2.4,3.75);const lSD=label('Stage-wall door',.4,2.4,10.35);
 // old wall (current-size view only)
 const oldWall=new THREE.Group();box(W,H,.25,M(0xeee6da),W/2,H/2,D0,oldWall);box(1.6,2.2,.27,doorM,W/2,1.1,D0,oldWall);scene.add(oldWall);oldWall.visible=false;
 // columns: grid 7..10 at x=0,6.2,12.4,18.58 along old wall; 8 & 9 freestanding
@@ -93,36 +96,38 @@ for(const x of [6.2,12.4])box(.35,H,.35,colM,x,H/2,-P);
 const colsB=cols.concat([[6.2,.2],[12.4,.2]]);
 for(const x of [0,W])box(.45,H,.45,colM,x?W-.2:.2,H/2,D0);
 // stage + backdrop at sea-wall? put stage on west side wall
-box(1.8,.45,6,M(0x6b4b35),1.0,.225,D0/2);label('Stage',1.0,1,D0/2);
+const stage=box(1.8,.45,6,M(0x6b4b35),1.0,.225,D0/2),lSt=label('Stage + screen',1.0,1,D0/2);
+const screen=box(.04,2.1,4,new THREE.MeshBasicMaterial({color:0xf4f4f4}),.15,1.95,D0/2);box(.06,.06,4.1,frame,.14,3.02,0,screen).position.set(0,1.07,0);
 // AC units
 for(const z of [3,9,15]){box(.25,.3,1,M(0xffffff),W-.25,2.8,z);box(.25,.3,1,M(0xffffff),.25,2.8,z+1.5)}
 // string lights (from photo)
 const bulbM=new THREE.MeshBasicMaterial({color:0xffd27a});
 for(let z=2;z<D1-1;z+=2.2)for(let x=3;x<W-.5;x+=.6){const b=new THREE.Mesh(new THREE.SphereGeometry(.04,6,6),bulbM);b.position.set(x,H-.35-Math.sin((x-3)/(W-3.5)*Math.PI)*.4,z);scene.add(b)}
 // tables
-const tableGeo=new THREE.CylinderGeometry(.9,.95,.76,24),topGeo=new THREE.CylinderGeometry(.92,.92,.03,24);
+const tableGeo=new THREE.CylinderGeometry(.74,.78,.76,24),topGeo=new THREE.CylinderGeometry(.76,.76,.03,24); // 60" rounds of 10
 const clothT=M(0x2aa6b8),clothW=M(0xffffff),clothR=M(0xd9443a),chairM=M(0xbfbab0),seatM=M(0xf2e8d0);
-function table(x,z,i,g){const t=new THREE.Group();t.position.set(x,0,z);const s=new THREE.Mesh(tableGeo,clothW);s.position.y=.38;t.add(s);const tp=new THREE.Mesh(topGeo,i%7==3?clothR:clothT);tp.position.y=.77;t.add(tp);
- for(let k=0;k<10;k++){const a=k/10*Math.PI*2,c=new THREE.Group();c.position.set(Math.cos(a)*1.25,0,Math.sin(a)*1.25);c.rotation.y=-a+Math.PI/2;
+function table(x,z,i,g,skip=[],rot=0){const t=new THREE.Group();t.position.set(x,0,z);const s=new THREE.Mesh(tableGeo,clothW);s.position.y=.38;t.add(s);const tp=new THREE.Mesh(topGeo,i%7==3?clothR:clothT);tp.position.y=.77;t.add(tp);
+ for(let k=0;k<10;k++){if(skip.includes(k))continue;const a=k/10*Math.PI*2+rot,c=new THREE.Group();c.position.set(Math.cos(a)*1.05,0,Math.sin(a)*1.05);c.rotation.y=-a+Math.PI/2;
   box(.42,.06,.42,seatM,0,.46,0,c);box(.42,.5,.04,chairM,0,.75,.2,c);for(const[a2,b2]of[[-.18,-.18],[.18,-.18],[-.18,.18],[.18,.18]])box(.03,.45,.03,chairM,a2,.22,b2,c);t.add(c)}
  g.add(t)}
 function layout(z0,depth,cap,cl=cols,dr=DOORS){const g=new THREE.Group();let pos=[];const sx=2.75,sz=2.75;
  for(let z=z0+2.4;z<depth-1.4;z+=sz)for(let x=2.9;x<W-1.2;x+=sx){if(cl.some(([cx,cz])=>Math.hypot(cx-x,cz-z)<1.85))continue;if(dr.some(([dx,dz,r])=>Math.hypot(dx-x,dz-z)<r))continue;pos.push([x,z])}
  pos=pos.slice(0,cap);pos.forEach((p,i)=>table(p[0],p[1],i,g));scene.add(g);return{g,n:pos.length,pos}}
-const big=layout(0,D1,99),small=layout(0,D0,20),both=layout(-P,D1,99,colsB,DOORS_B);window._layouts={current:small.pos,parking:big.pos,both:both.pos};
+const mk=k=>{const g=new THREE.Group();LAY[k].t.forEach((t,i)=>table(t[0],t[1],i,g,t[2],t[3]));scene.add(g);return{g,n:LAY[k].t.length,seats:LAY[k].seats,th:LAY[k].th,pos:LAY[k].t.map(t=>[t[0],t[1]])}};
+const small=mk('current'),big=mk('parking'),both=mk('both');window._layouts={current:small.pos,parking:big.pos,both:both.pos};
 // labels
 const lW=label('18.58 m (grid 7 → 10)',W/2,.3,D1-.6),lN=label('Parking-side extension +5.9 m × 18.58 m ≈ 110 m²',W/2,.3,(D0+D1)/2+1.2),lO=label('Original hall 18.58 × 12.5 m = 232 m²',W/2,.3,3.6),lT=label('',W/2,.3,D0+.35),lDO=label('12.5 m',W-.6,.3,D0/2),lDN=label('',W-.6,.6,D1/2+2),
  lP=label('',W/2,.3,-P/2),lPT=label('- - - old glass wall line - - -',W/2,.3,.45);
 const A0=W*D0,f1=v=>String(+v.toFixed(2)),fa=v=>Math.round(v),pct=a=>'+'+Math.round((a/A0-1)*100)+'%';
 const MODES=['Current size','Parking side only','Both sides'];
-function setMode(){const m=mode;big.g.visible=m==1;small.g.visible=m==0;both.g.visible=m==2;oldWall.visible=m==0;
+function setMode(){const m=mode,Lk=LAY[MK[m]];stageWalls.forEach((g,i)=>g.visible=i==m);stage.position.z=screen.position.z=lSt.position.z=Lk.zc;lSD.position.z=(Lk.sd[0]+Lk.sd[1])/2;big.g.visible=m==1;small.g.visible=m==0;both.g.visible=m==2;oldWall.visible=m==0;
  newTint.visible=lN.visible=lDN.visible=m>0;seaOld.visible=m<2;seaNew.visible=poolTint.visible=poolLine.visible=lPT.visible=m==2;poolBeam.visible=m==2&&!top;
  floorP.material=m==2?extFloorM:deckM;ddL.forEach(l=>l.position.z=m==2?.3-P:.3);
  lP.element.innerHTML=m==2?`Pool-side extension +${P} m × 18.58 m ≈ ${fa(W*P)} m²`:`Pool walkway ~${P} m (outside)`;
  lT.element.innerHTML=m>0?'- - - old parking wall line - - -':'current wall';
  const dep=m==2?D1+P:D1;lDN.element.innerHTML=f1(dep)+' m total depth';lDN.position.z=m==2?(D1-P)/2+2:D1/2+2;
  const a=m==0?A0:W*dep,L=[small,big,both][m];
- document.getElementById('info').innerHTML=`<b>${MODES[m]}:</b> 18.58 × ${f1(m==0?D0:dep)} m ≈ ${fa(a)} m²${m?' ('+pct(a)+')':''}<br>${L.n} tables × 10 = ${L.n*10} seats`+(m==0?" (today's tight max ~200)":' (tight banquet; clear paths kept at 3 double doors, kitchen door, stage-wall door and columns)')+'<br><small>Blue = original footprint · orange = parking-side extension'+(m==2?' · green = pool-side extension':'')+'</small>';
+ document.getElementById('info').innerHTML=`<b>${MODES[m]}:</b> 18.58 × ${f1(m==0?D0:dep)} m ≈ ${fa(a)} m²${m?' ('+pct(a)+')':''}<br><b>Max banquet:</b> ${L.n} rounds = ${L.seats} seats · <b>theater:</b> ${L.th}<br><small>facing stage/screen; no seat in a column's sightline shadow; aisles kept to every door</small>`+(m==0?"<br><small>(today's tight max ~200)</small>":'')+'<br><small>Blue = original footprint · orange = parking-side extension'+(m==2?' · green = pool-side extension':'')+'</small>';
  document.getElementById('tLayout').textContent='Show: '+MODES[(m+1)%3];}
 setMode();document.getElementById('tLayout').onclick=e=>{e.stopPropagation();mode=(mode+1)%3;if(!top){const p=cam.position;p.z=Math.min(Math.max(p.z,(mode==2?-P:0)+.4),(mode==0?D0:D1)-.4)}setMode()};
 window._setMode=m=>{mode=m;setMode()};
