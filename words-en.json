@@ -1,6 +1,6 @@
 {
-  "version": 9,
-  "updated": "2026-10-22",
+  "version": 10,
+  "updated": "2026-10-23",
   "lists": [
     {
       "id": "en-starter-1",
@@ -875,23 +875,33 @@
         },
         {
           "word": "hypothesis",
-          "def": "A careful guess you can check with a test."
+          "definition": "A careful guess you can check with a test.",
+          "example": "My hypothesis is that the tarantula will hide when the light is on.",
+          "emoji": "🤔"
         },
         {
           "word": "experiment",
-          "def": "A planned test where you change one thing on purpose."
+          "definition": "A planned test where you change one thing on purpose.",
+          "example": "We did an experiment to see which ball bounces highest.",
+          "emoji": "🧪"
         },
         {
           "word": "observation",
-          "def": "Carefully watching and recording what really happens."
+          "definition": "Carefully watching and recording what really happens.",
+          "example": "My observation is that the katydid sings more at night.",
+          "emoji": "👀"
         },
         {
           "word": "conclusion",
-          "def": "What you decide the evidence says after the test."
+          "definition": "What you decide the evidence says after the test.",
+          "example": "Our conclusion was that the bigger cup kept the ice frozen longer.",
+          "emoji": "✅"
         },
         {
           "word": "variable",
-          "def": "The one thing you change on purpose in a test."
+          "definition": "The one thing you change on purpose in a test.",
+          "example": "In our ramp test, the variable was how high we lifted the ramp.",
+          "emoji": "🎚️"
         }
       ]
     },
