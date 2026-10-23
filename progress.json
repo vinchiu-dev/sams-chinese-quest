@@ -2471,7 +2471,9 @@
     "math:-:14:6",
     "math:-:7:5"
   ],
-  "math_sets": [],
+  "math_sets": [
+    "add2d"
+  ],
   "car_deck": "words",
   "car_gap": 10,
   "car_len": 12,
