@@ -24,8 +24,31 @@
       "label": "Lost"
     }
   ],
-  "lead_count": 63,
+  "lead_count": 64,
   "leads": [
+    {
+      "id": "1a16688c9a0067bd",
+      "name": "Adapting Philippine Agriculture (APA)",
+      "org": "Adapting Philippine Agriculture (APA) — likely DA RFO2",
+      "email": "darfo2apa@gmail.com",
+      "phone": null,
+      "source": "email market scoping (to stay@)",
+      "source_badge": "Gov RFQ",
+      "inquiry_date": "2026-10-22",
+      "event_dates": null,
+      "pax": null,
+      "event_type": "Market scoping for activity at venue (details in Market-Scoping docx)",
+      "stage": "new_inquiry",
+      "revenue_php": null,
+      "seed_notes": "Asks to fill market scoping form; acknowledge receipt. Dates/pax/deadline likely in docx. FO has not replied yet.",
+      "fo_notes": "",
+      "lost_reason": "",
+      "related_contacts": [],
+      "marketing_channel": "Gov RFQ / email",
+      "last_updated": "2026-10-23",
+      "editor": "bc-events",
+      "subject": "Market Scoping"
+    },
     {
       "org": "DepEd Schools Division of Isabela — BAC",
       "email": "bac.isabela@deped.gov.ph",
@@ -1426,12 +1449,12 @@
       "stage": "new_inquiry",
       "marketing_channel": "Gov RFQ / bid",
       "revenue_php": null,
-      "fo_notes": "ABC ₱99,900.00 (government approved budget, not revenue). Market-scan submission due on or before October 11, 2026 (3 days from inquiry). Location must be within Region II. Min requirements: PhilGEPS, Certificate/Registration, Mayor's Permit, BIR 2303. Attachment: MARKET SCAN FOOD ACCOM.pdf (menu + specs). Sender mail mlmauricio@nacc.gov.ph; FO owns quote send.",
+      "fo_notes": "ABC ₱99,900.00 (government approved budget, not revenue). Market-scan submission due on or before October 11, 2026 (3 days from inquiry). Location must be within Region II. Min requirements: PhilGEPS, Certificate/Registration, Mayor's Permit, BIR 2303. Attachment: MARKET SCAN FOOD ACCOM.pdf (menu + specs). Sender mail mlmauricio@nacc.gov.ph; FO owns quote send. 2026-10-23: NACC says still available, specs same as before; FO Angge preparing quotation.",
       "lost_reason": "",
       "subject": "REQUEST TO CONDUCT MARKET SCAN",
       "related_contacts": [],
       "editor": "bc-events-crm-sync",
-      "last_updated": "2026-10-08",
+      "last_updated": "2026-10-23",
       "seed_notes": "Gmail msg 1a1168bcb3410b37, direct to stay@ 2026-10-07 09:26 ET (21:26 PH)."
     },
     {
