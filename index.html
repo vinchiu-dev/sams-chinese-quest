@@ -53,20 +53,26 @@ const loadLS = (k, fallback) => {
 };
 const saveLS = (k, v) => { try { localStorage.setItem(LS_PREFIX + k, JSON.stringify(v)); } catch (e) {} };
 
-// GitHub settings (entered once per device in ⚙️ settings)
-// Credentials hardcoded so sync works on every device with zero setup.
-// Scoped to this one public repo with contents-only access.
-const _GH_DEFAULTS = {
-  owner: "vinchiu-dev",
-  repo: "sams-chinese-quest",
-  token: ["QC7PHJC11_tap_buhtig", "ClLpP6_7TQECvjsH4Yc0", "LkV3SnvDpNx5gKXlmdRq", "WEBup8un59DYoXlQ8yLx", "QYfIGxcX27BYZ"].map(function(s){return s.split("").reverse().join("");}).join("")
-};
+// GitHub sync settings. The token is NOT in this file any more (the page is
+// public, so anything here can be read by anyone). Each device gets the token
+// once by opening the app with a link ending in  #sync=<token> ; it is saved in
+// this device's localStorage and the link is wiped from the address bar.
+// Without a token the app still works fully; progress just stays on the device.
+const _GH_DEFAULTS = { owner: "vinchiu-dev", repo: "sams-chinese-quest" };
+(function takeSyncTokenFromLink() {
+  try {
+    const m = (window.location.hash || "").match(/^#sync=([A-Za-z0-9_]+)$/);
+    if (!m) return;
+    saveLS("gh_token", m[1]);
+    window.history.replaceState(null, "", window.location.pathname + window.location.search);
+  } catch (e) {}
+})();
 const getGH = () => ({
   owner: loadLS("gh_owner", "") || _GH_DEFAULTS.owner,
   repo: loadLS("gh_repo", "") || _GH_DEFAULTS.repo,
-  token: loadLS("gh_token", "") || _GH_DEFAULTS.token,
+  token: loadLS("gh_token", ""),
 });
-const ghConfigured = () => true;
+const ghConfigured = () => !!getGH().token;
 
 const GH_API = "https://api.github.com";
 // Progress lives on its own branch. Committing it to main restarted the GitHub
@@ -117,6 +123,7 @@ function flushSync() {
 }
 
 async function pushProgress(progress, setStatus, retried) {
+  if (!ghConfigured()) return;
   const { owner, repo, token } = getGH();
   try {
     const body = {
