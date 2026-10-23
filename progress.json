@@ -2479,7 +2479,9 @@
     "math:-:14:6",
     "math:-:7:5"
   ],
-  "math_sets": [],
+  "math_sets": [
+    "add2d"
+  ],
   "car_deck": "words",
   "car_gap": 10,
   "car_len": 12,
@@ -2503,6 +2505,6 @@
   "hiddenWords_at": 1792762191040,
   "archived_at": 1792762191039,
   "en_starred_at": 1792762193216,
-  "math_missed_at": 1792762771257,
+  "math_missed_at": 1792762825283,
   "chips": 13
 }
