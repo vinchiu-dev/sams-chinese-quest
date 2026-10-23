@@ -2471,9 +2471,7 @@
     "math:-:14:6",
     "math:-:7:5"
   ],
-  "math_sets": [
-    "bonds8"
-  ],
+  "math_sets": [],
   "car_deck": "words",
   "car_gap": 10,
   "car_len": 12,
