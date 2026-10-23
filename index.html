@@ -3742,7 +3742,10 @@ const mathFactTopic = (f) => {
     c.math = new Map();
     MATH_SETS.forEach((st) => factsFor(st).forEach((x) => { if (!c.math.has(x.key)) c.math.set(x.key, st.title.replace(/\s+/g, " ")); }));
   }
-  return c.math.get(f.key) || "";
+  const hit = c.math.get(f.key);
+  if (hit) return hit;
+  const m = /^math:bond:(\d+):/.exec(f.key || "");
+  return m ? `Make ${m[1]}` : "";
 };
 
 const Center = ({ children }) => (
@@ -4575,14 +4578,17 @@ const MATH_SETS = [
   { id: BIG59_ID, title: "5–9 Add & Subtract", emoji: "🚀", gen: "big59", group: BIG59_GROUP },
 
   // --- the foundations: these are what "automaticity" actually means ---
-  { id: "bonds8",  title: "Make 8",           emoji: "8️⃣", op: "+", gen: "bond", total: 8,   group: "Foundations" },
-  { id: "bonds9",  title: "Make 9",           emoji: "9️⃣", op: "+", gen: "bond", total: 9,   group: "Foundations" },
-  { id: "bonds10", title: "Make 10",          emoji: "🔟", op: "+", gen: "bond", total: 10,  group: "Foundations" },
   { id: "bonds20", title: "Make 20",          emoji: "🔟", op: "+", gen: "bond", total: 20,  group: "Foundations" },
   { id: "doubles", title: "Doubles (7+7)",    emoji: "👯", op: "+", gen: "double", max: 12,  group: "Foundations" },
   { id: "neardbl", title: "Near doubles",     emoji: "👯", op: "+", gen: "neardouble", max: 12, group: "Foundations" },
 
   // --- adding & subtracting ---
+  // --- Oct 23: Vin asked for "add a single digit to N" tables (5+1…5+9 and 1+5…9+5) ---
+  { id: "plus5", title: "Add to 5 (5+7)", emoji: "5️⃣", op: "+", gen: "plusN", n: 5, group: "Add & subtract" },
+  { id: "plus6", title: "Add to 6 (6+7)", emoji: "6️⃣", op: "+", gen: "plusN", n: 6, group: "Add & subtract" },
+  { id: "plus7", title: "Add to 7 (7+7)", emoji: "7️⃣", op: "+", gen: "plusN", n: 7, group: "Add & subtract" },
+  { id: "plus8", title: "Add to 8 (8+7)", emoji: "8️⃣", op: "+", gen: "plusN", n: 8, group: "Add & subtract" },
+  { id: "plus9", title: "Add to 9 (9+7)", emoji: "9️⃣", op: "+", gen: "plusN", n: 9, group: "Add & subtract" },
   { id: "add10",  title: "Adding to 10",      emoji: "➕", op: "+", a: [0,10],  b: [0,10],  group: "Add & subtract" },
   { id: "add20",  title: "Adding to 20",      emoji: "➕", op: "+", a: [0,20],  b: [0,20],  group: "Add & subtract" },
   { id: "sub10",  title: "Subtracting ≤10",   emoji: "➖", op: "-", a: [0,10],  b: [0,10],  group: "Add & subtract" },
@@ -4629,6 +4635,16 @@ const factsFor = (set) => {
     // a few teen "undo" facts that reverse the sums above (13 − 6 = 7)
     [[12,5],[13,6],[13,7],[14,6],[14,9],[15,7],[15,8],[16,7],[16,9],[17,8]].forEach(([m, n]) =>
       out.push({ key: `math:-:${m}:${n}`, a: m, b: n, op: "-", ans: m - n }));
+    return out;
+  }
+  // single digit added to N, both orders: 5 + 7 and 7 + 5
+  if (set.gen === "plusN") {
+    const seen = new Set();
+    for (let x = 1; x <= 9; x++)
+      [[set.n, x], [x, set.n]].forEach(([a, b]) => {
+        const key = `math:+:${a}:${b}`;
+        if (!seen.has(key)) { seen.add(key); out.push({ key, a, b, op: "+", ans: a + b }); }
+      });
     return out;
   }
   // near doubles: 7 + 8
@@ -4849,10 +4865,8 @@ function MathApp({ onSwitchLang }) {
 
 function MathHome({ sets, toggleSet, count, go, missedCount = 0, onlyBig59 }) {
   const modes = [
-    { id:"quick",   emoji:"⚡", name:"Quick Facts",   desc:"Type the answer",        color:"#7C5CE0" },
     { id:"speed",   emoji:"⏱️", name:"Speed Round",   desc:"How many in 60s?",       color:C.berry },
     { id:"missing", emoji:"❓", name:"Missing Number", desc:"5 × ? = 30",             color:C.leaf },
-    { id:"compare", emoji:"⚖️", name:"Bigger or Smaller", desc:"Is 34 more than 43?",  color:"#E8703A" },
     { id:"skip",    emoji:"🪜", name:"What Comes Next",   desc:"2, 4, 6, ?",            color:"#3BA0C8" },
     { id:"clock",   emoji:"🕐", name:"What Time Is It?", desc:"Read the clock",        color:"#D64A4A" },
     { id:"car",     emoji:"🚗", name:"Car Mode",       desc:"Eyes off, ears on",   color:"#2A2440", always:true },
@@ -4875,18 +4889,12 @@ function MathHome({ sets, toggleSet, count, go, missedCount = 0, onlyBig59 }) {
               <div style={{ display:"flex", flexWrap:"wrap", gap:8 }}>
                 <button onClick={() => toggleSet(BIG59_ID)}
                   style={{ ...chip, fontSize:14, background:on?"#E8703A":"#fff", color:on?"#fff":C.ink, borderColor:"#E8703A" }}>
-                  {on ? "✓ Added" : "+ Add to practice"}
+                  {on ? "✓ Added" : "Add to practice"}
                 </button>
                 {onlyBig59 && (
                   <button onClick={() => onlyBig59("car")}
                     style={{ ...chip, fontSize:14, background:"#2A2440", color:"#fff", borderColor:"#2A2440" }}>
                     🚗 Car Mode: 5–9 only ▶
-                  </button>
-                )}
-                {onlyBig59 && (
-                  <button onClick={() => onlyBig59("quick")}
-                    style={{ ...chip, fontSize:14, background:"#7C5CE0", color:"#fff", borderColor:"#7C5CE0" }}>
-                    ⚡ Quick Facts: 5–9 only ▶
                   </button>
                 )}
               </div>
@@ -4901,7 +4909,7 @@ function MathHome({ sets, toggleSet, count, go, missedCount = 0, onlyBig59 }) {
               return (
                 <button onClick={() => toggleSet(MISSED_SET_ID)}
                   style={{ ...chip, background:on?C.sun:"#fff", color:C.ink, borderColor:on?C.sun:"#e3ddcf" }}>
-                  {on ? "✓ " : "+ "}⭐ Missed ones ({missedCount})
+                  {on ? "✓ " : ""}⭐ Missed ones ({missedCount})
                 </button>
               );
             })()}
@@ -4916,7 +4924,7 @@ function MathHome({ sets, toggleSet, count, go, missedCount = 0, onlyBig59 }) {
                 return (
                   <button key={s.id} onClick={() => toggleSet(s.id)}
                     style={{ ...chip, background:on?"#7C5CE0":"#fff", color:on?"#fff":C.ink, borderColor:on?"#7C5CE0":"#e3ddcf" }}>
-                    {on ? "✓ " : "+ "}{s.emoji} {s.title}
+                    {on ? "✓ " : ""}{s.emoji} {s.title}
                   </button>
                 );
               })}
