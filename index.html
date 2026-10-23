@@ -4842,6 +4842,9 @@ function MathApp({ onSwitchLang }) {
           <MathQuick facts={missedFacts} onHome={home} missed={missed} toggleMissed={toggleMissed} addMissed={addMissed} onlyMissed />
           </React.Fragment>
         )}
+        {screen === "missedlist" && (
+          <MathMissedList facts={missedFacts} onRemove={removeMissed} onHome={home} />
+        )}
         {screen === "compare" && (
           <React.Fragment><GameTitle>Bigger or Smaller</GameTitle>
           <MathCompare onHome={home} />
@@ -4865,6 +4868,7 @@ function MathApp({ onSwitchLang }) {
 
 function MathHome({ sets, toggleSet, count, go, missedCount = 0, onlyBig59 }) {
   const modes = [
+    { id:"quick",   emoji:"⚡", name:"Quick Facts",   desc:"Type the answer",        color:"#7C5CE0" },
     { id:"speed",   emoji:"⏱️", name:"Speed Round",   desc:"How many in 60s?",       color:C.berry },
     { id:"missing", emoji:"❓", name:"Missing Number", desc:"5 × ? = 30",             color:C.leaf },
     { id:"skip",    emoji:"🪜", name:"What Comes Next",   desc:"2, 4, 6, ?",            color:"#3BA0C8" },
@@ -4897,6 +4901,12 @@ function MathHome({ sets, toggleSet, count, go, missedCount = 0, onlyBig59 }) {
                     🚗 Car Mode: 5–9 only ▶
                   </button>
                 )}
+                {onlyBig59 && (
+                  <button onClick={() => onlyBig59("quick")}
+                    style={{ ...chip, fontSize:14, background:"#7C5CE0", color:"#fff", borderColor:"#7C5CE0" }}>
+                    ⚡ Quick Facts: 5–9 only ▶
+                  </button>
+                )}
               </div>
             </div>
           );
@@ -4913,6 +4923,10 @@ function MathHome({ sets, toggleSet, count, go, missedCount = 0, onlyBig59 }) {
                 </button>
               );
             })()}
+            <button onClick={() => go("missedlist")}
+              style={{ ...chip, background:"#fff", color:"#7a7391", borderColor:"#e3ddcf" }}>
+              👀 See / edit list
+            </button>
           </div>
         </div>
         {["Foundations","Add & subtract","Bigger numbers","Times tables"].map((g) => (
@@ -5007,6 +5021,33 @@ const FactCard = ({ f, children, border, star, answer }) => (
 );
 
 // ---- Quick Facts: type the answer ----
+// Oct 23: Vin wanted to see the starred / missed pile and take facts off it.
+function MathMissedList({ facts, onRemove, onHome }) {
+  return (
+    <div>
+      <button onClick={onHome} style={{ ...chip, marginBottom:14 }}>← Back</button>
+      <div style={{ background:"#fff", borderRadius:20, border:"3px solid #e5e0f5", padding:"14px 16px" }}>
+        <div style={{ fontWeight:800, fontSize:18, marginBottom:4 }}>⭐ Missed ones ({facts.length})</div>
+        <div style={{ fontSize:13, color:"#7a7391", marginBottom:12 }}>Tap ✕ to take a fact off the list.</div>
+        {facts.length === 0 && <div style={{ color:"#7a7391", fontWeight:700 }}>Nothing here — no missed facts right now. 🎉</div>}
+        <div style={{ display:"grid", gap:8 }}>
+          {facts.map((f) => (
+            <div key={f.key} style={{ display:"flex", alignItems:"center", gap:10, background:"#F6F4FE",
+              borderRadius:14, padding:"8px 10px 8px 14px" }}>
+              <div style={{ flex:1 }}>
+                <div style={{ fontWeight:800, fontSize:22 }}>{f.a} {opSymbol[f.op] || f.op} {f.b} = {f.ans}</div>
+                <div style={{ fontSize:11, color:"#9a93b3" }}>{mathFactTopic({ key: f.key })}</div>
+              </div>
+              <button onClick={() => onRemove(f.key)} aria-label={`Remove ${f.a} ${f.op} ${f.b}`}
+                style={{ ...chip, background:"#fff", color:"#B4501F", borderColor:"#F2C3B0", fontSize:16 }}>✕</button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function MathQuick({ facts, onHome, missed, toggleMissed, addMissed, onlyMissed }) {
   const advRef = useRef(null);
   const nextRef = useRef(() => {});
