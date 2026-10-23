@@ -1,6 +1,6 @@
 {
-  "version": 8,
-  "updated": "2026-10-20",
+  "version": 9,
+  "updated": "2026-10-22",
   "lists": [
     {
       "id": "en-starter-1",
@@ -1265,6 +1265,96 @@
           "definition": "to stop something before it happens",
           "example": "Washing your hands helps prevent colds.",
           "emoji": "🧼"
+        },
+        {
+          "word": "nuisance",
+          "definition": "something small that keeps bothering you",
+          "example": "The buzzing fly was a nuisance at dinner.",
+          "emoji": "🪰"
+        },
+        {
+          "word": "persistent",
+          "definition": "keeps going and doesn't give up",
+          "example": "The persistent greylings kept coming back.",
+          "emoji": "🔁"
+        },
+        {
+          "word": "fragrant",
+          "definition": "having a strong, nice smell",
+          "example": "The pine resin was very fragrant.",
+          "emoji": "🌲"
+        },
+        {
+          "word": "translucent",
+          "definition": "lets some light through, but you can't see clearly through it",
+          "example": "Amber is translucent, like orange juice.",
+          "emoji": "🟠"
+        },
+        {
+          "word": "preserve",
+          "definition": "to keep something safe so it doesn't rot or change",
+          "example": "Amber can preserve a bug for millions of years.",
+          "emoji": "🫙"
+        },
+        {
+          "word": "colossal",
+          "definition": "enormous; much, much bigger than normal",
+          "example": "A colossal troll crashed through the trees.",
+          "emoji": "🗻"
+        },
+        {
+          "word": "formidable",
+          "definition": "so strong or hard that you must take it seriously",
+          "example": "A troll is a formidable enemy.",
+          "emoji": "⚔️"
+        },
+        {
+          "word": "cumbersome",
+          "definition": "big, heavy and awkward to move",
+          "example": "The giant was slow and cumbersome.",
+          "emoji": "🐘"
+        },
+        {
+          "word": "sturdy",
+          "definition": "strong and solid; hard to break or knock over",
+          "example": "Elephants have sturdy legs like pillars.",
+          "emoji": "🏛️"
+        },
+        {
+          "word": "vulnerable",
+          "definition": "easy to hurt or attack",
+          "example": "Thick hide made the troll vulnerable to sharp arrows.",
+          "emoji": "🎯"
+        },
+        {
+          "word": "transform",
+          "definition": "to change something completely into something new",
+          "example": "A hot fire can transform rock into metal.",
+          "emoji": "✨"
+        },
+        {
+          "word": "durable",
+          "definition": "strong enough to last a long time",
+          "example": "Bronze tools were durable.",
+          "emoji": "🛡️"
+        },
+        {
+          "word": "ingenious",
+          "definition": "very clever and new, like a great invention",
+          "example": "Mixing copper and tin was an ingenious idea.",
+          "emoji": "💡"
+        },
+        {
+          "word": "scarce",
+          "definition": "hard to find because there isn't much of it",
+          "example": "Tin was scarce, so people traded for it.",
+          "emoji": "🔍"
+        },
+        {
+          "word": "brittle",
+          "definition": "hard but easy to crack or snap",
+          "example": "Too much tin makes bronze brittle.",
+          "emoji": "🥨"
         }
       ]
     }
