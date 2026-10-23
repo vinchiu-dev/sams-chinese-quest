@@ -2472,7 +2472,7 @@
     "math:-:7:5"
   ],
   "math_sets": [
-    "add10"
+    "bonds8"
   ],
   "car_deck": "words",
   "car_gap": 10,
@@ -2497,6 +2497,6 @@
   "hiddenWords_at": 1792762191040,
   "archived_at": 1792762191039,
   "en_starred_at": 1792762193216,
-  "math_missed_at": 1792762196737,
+  "math_missed_at": 1792762216954,
   "chips": 13
 }
