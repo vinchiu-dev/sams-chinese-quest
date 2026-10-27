@@ -4010,6 +4010,9 @@ function EnglishApp({ onSwitchLang }) {
     setStarred((prev) => { const n = new Set(prev); n.has(w) ? n.delete(w) : n.add(w); return n; });
   const addStar = (w) =>
     setStarred((prev) => (prev.has(w) ? prev : new Set([...prev, w])));
+  // Car Spelling: on = onto the ⭐ tricky pile, off = off it
+  const setTricky = (w, on) =>
+    setStarred((prev) => { if (prev.has(w) === on) return prev; const n = new Set(prev); on ? n.add(w) : n.delete(w); return n; });
   const toggleMastered = (w) =>
     setMastered((prev) => { const n = new Set(prev); n.has(w) ? n.delete(w) : n.add(w); return n; });
 
@@ -4073,6 +4076,9 @@ function EnglishApp({ onSwitchLang }) {
           <React.Fragment><GameTitle>Spelling</GameTitle>
           <EnSpelling words={activeWords} starred={starred} toggleStar={toggleStar} addStar={addStar} onHome={home} />
           </React.Fragment>
+        )}
+        {screen === "car" && (
+          <EnCarSpelling words={activeWords} starred={starred} setTricky={setTricky} onHome={home} />
         )}
         {screen === "wordlist" && <EnWordList allWords={listWords} starred={starred} mastered={mastered} toggleStar={toggleStar} toggleMastered={toggleMastered} myWords={myWords} removeMyWord={removeMyWord} />}
       </div>
@@ -4157,6 +4163,16 @@ function EnHome({ wordCount, starredCount, totalCount, masteredCount, go, addMyW
           </button>
         ))}
       </div>
+
+      <button onClick={() => !noWords && go("car")} disabled={noWords}
+        style={{ ...modeBtn, width:"100%", marginTop:12, background:"#fff", borderColor:"#3BA0C8", display:"flex", alignItems:"center", gap:14, textAlign:"left",
+          opacity: noWords?0.5:1, cursor: noWords?"not-allowed":"pointer" }}>
+        <div style={{ fontSize:40 }}>🚗</div>
+        <div>
+          <div style={{ fontWeight:800, fontSize:17 }}>Car Spelling</div>
+          <div style={{ fontSize:12, color:"#7a7391", marginTop:2 }}>Hands-free: it says a word, he spells it out loud</div>
+        </div>
+      </button>
 
       <div style={{ textAlign:"center", marginTop:12, fontSize:13, color:"#7a7391", fontWeight:700 }}>
         {wordCount} word{wordCount===1?"":"s"} in play
@@ -4490,6 +4506,307 @@ function EnSpelling({ words, starred, toggleStar, addStar, onHome }) {
       )}
       <button onClick={onHome} style={{ ...bigBtn, background:"#E6EAF2", color:C.ink, marginTop:12, width:"100%" }}>⬅ Back to menu</button>
     </div>
+  );
+}
+
+// ---- Sound chunks: a phonics-style syllable splitter for spelling in parts ----
+// Not a dictionary, just the classroom rules (VC|CV, V|CV, keep digraphs and
+// blends together, silent final e, consonant-le, -tion, quiet -ed). Good
+// enough to hand a 7-year-old the word in bite-size pieces.
+const EN_VOWEL_TEAMS = ["eau","ai","ay","ea","ee","ei","eu","ey","oa","oe","oi","oo","ou","ow","oy","au","aw","ew","ie","ue","ui"];
+const EN_DIGRAPHS = ["tch","ch","sh","th","ph","wh","ck","gh","qu","wr","kn"];
+const EN_BLENDS = new Set(["bl","br","cl","cr","dr","fl","fr","gl","gr","pl","pr","sc","sk","sl","sm","sn","sp","st","sw","tr","tw","str","spr","scr","spl","thr","shr"]);
+function enSoundChunks(word) {
+  const w = String(word || "").toLowerCase();
+  if (!/^[a-z]+$/.test(w) || w.length <= 3) return [w];
+  const units = [];
+  for (let i = 0; i < w.length;) {
+    const rest = w.slice(i);
+    const team = EN_VOWEL_TEAMS.find((t) => rest.startsWith(t));
+    if (team) { units.push({ s: team, v: true }); i += team.length; continue; }
+    const dg = EN_DIGRAPHS.find((t) => rest.startsWith(t));
+    if (dg) { units.push({ s: dg, v: false }); i += dg.length; continue; }
+    const ch = w[i];
+    units.push({ s: ch, v: /[aeiou]/.test(ch) || (ch === "y" && i > 0) });
+    i += 1;
+  }
+  const n = units.length;
+  const at = (k) => units[n - k] || { s: "", v: true };
+  // quiet endings: silent e (bake), -ed that isn't "-ted/-ded" (jumped), -gue (plague)
+  if (at(1).s === "e" && !at(2).v && !(at(2).s === "l" && !at(3).v)) at(1).v = false;
+  if (at(1).s === "d" && at(2).s === "e" && !at(3).v && !/^[td]$/.test(at(3).s)) at(2).v = false;
+  if (at(1).s === "ue" && at(2).s === "g") at(1).v = false;
+  const nuclei = units.map((u, i) => (u.v ? i : -1)).filter((i) => i >= 0);
+  if (nuclei.length <= 1) return [w];
+  const cuts = [];
+  for (let k = 0; k < nuclei.length - 1; k++) {
+    const a = nuclei[k], b = nuclei[k + 1];
+    const cons = units.slice(a + 1, b).map((u) => u.s);
+    if (cons.length === 0) cuts.push(b);                                    // li|on
+    else if (cons.length === 1) cuts.push(/^(ck|x)$/.test(cons[0]) ? b : b - 1);  // ti|ger, stick|y
+    else if (cons.length >= 3 && EN_BLENDS.has(cons.slice(-3).join(""))) cuts.push(b - 3);
+    else if (cons.length >= 3 && EN_BLENDS.has(cons.slice(-2).join(""))) cuts.push(b - 2);
+    else if (cons.length === 2 && /^[bcdfgpt][rl]$/.test(cons.join(""))) cuts.push(b - 2);  // re|flect
+    else cuts.push(a + 2);                                                  // rab|bit, mon|ster
+  }
+  let chunks = [];
+  let start = 0;
+  for (const c of cuts) { chunks.push(units.slice(start, c).map((u) => u.s).join("")); start = c; }
+  chunks.push(units.slice(start).map((u) => u.s).join(""));
+  chunks = chunks.filter(Boolean);
+  // tidy-ups the simple rules get wrong
+  const out = [];
+  for (const c of chunks) {
+    const prev = out[out.length - 1];
+    if (prev && /^(ti|si|ci|shi)$/.test(prev.slice(-(prev.endsWith("shi") ? 3 : 2))) && /^(on|ons|al|an|ous|ent|ence|a)$/.test(c)) {
+      out[out.length - 1] = prev + c;                                       // ac·tion, pre·cious
+    } else if (prev && c === "le" && /[^aeiouy]$/.test(prev) && prev.length > 1) {
+      out[out.length - 1] = prev.slice(0, -1);                              // ta·ble, can·dle
+      out.push(prev.slice(-1) + c);
+    } else out.push(c);
+  }
+  return out;
+}
+
+// Letter names read reliably by every voice ("A" alone often comes out as "uh").
+const EN_LETTER_NAMES = { a:"ay", b:"bee", c:"see", d:"dee", e:"ee", f:"eff", g:"jee", h:"aitch", i:"eye",
+  j:"jay", k:"kay", l:"ell", m:"em", n:"en", o:"oh", p:"pee", q:"cue", r:"ar", s:"ess", t:"tee", u:"you",
+  v:"vee", w:"double you", x:"ex", y:"why", z:"zee" };
+const enSayLetters = (chunk) => chunk.split("").map((c) => EN_LETTER_NAMES[c] || c).join(", ") + ".";
+
+// ---- Car Spelling: hands-free spelling bee for the drive (27 Oct 2026, Vin) ----
+// "It says a word and he has to spell it" while driving, to build decoding.
+// The app says the word, uses it in a sentence, says it again, then waits.
+// Sam spells out loud; Dad taps the card if he got it. Then the app spells it
+// back in sound chunks (a·bun·dant → "ay. bee, you, en. dee, ay, en, tee.")
+// with each chunk lit up on screen. Same rule as Car Mode: tapped in time
+// comes off the ⭐ tricky pile, letting the timer run out puts it on.
+function EnCarSpelling({ words, starred, setTricky, onHome }) {
+  const [phase, setPhase] = useState("setup");     // setup | run | done
+  const [gap, setGap] = useState(() => loadLS("en_car_gap", 12));
+  const [len, setLen] = useState(() => loadLS("en_car_len", 10));
+  const [queue, setQueue] = useState([]);
+  const [idx, setIdx] = useState(0);
+  const [reveal, setReveal] = useState(false);
+  const [chunkOn, setChunkOn] = useState(-1);
+  const [paused, setPaused] = useState(false);
+  const [skipHint, setSkipHint] = useState(false);
+  const cancelRef = useRef(false);
+  const pauseRef = useRef(false);
+  const skipRef = useRef(false);
+  const wakeRef = useRef(null);
+  useEffect(() => { pauseRef.current = paused; }, [paused]);
+  useEffect(() => { saveLS("en_car_gap", gap); }, [gap]);
+  useEffect(() => { saveLS("en_car_len", len); }, [len]);
+  useEffect(() => () => { cancelRef.current = true; try { window.speechSynthesis.cancel(); } catch (e) {} }, []);
+
+  // single words only ("mental health" isn't a spelling word)
+  const spellable = useMemo(() => (words || []).filter((w) => w && /^[a-z]+$/i.test(w.word || "")), [words]);
+
+  // Tricky words lead (up to half the drive), the rest by spaced repetition.
+  const buildQueue = () => {
+    const tricky = shuffle(spellable.filter((w) => starred.has(w.word))).slice(0, Math.ceil(len / 2));
+    const seen = new Set(tricky.map((w) => w.word));
+    const rest = shuffle(srsOrder(spellable.filter((w) => !seen.has(w.word)), (w) => "en:" + w.word)
+      .slice(0, Math.max(len * 3, 24)));
+    return shuffle([...tricky, ...rest.slice(0, len - tricky.length)]).map((w) => ({ ...w, chunks: enSoundChunks(w.word) }));
+  };
+
+  const holdPause = async () => { while (pauseRef.current && !cancelRef.current) await carWait(180); };
+  const waitSkippable = async (ms) => {
+    for (let e = 0; e < ms; e += 60) {
+      if (cancelRef.current) return false;
+      if (skipRef.current && !pauseRef.current) { skipRef.current = false; return true; }
+      await carWait(60);
+    }
+    return false;
+  };
+  const tapAhead = () => {
+    if (pauseRef.current || cancelRef.current) return;
+    skipRef.current = true;
+    setSkipHint(true);
+    setTimeout(() => setSkipHint(false), 260);
+  };
+
+  const runLoop = async (q) => {
+    for (let i = 0; i < q.length; i++) {
+      if (cancelRef.current) return;
+      setIdx(i); setReveal(false); setChunkOn(-1);
+      skipRef.current = false;
+      await holdPause(); if (cancelRef.current) return;
+      const w = q[i];
+      await carSpeak(w.word, "en-US");
+      await carWait(450);
+      if (w.example) { await carSpeak(w.example, "en-US"); await carWait(350); }
+      await carSpeak(w.word, "en-US");
+      skipRef.current = false;              // a tap while it was still talking doesn't count
+      await holdPause(); if (cancelRef.current) return;
+      const gotIt = await waitSkippable(gap * 1000);
+      await holdPause(); if (cancelRef.current) return;
+      setReveal(true);
+      await carSpeak(w.word + " is spelled", "en-US");
+      for (let c = 0; c < w.chunks.length; c++) {
+        if (cancelRef.current) return;
+        setChunkOn(c);
+        await carSpeak(enSayLetters(w.chunks[c]), "en-US");
+        await carWait(380);
+      }
+      setChunkOn(-1);
+      await carSpeak(w.word, "en-US");
+      srsRecord("en:" + w.word, gotIt);
+      setTricky(w.word, !gotIt);
+      await waitSkippable(900);
+    }
+    if (!cancelRef.current) { release(); finish(); }
+  };
+
+  const release = () => {
+    cancelRef.current = true;
+    try { window.speechSynthesis.cancel(); } catch (e) {}
+    try { if (wakeRef.current) wakeRef.current.release(); } catch (e) {}
+    wakeRef.current = null;
+  };
+  const finish = () => { recordEffort(); markPracticedToday(); setPhase("done"); };
+
+  const start = async () => {
+    const q = buildQueue();
+    if (!q.length) return;
+    setQueue(q); setIdx(0); setReveal(false); setChunkOn(-1);
+    setPaused(false); pauseRef.current = false; cancelRef.current = false; skipRef.current = false;
+    setPhase("run");
+    primeSpeech();
+    try { if (navigator.wakeLock) wakeRef.current = await navigator.wakeLock.request("screen"); } catch (e) {}
+    await carSpeak("Ready. Spell each word out loud.", "en-US");
+    runLoop(q);
+  };
+  const stopNow = () => { release(); if (idx > 0) finish(); else setPhase("setup"); };
+
+  const label = { fontSize: 11, fontWeight: 800, color: "#8b83a8", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 7 };
+
+  if (phase === "setup") {
+    const empty = spellable.length === 0;
+    return (
+      <div>
+        <div style={{ background: "#fff", borderRadius: 22, border: "3px solid #cfe3f5", padding: "16px 16px 18px", marginBottom: 14 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 4 }}>
+            <span style={{ fontSize: 30 }}>🚗</span>
+            <div style={{ fontWeight: 800, fontSize: 20 }}>Car Spelling</div>
+          </div>
+          <div style={{ fontSize: 13.5, color: "#7a7391", lineHeight: 1.5 }}>
+            It says a word, uses it in a sentence, and says it again. Sam spells it out loud. Tap the card if he got it.
+            Then it spells the word back in sound chunks so he hears how the pieces fit.
+          </div>
+        </div>
+
+        <div style={label}>Spelling time</div>
+        <div style={{ display: "flex", gap: 8, marginBottom: 6 }}>
+          {[8, 12, 20].map((g) => (
+            <button key={g} onClick={() => setGap(g)}
+              style={{ ...chip, flex: 1, padding: "18px 6px", fontSize: 20, fontWeight: 800, borderRadius: 16,
+                background: gap === g ? "#3BA0C8" : "#fff", color: gap === g ? "#fff" : C.ink,
+                borderColor: gap === g ? "#3BA0C8" : "#e3ddcf" }}>{g}s</button>
+          ))}
+        </div>
+        <div style={{ fontSize: 12, color: "#7a7391", marginBottom: 16 }}>
+          Long words need room. Start at 12s; use 20s for the big ones.
+        </div>
+
+        <div style={label}>How many words</div>
+        <div style={{ display: "flex", gap: 8, marginBottom: 18 }}>
+          {[[6, "~3 min"], [10, "~6 min"], [15, "~9 min"]].map(([n, t]) => (
+            <button key={n} onClick={() => setLen(n)}
+              style={{ ...chip, flex: 1, padding: "11px 6px", fontSize: 14,
+                background: len === n ? "#3BA0C8" : "#fff", color: len === n ? "#fff" : C.ink,
+                borderColor: len === n ? "#3BA0C8" : "#e3ddcf" }}>{n} · {t}</button>
+          ))}
+        </div>
+
+        <button onClick={start} disabled={empty}
+          style={{ ...bigBtn, background: empty ? "#c9c3d8" : "#3BA0C8", color: "#fff", width: "100%", cursor: empty ? "not-allowed" : "pointer" }}>
+          ▶︎ Start
+        </button>
+        <div style={{ textAlign: "center", fontSize: 12.5, color: "#7a7391", marginTop: 10 }}>
+          ⭐ Tricky words come up first, then the ones due for review.
+        </div>
+        <button onClick={onHome} style={{ ...bigBtn, background: "#E6EAF2", color: C.ink, marginTop: 14, width: "100%" }}>⬅ Back to menu</button>
+      </div>
+    );
+  }
+
+  if (phase === "run") {
+    const w = queue[idx] || queue[0];
+    return (
+      <div>
+        <div style={{ display: "flex", justifyContent: "space-between", fontWeight: 800, fontSize: 14, color: "#8b83a8", marginBottom: 8 }}>
+          <span>{idx + 1} / {queue.length}</span><span>🚗 Car Spelling</span>
+        </div>
+        <div style={{ height: 8, background: "#e7e0d0", borderRadius: 6, overflow: "hidden", marginBottom: 16 }}>
+          <div style={{ width: ((idx + 1) / queue.length) * 100 + "%", height: "100%", background: "#3BA0C8", transition: "width .3s" }} />
+        </div>
+        <div onClick={tapAhead} role="button" tabIndex={0}
+          onKeyDown={(e) => { if (e.key === " " || e.key === "Enter") { e.preventDefault(); tapAhead(); } }}
+          style={{ background: C.ink, borderRadius: 28, padding: "40px 18px", minHeight: 260,
+            display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center",
+            cursor: paused ? "default" : "pointer", userSelect: "none", WebkitUserSelect: "none",
+            WebkitTapHighlightColor: "transparent", touchAction: "manipulation",
+            outline: skipHint ? "4px solid " + C.sun : "4px solid transparent",
+            transform: skipHint ? "scale(0.985)" : "none", transition: "outline-color .12s, transform .12s", position: "relative" }}>
+          <div style={{ position: "absolute", top: 12, left: 16, right: 16, textAlign: "left", fontSize: 12, fontWeight: 700,
+            color: "#8b83a8", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{enWordTopic(w)}</div>
+          {!reveal ? (
+            <React.Fragment>
+              <div style={{ fontSize: 60 }}>🔊</div>
+              <div style={{ marginTop: 14, fontSize: 15, fontWeight: 700, color: "#b9b2cf" }}>
+                {paused ? "paused" : "spell it out loud, then tap"}
+              </div>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "baseline", gap: 4,
+                fontSize: w.word.length > 10 ? 34 : 46, fontWeight: 800, lineHeight: 1.2 }}>
+                {w.chunks.map((c, k) => (
+                  <React.Fragment key={k}>
+                    {k > 0 && <span style={{ color: "#6f6888" }}>·</span>}
+                    <span style={{ color: chunkOn === k ? C.sun : "#fff", borderBottom: "4px solid " + (chunkOn === k ? C.sun : "transparent") }}>{c}</span>
+                  </React.Fragment>
+                ))}
+              </div>
+              <div style={{ marginTop: 12, fontSize: 18, fontWeight: 700, color: "#b9b2cf" }}>{w.word}</div>
+            </React.Fragment>
+          )}
+        </div>
+        <div style={{ display: "flex", gap: 12, marginTop: 12 }}>
+          <button onClick={() => setPaused((p) => !p)}
+            style={{ ...bigBtn, background: "#E6EAF2", color: C.ink, flex: 1, padding: "24px 10px", fontSize: 21, borderRadius: 20 }}>
+            {paused ? "▶︎ Resume" : "⏸ Pause"}
+          </button>
+          <button onClick={stopNow}
+            style={{ ...bigBtn, background: C.berry, color: "#fff", flex: 1, padding: "24px 10px", fontSize: 21, borderRadius: 20 }}>
+            ■ End
+          </button>
+        </div>
+        <div style={{ textAlign: "center", fontSize: 13, color: "#8b83a8", marginTop: 14, fontWeight: 700 }}>
+          Tap the big card if he spelled it right. Tapped in time comes off the ⭐ tricky pile; anything that runs out of time goes on it.
+        </div>
+      </div>
+    );
+  }
+
+  const answered = Math.min(queue.length, idx + 1);
+  return (
+    <Center>
+      <div style={{ fontSize: 60 }}>🚗</div>
+      <h2 style={{ margin: "10px 0 4px" }}>Nice spelling!</h2>
+      <div style={{ fontSize: 16, color: "#7a7391" }}>{answered} word{answered === 1 ? "" : "s"} spelled out loud.</div>
+      <div style={{ background: "#fff", borderRadius: 18, border: "3px solid " + C.sun, padding: "13px 15px", marginTop: 20, maxWidth: 380 }}>
+        <div style={{ fontWeight: 800, fontSize: 16 }}>🔁 Now let him quiz you</div>
+        <div style={{ fontSize: 13.5, color: "#7a7391", marginTop: 3, lineHeight: 1.5 }}>
+          Let Sam pick a word for you to spell, and get one wrong. Catching Dad is worth more than anything the app just did.
+        </div>
+      </div>
+      <button onClick={() => setPhase("setup")} style={{ ...bigBtn, background: C.leaf, color: "#fff", width: "100%", maxWidth: 380, marginTop: 18 }}>Go again</button>
+      <button onClick={onHome} style={{ ...bigBtn, background: "#E6EAF2", color: C.ink, width: "100%", maxWidth: 380, marginTop: 10 }}>⬅ Back to menu</button>
+    </Center>
   );
 }
 
