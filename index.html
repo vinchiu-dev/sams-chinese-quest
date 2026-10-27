@@ -394,6 +394,104 @@ const lookupZh = async (hanzi) => {
   return { pinyin: py.join(" "), en: "", exact: false };
 };
 
+// 27 Oct 2026, Vin: "when I add a word in English or pinyin or Chinese,
+// fill in the others." Reverse lookups built from the same CC-CEDICT data
+// (dict/en-*.json, dict/py-*.json, dict/pt-*.json; see dict/build_lookup.py),
+// ranked so the everyday word wins (兔子 for "rabbit"). Offline, no keys.
+const _idxCache = {};
+const loadIdx = (name, key) => {
+  const c = /^[a-z]/.test(key) ? key[0] : "_";
+  const f = name + "-" + c;
+  if (!_idxCache[f]) _idxCache[f] = fetch("dict/" + f + ".json")
+    .then((r) => (r.ok ? r.json() : {}))
+    .catch(() => ({}));
+  return _idxCache[f];
+};
+// "Nǐ hǎo" -> "nǐhǎo" (tones kept); toneless -> "nihao"
+const pyKey = (p) => String(p || "").toLowerCase().replace(/u:/g, "ü").normalize("NFD")
+  .replace(/[^a-z\u0300-\u036f]/g, "").normalize("NFC");
+const pyBare = (p) => pyKey(p).normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+const enKey = (e) => String(e || "").trim().toLowerCase()
+  .replace(/^(to|a|an|the)\s+/, "").replace(/[.!?]+$/, "").replace(/\s+/g, " ");
+
+const lookupPinyin = async (pinyin) => {
+  const k = pyKey(pinyin);
+  if (!k) return null;
+  const toned = k !== pyBare(pinyin);
+  const idx = await loadIdx(toned ? "py" : "pt", toned ? k : pyBare(pinyin));
+  return idx[toned ? k : pyBare(pinyin)] || null;
+};
+
+// English -> 汉字. Exact sense first, then simple plural/-ed/-ing forms
+// (those come back exact:false so the word still gets a second look).
+const lookupEn = async (en) => {
+  const k = enKey(en);
+  if (!k) return null;
+  const tries = [k];
+  if (!k.includes(" ")) {
+    if (/ies$/.test(k)) tries.push(k.slice(0, -3) + "y");
+    if (/(s|x|z|ch|sh)es$/.test(k)) tries.push(k.slice(0, -2));
+    if (/s$/.test(k)) tries.push(k.slice(0, -1));
+    if (/ed$/.test(k)) tries.push(k.slice(0, -1), k.slice(0, -2));
+    if (/ing$/.test(k)) tries.push(k.slice(0, -3), k.slice(0, -3) + "e");
+  }
+  for (let i = 0; i < tries.length; i++) {
+    const idx = await loadIdx("en", tries[i]);
+    if (idx[tries[i]]) return { hanzi: idx[tries[i]], exact: i === 0 };
+  }
+  return null;
+};
+
+// Fill whichever of English / pinyin / 汉字 is missing. `exact` is false when
+// any part is a best guess, so the word stays on the needs-a-look list.
+const autoFillZh = async ({ en = "", pinyin = "", hanzi = "" }) => {
+  let exact = true;
+  if (!hanzi && pinyin) {
+    const h = await lookupPinyin(pinyin);
+    if (h) hanzi = h; else exact = false;
+  }
+  if (!hanzi && en) {
+    const hit = await lookupEn(en);
+    if (hit) { hanzi = hit.hanzi; exact = exact && hit.exact; }
+    else {
+      // "ni hao" with no tone marks looks like English; try it as pinyin
+      const h = /^[a-z\s']+$/i.test(en) && (await lookupPinyin(en));
+      if (h) { hanzi = h; pinyin = en; en = ""; }
+      else exact = false;
+    }
+  }
+  if (hanzi && (!en || !pinyin)) {
+    const hit = await lookupZh(hanzi);
+    if (hit && hit.pinyin) {
+      if (!pinyin) pinyin = hit.pinyin;
+      if (!en && hit.en) en = hit.en;
+      exact = exact && !!hit.exact && !!en;
+    } else exact = false;
+  }
+  return { en, pinyin, hanzi, exact: exact && !!(en && pinyin && hanzi) };
+};
+
+// 27 Oct 2026, Vin: fill in the definition when a new English word is added.
+// Free Dictionary API (dictionaryapi.dev: no key, browser-friendly). If it's
+// unreachable or has no entry, the word keeps the "definition coming" flag.
+const lookupEnDef = async (word) => {
+  try {
+    const r = await fetch("https://api.dictionaryapi.dev/api/v2/entries/en/" + encodeURIComponent(word.trim().toLowerCase()));
+    if (!r.ok) return null;
+    const data = await r.json();
+    const meanings = (Array.isArray(data) ? data : []).flatMap((e) => e.meanings || []);
+    for (const m of meanings) {
+      const defs = (m.definitions || []).filter((d) => d.definition);
+      if (!defs.length) continue;
+      return {
+        definition: defs[0].definition.replace(/\.$/, ""),
+        example: defs[0].example || "",
+      };
+    }
+  } catch (e) {}
+  return null;
+};
+
 const SRS_KEY = "srs";
 const loadSrs = () => loadLS(SRS_KEY, {});
 const saveSrs = (s) => saveLS(SRS_KEY, s);
@@ -1447,21 +1545,8 @@ function Home({
     for (const line of lines) {
       const parts = parseLine(line);
       if (!parts) continue;
-      let { en, pinyin, hanzi } = parts;
-      let exact = true;
-      if (hanzi && (!en || !pinyin)) {
-        const hit = await lookupZh(hanzi);
-        if (hit && hit.pinyin) {
-          if (!pinyin) pinyin = hit.pinyin;
-          if (!en && hit.en) en = hit.en;
-          exact = !!hit.exact && !!en;
-        } else {
-          exact = false;
-        }
-      } else if (!hanzi) {
-        exact = !!(en && pinyin);
-      }
-      if (!en && !pinyin && !hanzi) continue;
+      if (!parts.en && !parts.pinyin && !parts.hanzi) continue;
+      const { en, pinyin, hanzi, exact } = await autoFillZh(parts);
       addCustomWord({
         en: en || pinyin || hanzi,
         pinyin: pinyin || "",
@@ -1806,13 +1891,13 @@ function Home({
           <div style={{ fontWeight: 800, fontSize: 15, marginBottom: 6 }}>➕ Add words</div>
           <div style={{ fontSize: 12, color: "#5c7a6c", marginBottom: 10, lineHeight: 1.5 }}>
             One per line. Type just the Chinese, pinyin, or English — it's added
-            right away, and the pinyin/English get filled in automatically where possible.
+            right away, and the other two get filled in automatically where possible.
           </div>
           <textarea
             value={bulk}
             onChange={(e) => setBulk(e.target.value)}
             rows={5}
-            placeholder={"猫\n蜘蛛\n卷笔刀"}
+            placeholder={"猫\nrabbit\nzhīzhū"}
             style={{ ...inp, fontFamily: "inherit", fontSize: 15, lineHeight: 1.6, resize: "vertical" }}
           />
           <button onClick={addNow} disabled={!bulk.trim() || looking}
@@ -3439,10 +3524,12 @@ function WordList({ allWords, archived, trouble, toggleTrouble, toggleArchived, 
   };
 
   // One box, one or more lines. Also accepts "english = 中文" or "english - 中文".
-  const submit = () => {
+  const [looking, setLooking] = useState(false);
+  const submit = async () => {
+    setLooking(true);
     const lines = bulk.split("\n").map((s) => s.trim()).filter(Boolean);
     let n = 0;
-    lines.forEach((line) => {
+    for (const line of lines) {
       // allow an explicit pairing on one line
       const pair = line.split(/\s*[=|]\s*/);
       let parts;
@@ -3459,16 +3546,18 @@ function WordList({ allWords, archived, trouble, toggleTrouble, toggleArchived, 
       } else {
         parts = classify(line);
       }
-      if (!parts || (!parts.en && !parts.pinyin && !parts.hanzi)) return;
+      if (!parts || (!parts.en && !parts.pinyin && !parts.hanzi)) continue;
+      const { en, pinyin, hanzi, exact } = await autoFillZh(parts);
       addCustomWord({
-        en: parts.en || parts.pinyin || parts.hanzi,
-        pinyin: parts.pinyin || "",
-        hanzi: parts.hanzi || "",   // hanzi drives good audio when present
+        en: en || pinyin || hanzi,
+        pinyin: pinyin || "",
+        hanzi: hanzi || "",   // hanzi drives good audio when present
         emoji: "📝",
-        needsDef: !(parts.en && parts.pinyin && parts.hanzi),
+        needsDef: !exact,
       });
       n++;
-    });
+    }
+    setLooking(false);
     setAdded(n);
     setBulk("");
     setTimeout(() => setAdded(0), 4000);
@@ -3499,7 +3588,7 @@ function WordList({ allWords, archived, trouble, toggleTrouble, toggleArchived, 
           <div style={{ fontWeight: 800, fontSize: 14, marginBottom: 6 }}>Add words</div>
           <div style={{ fontSize: 12, color: "#5c7a6c", marginBottom: 10, lineHeight: 1.5 }}>
             Type or paste one word per line — English, pinyin, or Chinese, whichever
-            you have. Claude fills in the rest next time you chat.
+            you have. The other two get filled in automatically where possible.
           </div>
           <textarea
             value={bulk}
@@ -3509,9 +3598,9 @@ function WordList({ allWords, archived, trouble, toggleTrouble, toggleArchived, 
             style={{ ...inp, fontFamily: "inherit", fontSize: 15, lineHeight: 1.6, resize: "vertical" }}
           />
           <div style={{ display: "flex", gap: 8, marginTop: 10 }}>
-            <button onClick={submit} disabled={!bulk.trim()}
-              style={{ ...bigBtn, background: C.leaf, flex: 1, fontSize: 15, padding: "10px", opacity: bulk.trim() ? 1 : 0.5 }}>
-              ✓ Add words
+            <button onClick={submit} disabled={!bulk.trim() || looking}
+              style={{ ...bigBtn, background: C.leaf, flex: 1, fontSize: 15, padding: "10px", opacity: bulk.trim() && !looking ? 1 : 0.5 }}>
+              {looking ? "Adding…" : "✓ Add words"}
             </button>
             <button onClick={() => setShowAdd(false)} style={{ ...bigBtn, background: "#EBE5D8", color: C.ink, fontSize: 15, padding: "10px 16px" }}>
               Done
@@ -4106,25 +4195,32 @@ function EnHome({ wordCount, starredCount, totalCount, masteredCount, go, addMyW
   const [addOpen, setAddOpen] = useState(false);
   const [bulk, setBulk] = useState("");
   const [added, setAdded] = useState(0);
+  const [looking, setLooking] = useState(false);
 
   // Accepts "word" per line, or "word: definition" / "word - definition".
-  const submitWords = () => {
+  // With no definition typed, one is looked up (lookupEnDef).
+  const submitWords = async () => {
+    setLooking(true);
     const lines = bulk.split("\n").map((s) => s.trim()).filter(Boolean);
     let n = 0;
-    lines.forEach((line) => {
+    for (const line of lines) {
       const m = line.match(/^(.+?)\s*[:–—-]\s*(.+)$/);
       const word = (m ? m[1] : line).trim();
-      const definition = m ? m[2].trim() : "";
-      if (!word) return;
+      let definition = m ? m[2].trim() : "";
+      if (!word) continue;
+      const found = definition ? null : await lookupEnDef(word);
+      if (found) definition = found.definition;
       addMyWord({
         word,
         definition: definition || "(definition coming — ask Claude to fill this in)",
-        example: "",
+        example: (found && found.example) || "",
         emoji: "📝",
         needsDef: !definition,
+        ...(found ? { autoDef: true } : {}),
       });
       n++;
-    });
+    }
+    setLooking(false);
     setAdded(n); setBulk(""); 
     setTimeout(() => setAdded(0), 4000);
   };
@@ -4191,12 +4287,12 @@ function EnHome({ wordCount, starredCount, totalCount, masteredCount, go, addMyW
         <div style={{ background:"#fff", borderRadius:20, border:"3px solid #dbe7d5", marginTop:12, padding:"16px" }}>
           <div style={{ fontWeight:800, fontSize:15, marginBottom:8 }}>➕ Add new words</div>
           <textarea value={bulk} onChange={(e) => setBulk(e.target.value)}
-            placeholder={"gregarious\nlucid\ntenacious: holding firmly\n\n(one per line — add \": definition\" if you know it)"}
+            placeholder={"gregarious\nlucid\ntenacious: holding firmly\n\n(one per line — definitions get filled in, or add \": definition\" yourself)"}
             rows={6}
             style={{ ...inp, fontFamily:"inherit", fontSize:15, lineHeight:1.5, resize:"vertical" }} />
-          <button onClick={submitWords} disabled={!bulk.trim()}
-            style={{ ...bigBtn, background:C.leaf, width:"100%", marginTop:10, opacity: bulk.trim()?1:0.5, fontSize:15, padding:"12px" }}>
-            ✓ Add words
+          <button onClick={submitWords} disabled={!bulk.trim() || looking}
+            style={{ ...bigBtn, background:C.leaf, width:"100%", marginTop:10, opacity: bulk.trim() && !looking?1:0.5, fontSize:15, padding:"12px" }}>
+            {looking ? "Looking up…" : "✓ Add words"}
           </button>
           {added > 0 && (
             <div style={{ marginTop:10, fontWeight:700, color:C.leaf, fontSize:14 }}>
