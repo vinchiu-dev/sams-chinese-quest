@@ -196,76 +196,6 @@
       "example": "",
       "emoji": "📝",
       "needsDef": true
-    },
-    {
-      "word": "cushion",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Authorities",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "coincide",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Undocumented",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Curiosity",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Ancestors",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Settlers",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Orchard",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Lumbered",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
-    },
-    {
-      "word": "Plague",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
     }
   ],
   "wodHistory": [
@@ -2584,12 +2514,12 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1793042193187,
-  "pool_at": 1793042193187,
-  "starredSentences_at": 1793042193187,
-  "hiddenWords_at": 1793042193172,
-  "archived_at": 1793042193187,
-  "en_starred_at": 1792762193216,
+  "trouble_at": 1793105233693,
+  "pool_at": 1793105233304,
+  "starredSentences_at": 1793105233693,
+  "hiddenWords_at": 1793105233694,
+  "archived_at": 1793105233693,
+  "en_starred_at": 1793105234698,
   "math_missed_at": 1793035941355,
   "chips": 13
 }
