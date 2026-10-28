@@ -1,6 +1,6 @@
 {
-  "version": 2,
-  "updated": "2026-10-14",
+  "version": 3,
+  "updated": "2026-10-28",
   "lessons": [
     {
       "id": "little-fox-school-supplies",
@@ -2627,6 +2627,111 @@
           ]
         }
       ]
+    },
+    {
+      "id": "kitten-bird-fish",
+      "title": "The Kitten Wants the Bird",
+      "subtitle": "小猫想吃小鸟 — look over there, birds and fish",
+      "words": [
+        {
+          "hanzi": "看",
+          "pinyin": "kàn",
+          "en": "look! / to look",
+          "emoji": "👀",
+          "phrases": [
+            {
+              "en": "Look, there's a little bird over there.",
+              "pinyin": "Kàn, nàr yǒu yì zhī xiǎoniǎo.",
+              "hanzi": "看，那儿有一只小鸟。"
+            },
+            {
+              "en": "Look! A puppy!",
+              "pinyin": "Kàn! Xiǎogǒu!",
+              "hanzi": "看！小狗！"
+            }
+          ]
+        },
+        {
+          "hanzi": "那儿有",
+          "pinyin": "nàr yǒu",
+          "en": "over there there is",
+          "emoji": "👉",
+          "phrases": [
+            {
+              "en": "There are fish over there.",
+              "pinyin": "Nàr yǒu yú.",
+              "hanzi": "那儿有鱼。"
+            },
+            {
+              "en": "There's a kitten over there.",
+              "pinyin": "Nàr yǒu yì zhī xiǎomāo.",
+              "hanzi": "那儿有一只小猫。"
+            }
+          ]
+        },
+        {
+          "hanzi": "小鸟",
+          "pinyin": "xiǎoniǎo",
+          "en": "little bird",
+          "emoji": "🐦",
+          "phrases": [
+            {
+              "en": "I like little birds.",
+              "pinyin": "Wǒ xǐhuan xiǎoniǎo.",
+              "hanzi": "我喜欢小鸟。"
+            },
+            {
+              "en": "The kitten wants to eat the little bird.",
+              "pinyin": "Xiǎomāo xiǎng chī xiǎoniǎo.",
+              "hanzi": "小猫想吃小鸟。"
+            }
+          ]
+        },
+        {
+          "hanzi": "鱼",
+          "pinyin": "yú",
+          "en": "fish",
+          "emoji": "🐟",
+          "phrases": [
+            {
+              "en": "The kitten doesn't want to eat fish.",
+              "pinyin": "Xiǎomāo bù xiǎng chī yú.",
+              "hanzi": "小猫不想吃鱼。"
+            },
+            {
+              "en": "I want to eat fish.",
+              "pinyin": "Wǒ xiǎng chī yú.",
+              "hanzi": "我想吃鱼。"
+            }
+          ]
+        },
+        {
+          "hanzi": "啊",
+          "pinyin": "ā",
+          "en": "Ah! / Oh no!",
+          "emoji": "😮",
+          "phrases": [
+            {
+              "en": "Ah! The kitten wants to eat the little bird!",
+              "pinyin": "Ā! Xiǎomāo xiǎng chī xiǎoniǎo!",
+              "hanzi": "啊！小猫想吃小鸟！"
+            }
+          ]
+        },
+        {
+          "hanzi": "不不不",
+          "pinyin": "bù bù bù",
+          "en": "no, no, no!",
+          "emoji": "🙅",
+          "phrases": [
+            {
+              "en": "No, no, no! There are fish over there.",
+              "pinyin": "Bù bù bù! Nàr yǒu yú.",
+              "hanzi": "不不不！那儿有鱼。"
+            }
+          ]
+        }
+      ]
     }
   ],
   "tagMap": {
@@ -2746,7 +2851,8 @@
       "little-fox-school-supplies",
       "silly-food",
       "welcome-home-rooms",
-      "puppy-and-kitten"
+      "puppy-and-kitten",
+      "kitten-bird-fish"
     ],
     "howmany": [
       "how-many-people"
@@ -2784,6 +2890,9 @@
     ],
     "pets": [
       "puppy-and-kitten"
+    ],
+    "birdfish": [
+      "kitten-bird-fish"
     ]
   },
   "sentences": [
@@ -4814,6 +4923,36 @@
       "pinyin": "Zhèr yǒu yì zhī zhīzhū!",
       "hanzi": "这儿有一只蜘蛛！",
       "tag": "pets"
+    },
+    {
+      "en": "Look, there's a little bird over there.",
+      "pinyin": "Kàn, nàr yǒu yì zhī xiǎoniǎo.",
+      "hanzi": "看，那儿有一只小鸟。",
+      "tag": "birdfish"
+    },
+    {
+      "en": "There's a yellow little bird over there.",
+      "pinyin": "Nàr yǒu yì zhī huángsè de xiǎoniǎo.",
+      "hanzi": "那儿有一只黄色的小鸟。",
+      "tag": "birdfish"
+    },
+    {
+      "en": "The kitten doesn't want to eat fish. It wants to eat the little bird!",
+      "pinyin": "Xiǎomāo bù xiǎng chī yú, xiǎomāo xiǎng chī xiǎoniǎo!",
+      "hanzi": "小猫不想吃鱼，小猫想吃小鸟！",
+      "tag": "birdfish"
+    },
+    {
+      "en": "Spiders don't eat fish. Spiders eat bugs.",
+      "pinyin": "Zhīzhū bù chī yú, zhīzhū chī chóngzi.",
+      "hanzi": "蜘蛛不吃鱼，蜘蛛吃虫子。",
+      "tag": "birdfish"
+    },
+    {
+      "en": "Look! Grandpa is cooking fish in the kitchen.",
+      "pinyin": "Kàn! Yéye zài chúfáng zuò yú.",
+      "hanzi": "看！爷爷在厨房做鱼。",
+      "tag": "birdfish"
     }
   ]
 }
