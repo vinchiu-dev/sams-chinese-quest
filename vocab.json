@@ -1,6 +1,6 @@
 {
-  "version": 3,
-  "updated": "2026-10-28",
+  "version": 4,
+  "updated": "2026-10-31",
   "lessons": [
     {
       "id": "little-fox-school-supplies",
@@ -2732,6 +2732,103 @@
           ]
         }
       ]
+    },
+    {
+      "id": "what-is-this-food",
+      "title": "What Is This?",
+      "subtitle": "这是什么？ — noodles, rice and milk",
+      "words": [
+        {
+          "hanzi": "米饭",
+          "pinyin": "mǐfàn",
+          "en": "(cooked) rice",
+          "emoji": "🍚",
+          "phrases": [
+            {
+              "en": "This is rice.",
+              "pinyin": "Zhè shì mǐfàn.",
+              "hanzi": "这是米饭。"
+            },
+            {
+              "en": "I want to eat rice.",
+              "pinyin": "Wǒ xiǎng chī mǐfàn.",
+              "hanzi": "我想吃米饭。"
+            }
+          ]
+        },
+        {
+          "hanzi": "牛奶",
+          "pinyin": "niúnǎi",
+          "en": "milk",
+          "emoji": "🥛",
+          "phrases": [
+            {
+              "en": "This is milk.",
+              "pinyin": "Zhè shì niúnǎi.",
+              "hanzi": "这是牛奶。"
+            },
+            {
+              "en": "The kitten likes milk.",
+              "pinyin": "Xiǎomāo xǐhuan niúnǎi.",
+              "hanzi": "小猫喜欢牛奶。"
+            }
+          ]
+        },
+        {
+          "hanzi": "喝",
+          "pinyin": "hē",
+          "en": "to drink",
+          "emoji": "🥤",
+          "phrases": [
+            {
+              "en": "drink milk",
+              "pinyin": "hē niúnǎi",
+              "hanzi": "喝牛奶"
+            },
+            {
+              "en": "I want to drink water.",
+              "pinyin": "Wǒ xiǎng hē shuǐ.",
+              "hanzi": "我想喝水。"
+            }
+          ]
+        },
+        {
+          "hanzi": "这个呢",
+          "pinyin": "zhège ne",
+          "en": "what about this one?",
+          "emoji": "🤔",
+          "phrases": [
+            {
+              "en": "This is noodles. What about this one?",
+              "pinyin": "Zhè shì miàntiáo. Zhège ne?",
+              "hanzi": "这是面条。这个呢？"
+            },
+            {
+              "en": "What about this one? This is rice.",
+              "pinyin": "Zhège ne? Zhè shì mǐfàn.",
+              "hanzi": "这个呢？这是米饭。"
+            }
+          ]
+        },
+        {
+          "hanzi": "不喜欢",
+          "pinyin": "bù xǐhuan",
+          "en": "don't like",
+          "emoji": "🙅",
+          "phrases": [
+            {
+              "en": "I don't like drinking milk.",
+              "pinyin": "Wǒ bù xǐhuan hē niúnǎi.",
+              "hanzi": "我不喜欢喝牛奶。"
+            },
+            {
+              "en": "I don't like tomatoes.",
+              "pinyin": "Wǒ bù xǐhuan xīhóngshì.",
+              "hanzi": "我不喜欢西红柿。"
+            }
+          ]
+        }
+      ]
     }
   ],
   "tagMap": {
@@ -2893,6 +2990,9 @@
     ],
     "birdfish": [
       "kitten-bird-fish"
+    ],
+    "whatfood": [
+      "what-is-this-food"
     ]
   },
   "sentences": [
@@ -4953,6 +5053,42 @@
       "pinyin": "Kàn! Yéye zài chúfáng zuò yú.",
       "hanzi": "看！爷爷在厨房做鱼。",
       "tag": "birdfish"
+    },
+    {
+      "en": "What is this? This is rice.",
+      "pinyin": "Zhè shì shénme? Zhè shì mǐfàn.",
+      "hanzi": "这是什么？这是米饭。",
+      "tag": "whatfood"
+    },
+    {
+      "en": "This is noodles. What about this one? This is dumplings.",
+      "pinyin": "Zhè shì miàntiáo. Zhège ne? Zhè shì jiǎozi.",
+      "hanzi": "这是面条。这个呢？这是饺子。",
+      "tag": "whatfood"
+    },
+    {
+      "en": "I like eating rice, but I don't like drinking milk.",
+      "pinyin": "Wǒ xǐhuan chī mǐfàn, wǒ bù xǐhuan hē niúnǎi.",
+      "hanzi": "我喜欢吃米饭，我不喜欢喝牛奶。",
+      "tag": "whatfood"
+    },
+    {
+      "en": "The kitten wants to drink milk.",
+      "pinyin": "Xiǎomāo xiǎng hē niúnǎi.",
+      "hanzi": "小猫想喝牛奶。",
+      "tag": "whatfood"
+    },
+    {
+      "en": "Grandpa is cooking rice in the kitchen.",
+      "pinyin": "Yéye zài chúfáng zuò mǐfàn.",
+      "hanzi": "爷爷在厨房做米饭。",
+      "tag": "whatfood"
+    },
+    {
+      "en": "Tarantulas don't drink milk!",
+      "pinyin": "Zhīzhū bù hē niúnǎi!",
+      "hanzi": "蜘蛛不喝牛奶！",
+      "tag": "whatfood"
     }
   ]
 }
