@@ -1,6 +1,6 @@
 {
-  "version": 4,
-  "updated": "2026-10-31",
+  "version": 5,
+  "updated": "2026-11-04",
   "lessons": [
     {
       "id": "little-fox-school-supplies",
@@ -2829,6 +2829,54 @@
           ]
         }
       ]
+    },
+    {
+      "id": "lots-of-fruit",
+      "title": "Lots of Fruit!",
+      "subtitle": "很多水果 — many, lots of, yummy",
+      "words": [
+        {
+          "hanzi": "多",
+          "pinyin": "duō",
+          "en": "many / a lot",
+          "emoji": "➕",
+          "phrases": [
+            {
+              "en": "So many!",
+              "pinyin": "Zhēn duō!",
+              "hanzi": "真多！"
+            },
+            {
+              "en": "The fish are so many!",
+              "pinyin": "Yú zhēn duō!",
+              "hanzi": "鱼真多！"
+            }
+          ]
+        },
+        {
+          "hanzi": "很多",
+          "pinyin": "hěn duō",
+          "en": "lots of / many",
+          "emoji": "🧺",
+          "phrases": [
+            {
+              "en": "lots of fruit",
+              "pinyin": "hěn duō shuǐguǒ",
+              "hanzi": "很多水果"
+            },
+            {
+              "en": "lots of little birds",
+              "pinyin": "hěn duō xiǎoniǎo",
+              "hanzi": "很多小鸟"
+            },
+            {
+              "en": "lots of fish",
+              "pinyin": "hěn duō yú",
+              "hanzi": "很多鱼"
+            }
+          ]
+        }
+      ]
     }
   ],
   "tagMap": {
@@ -2993,6 +3041,9 @@
     ],
     "whatfood": [
       "what-is-this-food"
+    ],
+    "lotsfruit": [
+      "lots-of-fruit"
     ]
   },
   "sentences": [
@@ -5089,6 +5140,36 @@
       "pinyin": "Zhīzhū bù hē niúnǎi!",
       "hanzi": "蜘蛛不喝牛奶！",
       "tag": "whatfood"
+    },
+    {
+      "en": "There are lots of fruits here. So yummy!",
+      "pinyin": "Zhèr yǒu hěn duō shuǐguǒ. Zhēn hǎochī!",
+      "hanzi": "这儿有很多水果。真好吃！",
+      "tag": "lotsfruit"
+    },
+    {
+      "en": "Look! There are lots of little birds over there.",
+      "pinyin": "Kàn! Nàr yǒu hěn duō xiǎoniǎo.",
+      "hanzi": "看！那儿有很多小鸟。",
+      "tag": "lotsfruit"
+    },
+    {
+      "en": "The kitten wants to eat lots of fish.",
+      "pinyin": "Xiǎomāo xiǎng chī hěn duō yú.",
+      "hanzi": "小猫想吃很多鱼。",
+      "tag": "lotsfruit"
+    },
+    {
+      "en": "I like eating fruit. Strawberries are yummy!",
+      "pinyin": "Wǒ xǐhuan chī shuǐguǒ. Cǎoméi hǎochī!",
+      "hanzi": "我喜欢吃水果。草莓好吃！",
+      "tag": "lotsfruit"
+    },
+    {
+      "en": "There are lots of toys in my room.",
+      "pinyin": "Wǒ de fángjiān yǒu hěn duō wánjù.",
+      "hanzi": "我的房间有很多玩具。",
+      "tag": "lotsfruit"
     }
   ]
 }
