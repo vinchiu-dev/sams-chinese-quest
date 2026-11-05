@@ -1,6 +1,6 @@
 {
-  "version": 10,
-  "updated": "2026-10-23",
+  "version": 11,
+  "updated": "2026-11-05",
   "lists": [
     {
       "id": "en-starter-1",
@@ -1365,6 +1365,60 @@
           "definition": "hard but easy to crack or snap",
           "example": "Too much tin makes bronze brittle.",
           "emoji": "🥨"
+        },
+        {
+          "word": "lurk",
+          "definition": "To hide and wait where people can't see you.",
+          "example": "Brutes lurk in the Black Forest at night.",
+          "emoji": "🌲"
+        },
+        {
+          "word": "clumsy",
+          "definition": "Moving in an awkward way and bumping into things.",
+          "example": "The clumsy Brute bonked the ground instead of me.",
+          "emoji": "🤪"
+        },
+        {
+          "word": "flammable",
+          "definition": "Catches fire easily, like dry wood.",
+          "example": "Wood is flammable, so fire hits a Brute twice as hard.",
+          "emoji": "🔥"
+        },
+        {
+          "word": "rare",
+          "definition": "Not found very often; hard to get.",
+          "example": "A Brute trophy is rare: only about 1 Brute out of 10 drops it.",
+          "emoji": "💎"
+        },
+        {
+          "word": "dormant",
+          "definition": "Asleep or resting, waiting to wake up.",
+          "example": "The seed stayed dormant for 2,000 years.",
+          "emoji": "🌱"
+        },
+        {
+          "word": "camouflage",
+          "definition": "Colors or shapes that help something hide by looking like its surroundings.",
+          "example": "Moss was the stump's camouflage, so hikers walked right past it.",
+          "emoji": "🦎"
+        },
+        {
+          "word": "root",
+          "definition": "The part of a plant that grows under the ground and drinks water.",
+          "example": "Deep under the stump, a lonely root still held onto the soil.",
+          "emoji": "🪴"
+        },
+        {
+          "word": "network",
+          "definition": "Many paths or connections linked together.",
+          "example": "Tiny fungus made a network under the forest floor that woke the stump.",
+          "emoji": "🕸️"
+        },
+        {
+          "word": "decay",
+          "definition": "To slowly break down and rot.",
+          "example": "Rain helped the old wood decay until the stump looked soft and crumbly.",
+          "emoji": "🍂"
         }
       ]
     }
