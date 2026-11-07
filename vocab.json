@@ -1,6 +1,6 @@
 {
-  "version": 5,
-  "updated": "2026-11-04",
+  "version": 6,
+  "updated": "2026-11-07",
   "lessons": [
     {
       "id": "little-fox-school-supplies",
@@ -2877,6 +2877,103 @@
           ]
         }
       ]
+    },
+    {
+      "id": "apples-are-sweet",
+      "title": "Apples Are Sweet",
+      "subtitle": "苹果很甜 — is it yummy? let me try",
+      "words": [
+        {
+          "hanzi": "苹果",
+          "pinyin": "píngguǒ",
+          "en": "apple",
+          "emoji": "🍎",
+          "phrases": [
+            {
+              "en": "This is an apple.",
+              "pinyin": "Zhè shì píngguǒ.",
+              "hanzi": "这是苹果。"
+            },
+            {
+              "en": "lots of apples",
+              "pinyin": "hěn duō píngguǒ",
+              "hanzi": "很多苹果"
+            }
+          ]
+        },
+        {
+          "hanzi": "甜",
+          "pinyin": "tián",
+          "en": "sweet",
+          "emoji": "🍯",
+          "phrases": [
+            {
+              "en": "Apples are sweet and yummy.",
+              "pinyin": "Píngguǒ hěn tián, hěn hǎochī.",
+              "hanzi": "苹果很甜，很好吃。"
+            },
+            {
+              "en": "Watermelon is so sweet!",
+              "pinyin": "Xīguā zhēn tián!",
+              "hanzi": "西瓜真甜！"
+            }
+          ]
+        },
+        {
+          "hanzi": "吗",
+          "pinyin": "ma",
+          "en": "(turns a sentence into a yes/no question)",
+          "emoji": "❓",
+          "phrases": [
+            {
+              "en": "Are apples yummy?",
+              "pinyin": "Píngguǒ hǎochī ma?",
+              "hanzi": "苹果好吃吗？"
+            },
+            {
+              "en": "Is it sweet?",
+              "pinyin": "Tián ma?",
+              "hanzi": "甜吗？"
+            }
+          ]
+        },
+        {
+          "hanzi": "试一下",
+          "pinyin": "shì yí xià",
+          "en": "give it a try",
+          "emoji": "🤏",
+          "phrases": [
+            {
+              "en": "Let me try it.",
+              "pinyin": "Wǒ shì yí xià.",
+              "hanzi": "我试一下。"
+            },
+            {
+              "en": "Try it! It's sweet.",
+              "pinyin": "Nǐ shì yí xià! Hěn tián.",
+              "hanzi": "你试一下！很甜。"
+            }
+          ]
+        },
+        {
+          "hanzi": "不爱吃",
+          "pinyin": "bú ài chī",
+          "en": "don't like to eat",
+          "emoji": "😖",
+          "phrases": [
+            {
+              "en": "I don't like eating apples.",
+              "pinyin": "Wǒ bú ài chī píngguǒ.",
+              "hanzi": "我不爱吃苹果。"
+            },
+            {
+              "en": "I don't like eating tomatoes.",
+              "pinyin": "Wǒ bú ài chī xīhóngshì.",
+              "hanzi": "我不爱吃西红柿。"
+            }
+          ]
+        }
+      ]
     }
   ],
   "tagMap": {
@@ -3044,6 +3141,9 @@
     ],
     "lotsfruit": [
       "lots-of-fruit"
+    ],
+    "sweetapple": [
+      "apples-are-sweet"
     ]
   },
   "sentences": [
@@ -5170,6 +5270,42 @@
       "pinyin": "Wǒ de fángjiān yǒu hěn duō wánjù.",
       "hanzi": "我的房间有很多玩具。",
       "tag": "lotsfruit"
+    },
+    {
+      "en": "What is this? This is an apple. Is it yummy?",
+      "pinyin": "Zhè shì shénme? Zhè shì píngguǒ. Hǎochī ma?",
+      "hanzi": "这是什么？这是苹果。好吃吗？",
+      "tag": "sweetapple"
+    },
+    {
+      "en": "Strawberries are very sweet. Let me try one!",
+      "pinyin": "Cǎoméi hěn tián. Wǒ shì yí xià!",
+      "hanzi": "草莓很甜。我试一下！",
+      "tag": "sweetapple"
+    },
+    {
+      "en": "I don't like eating apples. I like eating watermelon.",
+      "pinyin": "Wǒ bú ài chī píngguǒ. Wǒ xǐhuan chī xīguā.",
+      "hanzi": "我不爱吃苹果。我喜欢吃西瓜。",
+      "tag": "sweetapple"
+    },
+    {
+      "en": "Does the little monkey like apples?",
+      "pinyin": "Xiǎo hóuzi xǐhuan píngguǒ ma?",
+      "hanzi": "小猴子喜欢苹果吗？",
+      "tag": "sweetapple"
+    },
+    {
+      "en": "Grandpa, try it! The rice is yummy.",
+      "pinyin": "Yéye, nǐ shì yí xià! Mǐfàn hěn hǎochī.",
+      "hanzi": "爷爷，你试一下！米饭很好吃。",
+      "tag": "sweetapple"
+    },
+    {
+      "en": "Does your tarantula eat apples?",
+      "pinyin": "Nǐ de zhīzhū chī píngguǒ ma?",
+      "hanzi": "你的蜘蛛吃苹果吗？",
+      "tag": "sweetapple"
     }
   ]
 }
