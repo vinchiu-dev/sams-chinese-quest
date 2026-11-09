@@ -1,1426 +1,1696 @@
 {
-  "version": 11,
-  "updated": "2026-11-05",
-  "lists": [
+ "version": 12,
+ "updated": "2026-11-09",
+ "lists": [
+  {
+   "id": "en-starter-1",
+   "title": "Word List 1",
+   "subtitle": "starter words",
+   "words": [
     {
-      "id": "en-starter-1",
-      "title": "Word List 1",
-      "subtitle": "starter words",
-      "words": [
-        {
-          "word": "abundant",
-          "definition": "existing in large quantities; plentiful",
-          "example": "The garden had an abundant harvest of tomatoes.",
-          "emoji": "🌻"
-        },
-        {
-          "word": "brisk",
-          "definition": "quick and energetic",
-          "example": "They took a brisk walk before dinner.",
-          "emoji": "🚶"
-        },
-        {
-          "word": "cautious",
-          "definition": "careful to avoid danger or mistakes",
-          "example": "He was cautious crossing the icy road.",
-          "emoji": "⚠️"
-        },
-        {
-          "word": "dazzle",
-          "definition": "to amaze or blind with bright light",
-          "example": "The fireworks dazzled the crowd.",
-          "emoji": "✨"
-        },
-        {
-          "word": "eager",
-          "definition": "very excited and wanting to do something",
-          "example": "She was eager to open her presents.",
-          "emoji": "😃"
-        },
-        {
-          "word": "fragile",
-          "definition": "easily broken or damaged",
-          "example": "Handle the glass vase, it's fragile.",
-          "emoji": "🥚"
-        },
-        {
-          "word": "gigantic",
-          "definition": "extremely large",
-          "example": "A gigantic wave crashed on the shore.",
-          "emoji": "🐋"
-        },
-        {
-          "word": "hesitate",
-          "definition": "to pause before doing something",
-          "example": "Don't hesitate to ask for help.",
-          "emoji": "🤔"
-        }
-      ]
+     "word": "abundant",
+     "definition": "existing in large quantities; plentiful",
+     "example": "The garden had an abundant harvest of tomatoes.",
+     "emoji": "🌻"
     },
     {
-      "id": "en-starter-2",
-      "title": "Word List 2",
-      "subtitle": "more starter words",
-      "words": [
-        {
-          "word": "immense",
-          "definition": "extremely large or great",
-          "example": "The immense mountain towered above them.",
-          "emoji": "⛰️"
-        },
-        {
-          "word": "jubilant",
-          "definition": "feeling great joy; triumphant",
-          "example": "The team was jubilant after winning.",
-          "emoji": "🎉"
-        },
-        {
-          "word": "keen",
-          "definition": "sharp or very interested",
-          "example": "She has a keen sense of smell.",
-          "emoji": "👃"
-        },
-        {
-          "word": "luminous",
-          "definition": "giving off light; glowing",
-          "example": "The luminous stars filled the night sky.",
-          "emoji": "🌟"
-        },
-        {
-          "word": "mimic",
-          "definition": "to copy the way someone acts or speaks",
-          "example": "The parrot can mimic human speech.",
-          "emoji": "🦜"
-        },
-        {
-          "word": "nimble",
-          "definition": "quick and light in movement",
-          "example": "The nimble cat leapt onto the fence.",
-          "emoji": "🐈"
-        },
-        {
-          "word": "obstacle",
-          "definition": "something that blocks your way",
-          "example": "They cleared every obstacle on the course.",
-          "emoji": "🚧"
-        },
-        {
-          "word": "peculiar",
-          "definition": "strange or unusual",
-          "example": "There was a peculiar smell in the room.",
-          "emoji": "🤨"
-        }
-      ]
+     "word": "brisk",
+     "definition": "quick and energetic",
+     "example": "They took a brisk walk before dinner.",
+     "emoji": "🚶"
     },
     {
-      "id": "en-my-words",
-      "title": "My Words",
-      "subtitle": "words you added",
-      "words": [
-        {
-          "word": "tremble",
-          "definition": "to shake slightly, often from cold, fear, or excitement",
-          "example": "Her hands began to tremble when she opened the mysterious box.",
-          "emoji": "🫨"
-        },
-        {
-          "word": "vivid",
-          "definition": "very bright, clear, and easy to picture in your mind",
-          "example": "She painted a vivid sunset full of orange and pink.",
-          "emoji": "🌅"
-        },
-        {
-          "word": "contaminate",
-          "definition": "to make something dirty or unsafe by adding germs or harmful stuff",
-          "example": "Dirty hands can contaminate the food you're about to eat.",
-          "emoji": "🦠"
-        },
-        {
-          "word": "Minister",
-          "definition": "a person who leads part of a government, or a person who leads religious services",
-          "example": "The minister of education announced a new plan for schools.",
-          "emoji": "🏛️"
-        },
-        {
-          "word": "Particle",
-          "definition": "a piece so tiny you almost can't see it — like the smallest bit of something",
-          "example": "A speck of dust is a tiny particle floating in the air.",
-          "emoji": "✨"
-        },
-        {
-          "word": "digestive",
-          "definition": "having to do with breaking down food so your body can use it",
-          "example": "Your stomach is part of your digestive system.",
-          "emoji": "🍽️"
-        },
-        {
-          "word": "knead",
-          "definition": "to press and fold dough with your hands over and over",
-          "example": "She kneaded the bread dough until it was smooth.",
-          "emoji": "🍞"
-        },
-        {
-          "word": "strict",
-          "definition": "following rules very carefully and expecting others to do the same",
-          "example": "Our coach is strict about arriving on time for practice.",
-          "emoji": "📏"
-        },
-        {
-          "word": "yanked",
-          "definition": "pulled something suddenly and with force",
-          "example": "He yanked the door open when he heard the alarm.",
-          "emoji": "💪"
-        },
-        {
-          "word": "Anchor",
-          "definition": "a heavy object dropped from a boat to hold it in place; also, to hold something firmly down",
-          "example": "The ship dropped its anchor so it wouldn't drift away.",
-          "emoji": "⚓"
-        },
-        {
-          "word": "Syringe",
-          "definition": "a tube with a plunger and needle used to give medicine or take blood",
-          "example": "The nurse filled the syringe before giving him his shot.",
-          "emoji": "💉"
-        },
-        {
-          "word": "Freeloader",
-          "definition": "someone who takes things from others without giving anything back",
-          "example": "He was a freeloader who never chipped in for snacks.",
-          "emoji": "🙄"
-        },
-        {
-          "word": "Approximately",
-          "definition": "almost exactly, but not quite — about that much",
-          "example": "The trip takes approximately two hours.",
-          "emoji": "≈"
-        },
-        {
-          "word": "Seize",
-          "definition": "to grab something quickly and firmly",
-          "example": "She seized the rope before it slipped away.",
-          "emoji": "✊"
-        },
-        {
-          "word": "Atrocious",
-          "definition": "extremely bad or terrible",
-          "example": "The weather was atrocious, so the game was cancelled.",
-          "emoji": "😖"
-        },
-        {
-          "word": "Mental health",
-          "definition": "how well your mind and feelings are doing, just like physical health is about your body",
-          "example": "Talking about your worries is good for your mental health.",
-          "emoji": "🧠"
-        },
-        {
-          "word": "Defy gravity",
-          "definition": "to seem to escape the pull that keeps things on the ground",
-          "example": "The gymnast seemed to defy gravity as she flipped through the air.",
-          "emoji": "🤸"
-        },
-        {
-          "word": "Concussion",
-          "definition": "an injury to the brain from a hard bump or hit to the head",
-          "example": "He wore a helmet to help prevent a concussion.",
-          "emoji": "🪖"
-        },
-        {
-          "word": "Destiny",
-          "definition": "what is meant to happen to someone in the future",
-          "example": "She felt it was her destiny to become a scientist.",
-          "emoji": "🌟"
-        },
-        {
-          "word": "Maneuver",
-          "definition": "to move something carefully and skillfully, often into a tight spot",
-          "example": "He had to maneuver the cart around the narrow corner.",
-          "emoji": "🔄"
-        },
-        {
-          "word": "Prototype",
-          "definition": "a first version of something, built to test the idea before making the real one",
-          "example": "They built a cardboard prototype of the robot before using metal.",
-          "emoji": "🛠️"
-        },
-        {
-          "word": "Fidget",
-          "definition": "to move or wiggle restlessly, often when bored or nervous",
-          "example": "He started to fidget in his chair during the long assembly.",
-          "emoji": "🪑"
-        },
-        {
-          "word": "Mumble",
-          "definition": "to speak quietly and unclearly, so it's hard to understand",
-          "example": "Don't mumble — speak up so everyone can hear you.",
-          "emoji": "🤐"
-        },
-        {
-          "word": "Radiant",
-          "definition": "shining brightly, or looking very happy and glowing",
-          "example": "She gave a radiant smile when she saw the puppy.",
-          "emoji": "🌞"
-        },
-        {
-          "word": "Versatile",
-          "definition": "able to do many different things or be used in many ways",
-          "example": "A smartphone is versatile — it's a camera, a map, and a phone.",
-          "emoji": "🧰"
-        },
-        {
-          "word": "Forsake",
-          "definition": "to leave someone or something behind and stop supporting them",
-          "example": "A loyal friend will never forsake you when things get hard.",
-          "emoji": "💔"
-        },
-        {
-          "word": "Bungalow",
-          "definition": "a small house that is usually all on one floor",
-          "example": "They rented a little bungalow near the beach for the summer.",
-          "emoji": "🏡"
-        },
-        {
-          "word": "Exercise",
-          "definition": "activity that moves your body to keep it strong and healthy",
-          "example": "Riding his bike after school is Sam's favourite exercise.",
-          "emoji": "🏃"
-        },
-        {
-          "word": "Run experiments",
-          "definition": "to carefully test an idea to find out what happens",
-          "example": "Scientists run experiments to see which plants grow fastest.",
-          "emoji": "🔬"
-        },
-        {
-          "word": "Socialize",
-          "definition": "to spend time talking and having fun with other people",
-          "example": "He likes to socialize with his classmates at recess.",
-          "emoji": "🗣️"
-        },
-        {
-          "word": "Brute",
-          "definition": "someone who is rough and cruel, using strength instead of thinking",
-          "example": "The giant was a brute who knocked down everything in his path.",
-          "emoji": "👹"
-        },
-        {
-          "word": "Blitz",
-          "definition": "a sudden, fast attack or a burst of intense effort",
-          "example": "They did a cleaning blitz and tidied the whole house in an hour.",
-          "emoji": "⚡"
-        },
-        {
-          "word": "Neglected",
-          "definition": "not looked after or given attention for a long time",
-          "example": "The neglected garden was full of weeds and dry, brown plants.",
-          "emoji": "🥀"
-        },
-        {
-          "word": "Authorities",
-          "definition": "the people in charge who have the power to make rules and decisions",
-          "example": "The authorities closed the road after the storm.",
-          "emoji": "👮"
-        },
-        {
-          "word": "Cushion",
-          "definition": "a soft pad you sit on; also, to soften a blow or landing",
-          "example": "The thick grass helped cushion his fall.",
-          "emoji": "🛋️"
-        },
-        {
-          "word": "Status",
-          "definition": "the current state of something, or a person's rank or position",
-          "example": "She checked the status of her order to see if it had shipped.",
-          "emoji": "📊"
-        },
-        {
-          "word": "Currently",
-          "definition": "right now, at this moment in time",
-          "example": "He is currently learning to play the piano.",
-          "emoji": "⏳"
-        },
-        {
-          "word": "Violate",
-          "definition": "to break a rule, law, or promise",
-          "example": "Riding a bike on the footpath can violate the town's rules.",
-          "emoji": "🚫"
-        },
-        {
-          "word": "Vegetable",
-          "definition": "a plant or part of a plant grown to be eaten, like carrots or beans",
-          "example": "Broccoli is his favourite vegetable at dinner.",
-          "emoji": "🥦"
-        },
-        {
-          "word": "Stimulate",
-          "definition": "to make something more active, or to spark interest and excitement",
-          "example": "Puzzles stimulate your brain and make you think hard.",
-          "emoji": "💡"
-        },
-        {
-          "word": "Selfish",
-          "definition": "caring only about yourself and not sharing or thinking of others",
-          "example": "It was selfish of him to eat all the cookies without offering any.",
-          "emoji": "🙅"
-        },
-        {
-          "word": "Negotiating",
-          "definition": "talking with someone to reach a deal that works for both sides",
-          "example": "They spent an hour negotiating who would do which chores.",
-          "emoji": "🤝"
-        },
-        {
-          "word": "patience",
-          "definition": "being able to wait a long time without getting upset or giving up",
-          "example": "The assassin bug sat perfectly still for hours — hunting takes patience.",
-          "emoji": "⏳"
-        },
-        {
-          "word": "disguise",
-          "definition": "something you wear or do so people don't know who you really are",
-          "example": "He wore a beard and glasses as a disguise so nobody recognized him.",
-          "emoji": "🥸"
-        },
-        {
-          "word": "deceive",
-          "definition": "to make someone believe something that isn't true",
-          "example": "The bug plucked the web to deceive the spider into thinking a fly was trapped.",
-          "emoji": "🎭"
-        },
-        {
-          "word": "precise",
-          "definition": "exactly right, with nothing off by even a little",
-          "example": "You need a precise measurement, not a close guess.",
-          "emoji": "🎯"
-        },
-        {
-          "word": "lure",
-          "definition": "something that pulls you closer by looking good, like bait",
-          "example": "The bright sign was a lure to get people to stop at the stand.",
-          "emoji": "🪝"
-        },
-        {
-          "word": "vibration",
-          "definition": "a tiny fast shaking you can feel more than see",
-          "example": "She felt the vibration of the train before she could hear it.",
-          "emoji": "📳"
-        },
-        {
-          "word": "absorb",
-          "definition": "to soak something up and take it in",
-          "example": "A paper towel will absorb the spilled milk.",
-          "emoji": "🧽"
-        },
-        {
-          "word": "ingredient",
-          "definition": "one of the things something is made out of",
-          "example": "Flour is the main ingredient in bread.",
-          "emoji": "🥣"
-        },
-        {
-          "word": "gradual",
-          "definition": "happening slowly, a little at a time",
-          "example": "The hill had a gradual slope, so the climb was easy.",
-          "emoji": "📈"
-        },
-        {
-          "word": "artificial",
-          "definition": "made by people to copy something real",
-          "example": "The drink had no fruit in it, just artificial cherry flavor.",
-          "emoji": "🧪"
-        },
-        {
-          "word": "nutrient",
-          "definition": "something in food your body needs to grow and work",
-          "example": "Broccoli is packed with nutrients that help you grow.",
-          "emoji": "🥦"
-        },
-        {
-          "word": "processed",
-          "definition": "changed by lots of steps before it reaches you",
-          "example": "An apple isn't processed, but an apple fruit snack has been through many steps.",
-          "emoji": "🏭"
-        },
-        {
-          "word": "moderation",
-          "definition": "having some, but not too much",
-          "example": "He eats candy in moderation — a little sometimes, not a lot every day.",
-          "emoji": "⚖️"
-        },
-        {
-          "word": "murmur",
-          "definition": "to say something in a low, soft voice that is hard to make out",
-          "example": "The crowd murmured to each other while they waited for the show to start.",
-          "emoji": "🤫"
-        },
-        {
-          "word": "swell",
-          "definition": "to grow bigger by puffing out or filling up",
-          "example": "The bee sting made his thumb swell to twice its normal size.",
-          "emoji": "🎈"
-        },
-        {
-          "word": "knapsack",
-          "definition": "a bag you carry on your back to hold supplies for a trip",
-          "example": "She packed a sandwich, a map, and a flashlight into her knapsack.",
-          "emoji": "🎒"
-        },
-        {
-          "word": "compass",
-          "definition": "a tool with a magnetic needle that always points north so you can find your direction",
-          "example": "When the trail disappeared, the compass showed them which way to go.",
-          "emoji": "🧭"
-        },
-        {
-          "word": "accumulate",
-          "definition": "to gather more and more of something over time",
-          "example": "Leaves accumulate on the lawn if nobody rakes them.",
-          "emoji": "🍂"
-        },
-        {
-          "word": "lens",
-          "definition": "a clear, curved piece that gathers light and sends it to one spot so you can see a picture",
-          "example": "The camera's lens gathered the dim light and made a clear photo.",
-          "emoji": "🔍"
-        },
-        {
-          "word": "focus",
-          "definition": "to bring light or attention to one exact spot so the picture is sharp",
-          "example": "She moved the magnifying glass until the sunlight came to a sharp focus on the leaf.",
-          "emoji": "🎯"
-        },
-        {
-          "word": "density",
-          "definition": "how tightly packed something is — more stuff in the same space means higher density",
-          "example": "Ice has a lower density than liquid water, so it floats.",
-          "emoji": "🧊"
-        },
-        {
-          "word": "saturate",
-          "definition": "to fill with so much water (or other liquid) that no more can squeeze in",
-          "example": "The sponge was saturated, so the rest of the spill ran onto the floor.",
-          "emoji": "💧"
-        },
-        {
-          "word": "friction",
-          "definition": "the grip from surfaces rubbing, or grains locking against each other",
-          "example": "Rubber soles add friction so you don't slip on the wet tile.",
-          "emoji": "🤲"
-        },
-        {
-          "word": "compression",
-          "definition": "a squeeze — a push that shortens or packs something",
-          "example": "The arch uses compression: the stones push together instead of pulling apart.",
-          "emoji": "🧱"
-        },
-        {
-          "word": "tension",
-          "definition": "a pull that stretches something tight",
-          "example": "The bridge cables are under tension, like taut strings holding up the road.",
-          "emoji": "🪢"
-        },
-        {
-          "word": "ambush",
-          "definition": "a hunt where you wait hidden and then strike",
-          "example": "The cat sat still in an ambush behind the couch, then pounced.",
-          "emoji": "🐱"
-        },
-        {
-          "word": "detect",
-          "definition": "to notice something, often with a sense other than a clear look",
-          "example": "She could detect the cookies baking before she even reached the kitchen.",
-          "emoji": "👂"
-        },
-        {
-          "word": "sprout",
-          "definition": "to start growing out of a seed, sending a shoot and a root",
-          "example": "After three days in the jar, the beans began to sprout.",
-          "emoji": "🌱"
-        },
-        {
-          "word": "orient",
-          "definition": "to find and face the right direction",
-          "example": "He used the map to orient himself toward the trailhead.",
-          "emoji": "🧭"
-        },
-        {
-          "word": "rotate",
-          "definition": "to spin around a center line, the way a globe turns",
-          "example": "Earth rotates so day turns into night.",
-          "emoji": "🌍"
-        },
-        {
-          "word": "axis",
-          "definition": "an imaginary stick through the middle that something spins around",
-          "example": "Earth spins around its axis from pole to pole.",
-          "emoji": "📍"
-        },
-        {
-          "word": "horizon",
-          "definition": "the line where the sky seems to meet the land or sea",
-          "example": "The Sun slipped toward the horizon at sunset.",
-          "emoji": "🌄"
-        },
-        {
-          "word": "stoop",
-          "definition": "to bend your body forward and down",
-          "example": "He had to stoop to pick up the pebble.",
-          "emoji": "🙇"
-        },
-        {
-          "word": "wade",
-          "definition": "to walk through shallow water",
-          "example": "They wade across the creek in their boots.",
-          "emoji": "🥾"
-        },
-        {
-          "word": "hobble",
-          "definition": "to walk with difficulty, often because something hurts",
-          "example": "After he stubbed his toe, he had to hobble to the chair.",
-          "emoji": "🤕"
-        },
-        {
-          "word": "carbohydrate",
-          "definition": "a main quick fuel in foods like bread, rice, fruit, and oatmeal",
-          "example": "Oatmeal is rich in carbohydrate that gives lasting go-power for tag.",
-          "emoji": "🍞"
-        },
-        {
-          "word": "protein",
-          "definition": "building material in food that helps repair and grow muscle",
-          "example": "Eggs and beans give protein that helps muscles recover after play.",
-          "emoji": "🥚"
-        },
-        {
-          "word": "fiber",
-          "definition": "the tough plant part that helps you feel full and slows a sugar rush",
-          "example": "An apple with the skin has fiber that slows how fast sugar hits your blood.",
-          "emoji": "🌾"
-        },
-        {
-          "word": "calorie",
-          "definition": "a unit that measures how much energy a food can give",
-          "example": "A calorie is a unit of energy — some foods pack more calories in a small bite.",
-          "emoji": "🔢"
-        },
-        {
-          "word": "stamina",
-          "definition": "energy that lasts through a long game or task",
-          "example": "Good fuel gives you stamina to finish the whole soccer game.",
-          "emoji": "🔋"
-        },
-        {
-          "word": "hydrate",
-          "definition": "to give your body enough water so it can work well",
-          "example": "Drink water after tag so you hydrate and keep your cells working.",
-          "emoji": "💧"
-        },
-        {
-          "word": "cavity",
-          "definition": "a hole in a tooth made over time by acid from mouth germs",
-          "example": "Frequent sugary sips can help cause a cavity in a tooth.",
-          "emoji": "🦷"
-        },
-        {
-          "word": "plaque",
-          "definition": "a sticky film of germs and leftovers on teeth",
-          "example": "Brushing helps wipe away plaque before it harms enamel.",
-          "emoji": "🪥"
-        },
-        {
-          "word": "portion",
-          "definition": "how much of a food you take at one time",
-          "example": "A small portion of chips can be a sometimes food.",
-          "emoji": "🍽️"
-        },
-        {
-          "word": "sodium",
-          "definition": "a part of salt; bodies need a little, not a huge everyday pile",
-          "example": "Many packaged snacks are high in sodium, which can make you thirsty.",
-          "emoji": "🧂"
-        },
-        {
-          "word": "balanced",
-          "definition": "giving the body more than one kind of help at once",
-          "example": "A balanced plate has vegetables, grains, and protein together.",
-          "emoji": "⚖️"
-        },
-        {
-          "word": "variety",
-          "definition": "using different foods and colors so more nutrients show up",
-          "example": "Eating a variety of colorful vegetables brings different helpers.",
-          "emoji": "🌈"
-        },
-        {
-          "word": "label",
-          "definition": "the facts panel on a package that lists servings, sugars, and more",
-          "example": "Read the nutrition label to compare added sugars in two yogurts.",
-          "emoji": "🏷️"
-        },
-        {
-          "word": "serving",
-          "definition": "the amount listed on a label that the numbers refer to",
-          "example": "Check the serving size before you trust the sugar number.",
-          "emoji": "📏"
-        },
-        {
-          "word": "recover",
-          "definition": "to repair and refill after hard play or exercise",
-          "example": "After soccer, a snack with carbs and protein helps you recover.",
-          "emoji": "🩹"
-        },
-        {
-          "word": "Humble",
-          "definition": "not thinking you're better or more important than others, even when you've done something great",
-          "example": "Even after winning, she stayed humble and thanked her whole team.",
-          "emoji": "🙏"
-        },
-        {
-          "word": "Loyal",
-          "definition": "always faithful and supportive to someone, even when things get hard",
-          "example": "His dog was so loyal that it waited by the door for him every day.",
-          "emoji": "🤝"
-        },
-        {
-          "word": "Coincide",
-          "definition": "to happen at the same time as something else",
-          "example": "His birthday happens to coincide with the first day of summer.",
-          "emoji": "📆"
-        },
-        {
-          "word": "Undocumented",
-          "definition": "not written down or officially recorded anywhere",
-          "example": "The old trail was undocumented, so nobody had a map of it.",
-          "emoji": "📄"
-        },
-        {
-          "word": "Curiosity",
-          "definition": "a strong desire to learn or know about something",
-          "example": "Her curiosity led her to open every drawer in the mysterious room.",
-          "emoji": "🔍"
-        },
-        {
-          "word": "Ancestors",
-          "definition": "family members who lived a long time before you, like great-great-grandparents",
-          "example": "Her ancestors came from a small village near the mountains.",
-          "emoji": "🌳"
-        },
-        {
-          "word": "Settlers",
-          "definition": "people who move to a new place to live there and build a home",
-          "example": "The settlers built wooden houses near the river.",
-          "emoji": "🏡"
-        },
-        {
-          "word": "Orchard",
-          "definition": "a piece of land where fruit trees are grown",
-          "example": "They picked apples together in the orchard behind the farm.",
-          "emoji": "🍎"
-        },
-        {
-          "word": "Lumbered",
-          "definition": "moved in a slow, heavy, clumsy way",
-          "example": "The tired bear lumbered back to its cave after a long day.",
-          "emoji": "🐻"
-        },
-        {
-          "word": "Plague",
-          "definition": "a serious disease that spreads quickly and affects many people; also, to bother constantly",
-          "example": "Mosquitoes seemed to plague the campsite every single night.",
-          "emoji": "🦟"
-        },
-        {
-          "word": "Occasionally",
-          "definition": "sometimes, but not often",
-          "example": "We occasionally get pizza for dinner on Fridays.",
-          "emoji": "🕐"
-        },
-        {
-          "word": "Temporary",
-          "definition": "lasting for only a short time, not permanent",
-          "example": "The bridge was temporary until the new one was built.",
-          "emoji": "⏳"
-        },
-        {
-          "word": "Exquisite",
-          "definition": "extremely beautiful or finely made",
-          "example": "The necklace had an exquisite pattern of tiny blue jewels.",
-          "emoji": "✨"
-        },
-        {
-          "word": "Sinister",
-          "definition": "seeming evil or dangerous, like something bad might happen",
-          "example": "The old house had a sinister feeling, with creaky floors and dark windows.",
-          "emoji": "🕷️"
-        },
-        {
-          "word": "Inspired",
-          "definition": "feeling excited and filled with new ideas, often because of something you saw or heard",
-          "example": "After the art show, she felt inspired to paint her own picture.",
-          "emoji": "💡"
-        },
-        {
-          "word": "Stumble",
-          "definition": "to trip or almost fall while walking; also, to come across something by accident",
-          "example": "He tried not to stumble on the loose rocks along the path.",
-          "emoji": "🪨"
-        },
-        {
-          "word": "Rim",
-          "definition": "the outer edge of something round, like a cup or a wheel",
-          "example": "Sam ran his finger around the rim of the drum before he played it.",
-          "emoji": "⭕"
-        },
-        {
-          "word": "Tone",
-          "definition": "the sound quality of a voice or instrument, such as soft, bright, or deep",
-          "example": "The flute had a gentle tone that made the song feel calm.",
-          "emoji": "🎵"
-        },
-        {
-          "word": "Pitch",
-          "definition": "how high or low a sound is",
-          "example": "When Sam sang higher, the pitch of his note went up.",
-          "emoji": "📈"
-        },
-        {
-          "word": "Frequency",
-          "definition": "how many times a sound wave vibrates each second; more means a higher pitch",
-          "example": "A whistle has a high frequency, so it sounds very high and sharp.",
-          "emoji": "📡"
-        },
-        {
-          "word": "Hollow",
-          "definition": "empty inside, with space in the middle",
-          "example": "They tapped the hollow tube and heard a booming echo.",
-          "emoji": "🕳️"
-        },
-        {
-          "word": "Load",
-          "definition": "something heavy you carry or put onto something else",
-          "example": "The wagon held a heavy load of books for the school library.",
-          "emoji": "📦"
-        },
-        {
-          "word": "Mass",
-          "definition": "how much matter is in an object; more mass means it is harder to push",
-          "example": "The bowling ball has more mass than the tennis ball, so it is harder to move.",
-          "emoji": "⚖️"
-        },
-        {
-          "word": "Note",
-          "definition": "a single musical sound with its own pitch",
-          "example": "Sam practiced one note on the piano until it sounded clear.",
-          "emoji": "🎼"
-        },
-        {
-          "word": "Damp",
-          "definition": "a little wet; also, to make a sound quieter by softening vibrations",
-          "example": "She put her hand on the drum to damp the sound so it would not be too loud.",
-          "emoji": "💧"
-        },
-        {
-          "word": "Stem",
-          "definition": "the long thin part that holds up a plant, leaf, or flower; also the upright part of a note",
-          "example": "The flower had a green stem, and the music note had a stem sticking up from its head.",
-          "emoji": "🌱"
-        },
-        {
-          "word": "pressure",
-          "definition": "An invisible push that air or water puts on a surface.",
-          "example": "The air pressure under the wing was higher than the pressure on top.",
-          "emoji": "🌬️"
-        },
-        {
-          "word": "force",
-          "definition": "A push or a pull that can start, stop, or change a motion.",
-          "example": "Gravity is a force that pulls you toward the ground.",
-          "emoji": "💪"
-        },
-        {
-          "word": "lift",
-          "definition": "An upward force that helps a wing stay in the air.",
-          "example": "The airplane's wings made enough lift to leave the runway.",
-          "emoji": "✈️"
-        },
-        {
-          "word": "attach",
-          "definition": "To stick to something and stay with it.",
-          "example": "The magnet will attach to the fridge door.",
-          "emoji": "🧲"
-        },
-        {
-          "word": "atmosphere",
-          "definition": "The blanket of air around Earth.",
-          "example": "Stars look sharper from space because there is no atmosphere in the way.",
-          "emoji": "🌍"
-        },
-        {
-          "word": "reentry",
-          "definition": "Coming back from space into the air, where heating and slowing begin.",
-          "example": "The capsule glowed during reentry as it slammed into thicker air.",
-          "emoji": "🔥"
-        },
-        {
-          "word": "thrust",
-          "definition": "The strong push a rocket engine makes.",
-          "example": "The rocket's thrust shoved it off the launch pad.",
-          "emoji": "🚀"
-        },
-        {
-          "word": "descend",
-          "definition": "To go downward carefully toward a landing or the ground.",
-          "example": "The helicopter began to descend toward the field.",
-          "emoji": "⬇️"
-        },
-        {
-          "word": "hypothesis",
-          "definition": "A careful guess you can check with a test.",
-          "example": "My hypothesis is that the tarantula will hide when the light is on.",
-          "emoji": "🤔"
-        },
-        {
-          "word": "experiment",
-          "definition": "A planned test where you change one thing on purpose.",
-          "example": "We did an experiment to see which ball bounces highest.",
-          "emoji": "🧪"
-        },
-        {
-          "word": "observation",
-          "definition": "Carefully watching and recording what really happens.",
-          "example": "My observation is that the katydid sings more at night.",
-          "emoji": "👀"
-        },
-        {
-          "word": "conclusion",
-          "definition": "What you decide the evidence says after the test.",
-          "example": "Our conclusion was that the bigger cup kept the ice frozen longer.",
-          "emoji": "✅"
-        },
-        {
-          "word": "variable",
-          "definition": "The one thing you change on purpose in a test.",
-          "example": "In our ramp test, the variable was how high we lifted the ramp.",
-          "emoji": "🎚️"
-        }
-      ]
+     "word": "cautious",
+     "definition": "careful to avoid danger or mistakes",
+     "example": "He was cautious crossing the icy road.",
+     "emoji": "⚠️"
     },
     {
-      "id": "en-reading-words",
-      "title": "Reading Words",
-      "subtitle": "words from Daddy School readings",
-      "words": [
-        {
-          "word": "vibrate",
-          "definition": "to shake back and forth very fast",
-          "example": "A guitar string vibrates when you pluck it.",
-          "emoji": "🎸"
-        },
-        {
-          "word": "faint",
-          "definition": "weak and hard to see, hear, or notice",
-          "example": "We heard a faint chirp from the tree.",
-          "emoji": "🤫"
-        },
-        {
-          "word": "similar",
-          "definition": "almost the same, but not exactly",
-          "example": "A katydid's ear is similar to my ear.",
-          "emoji": "👯"
-        },
-        {
-          "word": "eavesdrop",
-          "definition": "to secretly listen to someone else",
-          "example": "The bat eavesdropped on the singing katydid.",
-          "emoji": "👂"
-        },
-        {
-          "word": "ancient",
-          "definition": "very, very old",
-          "example": "Scientists found an ancient wing in the rock.",
-          "emoji": "🦴"
-        },
-        {
-          "word": "signal",
-          "definition": "a sound, sign, or message that tells something",
-          "example": "A green light is a signal to go.",
-          "emoji": "🚦"
-        },
-        {
-          "word": "survive",
-          "definition": "to stay alive through something hard",
-          "example": "Katydid eggs survive the cold winter.",
-          "emoji": "❄️"
-        },
-        {
-          "word": "intelligence",
-          "definition": "being able to learn and figure things out",
-          "example": "It takes intelligence to solve a tricky puzzle.",
-          "emoji": "🧠"
-        },
-        {
-          "word": "example",
-          "definition": "one thing that shows what a whole group is like",
-          "example": "A tarantula is one example of a spider.",
-          "emoji": "🕷️"
-        },
-        {
-          "word": "pattern",
-          "definition": "something that happens again and again",
-          "example": "Red, blue, red, blue is a pattern.",
-          "emoji": "🔁"
-        },
-        {
-          "word": "predict",
-          "definition": "to make a smart guess about what comes next",
-          "example": "I predict it will rain tomorrow.",
-          "emoji": "🔮"
-        },
-        {
-          "word": "confident",
-          "definition": "feeling or sounding very sure",
-          "example": "She gave a confident answer.",
-          "emoji": "💪"
-        },
-        {
-          "word": "hallucination",
-          "definition": "when AI makes something up that isn't true",
-          "example": "The chatbot's made-up bug was a hallucination.",
-          "emoji": "🤖"
-        },
-        {
-          "word": "evidence",
-          "definition": "facts that show whether something is true",
-          "example": "Muddy paw prints were evidence the dog came in.",
-          "emoji": "🔍"
-        },
-        {
-          "word": "private",
-          "definition": "just for you and your family, not for sharing",
-          "example": "Your password is private.",
-          "emoji": "🔒"
-        },
-        {
-          "word": "tool",
-          "definition": "something that helps you do a job",
-          "example": "A hammer is a tool for building.",
-          "emoji": "🔨"
-        },
-        {
-          "word": "future",
-          "definition": "the time that hasn't happened yet",
-          "example": "In the future I want to visit China.",
-          "emoji": "🚀"
-        },
-        {
-          "word": "expert",
-          "definition": "someone who knows a lot about one thing",
-          "example": "Ask a bug expert about katydids.",
-          "emoji": "🎓"
-        },
-        {
-          "word": "disagree",
-          "definition": "to think something different from someone else",
-          "example": "My sister and I disagree about the best color.",
-          "emoji": "🙅"
-        },
-        {
-          "word": "safe",
-          "definition": "not likely to hurt anyone",
-          "example": "Wear a helmet to stay safe on your bike.",
-          "emoji": "🦺"
-        },
-        {
-          "word": "fair",
-          "definition": "treating everyone the right way, not just a few",
-          "example": "Taking turns is fair.",
-          "emoji": "⚖️"
-        },
-        {
-          "word": "momentum",
-          "definition": "how hard it is to stop something that is moving",
-          "example": "A rolling bowling ball has a lot of momentum.",
-          "emoji": "🎳"
-        },
-        {
-          "word": "enormous",
-          "definition": "very, very big",
-          "example": "A blue whale is enormous.",
-          "emoji": "🐋"
-        },
-        {
-          "word": "budge",
-          "definition": "to move even a tiny bit",
-          "example": "The heavy rock would not budge.",
-          "emoji": "🪨"
-        },
-        {
-          "word": "collide",
-          "definition": "to crash or bump into something",
-          "example": "Two bumper cars collide with a thump.",
-          "emoji": "💥"
-        },
-        {
-          "word": "sudden",
-          "definition": "happening very fast, all at once",
-          "example": "The sudden thunder made me jump.",
-          "emoji": "⚡"
-        },
-        {
-          "word": "impact",
-          "definition": "a hard hit when one thing crashes into another",
-          "example": "The impact of the ball knocked over the cups.",
-          "emoji": "🥊"
-        },
-        {
-          "word": "opposite",
-          "definition": "the other way, as different as can be",
-          "example": "Up is the opposite of down.",
-          "emoji": "↕️"
-        },
-        {
-          "word": "equal",
-          "definition": "exactly the same amount",
-          "example": "Two plus two is equal to four.",
-          "emoji": "🟰"
-        },
-        {
-          "word": "rigid",
-          "definition": "stiff; it won't bend",
-          "example": "A metal pole is rigid, but a rope is not.",
-          "emoji": "🧱"
-        },
-        {
-          "word": "flexible",
-          "definition": "able to bend without breaking",
-          "example": "A rubber band is flexible.",
-          "emoji": "🪢"
-        },
-        {
-          "word": "crumple",
-          "definition": "to crush and fold up into wrinkles",
-          "example": "I crumple the paper into a ball.",
-          "emoji": "📄"
-        },
-        {
-          "word": "surface",
-          "definition": "the outside or top layer of something",
-          "example": "A water strider walks on the surface of the pond.",
-          "emoji": "🌊"
-        },
-        {
-          "word": "area",
-          "definition": "how much space a flat surface covers",
-          "example": "The rug covers a big area of the floor.",
-          "emoji": "🟩"
-        },
-        {
-          "word": "protect",
-          "definition": "to keep something safe from harm",
-          "example": "A helmet helps protect your head.",
-          "emoji": "⛑️"
-        },
-        {
-          "word": "nerve",
-          "definition": "a thin wire-like thread in your body that carries messages",
-          "example": "Nerves carry messages from your toes to your brain.",
-          "emoji": "🧠"
-        },
-        {
-          "word": "ache",
-          "definition": "a dull pain that lasts a while",
-          "example": "My legs ache after the long hike.",
-          "emoji": "🦵"
-        },
-        {
-          "word": "reflex",
-          "definition": "something your body does by itself, before you think",
-          "example": "When the doctor taps your knee, your leg kicks by reflex.",
-          "emoji": "🦿"
-        },
-        {
-          "word": "warning",
-          "definition": "a sign that tells you danger is coming",
-          "example": "The yellow sign is a warning to slow down.",
-          "emoji": "⚠️"
-        },
-        {
-          "word": "bruise",
-          "definition": "a sore, purple mark when blood leaks under your skin",
-          "example": "I got a purple bruise when I bumped the table.",
-          "emoji": "🟣"
-        },
-        {
-          "word": "sensitive",
-          "definition": "quick to feel or notice something",
-          "example": "A cat's whiskers are very sensitive.",
-          "emoji": "🐱"
-        },
-        {
-          "word": "injury",
-          "definition": "harm or damage to your body",
-          "example": "Wear pads to help prevent an injury.",
-          "emoji": "🩹"
-        },
-        {
-          "word": "reflect",
-          "definition": "To bounce light back.",
-          "example": "The Moon reflects sunlight down to us.",
-          "emoji": "🪞"
-        },
-        {
-          "word": "orbit",
-          "definition": "The path something takes as it travels around something else.",
-          "example": "The Moon's orbit around Earth takes about 29 and a half days.",
-          "emoji": "🛰️"
-        },
-        {
-          "word": "phase",
-          "definition": "One step or look in something that changes little by little.",
-          "example": "Tonight the Moon is in its full moon phase.",
-          "emoji": "🌓"
-        },
-        {
-          "word": "cycle",
-          "definition": "Something that happens over and over in the same order.",
-          "example": "The Moon's phases repeat in a cycle every month.",
-          "emoji": "🔄"
-        },
-        {
-          "word": "crescent",
-          "definition": "A curved shape, like a thin slice of a circle.",
-          "example": "A thin crescent Moon looks like a banana in the sky.",
-          "emoji": "🌙"
-        },
-        {
-          "word": "scent",
-          "definition": "A smell, usually a nice one.",
-          "example": "The meadow had a sweet, earthy scent on the foggy morning.",
-          "emoji": "👃"
-        },
-        {
-          "word": "release",
-          "definition": "To let something go or let it out.",
-          "example": "Squashed grass blades release a fresh green smell.",
-          "emoji": "🌱"
-        },
-        {
-          "word": "trapped",
-          "definition": "Stuck in one place and can't get away.",
-          "example": "The cold, still air kept the smells trapped near the ground.",
-          "emoji": "🫙"
-        },
-        {
-          "word": "decompose",
-          "definition": "To slowly break down and rot.",
-          "example": "Fallen leaves decompose as millipedes and microbes eat them.",
-          "emoji": "🍂"
-        },
-        {
-          "word": "trade",
-          "definition": "To give one thing and get a different thing back.",
-          "example": "Sam made a trade: his cookie for an apple.",
-          "emoji": "🤝"
-        },
-        {
-          "word": "barter",
-          "definition": "To swap things without using money.",
-          "example": "Long ago, people would barter eggs for fish.",
-          "emoji": "🔄"
-        },
-        {
-          "word": "value",
-          "definition": "How much something is worth.",
-          "example": "Gold has a high value because people want it.",
-          "emoji": "💎"
-        },
-        {
-          "word": "currency",
-          "definition": "The kind of money a country uses.",
-          "example": "The dollar is the currency of America.",
-          "emoji": "💵"
-        },
-        {
-          "word": "record",
-          "definition": "Writing that keeps track of what happened.",
-          "example": "The bank keeps a record of every purchase.",
-          "emoji": "📒"
-        },
-        {
-          "word": "invade",
-          "definition": "to push into a place where you're not wanted",
-          "example": "Cold germs invade your nose.",
-          "emoji": "🦠"
-        },
-        {
-          "word": "multiply",
-          "definition": "to grow in number, again and again",
-          "example": "Bacteria multiply by splitting in two.",
-          "emoji": "✖️"
-        },
-        {
-          "word": "defend",
-          "definition": "to keep something safe from an attack",
-          "example": "White blood cells defend your body from germs.",
-          "emoji": "🛡️"
-        },
-        {
-          "word": "recognize",
-          "definition": "to know something because you've seen it before",
-          "example": "I recognize my friend's voice on the phone.",
-          "emoji": "👀"
-        },
-        {
-          "word": "prevent",
-          "definition": "to stop something before it happens",
-          "example": "Washing your hands helps prevent colds.",
-          "emoji": "🧼"
-        },
-        {
-          "word": "nuisance",
-          "definition": "something small that keeps bothering you",
-          "example": "The buzzing fly was a nuisance at dinner.",
-          "emoji": "🪰"
-        },
-        {
-          "word": "persistent",
-          "definition": "keeps going and doesn't give up",
-          "example": "The persistent greylings kept coming back.",
-          "emoji": "🔁"
-        },
-        {
-          "word": "fragrant",
-          "definition": "having a strong, nice smell",
-          "example": "The pine resin was very fragrant.",
-          "emoji": "🌲"
-        },
-        {
-          "word": "translucent",
-          "definition": "lets some light through, but you can't see clearly through it",
-          "example": "Amber is translucent, like orange juice.",
-          "emoji": "🟠"
-        },
-        {
-          "word": "preserve",
-          "definition": "to keep something safe so it doesn't rot or change",
-          "example": "Amber can preserve a bug for millions of years.",
-          "emoji": "🫙"
-        },
-        {
-          "word": "colossal",
-          "definition": "enormous; much, much bigger than normal",
-          "example": "A colossal troll crashed through the trees.",
-          "emoji": "🗻"
-        },
-        {
-          "word": "formidable",
-          "definition": "so strong or hard that you must take it seriously",
-          "example": "A troll is a formidable enemy.",
-          "emoji": "⚔️"
-        },
-        {
-          "word": "cumbersome",
-          "definition": "big, heavy and awkward to move",
-          "example": "The giant was slow and cumbersome.",
-          "emoji": "🐘"
-        },
-        {
-          "word": "sturdy",
-          "definition": "strong and solid; hard to break or knock over",
-          "example": "Elephants have sturdy legs like pillars.",
-          "emoji": "🏛️"
-        },
-        {
-          "word": "vulnerable",
-          "definition": "easy to hurt or attack",
-          "example": "Thick hide made the troll vulnerable to sharp arrows.",
-          "emoji": "🎯"
-        },
-        {
-          "word": "transform",
-          "definition": "to change something completely into something new",
-          "example": "A hot fire can transform rock into metal.",
-          "emoji": "✨"
-        },
-        {
-          "word": "durable",
-          "definition": "strong enough to last a long time",
-          "example": "Bronze tools were durable.",
-          "emoji": "🛡️"
-        },
-        {
-          "word": "ingenious",
-          "definition": "very clever and new, like a great invention",
-          "example": "Mixing copper and tin was an ingenious idea.",
-          "emoji": "💡"
-        },
-        {
-          "word": "scarce",
-          "definition": "hard to find because there isn't much of it",
-          "example": "Tin was scarce, so people traded for it.",
-          "emoji": "🔍"
-        },
-        {
-          "word": "brittle",
-          "definition": "hard but easy to crack or snap",
-          "example": "Too much tin makes bronze brittle.",
-          "emoji": "🥨"
-        },
-        {
-          "word": "lurk",
-          "definition": "To hide and wait where people can't see you.",
-          "example": "Brutes lurk in the Black Forest at night.",
-          "emoji": "🌲"
-        },
-        {
-          "word": "clumsy",
-          "definition": "Moving in an awkward way and bumping into things.",
-          "example": "The clumsy Brute bonked the ground instead of me.",
-          "emoji": "🤪"
-        },
-        {
-          "word": "flammable",
-          "definition": "Catches fire easily, like dry wood.",
-          "example": "Wood is flammable, so fire hits a Brute twice as hard.",
-          "emoji": "🔥"
-        },
-        {
-          "word": "rare",
-          "definition": "Not found very often; hard to get.",
-          "example": "A Brute trophy is rare: only about 1 Brute out of 10 drops it.",
-          "emoji": "💎"
-        },
-        {
-          "word": "dormant",
-          "definition": "Asleep or resting, waiting to wake up.",
-          "example": "The seed stayed dormant for 2,000 years.",
-          "emoji": "🌱"
-        },
-        {
-          "word": "camouflage",
-          "definition": "Colors or shapes that help something hide by looking like its surroundings.",
-          "example": "Moss was the stump's camouflage, so hikers walked right past it.",
-          "emoji": "🦎"
-        },
-        {
-          "word": "root",
-          "definition": "The part of a plant that grows under the ground and drinks water.",
-          "example": "Deep under the stump, a lonely root still held onto the soil.",
-          "emoji": "🪴"
-        },
-        {
-          "word": "network",
-          "definition": "Many paths or connections linked together.",
-          "example": "Tiny fungus made a network under the forest floor that woke the stump.",
-          "emoji": "🕸️"
-        },
-        {
-          "word": "decay",
-          "definition": "To slowly break down and rot.",
-          "example": "Rain helped the old wood decay until the stump looked soft and crumbly.",
-          "emoji": "🍂"
-        }
-      ]
+     "word": "dazzle",
+     "definition": "to amaze or blind with bright light",
+     "example": "The fireworks dazzled the crowd.",
+     "emoji": "✨"
+    },
+    {
+     "word": "eager",
+     "definition": "very excited and wanting to do something",
+     "example": "She was eager to open her presents.",
+     "emoji": "😃"
+    },
+    {
+     "word": "fragile",
+     "definition": "easily broken or damaged",
+     "example": "Handle the glass vase, it's fragile.",
+     "emoji": "🥚"
+    },
+    {
+     "word": "gigantic",
+     "definition": "extremely large",
+     "example": "A gigantic wave crashed on the shore.",
+     "emoji": "🐋"
+    },
+    {
+     "word": "hesitate",
+     "definition": "to pause before doing something",
+     "example": "Don't hesitate to ask for help.",
+     "emoji": "🤔"
     }
-  ]
+   ]
+  },
+  {
+   "id": "en-starter-2",
+   "title": "Word List 2",
+   "subtitle": "more starter words",
+   "words": [
+    {
+     "word": "immense",
+     "definition": "extremely large or great",
+     "example": "The immense mountain towered above them.",
+     "emoji": "⛰️"
+    },
+    {
+     "word": "jubilant",
+     "definition": "feeling great joy; triumphant",
+     "example": "The team was jubilant after winning.",
+     "emoji": "🎉"
+    },
+    {
+     "word": "keen",
+     "definition": "sharp or very interested",
+     "example": "She has a keen sense of smell.",
+     "emoji": "👃"
+    },
+    {
+     "word": "luminous",
+     "definition": "giving off light; glowing",
+     "example": "The luminous stars filled the night sky.",
+     "emoji": "🌟"
+    },
+    {
+     "word": "mimic",
+     "definition": "to copy the way someone acts or speaks",
+     "example": "The parrot can mimic human speech.",
+     "emoji": "🦜"
+    },
+    {
+     "word": "nimble",
+     "definition": "quick and light in movement",
+     "example": "The nimble cat leapt onto the fence.",
+     "emoji": "🐈"
+    },
+    {
+     "word": "obstacle",
+     "definition": "something that blocks your way",
+     "example": "They cleared every obstacle on the course.",
+     "emoji": "🚧"
+    },
+    {
+     "word": "peculiar",
+     "definition": "strange or unusual",
+     "example": "There was a peculiar smell in the room.",
+     "emoji": "🤨"
+    }
+   ]
+  },
+  {
+   "id": "en-my-words",
+   "title": "My Words",
+   "subtitle": "words you added",
+   "words": [
+    {
+     "word": "tremble",
+     "definition": "to shake slightly, often from cold, fear, or excitement",
+     "example": "Her hands began to tremble when she opened the mysterious box.",
+     "emoji": "🫨"
+    },
+    {
+     "word": "vivid",
+     "definition": "very bright, clear, and easy to picture in your mind",
+     "example": "She painted a vivid sunset full of orange and pink.",
+     "emoji": "🌅"
+    },
+    {
+     "word": "contaminate",
+     "definition": "to make something dirty or unsafe by adding germs or harmful stuff",
+     "example": "Dirty hands can contaminate the food you're about to eat.",
+     "emoji": "🦠"
+    },
+    {
+     "word": "Minister",
+     "definition": "a person who leads part of a government, or a person who leads religious services",
+     "example": "The minister of education announced a new plan for schools.",
+     "emoji": "🏛️"
+    },
+    {
+     "word": "Particle",
+     "definition": "a piece so tiny you almost can't see it — like the smallest bit of something",
+     "example": "A speck of dust is a tiny particle floating in the air.",
+     "emoji": "✨"
+    },
+    {
+     "word": "digestive",
+     "definition": "having to do with breaking down food so your body can use it",
+     "example": "Your stomach is part of your digestive system.",
+     "emoji": "🍽️"
+    },
+    {
+     "word": "knead",
+     "definition": "to press and fold dough with your hands over and over",
+     "example": "She kneaded the bread dough until it was smooth.",
+     "emoji": "🍞"
+    },
+    {
+     "word": "strict",
+     "definition": "following rules very carefully and expecting others to do the same",
+     "example": "Our coach is strict about arriving on time for practice.",
+     "emoji": "📏"
+    },
+    {
+     "word": "yanked",
+     "definition": "pulled something suddenly and with force",
+     "example": "He yanked the door open when he heard the alarm.",
+     "emoji": "💪"
+    },
+    {
+     "word": "Anchor",
+     "definition": "a heavy object dropped from a boat to hold it in place; also, to hold something firmly down",
+     "example": "The ship dropped its anchor so it wouldn't drift away.",
+     "emoji": "⚓"
+    },
+    {
+     "word": "Syringe",
+     "definition": "a tube with a plunger and needle used to give medicine or take blood",
+     "example": "The nurse filled the syringe before giving him his shot.",
+     "emoji": "💉"
+    },
+    {
+     "word": "Freeloader",
+     "definition": "someone who takes things from others without giving anything back",
+     "example": "He was a freeloader who never chipped in for snacks.",
+     "emoji": "🙄"
+    },
+    {
+     "word": "Approximately",
+     "definition": "almost exactly, but not quite — about that much",
+     "example": "The trip takes approximately two hours.",
+     "emoji": "≈"
+    },
+    {
+     "word": "Seize",
+     "definition": "to grab something quickly and firmly",
+     "example": "She seized the rope before it slipped away.",
+     "emoji": "✊"
+    },
+    {
+     "word": "Atrocious",
+     "definition": "extremely bad or terrible",
+     "example": "The weather was atrocious, so the game was cancelled.",
+     "emoji": "😖"
+    },
+    {
+     "word": "Mental health",
+     "definition": "how well your mind and feelings are doing, just like physical health is about your body",
+     "example": "Talking about your worries is good for your mental health.",
+     "emoji": "🧠"
+    },
+    {
+     "word": "Defy gravity",
+     "definition": "to seem to escape the pull that keeps things on the ground",
+     "example": "The gymnast seemed to defy gravity as she flipped through the air.",
+     "emoji": "🤸"
+    },
+    {
+     "word": "Concussion",
+     "definition": "an injury to the brain from a hard bump or hit to the head",
+     "example": "He wore a helmet to help prevent a concussion.",
+     "emoji": "🪖"
+    },
+    {
+     "word": "Destiny",
+     "definition": "what is meant to happen to someone in the future",
+     "example": "She felt it was her destiny to become a scientist.",
+     "emoji": "🌟"
+    },
+    {
+     "word": "Maneuver",
+     "definition": "to move something carefully and skillfully, often into a tight spot",
+     "example": "He had to maneuver the cart around the narrow corner.",
+     "emoji": "🔄"
+    },
+    {
+     "word": "Prototype",
+     "definition": "a first version of something, built to test the idea before making the real one",
+     "example": "They built a cardboard prototype of the robot before using metal.",
+     "emoji": "🛠️"
+    },
+    {
+     "word": "Fidget",
+     "definition": "to move or wiggle restlessly, often when bored or nervous",
+     "example": "He started to fidget in his chair during the long assembly.",
+     "emoji": "🪑"
+    },
+    {
+     "word": "Mumble",
+     "definition": "to speak quietly and unclearly, so it's hard to understand",
+     "example": "Don't mumble — speak up so everyone can hear you.",
+     "emoji": "🤐"
+    },
+    {
+     "word": "Radiant",
+     "definition": "shining brightly, or looking very happy and glowing",
+     "example": "She gave a radiant smile when she saw the puppy.",
+     "emoji": "🌞"
+    },
+    {
+     "word": "Versatile",
+     "definition": "able to do many different things or be used in many ways",
+     "example": "A smartphone is versatile — it's a camera, a map, and a phone.",
+     "emoji": "🧰"
+    },
+    {
+     "word": "Forsake",
+     "definition": "to leave someone or something behind and stop supporting them",
+     "example": "A loyal friend will never forsake you when things get hard.",
+     "emoji": "💔"
+    },
+    {
+     "word": "Bungalow",
+     "definition": "a small house that is usually all on one floor",
+     "example": "They rented a little bungalow near the beach for the summer.",
+     "emoji": "🏡"
+    },
+    {
+     "word": "Exercise",
+     "definition": "activity that moves your body to keep it strong and healthy",
+     "example": "Riding his bike after school is Sam's favourite exercise.",
+     "emoji": "🏃"
+    },
+    {
+     "word": "Run experiments",
+     "definition": "to carefully test an idea to find out what happens",
+     "example": "Scientists run experiments to see which plants grow fastest.",
+     "emoji": "🔬"
+    },
+    {
+     "word": "Socialize",
+     "definition": "to spend time talking and having fun with other people",
+     "example": "He likes to socialize with his classmates at recess.",
+     "emoji": "🗣️"
+    },
+    {
+     "word": "Brute",
+     "definition": "someone who is rough and cruel, using strength instead of thinking",
+     "example": "The giant was a brute who knocked down everything in his path.",
+     "emoji": "👹"
+    },
+    {
+     "word": "Blitz",
+     "definition": "a sudden, fast attack or a burst of intense effort",
+     "example": "They did a cleaning blitz and tidied the whole house in an hour.",
+     "emoji": "⚡"
+    },
+    {
+     "word": "Neglected",
+     "definition": "not looked after or given attention for a long time",
+     "example": "The neglected garden was full of weeds and dry, brown plants.",
+     "emoji": "🥀"
+    },
+    {
+     "word": "Authorities",
+     "definition": "the people in charge who have the power to make rules and decisions",
+     "example": "The authorities closed the road after the storm.",
+     "emoji": "👮"
+    },
+    {
+     "word": "Cushion",
+     "definition": "a soft pad you sit on; also, to soften a blow or landing",
+     "example": "The thick grass helped cushion his fall.",
+     "emoji": "🛋️"
+    },
+    {
+     "word": "Status",
+     "definition": "the current state of something, or a person's rank or position",
+     "example": "She checked the status of her order to see if it had shipped.",
+     "emoji": "📊"
+    },
+    {
+     "word": "Currently",
+     "definition": "right now, at this moment in time",
+     "example": "He is currently learning to play the piano.",
+     "emoji": "⏳"
+    },
+    {
+     "word": "Violate",
+     "definition": "to break a rule, law, or promise",
+     "example": "Riding a bike on the footpath can violate the town's rules.",
+     "emoji": "🚫"
+    },
+    {
+     "word": "Vegetable",
+     "definition": "a plant or part of a plant grown to be eaten, like carrots or beans",
+     "example": "Broccoli is his favourite vegetable at dinner.",
+     "emoji": "🥦"
+    },
+    {
+     "word": "Stimulate",
+     "definition": "to make something more active, or to spark interest and excitement",
+     "example": "Puzzles stimulate your brain and make you think hard.",
+     "emoji": "💡"
+    },
+    {
+     "word": "Selfish",
+     "definition": "caring only about yourself and not sharing or thinking of others",
+     "example": "It was selfish of him to eat all the cookies without offering any.",
+     "emoji": "🙅"
+    },
+    {
+     "word": "Negotiating",
+     "definition": "talking with someone to reach a deal that works for both sides",
+     "example": "They spent an hour negotiating who would do which chores.",
+     "emoji": "🤝"
+    },
+    {
+     "word": "patience",
+     "definition": "being able to wait a long time without getting upset or giving up",
+     "example": "The assassin bug sat perfectly still for hours — hunting takes patience.",
+     "emoji": "⏳"
+    },
+    {
+     "word": "disguise",
+     "definition": "something you wear or do so people don't know who you really are",
+     "example": "He wore a beard and glasses as a disguise so nobody recognized him.",
+     "emoji": "🥸"
+    },
+    {
+     "word": "deceive",
+     "definition": "to make someone believe something that isn't true",
+     "example": "The bug plucked the web to deceive the spider into thinking a fly was trapped.",
+     "emoji": "🎭"
+    },
+    {
+     "word": "precise",
+     "definition": "exactly right, with nothing off by even a little",
+     "example": "You need a precise measurement, not a close guess.",
+     "emoji": "🎯"
+    },
+    {
+     "word": "lure",
+     "definition": "something that pulls you closer by looking good, like bait",
+     "example": "The bright sign was a lure to get people to stop at the stand.",
+     "emoji": "🪝"
+    },
+    {
+     "word": "vibration",
+     "definition": "a tiny fast shaking you can feel more than see",
+     "example": "She felt the vibration of the train before she could hear it.",
+     "emoji": "📳"
+    },
+    {
+     "word": "absorb",
+     "definition": "to soak something up and take it in",
+     "example": "A paper towel will absorb the spilled milk.",
+     "emoji": "🧽"
+    },
+    {
+     "word": "ingredient",
+     "definition": "one of the things something is made out of",
+     "example": "Flour is the main ingredient in bread.",
+     "emoji": "🥣"
+    },
+    {
+     "word": "gradual",
+     "definition": "happening slowly, a little at a time",
+     "example": "The hill had a gradual slope, so the climb was easy.",
+     "emoji": "📈"
+    },
+    {
+     "word": "artificial",
+     "definition": "made by people to copy something real",
+     "example": "The drink had no fruit in it, just artificial cherry flavor.",
+     "emoji": "🧪"
+    },
+    {
+     "word": "nutrient",
+     "definition": "something in food your body needs to grow and work",
+     "example": "Broccoli is packed with nutrients that help you grow.",
+     "emoji": "🥦"
+    },
+    {
+     "word": "processed",
+     "definition": "changed by lots of steps before it reaches you",
+     "example": "An apple isn't processed, but an apple fruit snack has been through many steps.",
+     "emoji": "🏭"
+    },
+    {
+     "word": "moderation",
+     "definition": "having some, but not too much",
+     "example": "He eats candy in moderation — a little sometimes, not a lot every day.",
+     "emoji": "⚖️"
+    },
+    {
+     "word": "murmur",
+     "definition": "to say something in a low, soft voice that is hard to make out",
+     "example": "The crowd murmured to each other while they waited for the show to start.",
+     "emoji": "🤫"
+    },
+    {
+     "word": "swell",
+     "definition": "to grow bigger by puffing out or filling up",
+     "example": "The bee sting made his thumb swell to twice its normal size.",
+     "emoji": "🎈"
+    },
+    {
+     "word": "knapsack",
+     "definition": "a bag you carry on your back to hold supplies for a trip",
+     "example": "She packed a sandwich, a map, and a flashlight into her knapsack.",
+     "emoji": "🎒"
+    },
+    {
+     "word": "compass",
+     "definition": "a tool with a magnetic needle that always points north so you can find your direction",
+     "example": "When the trail disappeared, the compass showed them which way to go.",
+     "emoji": "🧭"
+    },
+    {
+     "word": "accumulate",
+     "definition": "to gather more and more of something over time",
+     "example": "Leaves accumulate on the lawn if nobody rakes them.",
+     "emoji": "🍂"
+    },
+    {
+     "word": "lens",
+     "definition": "a clear, curved piece that gathers light and sends it to one spot so you can see a picture",
+     "example": "The camera's lens gathered the dim light and made a clear photo.",
+     "emoji": "🔍"
+    },
+    {
+     "word": "focus",
+     "definition": "to bring light or attention to one exact spot so the picture is sharp",
+     "example": "She moved the magnifying glass until the sunlight came to a sharp focus on the leaf.",
+     "emoji": "🎯"
+    },
+    {
+     "word": "density",
+     "definition": "how tightly packed something is — more stuff in the same space means higher density",
+     "example": "Ice has a lower density than liquid water, so it floats.",
+     "emoji": "🧊"
+    },
+    {
+     "word": "saturate",
+     "definition": "to fill with so much water (or other liquid) that no more can squeeze in",
+     "example": "The sponge was saturated, so the rest of the spill ran onto the floor.",
+     "emoji": "💧"
+    },
+    {
+     "word": "friction",
+     "definition": "the grip from surfaces rubbing, or grains locking against each other",
+     "example": "Rubber soles add friction so you don't slip on the wet tile.",
+     "emoji": "🤲"
+    },
+    {
+     "word": "compression",
+     "definition": "a squeeze — a push that shortens or packs something",
+     "example": "The arch uses compression: the stones push together instead of pulling apart.",
+     "emoji": "🧱"
+    },
+    {
+     "word": "tension",
+     "definition": "a pull that stretches something tight",
+     "example": "The bridge cables are under tension, like taut strings holding up the road.",
+     "emoji": "🪢"
+    },
+    {
+     "word": "ambush",
+     "definition": "a hunt where you wait hidden and then strike",
+     "example": "The cat sat still in an ambush behind the couch, then pounced.",
+     "emoji": "🐱"
+    },
+    {
+     "word": "detect",
+     "definition": "to notice something, often with a sense other than a clear look",
+     "example": "She could detect the cookies baking before she even reached the kitchen.",
+     "emoji": "👂"
+    },
+    {
+     "word": "sprout",
+     "definition": "to start growing out of a seed, sending a shoot and a root",
+     "example": "After three days in the jar, the beans began to sprout.",
+     "emoji": "🌱"
+    },
+    {
+     "word": "orient",
+     "definition": "to find and face the right direction",
+     "example": "He used the map to orient himself toward the trailhead.",
+     "emoji": "🧭"
+    },
+    {
+     "word": "rotate",
+     "definition": "to spin around a center line, the way a globe turns",
+     "example": "Earth rotates so day turns into night.",
+     "emoji": "🌍"
+    },
+    {
+     "word": "axis",
+     "definition": "an imaginary stick through the middle that something spins around",
+     "example": "Earth spins around its axis from pole to pole.",
+     "emoji": "📍"
+    },
+    {
+     "word": "horizon",
+     "definition": "the line where the sky seems to meet the land or sea",
+     "example": "The Sun slipped toward the horizon at sunset.",
+     "emoji": "🌄"
+    },
+    {
+     "word": "stoop",
+     "definition": "to bend your body forward and down",
+     "example": "He had to stoop to pick up the pebble.",
+     "emoji": "🙇"
+    },
+    {
+     "word": "wade",
+     "definition": "to walk through shallow water",
+     "example": "They wade across the creek in their boots.",
+     "emoji": "🥾"
+    },
+    {
+     "word": "hobble",
+     "definition": "to walk with difficulty, often because something hurts",
+     "example": "After he stubbed his toe, he had to hobble to the chair.",
+     "emoji": "🤕"
+    },
+    {
+     "word": "carbohydrate",
+     "definition": "a main quick fuel in foods like bread, rice, fruit, and oatmeal",
+     "example": "Oatmeal is rich in carbohydrate that gives lasting go-power for tag.",
+     "emoji": "🍞"
+    },
+    {
+     "word": "protein",
+     "definition": "building material in food that helps repair and grow muscle",
+     "example": "Eggs and beans give protein that helps muscles recover after play.",
+     "emoji": "🥚"
+    },
+    {
+     "word": "fiber",
+     "definition": "the tough plant part that helps you feel full and slows a sugar rush",
+     "example": "An apple with the skin has fiber that slows how fast sugar hits your blood.",
+     "emoji": "🌾"
+    },
+    {
+     "word": "calorie",
+     "definition": "a unit that measures how much energy a food can give",
+     "example": "A calorie is a unit of energy — some foods pack more calories in a small bite.",
+     "emoji": "🔢"
+    },
+    {
+     "word": "stamina",
+     "definition": "energy that lasts through a long game or task",
+     "example": "Good fuel gives you stamina to finish the whole soccer game.",
+     "emoji": "🔋"
+    },
+    {
+     "word": "hydrate",
+     "definition": "to give your body enough water so it can work well",
+     "example": "Drink water after tag so you hydrate and keep your cells working.",
+     "emoji": "💧"
+    },
+    {
+     "word": "cavity",
+     "definition": "a hole in a tooth made over time by acid from mouth germs",
+     "example": "Frequent sugary sips can help cause a cavity in a tooth.",
+     "emoji": "🦷"
+    },
+    {
+     "word": "plaque",
+     "definition": "a sticky film of germs and leftovers on teeth",
+     "example": "Brushing helps wipe away plaque before it harms enamel.",
+     "emoji": "🪥"
+    },
+    {
+     "word": "portion",
+     "definition": "how much of a food you take at one time",
+     "example": "A small portion of chips can be a sometimes food.",
+     "emoji": "🍽️"
+    },
+    {
+     "word": "sodium",
+     "definition": "a part of salt; bodies need a little, not a huge everyday pile",
+     "example": "Many packaged snacks are high in sodium, which can make you thirsty.",
+     "emoji": "🧂"
+    },
+    {
+     "word": "balanced",
+     "definition": "giving the body more than one kind of help at once",
+     "example": "A balanced plate has vegetables, grains, and protein together.",
+     "emoji": "⚖️"
+    },
+    {
+     "word": "variety",
+     "definition": "using different foods and colors so more nutrients show up",
+     "example": "Eating a variety of colorful vegetables brings different helpers.",
+     "emoji": "🌈"
+    },
+    {
+     "word": "label",
+     "definition": "the facts panel on a package that lists servings, sugars, and more",
+     "example": "Read the nutrition label to compare added sugars in two yogurts.",
+     "emoji": "🏷️"
+    },
+    {
+     "word": "serving",
+     "definition": "the amount listed on a label that the numbers refer to",
+     "example": "Check the serving size before you trust the sugar number.",
+     "emoji": "📏"
+    },
+    {
+     "word": "recover",
+     "definition": "to repair and refill after hard play or exercise",
+     "example": "After soccer, a snack with carbs and protein helps you recover.",
+     "emoji": "🩹"
+    },
+    {
+     "word": "Humble",
+     "definition": "not thinking you're better or more important than others, even when you've done something great",
+     "example": "Even after winning, she stayed humble and thanked her whole team.",
+     "emoji": "🙏"
+    },
+    {
+     "word": "Loyal",
+     "definition": "always faithful and supportive to someone, even when things get hard",
+     "example": "His dog was so loyal that it waited by the door for him every day.",
+     "emoji": "🤝"
+    },
+    {
+     "word": "Coincide",
+     "definition": "to happen at the same time as something else",
+     "example": "His birthday happens to coincide with the first day of summer.",
+     "emoji": "📆"
+    },
+    {
+     "word": "Undocumented",
+     "definition": "not written down or officially recorded anywhere",
+     "example": "The old trail was undocumented, so nobody had a map of it.",
+     "emoji": "📄"
+    },
+    {
+     "word": "Curiosity",
+     "definition": "a strong desire to learn or know about something",
+     "example": "Her curiosity led her to open every drawer in the mysterious room.",
+     "emoji": "🔍"
+    },
+    {
+     "word": "Ancestors",
+     "definition": "family members who lived a long time before you, like great-great-grandparents",
+     "example": "Her ancestors came from a small village near the mountains.",
+     "emoji": "🌳"
+    },
+    {
+     "word": "Settlers",
+     "definition": "people who move to a new place to live there and build a home",
+     "example": "The settlers built wooden houses near the river.",
+     "emoji": "🏡"
+    },
+    {
+     "word": "Orchard",
+     "definition": "a piece of land where fruit trees are grown",
+     "example": "They picked apples together in the orchard behind the farm.",
+     "emoji": "🍎"
+    },
+    {
+     "word": "Lumbered",
+     "definition": "moved in a slow, heavy, clumsy way",
+     "example": "The tired bear lumbered back to its cave after a long day.",
+     "emoji": "🐻"
+    },
+    {
+     "word": "Plague",
+     "definition": "a serious disease that spreads quickly and affects many people; also, to bother constantly",
+     "example": "Mosquitoes seemed to plague the campsite every single night.",
+     "emoji": "🦟"
+    },
+    {
+     "word": "Occasionally",
+     "definition": "sometimes, but not often",
+     "example": "We occasionally get pizza for dinner on Fridays.",
+     "emoji": "🕐"
+    },
+    {
+     "word": "Temporary",
+     "definition": "lasting for only a short time, not permanent",
+     "example": "The bridge was temporary until the new one was built.",
+     "emoji": "⏳"
+    },
+    {
+     "word": "Exquisite",
+     "definition": "extremely beautiful or finely made",
+     "example": "The necklace had an exquisite pattern of tiny blue jewels.",
+     "emoji": "✨"
+    },
+    {
+     "word": "Sinister",
+     "definition": "seeming evil or dangerous, like something bad might happen",
+     "example": "The old house had a sinister feeling, with creaky floors and dark windows.",
+     "emoji": "🕷️"
+    },
+    {
+     "word": "Inspired",
+     "definition": "feeling excited and filled with new ideas, often because of something you saw or heard",
+     "example": "After the art show, she felt inspired to paint her own picture.",
+     "emoji": "💡"
+    },
+    {
+     "word": "Stumble",
+     "definition": "to trip or almost fall while walking; also, to come across something by accident",
+     "example": "He tried not to stumble on the loose rocks along the path.",
+     "emoji": "🪨"
+    },
+    {
+     "word": "Rim",
+     "definition": "the outer edge of something round, like a cup or a wheel",
+     "example": "Sam ran his finger around the rim of the drum before he played it.",
+     "emoji": "⭕"
+    },
+    {
+     "word": "Tone",
+     "definition": "the sound quality of a voice or instrument, such as soft, bright, or deep",
+     "example": "The flute had a gentle tone that made the song feel calm.",
+     "emoji": "🎵"
+    },
+    {
+     "word": "Pitch",
+     "definition": "how high or low a sound is",
+     "example": "When Sam sang higher, the pitch of his note went up.",
+     "emoji": "📈"
+    },
+    {
+     "word": "Frequency",
+     "definition": "how many times a sound wave vibrates each second; more means a higher pitch",
+     "example": "A whistle has a high frequency, so it sounds very high and sharp.",
+     "emoji": "📡"
+    },
+    {
+     "word": "Hollow",
+     "definition": "empty inside, with space in the middle",
+     "example": "They tapped the hollow tube and heard a booming echo.",
+     "emoji": "🕳️"
+    },
+    {
+     "word": "Load",
+     "definition": "something heavy you carry or put onto something else",
+     "example": "The wagon held a heavy load of books for the school library.",
+     "emoji": "📦"
+    },
+    {
+     "word": "Mass",
+     "definition": "how much matter is in an object; more mass means it is harder to push",
+     "example": "The bowling ball has more mass than the tennis ball, so it is harder to move.",
+     "emoji": "⚖️"
+    },
+    {
+     "word": "Note",
+     "definition": "a single musical sound with its own pitch",
+     "example": "Sam practiced one note on the piano until it sounded clear.",
+     "emoji": "🎼"
+    },
+    {
+     "word": "Damp",
+     "definition": "a little wet; also, to make a sound quieter by softening vibrations",
+     "example": "She put her hand on the drum to damp the sound so it would not be too loud.",
+     "emoji": "💧"
+    },
+    {
+     "word": "Stem",
+     "definition": "the long thin part that holds up a plant, leaf, or flower; also the upright part of a note",
+     "example": "The flower had a green stem, and the music note had a stem sticking up from its head.",
+     "emoji": "🌱"
+    },
+    {
+     "word": "pressure",
+     "definition": "An invisible push that air or water puts on a surface.",
+     "example": "The air pressure under the wing was higher than the pressure on top.",
+     "emoji": "🌬️"
+    },
+    {
+     "word": "force",
+     "definition": "A push or a pull that can start, stop, or change a motion.",
+     "example": "Gravity is a force that pulls you toward the ground.",
+     "emoji": "💪"
+    },
+    {
+     "word": "lift",
+     "definition": "An upward force that helps a wing stay in the air.",
+     "example": "The airplane's wings made enough lift to leave the runway.",
+     "emoji": "✈️"
+    },
+    {
+     "word": "attach",
+     "definition": "To stick to something and stay with it.",
+     "example": "The magnet will attach to the fridge door.",
+     "emoji": "🧲"
+    },
+    {
+     "word": "atmosphere",
+     "definition": "The blanket of air around Earth.",
+     "example": "Stars look sharper from space because there is no atmosphere in the way.",
+     "emoji": "🌍"
+    },
+    {
+     "word": "reentry",
+     "definition": "Coming back from space into the air, where heating and slowing begin.",
+     "example": "The capsule glowed during reentry as it slammed into thicker air.",
+     "emoji": "🔥"
+    },
+    {
+     "word": "thrust",
+     "definition": "The strong push a rocket engine makes.",
+     "example": "The rocket's thrust shoved it off the launch pad.",
+     "emoji": "🚀"
+    },
+    {
+     "word": "descend",
+     "definition": "To go downward carefully toward a landing or the ground.",
+     "example": "The helicopter began to descend toward the field.",
+     "emoji": "⬇️"
+    },
+    {
+     "word": "hypothesis",
+     "definition": "A careful guess you can check with a test.",
+     "example": "My hypothesis is that the tarantula will hide when the light is on.",
+     "emoji": "🤔"
+    },
+    {
+     "word": "experiment",
+     "definition": "A planned test where you change one thing on purpose.",
+     "example": "We did an experiment to see which ball bounces highest.",
+     "emoji": "🧪"
+    },
+    {
+     "word": "observation",
+     "definition": "Carefully watching and recording what really happens.",
+     "example": "My observation is that the katydid sings more at night.",
+     "emoji": "👀"
+    },
+    {
+     "word": "conclusion",
+     "definition": "What you decide the evidence says after the test.",
+     "example": "Our conclusion was that the bigger cup kept the ice frozen longer.",
+     "emoji": "✅"
+    },
+    {
+     "word": "variable",
+     "definition": "The one thing you change on purpose in a test.",
+     "example": "In our ramp test, the variable was how high we lifted the ramp.",
+     "emoji": "🎚️"
+    }
+   ]
+  },
+  {
+   "id": "en-reading-words",
+   "title": "Reading Words",
+   "subtitle": "words from Daddy School readings",
+   "words": [
+    {
+     "word": "vibrate",
+     "definition": "to shake back and forth very fast",
+     "example": "A guitar string vibrates when you pluck it.",
+     "emoji": "🎸"
+    },
+    {
+     "word": "faint",
+     "definition": "weak and hard to see, hear, or notice",
+     "example": "We heard a faint chirp from the tree.",
+     "emoji": "🤫"
+    },
+    {
+     "word": "similar",
+     "definition": "almost the same, but not exactly",
+     "example": "A katydid's ear is similar to my ear.",
+     "emoji": "👯"
+    },
+    {
+     "word": "eavesdrop",
+     "definition": "to secretly listen to someone else",
+     "example": "The bat eavesdropped on the singing katydid.",
+     "emoji": "👂"
+    },
+    {
+     "word": "ancient",
+     "definition": "very, very old",
+     "example": "Scientists found an ancient wing in the rock.",
+     "emoji": "🦴"
+    },
+    {
+     "word": "signal",
+     "definition": "a sound, sign, or message that tells something",
+     "example": "A green light is a signal to go.",
+     "emoji": "🚦"
+    },
+    {
+     "word": "survive",
+     "definition": "to stay alive through something hard",
+     "example": "Katydid eggs survive the cold winter.",
+     "emoji": "❄️"
+    },
+    {
+     "word": "intelligence",
+     "definition": "being able to learn and figure things out",
+     "example": "It takes intelligence to solve a tricky puzzle.",
+     "emoji": "🧠"
+    },
+    {
+     "word": "example",
+     "definition": "one thing that shows what a whole group is like",
+     "example": "A tarantula is one example of a spider.",
+     "emoji": "🕷️"
+    },
+    {
+     "word": "pattern",
+     "definition": "something that happens again and again",
+     "example": "Red, blue, red, blue is a pattern.",
+     "emoji": "🔁"
+    },
+    {
+     "word": "predict",
+     "definition": "to make a smart guess about what comes next",
+     "example": "I predict it will rain tomorrow.",
+     "emoji": "🔮"
+    },
+    {
+     "word": "confident",
+     "definition": "feeling or sounding very sure",
+     "example": "She gave a confident answer.",
+     "emoji": "💪"
+    },
+    {
+     "word": "hallucination",
+     "definition": "when AI makes something up that isn't true",
+     "example": "The chatbot's made-up bug was a hallucination.",
+     "emoji": "🤖"
+    },
+    {
+     "word": "evidence",
+     "definition": "facts that show whether something is true",
+     "example": "Muddy paw prints were evidence the dog came in.",
+     "emoji": "🔍"
+    },
+    {
+     "word": "private",
+     "definition": "just for you and your family, not for sharing",
+     "example": "Your password is private.",
+     "emoji": "🔒"
+    },
+    {
+     "word": "tool",
+     "definition": "something that helps you do a job",
+     "example": "A hammer is a tool for building.",
+     "emoji": "🔨"
+    },
+    {
+     "word": "future",
+     "definition": "the time that hasn't happened yet",
+     "example": "In the future I want to visit China.",
+     "emoji": "🚀"
+    },
+    {
+     "word": "expert",
+     "definition": "someone who knows a lot about one thing",
+     "example": "Ask a bug expert about katydids.",
+     "emoji": "🎓"
+    },
+    {
+     "word": "disagree",
+     "definition": "to think something different from someone else",
+     "example": "My sister and I disagree about the best color.",
+     "emoji": "🙅"
+    },
+    {
+     "word": "safe",
+     "definition": "not likely to hurt anyone",
+     "example": "Wear a helmet to stay safe on your bike.",
+     "emoji": "🦺"
+    },
+    {
+     "word": "fair",
+     "definition": "treating everyone the right way, not just a few",
+     "example": "Taking turns is fair.",
+     "emoji": "⚖️"
+    },
+    {
+     "word": "momentum",
+     "definition": "how hard it is to stop something that is moving",
+     "example": "A rolling bowling ball has a lot of momentum.",
+     "emoji": "🎳"
+    },
+    {
+     "word": "enormous",
+     "definition": "very, very big",
+     "example": "A blue whale is enormous.",
+     "emoji": "🐋"
+    },
+    {
+     "word": "budge",
+     "definition": "to move even a tiny bit",
+     "example": "The heavy rock would not budge.",
+     "emoji": "🪨"
+    },
+    {
+     "word": "collide",
+     "definition": "to crash or bump into something",
+     "example": "Two bumper cars collide with a thump.",
+     "emoji": "💥"
+    },
+    {
+     "word": "sudden",
+     "definition": "happening very fast, all at once",
+     "example": "The sudden thunder made me jump.",
+     "emoji": "⚡"
+    },
+    {
+     "word": "impact",
+     "definition": "a hard hit when one thing crashes into another",
+     "example": "The impact of the ball knocked over the cups.",
+     "emoji": "🥊"
+    },
+    {
+     "word": "opposite",
+     "definition": "the other way, as different as can be",
+     "example": "Up is the opposite of down.",
+     "emoji": "↕️"
+    },
+    {
+     "word": "equal",
+     "definition": "exactly the same amount",
+     "example": "Two plus two is equal to four.",
+     "emoji": "🟰"
+    },
+    {
+     "word": "rigid",
+     "definition": "stiff; it won't bend",
+     "example": "A metal pole is rigid, but a rope is not.",
+     "emoji": "🧱"
+    },
+    {
+     "word": "flexible",
+     "definition": "able to bend without breaking",
+     "example": "A rubber band is flexible.",
+     "emoji": "🪢"
+    },
+    {
+     "word": "crumple",
+     "definition": "to crush and fold up into wrinkles",
+     "example": "I crumple the paper into a ball.",
+     "emoji": "📄"
+    },
+    {
+     "word": "surface",
+     "definition": "the outside or top layer of something",
+     "example": "A water strider walks on the surface of the pond.",
+     "emoji": "🌊"
+    },
+    {
+     "word": "area",
+     "definition": "how much space a flat surface covers",
+     "example": "The rug covers a big area of the floor.",
+     "emoji": "🟩"
+    },
+    {
+     "word": "protect",
+     "definition": "to keep something safe from harm",
+     "example": "A helmet helps protect your head.",
+     "emoji": "⛑️"
+    },
+    {
+     "word": "nerve",
+     "definition": "a thin wire-like thread in your body that carries messages",
+     "example": "Nerves carry messages from your toes to your brain.",
+     "emoji": "🧠"
+    },
+    {
+     "word": "ache",
+     "definition": "a dull pain that lasts a while",
+     "example": "My legs ache after the long hike.",
+     "emoji": "🦵"
+    },
+    {
+     "word": "reflex",
+     "definition": "something your body does by itself, before you think",
+     "example": "When the doctor taps your knee, your leg kicks by reflex.",
+     "emoji": "🦿"
+    },
+    {
+     "word": "warning",
+     "definition": "a sign that tells you danger is coming",
+     "example": "The yellow sign is a warning to slow down.",
+     "emoji": "⚠️"
+    },
+    {
+     "word": "bruise",
+     "definition": "a sore, purple mark when blood leaks under your skin",
+     "example": "I got a purple bruise when I bumped the table.",
+     "emoji": "🟣"
+    },
+    {
+     "word": "sensitive",
+     "definition": "quick to feel or notice something",
+     "example": "A cat's whiskers are very sensitive.",
+     "emoji": "🐱"
+    },
+    {
+     "word": "injury",
+     "definition": "harm or damage to your body",
+     "example": "Wear pads to help prevent an injury.",
+     "emoji": "🩹"
+    },
+    {
+     "word": "reflect",
+     "definition": "To bounce light back.",
+     "example": "The Moon reflects sunlight down to us.",
+     "emoji": "🪞"
+    },
+    {
+     "word": "orbit",
+     "definition": "The path something takes as it travels around something else.",
+     "example": "The Moon's orbit around Earth takes about 29 and a half days.",
+     "emoji": "🛰️"
+    },
+    {
+     "word": "phase",
+     "definition": "One step or look in something that changes little by little.",
+     "example": "Tonight the Moon is in its full moon phase.",
+     "emoji": "🌓"
+    },
+    {
+     "word": "cycle",
+     "definition": "Something that happens over and over in the same order.",
+     "example": "The Moon's phases repeat in a cycle every month.",
+     "emoji": "🔄"
+    },
+    {
+     "word": "crescent",
+     "definition": "A curved shape, like a thin slice of a circle.",
+     "example": "A thin crescent Moon looks like a banana in the sky.",
+     "emoji": "🌙"
+    },
+    {
+     "word": "scent",
+     "definition": "A smell, usually a nice one.",
+     "example": "The meadow had a sweet, earthy scent on the foggy morning.",
+     "emoji": "👃"
+    },
+    {
+     "word": "release",
+     "definition": "To let something go or let it out.",
+     "example": "Squashed grass blades release a fresh green smell.",
+     "emoji": "🌱"
+    },
+    {
+     "word": "trapped",
+     "definition": "Stuck in one place and can't get away.",
+     "example": "The cold, still air kept the smells trapped near the ground.",
+     "emoji": "🫙"
+    },
+    {
+     "word": "decompose",
+     "definition": "To slowly break down and rot.",
+     "example": "Fallen leaves decompose as millipedes and microbes eat them.",
+     "emoji": "🍂"
+    },
+    {
+     "word": "trade",
+     "definition": "To give one thing and get a different thing back.",
+     "example": "Sam made a trade: his cookie for an apple.",
+     "emoji": "🤝"
+    },
+    {
+     "word": "barter",
+     "definition": "To swap things without using money.",
+     "example": "Long ago, people would barter eggs for fish.",
+     "emoji": "🔄"
+    },
+    {
+     "word": "value",
+     "definition": "How much something is worth.",
+     "example": "Gold has a high value because people want it.",
+     "emoji": "💎"
+    },
+    {
+     "word": "currency",
+     "definition": "The kind of money a country uses.",
+     "example": "The dollar is the currency of America.",
+     "emoji": "💵"
+    },
+    {
+     "word": "record",
+     "definition": "Writing that keeps track of what happened.",
+     "example": "The bank keeps a record of every purchase.",
+     "emoji": "📒"
+    },
+    {
+     "word": "invade",
+     "definition": "to push into a place where you're not wanted",
+     "example": "Cold germs invade your nose.",
+     "emoji": "🦠"
+    },
+    {
+     "word": "multiply",
+     "definition": "to grow in number, again and again",
+     "example": "Bacteria multiply by splitting in two.",
+     "emoji": "✖️"
+    },
+    {
+     "word": "defend",
+     "definition": "to keep something safe from an attack",
+     "example": "White blood cells defend your body from germs.",
+     "emoji": "🛡️"
+    },
+    {
+     "word": "recognize",
+     "definition": "to know something because you've seen it before",
+     "example": "I recognize my friend's voice on the phone.",
+     "emoji": "👀"
+    },
+    {
+     "word": "prevent",
+     "definition": "to stop something before it happens",
+     "example": "Washing your hands helps prevent colds.",
+     "emoji": "🧼"
+    },
+    {
+     "word": "nuisance",
+     "definition": "something small that keeps bothering you",
+     "example": "The buzzing fly was a nuisance at dinner.",
+     "emoji": "🪰"
+    },
+    {
+     "word": "persistent",
+     "definition": "keeps going and doesn't give up",
+     "example": "The persistent greylings kept coming back.",
+     "emoji": "🔁"
+    },
+    {
+     "word": "fragrant",
+     "definition": "having a strong, nice smell",
+     "example": "The pine resin was very fragrant.",
+     "emoji": "🌲"
+    },
+    {
+     "word": "translucent",
+     "definition": "lets some light through, but you can't see clearly through it",
+     "example": "Amber is translucent, like orange juice.",
+     "emoji": "🟠"
+    },
+    {
+     "word": "preserve",
+     "definition": "to keep something safe so it doesn't rot or change",
+     "example": "Amber can preserve a bug for millions of years.",
+     "emoji": "🫙"
+    },
+    {
+     "word": "colossal",
+     "definition": "enormous; much, much bigger than normal",
+     "example": "A colossal troll crashed through the trees.",
+     "emoji": "🗻"
+    },
+    {
+     "word": "formidable",
+     "definition": "so strong or hard that you must take it seriously",
+     "example": "A troll is a formidable enemy.",
+     "emoji": "⚔️"
+    },
+    {
+     "word": "cumbersome",
+     "definition": "big, heavy and awkward to move",
+     "example": "The giant was slow and cumbersome.",
+     "emoji": "🐘"
+    },
+    {
+     "word": "sturdy",
+     "definition": "strong and solid; hard to break or knock over",
+     "example": "Elephants have sturdy legs like pillars.",
+     "emoji": "🏛️"
+    },
+    {
+     "word": "vulnerable",
+     "definition": "easy to hurt or attack",
+     "example": "Thick hide made the troll vulnerable to sharp arrows.",
+     "emoji": "🎯"
+    },
+    {
+     "word": "transform",
+     "definition": "to change something completely into something new",
+     "example": "A hot fire can transform rock into metal.",
+     "emoji": "✨"
+    },
+    {
+     "word": "durable",
+     "definition": "strong enough to last a long time",
+     "example": "Bronze tools were durable.",
+     "emoji": "🛡️"
+    },
+    {
+     "word": "ingenious",
+     "definition": "very clever and new, like a great invention",
+     "example": "Mixing copper and tin was an ingenious idea.",
+     "emoji": "💡"
+    },
+    {
+     "word": "scarce",
+     "definition": "hard to find because there isn't much of it",
+     "example": "Tin was scarce, so people traded for it.",
+     "emoji": "🔍"
+    },
+    {
+     "word": "brittle",
+     "definition": "hard but easy to crack or snap",
+     "example": "Too much tin makes bronze brittle.",
+     "emoji": "🥨"
+    },
+    {
+     "word": "lurk",
+     "definition": "To hide and wait where people can't see you.",
+     "example": "Brutes lurk in the Black Forest at night.",
+     "emoji": "🌲"
+    },
+    {
+     "word": "clumsy",
+     "definition": "Moving in an awkward way and bumping into things.",
+     "example": "The clumsy Brute bonked the ground instead of me.",
+     "emoji": "🤪"
+    },
+    {
+     "word": "flammable",
+     "definition": "Catches fire easily, like dry wood.",
+     "example": "Wood is flammable, so fire hits a Brute twice as hard.",
+     "emoji": "🔥"
+    },
+    {
+     "word": "rare",
+     "definition": "Not found very often; hard to get.",
+     "example": "A Brute trophy is rare: only about 1 Brute out of 10 drops it.",
+     "emoji": "💎"
+    },
+    {
+     "word": "dormant",
+     "definition": "Asleep or resting, waiting to wake up.",
+     "example": "The seed stayed dormant for 2,000 years.",
+     "emoji": "🌱"
+    },
+    {
+     "word": "camouflage",
+     "definition": "Colors or shapes that help something hide by looking like its surroundings.",
+     "example": "Moss was the stump's camouflage, so hikers walked right past it.",
+     "emoji": "🦎"
+    },
+    {
+     "word": "root",
+     "definition": "The part of a plant that grows under the ground and drinks water.",
+     "example": "Deep under the stump, a lonely root still held onto the soil.",
+     "emoji": "🪴"
+    },
+    {
+     "word": "network",
+     "definition": "Many paths or connections linked together.",
+     "example": "Tiny fungus made a network under the forest floor that woke the stump.",
+     "emoji": "🕸️"
+    },
+    {
+     "word": "decay",
+     "definition": "To slowly break down and rot.",
+     "example": "Rain helped the old wood decay until the stump looked soft and crumbly.",
+     "emoji": "🍂"
+    },
+    {
+     "word": "accelerate",
+     "definition": "To speed up.",
+     "example": "The car will accelerate when the light turns green.",
+     "emoji": "🏎️"
+    },
+    {
+     "word": "effort",
+     "definition": "How hard you try.",
+     "example": "It took a lot of effort to push the wagon of rocks.",
+     "emoji": "💪"
+    },
+    {
+     "word": "double",
+     "definition": "To make two times as much.",
+     "example": "If you double the push, you double the zoom.",
+     "emoji": "✌️"
+    },
+    {
+     "word": "compare",
+     "definition": "To look at two things to see how they are alike and different.",
+     "example": "Compare the empty wagon and the full wagon.",
+     "emoji": "⚖️"
+    },
+    {
+     "word": "gentle",
+     "definition": "Soft and careful.",
+     "example": "Give June a gentle push in the wagon.",
+     "emoji": "🧸"
+    },
+    {
+     "word": "recoil",
+     "definition": "To kick back when something pushes out.",
+     "example": "The hose will recoil when the water sprays out.",
+     "emoji": "↩️"
+    },
+    {
+     "word": "burst",
+     "definition": "To rush out or break open suddenly.",
+     "example": "Air will burst out of the balloon.",
+     "emoji": "💥"
+    },
+    {
+     "word": "exhaust",
+     "definition": "Used-up gas that comes out of an engine. (Also: very tired!)",
+     "example": "Hot exhaust blasts out of the rocket.",
+     "emoji": "💨"
+    },
+    {
+     "word": "launch",
+     "definition": "To take off or send into the air.",
+     "example": "The rocket will launch at noon.",
+     "emoji": "🚀"
+    },
+    {
+     "word": "propel",
+     "definition": "To push something forward.",
+     "example": "Your feet propel you through the pool.",
+     "emoji": "🏊"
+    },
+    {
+     "word": "texture",
+     "definition": "The way a surface feels when you touch it.",
+     "example": "Sandpaper has a rough texture.",
+     "emoji": "✋"
+    },
+    {
+     "word": "coarse",
+     "definition": "Rough, with big bumps or pieces.",
+     "example": "Coarse sandpaper makes lots of friction.",
+     "emoji": "🪨"
+    },
+    {
+     "word": "polish",
+     "definition": "To rub something to make it smooth and shiny.",
+     "example": "We polish the floor until it shines.",
+     "emoji": "✨"
+    },
+    {
+     "word": "slick",
+     "definition": "Smooth and slippery.",
+     "example": "The ice was so slick that I slid.",
+     "emoji": "🧊"
+    },
+    {
+     "word": "grip",
+     "definition": "To hold on tight without slipping.",
+     "example": "Sneakers grip the floor.",
+     "emoji": "👟"
+    },
+    {
+     "word": "weight",
+     "definition": "How hard gravity pulls on something.",
+     "example": "My weight on the Moon would be about 8 pounds.",
+     "emoji": "⚖️"
+    },
+    {
+     "word": "plummet",
+     "definition": "To fall straight down, very fast.",
+     "example": "The diver plummets into the pool.",
+     "emoji": "⬇️"
+    },
+    {
+     "word": "drift",
+     "definition": "To move slowly, carried by air or water.",
+     "example": "The feather drifts down to the floor.",
+     "emoji": "🪶"
+    },
+    {
+     "word": "tumble",
+     "definition": "To fall while rolling or flipping over.",
+     "example": "The paper tumbles through the air.",
+     "emoji": "🤸"
+    },
+    {
+     "word": "attract",
+     "definition": "To pull something toward you.",
+     "example": "Earth attracts the Moon with gravity.",
+     "emoji": "🧲"
+    },
+    {
+     "word": "microscopic",
+     "definition": "Too small to see without a microscope.",
+     "example": "Atoms are microscopic.",
+     "emoji": "🔬"
+    },
+    {
+     "word": "jiggle",
+     "definition": "To shake back and forth in quick little moves.",
+     "example": "Molecules jiggle all the time.",
+     "emoji": "〰️"
+    },
+    {
+     "word": "cluster",
+     "definition": "A group of things close together.",
+     "example": "Ice molecules sit in a tight cluster.",
+     "emoji": "🍇"
+    },
+    {
+     "word": "squeeze",
+     "definition": "To press hard on something from the sides.",
+     "example": "Squeeze the balloon and the air gets squished.",
+     "emoji": "🤏"
+    },
+    {
+     "word": "evaporate",
+     "definition": "To change from a liquid into a gas.",
+     "example": "The puddle evaporated in the sun.",
+     "emoji": "☀️"
+    },
+    {
+     "word": "reverse",
+     "definition": "To go back to the way it was before.",
+     "example": "You can reverse melting by freezing.",
+     "emoji": "🔄"
+    },
+    {
+     "word": "mixture",
+     "definition": "Two or more things mixed but not changed.",
+     "example": "Trail mix is a mixture.",
+     "emoji": "🥣"
+    },
+    {
+     "word": "dissolve",
+     "definition": "To break into tiny pieces and spread through a liquid.",
+     "example": "Sugar dissolves in water.",
+     "emoji": "🥄"
+    },
+    {
+     "word": "fizz",
+     "definition": "To make lots of tiny bubbles with a hiss.",
+     "example": "The soda fizzes when you open it.",
+     "emoji": "🫧"
+    },
+    {
+     "word": "permanent",
+     "definition": "Lasting forever; can't be undone.",
+     "example": "Baking a cake is permanent.",
+     "emoji": "🔒"
+    },
+    {
+     "word": "business",
+     "definition": "People who make or do things others want, and get paid.",
+     "example": "My shop is a small business.",
+     "emoji": "🏪"
+    },
+    {
+     "word": "customer",
+     "definition": "A person who buys from a business.",
+     "example": "My first customer bought a sticker sheet.",
+     "emoji": "🙋"
+    },
+    {
+     "word": "product",
+     "definition": "A thing a business sells that you can hold.",
+     "example": "Bug cards are my product.",
+     "emoji": "📦"
+    },
+    {
+     "word": "service",
+     "definition": "A job you do for someone.",
+     "example": "Cutting hair is a service.",
+     "emoji": "✂️"
+    },
+    {
+     "word": "earn",
+     "definition": "To get money for work you did.",
+     "example": "I earn money when I sell stickers.",
+     "emoji": "💵"
+    },
+    {
+     "word": "price",
+     "definition": "How much money a customer pays.",
+     "example": "The price is one dollar.",
+     "emoji": "🏷️"
+    },
+    {
+     "word": "cost",
+     "definition": "How much you pay to make something.",
+     "example": "Each cup costs 30 cents to make.",
+     "emoji": "🧾"
+    },
+    {
+     "word": "profit",
+     "definition": "The money you keep after paying your costs.",
+     "example": "I made $2 profit.",
+     "emoji": "💰"
+    },
+    {
+     "word": "supplies",
+     "definition": "The things you need to make your product.",
+     "example": "My supplies are paper and ink.",
+     "emoji": "🧰"
+    },
+    {
+     "word": "afford",
+     "definition": "To have enough money to pay for something.",
+     "example": "Can you afford a $1 sticker?",
+     "emoji": "👛"
+    },
+    {
+     "word": "promise",
+     "definition": "Saying you will do something, then doing it.",
+     "example": "My sign is a promise to customers.",
+     "emoji": "🤝"
+    },
+    {
+     "word": "honest",
+     "definition": "Telling the truth.",
+     "example": "An honest sign tells what you get.",
+     "emoji": "✅"
+    },
+    {
+     "word": "advertise",
+     "definition": "To tell lots of people about something you sell.",
+     "example": "We advertise with a bright poster.",
+     "emoji": "📣"
+    },
+    {
+     "word": "review",
+     "definition": "What a customer says about a product.",
+     "example": "She gave my cards a five-star review.",
+     "emoji": "⭐"
+    },
+    {
+     "word": "recommend",
+     "definition": "To tell someone a thing is good and they should try it.",
+     "example": "I recommend the bug cards.",
+     "emoji": "👍"
+    }
+   ]
+  }
+ ]
 }
