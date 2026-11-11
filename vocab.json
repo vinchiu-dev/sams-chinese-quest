@@ -1,6 +1,6 @@
 {
-  "version": 6,
-  "updated": "2026-11-07",
+  "version": 7,
+  "updated": "2026-11-11",
   "lessons": [
     {
       "id": "little-fox-school-supplies",
@@ -2974,6 +2974,85 @@
           ]
         }
       ]
+    },
+    {
+      "id": "who-is-he-she",
+      "title": "Who Is He? Who Is She?",
+      "subtitle": "他是谁？她是谁？ — he, she, my teacher",
+      "words": [
+        {
+          "hanzi": "他",
+          "pinyin": "tā",
+          "en": "he / him",
+          "emoji": "👨",
+          "phrases": [
+            {
+              "en": "Who is he?",
+              "pinyin": "Tā shì shéi?",
+              "hanzi": "他是谁？"
+            },
+            {
+              "en": "He is my dad.",
+              "pinyin": "Tā shì wǒ de bàba.",
+              "hanzi": "他是我的爸爸。"
+            }
+          ]
+        },
+        {
+          "hanzi": "她",
+          "pinyin": "tā",
+          "en": "she / her",
+          "emoji": "👩",
+          "phrases": [
+            {
+              "en": "Who is she?",
+              "pinyin": "Tā shì shéi?",
+              "hanzi": "她是谁？"
+            },
+            {
+              "en": "She is my mom.",
+              "pinyin": "Tā shì wǒ de māma.",
+              "hanzi": "她是我的妈妈。"
+            }
+          ]
+        },
+        {
+          "hanzi": "老师",
+          "pinyin": "lǎoshī",
+          "en": "teacher",
+          "emoji": "🧑‍🏫",
+          "phrases": [
+            {
+              "en": "He is my teacher.",
+              "pinyin": "Tā shì wǒ de lǎoshī.",
+              "hanzi": "他是我的老师。"
+            },
+            {
+              "en": "Hello, teacher!",
+              "pinyin": "Lǎoshī hǎo!",
+              "hanzi": "老师好！"
+            }
+          ]
+        },
+        {
+          "hanzi": "我的",
+          "pinyin": "wǒ de",
+          "en": "my / mine",
+          "emoji": "🙋",
+          "phrases": [
+            {
+              "en": "She is my big sister.",
+              "pinyin": "Tā shì wǒ de jiějie.",
+              "hanzi": "她是我的姐姐。"
+            },
+            {
+              "en": "my teacher",
+              "pinyin": "wǒ de lǎoshī",
+              "hanzi": "我的老师"
+            }
+          ]
+        }
+      ]
     }
   ],
   "tagMap": {
@@ -3144,6 +3223,9 @@
     ],
     "sweetapple": [
       "apples-are-sweet"
+    ],
+    "whoishe": [
+      "who-is-he-she"
     ]
   },
   "sentences": [
@@ -5306,6 +5388,42 @@
       "pinyin": "Nǐ de zhīzhū chī píngguǒ ma?",
       "hanzi": "你的蜘蛛吃苹果吗？",
       "tag": "sweetapple"
+    },
+    {
+      "en": "Who is he? He is my teacher.",
+      "pinyin": "Tā shì shéi? Tā shì wǒ de lǎoshī.",
+      "hanzi": "他是谁？他是我的老师。",
+      "tag": "whoishe"
+    },
+    {
+      "en": "Who is she? She is my big sister.",
+      "pinyin": "Tā shì shéi? Tā shì wǒ de jiějie.",
+      "hanzi": "她是谁？她是我的姐姐。",
+      "tag": "whoishe"
+    },
+    {
+      "en": "He is my grandpa. He likes little birds.",
+      "pinyin": "Tā shì wǒ de yéye. Tā xǐhuan xiǎoniǎo.",
+      "hanzi": "他是我的爷爷。他喜欢小鸟。",
+      "tag": "whoishe"
+    },
+    {
+      "en": "My teacher is so cool!",
+      "pinyin": "Wǒ de lǎoshī tài kù le!",
+      "hanzi": "我的老师太酷了！",
+      "tag": "whoishe"
+    },
+    {
+      "en": "She is my mom. She loves to eat apples.",
+      "pinyin": "Tā shì wǒ de māma. Tā ài chī píngguǒ.",
+      "hanzi": "她是我的妈妈。她爱吃苹果。",
+      "tag": "whoishe"
+    },
+    {
+      "en": "My teacher is from China.",
+      "pinyin": "Wǒ de lǎoshī láizì Zhōngguó.",
+      "hanzi": "我的老师来自中国。",
+      "tag": "whoishe"
     }
   ]
 }
