@@ -1,6 +1,6 @@
 {
- "version": 12,
- "updated": "2026-11-09",
+ "version": 13,
+ "updated": "2026-11-12",
  "lists": [
   {
    "id": "en-starter-1",
@@ -1689,6 +1689,36 @@
      "definition": "To tell someone a thing is good and they should try it.",
      "example": "I recommend the bug cards.",
      "emoji": "👍"
+    },
+    {
+     "word": "twirl",
+     "definition": "To spin around and around.",
+     "example": "The crate starts to twirl when you toss it.",
+     "emoji": "🌀"
+    },
+    {
+     "word": "curve",
+     "definition": "A path that bends, not a straight line.",
+     "example": "The block travels in a curve, not a straight line.",
+     "emoji": "↪️"
+    },
+    {
+     "word": "inward",
+     "definition": "Toward the middle.",
+     "example": "The crate's bottom pushes the block inward.",
+     "emoji": "🎯"
+    },
+    {
+     "word": "press",
+     "definition": "To push steadily against something.",
+     "example": "The block and the crate press against each other.",
+     "emoji": "✋"
+    },
+    {
+     "word": "path",
+     "definition": "The way something moves or travels.",
+     "example": "Without a push, the block would fly off in a straight path.",
+     "emoji": "🛤️"
     }
    ]
   }
