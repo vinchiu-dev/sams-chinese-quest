@@ -1,6 +1,6 @@
 {
-  "version": 7,
-  "updated": "2026-11-11",
+  "version": 8,
+  "updated": "2026-11-16",
   "lessons": [
     {
       "id": "little-fox-school-supplies",
@@ -3053,6 +3053,103 @@
           ]
         }
       ]
+    },
+    {
+      "id": "mika-tall-teacher",
+      "title": "My Teacher Is Tall",
+      "subtitle": "他个子很高 — Mika's teacher says hello",
+      "words": [
+        {
+          "hanzi": "很",
+          "pinyin": "hěn",
+          "en": "very",
+          "emoji": "💯",
+          "phrases": [
+            {
+              "en": "very tall",
+              "pinyin": "hěn gāo",
+              "hanzi": "很高"
+            },
+            {
+              "en": "Apples are very sweet.",
+              "pinyin": "Píngguǒ hěn tián.",
+              "hanzi": "苹果很甜。"
+            }
+          ]
+        },
+        {
+          "hanzi": "高",
+          "pinyin": "gāo",
+          "en": "tall / high",
+          "emoji": "🦒",
+          "phrases": [
+            {
+              "en": "Giraffes are very tall.",
+              "pinyin": "Chángjǐnglù hěn gāo.",
+              "hanzi": "长颈鹿很高。"
+            },
+            {
+              "en": "He is very tall.",
+              "pinyin": "Tā gèzi hěn gāo.",
+              "hanzi": "他个子很高。"
+            }
+          ]
+        },
+        {
+          "hanzi": "个子",
+          "pinyin": "gèzi",
+          "en": "height (how tall someone is)",
+          "emoji": "📏",
+          "phrases": [
+            {
+              "en": "He is very tall.",
+              "pinyin": "Tā gèzi hěn gāo.",
+              "hanzi": "他个子很高。"
+            },
+            {
+              "en": "My dad is tall.",
+              "pinyin": "Wǒ bàba gèzi hěn gāo.",
+              "hanzi": "我爸爸个子很高。"
+            }
+          ]
+        },
+        {
+          "hanzi": "手",
+          "pinyin": "shǒu",
+          "en": "hand / arm",
+          "emoji": "✋",
+          "phrases": [
+            {
+              "en": "His arms are long too.",
+              "pinyin": "Shǒu yě hěn cháng.",
+              "hanzi": "手也很长。"
+            },
+            {
+              "en": "my hand",
+              "pinyin": "wǒ de shǒu",
+              "hanzi": "我的手"
+            }
+          ]
+        },
+        {
+          "hanzi": "长",
+          "pinyin": "cháng",
+          "en": "long",
+          "emoji": "📐",
+          "phrases": [
+            {
+              "en": "His arms are long too.",
+              "pinyin": "Shǒu yě hěn cháng.",
+              "hanzi": "手也很长。"
+            },
+            {
+              "en": "This ruler is too long.",
+              "pinyin": "Zhè bǎ chǐzi tài cháng le.",
+              "hanzi": "这把尺子太长了。"
+            }
+          ]
+        }
+      ]
     }
   ],
   "tagMap": {
@@ -3226,6 +3323,9 @@
     ],
     "whoishe": [
       "who-is-he-she"
+    ],
+    "tallteacher": [
+      "mika-tall-teacher"
     ]
   },
   "sentences": [
@@ -5424,6 +5524,36 @@
       "pinyin": "Wǒ de lǎoshī láizì Zhōngguó.",
       "hanzi": "我的老师来自中国。",
       "tag": "whoishe"
+    },
+    {
+      "en": "Mika, who is he? He is my teacher.",
+      "pinyin": "Mǐkǎ, tā shì shéi? Tā shì wǒ de lǎoshī.",
+      "hanzi": "米卡，他是谁？他是我的老师。",
+      "tag": "tallteacher"
+    },
+    {
+      "en": "He is very tall, and his arms are long too.",
+      "pinyin": "Tā gèzi hěn gāo, shǒu yě hěn cháng.",
+      "hanzi": "他个子很高，手也很长。",
+      "tag": "tallteacher"
+    },
+    {
+      "en": "My dad is very tall. I'm tall too!",
+      "pinyin": "Wǒ bàba gèzi hěn gāo, wǒ yě hěn gāo!",
+      "hanzi": "我爸爸个子很高，我也很高！",
+      "tag": "tallteacher"
+    },
+    {
+      "en": "My hand is small. Dad's hand is big.",
+      "pinyin": "Wǒ de shǒu hěn xiǎo, bàba de shǒu hěn dà.",
+      "hanzi": "我的手很小，爸爸的手很大。",
+      "tag": "tallteacher"
+    },
+    {
+      "en": "My tarantula has eight legs. Its legs are very long.",
+      "pinyin": "Wǒ de zhīzhū yǒu bā zhī jiǎo, jiǎo hěn cháng.",
+      "hanzi": "我的蜘蛛有八只脚，脚很长。",
+      "tag": "tallteacher"
     }
   ]
 }
