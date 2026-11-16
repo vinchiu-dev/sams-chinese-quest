@@ -1,6 +1,6 @@
 {
- "version": 13,
- "updated": "2026-11-12",
+ "version": 14,
+ "updated": "2026-11-16",
  "lists": [
   {
    "id": "en-starter-1",
@@ -1719,6 +1719,36 @@
      "definition": "The way something moves or travels.",
      "example": "Without a push, the block would fly off in a straight path.",
      "emoji": "🛤️"
+    },
+    {
+     "word": "gleam",
+     "definition": "To shine with a soft, bright light.",
+     "example": "New bronze can gleam like gold in the sun.",
+     "emoji": "✨"
+    },
+    {
+     "word": "pure",
+     "definition": "Made of just one thing, with nothing mixed in.",
+     "example": "Pure copper is soft, so it bends easily.",
+     "emoji": "💧"
+    },
+    {
+     "word": "tougher",
+     "definition": "Harder to break or bend than something else.",
+     "example": "Mixing tin into copper makes bronze tougher than copper alone.",
+     "emoji": "💪"
+    },
+    {
+     "word": "discover",
+     "definition": "To find or learn something for the first time.",
+     "example": "Long ago, people discovered that melting copper and tin together made bronze.",
+     "emoji": "🔍"
+    },
+    {
+     "word": "valuable",
+     "definition": "Worth a lot, or very useful.",
+     "example": "Bronze tools were valuable because they stayed sharp and strong.",
+     "emoji": "💎"
     }
    ]
   }
