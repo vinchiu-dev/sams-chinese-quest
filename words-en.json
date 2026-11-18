@@ -1,6 +1,6 @@
 {
- "version": 14,
- "updated": "2026-11-16",
+ "version": 15,
+ "updated": "2026-11-18",
  "lists": [
   {
    "id": "en-starter-1",
@@ -1721,34 +1721,34 @@
      "emoji": "🛤️"
     },
     {
-     "word": "gleam",
-     "definition": "To shine with a soft, bright light.",
-     "example": "New bronze can gleam like gold in the sun.",
-     "emoji": "✨"
+     "word": "alloy",
+     "definition": "A metal made by mixing a metal with other metals or materials, like bronze or steel.",
+     "example": "Bronze is an alloy made by mixing copper and tin.",
+     "emoji": "⚗️"
     },
     {
-     "word": "pure",
-     "definition": "Made of just one thing, with nothing mixed in.",
-     "example": "Pure copper is soft, so it bends easily.",
-     "emoji": "💧"
+     "word": "extract",
+     "definition": "To take or pull something out, often with a lot of work.",
+     "example": "Miners had to extract copper from rocks deep in the ground.",
+     "emoji": "⛏️"
     },
     {
-     "word": "tougher",
-     "definition": "Harder to break or bend than something else.",
-     "example": "Mixing tin into copper makes bronze tougher than copper alone.",
-     "emoji": "💪"
+     "word": "exception",
+     "definition": "Something that doesn't follow the usual rule.",
+     "example": "Most metals get dull over time, but gold is an exception and stays shiny.",
+     "emoji": "🦄"
     },
     {
-     "word": "discover",
-     "definition": "To find or learn something for the first time.",
-     "example": "Long ago, people discovered that melting copper and tin together made bronze.",
-     "emoji": "🔍"
+     "word": "historian",
+     "definition": "A person who studies the past and tells its story.",
+     "example": "A historian can tell us when people first made bronze tools.",
+     "emoji": "📜"
     },
     {
-     "word": "valuable",
-     "definition": "Worth a lot, or very useful.",
-     "example": "Bronze tools were valuable because they stayed sharp and strong.",
-     "emoji": "💎"
+     "word": "magnetic",
+     "definition": "Able to pull on iron or be pulled by a magnet.",
+     "example": "Iron is magnetic, but bronze is not.",
+     "emoji": "🧲"
     }
    ]
   }
