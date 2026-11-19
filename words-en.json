@@ -1,6 +1,6 @@
 {
- "version": 15,
- "updated": "2026-11-18",
+ "version": 16,
+ "updated": "2026-11-19",
  "lists": [
   {
    "id": "en-starter-1",
@@ -1749,6 +1749,66 @@
      "definition": "Able to pull on iron or be pulled by a magnet.",
      "example": "Iron is magnetic, but bronze is not.",
      "emoji": "🧲"
+    },
+    {
+     "word": "inertia",
+     "definition": "An object's habit of staying still or staying in motion until a force changes it.",
+     "example": "Inertia kept the dishes still when the tablecloth was pulled.",
+     "emoji": "🍽️"
+    },
+    {
+     "word": "resist",
+     "definition": "To fight against something or refuse to change.",
+     "example": "The heavy couch resists being pushed.",
+     "emoji": "🛋️"
+    },
+    {
+     "word": "stubborn",
+     "definition": "Not wanting to change.",
+     "example": "The stubborn ball would not roll until I kicked it.",
+     "emoji": "🐂"
+    },
+    {
+     "word": "lurch",
+     "definition": "To make a sudden, jerky movement.",
+     "example": "The bus stopped and everyone lurched forward.",
+     "emoji": "🚌"
+    },
+    {
+     "word": "constant",
+     "definition": "Staying the same and not changing.",
+     "example": "In space, the ball floats at a constant speed.",
+     "emoji": "➡️"
+    },
+    {
+     "word": "navigate",
+     "definition": "To find your way from place to place.",
+     "example": "The whip spider can navigate home in the dark.",
+     "emoji": "🧭"
+    },
+    {
+     "word": "delicate",
+     "definition": "Thin and easily hurt.",
+     "example": "Its feeler legs are long and delicate.",
+     "emoji": "🪶"
+    },
+    {
+     "word": "nocturnal",
+     "definition": "Awake at night and resting during the day.",
+     "example": "Owls and whip spiders are nocturnal.",
+     "emoji": "🌙"
+    },
+    {
+     "word": "emerge",
+     "definition": "To come out of something.",
+     "example": "The whip spider will emerge from its old skin.",
+     "emoji": "🐣"
+    },
+    {
+     "word": "ancestor",
+     "definition": "A relative who lived long, long ago.",
+     "example": "Its ancestors lived before the dinosaurs.",
+     "emoji": "🦴"
     }
    ]
   }
