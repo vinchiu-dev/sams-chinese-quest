@@ -1,6 +1,6 @@
 {
- "version": 16,
- "updated": "2026-11-19",
+ "version": 17,
+ "updated": "2026-11-20",
  "lists": [
   {
    "id": "en-starter-1",
@@ -1809,6 +1809,36 @@
      "definition": "A relative who lived long, long ago.",
      "example": "Its ancestors lived before the dinosaurs.",
      "emoji": "🦴"
+    },
+    {
+     "word": "compact",
+     "definition": "Packed tightly together, not spread out.",
+     "example": "The skinny stream stayed compact, like a smooth rope of water.",
+     "emoji": "🪢"
+    },
+    {
+     "word": "nozzle",
+     "definition": "The shaped opening at the end of a hose or faucet that aims the water.",
+     "example": "He twisted the hose nozzle to change the spray.",
+     "emoji": "🚿"
+    },
+    {
+     "word": "bulge",
+     "definition": "A rounded, fatter part that sticks out.",
+     "example": "A bulge grew in the stream just before it broke into drops.",
+     "emoji": "🫧"
+    },
+    {
+     "word": "scatter",
+     "definition": "To spread out in many directions.",
+     "example": "The uneven opening made the water scatter into many drops.",
+     "emoji": "💦"
+    },
+    {
+     "word": "spiral",
+     "definition": "A shape that curls around and around as it goes forward.",
+     "example": "An uneven opening can twist a stream into a spiral.",
+     "emoji": "🌀"
     }
    ]
   }
