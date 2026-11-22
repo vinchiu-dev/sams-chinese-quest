@@ -1,6 +1,6 @@
 {
- "version": 18,
- "updated": "2026-11-21",
+ "version": 19,
+ "updated": "2026-11-22",
  "lists": [
   {
    "id": "en-starter-1",
@@ -2289,6 +2289,1236 @@
      "definition": "Not even or not the same all over.",
      "example": "The rock had an irregular shape.",
      "emoji": "🪨"
+    },
+    {
+     "word": "hierarchy",
+     "definition": "A ranking of who is in charge, from top to bottom.",
+     "example": "The pack has a hierarchy, with the parents on top.",
+     "emoji": "🪜"
+    },
+    {
+     "word": "communicate",
+     "definition": "To share ideas or feelings with someone.",
+     "example": "Wolves communicate with howls and tail moves.",
+     "emoji": "📣"
+    },
+    {
+     "word": "strategy",
+     "definition": "A smart plan to reach a goal.",
+     "example": "The pack used a strategy to tire out the elk.",
+     "emoji": "🧠"
+    },
+    {
+     "word": "domesticated",
+     "definition": "Tamed by people over many years so it can live with us.",
+     "example": "Dogs are domesticated wolves.",
+     "emoji": "🐕"
+    },
+    {
+     "word": "ecosystem",
+     "definition": "All the living things in a place and how they depend on each other.",
+     "example": "Wolves helped the whole ecosystem in the park.",
+     "emoji": "🌲"
+    },
+    {
+     "word": "habitat",
+     "definition": "The natural home of a plant or animal.",
+     "example": "A still pond is a mosquito habitat.",
+     "emoji": "🏞️"
+    },
+    {
+     "word": "proboscis",
+     "definition": "A long, thin mouth part used for sucking.",
+     "example": "The mosquito poked with its proboscis.",
+     "emoji": "🪡"
+    },
+    {
+     "word": "exhale",
+     "definition": "To breathe out.",
+     "example": "Every time you exhale, you send out carbon dioxide.",
+     "emoji": "💨"
+    },
+    {
+     "word": "nourishment",
+     "definition": "Food that helps a living thing grow and stay healthy.",
+     "example": "Mosquito moms need blood as nourishment for their eggs.",
+     "emoji": "🍎"
+    },
+    {
+     "word": "larvae",
+     "definition": "Baby insects that look like little worms.",
+     "example": "Mosquito larvae wiggle in the water.",
+     "emoji": "🐛"
+    },
+    {
+     "word": "cultivate",
+     "definition": "To prepare land and grow crops on it.",
+     "example": "Vikings had to cultivate the soil before planting.",
+     "emoji": "🧑‍🌾"
+    },
+    {
+     "word": "fertile",
+     "definition": "Good for growing lots of healthy plants.",
+     "example": "Dark, rich soil is fertile.",
+     "emoji": "🌱"
+    },
+    {
+     "word": "embryo",
+     "definition": "A tiny baby plant or animal at its very start.",
+     "example": "The bean's embryo was curled up inside.",
+     "emoji": "🫘"
+    },
+    {
+     "word": "photosynthesis",
+     "definition": "How plants make food from sunlight, water and air.",
+     "example": "Leaves do photosynthesis all day.",
+     "emoji": "☀️"
+    },
+    {
+     "word": "agriculture",
+     "definition": "Farming: growing crops and raising animals.",
+     "example": "Agriculture feeds the whole world.",
+     "emoji": "🚜"
+    },
+    {
+     "word": "ore",
+     "definition": "Rock that has a useful metal hidden inside it.",
+     "example": "Bog iron ore looks like rusty lumps.",
+     "emoji": "🪨"
+    },
+    {
+     "word": "scarcity",
+     "definition": "When there isn't enough of something.",
+     "example": "The scarcity of tin made bronze hard to get.",
+     "emoji": "📉"
+    },
+    {
+     "word": "furnace",
+     "definition": "A very hot oven used to heat metal.",
+     "example": "The furnace glowed bright orange.",
+     "emoji": "🔥"
+    },
+    {
+     "word": "revolutionize",
+     "definition": "To change something completely.",
+     "example": "Iron tools revolutionized farming.",
+     "emoji": "💥"
+    },
+    {
+     "word": "luminescent",
+     "definition": "Giving off its own light.",
+     "example": "The luminescent mushrooms lit the path.",
+     "emoji": "✨"
+    },
+    {
+     "word": "venomous",
+     "definition": "Able to hurt with a poison bite or sting.",
+     "example": "Some swamp creatures are venomous.",
+     "emoji": "🐍"
+    },
+    {
+     "word": "marsh",
+     "definition": "Wet, soft land covered with grasses.",
+     "example": "Frogs croaked in the marsh.",
+     "emoji": "🌾"
+    },
+    {
+     "word": "chemical",
+     "definition": "A substance that can mix with others and change.",
+     "example": "Two chemicals mix inside a firefly to make light.",
+     "emoji": "🧪"
+    },
+    {
+     "word": "phenomenon",
+     "definition": "Something amazing that can be seen and studied.",
+     "example": "Swamp lights are a strange phenomenon.",
+     "emoji": "🔭"
+    },
+    {
+     "word": "fungus",
+     "definition": "A living thing like a mushroom that feeds on dead stuff.",
+     "example": "A fungus grew on the old log.",
+     "emoji": "🍄"
+    },
+    {
+     "word": "gravitational",
+     "definition": "About the pull of gravity.",
+     "example": "A black hole has a huge gravitational pull.",
+     "emoji": "🧲"
+    },
+    {
+     "word": "supernova",
+     "definition": "The giant explosion of a dying star.",
+     "example": "The supernova was brighter than a whole galaxy.",
+     "emoji": "💥"
+    },
+    {
+     "word": "spaghettify",
+     "definition": "To stretch out long and thin, like a noodle.",
+     "example": "Gravity would spaghettify anything that falls in.",
+     "emoji": "🍝"
+    },
+    {
+     "word": "misconception",
+     "definition": "An idea that many people believe but is wrong.",
+     "example": "Black holes sucking up everything is a misconception.",
+     "emoji": "❌"
+    },
+    {
+     "word": "astronomer",
+     "definition": "A scientist who studies stars and space.",
+     "example": "An astronomer took a picture of a black hole.",
+     "emoji": "🔭"
+    },
+    {
+     "word": "scavenger",
+     "definition": "An animal that eats dead things it finds.",
+     "example": "Crows are scavengers.",
+     "emoji": "🦅"
+    },
+    {
+     "word": "predator",
+     "definition": "An animal that hunts other animals for food.",
+     "example": "The heron is a predator of frogs.",
+     "emoji": "🐊"
+    },
+    {
+     "word": "acidic",
+     "definition": "Sour, like vinegar or lemon juice.",
+     "example": "Bog water is acidic.",
+     "emoji": "🍋"
+    },
+    {
+     "word": "archaeologist",
+     "definition": "A scientist who studies things people left long ago.",
+     "example": "The archaeologist studied the bog man.",
+     "emoji": "🏺"
+    },
+    {
+     "word": "skeleton",
+     "definition": "All the bones of a body together.",
+     "example": "Your skeleton holds you up.",
+     "emoji": "💀"
+    },
+    {
+     "word": "calcium",
+     "definition": "A mineral that makes bones and teeth hard.",
+     "example": "Milk has calcium.",
+     "emoji": "🥛"
+    },
+    {
+     "word": "fracture",
+     "definition": "A crack or break in a bone.",
+     "example": "He got a fracture in his arm.",
+     "emoji": "🩻"
+    },
+    {
+     "word": "marrow",
+     "definition": "The soft stuff inside bones that makes blood.",
+     "example": "Marrow makes new blood cells.",
+     "emoji": "🩸"
+    },
+    {
+     "word": "electricity",
+     "definition": "Energy that can make light, heat and sparks.",
+     "example": "Lightning is electricity in the sky.",
+     "emoji": "⚡"
+    },
+    {
+     "word": "thunderous",
+     "definition": "Very loud, like thunder.",
+     "example": "The boss gave a thunderous roar.",
+     "emoji": "🔊"
+    },
+    {
+     "word": "regrow",
+     "definition": "To grow back again.",
+     "example": "Deer antlers regrow every year.",
+     "emoji": "🦌"
+    },
+    {
+     "word": "triumphant",
+     "definition": "Proud and happy after winning.",
+     "example": "We felt triumphant after beating the boss.",
+     "emoji": "🏆"
+    },
+    {
+     "word": "combustible",
+     "definition": "Able to catch fire and burn.",
+     "example": "Dry wood is combustible.",
+     "emoji": "🔥"
+    },
+    {
+     "word": "dormancy",
+     "definition": "A long sleep, waiting for the right time to grow.",
+     "example": "Some seeds stay in dormancy for years.",
+     "emoji": "😴"
+    },
+    {
+     "word": "species",
+     "definition": "One kind of living thing.",
+     "example": "A pine is one species of tree.",
+     "emoji": "🌲"
+    },
+    {
+     "word": "bacteria",
+     "definition": "Tiny living things, some helpful and some that make you sick.",
+     "example": "Soap washes bacteria off your hands.",
+     "emoji": "🦠"
+    },
+    {
+     "word": "barrier",
+     "definition": "Something that blocks the way.",
+     "example": "Your skin is a barrier against germs.",
+     "emoji": "🧱"
+    },
+    {
+     "word": "mucus",
+     "definition": "Slimy stuff your nose makes to trap germs.",
+     "example": "Mucus catches dust and germs.",
+     "emoji": "🤧"
+    },
+    {
+     "word": "antibodies",
+     "definition": "Tiny helpers your body makes to grab one kind of germ.",
+     "example": "Antibodies stick to germs.",
+     "emoji": "🛡️"
+    },
+    {
+     "word": "immunity",
+     "definition": "Protection your body builds against a sickness.",
+     "example": "A vaccine gives you immunity.",
+     "emoji": "💪"
+    },
+    {
+     "word": "illuminate",
+     "definition": "To light something up.",
+     "example": "The Sun illuminates the Moon.",
+     "emoji": "💡"
+    },
+    {
+     "word": "hemisphere",
+     "definition": "Half of a ball shape.",
+     "example": "One hemisphere of the Moon is always lit.",
+     "emoji": "🌗"
+    },
+    {
+     "word": "gibbous",
+     "definition": "More than half lit, but not full.",
+     "example": "Tonight the Moon is gibbous.",
+     "emoji": "🌔"
+    },
+    {
+     "word": "eclipse",
+     "definition": "When one space object blocks the light to another.",
+     "example": "Earth's shadow made a lunar eclipse.",
+     "emoji": "🌑"
+    },
+    {
+     "word": "molecule",
+     "definition": "The tiniest bit of something that is still that thing.",
+     "example": "A smell is made of molecules.",
+     "emoji": "⚛️"
+    },
+    {
+     "word": "microbe",
+     "definition": "A living thing too tiny to see without a microscope.",
+     "example": "Microbes in the soil make that rainy smell.",
+     "emoji": "🔬"
+    },
+    {
+     "word": "humidity",
+     "definition": "How much water is in the air.",
+     "example": "High humidity makes the air feel heavy.",
+     "emoji": "💧"
+    },
+    {
+     "word": "fragrance",
+     "definition": "A smell, usually a nice one.",
+     "example": "The meadow had a fresh fragrance.",
+     "emoji": "🌸"
+    },
+    {
+     "word": "investigate",
+     "definition": "To look closely and test, so you can find out what is true.",
+     "example": "A nimble investigator will investigate by changing one thing at a time.",
+     "emoji": "🔍"
+    },
+    {
+     "word": "principle",
+     "definition": "A basic rule that helps explain how something works.",
+     "example": "Faster flow, lower side push is a useful principle, not a magic spell.",
+     "emoji": "📐"
+    },
+    {
+     "word": "demonstrate",
+     "definition": "To show clearly how something works, often with a test.",
+     "example": "The spoon trick can demonstrate clinging water, but it is not a perfect Coanda demo.",
+     "emoji": "✋"
+    },
+    {
+     "word": "sufficient",
+     "definition": "Enough for what you need; not too little.",
+     "example": "A small pressure change is sufficient to move a light curtain, but not a wooden door.",
+     "emoji": "⚖️"
+    },
+    {
+     "word": "contradict",
+     "definition": "To go against another idea, or to say the opposite.",
+     "example": "One careful test can contradict a slogan that sounded simple.",
+     "emoji": "↔️"
+    },
+    {
+     "word": "distinguish",
+     "definition": "To tell two things apart by noticing how they are different.",
+     "example": "Rules alone often fail to distinguish a cat from a small dog.",
+     "emoji": "🔎"
+    },
+    {
+     "word": "imitate",
+     "definition": "To copy the way something looks or acts.",
+     "example": "An AI can imitate a good answer by following patterns in examples.",
+     "emoji": "🪞"
+    },
+    {
+     "word": "generalize",
+     "definition": "To use what you learned in one set of examples on a new example.",
+     "example": "The point of training is to generalize to photos the computer has never seen.",
+     "emoji": "🌱"
+    },
+    {
+     "word": "evaluate",
+     "definition": "To judge how good or right something is, using a check.",
+     "example": "Each loop, the computer can evaluate its guess against the real label.",
+     "emoji": "🧮"
+    },
+    {
+     "word": "resemble",
+     "definition": "To look or seem like something else.",
+     "example": "A husky can resemble a wolf, especially in the snow.",
+     "emoji": "🦊"
+    },
+    {
+     "word": "verify",
+     "definition": "To check whether something is really true.",
+     "example": "Before you believe a surprising answer, verify it somewhere else.",
+     "emoji": "✅"
+    },
+    {
+     "word": "skeptical",
+     "definition": "Not easy to convince; wanting evidence before you believe.",
+     "example": "Stay skeptical when a chatbot sounds very sure.",
+     "emoji": "🤨"
+    },
+    {
+     "word": "fabricate",
+     "definition": "To make something up that is not true.",
+     "example": "An AI can fabricate a bug name that does not exist.",
+     "emoji": "🪄"
+    },
+    {
+     "word": "inaccurate",
+     "definition": "Not correct; off from the true answer.",
+     "example": "A confident answer can still be inaccurate.",
+     "emoji": "🎯"
+    },
+    {
+     "word": "caution",
+     "definition": "Careful watching, because something might go wrong.",
+     "example": "Use caution with names, numbers, and anything that sounds too surprising.",
+     "emoji": "⚠️"
+    },
+    {
+     "word": "capability",
+     "definition": "What something is able to do.",
+     "example": "AI’s capability has grown very fast in just a few years.",
+     "emoji": "🚀"
+    },
+    {
+     "word": "limitation",
+     "definition": "A point where something cannot go, or cannot do a job.",
+     "example": "Every tool has a limitation, even a powerful one.",
+     "emoji": "🧱"
+    },
+    {
+     "word": "consequence",
+     "definition": "What happens because of a choice or an action.",
+     "example": "A wrong answer can have a small consequence or a serious one.",
+     "emoji": "⛓️"
+    },
+    {
+     "word": "remarkable",
+     "definition": "Worth noticing because it is unusual or impressive.",
+     "example": "The speed of the change has been remarkable.",
+     "emoji": "✨"
+    },
+    {
+     "word": "rely",
+     "definition": "To depend on something or someone.",
+     "example": "You can use AI as a helper, but do not rely on it for facts you cannot check.",
+     "emoji": "🤝"
+    },
+    {
+     "word": "classify",
+     "definition": "To sort things into groups by how they are alike.",
+     "example": "After enough examples, you can classify a new dog you have never seen.",
+     "emoji": "📦"
+    },
+    {
+     "word": "proportion",
+     "definition": "How big one part is compared with the rest.",
+     "example": "A baby's head is a much bigger proportion of the body than yours is.",
+     "emoji": "📊"
+    },
+    {
+     "word": "coordinate",
+     "definition": "To make different parts work together smoothly.",
+     "example": "Passing a toy from hand to hand takes practice to coordinate both arms.",
+     "emoji": "🕺"
+    },
+    {
+     "word": "mature",
+     "definition": "To grow and become more fully developed.",
+     "example": "Bones mature and the soft seams of the skull slowly close.",
+     "emoji": "🌱"
+    },
+    {
+     "word": "eventually",
+     "definition": "At the end of a process; after some time has passed.",
+     "example": "With practice, she will eventually walk, but not this month.",
+     "emoji": "⏳"
+    },
+    {
+     "word": "infant",
+     "definition": "A very young baby.",
+     "example": "An infant can have a strong grasp reflex without yet choosing to grab a toy.",
+     "emoji": "👶"
+    },
+    {
+     "word": "origin",
+     "definition": "The beginning of something, or where it first came from.",
+     "example": "The Big Bang is the name we give the origin of our expanding universe.",
+     "emoji": "🌱"
+    },
+    {
+     "word": "infinite",
+     "definition": "Without an end or a last edge; not limited in size or time.",
+     "example": "Space might be infinite, or just far bigger than we can see.",
+     "emoji": "♾️"
+    },
+    {
+     "word": "tremendous",
+     "definition": "Extremely large or powerful.",
+     "example": "A tremendous stretch of time passed before Earth even existed.",
+     "emoji": "💥"
+    },
+    {
+     "word": "occupy",
+     "definition": "To take up a place or an amount of space.",
+     "example": "Every raisin occupies a spot in the dough, and that spot moves as the bread rises.",
+     "emoji": "📍"
+    },
+    {
+     "word": "remote",
+     "definition": "Very far away in distance or in time.",
+     "example": "Light from a remote galaxy is also light from a remote past.",
+     "emoji": "📡"
+    },
+    {
+     "word": "scale",
+     "definition": "To grow something bigger or smaller while keeping its shape.",
+     "example": "If you scale a block creature up to twice as tall, it is not just twice as heavy.",
+     "emoji": "📏"
+    },
+    {
+     "word": "collapse",
+     "definition": "To fall in or break down from too much weight or force.",
+     "example": "Without extra-thick legs, a giant body could collapse under its own weight.",
+     "emoji": "🏚️"
+    },
+    {
+     "word": "slender",
+     "definition": "Thin in a graceful or delicate way; not thick.",
+     "example": "A slender ant leg is fine for an ant, but it would not hold a giant.",
+     "emoji": "🥢"
+    },
+    {
+     "word": "structure",
+     "definition": "The way the parts of something are built and held together.",
+     "example": "Bone structure in a big land animal is thick and column-like.",
+     "emoji": "🏛️"
+    },
+    {
+     "word": "distribute",
+     "definition": "To spread something out so no one part has to take it all.",
+     "example": "A truss can distribute the load through many bars.",
+     "emoji": "📤"
+    },
+    {
+     "word": "span",
+     "definition": "The distance a bridge crosses from one support to the other.",
+     "example": "A hanging bridge can span a wide river with cables and towers.",
+     "emoji": "🌉"
+    },
+    {
+     "word": "engineer",
+     "definition": "A person who designs machines, buildings, or bridges using science and math.",
+     "example": "An engineer chooses a shape that the material can handle.",
+     "emoji": "👷"
+    },
+    {
+     "word": "forge",
+     "definition": "To heat and hammer metal into a shape, or the workshop where that happens.",
+     "example": "People would forge a bronze axe in a mold or on an anvil.",
+     "emoji": "🔨"
+    },
+    {
+     "word": "smelt",
+     "definition": "To heat ore so the metal comes out of the rock.",
+     "example": "A blast of air helped people smelt copper from green ore.",
+     "emoji": "🔥"
+    },
+    {
+     "word": "mold",
+     "definition": "A hollow shape that melted metal is poured into, so it cools in that form.",
+     "example": "A stone mold can make many axes the same shape.",
+     "emoji": "🧁"
+    },
+    {
+     "word": "cargo",
+     "definition": "The goods carried by a ship, wagon, or other vehicle.",
+     "example": "A real shipwreck still holds cargo of copper and tin bars.",
+     "emoji": "📦"
+    },
+    {
+     "word": "ratio",
+     "definition": "A comparison of two amounts, like 10 parts to 1 part.",
+     "example": "Real bronze is about a 10-to-1 ratio of copper to tin.",
+     "emoji": "🔢"
+    },
+    {
+     "word": "sphere",
+     "definition": "A ball shape, like a globe; every face is rounded.",
+     "example": "Earth is a sphere, so only one half faces the Sun at a time.",
+     "emoji": "🔮"
+    },
+    {
+     "word": "gradually",
+     "definition": "Happening slowly, a little at a time, not all at once.",
+     "example": "Sunrise and sunset change gradually, not like flipping a switch.",
+     "emoji": "🌅"
+    },
+    {
+     "word": "apparent",
+     "definition": "What something seems to be, which may not be what it really is.",
+     "example": "The Sun’s apparent path across the sky fooled people for a long time.",
+     "emoji": "👀"
+    },
+    {
+     "word": "viewpoint",
+     "definition": "The place or angle from which you look at something.",
+     "example": "From a viewpoint above the North Pole, you can watch one town turn into the light.",
+     "emoji": "📍"
+    },
+    {
+     "word": "sequence",
+     "definition": "The order in which things happen, one after another.",
+     "example": "Day and night follow a sequence as Earth turns.",
+     "emoji": "🔢"
+    },
+    {
+     "word": "buoyancy",
+     "definition": "The upward push a liquid (or air) gives to an object in it.",
+     "example": "Buoyancy helps a lower-density ice cube float on water.",
+     "emoji": "🛟"
+    },
+    {
+     "word": "displace",
+     "definition": "To take the place of something, or to push it out of the way.",
+     "example": "An ice cube will displace some water, and the water line rises.",
+     "emoji": "➡️"
+    },
+    {
+     "word": "exceptional",
+     "definition": "Unusual; not like the others in the group.",
+     "example": "Ice is exceptional: it is a solid that floats on its own liquid.",
+     "emoji": "⭐"
+    },
+    {
+     "word": "volume",
+     "definition": "The amount of space something takes up.",
+     "example": "Freezing can increase the volume of water without adding more water.",
+     "emoji": "📦"
+    },
+    {
+     "word": "circulation",
+     "definition": "Movement of air, blood, or another fluid around a body or system.",
+     "example": "Bug tubes give only a slow circulation of air, because nothing pumps it.",
+     "emoji": "🔄"
+    },
+    {
+     "word": "thrive",
+     "definition": "To grow well and stay strong.",
+     "example": "Richer air helped giant bugs thrive in the swamp forests.",
+     "emoji": "🌱"
+    },
+    {
+     "word": "generation",
+     "definition": "One step in a family line: you, then your kids, then their kids.",
+     "example": "Scientists raised insects in extra oxygen for several generations.",
+     "emoji": "👨‍👦"
+    },
+    {
+     "word": "rival",
+     "definition": "A competing idea or side that is trying to beat another.",
+     "example": "Birds, not oxygen, is a rival idea for why giant bugs shrank.",
+     "emoji": "⚔️"
+    },
+    {
+     "word": "extinct",
+     "definition": "Died out as a group, with none left alive.",
+     "example": "The hawk-winged flyers went extinct and never came back.",
+     "emoji": "🦴"
+    },
+    {
+     "word": "decelerate",
+     "definition": "To lose speed; to slow down.",
+     "example": "Soft hands let the balloon decelerate slowly, so it does not pop.",
+     "emoji": "🐢"
+    },
+    {
+     "word": "duration",
+     "definition": "How long something lasts.",
+     "example": "A longer duration of stopping means a gentler push.",
+     "emoji": "⏱️"
+    },
+    {
+     "word": "concentrated",
+     "definition": "Packed into a small space instead of spread out.",
+     "example": "On a pencil point, the same push is concentrated, so it stings more.",
+     "emoji": "📍"
+    },
+    {
+     "word": "withstand",
+     "definition": "To take a hit or a force without breaking.",
+     "example": "Helmet foam helps your head withstand a crash.",
+     "emoji": "🛡️"
+    },
+    {
+     "word": "membrane",
+     "definition": "A thin, tight skin that can shake or stretch.",
+     "example": "The katydid's eardrum is a tiny membrane on its front leg.",
+     "emoji": "🥁"
+    },
+    {
+     "word": "amplify",
+     "definition": "To make a sound or a signal stronger.",
+     "example": "A little plate in the katydid ear can amplify a faint shake.",
+     "emoji": "📢"
+    },
+    {
+     "word": "independently",
+     "definition": "On its own, not copied from the other side.",
+     "example": "Insects and people built similar ears independently.",
+     "emoji": "🌿"
+    },
+    {
+     "word": "inaudible",
+     "definition": "Impossible for someone to hear.",
+     "example": "Many katydid songs are inaudible to people because they are too high.",
+     "emoji": "🙉"
+    },
+    {
+     "word": "adaptation",
+     "definition": "A helpful change that makes life work better in a place or a situation.",
+     "example": "A slower song on a cold night is an adaptation to temperature.",
+     "emoji": "🧩"
+    },
+    {
+     "word": "replenish",
+     "definition": "To fill something up again after it has been used.",
+     "example": "A snack after tag can replenish the fuel your muscles just burned.",
+     "emoji": "🔋"
+    },
+    {
+     "word": "metabolism",
+     "definition": "The body's way of unpacking food and turning it into energy and building stuff.",
+     "example": "Your metabolism turns oatmeal into go-power for a game of tag.",
+     "emoji": "⚙️"
+    },
+    {
+     "word": "essential",
+     "definition": "Needed, and you cannot skip it.",
+     "example": "Some nutrients are essential because your body cannot make enough of them.",
+     "emoji": "⭐"
+    },
+    {
+     "word": "vitamin",
+     "definition": "A tiny nutrient helper in food that does a precise job in the body.",
+     "example": "Different colored vegetables carry different vitamin helpers.",
+     "emoji": "🍊"
+    },
+    {
+     "word": "sustain",
+     "definition": "To keep something going so it does not run out.",
+     "example": "Protein, fiber, and fat help a breakfast sustain you through the game.",
+     "emoji": "🏃"
+    },
+    {
+     "word": "dose",
+     "definition": "How much of something you take at one time.",
+     "example": "A small dose of candy after dinner is different from candy all afternoon.",
+     "emoji": "📏"
+    },
+    {
+     "word": "enamel",
+     "definition": "The hard, shiny coat that protects a tooth.",
+     "example": "Acid from plaque can slowly soften enamel.",
+     "emoji": "🦷"
+    },
+    {
+     "word": "continuous",
+     "definition": "Going on without a real break.",
+     "example": "A continuous sugar drip keeps plaque germs busy all afternoon.",
+     "emoji": "🔁"
+    },
+    {
+     "word": "exposure",
+     "definition": "How long something is in contact with you, or how often it reaches you.",
+     "example": "Teeth care about sugar exposure, not only the weekly total.",
+     "emoji": "⏱️"
+    },
+    {
+     "word": "nutrition",
+     "definition": "How food helps the body run, grow, repair, and stay well.",
+     "example": "This lesson is a toolbox for nutrition: how to build meals that do several jobs.",
+     "emoji": "🥗"
+    },
+    {
+     "word": "adequate",
+     "definition": "Enough for the job, not too little and not a huge pile of only one thing.",
+     "example": "A plate needs adequate protein, not just a mountain of bread.",
+     "emoji": "✅"
+    },
+    {
+     "word": "wholesome",
+     "definition": "Good for the body because it brings useful fuel and helpers, not just a rush.",
+     "example": "Apple slices with cheese make a wholesome after-school snack.",
+     "emoji": "🍎"
+    },
+    {
+     "word": "prioritize",
+     "definition": "To put the most important things first.",
+     "example": "On a food label, prioritize serving size, added sugars, and sodium.",
+     "emoji": "1️⃣"
+    },
+    {
+     "word": "hydration",
+     "definition": "Having enough water in the body for blood and cells to work well.",
+     "example": "Recovery after soccer includes hydration, not only food.",
+     "emoji": "💧"
+    },
+    {
+     "word": "pupil",
+     "definition": "The dark opening in the eye that can get wider or smaller to let light in.",
+     "example": "In a dark room, your pupil opens wider to gather more light.",
+     "emoji": "👁️"
+    },
+    {
+     "word": "perceive",
+     "definition": "To notice something clearly enough to know it is there.",
+     "example": "Big night eyes help the spider perceive a cricket on the path.",
+     "emoji": "👀"
+    },
+    {
+     "word": "discard",
+     "definition": "To throw something away because it is used up or no longer useful.",
+     "example": "At dawn the spider will discard the worn light-catching lining.",
+     "emoji": "🗑️"
+    },
+    {
+     "word": "twilight",
+     "definition": "The in-between light at the beginning or end of the night.",
+     "example": "When twilight comes, a new lining is ready for the hunt.",
+     "emoji": "🌇"
+    },
+    {
+     "word": "suspend",
+     "definition": "To hang something so it stays up without standing on the ground.",
+     "example": "The spider will suspend itself from a silk thread above the trail.",
+     "emoji": "🕸️"
+    },
+    {
+     "word": "thorax",
+     "definition": "The middle part of an insect's body, between the head and the abdomen, where the legs attach.",
+     "example": "Some mantises have an ear on the thorax, between the walking legs.",
+     "emoji": "🪲"
+    },
+    {
+     "word": "ultrasound",
+     "definition": "Sound so high that people cannot hear it.",
+     "example": "Bats hunt with ultrasound, and some mantises can hear it.",
+     "emoji": "🦇"
+    },
+    {
+     "word": "metamorphosis",
+     "definition": "The change from a young form to an adult form.",
+     "example": "Mantises have incomplete metamorphosis: the young already look like small adults.",
+     "emoji": "🔄"
+    },
+    {
+     "word": "native",
+     "definition": "Already belonging to a place, not brought from somewhere else.",
+     "example": "The Carolina mantis is native to New Jersey; the Chinese mantis was introduced.",
+     "emoji": "🏠"
+    },
+    {
+     "word": "pollinator",
+     "definition": "An animal that carries pollen from flower to flower, helping plants make seeds.",
+     "example": "Bees and butterflies are pollinators, and a mantis may eat those too.",
+     "emoji": "🐝"
+    },
+    {
+     "word": "slurry",
+     "definition": "A watery mix of tiny bits, like wet sand that can flow.",
+     "example": "The wet sand was a thick slurry, not a solid floor.",
+     "emoji": "🥣"
+    },
+    {
+     "word": "disturbance",
+     "definition": "A shake or stir that messes up a still mix.",
+     "example": "A small disturbance made the muddy water cloudy again.",
+     "emoji": "🌊"
+    },
+    {
+     "word": "sediment",
+     "definition": "Bits of sand, mud, or dirt that settle and pile up.",
+     "example": "A river drops sediment at its mouth and builds a delta.",
+     "emoji": "🪨"
+    },
+    {
+     "word": "liquefaction",
+     "definition": "When wet soil turns runny, as in some earthquakes.",
+     "example": "Liquefaction can make buildings tilt after a quake.",
+     "emoji": "🏗️"
+    },
+    {
+     "word": "refraction",
+     "definition": "When light bends as it goes into something new, like air into water.",
+     "example": "Refraction makes a pencil look broken in a glass of water.",
+     "emoji": "💧"
+    },
+    {
+     "word": "boundary",
+     "definition": "The line where one thing ends and another begins.",
+     "example": "Light turns at the boundary between air and water.",
+     "emoji": "📏"
+    },
+    {
+     "word": "transparent",
+     "definition": "Clear enough to see through, like glass or water.",
+     "example": "The tank wall is transparent, so you can watch the spider.",
+     "emoji": "🪟"
+    },
+    {
+     "word": "magnify",
+     "definition": "To make something look bigger than it is.",
+     "example": "A drop of water can magnify the print on a page.",
+     "emoji": "🔍"
+    },
+    {
+     "word": "testable",
+     "definition": "Able to be checked with a fair test, so you could be proved wrong.",
+     "example": "“How many balloons stay up?” is a testable question.",
+     "emoji": "🧪"
+    },
+    {
+     "word": "control",
+     "definition": "Something you keep the same on purpose so a test stays fair.",
+     "example": "The control in the test was the same kind of balloon each time.",
+     "emoji": "🎛️"
+    },
+    {
+     "word": "isolate",
+     "definition": "To change only one thing so you can tell what caused the result.",
+     "example": "They isolate fan distance and leave everything else alone.",
+     "emoji": "1️⃣"
+    },
+    {
+     "word": "suspended",
+     "definition": "Held up in the air or in a fluid without falling.",
+     "example": "Three balloons stayed suspended in the fan’s stream.",
+     "emoji": "🎈"
+    },
+    {
+     "word": "replicate",
+     "definition": "To run the same test again to see if you get the same result.",
+     "example": "Scientists replicate a test before they trust it.",
+     "emoji": "🔁"
+    },
+    {
+     "word": "germinate",
+     "definition": "To start growing out of a seed, sending a root and a shoot.",
+     "example": "The beans will germinate on a wet paper towel in a few days.",
+     "emoji": "🌱"
+    },
+    {
+     "word": "statolith",
+     "definition": "A tiny heavy bit in a root tip that settles to the downward side.",
+     "example": "Statoliths sink to the bottom of the cell, like pebbles in a jar.",
+     "emoji": "⚖️"
+    },
+    {
+     "word": "gravitropism",
+     "definition": "Growth that turns toward or away from gravity — roots down, shoots up.",
+     "example": "The seedling showed gravitropism when it was planted upside down.",
+     "emoji": "⬇️"
+    },
+    {
+     "word": "phototropism",
+     "definition": "Growth that turns toward light.",
+     "example": "The plant’s phototropism made it lean toward the window.",
+     "emoji": "☀️"
+    },
+    {
+     "word": "radicle",
+     "definition": "The first root that comes out of a seed.",
+     "example": "The radicle poked out of the bean and then curved down.",
+     "emoji": "🌿"
+    },
+    {
+     "word": "silhouette",
+     "definition": "The dark outline shape of something, with no details inside.",
+     "example": "Her silhouette was clear on the wall, but you could not see her face.",
+     "emoji": "👤"
+    },
+    {
+     "word": "opaque",
+     "definition": "Not see-through; blocking light so a shadow can form.",
+     "example": "A wooden block is opaque, but a glass of water is not.",
+     "emoji": "🧱"
+    },
+    {
+     "word": "umbra",
+     "definition": "The darkest part of a shadow, where the light is fully blocked.",
+     "example": "The umbra is the deep dark under the middle of your hand.",
+     "emoji": "🌑"
+    },
+    {
+     "word": "penumbra",
+     "definition": "The lighter edge of a shadow, where only some of the light is blocked.",
+     "example": "The penumbra looks gray, not fully black, around the edge.",
+     "emoji": "🌘"
+    },
+    {
+     "word": "overlap",
+     "definition": "When two things cover part of each other.",
+     "example": "Where the two shadows overlap, the dark is darker.",
+     "emoji": "➕"
+    },
+    {
+     "word": "wavelength",
+     "definition": "The size of a light or sound wave, which decides its color or pitch.",
+     "example": "Red light has a longer wavelength than blue light.",
+     "emoji": "📏"
+    },
+    {
+     "word": "interference",
+     "definition": "When two waves meet and either boost or cancel each other.",
+     "example": "The bubble’s colors come from interference of light waves.",
+     "emoji": "🌊"
+    },
+    {
+     "word": "surfactant",
+     "definition": "A soap-like substance that weakens water’s grip on itself.",
+     "example": "A surfactant lets water stretch into a thin bubble skin.",
+     "emoji": "🧴"
+    },
+    {
+     "word": "iridescent",
+     "definition": "Showing shifting rainbow colors that change with the angle or thickness.",
+     "example": "The bubble looked iridescent as it drifted in the sun.",
+     "emoji": "🌈"
+    },
+    {
+     "word": "oscillate",
+     "definition": "To swing or shake back and forth over and over.",
+     "example": "The rim of the glass oscillates when you tap it.",
+     "emoji": "🔁"
+    },
+    {
+     "word": "amplitude",
+     "definition": "How big a shake is, from the middle to the farthest it goes.",
+     "example": "A harder tap gives a bigger amplitude and a louder ring.",
+     "emoji": "📶"
+    },
+    {
+     "word": "resonance",
+     "definition": "A big, clear shake that builds up when a thing is pushed at just the right rate.",
+     "example": "The glass sings with resonance when you tap its rim.",
+     "emoji": "🔔"
+    },
+    {
+     "word": "harmonic",
+     "definition": "A smooth, musical kind of vibration, not a noise or a thud.",
+     "example": "A well-made glass makes a harmonic tone when you tap it.",
+     "emoji": "🎵"
+    },
+    {
+     "word": "instrument",
+     "definition": "A tool made to play sound, like a glass, a violin, or a trumpet.",
+     "example": "A row of water glasses can become an instrument.",
+     "emoji": "🎻"
+    },
+    {
+     "word": "adhesion",
+     "definition": "A stick-tight hold between two surfaces that are touching.",
+     "example": "Adhesion helps the pad cling to smooth glass.",
+     "emoji": "🧲"
+    },
+    {
+     "word": "setae",
+     "definition": "Tiny stiff hairs, often in a dense brush, used to touch or grip.",
+     "example": "The pad is packed with setae that share the load of a step.",
+     "emoji": "🪮"
+    },
+    {
+     "word": "capillary",
+     "definition": "Having to do with very thin tubes or tiny gaps that can pull liquid.",
+     "example": "Capillary forces in tiny gaps can help a pad cling.",
+     "emoji": "💧"
+    },
+    {
+     "word": "hydrophobic",
+     "definition": "Tending to push water away, rather than soak it up.",
+     "example": "A hydrophobic coating makes water bead up and roll off.",
+     "emoji": "🌧️"
+    },
+    {
+     "word": "debris",
+     "definition": "Leftover scraps, dust, or junk that get in the way.",
+     "example": "Prey guts and silk fluff become debris on the foot.",
+     "emoji": "🧹"
+    },
+    {
+     "word": "deceleration",
+     "definition": "A slowing down; the opposite of speeding up.",
+     "example": "Belly-first flight causes a lot of deceleration in the air.",
+     "emoji": "🐢"
+    },
+    {
+     "word": "plasma",
+     "definition": "A super-hot state of matter, when gas gets so energetic it glows.",
+     "example": "Reentry can heat the air into a glowing plasma around the ship.",
+     "emoji": "🔥"
+    },
+    {
+     "word": "insulation",
+     "definition": "A layer that slows the flow of heat from one side to the other.",
+     "example": "Tile insulation keeps the steel skin from getting as hot as the air.",
+     "emoji": "🧱"
+    },
+    {
+     "word": "windward",
+     "definition": "The side that faces into the oncoming wind or airflow.",
+     "example": "The heat shield is built for the windward belly.",
+     "emoji": "🌬️"
+    },
+    {
+     "word": "hexagonal",
+     "definition": "Having six sides, like a honeycomb cell.",
+     "example": "The belly is covered in hexagonal tiles that fit together.",
+     "emoji": "⬡"
+    },
+    {
+     "word": "secretion",
+     "definition": "A useful stuff a living thing makes and releases, like sap, tears, or resin.",
+     "example": "Resin is a secretion the tree pushes out into a wound.",
+     "emoji": "💧"
+    },
+    {
+     "word": "solidify",
+     "definition": "To turn from a liquid or goo into a solid.",
+     "example": "The resin will solidify as it dries and ages.",
+     "emoji": "🧊"
+    },
+    {
+     "word": "preservative",
+     "definition": "Something that keeps a thing from rotting or breaking down.",
+     "example": "Amber acts like a preservative for the trapped insect.",
+     "emoji": "🛡️"
+    },
+    {
+     "word": "fossilization",
+     "definition": "The long process of turning a living thing, or a trace of it, into a fossil.",
+     "example": "Fossilization in amber can keep a mosquito’s details for millions of years.",
+     "emoji": "🦕"
+    },
+    {
+     "word": "amber",
+     "definition": "Hard, see-through fossil tree resin, often golden, sometimes with a trapped bug.",
+     "example": "The necklace was made of amber with a fly inside.",
+     "emoji": "🟠"
+    },
+    {
+     "word": "appendage",
+     "definition": "A body part that sticks out, like a leg, arm, or feeler.",
+     "example": "A whip spider has a special appendage that works as a feeler, not a walking leg.",
+     "emoji": "🦵"
+    },
+    {
+     "word": "tactile",
+     "definition": "Having to do with touch; sensing by feeling, not by looking.",
+     "example": "The long legs are a tactile map of the dark.",
+     "emoji": "✋"
+    },
+    {
+     "word": "compressed",
+     "definition": "Pressed into a flatter, thinner shape.",
+     "example": "Its compressed body slips into a crack in the rock.",
+     "emoji": "🃏"
+    },
+    {
+     "word": "sensor",
+     "definition": "A part that notices something and sends that news to the rest of the body.",
+     "example": "The feelers are packed with sensors that notice a ripple in the air.",
+     "emoji": "📡"
+    },
+    {
+     "word": "stillness",
+     "definition": "The state of holding still, with little or no movement.",
+     "example": "The hunt begins with stillness in a dark crack.",
+     "emoji": "🤫"
+    },
+    {
+     "word": "commerce",
+     "definition": "The work of buying and selling.",
+     "example": "The bug shop and the bakery next door are both part of the town's commerce.",
+     "emoji": "🏪"
+    },
+    {
+     "word": "inconvenient",
+     "definition": "Taking more time or trouble than it should.",
+     "example": "It is inconvenient to carry a cow all the way to the shoe shop.",
+     "emoji": "😣"
+    },
+    {
+     "word": "portable",
+     "definition": "Easy to carry from place to place.",
+     "example": "Coins are portable, so you can keep them in a pocket.",
+     "emoji": "🎒"
+    },
+    {
+     "word": "circulate",
+     "definition": "To move around from person to person.",
+     "example": "A dollar can circulate from the shop to the baker to the shoemaker.",
+     "emoji": "🔄"
+    },
+    {
+     "word": "transaction",
+     "definition": "One finished trade or purchase.",
+     "example": "Paying for a sticker with a token is one transaction.",
+     "emoji": "🧾"
     }
    ]
   }
