@@ -1,5 +1,5 @@
 {
- "version": 19,
+ "version": 20,
  "updated": "2026-11-22",
  "lists": [
   {
@@ -3519,6 +3519,36 @@
      "definition": "One finished trade or purchase.",
      "example": "Paying for a sticker with a token is one transaction.",
      "emoji": "🧾"
+    },
+    {
+     "word": "altitude",
+     "definition": "how high a place is above the sea or the ground",
+     "example": "At high altitude, the air is thin and cold.",
+     "emoji": "🏔️"
+    },
+    {
+     "word": "crystallize",
+     "definition": "to turn into crystals, like water vapor turning into ice",
+     "example": "On a frosty night, water vapor can crystallize on the grass.",
+     "emoji": "❄️"
+    },
+    {
+     "word": "moisture",
+     "definition": "tiny bits of water in the air or on something",
+     "example": "Your warm breath is full of moisture.",
+     "emoji": "💧"
+    },
+    {
+     "word": "frigid",
+     "definition": "very, very cold",
+     "example": "The frigid wind made my cheeks sting.",
+     "emoji": "🥶"
+    },
+    {
+     "word": "insulate",
+     "definition": "to wrap something so its heat can't escape easily",
+     "example": "Thick fur helps insulate a mountain goat from the cold.",
+     "emoji": "🧥"
     }
    ]
   }
