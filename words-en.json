@@ -1,6 +1,6 @@
 {
- "version": 17,
- "updated": "2026-11-20",
+ "version": 18,
+ "updated": "2026-11-21",
  "lists": [
   {
    "id": "en-starter-1",
@@ -1839,6 +1839,456 @@
      "definition": "A shape that curls around and around as it goes forward.",
      "example": "An uneven opening can twist a stream into a spiral.",
      "emoji": "🌀"
+    },
+    {
+     "word": "significant",
+     "definition": "Big enough to matter or be noticed.",
+     "example": "Adding six books made a significant difference.",
+     "emoji": "📏"
+    },
+    {
+     "word": "sluggish",
+     "definition": "Slow and hard to get moving.",
+     "example": "The heavy wagon felt sluggish.",
+     "emoji": "🐌"
+    },
+    {
+     "word": "exert",
+     "definition": "To use your strength or power on something.",
+     "example": "You exert more force when you push harder.",
+     "emoji": "💪"
+    },
+    {
+     "word": "estimate",
+     "definition": "A careful guess using what you know.",
+     "example": "I estimate the wagon weighs 40 pounds.",
+     "emoji": "🤔"
+    },
+    {
+     "word": "massive",
+     "definition": "Very big and heavy.",
+     "example": "A massive truck needs a long space to stop.",
+     "emoji": "🚛"
+    },
+    {
+     "word": "simultaneous",
+     "definition": "Happening at exactly the same time.",
+     "example": "The two pushes are simultaneous.",
+     "emoji": "⏱️"
+    },
+    {
+     "word": "interact",
+     "definition": "To act on each other.",
+     "example": "The skateboarders interact when they push off.",
+     "emoji": "🤝"
+    },
+    {
+     "word": "expel",
+     "definition": "To push something out with force.",
+     "example": "The balloon will expel its air.",
+     "emoji": "💨"
+    },
+    {
+     "word": "ascend",
+     "definition": "To go up.",
+     "example": "The rocket began to ascend into the sky.",
+     "emoji": "⬆️"
+    },
+    {
+     "word": "trajectory",
+     "definition": "The path something follows as it flies.",
+     "example": "The ball flew in a curved trajectory.",
+     "emoji": "🎯"
+    },
+    {
+     "word": "abrasive",
+     "definition": "Rough enough to scrape or rub things down.",
+     "example": "Sandpaper is abrasive.",
+     "emoji": "🪵"
+    },
+    {
+     "word": "traction",
+     "definition": "The grip that keeps something from sliding.",
+     "example": "Sneakers have good traction on the mat.",
+     "emoji": "👟"
+    },
+    {
+     "word": "vigorous",
+     "definition": "Strong and full of energy.",
+     "example": "Vigorous rubbing makes your hands warm.",
+     "emoji": "⚡"
+    },
+    {
+     "word": "generate",
+     "definition": "To make or produce something.",
+     "example": "Rubbing your hands can generate heat.",
+     "emoji": "🔥"
+    },
+    {
+     "word": "lubricate",
+     "definition": "To make something slippery with oil or grease.",
+     "example": "We lubricate a squeaky door with oil.",
+     "emoji": "🛢️"
+    },
+    {
+     "word": "identical",
+     "definition": "Exactly the same.",
+     "example": "The twins wore identical shirts.",
+     "emoji": "👯"
+    },
+    {
+     "word": "resistance",
+     "definition": "A push that works against something moving.",
+     "example": "Air resistance slows a falling feather.",
+     "emoji": "🪂"
+    },
+    {
+     "word": "vacuum",
+     "definition": "A space with no air in it.",
+     "example": "There is almost a vacuum on the Moon.",
+     "emoji": "🌑"
+    },
+    {
+     "word": "mutual",
+     "definition": "Shared by both.",
+     "example": "The pull between Earth and the Moon is mutual.",
+     "emoji": "🔁"
+    },
+    {
+     "word": "satellite",
+     "definition": "Something that travels around a planet.",
+     "example": "The Moon is Earth's satellite.",
+     "emoji": "🛰️"
+    },
+    {
+     "word": "compose",
+     "definition": "To make up something.",
+     "example": "Atoms compose everything you can touch.",
+     "emoji": "🧩"
+    },
+    {
+     "word": "combine",
+     "definition": "To join together.",
+     "example": "Atoms combine to make molecules.",
+     "emoji": "🔗"
+    },
+    {
+     "word": "stationary",
+     "definition": "Staying in one place.",
+     "example": "The atoms in ice stay stationary and just jiggle.",
+     "emoji": "📍"
+    },
+    {
+     "word": "expand",
+     "definition": "To get bigger or spread out.",
+     "example": "Gas will expand to fill a room.",
+     "emoji": "🎈"
+    },
+    {
+     "word": "condense",
+     "definition": "To change from a gas into a liquid.",
+     "example": "Steam can condense on a cold window.",
+     "emoji": "💧"
+    },
+    {
+     "word": "substance",
+     "definition": "A kind of stuff or material.",
+     "example": "Salt is a white substance.",
+     "emoji": "🧂"
+    },
+    {
+     "word": "solution",
+     "definition": "A liquid with something dissolved in it.",
+     "example": "Salt water is a solution.",
+     "emoji": "🥤"
+    },
+    {
+     "word": "react",
+     "definition": "To change when mixed with something else.",
+     "example": "Baking soda will react with vinegar.",
+     "emoji": "🧪"
+    },
+    {
+     "word": "indicate",
+     "definition": "To show or point to something.",
+     "example": "Bubbles indicate a new gas.",
+     "emoji": "👉"
+    },
+    {
+     "word": "irreversible",
+     "definition": "Not able to be undone.",
+     "example": "Baking a cake is irreversible.",
+     "emoji": "🎂"
+    },
+    {
+     "word": "entrepreneur",
+     "definition": "A person who starts a business.",
+     "example": "Sam is an entrepreneur with his own shop.",
+     "emoji": "🧑‍💼"
+    },
+    {
+     "word": "provide",
+     "definition": "To give something that is needed.",
+     "example": "A store can provide food for a town.",
+     "emoji": "🎁"
+    },
+    {
+     "word": "survey",
+     "definition": "Asking many people the same questions.",
+     "example": "We did a survey to find the favorite color.",
+     "emoji": "📋"
+    },
+    {
+     "word": "employee",
+     "definition": "A person who is paid to work for a business.",
+     "example": "The baker hired a new employee.",
+     "emoji": "🪪"
+    },
+    {
+     "word": "demand",
+     "definition": "How much people want something.",
+     "example": "There is big demand for ice cream in summer.",
+     "emoji": "📈"
+    },
+    {
+     "word": "revenue",
+     "definition": "All the money that comes in from selling.",
+     "example": "The shop's revenue was five dollars today.",
+     "emoji": "💵"
+    },
+    {
+     "word": "expense",
+     "definition": "Money you spend on something.",
+     "example": "Stickers are an expense for my shop.",
+     "emoji": "🧾"
+    },
+    {
+     "word": "calculate",
+     "definition": "To work out an answer using math.",
+     "example": "Let's calculate the profit.",
+     "emoji": "🧮"
+    },
+    {
+     "word": "budget",
+     "definition": "A plan for how to spend money.",
+     "example": "Grandpa has a budget for gifts.",
+     "emoji": "📒"
+    },
+    {
+     "word": "debt",
+     "definition": "Money you owe someone.",
+     "example": "I paid off my debt to Grandpa.",
+     "emoji": "🤝"
+    },
+    {
+     "word": "reliable",
+     "definition": "Can be trusted to do a good job every time.",
+     "example": "Our mail carrier is reliable.",
+     "emoji": "✅"
+    },
+    {
+     "word": "reputation",
+     "definition": "What people think about you.",
+     "example": "The bakery has a great reputation.",
+     "emoji": "⭐"
+    },
+    {
+     "word": "feedback",
+     "definition": "What people tell you about how you did.",
+     "example": "The customer gave me helpful feedback.",
+     "emoji": "💬"
+    },
+    {
+     "word": "satisfied",
+     "definition": "Happy because you got what you wanted.",
+     "example": "The satisfied customer came back.",
+     "emoji": "😊"
+    },
+    {
+     "word": "courteous",
+     "definition": "Polite and kind.",
+     "example": "A courteous shopkeeper says thank you.",
+     "emoji": "🙏"
+    },
+    {
+     "word": "circular",
+     "definition": "Shaped like a circle, or going around in a circle.",
+     "example": "The crate went around in a circular path.",
+     "emoji": "⭕"
+    },
+    {
+     "word": "maintain",
+     "definition": "To keep something the same.",
+     "example": "A moving thing will maintain its speed if nothing pushes it.",
+     "emoji": "🛞"
+    },
+    {
+     "word": "revolve",
+     "definition": "To go around and around something.",
+     "example": "The Moon revolves around Earth.",
+     "emoji": "🔄"
+    },
+    {
+     "word": "sensation",
+     "definition": "A feeling in your body.",
+     "example": "I had a tingly sensation in my fingers.",
+     "emoji": "🫨"
+    },
+    {
+     "word": "illusion",
+     "definition": "Something that tricks your senses.",
+     "example": "The magic trick was an illusion.",
+     "emoji": "🎩"
+    },
+    {
+     "word": "porous",
+     "definition": "Full of tiny holes that let water or air in.",
+     "example": "A sponge is porous.",
+     "emoji": "🧽"
+    },
+    {
+     "word": "bond",
+     "definition": "A strong hold between two things.",
+     "example": "The fibers form a bond when they dry.",
+     "emoji": "🫱"
+    },
+    {
+     "word": "disintegrate",
+     "definition": "To break apart into tiny pieces.",
+     "example": "Wet toilet paper will disintegrate.",
+     "emoji": "🧻"
+    },
+    {
+     "word": "plumbing",
+     "definition": "The pipes that carry water in and out of a building.",
+     "example": "A plumber fixes the plumbing.",
+     "emoji": "🔧"
+    },
+    {
+     "word": "manufacture",
+     "definition": "To make things in a factory.",
+     "example": "Factories manufacture paper towels.",
+     "emoji": "🏭"
+    },
+    {
+     "word": "malleable",
+     "definition": "Able to be hammered or pressed into shape without breaking.",
+     "example": "Gold is so malleable it can be pounded very thin.",
+     "emoji": "🔨"
+    },
+    {
+     "word": "conduct",
+     "definition": "To let heat or electricity pass through.",
+     "example": "Copper wires conduct electricity.",
+     "emoji": "🔌"
+    },
+    {
+     "word": "artifact",
+     "definition": "An object made by people long ago.",
+     "example": "We saw a bronze artifact in the museum.",
+     "emoji": "🏺"
+    },
+    {
+     "word": "civilization",
+     "definition": "A large group of people with cities, rules and shared ways of living.",
+     "example": "Ancient Egypt was a great civilization.",
+     "emoji": "🏛️"
+    },
+    {
+     "word": "corrode",
+     "definition": "To be slowly eaten away, like rust on iron.",
+     "example": "Salt water can make metal corrode.",
+     "emoji": "🧲"
+    },
+    {
+     "word": "motionless",
+     "definition": "Not moving at all.",
+     "example": "The cat sat motionless, watching the bird.",
+     "emoji": "🗿"
+    },
+    {
+     "word": "abrupt",
+     "definition": "Sudden and unexpected.",
+     "example": "The bus made an abrupt stop.",
+     "emoji": "⛔"
+    },
+    {
+     "word": "restrain",
+     "definition": "To hold something back.",
+     "example": "The seatbelt will restrain you in a hard stop.",
+     "emoji": "🔒"
+    },
+    {
+     "word": "unbalanced",
+     "definition": "When one push is stronger than the other, so the motion changes.",
+     "example": "An unbalanced push made the box slide.",
+     "emoji": "⚖️"
+    },
+    {
+     "word": "persist",
+     "definition": "To keep going without stopping.",
+     "example": "Voyager will persist on its trip for years.",
+     "emoji": "🚀"
+    },
+    {
+     "word": "sensory",
+     "definition": "About the senses: touch, smell, taste, sight and hearing.",
+     "example": "Its feeler legs are sensory tools.",
+     "emoji": "🖐️"
+    },
+    {
+     "word": "landmark",
+     "definition": "Something you can see or feel that helps you find your way.",
+     "example": "The big tree is our landmark.",
+     "emoji": "🌳"
+    },
+    {
+     "word": "subterranean",
+     "definition": "Under the ground.",
+     "example": "Caves are subterranean.",
+     "emoji": "🕳️"
+    },
+    {
+     "word": "regenerate",
+     "definition": "To grow back.",
+     "example": "A whip spider can regenerate a lost leg.",
+     "emoji": "🦎"
+    },
+    {
+     "word": "prehistoric",
+     "definition": "From the time before people wrote things down.",
+     "example": "Prehistoric whip spiders crawled near giant ferns.",
+     "emoji": "🦕"
+    },
+    {
+     "word": "cylinder",
+     "definition": "A shape like a tube or a can, round with flat ends.",
+     "example": "A soup can is a cylinder.",
+     "emoji": "🥫"
+    },
+    {
+     "word": "elastic",
+     "definition": "Stretchy and able to spring back.",
+     "example": "A rubber band is elastic.",
+     "emoji": "🪀"
+    },
+    {
+     "word": "unstable",
+     "definition": "Likely to change or fall apart.",
+     "example": "A tall stack of blocks is unstable.",
+     "emoji": "🧱"
+    },
+    {
+     "word": "fragment",
+     "definition": "To break into pieces.",
+     "example": "The stream will fragment into drops.",
+     "emoji": "💧"
+    },
+    {
+     "word": "irregular",
+     "definition": "Not even or not the same all over.",
+     "example": "The rock had an irregular shape.",
+     "emoji": "🪨"
     }
    ]
   }
