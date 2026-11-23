@@ -1,6 +1,6 @@
 {
- "version": 20,
- "updated": "2026-11-22",
+ "version": 21,
+ "updated": "2026-11-23",
  "lists": [
   {
    "id": "en-starter-1",
@@ -3549,6 +3549,36 @@
      "definition": "to wrap something so its heat can't escape easily",
      "example": "Thick fur helps insulate a mountain goat from the cold.",
      "emoji": "🧥"
+    },
+    {
+     "word": "meteorite",
+     "definition": "A space rock that has landed on the ground.",
+     "example": "The museum has a meteorite that fell in the desert.",
+     "emoji": "🪨"
+    },
+    {
+     "word": "compress",
+     "definition": "To pack something into a tighter space.",
+     "example": "The fast rock can compress the air in front of it.",
+     "emoji": "🗜️"
+    },
+    {
+     "word": "vaporize",
+     "definition": "To turn a solid or a liquid into a gas.",
+     "example": "The heat can vaporize the outside of the space rock.",
+     "emoji": "💨"
+    },
+    {
+     "word": "collision",
+     "definition": "A sudden smash when two things hit.",
+     "example": "The collision with the ground gouged out a crater.",
+     "emoji": "💥"
+    },
+    {
+     "word": "crater",
+     "definition": "A bowl-shaped hole made by a hard hit.",
+     "example": "The Moon is covered with craters from space rocks.",
+     "emoji": "🌕"
     }
    ]
   }
