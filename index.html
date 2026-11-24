@@ -3954,6 +3954,100 @@ const miniBtn = {
 // ============================================================
 const getEnglish = () => (window.__VOCAB__ && window.__VOCAB__.english) || { lists: [] };
 
+// ---- Spelling pattern groups + "big words" filter (24 Nov 2026, Vin) ----
+// "Focus on a group of spelling at a time, like STR words or EA words" so the
+// sounds Sam hears over and over get one spelling locked in. Groups live in
+// words-en.json under "patterns" (id, family, title, hint, words). Picking one
+// drills ONLY that group in every English game, Car Spelling included.
+// "Some words are too difficult right now, like cautious": in All words mode
+// big words are left out unless "Include big words" is ticked. A word entry
+// can force it either way with "hard": true / false.
+const enSyllables = (w) => {
+  w = String(w || "").toLowerCase().replace(/[^a-z]/g, "");
+  if (w.length <= 3) return 1;
+  w = w.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, "").replace(/^y/, "");
+  const m = w.match(/[aeiouy]{1,2}/g);
+  return m ? m.length : 1;
+};
+const isBigEnWord = (w) => {
+  if (!w) return false;
+  if (typeof w.hard === "boolean") return w.hard;
+  const s = String(w.word || "").toLowerCase().trim();
+  if (/\s/.test(s) || s.length >= 8 || enSyllables(s) >= 3) return true;
+  return /(tious|cious|tial|cial|sion|tion|ous$|ough|ph|eau|gue$|que$|cei|eigh)/.test(s);
+};
+// Letters that make the pattern, for colouring the answer: "str", "ea", "a_e" (cake).
+const enPatternRegex = (pat) => {
+  const k = String((pat && pat.id) || "").replace(/^pat-/, "");
+  const me = k.match(/^([aeiou])-e$/);
+  if (me) return new RegExp("(" + me[1] + ")([^aeiou]{1,2})(e)$", "i");
+  return k ? new RegExp("(" + k.replace(/[^a-z]/g, "") + ")", "i") : null;
+};
+function PatternWord({ word, pattern, color }) {
+  const re = enPatternRegex(pattern);
+  const m = re && String(word).match(re);
+  if (!m) return <span>{word}</span>;
+  const hi = { color: color || "#E2725B", textDecoration: "underline" };
+  const at = m.index;
+  if (m.length === 4) {   // magic e: colour the vowel and the final e
+    return (<span>{word.slice(0, at)}<span style={hi}>{m[1]}</span>{m[2]}<span style={hi}>{m[3]}</span>{word.slice(at + m[0].length)}</span>);
+  }
+  return (<span>{word.slice(0, at)}<span style={hi}>{m[1]}</span>{word.slice(at + m[1].length)}</span>);
+}
+
+function EnFocusPicker({ patterns, focus, setFocus, bigWords, setBigWords, bigCount }) {
+  const [open, setOpen] = useState(false);
+  const cur = patterns.find((p) => p.id === focus);
+  const families = [];
+  patterns.forEach((p) => {
+    let f = families.find((x) => x.name === p.family);
+    if (!f) { f = { name: p.family || "Patterns", items: [] }; families.push(f); }
+    f.items.push(p);
+  });
+  const pick = (id) => { setFocus(id); setOpen(false); };
+  const on = (active) => ({ ...chip, borderColor: active ? "#5B8DEF" : "#d6dcea",
+    background: active ? "#5B8DEF" : "#fff", color: active ? "#fff" : C.ink, padding: "7px 11px" });
+  return (
+    <div style={{ background:"#fff", borderRadius:18, border:"3px solid #cfdcf3", padding:"10px 14px", marginBottom:14 }}>
+      <button onClick={() => setOpen((o) => !o)}
+        style={{ all:"unset", cursor:"pointer", display:"flex", alignItems:"center", gap:10, width:"100%" }}>
+        <span style={{ fontSize:26 }}>{cur ? cur.emoji : "🎯"}</span>
+        <span style={{ flex:1 }}>
+          <span style={{ display:"block", fontSize:11, color:"#7a7391", fontWeight:800, textTransform:"uppercase", letterSpacing:0.5 }}>Practising</span>
+          <span style={{ display:"block", fontWeight:800, fontSize:17 }}>
+            {cur ? `${cur.title} words` : bigWords ? "All words" : "All words (no big words)"}
+          </span>
+          {cur && <span style={{ display:"block", fontSize:12, color:"#7a7391" }}>{cur.hint}</span>}
+        </span>
+        <span style={{ fontWeight:800, color:"#5B8DEF", fontSize:13 }}>{open ? "Close ▴" : "Change ▾"}</span>
+      </button>
+      {open && (
+        <div style={{ marginTop:12 }}>
+          <button onClick={() => pick("all")} style={on(!cur)}>📚 All words</button>
+          {families.map((f) => (
+            <div key={f.name} style={{ marginTop:12 }}>
+              <div style={{ fontSize:12, fontWeight:800, color:"#7a7391", marginBottom:6 }}>{f.name}</div>
+              <div style={{ display:"flex", flexWrap:"wrap", gap:6 }}>
+                {f.items.map((p) => (
+                  <button key={p.id} onClick={() => pick(p.id)} title={p.hint} style={on(focus === p.id)}>
+                    {p.title} <span style={{ fontWeight:600, opacity:0.75 }}>· {p.words[0] && p.words[0].word}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+      {!cur && bigCount > 0 && (
+        <label style={{ display:"flex", alignItems:"center", gap:8, marginTop:10, fontSize:13, color:"#5c5873", fontWeight:700, cursor:"pointer" }}>
+          <input type="checkbox" checked={bigWords} onChange={(e) => setBigWords(e.target.checked)} />
+          Include big words like "cautious" ({bigCount} more)
+        </label>
+      )}
+    </div>
+  );
+}
+
 // Deliberately pick the BEST English voice the device has, instead of letting
 // the browser fall back to its low-quality default (which sounds robotic).
 // Same approach that fixed the Mandarin audio.
@@ -4046,8 +4140,13 @@ const speakEn = (text) => {
 };
 
 function EnglishApp({ onSwitchLang }) {
-  const { lists: LISTS } = getEnglish();
+  const { lists: LISTS, patterns: _pats } = getEnglish();
+  const PATTERNS = (_pats || []).filter((p) => p && p.words && p.words.length);
   const [screen, setScreen] = useState("home");
+  const [focus, setFocusRaw] = useState(() => loadLS("en_focus", "all"));
+  const [bigWords, setBigWordsRaw] = useState(() => !!loadLS("en_bigWords", false));
+  const setFocus = (id) => { setFocusRaw(id); saveLS("en_focus", id); };
+  const setBigWords = (v) => { setBigWordsRaw(v); saveLS("en_bigWords", v); };
   useBackToMenu(screen, setScreen);
   const [pool, setPool] = useState(() => {
     const ids = LISTS.map((l) => l.id);
@@ -4126,12 +4225,20 @@ function EnglishApp({ onSwitchLang }) {
   };
   const removeMyWord = (word) => setMyWords((prev) => prev.filter((x) => x.word !== word));
 
-  const activeWords = allLists
-    .flatMap((l) => l.words)
+  const focusPat = PATTERNS.find((p) => p.id === focus);
+  const patWords = (p) => p.words.map((w) => ({ ...w, list: `Spelling pattern: ${p.title} (${p.hint})`, pattern: p }));
+  const everyWord = allLists.flatMap((l) => l.words);
+  const bigCount = everyWord.filter(isBigEnWord).length;
+  const activeWords = focusPat
+    ? patWords(focusPat)
+    : everyWord.filter((w) => bigWords || !isBigEnWord(w));
 
   const listWords = allLists
     .flatMap((l) => l.words.map((w) => ({ ...w, list: l.title })));
-  const starredWords = activeWords.filter((w) => starred.has(w.word));
+  // Tricky pile covers every word, whatever group is picked right now
+  const _seenStar = new Set();
+  const starredWords = [...everyWord, ...PATTERNS.flatMap(patWords)]
+    .filter((w) => starred.has(w.word) && !_seenStar.has(w.word) && _seenStar.add(w.word));
 
   const home = () => setScreen("home");
 
@@ -4142,6 +4249,8 @@ function EnglishApp({ onSwitchLang }) {
         <EnHeader onHome={home} showHome={screen !== "home"} onSwitchLang={onSwitchLang} />
         {screen === "home" && (
           <EnHome addMyWord={addMyWord} myWords={_myFiltered}
+            picker={PATTERNS.length ? <EnFocusPicker patterns={PATTERNS} focus={focusPat ? focus : "all"} setFocus={setFocus}
+              bigWords={bigWords} setBigWords={setBigWords} bigCount={bigCount} /> : null}
             wordCount={activeWords.length} starredCount={starredWords.length}
             totalCount={listWords.length} masteredCount={mastered.size} go={setScreen} />
         )}
@@ -4197,7 +4306,7 @@ function EnHeader({ onHome, showHome, onSwitchLang }) {
   );
 }
 
-function EnHome({ wordCount, starredCount, totalCount, masteredCount, go, addMyWord, myWords }) {
+function EnHome({ wordCount, starredCount, totalCount, masteredCount, go, addMyWord, myWords, picker }) {
   const [addOpen, setAddOpen] = useState(false);
   const [bulk, setBulk] = useState("");
   const [added, setAdded] = useState(0);
@@ -4248,6 +4357,7 @@ function EnHome({ wordCount, starredCount, totalCount, masteredCount, go, addMyW
 
   return (
     <div>
+      {picker}
       {/* ---- games ---- */}
       <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
         {modes.map((m) => (
@@ -4586,11 +4696,11 @@ function EnSpelling({ words, starred, toggleStar, addStar, onHome }) {
           style={{ ...inp, marginTop:16, textAlign:"center", fontSize:22, fontWeight:700,
             borderColor: result === "right" ? C.leaf : result === "wrong" ? "#F4A7A7" : "#cfe3d6" }} />
 
-        {result === "right" && <div style={{ marginTop:10, color:C.leaf, fontWeight:800, fontSize:18 }}>✓ Correct!</div>}
+        {result === "right" && <div style={{ marginTop:10, color:C.leaf, fontWeight:800, fontSize:18 }}>✓ Correct!{card.pattern ? <span style={{ color:C.ink, marginLeft:8 }}><PatternWord word={card.word} pattern={card.pattern} /></span> : null}</div>}
         {result === "wrong" && (
           <div style={{ marginTop:10 }}>
             <div style={{ color:C.berry, fontWeight:800 }}>Not quite — it's spelled:</div>
-            <div style={{ fontSize:26, fontWeight:800, marginTop:4 }}>{card.word}</div>
+            <div style={{ fontSize:26, fontWeight:800, marginTop:4 }}>{card.pattern ? <PatternWord word={card.word} pattern={card.pattern} /> : card.word}</div>
           </div>
         )}
       </div>

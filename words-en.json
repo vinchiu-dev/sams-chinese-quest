@@ -1,6 +1,6 @@
 {
- "version": 21,
- "updated": "2026-11-23",
+ "version": 22,
+ "updated": "2026-11-24",
  "lists": [
   {
    "id": "en-starter-1",
@@ -3579,6 +3579,2306 @@
      "definition": "A bowl-shaped hole made by a hard hit.",
      "example": "The Moon is covered with craters from space rocks.",
      "emoji": "🌕"
+    }
+   ]
+  }
+ ],
+ "patterns": [
+  {
+   "id": "pat-str",
+   "family": "Blends",
+   "title": "STR",
+   "hint": "str as in street",
+   "emoji": "🛣️",
+   "words": [
+    {
+     "word": "street",
+     "definition": "a road with houses or shops along it",
+     "example": "We ride bikes down our street.",
+     "emoji": "🛣️"
+    },
+    {
+     "word": "string",
+     "definition": "a thin cord for tying things",
+     "example": "Tie the string to the kite.",
+     "emoji": "🧵"
+    },
+    {
+     "word": "strong",
+     "definition": "having lots of power in your muscles",
+     "example": "Jiu-jitsu makes Sam strong.",
+     "emoji": "💪"
+    },
+    {
+     "word": "stripe",
+     "definition": "a long thin band of color",
+     "example": "A zebra has black and white stripes.",
+     "emoji": "🦓"
+    },
+    {
+     "word": "straw",
+     "definition": "a thin tube you sip a drink through",
+     "example": "I drink juice with a straw.",
+     "emoji": "🥤"
+    },
+    {
+     "word": "stream",
+     "definition": "a small, narrow river",
+     "example": "Little fish swim in the stream.",
+     "emoji": "🏞️"
+    },
+    {
+     "word": "strap",
+     "definition": "a band that holds something on",
+     "example": "Buckle the strap on your helmet.",
+     "emoji": "🎒"
+    },
+    {
+     "word": "stretch",
+     "definition": "to make your body long and reach out",
+     "example": "Stretch your arms up high.",
+     "emoji": "🙆"
+    },
+    {
+     "word": "strike",
+     "definition": "to hit something hard and fast",
+     "example": "Lightning can strike a tall tree.",
+     "emoji": "⚡"
+    },
+    {
+     "word": "strawberry",
+     "definition": "a red fruit with tiny seeds on the outside",
+     "example": "I picked a sweet strawberry.",
+     "emoji": "🍓"
+    },
+    {
+     "word": "stroke",
+     "definition": "one move of a brush, pen or swimming arm",
+     "example": "She painted the sky with one big stroke.",
+     "emoji": "🖌️"
+    },
+    {
+     "word": "strict",
+     "definition": "making people follow the rules",
+     "example": "The coach is strict about warming up.",
+     "emoji": "📏"
+    }
+   ]
+  },
+  {
+   "id": "pat-spr",
+   "family": "Blends",
+   "title": "SPR",
+   "hint": "spr as in spring",
+   "emoji": "🌱",
+   "words": [
+    {
+     "word": "spring",
+     "definition": "the season after winter when flowers grow",
+     "example": "Flowers bloom in spring.",
+     "emoji": "🌷"
+    },
+    {
+     "word": "spray",
+     "definition": "to shoot out tiny drops of water",
+     "example": "The hose can spray the whole garden.",
+     "emoji": "💦"
+    },
+    {
+     "word": "sprout",
+     "definition": "a tiny new plant just starting to grow",
+     "example": "A green sprout popped out of the soil.",
+     "emoji": "🌱"
+    },
+    {
+     "word": "sprint",
+     "definition": "to run as fast as you can for a short way",
+     "example": "Sam can sprint to the fence.",
+     "emoji": "🏃"
+    },
+    {
+     "word": "sprinkle",
+     "definition": "to drop tiny bits over something",
+     "example": "Sprinkle cheese on the pizza.",
+     "emoji": "🧂"
+    },
+    {
+     "word": "spread",
+     "definition": "to push something out flat and thin",
+     "example": "Spread butter on the toast.",
+     "emoji": "🧈"
+    },
+    {
+     "word": "sprang",
+     "definition": "jumped up quickly",
+     "example": "The frog sprang into the pond.",
+     "emoji": "🐸"
+    },
+    {
+     "word": "sprinkler",
+     "definition": "a thing that sprays water on grass",
+     "example": "We ran through the sprinkler.",
+     "emoji": "🚿"
+    }
+   ]
+  },
+  {
+   "id": "pat-scr",
+   "family": "Blends",
+   "title": "SCR",
+   "hint": "scr as in scream",
+   "emoji": "😱",
+   "words": [
+    {
+     "word": "scream",
+     "definition": "a loud, high shout",
+     "example": "We heard a scream on the roller coaster.",
+     "emoji": "😱"
+    },
+    {
+     "word": "scrub",
+     "definition": "to rub hard to make something clean",
+     "example": "Scrub the mud off your boots.",
+     "emoji": "🧽"
+    },
+    {
+     "word": "screw",
+     "definition": "a twisty metal pin that holds things together",
+     "example": "Dad turned the screw with a screwdriver.",
+     "emoji": "🔩"
+    },
+    {
+     "word": "scratch",
+     "definition": "to rub with sharp nails or claws",
+     "example": "The cat likes to scratch the rug.",
+     "emoji": "🐈"
+    },
+    {
+     "word": "scrap",
+     "definition": "a small leftover piece",
+     "example": "Save every scrap of paper.",
+     "emoji": "📄"
+    },
+    {
+     "word": "scroll",
+     "definition": "a long roll of paper with writing",
+     "example": "The wizard opened an old scroll.",
+     "emoji": "📜"
+    },
+    {
+     "word": "scrape",
+     "definition": "to rub against something rough",
+     "example": "I scraped my knee on the sidewalk.",
+     "emoji": "🩹"
+    },
+    {
+     "word": "screen",
+     "definition": "the flat glass part that shows pictures",
+     "example": "The tablet screen is bright.",
+     "emoji": "📱"
+    },
+    {
+     "word": "scribble",
+     "definition": "to draw messy, quick lines",
+     "example": "The baby likes to scribble with crayons.",
+     "emoji": "🖍️"
+    },
+    {
+     "word": "scramble",
+     "definition": "to mix up, or to climb fast",
+     "example": "We scramble eggs for breakfast.",
+     "emoji": "🍳"
+    }
+   ]
+  },
+  {
+   "id": "pat-spl",
+   "family": "Blends",
+   "title": "SPL",
+   "hint": "spl as in splash",
+   "emoji": "💦",
+   "words": [
+    {
+     "word": "splash",
+     "definition": "to hit water so it flies up",
+     "example": "We splash in the pool.",
+     "emoji": "💦"
+    },
+    {
+     "word": "split",
+     "definition": "to break or cut into parts",
+     "example": "Let's split the cookie in half.",
+     "emoji": "🍪"
+    },
+    {
+     "word": "splat",
+     "definition": "the sound of something wet hitting flat",
+     "example": "The tomato landed with a splat.",
+     "emoji": "🍅"
+    },
+    {
+     "word": "splinter",
+     "definition": "a tiny sharp bit of wood stuck in skin",
+     "example": "I got a splinter from the fence.",
+     "emoji": "🪵"
+    },
+    {
+     "word": "splatter",
+     "definition": "to splash drops all over",
+     "example": "Paint splattered on my shirt.",
+     "emoji": "🎨"
+    },
+    {
+     "word": "splendid",
+     "definition": "really, really great",
+     "example": "What a splendid sandcastle!",
+     "emoji": "🏰"
+    }
+   ]
+  },
+  {
+   "id": "pat-ea",
+   "family": "Vowel teams",
+   "title": "EA",
+   "hint": "ea as in eat (long e)",
+   "emoji": "🍑",
+   "words": [
+    {
+     "word": "eat",
+     "definition": "to put food in your mouth and swallow it",
+     "example": "We eat dinner at six.",
+     "emoji": "🍽️"
+    },
+    {
+     "word": "sea",
+     "definition": "a big body of salty water",
+     "example": "Whales swim in the sea.",
+     "emoji": "🌊"
+    },
+    {
+     "word": "beach",
+     "definition": "sandy land next to the sea",
+     "example": "We built a sandcastle at the beach.",
+     "emoji": "🏖️"
+    },
+    {
+     "word": "team",
+     "definition": "a group that plays or works together",
+     "example": "Our team won the game.",
+     "emoji": "⚽"
+    },
+    {
+     "word": "read",
+     "definition": "to look at words and understand them",
+     "example": "I read a book before bed.",
+     "emoji": "📖"
+    },
+    {
+     "word": "dream",
+     "definition": "a story your mind makes while you sleep",
+     "example": "I had a dream about dragons.",
+     "emoji": "💭"
+    },
+    {
+     "word": "clean",
+     "definition": "not dirty",
+     "example": "My hands are clean now.",
+     "emoji": "🧼"
+    },
+    {
+     "word": "leaf",
+     "definition": "a flat green part of a plant",
+     "example": "A leaf fell from the tree.",
+     "emoji": "🍃"
+    },
+    {
+     "word": "peach",
+     "definition": "a soft, fuzzy, sweet fruit",
+     "example": "The peach was juicy.",
+     "emoji": "🍑"
+    },
+    {
+     "word": "teach",
+     "definition": "to help someone learn",
+     "example": "Daddy will teach me math.",
+     "emoji": "🧑‍🏫"
+    },
+    {
+     "word": "speak",
+     "definition": "to say words out loud",
+     "example": "Can you speak Chinese?",
+     "emoji": "🗣️"
+    },
+    {
+     "word": "cream",
+     "definition": "the thick part of milk",
+     "example": "Put cream on the strawberries.",
+     "emoji": "🍦"
+    }
+   ]
+  },
+  {
+   "id": "pat-ee",
+   "family": "Vowel teams",
+   "title": "EE",
+   "hint": "ee as in tree",
+   "emoji": "🌳",
+   "words": [
+    {
+     "word": "tree",
+     "definition": "a tall plant with a trunk and branches",
+     "example": "A bird sat in the tree.",
+     "emoji": "🌳"
+    },
+    {
+     "word": "see",
+     "definition": "to look with your eyes",
+     "example": "I can see the moon.",
+     "emoji": "👀"
+    },
+    {
+     "word": "sleep",
+     "definition": "to rest with your eyes closed",
+     "example": "Babies sleep a lot.",
+     "emoji": "😴"
+    },
+    {
+     "word": "green",
+     "definition": "the color of grass",
+     "example": "Frogs are often green.",
+     "emoji": "🟢"
+    },
+    {
+     "word": "feet",
+     "definition": "the parts of your body you stand on",
+     "example": "My feet are cold.",
+     "emoji": "🦶"
+    },
+    {
+     "word": "queen",
+     "definition": "a woman who rules a kingdom",
+     "example": "The queen wore a crown.",
+     "emoji": "👑"
+    },
+    {
+     "word": "sheep",
+     "definition": "a woolly farm animal that says baa",
+     "example": "The sheep ate grass.",
+     "emoji": "🐑"
+    },
+    {
+     "word": "bee",
+     "definition": "a buzzing insect that makes honey",
+     "example": "A bee landed on the flower.",
+     "emoji": "🐝"
+    },
+    {
+     "word": "three",
+     "definition": "the number after two",
+     "example": "I have three toy cars.",
+     "emoji": "3️⃣"
+    },
+    {
+     "word": "sweet",
+     "definition": "tasting like sugar",
+     "example": "Candy is very sweet.",
+     "emoji": "🍬"
+    },
+    {
+     "word": "wheel",
+     "definition": "a round thing that rolls",
+     "example": "My bike has two wheels.",
+     "emoji": "🛞"
+    },
+    {
+     "word": "teeth",
+     "definition": "the hard white things in your mouth",
+     "example": "Brush your teeth.",
+     "emoji": "🦷"
+    }
+   ]
+  },
+  {
+   "id": "pat-ai",
+   "family": "Vowel teams",
+   "title": "AI",
+   "hint": "ai as in rain",
+   "emoji": "🌧️",
+   "words": [
+    {
+     "word": "rain",
+     "definition": "water falling from clouds",
+     "example": "The rain made puddles.",
+     "emoji": "🌧️"
+    },
+    {
+     "word": "train",
+     "definition": "a long vehicle that runs on tracks",
+     "example": "The train went choo choo.",
+     "emoji": "🚂"
+    },
+    {
+     "word": "paint",
+     "definition": "colored liquid for making pictures",
+     "example": "I used red paint.",
+     "emoji": "🎨"
+    },
+    {
+     "word": "tail",
+     "definition": "the part at the back end of an animal",
+     "example": "The dog wagged its tail.",
+     "emoji": "🐕"
+    },
+    {
+     "word": "snail",
+     "definition": "a slow animal with a shell on its back",
+     "example": "The snail left a slimy trail.",
+     "emoji": "🐌"
+    },
+    {
+     "word": "wait",
+     "definition": "to stay until something happens",
+     "example": "Wait for the green light.",
+     "emoji": "⏳"
+    },
+    {
+     "word": "chain",
+     "definition": "metal rings joined together",
+     "example": "The bike chain fell off.",
+     "emoji": "⛓️"
+    },
+    {
+     "word": "mail",
+     "definition": "letters and packages that are delivered",
+     "example": "We got mail today.",
+     "emoji": "📬"
+    },
+    {
+     "word": "nail",
+     "definition": "a thin metal spike you hammer in",
+     "example": "Hit the nail with the hammer.",
+     "emoji": "🔨"
+    },
+    {
+     "word": "brain",
+     "definition": "the part inside your head that thinks",
+     "example": "Your brain helps you learn.",
+     "emoji": "🧠"
+    },
+    {
+     "word": "sail",
+     "definition": "a big cloth that catches wind on a boat",
+     "example": "The wind filled the sail.",
+     "emoji": "⛵"
+    },
+    {
+     "word": "trail",
+     "definition": "a path in the woods",
+     "example": "We hiked the trail.",
+     "emoji": "🥾"
+    }
+   ]
+  },
+  {
+   "id": "pat-ay",
+   "family": "Vowel teams",
+   "title": "AY",
+   "hint": "ay as in play",
+   "emoji": "🛝",
+   "words": [
+    {
+     "word": "day",
+     "definition": "the time when it is light outside",
+     "example": "It is a sunny day.",
+     "emoji": "☀️"
+    },
+    {
+     "word": "play",
+     "definition": "to have fun with games or toys",
+     "example": "Let's play tag.",
+     "emoji": "🛝"
+    },
+    {
+     "word": "stay",
+     "definition": "to not leave",
+     "example": "Stay here with me.",
+     "emoji": "🏠"
+    },
+    {
+     "word": "gray",
+     "definition": "the color of clouds before rain",
+     "example": "The elephant is gray.",
+     "emoji": "🐘"
+    },
+    {
+     "word": "tray",
+     "definition": "a flat board for carrying things",
+     "example": "Put the cups on the tray.",
+     "emoji": "🍽️"
+    },
+    {
+     "word": "say",
+     "definition": "to speak words",
+     "example": "What did you say?",
+     "emoji": "💬"
+    },
+    {
+     "word": "way",
+     "definition": "how to get somewhere or do something",
+     "example": "Which way is the park?",
+     "emoji": "🧭"
+    },
+    {
+     "word": "clay",
+     "definition": "soft mud you can shape",
+     "example": "I made a bowl out of clay.",
+     "emoji": "🏺"
+    },
+    {
+     "word": "away",
+     "definition": "to another place, not here",
+     "example": "The bird flew away.",
+     "emoji": "🕊️"
+    },
+    {
+     "word": "crayon",
+     "definition": "a colored wax stick for drawing",
+     "example": "I drew a dog with a crayon.",
+     "emoji": "🖍️"
+    },
+    {
+     "word": "today",
+     "definition": "this day",
+     "example": "Today is a school day.",
+     "emoji": "📅"
+    },
+    {
+     "word": "pay",
+     "definition": "to give money for something",
+     "example": "We pay at the counter.",
+     "emoji": "💵"
+    }
+   ]
+  },
+  {
+   "id": "pat-oa",
+   "family": "Vowel teams",
+   "title": "OA",
+   "hint": "oa as in boat",
+   "emoji": "⛵",
+   "words": [
+    {
+     "word": "boat",
+     "definition": "a vehicle that floats on water",
+     "example": "We rode in a boat.",
+     "emoji": "🚤"
+    },
+    {
+     "word": "coat",
+     "definition": "a warm jacket",
+     "example": "Wear your coat in the snow.",
+     "emoji": "🧥"
+    },
+    {
+     "word": "goat",
+     "definition": "a farm animal with horns and a beard",
+     "example": "The goat ate my hat!",
+     "emoji": "🐐"
+    },
+    {
+     "word": "road",
+     "definition": "a wide path for cars",
+     "example": "The road goes to town.",
+     "emoji": "🛣️"
+    },
+    {
+     "word": "soap",
+     "definition": "what you wash with to get clean",
+     "example": "Wash with soap and water.",
+     "emoji": "🧼"
+    },
+    {
+     "word": "toast",
+     "definition": "bread that is browned with heat",
+     "example": "I like toast with jam.",
+     "emoji": "🍞"
+    },
+    {
+     "word": "float",
+     "definition": "to stay on top of water",
+     "example": "Ducks float on the pond.",
+     "emoji": "🦆"
+    },
+    {
+     "word": "coach",
+     "definition": "a person who trains a team",
+     "example": "My coach taught me a new move.",
+     "emoji": "📣"
+    },
+    {
+     "word": "loaf",
+     "definition": "bread baked in one big piece",
+     "example": "Mom bought a loaf of bread.",
+     "emoji": "🍞"
+    },
+    {
+     "word": "foam",
+     "definition": "lots of tiny bubbles together",
+     "example": "The bath has lots of foam.",
+     "emoji": "🫧"
+    },
+    {
+     "word": "roast",
+     "definition": "to cook in an oven or over a fire",
+     "example": "We roast marshmallows.",
+     "emoji": "🔥"
+    },
+    {
+     "word": "oak",
+     "definition": "a big tree that grows acorns",
+     "example": "A squirrel lives in the oak.",
+     "emoji": "🌳"
+    }
+   ]
+  },
+  {
+   "id": "pat-igh",
+   "family": "Vowel teams",
+   "title": "IGH",
+   "hint": "igh as in night",
+   "emoji": "🌙",
+   "words": [
+    {
+     "word": "night",
+     "definition": "the dark time when we sleep",
+     "example": "Owls hunt at night.",
+     "emoji": "🌙"
+    },
+    {
+     "word": "light",
+     "definition": "what lets us see; not heavy",
+     "example": "Turn on the light.",
+     "emoji": "💡"
+    },
+    {
+     "word": "high",
+     "definition": "far up",
+     "example": "The kite flew high.",
+     "emoji": "🪁"
+    },
+    {
+     "word": "right",
+     "definition": "correct; or the side opposite left",
+     "example": "That answer is right!",
+     "emoji": "✅"
+    },
+    {
+     "word": "bright",
+     "definition": "giving lots of light",
+     "example": "The sun is bright.",
+     "emoji": "🌞"
+    },
+    {
+     "word": "fight",
+     "definition": "to battle someone",
+     "example": "The knights had a pretend fight.",
+     "emoji": "⚔️"
+    },
+    {
+     "word": "sight",
+     "definition": "being able to see",
+     "example": "Eagles have great sight.",
+     "emoji": "🦅"
+    },
+    {
+     "word": "tight",
+     "definition": "fitting very close",
+     "example": "My old shoes are tight.",
+     "emoji": "👟"
+    },
+    {
+     "word": "flight",
+     "definition": "a trip in an airplane, or flying",
+     "example": "Our flight takes off at noon.",
+     "emoji": "✈️"
+    },
+    {
+     "word": "sigh",
+     "definition": "a long, tired breath out",
+     "example": "He let out a big sigh.",
+     "emoji": "😮‍💨"
+    },
+    {
+     "word": "might",
+     "definition": "maybe will",
+     "example": "It might rain later.",
+     "emoji": "🌦️"
+    },
+    {
+     "word": "fright",
+     "definition": "a sudden scare",
+     "example": "The ghost gave me a fright.",
+     "emoji": "👻"
+    }
+   ]
+  },
+  {
+   "id": "pat-oo",
+   "family": "Vowel teams",
+   "title": "OO",
+   "hint": "oo as in moon",
+   "emoji": "🌕",
+   "words": [
+    {
+     "word": "moon",
+     "definition": "the bright round thing in the night sky",
+     "example": "The moon is full tonight.",
+     "emoji": "🌕"
+    },
+    {
+     "word": "food",
+     "definition": "things we eat",
+     "example": "Pizza is my favorite food.",
+     "emoji": "🍕"
+    },
+    {
+     "word": "spoon",
+     "definition": "a tool for eating soup",
+     "example": "Eat cereal with a spoon.",
+     "emoji": "🥄"
+    },
+    {
+     "word": "zoo",
+     "definition": "a park where wild animals live",
+     "example": "We saw lions at the zoo.",
+     "emoji": "🦁"
+    },
+    {
+     "word": "cool",
+     "definition": "a little cold; or awesome",
+     "example": "That trick was cool!",
+     "emoji": "😎"
+    },
+    {
+     "word": "pool",
+     "definition": "a big tank of water to swim in",
+     "example": "Let's jump in the pool.",
+     "emoji": "🏊"
+    },
+    {
+     "word": "room",
+     "definition": "a space inside a house with walls",
+     "example": "My room has a bunk bed.",
+     "emoji": "🛏️"
+    },
+    {
+     "word": "boot",
+     "definition": "a strong shoe that covers your ankle",
+     "example": "I wore boots in the mud.",
+     "emoji": "🥾"
+    },
+    {
+     "word": "roof",
+     "definition": "the top that covers a house",
+     "example": "A cat sat on the roof.",
+     "emoji": "🏠"
+    },
+    {
+     "word": "tooth",
+     "definition": "one of the hard white things in your mouth",
+     "example": "My tooth is loose!",
+     "emoji": "🦷"
+    },
+    {
+     "word": "broom",
+     "definition": "a brush on a stick for sweeping",
+     "example": "Sweep the floor with a broom.",
+     "emoji": "🧹"
+    },
+    {
+     "word": "soon",
+     "definition": "in a short time",
+     "example": "We will eat soon.",
+     "emoji": "⏰"
+    }
+   ]
+  },
+  {
+   "id": "pat-ou",
+   "family": "Vowel teams",
+   "title": "OU",
+   "hint": "ou as in out",
+   "emoji": "🐭",
+   "words": [
+    {
+     "word": "out",
+     "definition": "not inside",
+     "example": "Let's go out to play.",
+     "emoji": "🚪"
+    },
+    {
+     "word": "house",
+     "definition": "a building where people live",
+     "example": "My house is blue.",
+     "emoji": "🏠"
+    },
+    {
+     "word": "mouse",
+     "definition": "a tiny animal with a long tail",
+     "example": "The mouse ate the cheese.",
+     "emoji": "🐭"
+    },
+    {
+     "word": "cloud",
+     "definition": "a white puff floating in the sky",
+     "example": "That cloud looks like a dog.",
+     "emoji": "☁️"
+    },
+    {
+     "word": "loud",
+     "definition": "making a big noise",
+     "example": "The drum is loud.",
+     "emoji": "🥁"
+    },
+    {
+     "word": "shout",
+     "definition": "to yell loudly",
+     "example": "Don't shout in the library.",
+     "emoji": "📢"
+    },
+    {
+     "word": "round",
+     "definition": "shaped like a circle or ball",
+     "example": "A ball is round.",
+     "emoji": "⚽"
+    },
+    {
+     "word": "sound",
+     "definition": "something you hear",
+     "example": "I heard a funny sound.",
+     "emoji": "🔊"
+    },
+    {
+     "word": "mouth",
+     "definition": "the part of your face you eat with",
+     "example": "Open your mouth wide.",
+     "emoji": "👄"
+    },
+    {
+     "word": "found",
+     "definition": "got back something that was lost",
+     "example": "I found my sock!",
+     "emoji": "🧦"
+    },
+    {
+     "word": "count",
+     "definition": "to say numbers in order",
+     "example": "Count to ten.",
+     "emoji": "🔢"
+    },
+    {
+     "word": "ground",
+     "definition": "the floor outside, made of dirt or grass",
+     "example": "The apple fell to the ground.",
+     "emoji": "🌍"
+    }
+   ]
+  },
+  {
+   "id": "pat-ow",
+   "family": "Vowel teams",
+   "title": "OW",
+   "hint": "ow as in cow",
+   "emoji": "🐄",
+   "words": [
+    {
+     "word": "cow",
+     "definition": "a big farm animal that gives milk",
+     "example": "The cow says moo.",
+     "emoji": "🐄"
+    },
+    {
+     "word": "now",
+     "definition": "at this moment",
+     "example": "Let's go now!",
+     "emoji": "⏱️"
+    },
+    {
+     "word": "how",
+     "definition": "in what way",
+     "example": "How do you make a paper plane?",
+     "emoji": "❓"
+    },
+    {
+     "word": "town",
+     "definition": "a small city",
+     "example": "Our town has a library.",
+     "emoji": "🏘️"
+    },
+    {
+     "word": "brown",
+     "definition": "the color of chocolate",
+     "example": "The bear is brown.",
+     "emoji": "🟤"
+    },
+    {
+     "word": "owl",
+     "definition": "a bird that hoots at night",
+     "example": "The owl sat in the tree.",
+     "emoji": "🦉"
+    },
+    {
+     "word": "crown",
+     "definition": "a gold hat that a king or queen wears",
+     "example": "The king wore a crown.",
+     "emoji": "👑"
+    },
+    {
+     "word": "down",
+     "definition": "to a lower place",
+     "example": "Climb down the ladder.",
+     "emoji": "⬇️"
+    },
+    {
+     "word": "clown",
+     "definition": "a funny person at the circus",
+     "example": "The clown had a red nose.",
+     "emoji": "🤡"
+    },
+    {
+     "word": "flower",
+     "definition": "the colorful part of a plant",
+     "example": "I picked a flower for Mom.",
+     "emoji": "🌻"
+    },
+    {
+     "word": "growl",
+     "definition": "a deep, angry sound an animal makes",
+     "example": "The dog began to growl.",
+     "emoji": "🐕"
+    },
+    {
+     "word": "frown",
+     "definition": "a sad or grumpy face",
+     "example": "Turn that frown upside down!",
+     "emoji": "☹️"
+    }
+   ]
+  },
+  {
+   "id": "pat-ar",
+   "family": "Bossy R",
+   "title": "AR",
+   "hint": "ar as in car",
+   "emoji": "🚗",
+   "words": [
+    {
+     "word": "car",
+     "definition": "a vehicle with four wheels",
+     "example": "We drive to school in the car.",
+     "emoji": "🚗"
+    },
+    {
+     "word": "star",
+     "definition": "a bright light in the night sky",
+     "example": "Make a wish on a star.",
+     "emoji": "⭐"
+    },
+    {
+     "word": "farm",
+     "definition": "land where food and animals are raised",
+     "example": "The farm has pigs.",
+     "emoji": "🚜"
+    },
+    {
+     "word": "park",
+     "definition": "an outdoor place to play",
+     "example": "We went to the park.",
+     "emoji": "🌳"
+    },
+    {
+     "word": "shark",
+     "definition": "a big fish with sharp teeth",
+     "example": "A shark swam by.",
+     "emoji": "🦈"
+    },
+    {
+     "word": "jar",
+     "definition": "a glass container with a lid",
+     "example": "The cookies are in a jar.",
+     "emoji": "🫙"
+    },
+    {
+     "word": "card",
+     "definition": "a stiff piece of paper",
+     "example": "I made Grandpa a card.",
+     "emoji": "💌"
+    },
+    {
+     "word": "dark",
+     "definition": "with no light",
+     "example": "It's dark at night.",
+     "emoji": "🌑"
+    },
+    {
+     "word": "yard",
+     "definition": "the grass around a house",
+     "example": "We play in the yard.",
+     "emoji": "🏡"
+    },
+    {
+     "word": "arm",
+     "definition": "the part of your body from shoulder to hand",
+     "example": "Raise your arm.",
+     "emoji": "💪"
+    },
+    {
+     "word": "barn",
+     "definition": "a big farm building for animals",
+     "example": "The horse sleeps in the barn.",
+     "emoji": "🛖"
+    },
+    {
+     "word": "sharp",
+     "definition": "having a pointy or thin cutting edge",
+     "example": "The knife is sharp.",
+     "emoji": "🔪"
+    }
+   ]
+  },
+  {
+   "id": "pat-or",
+   "family": "Bossy R",
+   "title": "OR",
+   "hint": "or as in corn",
+   "emoji": "🌽",
+   "words": [
+    {
+     "word": "corn",
+     "definition": "a yellow vegetable on a cob",
+     "example": "We ate corn on the cob.",
+     "emoji": "🌽"
+    },
+    {
+     "word": "fork",
+     "definition": "a tool with points for eating",
+     "example": "Eat salad with a fork.",
+     "emoji": "🍴"
+    },
+    {
+     "word": "horse",
+     "definition": "a big animal you can ride",
+     "example": "The horse can gallop.",
+     "emoji": "🐎"
+    },
+    {
+     "word": "storm",
+     "definition": "wild weather with wind and rain",
+     "example": "The storm knocked down a branch.",
+     "emoji": "⛈️"
+    },
+    {
+     "word": "short",
+     "definition": "not long or not tall",
+     "example": "The pencil is short.",
+     "emoji": "📏"
+    },
+    {
+     "word": "sport",
+     "definition": "a game you play with your body",
+     "example": "Soccer is my favorite sport.",
+     "emoji": "🏅"
+    },
+    {
+     "word": "north",
+     "definition": "the direction toward the top of a map",
+     "example": "Birds fly north in spring.",
+     "emoji": "🧭"
+    },
+    {
+     "word": "horn",
+     "definition": "a hard point on an animal's head, or a car's beeper",
+     "example": "The rhino has a horn.",
+     "emoji": "🦏"
+    },
+    {
+     "word": "born",
+     "definition": "came into the world as a baby",
+     "example": "I was born in summer.",
+     "emoji": "👶"
+    },
+    {
+     "word": "fort",
+     "definition": "a strong place, like a castle",
+     "example": "We built a pillow fort.",
+     "emoji": "🏰"
+    },
+    {
+     "word": "torch",
+     "definition": "a stick with fire on top",
+     "example": "The knight carried a torch.",
+     "emoji": "🔥"
+    },
+    {
+     "word": "morning",
+     "definition": "the early part of the day",
+     "example": "I eat breakfast in the morning.",
+     "emoji": "🌅"
+    }
+   ]
+  },
+  {
+   "id": "pat-ir",
+   "family": "Bossy R",
+   "title": "IR",
+   "hint": "ir as in bird",
+   "emoji": "🐦",
+   "words": [
+    {
+     "word": "bird",
+     "definition": "an animal with feathers and wings",
+     "example": "A bird sang outside.",
+     "emoji": "🐦"
+    },
+    {
+     "word": "girl",
+     "definition": "a young female person",
+     "example": "The girl rode a bike.",
+     "emoji": "👧"
+    },
+    {
+     "word": "first",
+     "definition": "before all the others",
+     "example": "I came in first!",
+     "emoji": "🥇"
+    },
+    {
+     "word": "shirt",
+     "definition": "clothing for the top of your body",
+     "example": "My shirt has a dinosaur.",
+     "emoji": "👕"
+    },
+    {
+     "word": "third",
+     "definition": "number three in a line",
+     "example": "He came in third.",
+     "emoji": "🥉"
+    },
+    {
+     "word": "dirt",
+     "definition": "soil on the ground",
+     "example": "Worms live in the dirt.",
+     "emoji": "🪱"
+    },
+    {
+     "word": "skirt",
+     "definition": "clothing that hangs from the waist",
+     "example": "She wore a blue skirt.",
+     "emoji": "👗"
+    },
+    {
+     "word": "stir",
+     "definition": "to mix with a spoon",
+     "example": "Stir the soup.",
+     "emoji": "🥄"
+    },
+    {
+     "word": "swirl",
+     "definition": "to spin around and around",
+     "example": "Watch the water swirl.",
+     "emoji": "🌀"
+    },
+    {
+     "word": "circle",
+     "definition": "a perfectly round shape",
+     "example": "Draw a circle.",
+     "emoji": "⭕"
+    },
+    {
+     "word": "birthday",
+     "definition": "the day you were born, every year",
+     "example": "My birthday cake had candles.",
+     "emoji": "🎂"
+    },
+    {
+     "word": "thirsty",
+     "definition": "needing a drink",
+     "example": "Running makes me thirsty.",
+     "emoji": "💧"
+    }
+   ]
+  },
+  {
+   "id": "pat-ur",
+   "family": "Bossy R",
+   "title": "UR",
+   "hint": "ur as in turn",
+   "emoji": "🐢",
+   "words": [
+    {
+     "word": "turn",
+     "definition": "to move around or change direction",
+     "example": "Turn left at the corner.",
+     "emoji": "↩️"
+    },
+    {
+     "word": "burn",
+     "definition": "to hurt with fire or heat",
+     "example": "Don't burn your hand on the stove.",
+     "emoji": "🔥"
+    },
+    {
+     "word": "hurt",
+     "definition": "to feel pain",
+     "example": "My knee hurt when I fell.",
+     "emoji": "🤕"
+    },
+    {
+     "word": "fur",
+     "definition": "the soft hair on an animal",
+     "example": "The bunny has soft fur.",
+     "emoji": "🐰"
+    },
+    {
+     "word": "nurse",
+     "definition": "a person who cares for sick people",
+     "example": "The nurse gave me a bandage.",
+     "emoji": "🧑‍⚕️"
+    },
+    {
+     "word": "curl",
+     "definition": "a twisty shape like a spring",
+     "example": "Her hair has a curl.",
+     "emoji": "➰"
+    },
+    {
+     "word": "purple",
+     "definition": "the color of grapes",
+     "example": "My favorite color is purple.",
+     "emoji": "🟣"
+    },
+    {
+     "word": "turtle",
+     "definition": "a slow animal with a hard shell",
+     "example": "The turtle hid in its shell.",
+     "emoji": "🐢"
+    },
+    {
+     "word": "church",
+     "definition": "a building where people pray",
+     "example": "The church has a bell.",
+     "emoji": "⛪"
+    },
+    {
+     "word": "surf",
+     "definition": "to ride a wave on a board",
+     "example": "We watched people surf.",
+     "emoji": "🏄"
+    },
+    {
+     "word": "burst",
+     "definition": "to break open suddenly",
+     "example": "The balloon burst with a pop.",
+     "emoji": "🎈"
+    },
+    {
+     "word": "curb",
+     "definition": "the edge of the sidewalk",
+     "example": "Stop at the curb.",
+     "emoji": "🚸"
+    }
+   ]
+  },
+  {
+   "id": "pat-a-e",
+   "family": "Magic E",
+   "title": "A_E",
+   "hint": "a…e as in cake",
+   "emoji": "🎂",
+   "words": [
+    {
+     "word": "cake",
+     "definition": "a sweet baked treat",
+     "example": "We ate chocolate cake.",
+     "emoji": "🎂"
+    },
+    {
+     "word": "game",
+     "definition": "something you play for fun",
+     "example": "Let's play a game.",
+     "emoji": "🎲"
+    },
+    {
+     "word": "lake",
+     "definition": "a big pond with land all around",
+     "example": "We swam in the lake.",
+     "emoji": "🏞️"
+    },
+    {
+     "word": "snake",
+     "definition": "a long animal with no legs",
+     "example": "The snake slid in the grass.",
+     "emoji": "🐍"
+    },
+    {
+     "word": "plane",
+     "definition": "a flying machine with wings",
+     "example": "The plane flew high.",
+     "emoji": "✈️"
+    },
+    {
+     "word": "grape",
+     "definition": "a small round fruit in bunches",
+     "example": "I ate a green grape.",
+     "emoji": "🍇"
+    },
+    {
+     "word": "shape",
+     "definition": "the outline of something",
+     "example": "A star is a fun shape.",
+     "emoji": "🔷"
+    },
+    {
+     "word": "gate",
+     "definition": "a door in a fence",
+     "example": "Close the gate.",
+     "emoji": "🚧"
+    },
+    {
+     "word": "cave",
+     "definition": "a big hole in a rock or hill",
+     "example": "Bats live in the cave.",
+     "emoji": "🦇"
+    },
+    {
+     "word": "wave",
+     "definition": "moving water; or moving your hand to say hi",
+     "example": "A big wave hit the beach.",
+     "emoji": "🌊"
+    },
+    {
+     "word": "flame",
+     "definition": "the hot, bright part of a fire",
+     "example": "The candle flame flickered.",
+     "emoji": "🕯️"
+    },
+    {
+     "word": "skate",
+     "definition": "to glide on wheels or ice",
+     "example": "I can skate backward.",
+     "emoji": "⛸️"
+    }
+   ]
+  },
+  {
+   "id": "pat-i-e",
+   "family": "Magic E",
+   "title": "I_E",
+   "hint": "i…e as in kite",
+   "emoji": "🪁",
+   "words": [
+    {
+     "word": "bike",
+     "definition": "a vehicle with two wheels and pedals",
+     "example": "I ride my bike.",
+     "emoji": "🚲"
+    },
+    {
+     "word": "kite",
+     "definition": "a toy that flies on a string in the wind",
+     "example": "My kite flew high.",
+     "emoji": "🪁"
+    },
+    {
+     "word": "time",
+     "definition": "what clocks measure",
+     "example": "What time is it?",
+     "emoji": "🕐"
+    },
+    {
+     "word": "slide",
+     "definition": "playground equipment you slip down",
+     "example": "I went down the slide.",
+     "emoji": "🛝"
+    },
+    {
+     "word": "smile",
+     "definition": "a happy face with lips turned up",
+     "example": "Give me a big smile.",
+     "emoji": "😊"
+    },
+    {
+     "word": "five",
+     "definition": "the number after four",
+     "example": "I have five fingers.",
+     "emoji": "5️⃣"
+    },
+    {
+     "word": "ride",
+     "definition": "to sit on something that moves",
+     "example": "Let's ride the train.",
+     "emoji": "🎢"
+    },
+    {
+     "word": "nine",
+     "definition": "the number after eight",
+     "example": "A cat has nine lives in stories.",
+     "emoji": "9️⃣"
+    },
+    {
+     "word": "line",
+     "definition": "a long thin mark",
+     "example": "Draw a straight line.",
+     "emoji": "📏"
+    },
+    {
+     "word": "prize",
+     "definition": "something you win",
+     "example": "I won a prize!",
+     "emoji": "🏆"
+    },
+    {
+     "word": "bite",
+     "definition": "to cut with your teeth",
+     "example": "Take a bite of the apple.",
+     "emoji": "🍎"
+    },
+    {
+     "word": "hide",
+     "definition": "to go where no one can see you",
+     "example": "Let's play hide and seek.",
+     "emoji": "🙈"
+    }
+   ]
+  },
+  {
+   "id": "pat-o-e",
+   "family": "Magic E",
+   "title": "O_E",
+   "hint": "o…e as in bone",
+   "emoji": "🦴",
+   "words": [
+    {
+     "word": "home",
+     "definition": "the place where you live",
+     "example": "Let's go home.",
+     "emoji": "🏠"
+    },
+    {
+     "word": "bone",
+     "definition": "a hard part inside your body",
+     "example": "The dog chewed a bone.",
+     "emoji": "🦴"
+    },
+    {
+     "word": "nose",
+     "definition": "the part of your face you smell with",
+     "example": "My nose is cold.",
+     "emoji": "👃"
+    },
+    {
+     "word": "rope",
+     "definition": "a thick, strong cord",
+     "example": "Climb the rope.",
+     "emoji": "🪢"
+    },
+    {
+     "word": "stone",
+     "definition": "a small rock",
+     "example": "I skipped a stone on the lake.",
+     "emoji": "🪨"
+    },
+    {
+     "word": "hole",
+     "definition": "an empty space dug into something",
+     "example": "The dog dug a hole.",
+     "emoji": "🕳️"
+    },
+    {
+     "word": "joke",
+     "definition": "something funny you say",
+     "example": "Tell me a joke!",
+     "emoji": "😂"
+    },
+    {
+     "word": "globe",
+     "definition": "a ball-shaped map of the Earth",
+     "example": "Find China on the globe.",
+     "emoji": "🌍"
+    },
+    {
+     "word": "smoke",
+     "definition": "the gray cloud from a fire",
+     "example": "Smoke rose from the campfire.",
+     "emoji": "💨"
+    },
+    {
+     "word": "rose",
+     "definition": "a flower with thorns",
+     "example": "The rose is red.",
+     "emoji": "🌹"
+    },
+    {
+     "word": "note",
+     "definition": "a short written message",
+     "example": "I left Mom a note.",
+     "emoji": "📝"
+    },
+    {
+     "word": "cone",
+     "definition": "a shape that is round at one end and pointy at the other",
+     "example": "I ate an ice cream cone.",
+     "emoji": "🍦"
+    }
+   ]
+  },
+  {
+   "id": "pat-u-e",
+   "family": "Magic E",
+   "title": "U_E",
+   "hint": "u…e as in cube",
+   "emoji": "🧊",
+   "words": [
+    {
+     "word": "cube",
+     "definition": "a box shape with six square sides",
+     "example": "An ice cube is cold.",
+     "emoji": "🧊"
+    },
+    {
+     "word": "tube",
+     "definition": "a long hollow pipe",
+     "example": "Squeeze the toothpaste tube.",
+     "emoji": "🧪"
+    },
+    {
+     "word": "mule",
+     "definition": "an animal that is half horse, half donkey",
+     "example": "The mule carried bags.",
+     "emoji": "🫏"
+    },
+    {
+     "word": "flute",
+     "definition": "a musical instrument you blow across",
+     "example": "She played the flute.",
+     "emoji": "🎶"
+    },
+    {
+     "word": "cute",
+     "definition": "sweet and pretty",
+     "example": "The puppy is cute.",
+     "emoji": "🐶"
+    },
+    {
+     "word": "huge",
+     "definition": "very, very big",
+     "example": "A whale is huge.",
+     "emoji": "🐋"
+    },
+    {
+     "word": "rule",
+     "definition": "something you must follow",
+     "example": "No running is a pool rule.",
+     "emoji": "📋"
+    },
+    {
+     "word": "dune",
+     "definition": "a hill of sand",
+     "example": "We climbed the sand dune.",
+     "emoji": "🏜️"
+    }
+   ]
+  },
+  {
+   "id": "pat-sh",
+   "family": "Digraphs & tricky endings",
+   "title": "SH",
+   "hint": "sh as in ship",
+   "emoji": "🚢",
+   "words": [
+    {
+     "word": "ship",
+     "definition": "a big boat",
+     "example": "The ship sailed across the sea.",
+     "emoji": "🚢"
+    },
+    {
+     "word": "shop",
+     "definition": "a store",
+     "example": "We went to the toy shop.",
+     "emoji": "🏪"
+    },
+    {
+     "word": "fish",
+     "definition": "an animal that lives and swims in water",
+     "example": "The fish swam fast.",
+     "emoji": "🐟"
+    },
+    {
+     "word": "shell",
+     "definition": "the hard outside of a snail, egg or turtle",
+     "example": "I found a shell at the beach.",
+     "emoji": "🐚"
+    },
+    {
+     "word": "brush",
+     "definition": "a tool with bristles for hair or teeth",
+     "example": "Brush your hair.",
+     "emoji": "🪥"
+    },
+    {
+     "word": "shoe",
+     "definition": "what you wear on your foot",
+     "example": "Tie your shoe.",
+     "emoji": "👟"
+    },
+    {
+     "word": "wish",
+     "definition": "to want something to happen",
+     "example": "I wish for a puppy.",
+     "emoji": "🌠"
+    },
+    {
+     "word": "dish",
+     "definition": "a plate or bowl",
+     "example": "Put the dish in the sink.",
+     "emoji": "🍽️"
+    },
+    {
+     "word": "crash",
+     "definition": "a loud smash",
+     "example": "The tower fell with a crash.",
+     "emoji": "💥"
+    },
+    {
+     "word": "shine",
+     "definition": "to give off light",
+     "example": "The stars shine at night.",
+     "emoji": "✨"
+    },
+    {
+     "word": "push",
+     "definition": "to press hard to move something",
+     "example": "Push the door open.",
+     "emoji": "🚪"
+    },
+    {
+     "word": "shut",
+     "definition": "closed",
+     "example": "Shut the window.",
+     "emoji": "🪟"
+    }
+   ]
+  },
+  {
+   "id": "pat-ch",
+   "family": "Digraphs & tricky endings",
+   "title": "CH",
+   "hint": "ch as in chip",
+   "emoji": "🐔",
+   "words": [
+    {
+     "word": "chip",
+     "definition": "a small thin piece; a crunchy snack",
+     "example": "I ate a potato chip.",
+     "emoji": "🥔"
+    },
+    {
+     "word": "chin",
+     "definition": "the bottom of your face",
+     "example": "He has jam on his chin.",
+     "emoji": "🧔"
+    },
+    {
+     "word": "chop",
+     "definition": "to cut with hard hits",
+     "example": "Chop the wood with an axe.",
+     "emoji": "🪓"
+    },
+    {
+     "word": "chair",
+     "definition": "a seat with a back",
+     "example": "Sit on the chair.",
+     "emoji": "🪑"
+    },
+    {
+     "word": "cheese",
+     "definition": "a food made from milk",
+     "example": "Mice like cheese.",
+     "emoji": "🧀"
+    },
+    {
+     "word": "chicken",
+     "definition": "a farm bird that lays eggs",
+     "example": "The chicken laid an egg.",
+     "emoji": "🐔"
+    },
+    {
+     "word": "lunch",
+     "definition": "the meal in the middle of the day",
+     "example": "We eat lunch at noon.",
+     "emoji": "🥪"
+    },
+    {
+     "word": "bench",
+     "definition": "a long seat for a few people",
+     "example": "We sat on the park bench.",
+     "emoji": "🪑"
+    },
+    {
+     "word": "much",
+     "definition": "a lot",
+     "example": "Thank you very much.",
+     "emoji": "🙏"
+    },
+    {
+     "word": "rich",
+     "definition": "having lots of money",
+     "example": "The rich king had gold.",
+     "emoji": "💰"
+    },
+    {
+     "word": "pinch",
+     "definition": "to squeeze with two fingers",
+     "example": "The crab can pinch!",
+     "emoji": "🦀"
+    },
+    {
+     "word": "chest",
+     "definition": "the front of your body; or a big box",
+     "example": "The pirate opened the chest.",
+     "emoji": "🏴‍☠️"
+    }
+   ]
+  },
+  {
+   "id": "pat-th",
+   "family": "Digraphs & tricky endings",
+   "title": "TH",
+   "hint": "th as in thumb",
+   "emoji": "👍",
+   "words": [
+    {
+     "word": "thin",
+     "definition": "not thick or fat",
+     "example": "The paper is thin.",
+     "emoji": "📄"
+    },
+    {
+     "word": "think",
+     "definition": "to use your brain",
+     "example": "Think before you answer.",
+     "emoji": "🤔"
+    },
+    {
+     "word": "bath",
+     "definition": "washing in a tub of water",
+     "example": "I take a bath at night.",
+     "emoji": "🛁"
+    },
+    {
+     "word": "moth",
+     "definition": "a night bug like a butterfly",
+     "example": "A moth flew to the light.",
+     "emoji": "🦋"
+    },
+    {
+     "word": "path",
+     "definition": "a small trail to walk on",
+     "example": "Follow the path.",
+     "emoji": "🥾"
+    },
+    {
+     "word": "thumb",
+     "definition": "the short, thick finger",
+     "example": "Thumbs up!",
+     "emoji": "👍"
+    },
+    {
+     "word": "thank",
+     "definition": "to say you're glad for something",
+     "example": "Thank Grandpa for the gift.",
+     "emoji": "🙏"
+    },
+    {
+     "word": "cloth",
+     "definition": "material for making clothes",
+     "example": "Wipe it with a cloth.",
+     "emoji": "🧣"
+    },
+    {
+     "word": "math",
+     "definition": "learning about numbers",
+     "example": "I love math.",
+     "emoji": "➕"
+    },
+    {
+     "word": "with",
+     "definition": "together",
+     "example": "Come with me.",
+     "emoji": "🤝"
+    },
+    {
+     "word": "throw",
+     "definition": "to send through the air with your hand",
+     "example": "Throw the ball.",
+     "emoji": "⚾"
+    },
+    {
+     "word": "both",
+     "definition": "the two of them",
+     "example": "Both shoes are wet.",
+     "emoji": "👯"
+    }
+   ]
+  },
+  {
+   "id": "pat-ck",
+   "family": "Digraphs & tricky endings",
+   "title": "CK",
+   "hint": "ck as in duck",
+   "emoji": "🦆",
+   "words": [
+    {
+     "word": "duck",
+     "definition": "a water bird that quacks",
+     "example": "The duck swam in the pond.",
+     "emoji": "🦆"
+    },
+    {
+     "word": "kick",
+     "definition": "to hit with your foot",
+     "example": "Kick the ball.",
+     "emoji": "🦵"
+    },
+    {
+     "word": "sock",
+     "definition": "a soft cover for your foot",
+     "example": "I lost a sock.",
+     "emoji": "🧦"
+    },
+    {
+     "word": "back",
+     "definition": "the rear part; behind you",
+     "example": "Scratch my back.",
+     "emoji": "🔙"
+    },
+    {
+     "word": "truck",
+     "definition": "a big vehicle for carrying things",
+     "example": "The truck carried logs.",
+     "emoji": "🚚"
+    },
+    {
+     "word": "clock",
+     "definition": "a thing that shows the time",
+     "example": "The clock says eight.",
+     "emoji": "🕰️"
+    },
+    {
+     "word": "black",
+     "definition": "the darkest color",
+     "example": "The cat is black.",
+     "emoji": "⚫"
+    },
+    {
+     "word": "stick",
+     "definition": "a thin piece of wood",
+     "example": "The dog fetched a stick.",
+     "emoji": "🪵"
+    },
+    {
+     "word": "brick",
+     "definition": "a hard block for building walls",
+     "example": "The house is made of brick.",
+     "emoji": "🧱"
+    },
+    {
+     "word": "rock",
+     "definition": "a hard piece of stone",
+     "example": "I sat on a big rock.",
+     "emoji": "🪨"
+    },
+    {
+     "word": "neck",
+     "definition": "the part between your head and body",
+     "example": "A giraffe has a long neck.",
+     "emoji": "🦒"
+    },
+    {
+     "word": "snack",
+     "definition": "a small bit of food between meals",
+     "example": "I want a snack.",
+     "emoji": "🍿"
+    }
+   ]
+  },
+  {
+   "id": "pat-ng",
+   "family": "Digraphs & tricky endings",
+   "title": "NG",
+   "hint": "ng as in king",
+   "emoji": "👑",
+   "words": [
+    {
+     "word": "sing",
+     "definition": "to make music with your voice",
+     "example": "Let's sing a song.",
+     "emoji": "🎤"
+    },
+    {
+     "word": "ring",
+     "definition": "a circle you wear on a finger",
+     "example": "Mom has a gold ring.",
+     "emoji": "💍"
+    },
+    {
+     "word": "king",
+     "definition": "a man who rules a kingdom",
+     "example": "The king sat on a throne.",
+     "emoji": "🤴"
+    },
+    {
+     "word": "swing",
+     "definition": "a seat that moves back and forth",
+     "example": "Push me on the swing.",
+     "emoji": "🛝"
+    },
+    {
+     "word": "thing",
+     "definition": "an object",
+     "example": "What is that thing?",
+     "emoji": "📦"
+    },
+    {
+     "word": "bring",
+     "definition": "to carry something here",
+     "example": "Bring your water bottle.",
+     "emoji": "🎒"
+    },
+    {
+     "word": "long",
+     "definition": "not short",
+     "example": "A snake is long.",
+     "emoji": "🐍"
+    },
+    {
+     "word": "song",
+     "definition": "music with words",
+     "example": "Sing me a song.",
+     "emoji": "🎵"
+    },
+    {
+     "word": "hang",
+     "definition": "to put something up so it dangles",
+     "example": "Hang your coat up.",
+     "emoji": "🧥"
+    },
+    {
+     "word": "wing",
+     "definition": "the part a bird uses to fly",
+     "example": "The bird flapped its wing.",
+     "emoji": "🪽"
+    },
+    {
+     "word": "sting",
+     "definition": "a sharp poke from a bee",
+     "example": "A bee sting hurts.",
+     "emoji": "🐝"
+    },
+    {
+     "word": "lung",
+     "definition": "a body part that fills with air",
+     "example": "Your lungs help you breathe.",
+     "emoji": "🫁"
+    }
+   ]
+  },
+  {
+   "id": "pat-nk",
+   "family": "Digraphs & tricky endings",
+   "title": "NK",
+   "hint": "nk as in pink",
+   "emoji": "🩷",
+   "words": [
+    {
+     "word": "pink",
+     "definition": "a light red color",
+     "example": "The flamingo is pink.",
+     "emoji": "🩷"
+    },
+    {
+     "word": "sink",
+     "definition": "where you wash hands; or to go down in water",
+     "example": "The rock will sink.",
+     "emoji": "🚰"
+    },
+    {
+     "word": "wink",
+     "definition": "to close one eye quickly",
+     "example": "Dad gave me a wink.",
+     "emoji": "😉"
+    },
+    {
+     "word": "bank",
+     "definition": "a place that keeps money safe",
+     "example": "Put coins in the bank.",
+     "emoji": "🏦"
+    },
+    {
+     "word": "drink",
+     "definition": "to swallow a liquid",
+     "example": "Drink your milk.",
+     "emoji": "🥛"
+    },
+    {
+     "word": "trunk",
+     "definition": "the thick part of a tree; an elephant's nose",
+     "example": "The elephant lifted its trunk.",
+     "emoji": "🐘"
+    },
+    {
+     "word": "skunk",
+     "definition": "a black and white animal that smells bad",
+     "example": "The skunk made a stink.",
+     "emoji": "🦨"
+    },
+    {
+     "word": "honk",
+     "definition": "the loud sound a car horn makes",
+     "example": "Cars honk in traffic.",
+     "emoji": "📯"
+    },
+    {
+     "word": "blink",
+     "definition": "to close and open your eyes fast",
+     "example": "Don't blink!",
+     "emoji": "👁️"
+    },
+    {
+     "word": "tank",
+     "definition": "a big container for liquid; or an army vehicle",
+     "example": "Fill the gas tank.",
+     "emoji": "🛢️"
+    },
+    {
+     "word": "stink",
+     "definition": "a bad smell",
+     "example": "The trash has a stink.",
+     "emoji": "🤢"
+    },
+    {
+     "word": "chunk",
+     "definition": "a big thick piece",
+     "example": "A chunk of ice fell.",
+     "emoji": "🧊"
+    }
+   ]
+  },
+  {
+   "id": "pat-tch",
+   "family": "Digraphs & tricky endings",
+   "title": "TCH",
+   "hint": "tch as in catch",
+   "emoji": "🧤",
+   "words": [
+    {
+     "word": "catch",
+     "definition": "to grab something that is moving",
+     "example": "Catch the ball!",
+     "emoji": "🧤"
+    },
+    {
+     "word": "match",
+     "definition": "a stick that makes fire; or a game",
+     "example": "The soccer match was fun.",
+     "emoji": "⚽"
+    },
+    {
+     "word": "patch",
+     "definition": "a small piece sewn over a hole",
+     "example": "My jeans have a patch.",
+     "emoji": "🧵"
+    },
+    {
+     "word": "itch",
+     "definition": "a tickly feeling that makes you scratch",
+     "example": "A bug bite can itch.",
+     "emoji": "🦟"
+    },
+    {
+     "word": "fetch",
+     "definition": "to go get something and bring it back",
+     "example": "The dog will fetch the ball.",
+     "emoji": "🐕"
+    },
+    {
+     "word": "sketch",
+     "definition": "a quick drawing",
+     "example": "I made a sketch of a dragon.",
+     "emoji": "✏️"
+    },
+    {
+     "word": "stitch",
+     "definition": "one loop of thread when sewing",
+     "example": "Grandma sewed a stitch.",
+     "emoji": "🪡"
+    },
+    {
+     "word": "witch",
+     "definition": "a magic person in stories",
+     "example": "The witch had a broom.",
+     "emoji": "🧙"
+    },
+    {
+     "word": "ditch",
+     "definition": "a long narrow hole by a road",
+     "example": "Water ran into the ditch.",
+     "emoji": "🕳️"
+    },
+    {
+     "word": "kitchen",
+     "definition": "the room where food is cooked",
+     "example": "Dad is cooking in the kitchen.",
+     "emoji": "🍳"
+    },
+    {
+     "word": "pitch",
+     "definition": "to throw a ball to a batter",
+     "example": "Pitch the ball to me.",
+     "emoji": "⚾"
+    },
+    {
+     "word": "hatch",
+     "definition": "to break out of an egg",
+     "example": "The chicks will hatch soon.",
+     "emoji": "🐣"
+    }
+   ]
+  },
+  {
+   "id": "pat-kn",
+   "family": "Digraphs & tricky endings",
+   "title": "KN",
+   "hint": "kn as in knee (silent k)",
+   "emoji": "🦵",
+   "words": [
+    {
+     "word": "knee",
+     "definition": "the joint in the middle of your leg",
+     "example": "I scraped my knee.",
+     "emoji": "🦵"
+    },
+    {
+     "word": "knot",
+     "definition": "a tie in a rope or string",
+     "example": "Tie a knot.",
+     "emoji": "🪢"
+    },
+    {
+     "word": "know",
+     "definition": "to have something in your mind",
+     "example": "I know the answer.",
+     "emoji": "💡"
+    },
+    {
+     "word": "knock",
+     "definition": "to tap on a door",
+     "example": "Knock before you come in.",
+     "emoji": "🚪"
+    },
+    {
+     "word": "knife",
+     "definition": "a tool with a sharp edge for cutting",
+     "example": "Cut the bread with a knife.",
+     "emoji": "🔪"
+    },
+    {
+     "word": "knight",
+     "definition": "a soldier in armor long ago",
+     "example": "The knight rode a horse.",
+     "emoji": "🛡️"
+    },
+    {
+     "word": "knit",
+     "definition": "to make cloth from yarn with needles",
+     "example": "Grandma likes to knit.",
+     "emoji": "🧶"
+    },
+    {
+     "word": "kneel",
+     "definition": "to rest on your knees",
+     "example": "Kneel down to tie your shoe.",
+     "emoji": "🧎"
+    },
+    {
+     "word": "knob",
+     "definition": "a round handle",
+     "example": "Turn the door knob.",
+     "emoji": "🚪"
+    },
+    {
+     "word": "knuckle",
+     "definition": "a bump where your finger bends",
+     "example": "I bumped my knuckle.",
+     "emoji": "✊"
+    }
+   ]
+  },
+  {
+   "id": "pat-wr",
+   "family": "Digraphs & tricky endings",
+   "title": "WR",
+   "hint": "wr as in write (silent w)",
+   "emoji": "✍️",
+   "words": [
+    {
+     "word": "write",
+     "definition": "to put words on paper",
+     "example": "Write your name.",
+     "emoji": "✍️"
+    },
+    {
+     "word": "wrong",
+     "definition": "not right",
+     "example": "That answer is wrong.",
+     "emoji": "❌"
+    },
+    {
+     "word": "wrist",
+     "definition": "the joint between your hand and arm",
+     "example": "My watch is on my wrist.",
+     "emoji": "⌚"
+    },
+    {
+     "word": "wrap",
+     "definition": "to cover something with paper or cloth",
+     "example": "Wrap the gift.",
+     "emoji": "🎁"
+    },
+    {
+     "word": "wreck",
+     "definition": "something that is badly broken",
+     "example": "The ship was a wreck.",
+     "emoji": "🚢"
+    },
+    {
+     "word": "wren",
+     "definition": "a tiny brown bird",
+     "example": "A wren sang on the fence.",
+     "emoji": "🐦"
+    },
+    {
+     "word": "wrinkle",
+     "definition": "a small fold in skin or cloth",
+     "example": "My shirt has a wrinkle.",
+     "emoji": "👔"
+    },
+    {
+     "word": "wriggle",
+     "definition": "to twist and wiggle",
+     "example": "The worm can wriggle.",
+     "emoji": "🪱"
     }
    ]
   }
