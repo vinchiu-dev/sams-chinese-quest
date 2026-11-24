@@ -189,13 +189,6 @@
       "example": "",
       "emoji": "📝",
       "needsDef": true
-    },
-    {
-      "word": "Reputation",
-      "definition": "(definition coming — ask Claude to fill this in)",
-      "example": "",
-      "emoji": "📝",
-      "needsDef": true
     }
   ],
   "wodHistory": [
@@ -2512,12 +2505,12 @@
   "soundOn": true,
   "zh_slow": true,
   "freezes": [],
-  "trouble_at": 1793110985724,
-  "pool_at": 1793110985262,
-  "starredSentences_at": 1793110985724,
-  "hiddenWords_at": 1793110985724,
-  "archived_at": 1793110985724,
-  "en_starred_at": 1793893228495,
-  "math_missed_at": 1794092963617,
+  "trouble_at": 1795534472352,
+  "pool_at": 1795534472002,
+  "starredSentences_at": 1795534472352,
+  "hiddenWords_at": 1795534472352,
+  "archived_at": 1795534472352,
+  "en_starred_at": 1795534473405,
+  "math_missed_at": 1795534471378,
   "chips": 13
 }
