@@ -1,6 +1,6 @@
 {
- "version": 22,
- "updated": "2026-11-24",
+ "version": 23,
+ "updated": "2026-11-28",
  "lists": [
   {
    "id": "en-starter-1",
@@ -3579,6 +3579,36 @@
      "definition": "A bowl-shaped hole made by a hard hit.",
      "example": "The Moon is covered with craters from space rocks.",
      "emoji": "🌕"
+    },
+    {
+     "word": "herbivore",
+     "definition": "an animal that eats only plants",
+     "example": "A bison is a herbivore that eats grass.",
+     "emoji": "🦬"
+    },
+    {
+     "word": "forage",
+     "definition": "to search for food",
+     "example": "Bison forage for grass for many hours every day.",
+     "emoji": "🌾"
+    },
+    {
+     "word": "migrate",
+     "definition": "to travel a long way as the seasons change",
+     "example": "In winter, some bison migrate to valleys with less snow.",
+     "emoji": "🧭"
+    },
+    {
+     "word": "domesticate",
+     "definition": "to change a kind of animal over many generations so it lives with people",
+     "example": "People began to domesticate aurochs about 10,500 years ago.",
+     "emoji": "🐄"
+    },
+    {
+     "word": "conservation",
+     "definition": "protecting nature so it can last",
+     "example": "Conservation helped bison come back from almost disappearing.",
+     "emoji": "🌱"
     }
    ]
   }
